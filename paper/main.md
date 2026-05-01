@@ -17,6 +17,8 @@ The dominant security posture for consumer IoT is not cryptographic but economic
 
 ![Figure 1 — The effort gap. Cumulative human effort to reach a working local integration across phases of a reverse-engineering project. AI-assisted analysis flattens the curve, leaving a wide effort gap between the two trajectories.](figures/fig1-effort-gap.svg)
 
+*Rule-14 compliance: data source `figures/data/effort-gap.csv`; generation script `figures/fig1-effort-gap.py`.*
+
 ### 1.2 Research question
 > Is AI-assisted hacking primarily a means to unlock interoperability, or does it instead magnify security risk by making obscurity ineffective?
 
@@ -277,11 +279,12 @@ The case-study artifacts are vendored under `experiments/paper-meta-process/` wi
 | §6.4 + §10 | `3b85606` | Consumer vs industrial qualifier; Pandora moment | ~1.5 h |
 | Redaction + Rules 12–14 | `e5762a0` | Redaction pass; redaction-policy.md; Makefile warning | ~2 h |
 | Discussion expansion + timelines | `8f92658` | §7.10, §7.11, KPI tables, figures README, README | ~3 h |
-| **Total AI-assisted (paper)** | | | **~15.5 h** |
+| DLR design + data-driven fig1 | `(see log)` | `dlr_style.py`, `data/effort-gap.csv`, `fig1-effort-gap.py` adapted from DLR design bundle; Rule-14 compliance for fig1 | ~1.5 h |
+| **Total AI-assisted (paper)** | | | **~17 h** |
 
 **Estimated manual baseline** (writing a research paper of this scope — 10 sections, FAIR metadata, 70-entry literature register, provenance maps, LaTeX build pipeline, redaction policy — without AI assistance): **200–400 h** of research, writing, and tooling work.
 
-**Effort-gap metric**: **~15.5 / 300 ≈ 5% of manual effort**.
+**Effort-gap metric**: **~17 / 300 ≈ 6% of manual effort** (updated as of current session; see table above).
 
 **Other KPIs (as of 2026-05-01):**
 - Commits on development branch since divergence from main: **21** (including merges).

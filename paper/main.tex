@@ -71,10 +71,11 @@ the activation energy of integration high enough that a casual researcher
 gives up. We name this implicit defence the \emph{effort gap} and argue that
 it has functioned as the de-facto interoperability barrier of the last decade.
 
+% Rule 14: data source = figures/data/effort-gap.csv; generation script = figures/fig1-effort-gap.py
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig1-effort-gap.pdf}
-  \caption{\textbf{The effort gap.} Cumulative human effort to reach a working local integration across phases of a reverse-engineering project. AI-assisted analysis flattens the curve: the activation energy that historically gated practical interoperability work collapses, leaving a wide effort gap between the two trajectories.}
+  \caption{\textbf{The effort gap.} Cumulative human effort to reach a working local integration across phases of a reverse-engineering project. AI-assisted analysis flattens the curve: the activation energy that historically gated practical interoperability work collapses, leaving a wide effort gap between the two trajectories. Data: \texttt{figures/data/effort-gap.csv}; script: \texttt{figures/fig1-effort-gap.py}.}
   \label{fig:effort-gap}
 \end{figure}
 
@@ -695,8 +696,9 @@ License + UrhG/KI   & \texttt{ad46a7e} & CC-BY-4.0 LICENSE; legal footnote & $\s
 §6.4 + §10           & \texttt{3b85606} & Consumer vs industrial qualifier; Pandora & $\sim$1.5\,h \\
 Redaction + Rules    & \texttt{e5762a0} & Redaction pass; redaction-policy.md & $\sim$2\,h \\
 Discussion + timelines & \texttt{8f92658} & §7.10, §7.11, KPI tables, README & $\sim$3\,h \\
+DLR design + fig1 data & (see log) & \texttt{dlr\_style.py}, \texttt{data/effort-gap.csv}, \texttt{fig1-effort-gap.py}; Rule-14 compliance & $\sim$1.5\,h \\
 \midrule
-\textbf{Total AI-assisted (paper)} & & & \textbf{$\sim$15.5\,h} \\
+\textbf{Total AI-assisted (paper)} & & & \textbf{$\sim$17\,h} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -704,7 +706,7 @@ Discussion + timelines & \texttt{8f92658} & §7.10, §7.11, KPI tables, README &
 \textbf{Estimated manual baseline}: writing a 10-section paper with FAIR
 metadata, 70-entry literature register, provenance maps, LaTeX build
 pipeline, and redaction policy from scratch: \textbf{200--400\,h}.
-\textbf{Effort-gap metric}: $\approx$15.5 / 300 $\approx$ \textbf{5\% of manual effort}.
+\textbf{Effort-gap metric}: $\approx$17 / 300 $\approx$ \textbf{6\% of manual effort} (updated as of current session; see table above).
 
 Other KPIs (as of 2026-05-01): development-branch commits ahead of
 \texttt{main}: 21; logbook named sessions: 14; \texttt{main.md} lines:
