@@ -7,7 +7,7 @@
 [![License: CC-BY-4.0](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey.svg)](LICENSE)
 [![FAIR compliant](https://img.shields.io/badge/FAIR-compliant-blue)](docs/fair.md)
 [![arXiv-ready LaTeX](https://img.shields.io/badge/paper-arXiv--ready-red)](paper/main.tex)
-[![Paper PDF](https://img.shields.io/badge/paper-PDF-informational)](paper/main.pdf)
+[![Draft PDF](https://img.shields.io/badge/draft-PDF-orange)](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml)
 
 > **Statement of independence.** This is a hobbyist research project carried out by the author in a personal capacity. It is **not** part of, endorsed by, funded by, or representative of the views of any employer, including the German Aerospace Center (DLR). See `paper/main.md` §9.5 for the full disclaimer.
 
@@ -82,8 +82,8 @@ Obscurity-Is-Dead/
 ## Reading the paper
 
 - **Markdown source**: [`paper/main.md`](paper/main.md) — readable in any Markdown renderer.
-- **PDF**: [`paper/main.pdf`](paper/main.pdf) — present only when built locally (gitignored by default; see [`paper/Makefile`](paper/Makefile)).
-- **arXiv-ready PDF**: build locally with `make -C paper pdf` (requires TeX Live + `rsvg-convert` or `inkscape`).
+- **Draft PDF (CI build)**: latest CI-built draft is published as the `paper-pdf` artifact of the [Build paper workflow](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml) — open the most recent successful run and download the artifact. Labelled *draft* until the author authorises submission (rule 13).
+- **Local build**: [`paper/main.pdf`](paper/main.pdf) — present only when built locally (gitignored by default; see [`paper/Makefile`](paper/Makefile)). Build with `make -C paper pdf` (requires TeX Live + `rsvg-convert` or `inkscape`).
 - **Section guide**:
   - §1 Introduction and Motivation — the effort-gap concept and research question
   - §2 Methodology — auditable AI-assisted RE workflow
