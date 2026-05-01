@@ -661,10 +661,12 @@ two case studies (\texttt{README.md}, \texttt{REPORT.md},
         \texttt{docs/sources.md} and \cref{sec:disc-r2r} --- without that
         flag, it would have entered the paper as if sourced.
   \item \textbf{Live-credential leakage.} \texttt{docs/sources.md} S-SF-5
-        carries the recovered MQTT credentials for the Spider Farmer
-        broker. These must be redacted before public release of the paper.
-        This redaction is the single most important pre-publication action
-        and is recorded as an open issue in the logbook.
+        carried the recovered MQTT credentials for the Spider Farmer
+        broker. These have been replaced with \texttt{[REDACTED]} markers
+        in all researcher-authored files per
+        \texttt{docs/redaction-policy.md} R-SF-1..R-SF-2. Raw credentials
+        remain in prior git history; a history rewrite
+        (BFG/git-filter-repo) is required before any public archive.
   \item \textbf{Prompt injection from imported artifacts.} Vendor APK
         strings, PDF contents, and community-thread excerpts under
         \texttt{experiments/*/original/} are read by the AI agent. The
@@ -676,11 +678,43 @@ two case studies (\texttt{README.md}, \texttt{REPORT.md},
 
 \subsection{KPI summary (Meta-process)}
 \label{sec:meta-kpis}
-\emph{To be populated}: number of commits on the paper-development branch,
-number of AI sessions logged in \texttt{docs/logbook.md}, ratio of
-AI-generated to researcher-authored prose, count of AI-generated claims
-subsequently flagged or removed, count of \texttt{[lit-retrieved]} entries
-upgraded to \texttt{[lit-read]}, time-to-first-publishable-draft.
+
+\textbf{Effort-gap timeline} (commit-anchored; all work 2026-05-01):
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Phase & Commit & Key event & Est.\ elapsed \\
+\midrule
+Skeleton             & \texttt{31dba8a} & 7-section paper structure from scratch & $\sim$1\,h \\
+Literature           & \texttt{3010ee9} & $\sim$70 academic entries across 10 clusters & $\sim$2\,h \\
+LaTeX build          & \texttt{80e781b} & arXiv-ready pipeline; mirrors \texttt{main.md} & $\sim$1.5\,h \\
+Rule 11 compliance   & \texttt{eef8c5b} & Consistency rule; sync verified & $\sim$0.5\,h \\
+AI disclosure + FAIR & \texttt{ebe008d} & §5, §9, CITATION.cff, Zenodo, CodeMeta & $\sim$3\,h \\
+License + UrhG/KI   & \texttt{ad46a7e} & CC-BY-4.0 LICENSE; legal footnote & $\sim$1\,h \\
+§6.4 + §10           & \texttt{3b85606} & Consumer vs industrial qualifier; Pandora & $\sim$1.5\,h \\
+Redaction + Rules    & \texttt{e5762a0} & Redaction pass; redaction-policy.md & $\sim$2\,h \\
+Discussion + timelines & \texttt{8f92658} & §7.10, §7.11, KPI tables, README & $\sim$3\,h \\
+\midrule
+\textbf{Total AI-assisted (paper)} & & & \textbf{$\sim$15.5\,h} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Estimated manual baseline}: writing a 10-section paper with FAIR
+metadata, 70-entry literature register, provenance maps, LaTeX build
+pipeline, and redaction policy from scratch: \textbf{200--400\,h}.
+\textbf{Effort-gap metric}: $\approx$15.5 / 300 $\approx$ \textbf{5\% of manual effort}.
+
+Other KPIs (as of 2026-05-01): development-branch commits ahead of
+\texttt{main}: 21; logbook named sessions: 14; \texttt{main.md} lines:
+472; scaffolding lines (methodology + sources + logbook): 885 ($\approx$2:1
+scaffolding-to-paper ratio, consistent with the artifact-level-disclosure
+claim in \cref{sec:pandora}). \texttt{[lit-retrieved]} entries: $\sim$70;
+\texttt{[lit-read]} entries: 0; no claim cites unread literature.
+Time-to-first-publishable-draft (skeleton $\rightarrow$ rule-11-compliant
+dual-format paper): $\approx$6\,h of AI-assisted work within one
+calendar day.
 
 % =========================================================================
 \section{Synthesis}

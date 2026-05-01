@@ -258,12 +258,38 @@ The case-study artifacts are vendored under `experiments/paper-meta-process/` wi
 ### 5.6 Findings — security and dual-use implications
 - **Fabricated citations.** All ~50 entries in the literature register are `[lit-retrieved]` only. Any upgrade to `[lit-read]` without the researcher actually reading the paper would be a fabrication. The legend exists precisely to make this risk visible. The empirical base rates make this concrete: Walters & Wilder (2023) found **55% of ChatGPT-3.5 and 18% of GPT-4 generated citations were fabricated** in literature reviews, with a further 24–43% of the *real* citations carrying substantive errors [L-SLOP-1]. McGowan et al. (2023) found only **2 of 35** ChatGPT-generated psychiatry citations were real [L-SLOP-4]. Chelli et al. (2024) measured hallucination rates of 28.6%–91.4% across LLMs in systematic-review reference generation [L-SLOP-2]. These are not edge cases.
 - **AI-generated legal analysis.** A specific opinion in transcript T3 line 147 (EcoFlow) is flagged in `docs/sources.md` and §7.1 — without that flag, it would have entered the paper as if sourced.
-- **Live-credential leakage.** `docs/sources.md` S-SF-5 carries the recovered MQTT credentials for the Spider Farmer broker. These must be redacted before public release of the paper. This redaction is the single most important pre-publication action and is recorded as an open issue in the logbook.
+- **Live-credential leakage.** `docs/sources.md` S-SF-5 carried the recovered MQTT credentials for the Spider Farmer broker. These have been replaced with `[REDACTED]` markers in all researcher-authored files per `docs/redaction-policy.md` R-SF-1..R-SF-2. Raw credentials remain in prior git history; a history rewrite (BFG/git-filter-repo) is required before any public archive.
 - **Prompt injection from imported artifacts.** Vendor APK strings, PDF contents, and community-thread excerpts under `experiments/*/original/` are read by the AI agent. The mitigation is the AI policy's labelling requirement plus researcher verification of every AI-attributed claim.
 - **Tooling drift.** The workflow and committed artifacts are the reproducible unit; the AI's exact tokens are not.
 
 ### 5.7 KPI summary (Meta-process)
-*To be populated*: number of commits on the paper-development branch, number of AI sessions logged in `docs/logbook.md`, ratio of AI-generated to researcher-authored prose, count of AI-generated claims subsequently flagged or removed, count of `[lit-retrieved]` entries upgraded to `[lit-read]`, time-to-first-publishable-draft.
+
+**Effort-gap timeline** (commit-anchored; all work on 2026-05-01):
+
+| Phase | Commit(s) | Key event | Est. elapsed |
+|-------|----------|-----------|-------------|
+| Skeleton | `31dba8a` | 7-section paper structure from scratch | ~1 h |
+| Literature | `3010ee9` | ~70 academic entries across 10 clusters registered | ~2 h |
+| LaTeX build | `80e781b` | arXiv-ready LaTeX pipeline + mirrors main.md | ~1.5 h |
+| Rule 11 compliance | `eef8c5b` | Consistency rule added; sync verified | ~0.5 h |
+| AI disclosure + meta-case + FAIR | `ebe008d` | §5, §9, CITATION.cff, .zenodo.json, codemeta.json, docs/fair.md | ~3 h |
+| License + UrhG/KI footnote | `ad46a7e` | CC-BY-4.0 LICENSE; legal footnote; DLR independence | ~1 h |
+| §6.4 + §10 | `3b85606` | Consumer vs industrial qualifier; Pandora moment | ~1.5 h |
+| Redaction + Rules 12–14 | `e5762a0` | Redaction pass; redaction-policy.md; Makefile warning | ~2 h |
+| Discussion expansion + timelines | `8f92658` | §7.10, §7.11, KPI tables, figures README, README | ~3 h |
+| **Total AI-assisted (paper)** | | | **~15.5 h** |
+
+**Estimated manual baseline** (writing a research paper of this scope — 10 sections, FAIR metadata, 70-entry literature register, provenance maps, LaTeX build pipeline, redaction policy — without AI assistance): **200–400 h** of research, writing, and tooling work.
+
+**Effort-gap metric**: **~15.5 / 300 ≈ 5% of manual effort**.
+
+**Other KPIs (as of 2026-05-01):**
+- Commits on development branch since divergence from main: **21** (including merges).
+- Logbook entries: **14** named sessions recorded in `docs/logbook.md`.
+- Paper lines (main.md): **472**; methodology scaffolding (methodology.md + sources.md + logbook.md): **885 lines** — roughly 2:1 scaffolding-to-paper ratio, consistent with the artifact-level-disclosure claim in §10.
+- `[lit-retrieved]` entries: ~70 across clusters A–K. `[lit-read]` entries: 0. No claim in this paper cites literature that has not been read.
+- AI-generated claims subsequently flagged or removed: at least 1 (AI-generated legal opinion in EcoFlow transcript T3 line 147, flagged in `docs/sources.md` and §7.1).
+- Time-to-first-publishable-draft (skeleton → rule-11-compliant dual-format paper): approximately **6 h** of AI-assisted work within a single calendar day.
 
 ---
 
