@@ -1,0 +1,86 @@
+cff-version: 1.2.0
+message: >
+  If you use this work, please cite it using the metadata below. The paper
+  source of truth is paper/main.md (Markdown) and paper/main.tex (LaTeX);
+  both must be kept consistent per repo rule 11.
+title: "Obscurity-Is-Dead — AI-Assisted Hacking: Key to Interoperability or Security Nightmare?"
+abstract: >
+  This paper investigates how modern large language models collapse the
+  traditional "effort gap" in reverse engineering. Through two empirical case
+  studies (Spider Farmer BLE devices and EcoFlow PowerOcean energy systems)
+  plus a third recursive case study of the paper-generation process itself,
+  it shows how AI-assisted analysis turns theoretical protocol knowledge into
+  practical, replicable local integrations, and proposes a research
+  methodology that treats AI conversation transcripts, vendor artifacts, and
+  version history as first-class evidence. The dual-use, sloppification, and
+  model-collapse risks of AI-assisted research are made explicit and mapped
+  to mitigations that the methodology operationalises.
+type: software
+authors:
+  - family-names: "Krebs"
+    given-names: "Florian"
+    orcid: "https://orcid.org/0000-0001-6033-801X"
+    affiliation: "Independent researcher (personal capacity)"
+    # The 'affiliation' field is deliberately set to "Independent researcher
+    # (personal capacity)" because this is a hobbyist project carried out
+    # outside the author's regular employment. The author's day-job
+    # affiliation (DLR) is intentionally NOT listed here; this work is not
+    # part of, endorsed by, funded by, or representative of the views of
+    # any employer. See the disclaimer in README.md and in paper/main.md
+    # \S 9.5 ("Statement of independence and personal capacity").
+repository-code: "https://github.com/noheton/Obscurity-Is-Dead"
+url: "https://github.com/noheton/Obscurity-Is-Dead"
+license: "CC-BY-4.0"
+license-url: "https://creativecommons.org/licenses/by/4.0/"
+keywords:
+  - AI-assisted reverse engineering
+  - large language models
+  - LLM
+  - effort gap
+  - security through obscurity
+  - Internet of Things
+  - IoT
+  - Bluetooth Low Energy
+  - BLE
+  - Spider Farmer
+  - EcoFlow PowerOcean
+  - Home Assistant
+  - right to repair
+  - dual use
+  - sloppification of science
+  - model collapse
+  - DFG good research practice
+  - FAIR data principles
+date-released: "2026-05-01"
+version: "0.2.0"
+identifiers:
+  - type: other
+    value: "ORCID:0000-0001-6033-801X"
+    description: "ORCID iD of the corresponding author."
+preferred-citation:
+  type: article
+  title: "AI-Assisted Hacking: Key to Interoperability or Security Nightmare?"
+  authors:
+    - family-names: "Krebs"
+      given-names: "Florian"
+      orcid: "https://orcid.org/0000-0001-6033-801X"
+      affiliation: "Independent researcher (personal capacity)"
+  year: 2026
+  url: "https://github.com/noheton/Obscurity-Is-Dead"
+references:
+  - type: article
+    title: "Guidelines for Safeguarding Good Research Practice"
+    authors:
+      - name: "Deutsche Forschungsgemeinschaft (DFG)"
+    year: 2023
+    url: "https://zenodo.org/records/14281892"
+  - type: software
+    title: "Claude (Opus 4.7 model family)"
+    authors:
+      - name: "Anthropic"
+    year: 2026
+    url: "https://www.anthropic.com/claude"
+    notes: >
+      AI assistant used in the preparation of this paper. Conversation
+      transcripts are committed under
+      experiments/*/raw_conversations (copy&paste, web)/.

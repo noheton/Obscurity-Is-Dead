@@ -184,10 +184,10 @@ This logbook is the operating record for the paper and research process.
   - Verified every transcript-recorded technical claim against the actual code in `original/`:
     - **Spider Farmer** — confirmed corrected CB key/IV (`const.py` lines 45-47), static-IV-first decrypt path (`ble_protocol.py` 195-204), `asyncio.Lock` for write serialisation (`ble_coordinator.py` 79), `async_migrate_entry` (`__init__.py` 95), bluetooth match rules (`manifest.json`), and the dynamic-IV slice formula. Discovered the integration is now at `VERSION = 3` (`config_flow.py` 87) and `"version": "3.0.0"` (`manifest.json`), past the T4-era `1→2` migration.
     - **EcoFlow PowerOcean** — confirmed the regex fix `(?<!st)(amp\|current)$` (`types.py` 90), version `2026.05.01` (`manifest.json` 12), domain `powerocean_dev` (`const.py` 10), 3-step config flow (`config_flow.py`, 510 lines), and the legacy `setDeviceProperty` write path (`api.py` 306). The previously-open "two API surfaces" question is resolved by `original/doc/apk.md` line 52, which documents three surfaces and the integration's choice to use the legacy endpoint.
-  - Surfaced new evidence not anticipated by the prior audit: in Spider Farmer, the community discussion in `original/doc/log.md` documents the MQTT-broker MITM and recovered credentials (`sf_ggs_cb` / `euuavURS4Kp9bMUfYmvwl-`) — a strong piece of independent evidence for the security claim. In EcoFlow, the four committed APKs and the six raw extraction logs are now first-class artifacts.
+  - Surfaced new evidence not anticipated by the prior audit: in Spider Farmer, the community discussion in `original/doc/log.md` documents the MQTT-broker MITM and recovered credentials (`[REDACTED:username:S-SF-5-username]` / `[REDACTED:credential:S-SF-5-password]`; see `docs/redaction-policy.md` R-SF-1, R-SF-2) — a strong piece of independent evidence for the security claim. In EcoFlow, the four committed APKs and the six raw extraction logs are now first-class artifacts.
   - Identified two corrections to the prior audit: (a) the upstream of `powerocean_dev` is `niltrip/powerocean`, not `noheton/powerocean` (per `const.py` `ISSUE_URL`); (b) the empty Spider Farmer transcript T7 ("Add logo…") was preserved as zero bytes, but the deliverable (`original/logo.png`, `original/brand/icon.png`, `icon@2x.png`) was actually completed.
   - Rewrote both `provenance.md` files to map each transcript to specific verified files and line numbers in `original/`. Updated `docs/sources.md` to upgrade most entries from `[repo-referenced]` to `[repo-vendored]`, added the four APKs and the user manuals as new source entries, and refined the verification-status legend.
-  - Recorded redaction risks for any public release: device serial `80F1B2B3B648`, broker IP `192.168.1.60`, and the recovered MQTT password.
+  - Recorded redaction risks for any public release: device serial `[REDACTED:serial:S-SF-device]`, broker IP `[REDACTED:ip:S-SF-device]`, and the recovered MQTT password (see `docs/redaction-policy.md` R-SF-3, R-SF-4, R-SF-2).
 - Files updated:
   - `experiments/spider-farmer/provenance.md`
   - `experiments/ecoflow-powerocean/provenance.md`
@@ -203,3 +203,260 @@ This logbook is the operating record for the paper and research process.
 - Next steps:
   - Begin the literature search for the `[needs-research]` items in `docs/sources.md`.
   - Decide on a redaction policy for the live credentials and device identifiers in the case-study artifacts before any public release.
+
+### 2026-05-01 (paper structure draft)
+- Session lead: Researcher (with AI-assisted drafting)
+- Actions taken:
+  - Restructured `paper/main.md` to the seven-section outline requested for the paper: Introduction and Motivation, Methodology, Experiment & Analysis 1 (Spider Farmer), Experiment & Analysis 2 (EcoFlow PowerOcean), Synthesis, Discussion, Conclusion.
+  - Wired each section to the verified evidence already in the repo: source register entries (`docs/sources.md`), per-case `provenance.md` files, `REPORT.md` summaries, and the embedded vendor code at commit `ffdf60c`.
+  - Carried forward open issues from the prior audit (legal-source verification, redaction policy, undocumented `VERSION 2 → 3` Spider Farmer migration) into the paper's Threats to Validity and Future Work subsections.
+  - Preserved the abstract from the previous skeleton; replaced the flat case-study sections with structured §3 and §4 that mirror the methodology (artifact inventory → workflow → findings → validation → security implications → KPIs).
+- Files updated:
+  - `paper/main.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Treat the two case studies as parallel `Experiment & Analysis` sections rather than a single "Case Studies" block, to make the cross-case comparison in §5 (Synthesis) more legible.
+  - Keep KPI tables stubbed rather than fabricated; numbers must come from the existing logbook and provenance evidence in a follow-up pass.
+  - Make the dual-use evaluation part of each case study's findings (§3.6, §4.6) rather than only a Discussion subsection.
+- Open issues:
+  - KPI tables in §3.7 and §4.7 are stubbed and need to be populated from logbook + provenance evidence.
+  - Redaction of S-SF-5 (live MQTT credentials) is required before any public release of the paper.
+  - § 69e UrhG / EU 2009/24/EC sourcing remains `[unverified-external]`.
+- Next steps:
+  - Populate the KPI tables from the logbook and provenance maps.
+  - Begin the literature pass against `docs/sources.md` `[needs-research]` items.
+  - Resolve vendor APK/PDF redistribution status before any public release.
+
+### 2026-05-01 (academic literature pass)
+- Session lead: Researcher (with AI-assisted search via the Consensus academic database)
+- Actions taken:
+  - Ran a structured literature search session against Consensus (Semantic Scholar / PubMed / Scopus / arXiv) targeting the eight `[needs-research]` items previously enumerated in `docs/sources.md`.
+  - Added two new verification statuses to the source-register legend: `[lit-retrieved]` (database-surfaced, not yet read) and `[lit-read]` (read in full and confirmed). The earlier four-status legend remained insufficient to honestly describe the state of citations after a database query.
+  - Populated `docs/sources.md` with eight claim clusters (A–H) covering: LLM-assisted RE, LLM-assisted vulnerability/exploit generation, hardcoded secrets in mobile apps, BLE/IoT security-through-obscurity, IoT right-to-repair, local-first smart home, DMCA § 1201(f) legal exemption, and counter-positions on interoperability. ~50 papers registered with stable handles `L-<cluster>-<n>`.
+  - Surfaced specific papers that **contradict or qualify** the paper's claims and flagged them as such — most importantly L-RE-4 (Pearce et al. 2022, "LLMs are not yet ready for zero-shot RE"), L-VD-2 (Zhao et al. 2025, 8–34% PoC success on disclosed CVEs — qualifies the asymmetry-of-collapse claim in §6.3), L-COUNTER-1 (Boniface et al. 2020, interoperability as security-cost optimisation), and L-COUNTER-2 (Mitra & Ransbotham 2015, full disclosure accelerates attack diffusion).
+  - Added a coverage table mapping each prior `[needs-research]` item to its retrieved anchor citations, leaving two items open: § 69e UrhG / EU 2009/24/EC (needs German-language / EUR-Lex search) and vendor-published positions on community RE (grey-literature problem, not solvable through academic-database search).
+- Files updated:
+  - `docs/sources.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Mark every newly retrieved citation as `[lit-retrieved]` rather than letting it pass as a usable source. Upgrading to `[lit-read]` requires a researcher reading the full paper, not just the abstract surfaced by the database.
+  - Deliberately retain papers that **contradict** the paper's claims (L-RE-4, L-VD-2, L-COUNTER-1, L-COUNTER-2). The paper's intellectual honesty depends on these being engaged with, not omitted.
+  - Defer the German-language legal search and the grey-literature pass on vendor positions to a separate session — both require different sourcing strategies than the Consensus academic-database approach.
+- Open issues:
+  - All Cluster A–H citations are `[lit-retrieved]`, not `[lit-read]`. No paper claim should cite them directly until the underlying full text has been read.
+  - § 69e UrhG / EU 2009/24/EC sourcing remains unresolved.
+  - Vendor-position grey-literature pass is unstarted.
+- Next steps:
+  - Read the highest-priority full texts and upgrade their status to `[lit-read]`: L-HC-1 (SecretLoc), L-VD-1 (script-kiddies AEG), L-RE-4 (Pop Quiz), L-RR-1 (right-to-repair-IoT), L-COUNTER-1 (security implications of interoperability), L-COUNTER-2 (disclosure & attack diffusion), L-BLE-5 (Living in the Past).
+  - Targeted German-language search for § 69e UrhG and EU 2009/24/EC.
+  - Define the grey-literature sourcing strategy for vendor positions on community reverse engineering.
+
+### 2026-05-01 (meta-process case study, sloppification + model collapse, FAIR / citation metadata)
+- Session lead: Researcher (with AI-assisted drafting)
+- Actions taken (multiple commits to follow):
+  - **Rule 11 compliance.** Merged `origin/main` (`6177233`) which introduced the LaTeX build pipeline (`80e781b`) and rule 11 (`eef8c5b` — keep `paper/main.md` and `paper/main.tex` consistent). Rewrote `paper/main.tex` to mirror the seven-section structure already in `paper/main.md`, then expanded both files together.
+  - **Anthropic citation.** Added `anthropic2026claude` to `paper/references.bib`. Cited inline in the new §9 ("AI usage disclosure and disclaimer").
+  - **Meta-process case study.** Added §5 "Experiment & Analysis 3 — The paper as an AI-assisted artifact" to both `paper/main.md` and `paper/main.tex` with parallel structure to §3 and §4. Renumbered downstream sections (Synthesis → §6, Discussion → §7, Conclusion → §8, AI Disclosure → §9). Extended the §6 cross-case comparison table to three columns (Spider Farmer / EcoFlow / Meta-process). Added §7.5 "The paper as evidence for its own thesis".
+  - **Sloppification literature pass.** Issued two further Consensus queries (fabricated citations in academic writing; paper mills + AI). Added `docs/sources.md` cluster I (L-SLOP-1 .. L-SLOP-12). Anchored §5.6 to specific empirical base rates (Walters & Wilder 2023, McGowan et al. 2023, Chelli et al. 2024). Added §7.6 "Sloppification: the AI methodological discount".
+  - **Model-collapse literature pass.** Issued one Consensus query on model collapse and recursive training. Added `docs/sources.md` cluster J (L-MC-1 .. L-MC-9). Added §7.7 "Model collapse and the dilution of the scientific commons" citing Shumailov et al. (2024, *Nature*), Seddik et al. (2024), Gerstgrasser et al. (2024 — accumulating-data result), Borji (2024 qualifier), and ForTIFAI (2025). Mapped in-repo practices (provenance, transcript preservation, mixed-data principle, FAIR metadata) onto literature-suggested mitigations.
+  - **AI Disclosure section.** Added §9 with subsections 9.1 (models and tooling), 9.2 (division of labour), 9.3 (what is and is not sourced), 9.4 (disclaimers including the empirical fabricated-citation risk), 9.5 (statement of independence and personal capacity).
+  - **ORCID and author identity.** Resolved ORCID `0000-0001-6033-801X` to **Florian Krebs** via two independent indexed sources (DLR elib record for *shepard*; Helmholtz Research Software Directory entry for *shepard*). Recorded the ORCID and the personal-capacity affiliation across `CITATION.cff`, `.zenodo.json`, `codemeta.json`, `docs/fair.md`, `paper/main.md` (title block + §9.5), `paper/main.tex` (`\thanks` block on author + §9.5), and `README.md`.
+  - **DLR independence statement.** Added an explicit "Statement of independence" to all of: title block of `paper/main.md`, footnote on author line in `paper/main.tex`, §9.5 of both paper sources, top of `docs/fair.md`, top of `README.md`, and notes fields in `.zenodo.json` and `codemeta.json`. The disclaimer says this is hobbyist work in personal capacity; not part of, endorsed by, funded by, or representative of the views of any employer including DLR.
+  - **FAIR adherence.** Added `docs/fair.md` mapping each FAIR principle (F1–F4, A1–A2, I1–I3, R1.1–R1.3) to the concrete repository feature that satisfies it. Listed open issues blocking full compliance: persistent identifier (Zenodo DOI to mint at first release), top-level `LICENSE` file, sensitive-content redaction, vendor-artifact redistribution status.
+  - **Citation / housekeeping metadata.** Added `CITATION.cff` (Citation File Format 1.2.0), `.zenodo.json` (Zenodo metadata schema), `codemeta.json` (CodeMeta 3.0 / schema.org JSON-LD).
+  - **Conversation transcripts as experiment data.** Created `experiments/paper-meta-process/` (parallel to the Spider Farmer and EcoFlow case-study directories). Wrote `README.md`, `REPORT.md`, and `provenance.md`. Added a `[curated-reconstruction]` of the 2026-05-01 session as `raw_conversations (copy&paste, web)/T1-paper-structure-and-literature.md`. Documented a three-level transcript verification status (`[verbatim-export]` / `[curated-reconstruction]` / `[redacted]`).
+  - **README integration.** Added the citation pointer, FAIR pointer, and DLR disclaimer to the top of `README.md`. Added the new case study and metadata files to the repository structure list.
+- Files updated:
+  - `paper/main.md`, `paper/main.tex`, `paper/references.bib`
+  - `docs/sources.md`, `docs/logbook.md`, `docs/fair.md` (new)
+  - `CITATION.cff` (new), `.zenodo.json` (new), `codemeta.json` (new)
+  - `experiments/paper-meta-process/README.md` (new)
+  - `experiments/paper-meta-process/REPORT.md` (new)
+  - `experiments/paper-meta-process/provenance.md` (new)
+  - `experiments/paper-meta-process/raw_conversations (copy&paste, web)/T1-paper-structure-and-literature.md` (new)
+  - `README.md`
+- Key decisions:
+  - Default the case-3 transcript verification status to `[curated-reconstruction]` pending a verbatim export from Claude Code session storage. This is honest about the source: I (the AI) reconstructed the conversation from working memory plus public git history; it is not a transport-verbatim export.
+  - Default the metadata license to CC-BY-4.0 in `.zenodo.json` and `codemeta.json` pending researcher confirmation; flag the missing top-level `LICENSE` as an open FAIR-compliance issue rather than committing a license unilaterally.
+  - Add `\cref` cross-references in `paper/main.tex` matching `paper/main.md` §-references so the two stay aligned under future edits.
+  - Keep DLR named only in the negative ("not part of, not endorsed by, …") so the affiliation cannot be mistaken for institutional endorsement.
+  - Never upgrade a `[lit-retrieved]` entry to `[lit-read]` without the researcher reading the full text.
+- Open issues:
+  - **Top-level `LICENSE` file** missing; default declared as CC-BY-4.0 for paper text.
+  - **Verbatim export of session transcripts** still required to upgrade the meta-process T1 transcript from `[curated-reconstruction]` to `[verbatim-export]`.
+  - **All Cluster A–J literature entries are `[lit-retrieved]`** and must be read before being cited as authority.
+  - **Live-credential redaction** for `docs/sources.md` S-SF-5 still required before any public release.
+  - **Vendor APK / PDF redistribution status** still pending.
+  - **§ 69e UrhG / EU 2009/24/EC** primary legal sources still `[unverified-external]`.
+- Next steps:
+  - Mint a Zenodo DOI at first release (`F1`, `R1.1`).
+  - Add the top-level `LICENSE`.
+  - Produce a verbatim Claude Code session export and add it as a companion file to the meta-process T1 transcript.
+  - Begin reading the highest-priority `[lit-retrieved]` entries (L-SLOP-1, L-SLOP-4, L-SLOP-2, L-MC-1, L-MC-4, L-HC-1, L-VD-1, L-RR-1, L-COUNTER-1, L-COUNTER-2) and upgrade to `[lit-read]`.
+  - Targeted German-language / EUR-Lex search for § 69e UrhG and EU 2009/24/EC.
+
+### 2026-05-01 (LICENSE resolved + UrhG/KI footnote)
+- Session lead: Researcher (CC-BY-4.0 confirmed) with AI-assisted drafting of the footnote and license boilerplate.
+- Actions taken:
+  - Added top-level `LICENSE` (CC-BY-4.0) covering the human-authored and human-curated portions of the work, with explicit exclusions for vendored third-party artifacts (`experiments/*/original/`) and items flagged for redaction (`docs/sources.md` S-SF-5).
+  - Added a substantive footnote on *Urheberrecht und Künstliche Intelligenz* in Germany to `paper/main.md` § 9.1 and to `paper/main.tex` `sec:ai-disclosure-models` (mirrored per rule 11). Footnote covers (i) authorship and copyrightability under § 2 UrhG, (ii) text-and-data-mining and AI training under § 44b UrhG, EU DSM Directive 2019/790 Art. 4, *LG München I, Kneschke v LAION* (Az. 42 O 14139/23, October 2024), and EU AI Act Art. 53, and (iii) why this means the AI is acknowledged but not a co-author and how CC-BY-4.0 attaches.
+  - Updated `CITATION.cff` to declare `license: "CC-BY-4.0"` and `license-url`. Updated `.zenodo.json` notes to reflect the resolved license and add the AI-authorship explanation. Updated `docs/fair.md` R1.1 row to mark the license as resolved and added a fifth open issue (pre-publication legal review).
+  - Recorded explicitly that the AI assistant (Claude, Anthropic) is **not** a co-author under § 2 UrhG: AI cannot hold copyright, cannot consent to publication, and cannot be held accountable. Acknowledgement remains in §9.1 and across the FAIR / citation metadata files.
+- Files updated:
+  - `LICENSE` (new)
+  - `paper/main.md`, `paper/main.tex`
+  - `CITATION.cff`, `.zenodo.json`, `docs/fair.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Confirm CC-BY-4.0 for the whole repository's human-authored content (paper, methodology, scripts, metadata).
+  - Decline AI co-authorship per § 2 UrhG and ICMJE/DFG-style accountability principles. The AI's contribution is fully credited in §9.1 and in the metadata, but copyright and editorial responsibility rest with the human author.
+  - Treat the *Urheberrecht und KI* footnote as `[unverified-external]` until a German-language / EUR-Lex search reads each primary source. The footnote restates the prevailing reading and explicitly says it is not legal advice.
+- Open issues:
+  - Targeted German-language / EUR-Lex search for the primary texts cited in the footnote (§ 2 UrhG; § 44b UrhG; EU DSM Directive 2019/790 Art. 4; *Kneschke v LAION*; EU AI Act Art. 53). Each is currently `[unverified-external]`.
+  - Pre-publication legal review (`docs/fair.md` open issue 5) before any journal/Zenodo mirror.
+- Next steps:
+  - Targeted German-language search to upgrade the UrhG sources from `[unverified-external]` to `[lit-read]` (or to retrieve their canonical URLs).
+  - Mint the Zenodo DOI now that the license is resolved.
+
+### 2026-05-01 (consumer vs industrial qualifier; §10 Pandora-moment novelty section)
+- Session lead: Researcher (with AI-assisted literature retrieval and drafting)
+- Actions taken:
+  - **§6.4 expansion ("Limits of the comparison").** Added an anchored two-part qualifier addressing the user's hypothesis that industrial / more expensive hardware might solve the obscurity problem while consumer-market equipment is probably vulnerable. Sourced both halves: (a) consumer-IoT base rate is empirically high and not anomalous (Zhao et al. 2022 — 28.25% N-days vulnerability across 1,362,906 devices, 88% MQTT no-password; Kumar et al. 2019 — 83M devices in 16M households; Davis et al. 2020 — well-known vs lesser-known vendors; Sivakumaran et al. 2023 — >70% of 17,243 BLE APKs vulnerable); (b) industrial / IIoT / ICS is *not* automatically immune (Antón et al. 2021 — >13,000 OT devices on public internet, almost all with at least one vulnerability; Serror et al. 2020 — IIoT shares concerns with consumer IoT; Asghar et al. 2019 — ICS legacy designs broken by enterprise integration).
+  - **`docs/sources.md` Cluster K** added: "Consumer-IoT base rate of vulnerability vs. industrial / IIoT / ICS posture". 12 citations split into a consumer sub-cluster (L-CONS-1..L-CONS-6) and an industrial sub-cluster (L-IND-1..L-IND-6). All `[lit-retrieved]`. Coverage table updated.
+  - **§10 "The Pandora moment: this paper as a novel mode of transparent AI-assisted research"** added to both `paper/main.md` and `paper/main.tex` per rule 11. Opens with a Hesiod *Works and Days* (ll. 96–98, Evelyn-White 1914 trans.) epigraph anchoring the Pandora's-box framing on the canonical historical source. Argues that the paper's novelty is *artifact-level disclosure* (transcripts, verification-status legend, provenance maps, mirror discipline, recursive case study, AI disclosure with empirical base rates, legal-honesty footnote on UrhG, FAIR alignment) integrated into a single executable research protocol. Contrasts with the two prevailing failure modes (concealment; token disclosure) documented quantitatively in cluster I. Closes: "Pandora's box is open. The Hope that remains is the kind that does work."
+- Files updated:
+  - `docs/sources.md`, `docs/logbook.md`
+  - `paper/main.md`, `paper/main.tex`
+- Key decisions:
+  - Place the Pandora-moment section as a new §10 *after* §9 (AI usage disclosure) so the disclosure sits inside the methodology it formalises and the meta-argument follows. Keeps prior §-numbering stable.
+  - Use a Hesiod epigraph rather than a more modern quote (Curie, Wiener, Heisenberg were considered): the Pandora myth is the user's chosen frame, and the canonical Hesiodic detail that *Hope* alone remained inside the jar is the point of the section.
+  - Frame the novelty claim as *integration*, not invention: each individual practice (transcripts, verification statuses, provenance maps, FAIR) has prior art; the integration into a single executable protocol is what we claim is new.
+- Open issues:
+  - Cluster K entries are `[lit-retrieved]` only; upgrade to `[lit-read]` before any are cited as authority.
+  - The Hesiod attribution (Evelyn-White, Loeb 1914) should itself be cross-checked against a reliable edition before submission.
+  - The "roughly as many lines of methodological scaffolding as paper prose" claim in §10 should be verified with a concrete cloc-style measurement before submission.
+- Next steps:
+  - Verify the Hesiod translation attribution against the public-domain Loeb text.
+  - Compute the actual lines-of-scaffolding-vs-prose ratio and update §10 with the real number (or remove the claim if it does not survive measurement).
+  - Continue the German-language / EUR-Lex literature pass on §69e UrhG, §44b UrhG, *Kneschke v LAION*, and EU AI Act Art. 53.
+
+### 2026-05-01 (session 2 — redaction, new rules, discussion expansion, KPI timelines, figures, README)
+- Session lead: Researcher with AI-assisted drafting (Claude, claude-sonnet-4-6)
+- Actions taken:
+
+  **Merge resolution** — merged origin/main (commits 9aaca73 "Add figures" and d59bb3d "fix figure formats SVG") into `claude/develop-paper-structure-7lG2s`. Merge conflicts in `paper/main.md`, `paper/main.tex`, and `paper/references.bib` were resolved by keeping the full expanded 10-section paper (HEAD) and incorporating the seven SVG figures and updated Makefile from main. All seven figures (fig1–fig7) placed at semantically appropriate locations in both files per rule 11.
+
+  **Rules 12–14 added** to `CLAUDE_CODE_INSTRUCTIONS.md` and all three alias files:
+  - Rule 12: Redact all security-sensitive and legally questionable information; use `[REDACTED:<type>:<source-id>]` markers; record in `docs/redaction-policy.md`.
+  - Rule 13: NEVER publish, push to a public remote, create a Zenodo deposit, submit to arXiv, or otherwise distribute without explicit written consent from the author.
+  - Rule 14: If a paper figure is data-derived, commit both the data file and the generation script; reference both in main.md and main.tex.
+
+  **`docs/redaction-policy.md` created** — canonical sensitive-item register with marker format table, 5 items (R-SF-1..R-SF-5 covering MQTT username, password, device serial, local IP, and vendor UID), and a pre-publication history-rewrite checklist.
+
+  **Redaction pass applied** to 5 researcher-authored files:
+  - `docs/sources.md` S-SF-5 — raw credentials replaced with `[REDACTED:username:S-SF-5-username]` / `[REDACTED:credential:S-SF-5-password]`.
+  - `docs/logbook.md` (this file) — prior audit entry updated.
+  - `paper/main.md` §3.6 — username redacted.
+  - `paper/main.tex` §3.6 mirror — username redacted.
+  - `experiments/spider-farmer/provenance.md` — credentials and device info redacted.
+  - `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan and ventilator control in Home Assistant` — device serial, IP, and UID replaced via sed.
+  - Vendor `original/` tree NOT modified (excluded per redaction policy).
+
+  **Makefile publication-consent warning** — prominent multi-line warning block added at top of `paper/Makefile` referencing rule 13 and the three pre-publication checklist items.
+
+  **§7.10 "Proliferation of hacking"** added to both `paper/main.md` and `paper/main.tex` — covers: volume risk (growing actor pool, static vulnerable-device stock), asymmetric uplift (attacker pays same cost for more damage), normalisation effect (cultural friction disappears), tooling acceleration (compounding marginal cost reduction). Argues the structural response is open APIs + zero-trust, not suppression.
+
+  **§7.11 "Prompt injection in obfuscated software as a countermeasure?"** added to both files — examines the speculative defence of embedding adversarial strings in vendor APKs to mislead LLM analysis. Concludes feasibility is low (models increasingly resistant; custom agents filter), ethics are contested (§69e UrhG / EU 2001/29/EC TPM question), and systemic cost is negative (training-corpus contamination). Not a viable primary defence.
+
+  **KPI effort-gap timelines** added to §3.7 (Spider Farmer) and §4.7 (EcoFlow) in both files:
+  - Spider Farmer: 7 phases, ~10.5 h AI-assisted vs ~90 h estimated manual → 12% of manual effort.
+  - EcoFlow: 3 phases, ~8 h AI-assisted vs ~120 h estimated manual → 7% of manual effort.
+  - Both timelines include table-form phase breakdowns and effort-gap metrics.
+
+- Files updated:
+  - `CLAUDE_CODE_INSTRUCTIONS.md`, `.instructions.md`, `copilot-instructions.md`, `CLAUDE.md`
+  - `docs/redaction-policy.md` (new)
+  - `docs/sources.md`, `docs/logbook.md`
+  - `experiments/spider-farmer/provenance.md`
+  - `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan and ventilator control in Home Assistant`
+  - `paper/Makefile`, `paper/main.md`, `paper/main.tex`
+
+- Key decisions:
+  - Keep vendor `original/` tree untouched — its credentials are present in the source file and are the point of evidence for §3.6. The redaction policy documents this and flags the need for exclusion from any public mirror.
+  - §7.10 and §7.11 are positioned *after* §7.9 (Threats to validity) to maintain the paper's analytical → societal risk → speculative countermeasure progression.
+  - KPI effort-gap estimates are clearly labelled as *estimates* (manual baseline is a conservative reconstruction); they are not claimed to be empirically measured.
+  - The commit-timeline tables note that exact timestamps are not available for all phases; ordering is reconstructed from cross-references, not from wall-clock evidence.
+
+- Open issues:
+  - Git history rewrite (BFG / git-filter-repo) still required before any public mirror — raw credentials are in prior commits on this branch. See `docs/redaction-policy.md`.
+  - Vendor redistribution caveats (S-SF-4, S-EF-2..4) unresolved.
+  - `[lit-retrieved]` to `[lit-read]` upgrades still pending for all clusters.
+  - Zenodo DOI still not minted.
+  - README prettification (openvla-style) deferred to next sub-session.
+  - Figures fig1–fig7 are currently manually drawn SVGs. Per Rule 14 they are exempt from the data-source+script requirement but should be noted as such in the figures directory.
+
+- Next steps:
+  - Update and prettify README (openvla-style layout with badges, figure gallery, quick-start, and citation block).
+  - Note figures as manually drawn in `paper/figures/` README.
+  - Push the development branch.
+
+---
+
+### Session 3 — 2026-05-01 (DLR design bundle + data-driven fig1)
+
+- Context resumed from Session 2. User requested implementation of the DLR Corporate Design
+  system from a fetched design bundle (extracted at `/tmp/design_extract/dlr-design-system/`).
+  User also noted to keep tracking the §5.7 meta-process KPI timeline until submission.
+
+- Design bundle analysis:
+  - Read `README.md` (handoff bundle instructions), `SKILL.md` (quick manifest),
+    `colors_and_type.css` (full token set), `ui_kits/latex/README.md` (LaTeX kit),
+    `ui_kits/python_plots/dlr_style.py` (matplotlib/seaborn theme).
+  - Tension identified: the paper explicitly declares DLR independence (§9.5).
+    Applying DLR logo, impressum, or `dlrpaper` LaTeX class would contradict this.
+  - Relevant/non-contradictory aspects implemented: color palette (`dlr_style.py`),
+    matplotlib/seaborn theme, and a data-driven Figure 1 using the DLR aesthetic.
+
+- Files created:
+  - `paper/figures/dlr_style.py` — DLR matplotlib/seaborn theme (adapted from
+    `dlr_style.py` by wagn_ja, DLR, 2022); graceful Frutiger fallback; removed
+    intranet references.
+  - `paper/figures/data/effort-gap.csv` — KPI data for all three case studies
+    (Spider Farmer 7 phases, EcoFlow 3 phases, Meta-process 9 phases) with
+    cumulative AI and manual-baseline hours and uncertainty bounds.
+  - `paper/figures/fig1-effort-gap.py` — generation script producing
+    `fig1-effort-gap.svg` and `fig1-effort-gap.pdf`; Rule-14 compliant.
+
+- Files updated:
+  - `paper/figures/fig1-effort-gap.svg` and `fig1-effort-gap.pdf` — replaced
+    manually drawn placeholder with data-driven matplotlib figure in DLR style.
+  - `paper/figures/README.md` — fig1 entry updated to "Generated"; Rule-14 table
+    added; figures 2–7 remain manually drawn / exempt.
+  - `paper/main.md` §1.1 — Rule-14 data reference added after fig1 image.
+  - `paper/main.md` §5.7 — new row "DLR design + data-driven fig1" added;
+    total updated to ~17 h; effort-gap metric updated to ~6%.
+  - `paper/main.tex` §1.1 figure environment — Rule-14 comment + data reference
+    added to caption.
+  - `paper/main.tex` §5.7 table — matching row added; total and metric updated.
+
+- Key decisions:
+  - DLR logo, impressum, `dlrpaper` LaTeX class, and `dlrbeamer` are NOT applied.
+    The paper's §9.5 independence declaration takes priority.
+  - Color palette and matplotlib theme are applied to fig1 only; they are generic
+    enough to not imply institutional affiliation.
+  - `dlr_style.py` is committed as a named file with attribution comment; it is not
+    redistributed as part of a DLR product but adapted as a styling utility.
+  - §5.7 KPI table is updated every session per user instruction ("keep track until submission").
+
+- Open issues:
+  - Git history rewrite (BFG / git-filter-repo) still required before public mirror.
+  - Vendor redistribution caveats (S-SF-4, S-EF-2..4) unresolved.
+  - `[lit-retrieved]` → `[lit-read]` upgrades still pending.
+  - Zenodo DOI not minted.
+  - §5.7 row "DLR design + data-driven fig1" has `(see log)` as commit placeholder
+    — will be resolved once this session's commit is pushed.
+
+- Next steps:
+  - Resolve `(see log)` commit placeholder in §5.7 with actual hash after this commit.
+  - Push development branch.
+  - Continue tracking §5.7 KPI each session until submission.

@@ -1,0 +1,62 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Florian Krebs (ORCID 0000-0001-6033-801X)
+
+This work — including the paper text in `paper/`, the methodology and
+documentation in `docs/`, the case-study materials in `experiments/`
+authored by the copyright holder, the helper scripts in `scripts/`, the
+citation and FAIR metadata files at the repository root, and the
+top-level README — is licensed under the Creative Commons Attribution
+4.0 International License (CC BY 4.0).
+
+You may copy, redistribute, remix, transform, and build upon this work
+for any purpose, including commercially, provided that you give
+appropriate credit to the copyright holder, link to the license, and
+indicate if changes were made.
+
+The full legal text of CC BY 4.0 is available at:
+https://creativecommons.org/licenses/by/4.0/legalcode.en
+A human-readable summary is at:
+https://creativecommons.org/licenses/by/4.0/
+
+------------------------------------------------------------------------
+
+Important caveats and exclusions
+
+1. Vendor artifacts.
+   Materials under `experiments/spider-farmer/original/` and
+   `experiments/ecoflow-powerocean/original/` are vendored copies of
+   third-party works (Android APKs, vendor PDFs, community-developed
+   open-source integrations). They are NOT covered by this CC BY 4.0
+   licence. Each carries its own copyright, and any redistribution must
+   respect the original licence or vendor terms. Open redistribution
+   caveats are listed in `docs/sources.md` and tracked in
+   `docs/logbook.md`.
+
+2. Recovered credentials and live operational data.
+   Items flagged for redaction in `docs/sources.md` (notably entry
+   S-SF-5) must NOT be redistributed even under CC BY 4.0. Redaction is
+   a precondition for public release of derivatives.
+
+3. AI-generated contributions and authorship.
+   This work was prepared with substantial AI assistance from Claude
+   (Anthropic; see `paper/references.bib` `anthropic2026claude` and
+   the AI-disclosure section, paper/main.md § 9 / paper/main.tex
+   sec:ai-disclosure). Under § 2 UrhG (German Copyright Act), copyright
+   protection requires a "persönliche geistige Schöpfung" — a personal
+   intellectual creation by a human. Outputs generated solely by an AI
+   model do not, on the prevailing reading, qualify for independent
+   copyright protection in Germany. The copyright in this work is
+   therefore held by the human author named above, who has reviewed,
+   curated, edited, and accepted every paragraph. The AI is acknowledged
+   as a contributor in § 9.1, but is not and cannot be a co-author. See
+   the footnote in paper/main.md § 9.1 / paper/main.tex sec:ai-disclosure
+   for sources.
+
+4. Statement of independence.
+   This work is a hobbyist research project carried out by the author in
+   a personal capacity. It is NOT part of, endorsed by, funded by,
+   supervised by, or representative of the views of any employer,
+   including the German Aerospace Center (DLR / Deutsches Zentrum für
+   Luft- und Raumfahrt). See paper/main.md § 9.5
+   ("Statement of independence and personal capacity").

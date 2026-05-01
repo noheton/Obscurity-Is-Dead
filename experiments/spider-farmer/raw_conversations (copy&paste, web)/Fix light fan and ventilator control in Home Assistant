@@ -1,7 +1,7 @@
 
 [17:46:20.748] Passive listen for 10s …
-[17:46:20.748] Connected to 192.168.1.60:1883
-[17:46:20.748] Subscribed → SF/GGS/CB/API/UP/80F1B2B3B648
+[17:46:20.748] Connected to [REDACTED:ip:S-SF-device]:1883
+[17:46:20.748] Subscribed → SF/GGS/CB/API/UP/[REDACTED:serial:S-SF-device]
 
   [17:46:21.164] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
   [17:46:27.118] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
@@ -9,39 +9,39 @@
 [17:46:30.758] Starting 27 probes (timeout=3s each) …
 
 [17:46:30.758] → 'getConfigFile'  (empty data (getter))
-         payload: {"method": "getConfigFile", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045590, "data": {}}
+         payload: {"method": "getConfigFile", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045590, "data": {}}
 
 [17:46:30.761] ← response to [getConfigFile/empty data (getter)]  method='getConfigFile'
 {
   "method": "getConfigFile",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045590,
   "data": {}
 }
   [17:46:33.246] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:46:33.762] → 'getConfigFile'  (null data)
-         payload: {"method": "getConfigFile", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045593, "data": null}
+         payload: {"method": "getConfigFile", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045593, "data": null}
 
 [17:46:33.764] ← response to [getConfigFile/null data]  method='getConfigFile'
 {
   "method": "getConfigFile",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045593,
   "data": null
 }
 
 [17:46:36.766] → 'setOnOff'  (light on  — devType string)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045596, "data": {"devType": "light", "on": 1}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045596, "data": {"devType": "light", "on": 1}}
 
 [17:46:36.769] ← response to [setOnOff/light on  — devType string]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045596,
   "data": {
@@ -52,13 +52,13 @@
   [17:46:39.279] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
   [17:46:39.493] getSysSta: (no devices)
 [17:46:39.769] → 'setOnOff'  (blower on — devType string)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045599, "data": {"devType": "blower", "on": 1}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045599, "data": {"devType": "blower", "on": 1}}
 
 [17:46:39.771] ← response to [setOnOff/blower on — devType string]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045599,
   "data": {
@@ -68,13 +68,13 @@
 }
 
 [17:46:42.773] → 'setOnOff'  (fan on    — devType string)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045602, "data": {"devType": "fan", "on": 1}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045602, "data": {"devType": "fan", "on": 1}}
 
 [17:46:42.774] ← response to [setOnOff/fan on    — devType string]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045602,
   "data": {
@@ -84,13 +84,13 @@
 }
   [17:46:45.331] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:46:45.776] → 'setOnOff'  (heater on — devType string)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045605, "data": {"devType": "heater", "on": 1}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045605, "data": {"devType": "heater", "on": 1}}
 
 [17:46:45.779] ← response to [setOnOff/heater on — devType string]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045605,
   "data": {
@@ -100,13 +100,13 @@
 }
 
 [17:46:48.780] → 'setOnOff'  (devType 16 on)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045608, "data": {"devType": 16, "on": 1}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045608, "data": {"devType": 16, "on": 1}}
 
 [17:46:48.782] ← response to [setOnOff/devType 16 on]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045608,
   "data": {
@@ -117,13 +117,13 @@
   [17:46:49.531] getSysSta: (no devices)
   [17:46:51.466] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:46:51.783] → 'setOnOff'  (devType 21 on)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045611, "data": {"devType": 21, "on": 1}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045611, "data": {"devType": 21, "on": 1}}
 
 [17:46:51.785] ← response to [setOnOff/devType 21 on]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045611,
   "data": {
@@ -133,13 +133,13 @@
 }
 
 [17:46:54.787] → 'setOnOff'  (light on  — nested)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045614, "data": {"light": {"on": 1}}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045614, "data": {"light": {"on": 1}}}
 
 [17:46:54.790] ← response to [setOnOff/light on  — nested]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045614,
   "data": {
@@ -150,13 +150,13 @@
 }
   [17:46:57.443] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:46:57.791] → 'setOnOff'  (blower on — nested)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045617, "data": {"blower": {"on": 1}}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045617, "data": {"blower": {"on": 1}}}
 
 [17:46:57.793] ← response to [setOnOff/blower on — nested]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045617,
   "data": {
@@ -167,13 +167,13 @@
 }
   [17:46:59.554] getSysSta: (no devices)
 [17:47:00.795] → 'setOnOff'  (light on  — 'device' key)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045620, "data": {"device": "light", "on": 1}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045620, "data": {"device": "light", "on": 1}}
 
 [17:47:00.797] ← response to [setOnOff/light on  — 'device' key]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045620,
   "data": {
@@ -183,13 +183,13 @@
 }
   [17:47:02.349] getDevSta: light(on=1 lvl=35), blower(on=? lvl=0), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:47:03.798] → 'setMode'  (blower manual — devType string)
-         payload: {"method": "setMode", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045623, "data": {"devType": "blower", "modeType": 0}}
+         payload: {"method": "setMode", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045623, "data": {"devType": "blower", "modeType": 0}}
 
 [17:47:03.800] ← response to [setMode/blower manual — devType string]  method='setMode'
 {
   "method": "setMode",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045623,
   "data": {
@@ -199,13 +199,13 @@
 }
 
 [17:47:06.801] → 'setMode'  (blower auto   — devType string)
-         payload: {"method": "setMode", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045626, "data": {"devType": "blower", "modeType": 2}}
+         payload: {"method": "setMode", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045626, "data": {"devType": "blower", "modeType": 2}}
 
 [17:47:06.804] ← response to [setMode/blower auto   — devType string]  method='setMode'
 {
   "method": "setMode",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045626,
   "data": {
@@ -216,13 +216,13 @@
   [17:47:08.475] getDevSta: light(on=1 lvl=35), blower(on=? lvl=0), fan(on=1 lvl=1), heater(on=? lvl=0)
   [17:47:09.590] getSysSta: (no devices)
 [17:47:09.805] → 'setMode'  (heater manual — devType string)
-         payload: {"method": "setMode", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045629, "data": {"devType": "heater", "modeType": 0}}
+         payload: {"method": "setMode", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045629, "data": {"devType": "heater", "modeType": 0}}
 
 [17:47:09.806] ← response to [setMode/heater manual — devType string]  method='setMode'
 {
   "method": "setMode",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045629,
   "data": {
@@ -232,13 +232,13 @@
 }
 
 [17:47:12.808] → 'setMode'  (heater temp   — devType string)
-         payload: {"method": "setMode", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045632, "data": {"devType": "heater", "modeType": 3}}
+         payload: {"method": "setMode", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045632, "data": {"devType": "heater", "modeType": 3}}
 
 [17:47:12.810] ← response to [setMode/heater temp   — devType string]  method='setMode'
 {
   "method": "setMode",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045632,
   "data": {
@@ -248,13 +248,13 @@
 }
   [17:47:14.515] getDevSta: light(on=1 lvl=35), blower(on=? lvl=0), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:47:15.812] → 'setMode'  (devType 21 modeType 0)
-         payload: {"method": "setMode", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045635, "data": {"devType": 21, "modeType": 0}}
+         payload: {"method": "setMode", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045635, "data": {"devType": 21, "modeType": 0}}
 
 [17:47:15.813] ← response to [setMode/devType 21 modeType 0]  method='setMode'
 {
   "method": "setMode",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045635,
   "data": {
@@ -264,13 +264,13 @@
 }
 
 [17:47:18.815] → 'setMode'  (blower manual — nested)
-         payload: {"method": "setMode", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045638, "data": {"blower": {"modeType": 0}}}
+         payload: {"method": "setMode", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045638, "data": {"blower": {"modeType": 0}}}
 
 [17:47:18.817] ← response to [setMode/blower manual — nested]  method='setMode'
 {
   "method": "setMode",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045638,
   "data": {
@@ -282,13 +282,13 @@
   [17:47:19.661] getSysSta: (no devices)
   [17:47:20.566] getDevSta: light(on=1 lvl=35), blower(on=? lvl=0), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:47:21.819] → 'setMode'  (heater temp   — nested)
-         payload: {"method": "setMode", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045641, "data": {"heater": {"modeType": 3}}}
+         payload: {"method": "setMode", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045641, "data": {"heater": {"modeType": 3}}}
 
 [17:47:21.820] ← response to [setMode/heater temp   — nested]  method='setMode'
 {
   "method": "setMode",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045641,
   "data": {
@@ -299,13 +299,13 @@
 }
 
 [17:47:24.822] → 'setDevTimezone'  (array [tz, offset, utc])
-         payload: {"method": "setDevTimezone", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045644, "data": ["Europe/Berlin", 3600, 1777045590]}
+         payload: {"method": "setDevTimezone", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045644, "data": ["Europe/Berlin", 3600, 1777045590]}
 
 [17:47:24.824] ← response to [setDevTimezone/array [tz, offset, utc]]  method='setDevTimezone'
 {
   "method": "setDevTimezone",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045644,
   "data": [
@@ -316,13 +316,13 @@
 }
   [17:47:26.600] getDevSta: light(on=1 lvl=35), blower(on=? lvl=0), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:47:27.826] → 'setDevTimezone'  (array [tz, offset])
-         payload: {"method": "setDevTimezone", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045647, "data": ["Europe/Berlin", 3600]}
+         payload: {"method": "setDevTimezone", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045647, "data": ["Europe/Berlin", 3600]}
 
 [17:47:27.828] ← response to [setDevTimezone/array [tz, offset]]  method='setDevTimezone'
 {
   "method": "setDevTimezone",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045647,
   "data": [
@@ -332,13 +332,13 @@
 }
   [17:47:29.690] getSysSta: (no devices)
 [17:47:30.829] → 'setDevTimezone'  (dict {timezone, tzoff})
-         payload: {"method": "setDevTimezone", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045650, "data": {"timezone": "Europe/Berlin", "tzoff": 3600}}
+         payload: {"method": "setDevTimezone", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045650, "data": {"timezone": "Europe/Berlin", "tzoff": 3600}}
 
 [17:47:30.832] ← response to [setDevTimezone/dict {timezone, tzoff}]  method='setDevTimezone'
 {
   "method": "setDevTimezone",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045650,
   "data": {
@@ -348,13 +348,13 @@
 }
   [17:47:32.632] getDevSta: light(on=1 lvl=35), blower(on=? lvl=0), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:47:33.833] → 'setDevTimezone'  (dict {timezone, offset})
-         payload: {"method": "setDevTimezone", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045653, "data": {"timezone": "Europe/Berlin", "offset": 3600}}
+         payload: {"method": "setDevTimezone", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045653, "data": {"timezone": "Europe/Berlin", "offset": 3600}}
 
 [17:47:33.835] ← response to [setDevTimezone/dict {timezone, offset}]  method='setDevTimezone'
 {
   "method": "setDevTimezone",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045653,
   "data": {
@@ -364,13 +364,13 @@
 }
 
 [17:47:36.837] → 'setDevSta'  (light on  — minimal (no level))
-         payload: {"method": "setDevSta", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045656, "data": {"light": {"on": 1}}}
+         payload: {"method": "setDevSta", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045656, "data": {"light": {"on": 1}}}
 
 [17:47:36.839] ← response to [setDevSta/light on  — minimal (no level)]  method='setDevSta'
 {
   "method": "setDevSta",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045656,
   "data": {
@@ -382,13 +382,13 @@
   [17:47:38.704] getDevSta: light(on=1 lvl=35), blower(on=? lvl=0), fan(on=1 lvl=1), heater(on=? lvl=0)
   [17:47:39.729] getSysSta: (no devices)
 [17:47:39.841] → 'setDevSta'  (light off — minimal)
-         payload: {"method": "setDevSta", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045659, "data": {"light": {"on": 0}}}
+         payload: {"method": "setDevSta", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045659, "data": {"light": {"on": 0}}}
 
 [17:47:39.842] ← response to [setDevSta/light off — minimal]  method='setDevSta'
 {
   "method": "setDevSta",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045659,
   "data": {
@@ -399,13 +399,13 @@
 }
 
 [17:47:42.844] → 'setDevSta'  (light on  — with level 30)
-         payload: {"method": "setDevSta", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045662, "data": {"light": {"on": 1, "level": 30}}}
+         payload: {"method": "setDevSta", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045662, "data": {"light": {"on": 1, "level": 30}}}
 
 [17:47:42.846] ← response to [setDevSta/light on  — with level 30]  method='setDevSta'
 {
   "method": "setDevSta",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045662,
   "data": {
@@ -417,13 +417,13 @@
 }
   [17:47:44.725] getDevSta: light(on=1 lvl=35), blower(on=? lvl=0), fan(on=1 lvl=1), heater(on=? lvl=0)
 [17:47:45.848] → 'setDevSta'  (blower manual level 30)
-         payload: {"method": "setDevSta", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045665, "data": {"blower": {"modeType": 0, "on": 1, "level": 30}}}
+         payload: {"method": "setDevSta", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045665, "data": {"blower": {"modeType": 0, "on": 1, "level": 30}}}
 
 [17:47:45.850] ← response to [setDevSta/blower manual level 30]  method='setDevSta'
 {
   "method": "setDevSta",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045665,
   "data": {
@@ -436,13 +436,13 @@
 }
 
 [17:47:48.851] → 'setConfigFile'  (empty data — see error shape)
-         payload: {"method": "setConfigFile", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777045668, "data": {}}
+         payload: {"method": "setConfigFile", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777045668, "data": {}}
 
 [17:47:48.853] ← response to [setConfigFile/empty data — see error shape]  method='setConfigFile'
 {
   "method": "setConfigFile",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777045668,
   "data": {}
@@ -529,7 +529,7 @@ setOnOff works, setDevSta doesn't: The blower went from on=1 lvl=30 → off duri
 
 One open question on setOnOff semantics: The blower was already ON when we sent on:1 and it went OFF — it might be a toggle, not a set. Phase-2 probes start with the blower already off to resolve this:
 
-python tools/mqtt_discover.py --pid 80F1B2B3B648 --uid 156384 --broker 192.168.1.60 --phase2
+python tools/mqtt_discover.py --pid [REDACTED:serial:S-SF-device] --uid [REDACTED:uid:S-SF-device] --broker [REDACTED:ip:S-SF-device] --phase2
 Phase-2 also probes whether level goes in setDevSta, setOnOff, or a separate setLevel method.
 
 mqtt_discover.py was not updated properly no --phase2 parameter
@@ -547,14 +547,14 @@ Ausgeführt 3 Befehle
 --phase2 is there and working. The issue must have been that paho-mqtt wasn't installed on the machine where you ran it. The script exits at the import check before argparse even runs. Install it first:
 
 pip install paho-mqtt
-python tools/mqtt_discover.py --pid 80F1B2B3B648 --uid 156384 --broker 192.168.1.60 --phase2
+python tools/mqtt_discover.py --pid [REDACTED:serial:S-SF-device] --uid [REDACTED:uid:S-SF-device] --broker [REDACTED:ip:S-SF-device] --phase2
 The script bails with ERROR: paho-mqtt not installed before reaching argparse, so --help and --phase2 both appear to not exist. Nothing to fix in the code.
 
 here is the phase 2 log. add findings to protocol document. 
 if a phase 3 is needed design it
 [18:00:54.595] Passive listen for 10s …
-[18:00:54.637] Connected to 192.168.1.60:1883
-[18:00:54.637] Subscribed → SF/GGS/CB/API/UP/80F1B2B3B648
+[18:00:54.637] Connected to [REDACTED:ip:S-SF-device]:1883
+[18:00:54.637] Subscribed → SF/GGS/CB/API/UP/[REDACTED:serial:S-SF-device]
 
   [18:00:56.453] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
   [18:01:02.465] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
@@ -562,13 +562,13 @@ if a phase 3 is needed design it
 [18:01:04.606] Starting 15 phase-2 (targeted) probes (timeout=3s each) …
 
 [18:01:04.606] → 'setOnOff'  (blower ON (currently off) — expect ON if on:1=set)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046464, "data": {"devType": "blower", "on": 1}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046464, "data": {"devType": "blower", "on": 1}}
 
 [18:01:04.612] ← response to [setOnOff/blower ON (currently off) — expect ON if on:1=set]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046464,
   "data": {
@@ -578,13 +578,13 @@ if a phase 3 is needed design it
 }
 
 [18:01:07.611] → 'setOnOff'  (blower OFF (currently on) — expect OFF if on:0=set)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046467, "data": {"devType": "blower", "on": 0}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046467, "data": {"devType": "blower", "on": 0}}
 
 [18:01:07.613] ← response to [setOnOff/blower OFF (currently on) — expect OFF if on:0=set]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046467,
   "data": {
@@ -594,13 +594,13 @@ if a phase 3 is needed design it
 }
   [18:01:08.506] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [18:01:10.615] → 'setOnOff'  (light OFF (currently on) — confirm on:0=off)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046470, "data": {"devType": "light", "on": 0}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046470, "data": {"devType": "light", "on": 0}}
 
 [18:01:10.617] ← response to [setOnOff/light OFF (currently on) — confirm on:0=off]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046470,
   "data": {
@@ -610,13 +610,13 @@ if a phase 3 is needed design it
 }
   [18:01:12.500] getSysSta: (no devices)
 [18:01:13.619] → 'setOnOff'  (light ON — restore)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046473, "data": {"devType": "light", "on": 1}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046473, "data": {"devType": "light", "on": 1}}
 
 [18:01:13.621] ← response to [setOnOff/light ON — restore]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046473,
   "data": {
@@ -626,13 +626,13 @@ if a phase 3 is needed design it
 }
   [18:01:14.570] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [18:01:16.622] → 'setOnOff'  (blower on + level 50 — devType string)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046476, "data": {"devType": "blower", "on": 1, "level": 50}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046476, "data": {"devType": "blower", "on": 1, "level": 50}}
 
 [18:01:16.624] ← response to [setOnOff/blower on + level 50 — devType string]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046476,
   "data": {
@@ -643,13 +643,13 @@ if a phase 3 is needed design it
 }
 
 [18:01:19.626] → 'setOnOff'  (blower level 75 — devType string (no on field))
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046479, "data": {"devType": "blower", "level": 75}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046479, "data": {"devType": "blower", "level": 75}}
 
 [18:01:19.628] ← response to [setOnOff/blower level 75 — devType string (no on field)]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046479,
   "data": {
@@ -659,13 +659,13 @@ if a phase 3 is needed design it
 }
   [18:01:20.693] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [18:01:22.630] → 'setOnOff'  (light level 50 — devType string)
-         payload: {"method": "setOnOff", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046482, "data": {"devType": "light", "on": 1, "level": 50}}
+         payload: {"method": "setOnOff", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046482, "data": {"devType": "light", "on": 1, "level": 50}}
 
 [18:01:22.632] ← response to [setOnOff/light level 50 — devType string]  method='setOnOff'
 {
   "method": "setOnOff",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046482,
   "data": {
@@ -676,13 +676,13 @@ if a phase 3 is needed design it
 }
   [18:01:22.639] getSysSta: (no devices)
 [18:01:25.633] → 'setMode'  (blower → manual (modeType 0))
-         payload: {"method": "setMode", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046485, "data": {"devType": "blower", "modeType": 0}}
+         payload: {"method": "setMode", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046485, "data": {"devType": "blower", "modeType": 0}}
 
 [18:01:25.635] ← response to [setMode/blower → manual (modeType 0)]  method='setMode'
 {
   "method": "setMode",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046485,
   "data": {
@@ -692,13 +692,13 @@ if a phase 3 is needed design it
 }
   [18:01:26.836] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [18:01:28.637] → 'setDevSta'  (blower level 40 — no on field (manual mode set))
-         payload: {"method": "setDevSta", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046488, "data": {"blower": {"level": 40}}}
+         payload: {"method": "setDevSta", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046488, "data": {"blower": {"level": 40}}}
 
 [18:01:28.638] ← response to [setDevSta/blower level 40 — no on field (manual mode set)]  method='setDevSta'
 {
   "method": "setDevSta",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046488,
   "data": {
@@ -709,13 +709,13 @@ if a phase 3 is needed design it
 }
 
 [18:01:31.640] → 'setDevSta'  (blower on + level 40 (manual mode set))
-         payload: {"method": "setDevSta", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046491, "data": {"blower": {"on": 1, "level": 40}}}
+         payload: {"method": "setDevSta", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046491, "data": {"blower": {"on": 1, "level": 40}}}
 
 [18:01:31.642] ← response to [setDevSta/blower on + level 40 (manual mode set)]  method='setDevSta'
 {
   "method": "setDevSta",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046491,
   "data": {
@@ -728,13 +728,13 @@ if a phase 3 is needed design it
   [18:01:32.582] getSysSta: (no devices)
   [18:01:32.786] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [18:01:34.644] → 'setDevSta'  (blower full payload modeType+on+level)
-         payload: {"method": "setDevSta", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046494, "data": {"blower": {"modeType": 0, "on": 1, "level": 40}}}
+         payload: {"method": "setDevSta", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046494, "data": {"blower": {"modeType": 0, "on": 1, "level": 40}}}
 
 [18:01:34.646] ← response to [setDevSta/blower full payload modeType+on+level]  method='setDevSta'
 {
   "method": "setDevSta",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046494,
   "data": {
@@ -747,13 +747,13 @@ if a phase 3 is needed design it
 }
 
 [18:01:37.648] → 'setLevel'  (blower level 50)
-         payload: {"method": "setLevel", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046497, "data": {"devType": "blower", "level": 50}}
+         payload: {"method": "setLevel", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046497, "data": {"devType": "blower", "level": 50}}
 
 [18:01:37.650] ← response to [setLevel/blower level 50]  method='setLevel'
 {
   "method": "setLevel",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046497,
   "data": {
@@ -763,13 +763,13 @@ if a phase 3 is needed design it
 }
   [18:01:38.818] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [18:01:40.651] → 'setLevel'  (light level 50)
-         payload: {"method": "setLevel", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046500, "data": {"devType": "light", "level": 50}}
+         payload: {"method": "setLevel", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046500, "data": {"devType": "light", "level": 50}}
 
 [18:01:40.653] ← response to [setLevel/light level 50]  method='setLevel'
 {
   "method": "setLevel",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046500,
   "data": {
@@ -779,13 +779,13 @@ if a phase 3 is needed design it
 }
   [18:01:42.607] getSysSta: (no devices)
 [18:01:43.655] → 'setLevel'  (blower nested)
-         payload: {"method": "setLevel", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046503, "data": {"blower": {"level": 50}}}
+         payload: {"method": "setLevel", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046503, "data": {"blower": {"level": 50}}}
 
 [18:01:43.658] ← response to [setLevel/blower nested]  method='setLevel'
 {
   "method": "setLevel",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046503,
   "data": {
@@ -796,13 +796,13 @@ if a phase 3 is needed design it
 }
   [18:01:44.902] getDevSta: light(on=1 lvl=35), blower(on=1 lvl=30), fan(on=1 lvl=1), heater(on=? lvl=0)
 [18:01:46.658] → 'setMode'  (blower → auto (modeType 2) — restore)
-         payload: {"method": "setMode", "pid": "80F1B2B3B648", "uid": "156384", "pcode": 1004, "UTC": 1777046506, "data": {"devType": "blower", "modeType": 2}}
+         payload: {"method": "setMode", "pid": "[REDACTED:serial:S-SF-device]", "uid": "[REDACTED:uid:S-SF-device]", "pcode": 1004, "UTC": 1777046506, "data": {"devType": "blower", "modeType": 2}}
 
 [18:01:46.661] ← response to [setMode/blower → auto (modeType 2) — restore]  method='setMode'
 {
   "method": "setMode",
-  "pid": "80F1B2B3B648",
-  "uid": "156384",
+  "pid": "[REDACTED:serial:S-SF-device]",
+  "uid": "[REDACTED:uid:S-SF-device]",
   "pcode": 1004,
   "UTC": 1777046506,
   "data": {
@@ -889,10 +889,10 @@ SF/GGS/CB/API/UP/{PID} is uplink-only. The device publishes status there but sub
 Phase-3 has two strategies:
 
 EMQX admin API — fastest, no guessing:
-curl http://192.168.1.60:18083/api/v5/clients         # find device client ID
-curl http://192.168.1.60:18083/api/v5/subscriptions   # list all subscriptions
+curl http://[REDACTED:ip:S-SF-device]:18083/api/v5/clients         # find device client ID
+curl http://[REDACTED:ip:S-SF-device]:18083/api/v5/subscriptions   # list all subscriptions
 Brute-force candidate topics via the script — publishes setOnOff light off to each candidate and watches getDevSta for a light state change:
-python tools/mqtt_discover.py --pid 80F1B2B3B648 --uid 156384 --broker 192.168.1.60 --phase3
+python tools/mqtt_discover.py --pid [REDACTED:serial:S-SF-device] --uid [REDACTED:uid:S-SF-device] --broker [REDACTED:ip:S-SF-device] --phase3
 Candidates tested: DOWN, DN, SET, bare {PID}, sub-topics of UP.
 The EMQX API is the most reliable first step — try that before running --phase3.
 

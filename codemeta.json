@@ -1,0 +1,66 @@
+{
+  "@context": "https://w3id.org/codemeta/3.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "obscurity-is-dead",
+  "name": "Obscurity-Is-Dead",
+  "description": "Research-as-code repository for the paper 'AI-Assisted Hacking: Key to Interoperability or Security Nightmare?'. Contains the paper sources (paper/main.md, paper/main.tex), case-study artifacts, AI conversation transcripts, methodology, logbook, and FAIR/citation metadata.",
+  "codeRepository": "https://github.com/noheton/Obscurity-Is-Dead",
+  "url": "https://github.com/noheton/Obscurity-Is-Dead",
+  "issueTracker": "https://github.com/noheton/Obscurity-Is-Dead/issues",
+  "version": "0.2.0",
+  "datePublished": "2026-05-01",
+  "dateModified": "2026-05-01",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "developmentStatus": "active",
+  "keywords": [
+    "AI-assisted reverse engineering",
+    "large language models",
+    "effort gap",
+    "security through obscurity",
+    "Internet of Things",
+    "Bluetooth Low Energy",
+    "Home Assistant",
+    "right to repair",
+    "dual use",
+    "sloppification of science",
+    "model collapse",
+    "DFG good research practice",
+    "FAIR data principles"
+  ],
+  "programmingLanguage": [
+    "Markdown",
+    "LaTeX",
+    "Python",
+    "Shell"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Florian",
+      "familyName": "Krebs",
+      "@id": "https://orcid.org/0000-0001-6033-801X",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Independent researcher (personal capacity)"
+      }
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Claude (Opus 4.7 model family)",
+      "url": "https://www.anthropic.com/claude",
+      "producer": {
+        "@type": "Organization",
+        "name": "Anthropic"
+      },
+      "description": "AI assistant used in preparation of this work. Conversation transcripts are committed under experiments/*/raw_conversations (copy&paste, web)/."
+    }
+  ],
+  "funding": "This work was carried out in the author's personal capacity, without external funding. It is not part of, endorsed by, or representative of the views of any employer, including DLR (Deutsches Zentrum für Luft- und Raumfahrt).",
+  "referencePublication": {
+    "@type": "ScholarlyArticle",
+    "name": "AI-Assisted Hacking: Key to Interoperability or Security Nightmare?",
+    "url": "https://github.com/noheton/Obscurity-Is-Dead/blob/main/paper/main.md"
+  }
+}
