@@ -140,6 +140,32 @@ This logbook is the operating record for the paper and research process.
   - Draft a structured case study audit summary with artifact inventory, provenance mapping, and validation actions.
   - Continue aligning transcript evidence with the paper and source documentation.
 
+### 2026-05-01 (provenance maps and sources seed)
+- Session lead: Researcher (with AI-assisted drafting)
+- Actions taken:
+  - Executed the research-protocol agent prompt (`docs/research-protocol-prompt.md`) against both case studies.
+  - Surfaced the gap that `experiments/spider-farmer/original/` and `experiments/ecoflow-powerocean/original/` are empty in the working tree, despite both `REPORT.md` files referencing artifacts under those paths.
+  - Added a per-case-study provenance matrix linking each preserved chat transcript to the technical claims and external code references it underpins.
+  - Replaced the empty `docs/sources.md` template with a seeded source register covering the externally-referenced community implementations (Spider Farmer), the EcoFlow Open API materials, the HACS publishing guide, OCPP, and the § 69e UrhG / EU 2009/24/EC legal framing. Each entry carries an explicit verification status: `[repo-verified]`, `[unverified-external]`, or `[needs-research]`.
+  - Recorded that the AI-generated § 69e UrhG opinion captured in the EcoFlow transcripts is not legal advice and must be replaced with sourced legal commentary before any legal framing appears in the paper.
+- Files updated:
+  - `experiments/spider-farmer/provenance.md` (new)
+  - `experiments/ecoflow-powerocean/provenance.md` (new)
+  - `docs/sources.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Use a verification-status legend (`[repo-verified]` / `[unverified-external]` / `[needs-research]`) so that the source register can be honest about what has and has not been independently checked.
+  - Keep external-repository pins (e.g. PR numbers, short commit SHAs) inside the per-case-study `provenance.md` rather than scattered through `REPORT.md`.
+  - Do not introduce any literature citation that has not been retrieved and read; mark every such gap as `[needs-research]`.
+- Open issues:
+  - Original artifacts referenced by both `REPORT.md` files remain absent from the repo. Decide whether to vendor them, gitignore them with documented hashes, or replace with canonical-URL references.
+  - External integration repositories (Spider Farmer `noheton/spider_farmer` PR #9; EcoFlow `powerocean_dev` branch `claude/refactor-ha-integration-7dnMI`, release `v2026.05.01`) need to be pinned by full commit SHA.
+  - `docs/sources.md` `[needs-research]` items should be filled before drafting paper claims that depend on prior literature.
+- Next steps:
+  - Begin a literature-search session targeting the originality-check and security-risk items in `docs/sources.md`.
+  - Reconcile the two EcoFlow write-API descriptions (`setDeviceProperty` vs `device/quota`) in `REPORT.md` §5.1.
+  - Address the empty `Add logo to integration and repository.txt` transcript in the Spider Farmer case study.
+
 ## Change History
 - [2026-05-01] Initial logbook entry created and the repository research process documented.
 - [2026-05-01] Added methodology review log entry and committed to chat/conversation tracking.
@@ -148,3 +174,32 @@ This logbook is the operating record for the paper and research process.
 - [2026-05-01] Added KPI framework log entry and measurement guidance.
 - [2026-05-01] Performed an AI-assisted research audit across imported case studies and verified experiment artifact presence.
 - [2026-05-01] Created detailed `REPORT.md` summaries for `experiments/spider-farmer` and `experiments/ecoflow-powerocean` and linked them from each README.
+- [2026-05-01] Added per-case-study `provenance.md` files and seeded `docs/sources.md` with verification-status-tagged source entries.
+- [2026-05-01] Re-ran the audit against the embedded vendor copies (commit `ffdf60c`); upgraded source register entries from `[repo-referenced]`/`[unverified-external]` to `[repo-vendored]` and verified each transcript's technical claims against the actual code.
+
+### 2026-05-01 (audit against embedded vendor code)
+- Session lead: Researcher (with AI-assisted analysis)
+- Actions taken:
+  - Rebased the audit branch onto `origin/main` to pick up `ffdf60c` (*feat(experiments): embed vendor repos as plain files for agent access*), which materialises both case-study `original/` directories as plain files instead of submodule pins.
+  - Verified every transcript-recorded technical claim against the actual code in `original/`:
+    - **Spider Farmer** — confirmed corrected CB key/IV (`const.py` lines 45-47), static-IV-first decrypt path (`ble_protocol.py` 195-204), `asyncio.Lock` for write serialisation (`ble_coordinator.py` 79), `async_migrate_entry` (`__init__.py` 95), bluetooth match rules (`manifest.json`), and the dynamic-IV slice formula. Discovered the integration is now at `VERSION = 3` (`config_flow.py` 87) and `"version": "3.0.0"` (`manifest.json`), past the T4-era `1→2` migration.
+    - **EcoFlow PowerOcean** — confirmed the regex fix `(?<!st)(amp\|current)$` (`types.py` 90), version `2026.05.01` (`manifest.json` 12), domain `powerocean_dev` (`const.py` 10), 3-step config flow (`config_flow.py`, 510 lines), and the legacy `setDeviceProperty` write path (`api.py` 306). The previously-open "two API surfaces" question is resolved by `original/doc/apk.md` line 52, which documents three surfaces and the integration's choice to use the legacy endpoint.
+  - Surfaced new evidence not anticipated by the prior audit: in Spider Farmer, the community discussion in `original/doc/log.md` documents the MQTT-broker MITM and recovered credentials (`sf_ggs_cb` / `euuavURS4Kp9bMUfYmvwl-`) — a strong piece of independent evidence for the security claim. In EcoFlow, the four committed APKs and the six raw extraction logs are now first-class artifacts.
+  - Identified two corrections to the prior audit: (a) the upstream of `powerocean_dev` is `niltrip/powerocean`, not `noheton/powerocean` (per `const.py` `ISSUE_URL`); (b) the empty Spider Farmer transcript T7 ("Add logo…") was preserved as zero bytes, but the deliverable (`original/logo.png`, `original/brand/icon.png`, `icon@2x.png`) was actually completed.
+  - Rewrote both `provenance.md` files to map each transcript to specific verified files and line numbers in `original/`. Updated `docs/sources.md` to upgrade most entries from `[repo-referenced]` to `[repo-vendored]`, added the four APKs and the user manuals as new source entries, and refined the verification-status legend.
+  - Recorded redaction risks for any public release: device serial `80F1B2B3B648`, broker IP `192.168.1.60`, and the recovered MQTT password.
+- Files updated:
+  - `experiments/spider-farmer/provenance.md`
+  - `experiments/ecoflow-powerocean/provenance.md`
+  - `docs/sources.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Promote `[repo-vendored]` as a stronger verification status than `[repo-referenced]` to reflect that artifacts are now directly cite-able.
+  - Treat the missing HA log files (the `home-assistant_spider_farmer_*.log` series) as the only outstanding artifact gap in the Spider Farmer case study.
+- Open issues:
+  - § 69e UrhG / EU 2009/24/EC remain `[unverified-external]`; AI-generated legal opinions are still flagged as not legal advice.
+  - Vendor APK and PDF redistribution status needs to be checked before any public release.
+  - The `VERSION 2 → 3` migration step in Spider Farmer is not documented by any preserved transcript and should be reconstructed.
+- Next steps:
+  - Begin the literature search for the `[needs-research]` items in `docs/sources.md`.
+  - Decide on a redaction policy for the live credentials and device identifiers in the case-study artifacts before any public release.
