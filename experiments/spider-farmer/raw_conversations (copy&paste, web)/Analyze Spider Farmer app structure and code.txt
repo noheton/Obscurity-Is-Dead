@@ -1,0 +1,113 @@
+
+finish the documents
+
+
+Ausgeführt ein Befehl, erstellt 5 Dateien
+Now commit and push everything.
+
+
+Ausgeführt 4 Befehle
+Five documents pushed to doc/apk_analysis/. Here's a summary of what each covers:
+
+README.md — index and extraction method notes.
+
+infrastructure.md — MQTT broker (sf.mqtt.spider-farmer.com:8333), TLS cert files (extracted from APK), credentials, REST base URL, and all six device-type codes (GGS/CB, GGS/ICB, GGS/LC, GGS/PS1/5/10).
+
+api_endpoints.md — all 50+ REST endpoints under https://api.spider-farmer.com/, grouped by function: auth, account, device management, firmware, sensor history, alarm logs, grow plans, products, data export.
+
+mqtt_protocol.md — full envelope schema (method/pid/uid/pcode/UTC/data), every get* and set* MQTT method with payload shapes, and a complete field dictionary for getDevSta sub-objects: sensor, soilSensor, light, light2, fan, blower, heater, dehumidifier, humidifier, co2, spray, waterPump, outlet, plan, getSysSta paths, and alarm codes.
+
+ble_analysis.md — the main new finding:
+
+Service 000000ff / Write char 0000ff01 / Notify char 0000ff02
+Key candidate J4G0M9dX1f1v3fXr (16 bytes, AES-128) — found immediately after PointyCastle's passthrough (no-padding) cipher setup string, making it the strongest BLE key candidate
+Cipher mode is likely AES-OFB or AES-CTR (no padding, based on context)
+IV is unknown; document gives three hypotheses (zero IV, device MAC, embedded nonce) and a Python decrypt skeleton to test each
+
+Ausgeführt 2 Befehle
+These are the raw extracted APK directories — 61 MB of binaries. They shouldn't be committed; I'll gitignore them instead.
+
+
+Gelesen eine Datei, bearbeitet eine Datei, ausgeführt 2 Befehle
+Added the three doc/apk_*_extracted/ directories to .gitignore — they're 60 MB of binary working files from unpacking the APK, not source artifacts. The repo is clean now.
+
+i added esphome-spiderfarmer_ble-encrypt.zip to the main branch. its a esphome component supposed to decrypt the ble traffic
+
+
+Ausgeführt 2 Befehle, gelesen 2 Dateien
+API-Fehler
+You've hit your limit · resets 6:10pm (UTC)
+in the main branch
+i added /doc/esphome-spiderfarmer_ble-encrypt.zip to the main branch. its a esphome component supposed to decrypt the ble traffic. 
+i added also /doc/discussion.md related to ivs and keys
+i added /doc/SpiderBLEBridge-master.zip another system claiming to achive BLE decryption .
+another implementation /doc/PythonSpiderController-main.zip
+for verification i added /doc/Spider Farmer_2.4.0_APKPure.zip (newest version of the app)
+please integrate the info in these documents in the reports. also commonatilities and divergions in implementaion.
+
+I added a first implementation of a home assistant component doc/spider_farmer_ble . 
+some runs of this extension have been captured in /doc/home-assistant_*.log (some might be based on older iterations of the component.)
+
+in the long run I would like to switch to BLE. as the mqtt integration is quite involved regarding certs and dns rewrites but currently i am trying to concentrate information.
+
+Let me pull everything from main and read it all in parallel before writing anything.
+
+
+Ausgeführt 5 Befehle
+Good. Now read everything in parallel.
+
+
+Ausgeführt 16 Befehle
+Now read all the source files in parallel:
+
+
+Ausgeführt 5 Befehle
+Let me read the remaining unread files before writing the updated documents.
+
+
+Ausgeführt 5 Befehle, gelesen 7 Dateien
+Now I have all the data I need. Let me check what the current ble_analysis.md looks like before rewriting it.
+
+
+Gelesen eine Datei, ausgeführt ein Befehl
+I now have all the data. Let me write both documents.
+
+Erstellt
+ble_analysis.md
++345
+-0
+Now write the implementations comparison document:
+
+Erstellt
+implementations.md
++239
+-0
+Now update the README index to include the new file:
+
+
+Gelesen eine Datei, bearbeitet eine Datei
+Now commit and push:
+
+
+Ausgeführt 4 Befehle
+Done. Here's a summary of what was written and the key findings integrated:
+
+doc/apk_analysis/ble_analysis.md — complete rewrite with confirmed data:
+
+Corrected UUID roles (ff01=Notify device→app, ff02=Write app→device — old doc had them swapped)
+Corrected cipher: AES-128 CBC not OFB/CTR
+Full KEY/IV table: two confirmed pairs (LED: BkJu61kLt3afuogT/2AKVNUbU4mvU3Elt; PS10: lVIlATSlxaS1btfd/84Rf7SUkinfvxNlc) + all 14 APK candidates
+Exact byte-level packet framing with an important note: the footer CRC is not included in outer_payload_len
+Correct dynamic IV derivation: inner-header bytes 6–19 + \x00\x00
+Working Python decrypt snippet using CBC
+Known issues found in the live HA logs (April 2026)
+doc/apk_analysis/implementations.md — new cross-implementation document covering 9 divergences between the four codebases, with three specific bugs found in doc/spider_farmer_ble/ and their fixes.
+
+Key actionable finding for your CB controller: the HA BLE component fails to decrypt because it uses the LED key as default. The CB key is unconfirmed — J4G0M9dX1f1v3fXr is the strongest candidate. The implementations.md includes a brute-force script to try all 196 key/IV permutations against a captured ciphertext.
+
+
+Ausgeführt 2 Befehle
+Committed and pushed the extracted PythonSpiderController-main/ directory. The repository is now clean.
+
+
+

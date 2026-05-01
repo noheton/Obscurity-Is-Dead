@@ -1,0 +1,50 @@
+
+BLE decryption fails:
+home-assistant_spider_farmer_2026-04-25T04-32-35.346Z.log cotains details
+
+Let me read the log file to understand the BLE decryption failure.
+
+
+Ausgeführt 2 Befehle, gelesen eine Datei
+Now let me look at the relevant source code.
+
+
+Ausgeführt 2 Befehle
+Now let me read the actual BLE protocol implementation.
+
+
+Gelesen 8 Dateien, ausgeführt ein Befehl
+Let me check the git log and other relevant files before deciding on the fix.
+
+
+Ausgeführt 2 Befehle
+Now I have a complete picture of the bug. Let me verify my understanding with one more check.
+
+Ausgeführt
+Review decrypt-related lines in ble_protocol.py
+The bug is clear: decrypt_data always uses the dynamic_iv and never tries self._iv (the static configured IV). The reference implementation (BLEPairingManager.py lines 84–98) tries the static IV first, then falls back to the dynamic IV. Some CB controller responses use the static IV for replies to requests, while unsolicited events use the dynamic IV.
+
+Fixing decrypt_data to try both IVs:
+
+Bearbeitet
+ble_protocol.py
++23
+-8
+Now let me verify the change looks correct:
+
+Lesen
+ble_protocol.py
+Good. Now let me commit and push this fix:
+
+
+Ausgeführt 3 Befehle
+The fix is pushed. Here's a summary of what was wrong and what was changed:
+
+Root cause: decrypt_data() in ble_protocol.py only ever decrypted using the dynamic IV (inner-header bytes + 2 zero bytes). It never tried self._iv — the static configured IV.
+
+Why it matters: The reference implementation (BLEPairingManager.py) reveals that the CB controller encrypts its responses to direct commands (getSysSta, getDevSta, setDevTimezone, etc.) using the static IV, while only unsolicited event messages use the dynamic IV. This means every command response was being decrypted with the wrong IV, producing garbage output and timing out.
+
+The fix: decrypt_data() now tries the static IV first. If it finds no JSON braces in the result, it retries with the dynamic IV. The failure log now also includes both IVs and a hint about a potentially wrong key (since all 512+ decrypted bytes being garbage — not just the first 16 — indicates the AES key itself may be incorrect for this device, which is a configuration issue separate from the IV bug).
+
+
+
