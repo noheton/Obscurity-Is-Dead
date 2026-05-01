@@ -312,6 +312,27 @@ The register is organised by paper claim. Inline IDs (`L-RE-1` etc.) are stable 
 
 ---
 
+### Claim cluster K — Consumer-IoT base-rate of vulnerability vs.\ industrial / more-expensive hardware
+*Supports `paper/main.md` §6.4 ("Limits of the comparison"). Anchors the qualifier that the case selection over-samples consumer-grade hardware and that industrial / higher-end hardware may have a different — though not automatically better — security posture.*
+
+#### Consumer-IoT base rate (supports: consumer hardware is broadly vulnerable)
+- **L-CONS-1** [A Large-Scale Empirical Study on the Vulnerability of Deployed IoT Devices](https://consensus.app/papers/details/96ce1ba513cc5e1ea0d401872ec4cebd/?utm_source=claude_desktop) (Zhao et al., 2022, *IEEE TDSC*, 60 citations). **[lit-retrieved]**. **Headline statistic for the consumer-IoT base rate**: 1,362,906 IoT devices analysed; 385,060 (**28.25%**) have at least one N-days vulnerability; 12,740 (**88%**) of analysed MQTT servers have no password protection. This is direct quantitative anchor for "a lot of customer-market equipment is probably vulnerable".
+- **L-CONS-2** [All Things Considered: An Analysis of IoT Devices on Home Networks](https://consensus.app/papers/details/7ad606e797c35fd5980a0dd177ae3cf9/?utm_source=claude_desktop) (Kumar et al., 2019, 180 citations). **[lit-retrieved]**. 83M devices across 16M households. Documents weak default credentials, regional variance, and open services. Most-cited large-scale home-IoT measurement.
+- **L-CONS-3** [Vulnerability Studies and Security Postures of IoT Devices: A Smart Home Case Study](https://consensus.app/papers/details/59cd9de8fe195482a4d09872115f9c48/?utm_source=claude_desktop) (Davis et al., 2020, *IEEE IoT J*, 91 citations). **[lit-retrieved]**. **Directly relevant qualifier**: comparison between well-known and lesser-known vendors finds the lesser-known vendors are systematically worse-regulated and less-scrutinised. Spider Farmer and EcoFlow PowerOcean both fit the "lesser-known" pattern.
+- **L-CONS-4** [Consumer IoT: Security Vulnerability Case Studies and Solutions](https://consensus.app/papers/details/c6db9afaffb752a08c414f883ca8a765/?utm_source=claude_desktop) (Alladi et al., 2020, *IEEE Consumer Electronics Magazine*, 264 citations). **[lit-retrieved]**. Survey of common attacks on consumer-IoT devices.
+- **L-CONS-5** [Identifying vulnerabilities of consumer IoT devices: A scalable approach](https://consensus.app/papers/details/bd19e356a9615949adca4d8ad07ea80e/?utm_source=claude_desktop) (Williams et al., 2017, *IEEE ISI*, 97 citations). **[lit-retrieved]**. Shodan + Nessus large-scale assessment; significant fraction of internet-exposed consumer IoT vulnerable.
+- **L-CONS-6** [Ranking Security of IoT-Based Smart Home Consumer Devices](https://consensus.app/papers/details/7e8fd857ebc851d59937fb0aa2d13324/?utm_source=claude_desktop) (AlLifah et al., 2022, *IEEE Access*, 52 citations). **[lit-retrieved]**. AHP-based ranking model of consumer-device categories; useful framework for the §3/§4 case-study positioning.
+
+#### Industrial / IIoT / ICS posture (qualifier: industrial *may* be different but is not automatically immune)
+- **L-IND-1** [Challenges and Opportunities in Securing the Industrial Internet of Things](https://consensus.app/papers/details/53953289a84e5c7fb6a65b89f321b5c5/?utm_source=claude_desktop) (Serror et al., 2020, *IEEE TII*, 247 citations). **[lit-retrieved]**. **Most directly relevant framing for the user's hypothesis**: argues that IIoT shares many similarities with consumer IoT but has *different* security goals (safety-driven, longer component lifetimes, larger network scale). Supports the *partial* form of the user's hypothesis: industrial requirements differ, sometimes for the better, but introduce their own challenges.
+- **L-IND-2** [The Global State of Security in Industrial Control Systems: An Empirical Analysis of Vulnerabilities Around the World](https://consensus.app/papers/details/73a4bbc9a2d75cb389c2fa949558a928/?utm_source=claude_desktop) (Antón et al., 2021, *IEEE IoT J*). **[lit-retrieved]**. **Crucial counterweight to the user's hypothesis**: finds **>13,000 OT/ICS devices directly exposed on the public internet, almost all containing at least one vulnerability**. Industrial hardware is not automatically more secure once it is reachable. Demonstrates that the "industrial-grade therefore safer" intuition is empirically too strong.
+- **L-IND-3** [Cybersecurity in industrial control systems: Issues, technologies, and challenges](https://consensus.app/papers/details/ad9e4141e1bc5013afd52e486896e910/?utm_source=claude_desktop) (Asghar et al., 2019, *Computer Networks*, 110 citations). **[lit-retrieved]**. Documents that ICS were designed for isolated environments and that modern IT/business integration introduces unanticipated cybersecurity challenges. Useful structural critique.
+- **L-IND-4** [Cyber Threats to Industrial IoT: A Survey on Attacks and Countermeasures](https://consensus.app/papers/details/9fe92ca76354502d9c19578729d58a6c/?utm_source=claude_desktop) (Tsiknas et al., 2021, *IoT*, 132 citations). **[lit-retrieved]**. Survey of IIoT-specific attacks.
+- **L-IND-5** [Industrial IoT, Cyber Threats, and Standards Landscape: Evaluation and Roadmap](https://consensus.app/papers/details/7ac2a8f0eab65334892ddebc58849df5/?utm_source=claude_desktop) (Dhirani et al., 2021, *Sensors*, 99 citations). **[lit-retrieved]**. Standards-landscape view; relevant for the "regulation and certification raise the floor" hypothesis.
+- **L-IND-6** [Securing Industrial Control Systems: Components, Cyber Threats, and ML-Driven Defense](https://consensus.app/papers/details/897b343801955e27b7158083e6b6557d/?utm_source=claude_desktop) (Nankya et al., 2023, *Sensors*, 56 citations). **[lit-retrieved]**. ICS components and threat overview.
+
+---
+
 ### Coverage table — `[needs-research]` items resolved by this session
 
 | Original `[needs-research]` item | Status after this session | Primary anchor(s) |
@@ -328,6 +349,7 @@ The register is organised by paper claim. Inline IDs (`L-RE-1` etc.) are stable 
 | Counter-positions: interoperability increases risk | Candidates retrieved | L-COUNTER-1, L-COUNTER-2, L-COUNTER-3 |
 | Sloppification of science by generative AI | Candidates retrieved | L-SLOP-1, L-SLOP-2, L-SLOP-4, L-SLOP-7, L-SLOP-8 |
 | Model collapse and dilution of the scientific commons | Candidates retrieved | L-MC-1, L-MC-3, L-MC-4 |
+| Consumer-IoT base rate of vulnerability vs.\ industrial / IIoT / ICS posture | Candidates retrieved | L-CONS-1, L-CONS-2, L-CONS-3 (consumer); L-IND-1, L-IND-2 (industrial qualifier) |
 
 ### Open questions and gaps
 - All entries above are **[lit-retrieved]**, not **[lit-read]**. The first concrete paper claim that depends on any of these citations must wait until the entry is upgraded to `[lit-read]` after the researcher has read the full text.

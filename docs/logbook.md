@@ -317,3 +317,25 @@ This logbook is the operating record for the paper and research process.
 - Next steps:
   - Targeted German-language search to upgrade the UrhG sources from `[unverified-external]` to `[lit-read]` (or to retrieve their canonical URLs).
   - Mint the Zenodo DOI now that the license is resolved.
+
+### 2026-05-01 (consumer vs industrial qualifier; §10 Pandora-moment novelty section)
+- Session lead: Researcher (with AI-assisted literature retrieval and drafting)
+- Actions taken:
+  - **§6.4 expansion ("Limits of the comparison").** Added an anchored two-part qualifier addressing the user's hypothesis that industrial / more expensive hardware might solve the obscurity problem while consumer-market equipment is probably vulnerable. Sourced both halves: (a) consumer-IoT base rate is empirically high and not anomalous (Zhao et al. 2022 — 28.25% N-days vulnerability across 1,362,906 devices, 88% MQTT no-password; Kumar et al. 2019 — 83M devices in 16M households; Davis et al. 2020 — well-known vs lesser-known vendors; Sivakumaran et al. 2023 — >70% of 17,243 BLE APKs vulnerable); (b) industrial / IIoT / ICS is *not* automatically immune (Antón et al. 2021 — >13,000 OT devices on public internet, almost all with at least one vulnerability; Serror et al. 2020 — IIoT shares concerns with consumer IoT; Asghar et al. 2019 — ICS legacy designs broken by enterprise integration).
+  - **`docs/sources.md` Cluster K** added: "Consumer-IoT base rate of vulnerability vs. industrial / IIoT / ICS posture". 12 citations split into a consumer sub-cluster (L-CONS-1..L-CONS-6) and an industrial sub-cluster (L-IND-1..L-IND-6). All `[lit-retrieved]`. Coverage table updated.
+  - **§10 "The Pandora moment: this paper as a novel mode of transparent AI-assisted research"** added to both `paper/main.md` and `paper/main.tex` per rule 11. Opens with a Hesiod *Works and Days* (ll. 96–98, Evelyn-White 1914 trans.) epigraph anchoring the Pandora's-box framing on the canonical historical source. Argues that the paper's novelty is *artifact-level disclosure* (transcripts, verification-status legend, provenance maps, mirror discipline, recursive case study, AI disclosure with empirical base rates, legal-honesty footnote on UrhG, FAIR alignment) integrated into a single executable research protocol. Contrasts with the two prevailing failure modes (concealment; token disclosure) documented quantitatively in cluster I. Closes: "Pandora's box is open. The Hope that remains is the kind that does work."
+- Files updated:
+  - `docs/sources.md`, `docs/logbook.md`
+  - `paper/main.md`, `paper/main.tex`
+- Key decisions:
+  - Place the Pandora-moment section as a new §10 *after* §9 (AI usage disclosure) so the disclosure sits inside the methodology it formalises and the meta-argument follows. Keeps prior §-numbering stable.
+  - Use a Hesiod epigraph rather than a more modern quote (Curie, Wiener, Heisenberg were considered): the Pandora myth is the user's chosen frame, and the canonical Hesiodic detail that *Hope* alone remained inside the jar is the point of the section.
+  - Frame the novelty claim as *integration*, not invention: each individual practice (transcripts, verification statuses, provenance maps, FAIR) has prior art; the integration into a single executable protocol is what we claim is new.
+- Open issues:
+  - Cluster K entries are `[lit-retrieved]` only; upgrade to `[lit-read]` before any are cited as authority.
+  - The Hesiod attribution (Evelyn-White, Loeb 1914) should itself be cross-checked against a reliable edition before submission.
+  - The "roughly as many lines of methodological scaffolding as paper prose" claim in §10 should be verified with a concrete cloc-style measurement before submission.
+- Next steps:
+  - Verify the Hesiod translation attribution against the public-domain Loeb text.
+  - Compute the actual lines-of-scaffolding-vs-prose ratio and update §10 with the real number (or remove the claim if it does not survive measurement).
+  - Continue the German-language / EUR-Lex literature pass on §69e UrhG, §44b UrhG, *Kneschke v LAION*, and EU AI Act Art. 53.

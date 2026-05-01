@@ -666,6 +666,60 @@ to its analysis the same way they apply to the integration cases. We
 treat the meta-process case as evidence for the methodology, not as
 independent confirmation of the central thesis.
 
+A second selection limit deserves explicit treatment. Both Spider
+Farmer and EcoFlow PowerOcean are \emph{consumer-market} IoT products.
+One could plausibly hypothesise that industrial or higher-end hardware
+--- with regulated certification, longer component lifetimes, and
+explicitly safety-driven security goals --- would not exhibit the same
+effort-gap collapse. The literature offers a \emph{qualified} answer in
+two parts:
+\begin{itemize}
+  \item \textbf{The consumer-IoT base rate of vulnerability is
+        empirically high, not anomalous.} Zhao et al.\ (2022) measured
+        1{,}362{,}906 deployed IoT devices and found \textbf{28.25\%
+        suffer from at least one N-days vulnerability}, with
+        \textbf{88\% of analysed MQTT servers having no password
+        protection} (\texttt{docs/sources.md} L-CONS-1). Kumar et al.\
+        (2019) studied 83 million devices in 16 million households and
+        documented widespread weak default credentials and open
+        services (L-CONS-2). Davis et al.\ (2020) explicitly compared
+        well-known and lesser-known vendors and found that
+        lesser-known vendors are systematically less-regulated and
+        less-scrutinised (L-CONS-3) --- a pattern that applies to both
+        case studies in this paper. Sivakumaran et al.\ (2023) found
+        \textbf{$>$70\% of 17{,}243 BLE-enabled Android APKs contain at
+        least one security vulnerability} (L-BLE-4). Spider Farmer and
+        EcoFlow are not exceptional cases of consumer-IoT insecurity;
+        they are the median.
+  \item \textbf{Industrial / higher-end hardware is \emph{not}
+        automatically immune.} Serror et al.\ (2020) frame IIoT as
+        sharing many security concerns with consumer IoT despite its
+        different goal stack of safety, productivity, and longer
+        lifetimes (L-IND-1). Antón et al.\ (2021) directly puncture
+        the ``industrial-grade therefore safer'' intuition: they
+        enumerated \textbf{$>$13{,}000 OT/ICS devices directly exposed
+        on the public internet, almost all containing at least one
+        vulnerability} (L-IND-2). Asghar et al.\ (2019) observe that
+        ICS were originally designed for isolated environments and
+        that modern enterprise integration has opened structural
+        cybersecurity problems that the original designs never
+        anticipated (L-IND-3). Higher cost, regulatory floors, and
+        certification raise the \emph{baseline} but do not close the
+        effort gap that AI assistance compresses.
+\end{itemize}
+The honest conclusion is that the case selection over-samples
+consumer-grade hardware, but the inference is not ``industrial would
+not have these problems'' --- it is \emph{narrower}: the
+\emph{flavour} of the obscurity barrier (hardcoded keys in mobile
+companion apps; undocumented REST surfaces) is what we generalise from.
+Industrial hardware would likely have a different flavour (legacy
+fieldbus protocols; certificate-pinned but rarely-rotated PKI;
+long-lifetime firmware), but the same structural property --- that
+obscurity is a labour-cost barrier rather than a cryptographic one ---
+would still apply. Validating that conjecture against an industrial
+case is left to future work
+(\cref{sec:future-work}).
+
 % =========================================================================
 \section{Discussion}
 \label{sec:discussion}
@@ -1060,6 +1114,129 @@ are the author's own. The repository's \texttt{CITATION.cff},
 \texttt{.zenodo.json}, \texttt{codemeta.json}, and \texttt{docs/fair.md}
 all carry the affiliation \textbf{``Independent researcher (personal
 capacity)''} in line with this statement.
+
+% =========================================================================
+\section{The Pandora moment: this paper as a novel mode of transparent AI-assisted research}
+\label{sec:pandora}
+
+\begin{quote}
+\emph{``Only Hope remained there in an unbreakable home within under
+the rim of the great jar, and did not fly out at the door.''}\\
+\hfill --- Hesiod, \emph{Works and Days}, ll.~96--98
+(trans.\ Hugh G.\ Evelyn-White, 1914)
+\end{quote}
+
+Pandora's jar is open. Generative AI is now a routine part of how
+scientific manuscripts are drafted, and the empirical literature
+documents what comes out of the jar: fabricated citation rates of
+18\%--55\% for raw GPT outputs (\texttt{docs/sources.md} L-SLOP-1),
+hallucination rates up to 91.4\% in systematic-review reference
+generation (L-SLOP-2), paper-mill output growing from 4 to 190 NHANES
+papers in a single year (L-SLOP-8), and a longer-horizon model-collapse
+risk in which the next generation of foundation models is trained on
+the corrupted outputs of the present one (L-MC-1, L-MC-3). These
+problems are not solved by refusing to use AI; refusal does not put the
+technology back in the jar, and it concedes the ground of methodological
+practice to those who \emph{do} use it without disclosure. What is left
+in the jar, on the Hesiodic reading, is \emph{Hope} --- but the kind of
+Hope that demands work.
+
+The novelty we claim in this paper is not in the substance of the case
+studies. Spider Farmer's BLE protocol and EcoFlow's API surfaces are
+prior community work; the meta-process is recursive by construction.
+The novelty is in \emph{how} the case studies are written. Eight
+integrated practices distinguish this paper from the prevailing modes
+of AI-assisted research:
+\begin{enumerate}
+  \item \textbf{AI conversation transcripts as first-class artifacts.}
+        Every paper-development session is preserved in
+        \texttt{experiments/*/raw\_conversations (copy\&paste, web)/}
+        with an explicit verification status
+        (\texttt{[verbatim-export]} /
+        \texttt{[curated-reconstruction]} / \texttt{[redacted]}). The
+        transcript is not appendix material --- it is the lab notebook
+        of the LLM era. Readers can audit which arguments came from
+        which prompt.
+  \item \textbf{A verification-status legend for every cited source.}
+        The labels \texttt{[repo-vendored]},
+        \texttt{[repo-referenced]}, \texttt{[unverified-external]},
+        \texttt{[lit-retrieved]}, \texttt{[lit-read]}, and
+        \texttt{[needs-research]} make the read-state of every
+        citation explicit. The discipline is mundane --- never upgrade
+        an entry without reading the full text --- and the mundanity
+        is the point.
+  \item \textbf{Provenance maps tying every technical claim to
+        commit-pinned evidence.}
+        \texttt{experiments/*/provenance.md} maps each transcript
+        decision to specific files and line numbers in the embedded
+        vendor code (commit \texttt{ffdf60c}).
+  \item \textbf{Mirror discipline between prose and submission source.}
+        \texttt{paper/main.md} and \texttt{paper/main.tex} are kept
+        consistent at every commit (rule 11 in
+        \texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}); CI rebuilds the PDF on
+        every paper-touching commit and surfaces regressions.
+  \item \textbf{A recursive case study of the paper itself
+        (\cref{sec:case-meta}).} The paper-generation pipeline is
+        treated as a third reverse-engineering case --- same threat
+        model, same artifact inventory, same dual-use evaluation. A
+        methodology that cannot describe its own production is not a
+        methodology, it is a brand.
+  \item \textbf{Explicit AI disclosure framed against empirical base
+        rates.} \cref{sec:ai-disclosure} names the model, the division
+        of labour, and the empirical fabrication rates the methodology
+        is responding to. The disclosure is not an apology --- it is
+        the unit of accountability that lets the work be audited rather
+        than guessed at.
+  \item \textbf{Legal honesty about authorship.} The footnote on
+        \emph{Urheberrecht und KI} in
+        \cref{sec:ai-disclosure-models} explains why, under
+        \S{}~2 UrhG, the AI is acknowledged as a contributor but is
+        not and cannot be a co-author, and what that means for the
+        CC-BY-4.0 grant.
+  \item \textbf{FAIR alignment as a precondition, not an afterthought.}
+        \texttt{CITATION.cff}, \texttt{.zenodo.json},
+        \texttt{codemeta.json}, and \texttt{docs/fair.md} map every
+        FAIR principle to the concrete repository feature that
+        satisfies it.
+\end{enumerate}
+
+None of these practices is individually novel. Conversation logs have
+been shipped with replications before; verification-status labels
+exist in evidence-based-medicine practice; provenance maps exist in
+bioinformatics; FAIR predates LLMs. \textbf{The novelty is the
+integration}: assembling these practices into a single, executable,
+runnable research protocol
+(\texttt{docs/research-protocol-prompt.md}) that an AI agent can be
+instructed to follow and that a human reviewer can audit by reading
+the artifacts the protocol produces.
+
+The implicit contrast is with the prevailing practice. Two failure
+modes dominate the AI-assisted research literature today, and both
+are documented quantitatively in \texttt{docs/sources.md} cluster I:
+\begin{itemize}
+  \item \textbf{Concealment.} AI is used heavily but not disclosed;
+        the read-state of every citation is indeterminate. The
+        fabricated-citation literature (L-SLOP-1, L-SLOP-2,
+        L-SLOP-4) is what concealment produces at scale.
+  \item \textbf{Token disclosure.} A generic ``AI was used to assist''
+        sentence in the acknowledgements with no mapping from sentence
+        to commit, no transcript, and no verification-status
+        discipline. This satisfies a publisher's checkbox but is not
+        auditable.
+\end{itemize}
+We argue that a third mode is now necessary and feasible:
+\textbf{artifact-level disclosure}, in which every AI-assisted
+decision is traceable to a transcript, a commit, and a verification
+status. The cost is real --- this paper's repository carries roughly
+as many lines of methodological scaffolding as paper prose --- but it
+is paid in labour, not in lost capability. Sloppification
+(\cref{sec:disc-sloppification}) and model collapse
+(\cref{sec:disc-model-collapse}) are each a tax on the scientific
+commons; artifact-level disclosure is the principal means we have to
+refuse to pay either tax.
+
+Pandora's box is open. The Hope that remains is the kind that does
+work.
 
 \section*{Ethics and reproducibility statement}
 \label{sec:ethics-statement}
