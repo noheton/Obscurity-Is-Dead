@@ -75,7 +75,42 @@ Use the following lenses when analysing each use case:
 - Documentation quality: how much did the generated documentation improve reproducibility?
 - Literature grounding: how well claims are supported or contradicted by documented sources.
 
-## 10. Reporting
+## 10. Process and Experimental KPIs
+Track quantitative measures that characterise the research workflow, experimental success, and the problem space itself.
+
+### 10.1 Analysis process KPIs
+- Artifact acquisition completeness: number of expected artifact types acquired versus collected.
+- Chat transcript coverage: ratio of exported AI conversation sessions to total analysis sessions.
+- Prompt iteration count: number of prompt/response cycles required to reach a given finding.
+- Phase duration: time spent in data collection, AI-assisted analysis, validation, documentation, and review.
+- Automation ratio: percent of the workflow that is scripted or reproducible versus manual.
+- Issue-to-finding latency: time from a research question to a concrete technical insight.
+
+### 10.2 Experimental success KPIs
+- Probe success rate: percentage of protocol probes or commands that produced meaningful device/state feedback.
+- Functional coverage: share of discovered protocol endpoints, message types, or device capabilities exercised.
+- Reproducibility score: number of independent reproductions that confirmed a finding.
+- Stability pass rate: percentage of validation checks, lint/CI runs, and runtime tests passed after changes.
+- Documentation traceability: proportion of claims linked to explicit artifacts, chat logs, commits, or source evidence.
+
+### 10.3 Time and effort KPIs
+- Total elapsed time per case study.
+- Time to first working integration or verified exploit.
+- Time spent per stage: data acquisition, analysis, validation, documentation, and remediation.
+- Effort gap metric: estimated manual-hours required before AI assistance versus hours with AI support.
+- Draft-to-final latency: time between initial research sketch and publishable documentation.
+
+### 10.4 Problem characterization KPIs
+- App size versus extracted data ratio: size of the binary/app versus the volume of extracted meaningful protocol data.
+- Discovery density: number of unique protocol messages, fields, keys, or endpoints discovered per hour.
+- Candidate space size: number of candidate keys/IVs, API endpoints, topics, or command formats evaluated.
+- Obscurity depth: amount of undocumented behavior versus documented protocol surface.
+- Information yield: useful findings per exported conversation page, per log file, or per MB of artifact data.
+- Divergence index: number of conflicting or redundant implementation variants discovered across sources.
+
+These KPIs help turn the methodology into measurable research practice, allow cross-case comparison, and make the “effort gap” claim testable.
+
+## 11. Reporting
 - Keep transparent notes for each stage of the workflow.
 - Include citations to vendor and community documentation, AI-generated evidence, and literature sources.
 - Clearly distinguish researcher-authored findings from AI-assisted insights.
