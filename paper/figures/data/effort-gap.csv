@@ -1,0 +1,23 @@
+case,phase_num,phase_label,ai_hours_cumul,manual_mid_cumul,manual_lo_cumul,manual_hi_cumul
+spider_farmer,0,Start,0,0,0,0
+spider_farmer,1,Discovery,2,30,20,40
+spider_farmer,2,Build,5,50,33,67
+spider_farmer,3,Debug: decrypt,6,65,43,87
+spider_farmer,4,Debug: key,8,77,51,103
+spider_farmer,5,Debug: race,9,85,57,113
+spider_farmer,6,Dataset,10,88,59,117
+spider_farmer,7,Asset,10.5,90,60,120
+ecoflow,0,Start,0,0,0,0
+ecoflow,1,Discovery,3,50,33,67
+ecoflow,2,Analysis,5,85,57,113
+ecoflow,3,Build + debug,8,120,80,160
+meta,0,Start,0,0,0,0
+meta,1,Skeleton,1,30,20,40
+meta,2,Literature,3,110,73,147
+meta,3,LaTeX build,4.5,140,93,187
+meta,4,Rule 11,5,155,103,207
+meta,5,AI disclosure,8,215,143,287
+meta,6,License,9,235,157,313
+meta,7,Sect. 6.4+10,10.5,260,173,347
+meta,8,Redaction,12.5,275,183,367
+meta,9,Discussion,15.5,300,200,400

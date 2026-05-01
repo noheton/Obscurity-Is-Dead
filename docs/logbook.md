@@ -399,3 +399,64 @@ This logbook is the operating record for the paper and research process.
   - Update and prettify README (openvla-style layout with badges, figure gallery, quick-start, and citation block).
   - Note figures as manually drawn in `paper/figures/` README.
   - Push the development branch.
+
+---
+
+### Session 3 — 2026-05-01 (DLR design bundle + data-driven fig1)
+
+- Context resumed from Session 2. User requested implementation of the DLR Corporate Design
+  system from a fetched design bundle (extracted at `/tmp/design_extract/dlr-design-system/`).
+  User also noted to keep tracking the §5.7 meta-process KPI timeline until submission.
+
+- Design bundle analysis:
+  - Read `README.md` (handoff bundle instructions), `SKILL.md` (quick manifest),
+    `colors_and_type.css` (full token set), `ui_kits/latex/README.md` (LaTeX kit),
+    `ui_kits/python_plots/dlr_style.py` (matplotlib/seaborn theme).
+  - Tension identified: the paper explicitly declares DLR independence (§9.5).
+    Applying DLR logo, impressum, or `dlrpaper` LaTeX class would contradict this.
+  - Relevant/non-contradictory aspects implemented: color palette (`dlr_style.py`),
+    matplotlib/seaborn theme, and a data-driven Figure 1 using the DLR aesthetic.
+
+- Files created:
+  - `paper/figures/dlr_style.py` — DLR matplotlib/seaborn theme (adapted from
+    `dlr_style.py` by wagn_ja, DLR, 2022); graceful Frutiger fallback; removed
+    intranet references.
+  - `paper/figures/data/effort-gap.csv` — KPI data for all three case studies
+    (Spider Farmer 7 phases, EcoFlow 3 phases, Meta-process 9 phases) with
+    cumulative AI and manual-baseline hours and uncertainty bounds.
+  - `paper/figures/fig1-effort-gap.py` — generation script producing
+    `fig1-effort-gap.svg` and `fig1-effort-gap.pdf`; Rule-14 compliant.
+
+- Files updated:
+  - `paper/figures/fig1-effort-gap.svg` and `fig1-effort-gap.pdf` — replaced
+    manually drawn placeholder with data-driven matplotlib figure in DLR style.
+  - `paper/figures/README.md` — fig1 entry updated to "Generated"; Rule-14 table
+    added; figures 2–7 remain manually drawn / exempt.
+  - `paper/main.md` §1.1 — Rule-14 data reference added after fig1 image.
+  - `paper/main.md` §5.7 — new row "DLR design + data-driven fig1" added;
+    total updated to ~17 h; effort-gap metric updated to ~6%.
+  - `paper/main.tex` §1.1 figure environment — Rule-14 comment + data reference
+    added to caption.
+  - `paper/main.tex` §5.7 table — matching row added; total and metric updated.
+
+- Key decisions:
+  - DLR logo, impressum, `dlrpaper` LaTeX class, and `dlrbeamer` are NOT applied.
+    The paper's §9.5 independence declaration takes priority.
+  - Color palette and matplotlib theme are applied to fig1 only; they are generic
+    enough to not imply institutional affiliation.
+  - `dlr_style.py` is committed as a named file with attribution comment; it is not
+    redistributed as part of a DLR product but adapted as a styling utility.
+  - §5.7 KPI table is updated every session per user instruction ("keep track until submission").
+
+- Open issues:
+  - Git history rewrite (BFG / git-filter-repo) still required before public mirror.
+  - Vendor redistribution caveats (S-SF-4, S-EF-2..4) unresolved.
+  - `[lit-retrieved]` → `[lit-read]` upgrades still pending.
+  - Zenodo DOI not minted.
+  - §5.7 row "DLR design + data-driven fig1" has `(see log)` as commit placeholder
+    — will be resolved once this session's commit is pushed.
+
+- Next steps:
+  - Resolve `(see log)` commit placeholder in §5.7 with actual hash after this commit.
+  - Push development branch.
+  - Continue tracking §5.7 KPI each session until submission.
