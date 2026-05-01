@@ -30,7 +30,8 @@ authors:
     # \S 9.5 ("Statement of independence and personal capacity").
 repository-code: "https://github.com/noheton/Obscurity-Is-Dead"
 url: "https://github.com/noheton/Obscurity-Is-Dead"
-license-url: "https://github.com/noheton/Obscurity-Is-Dead#license"
+license: "CC-BY-4.0"
+license-url: "https://creativecommons.org/licenses/by/4.0/"
 keywords:
   - AI-assisted reverse engineering
   - large language models

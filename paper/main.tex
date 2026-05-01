@@ -912,6 +912,56 @@ via the Consensus academic-database front end (Semantic Scholar /
 PubMed / Scopus / arXiv); the queries used and the candidate citations
 they returned are recorded in \texttt{docs/sources.md} clusters A--J.
 
+The AI assistant is acknowledged as a contributor but is \emph{not} a
+co-author of this work.\footnote{\textbf{Footnote on Urheberrecht und
+K\"unstliche Intelligenz in Germany.} German copyright law's interaction
+with generative AI is unsettled and moving fast; the framing in this
+paper is descriptive, not legal advice. Three threads are relevant.
+\emph{(i) Authorship and the copyrightability of AI outputs.}
+\S{}~2 UrhG requires a \emph{pers\"onliche geistige Sch\"opfung}. The
+prevailing reading (consistent with the long \emph{Sch\"opfungsh\"ohe}
+tradition and with EU CJEU case law on the \emph{Werkbegriff}) is that
+purely AI-generated text or images do not, on their own, satisfy this
+requirement and therefore do not enjoy independent copyright protection
+in Germany. Human curation, selection, prompting, and editing can create
+a copyrightable human contribution on top of the AI output, but the AI
+itself is not an author. (Sourcing: \texttt{docs/sources.md} S-EF-9 ---
+primary text of UrhG --- remains \texttt{[unverified-external]}; this
+footnote is an informal restatement of the prevailing reading and must
+be replaced with sourced legal commentary before any legal claim is
+made.) \emph{(ii) Text-and-data-mining and AI training.}
+\S{}~44b UrhG (introduced in 2021 to implement Art.~4 of the EU DSM
+Directive 2019/790) creates a TDM exception for both research and
+commercial uses, with a machine-readable opt-out for commercial use.
+The first major German judgment on AI training and copyright ---
+\emph{Kneschke v LAION} before LG M\"unchen~I (Az.\ 42~O~14139/23,
+October 2024) --- held that scraping for training-dataset construction
+can fall under \S{}~44b. The judgment is one early data point;
+appellate review, the related EU AI Act (in force August 2024)
+Art.~53 transparency-and-copyright obligations on general-purpose AI
+providers, and ongoing Commission guidance will reshape the picture.
+All sources here are \texttt{[unverified-external]} in
+\texttt{docs/sources.md} until a targeted German-language search reads
+each primary text. \emph{(iii) Why this matters for our paper.} Two
+consequences follow. First, the AI assistant is correctly acknowledged
+in \cref{sec:ai-disclosure-models} but is not a co-author; the human
+author holds copyright. Second, the choice of CC-BY-4.0 (see
+\texttt{LICENSE}) attaches to the human-authored and human-curated
+portions of the work; it does not purport to license the AI's training
+data, the AI model itself, or vendor artifacts vendored under
+\texttt{experiments/*/original/} (each of which carries its own
+redistribution caveats per \texttt{docs/sources.md}). A careful
+pre-publication legal review is required before this paper or its
+repository is mirrored to a journal or to Zenodo.}
+The reason is technical and legal in equal measure: under \S{}~2 UrhG
+(German Copyright Act, \emph{Urheberrechtsgesetz}), copyright
+protection requires a \emph{pers\"onliche geistige Sch\"opfung} --- a
+personal intellectual creation by a human --- so an AI model cannot
+hold copyright in its outputs, cannot consent to publication, and
+cannot be held accountable in the way that academic authorship
+implies. Editorial responsibility for every paragraph rests with the
+human author named on the title page.
+
 \subsection{Division of labour}
 \label{sec:ai-disclosure-division}
 \begin{itemize}

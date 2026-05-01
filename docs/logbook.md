@@ -294,3 +294,26 @@ This logbook is the operating record for the paper and research process.
   - Produce a verbatim Claude Code session export and add it as a companion file to the meta-process T1 transcript.
   - Begin reading the highest-priority `[lit-retrieved]` entries (L-SLOP-1, L-SLOP-4, L-SLOP-2, L-MC-1, L-MC-4, L-HC-1, L-VD-1, L-RR-1, L-COUNTER-1, L-COUNTER-2) and upgrade to `[lit-read]`.
   - Targeted German-language / EUR-Lex search for § 69e UrhG and EU 2009/24/EC.
+
+### 2026-05-01 (LICENSE resolved + UrhG/KI footnote)
+- Session lead: Researcher (CC-BY-4.0 confirmed) with AI-assisted drafting of the footnote and license boilerplate.
+- Actions taken:
+  - Added top-level `LICENSE` (CC-BY-4.0) covering the human-authored and human-curated portions of the work, with explicit exclusions for vendored third-party artifacts (`experiments/*/original/`) and items flagged for redaction (`docs/sources.md` S-SF-5).
+  - Added a substantive footnote on *Urheberrecht und Künstliche Intelligenz* in Germany to `paper/main.md` § 9.1 and to `paper/main.tex` `sec:ai-disclosure-models` (mirrored per rule 11). Footnote covers (i) authorship and copyrightability under § 2 UrhG, (ii) text-and-data-mining and AI training under § 44b UrhG, EU DSM Directive 2019/790 Art. 4, *LG München I, Kneschke v LAION* (Az. 42 O 14139/23, October 2024), and EU AI Act Art. 53, and (iii) why this means the AI is acknowledged but not a co-author and how CC-BY-4.0 attaches.
+  - Updated `CITATION.cff` to declare `license: "CC-BY-4.0"` and `license-url`. Updated `.zenodo.json` notes to reflect the resolved license and add the AI-authorship explanation. Updated `docs/fair.md` R1.1 row to mark the license as resolved and added a fifth open issue (pre-publication legal review).
+  - Recorded explicitly that the AI assistant (Claude, Anthropic) is **not** a co-author under § 2 UrhG: AI cannot hold copyright, cannot consent to publication, and cannot be held accountable. Acknowledgement remains in §9.1 and across the FAIR / citation metadata files.
+- Files updated:
+  - `LICENSE` (new)
+  - `paper/main.md`, `paper/main.tex`
+  - `CITATION.cff`, `.zenodo.json`, `docs/fair.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Confirm CC-BY-4.0 for the whole repository's human-authored content (paper, methodology, scripts, metadata).
+  - Decline AI co-authorship per § 2 UrhG and ICMJE/DFG-style accountability principles. The AI's contribution is fully credited in §9.1 and in the metadata, but copyright and editorial responsibility rest with the human author.
+  - Treat the *Urheberrecht und KI* footnote as `[unverified-external]` until a German-language / EUR-Lex search reads each primary source. The footnote restates the prevailing reading and explicitly says it is not legal advice.
+- Open issues:
+  - Targeted German-language / EUR-Lex search for the primary texts cited in the footnote (§ 2 UrhG; § 44b UrhG; EU DSM Directive 2019/790 Art. 4; *Kneschke v LAION*; EU AI Act Art. 53). Each is currently `[unverified-external]`.
+  - Pre-publication legal review (`docs/fair.md` open issue 5) before any journal/Zenodo mirror.
+- Next steps:
+  - Targeted German-language search to upgrade the UrhG sources from `[unverified-external]` to `[lit-read]` (or to retrieve their canonical URLs).
+  - Mint the Zenodo DOI now that the license is resolved.

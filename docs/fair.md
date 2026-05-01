@@ -38,7 +38,7 @@ This is a hobbyist research project carried out by the author in a personal capa
 | Principle | Repository realisation |
 |---|---|
 | **R1.** (Meta)data are richly described with a plurality of accurate and relevant attributes. | See F2. Plus: `paper/main.md` carries a full provenance trail through `experiments/*/provenance.md`; every literature citation has a verification status (`docs/sources.md` legend). |
-| **R1.1.** (Meta)data are released with a clear and accessible data usage license. | Default declared as **CC-BY-4.0** in `.zenodo.json` and `codemeta.json` for the paper text and metadata. **Open**: a top-level `LICENSE` file with the chosen text must be added before public release. Code under `scripts/` may be re-licensed permissively (e.g.\ MIT) in the same decision. Vendor APKs/PDFs under `experiments/*/original/doc/` carry separate redistribution caveats noted in `docs/sources.md`. |
+| **R1.1.** (Meta)data are released with a clear and accessible data usage license. | Resolved: **CC-BY-4.0** declared in the top-level `LICENSE` file, in `.zenodo.json`, in `codemeta.json`, and in `CITATION.cff`. The licence covers the human-authored and human-curated portions of the work; vendor APKs / PDFs / community implementations under `experiments/*/original/` carry their own copyright and are explicitly excluded from the CC-BY-4.0 grant (see `LICENSE` §1 and `docs/sources.md` redistribution caveats). Items flagged for redaction (notably `docs/sources.md` S-SF-5) are explicitly excluded from any redistribution grant (see `LICENSE` §2). The interaction of CC-BY-4.0 with German § 2 / § 44b UrhG and the EU AI Act is discussed in the footnote on *Urheberrecht und KI* in `paper/main.md` § 9.1 / `paper/main.tex` `sec:ai-disclosure`. |
 | **R1.2.** (Meta)data are associated with detailed provenance. | `experiments/spider-farmer/provenance.md` and `experiments/ecoflow-powerocean/provenance.md` map every technical claim to (a) the proposing transcript, (b) confirming file/line in `original/`, (c) the commit SHA at which it was verified. The methodology document (`docs/methodology.md`) and logbook (`docs/logbook.md`) record process provenance. AI conversation transcripts are preserved verbatim. |
 | **R1.3.** (Meta)data meet domain-relevant community standards. | Citation File Format 1.2.0 (citation), CodeMeta 3.0 (software), Zenodo metadata schema (archive). For the research methodology: DFG Guidelines for Safeguarding Good Research Practice (`@dfg2023`). For the paper build: arXiv-friendly LaTeX. |
 
@@ -46,10 +46,11 @@ This is a hobbyist research project carried out by the author in a personal capa
 
 ## Open issues blocking full FAIR compliance
 
-1. **F1 / R1.1 — Persistent identifier and explicit license.** A Zenodo deposit must be created at first release to mint a DOI, and a top-level `LICENSE` file must be added (default proposal: CC-BY-4.0 for paper + CC-BY-4.0 or MIT for scripts).
+1. **F1 — Persistent identifier.** A Zenodo deposit must be created at first release to mint a DOI. (R1.1 license is now resolved as CC-BY-4.0; see above.)
 2. **A1.2 — Sensitive content redaction.** Live MQTT credentials in `docs/sources.md` S-SF-5 must be redacted before any public archive.
-3. **R1.1 — Vendor artifact redistribution.** APKs and vendor PDFs under `experiments/*/original/doc/` carry redistribution caveats that must be confirmed before public release.
+3. **R1.1 — Vendor artifact redistribution.** APKs and vendor PDFs under `experiments/*/original/doc/` carry redistribution caveats that must be confirmed before public release. They are explicitly excluded from the top-level `LICENSE`.
 4. **F2 — Author name resolved.** `CITATION.cff`, `.zenodo.json`, and `codemeta.json` carry author **Florian Krebs** (ORCID `0000-0001-6033-801X`), affiliation **"Independent researcher (personal capacity)"**. The author's day-job affiliation (DLR) is intentionally not listed because this is a hobbyist project carried out outside regular employment (see the *Statement of independence* at the top of this document).
+5. **R1.1 — Pre-publication legal review.** The interaction of CC-BY-4.0 with § 2 / § 44b UrhG and the EU AI Act is summarised in the *Urheberrecht und KI* footnote in `paper/main.md` § 9.1, but a careful pre-publication legal review is required before this paper or its repository is mirrored to a journal or to Zenodo.
 
 These open issues are also tracked in `docs/logbook.md` for accountable resolution.
 
