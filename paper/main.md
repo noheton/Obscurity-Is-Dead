@@ -118,7 +118,7 @@ The end-to-end workflow is shown in Figure 3.
 Each constant and code path above was re-checked against `original/` at commit `ffdf60c` (logbook entry "audit against embedded vendor code"). The four independent implementations agree on the BLE protocol shape; minor disagreements on key tables were resolved in favour of the in-tree `const.py`.
 
 ### 3.6 Findings — security implications
-The `original/doc/log.md` community thread documents a self-signed-certificate MITM against the vendor MQTT broker `sf.mqtt.spider-farmer.com:8333`, recovering live credentials (username `sf_ggs_cb`, password redacted in the published paper, present in S-SF-5). This is independent corroboration of the claim that the effort gap has collapsed for *both* defenders and attackers.
+The `original/doc/log.md` community thread documents a self-signed-certificate MITM against the vendor MQTT broker `sf.mqtt.spider-farmer.com:8333`, recovering live credentials (username `[REDACTED:username:S-SF-5-username]`, password `[REDACTED:credential:S-SF-5-password]`; see `docs/redaction-policy.md` R-SF-1, R-SF-2). This is independent corroboration of the claim that the effort gap has collapsed for *both* defenders and attackers.
 
 ### 3.7 KPI summary (Spider Farmer)
 *To be populated from logbook and provenance evidence*: artifact-acquisition completeness, transcript count (7), independent-implementation count (3 + integration), time-to-first-working-integration, residual obscurity depth.

@@ -10,6 +10,21 @@
 #
 # Requires: TeX Live with latexmk, bibtex.
 # Figures additionally require: rsvg-convert OR inkscape.
+#
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# PUBLICATION WARNING (rule 13 — CLAUDE_CODE_INSTRUCTIONS.md)
+#
+#   "make pdf" and "make arxiv" build LOCAL artifacts ONLY.
+#   DO NOT upload, submit, push, or distribute the output WITHOUT
+#   explicit written consent from the author (Florian Krebs).
+#
+#   Before any public release, ALSO:
+#     1. Complete git history rewrite (BFG / git-filter-repo) to expunge
+#        credentials — see docs/redaction-policy.md.
+#     2. Resolve vendor-artifact redistribution caveats (docs/sources.md
+#        S-SF-4, S-EF-2..4).
+#     3. Complete pre-publication legal review (docs/fair.md open issue 5).
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 MAIN      := main
 BIB       := references.bib
