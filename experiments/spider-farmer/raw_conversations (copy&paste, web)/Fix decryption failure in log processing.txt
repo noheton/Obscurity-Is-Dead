@@ -1,0 +1,92 @@
+
+create a new pr and update docs
+
+ToolSearch verwendet
+Let me check what docs need updating before creating the PR.
+
+
+Ausgeführt 2 Befehle
+I need to update several places. Let me fix them all, then create the PR.
+
+
+Gelesen 5 Dateien
+Now I have a full picture. Let me make all the doc updates in one go:
+
+
+Bearbeitet 4 Dateien
+Now commit and push, then create the PR:
+
+
+Ausgeführt 3 Befehle, verwendet ein Tool
+PR created: https://github.com/noheton/spider_farmer/pull/9
+
+Here's a summary of everything in this PR:
+
+Code change (const.py):
+
+CB key: J4G0M9dX1f1v3fXr → iVi6D24KxbrvXUuO
+CB IV: 2AKVNUbU4mvU3Elt → RnWokNEvKW6LcWJg
+Fixed the inline comment that still called it an "APK candidate"
+Doc updates:
+
+ble_analysis.md — CB pair added to the confirmed table; J4G0M9dX1f1v3fXr annotated as wrong; Known Issue #1 struck through as fixed
+implementations.md — "Key Not Identified" section replaced with the confirmed result and the brute-force method used to find it
+looks like decryption is still failing home-assistant_spider_farmer_2026-04-25T05-06-18.665Z.log
+
+
+Ausgeführt 2 Befehle
+The file isn't in the doc/ directory yet. Could you share it (paste the path or upload it there)?
+
+its on the main branch
+
+
+Ausgeführt 5 Befehle, verwendet 2 Tools
+The log still shows the old key hex 4a3447304d3964583166317633665872 (J4G0M9dX1f1v3fXr). The PR isn't merged yet, but even after merging, a persisted config entry would keep the old key. Let me check how the key is loaded at startup.
+
+
+Ausgeführt 2 Befehle
+The key is read directly from the stored config entry — const.py only provides defaults at setup time. Existing entries keep the old key. I need to add a config entry migration that auto-corrects the stale CB key.
+
+
+Gelesen 2 Dateien, ausgeführt ein Befehl
+Good — currently at VERSION = 1, no migration exists. The fix is to bump to VERSION = 2 and add async_migrate_entry that replaces the stale CB key/IV in persisted config entries.
+
+
+Bearbeitet 2 Dateien, gelesen eine Datei
+Now add async_migrate_entry to __init__.py:
+
+Bearbeitet
+__init__.py
++5
+-0
+Now add the migration function after async_unload_entry:
+
+Bearbeitet
+__init__.py
++22
+-0
+Let me verify both files look correct:
+
+Ausgeführt
+Verify migration code and VERSION bump
+Now commit and push:
+
+
+Ausgeführt 2 Befehle
+Now update the PR description to reflect the added migration:
+
+
+Verwendet 2 Tools
+PR #9 is updated. Here's where things stand:
+
+The new log showed the old key J4G0M9dX1f1v3fXr still in use — not because the code wasn't updated, but because the key was persisted in HA's config entry storage and loaded from there at startup, bypassing const.py entirely.
+
+The branch now has three commits:
+
+Correct key/IV in const.py (iVi6D24KxbrvXUuO / RnWokNEvKW6LcWJg)
+Doc updates across ble_analysis.md and implementations.md
+async_migrate_entry (VERSION 1→2) that auto-replaces the stale key on next HA restart
+Once the PR is merged and HA reloads, you should see Migrated Spider Farmer entry … replaced stale CB key in the log, followed by successful BLE decoded: method=getDevSta messages.
+
+
+

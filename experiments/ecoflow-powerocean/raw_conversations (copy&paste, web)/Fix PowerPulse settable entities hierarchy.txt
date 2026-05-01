@@ -1,0 +1,210 @@
+
+Let me explore the codebase to understand how PowerPulse entities are currently organized.
+
+Agent ausgeführt
+Haiku 4.5
+Find PowerPulse entity organization code
+additionally the values should be prefiled from the actual system state and not left in an undefined state
+
+Let me look at the actual settable entity files to understand the full picture before making changes.
+
+
+Gelesen 3 Dateien
+Now let me look at the coordinator and how data flows to understand pre-filling from state.
+
+
+Gelesen 2 Dateien
+Now let me look at __init__.py and the parser to understand data flow and available state.
+
+
+Gelesen 2 Dateien
+Let me look at more of the parser to understand the data structure and how PowerPulse SN is tracked.
+
+
+Gelesen 2 Dateien
+Let me check const.py and understand the data key mapping for state read-back.
+
+Lesen
+const.py
+Let me check the test fixtures to understand the actual data structure.
+
+
+Ausgeführt 14 Befehle
+Let me check the raw EMS data and what switchBits/userCurrentSet values mean.
+
+Ausgeführt
+Check EMS heartbeat for settable entity read-back keys
+Let me look at the types.py to understand the endpoint structure.
+
+Lesen
+types.py
+Now I have enough understanding. Let me check the branch setup and then implement the fixes.
+
+Ausgeführt
+Check git status and current branch
+Let me check the test files before making changes.
+
+
+Ausgeführt 2 Befehle, aktualisiert Todos, gelesen eine Datei, verwendet ein Tool
+Now I have a complete picture. Let me implement all changes systematically.
+
+
+Aktualisiert Todos, bearbeitet eine Datei
+Now rewrite number.py with PP SN support and pre-filling:
+
+Erstellt
+number.py
++229
+-0
+API-Fehler
+You're out of extra usage · resets 12pm (UTC)
+continue moving entites and prefilling Set points from system values
+Additional remarks: 
+orderStartTimestamp is a Timestamp in ms probably not amps 1.777.552.822,00 A
+Powerpulse entites strings are not complete and seem to contain duplicates
+investigate opcc integration as well,
+check if the repo can be published under german law as it involved reverse engineering.
+advice on steps to make it publishable
+
+
+Aktualisiert Todos, erstellt 2 Dateien
+Now regenerate the golden master for the po_plus_feature fixture (the one that uses EDEV_PARAM_REPORT / wallbox schema):
+
+
+Ausgeführt 15 Befehle
+The other four fixtures don't use the wallbox BOX_SCHEMA path (only po_plus_feature does), so only that golden master changes. Now fix orderStartTimestamp:
+
+
+Aktualisiert Todos, ausgeführt 3 Befehle
+Found it — orderStartTimestamp (lowercase ends in stamp → amp) incorrectly matches the (amp|current)$ pattern in SensorClassHelper. Fix in types.py:
+
+
+Gelesen eine Datei, bearbeitet eine Datei
+Now check whether orderStartTimestamp appears in any golden master with a wrong unit. Since SensorClassHelper only affects the structure (not value) golden masters, and the value masters only track raw values, the golden masters for values are fine. The structure masters need to be checked:
+
+
+Ausgeführt 4 Befehle
+The structure golden master shows unit: ["current", "A", "measurement"] for orderStartTimestamp — wrong. After my regex fix it will be null. Update the golden master:
+
+
+Ausgeführt ein Befehl, aktualisiert Todos
+Now audit PowerPulse translation strings:
+
+
+Ausgeführt ein Befehl, gelesen eine Datei
+Now let me check what sensor translation keys exist in sensor.py and binary_sensor.py, and find missing/duplicate entries:
+
+
+Ausgeführt 4 Befehle, gelesen 2 Dateien
+Now I'll add proper SENSOR_DESCRIPTIONS for the PowerPulse-specific fields and update translations. Let me read the top of sensor.py to understand the imports:
+
+
+Gelesen eine Datei, bearbeitet eine Datei
+Now add the translation strings for all the new PowerPulse sensor keys:
+
+Bearbeitet
+en.json
++23
+-0
+Also sync the strings.json file (HA requires both to match):
+
+
+Gelesen eine Datei, bearbeitet eine Datei, aktualisiert Todos
+Now commit the code changes, then investigate OPCC and the legal question in parallel:
+
+
+Ausgeführt 2 Befehle
+Now push and investigate OPCC plus the legal question in parallel:
+
+
+Ausgeführt ein Befehl, ausgeführt ein Agent, aktualisiert Todos
+Summary of all changes committed and pushed
+Code changes (b99b45e)
+PowerPulse entity device placement — number.py, switch.py, select.py:
+
+PowerPulse-specific entities (charger_enable, charger_auto_chg, charger_mode, charger_power_limit, charger_amp_limit) now appear under the PowerPulse child device in HA, not the main inverter.
+Each platform's async_setup_entry locates the PP serial from the endpoints registry.
+Pre-fill from live system state — same three files:
+
+native_value / is_on / current_option now read coordinator.data first (live polled state) and fall back to a cached value only after a write.
+charger_mode ← workMode (both variants, 0/1/2 → auto/fast/eco)
+charger_enable ← evOnoffSet or switchBits bit 0
+charger_auto_chg ← evUserManual (inverted) or switchBits bit 1
+charger_amp_limit ← evCurrSet or userCurrentSet × 0.1 (deci-A → A)
+New path extraction — utils.py: switchBits, userCurrentSet, currentOuputMax added to the wallbox BOX_SCHEMA paths dict so they reach coordinator.data.
+
+orderStartTimestamp bug — types.py: regex negative lookbehind (?<!st)amp$ prevents orderstarttimestamp (ends in stamp) from being classified as CURRENT/A.
+
+PowerPulse sensor strings — sensor.py, en.json, strings.json: 27 new translation entries and SensorEntityDescription entries for all PP sensor fields; raw/bitmask fields marked EntityCategory.DIAGNOSTIC (hidden by default).
+
+OPCC
+OPCC is most likely an internal EcoFlow product-type code for the EcoFlow Ocean Pro (US market, released July 2025). It's not a separate HA integration. The product-type code isn't yet in this integration's PowerOceanModel enum — the fix would be adding the right code once it's confirmed from an actual device API response.
+
+German law / reverse engineering — publishability
+This is a genuinely complex area. Here is a realistic picture:
+
+Legal basis
+German law implements the EU Software Directive (2009/24/EC) through § 69e UrhG. This explicitly permits reverse engineering of software for the purpose of interoperability — reading API responses, observing network traffic, mapping fields — without the copyright holder's permission, provided:
+
+You have lawful access to the software (you own the device / have an account)
+The information obtained is used solely for interoperability
+The information hasn't been made available by the manufacturer
+What's already fine
+Observing HTTP traffic between the EcoFlow app and the cloud API
+Documenting the JSON field names and values you observe
+Writing a HA integration that speaks to the same API
+What adds risk
+EcoFlow's Terms of Service — most cloud platforms forbid API scraping. ToS breach is a civil matter, not criminal, but they could terminate your account or send a cease-and-desist.
+Disassembling the APK — the codebase comments mention "APK sources" extensively. § 69e UrhG permits decompilation for interoperability, but requires that you don't distribute the decompiled code itself, and only use the information derived from it. Citing APK field names in comments is borderline — keep it as documentation of observations, not extracted code.
+Publishing API credentials or tokens — don't include real user tokens or secrets in fixtures.
+Steps to make it publishable safely
+Replace all APK-source comments with observation-based ones. Instead of APK source: CFG_SP_CHARGER_CHG_OPEN_FIELD_NUMBER → cfgSpChargerChgOpen, write observed field name: cfgSpChargerChgOpen. This removes the explicit APK-decompilation paper trail.
+Add a clear DISCLAIMER.md stating: the integration was developed by observing network traffic from a lawfully-owned device; no proprietary code was copied; EcoFlow credentials are never shared; use at your own risk.
+License the code under MIT or Apache 2.0 — these are the most HA-ecosystem-friendly licenses and make the interoperability intent explicit.
+Keep fixtures anonymised — replace all real serial numbers with placeholders (already done with SN_INVERTERBOX01, SN_E_DEVICEBOX01, etc. ✓).
+Do not replicate EcoFlow's trade secrets — don't publish authentication flows that bypass their security, or signing keys.
+Contact EcoFlow (optional but smart) — some manufacturers (Shelly, Growatt) actively support community integrations. EcoFlow has a developer portal (developer.ecoflow.com). Reaching out to ask for an official API key / developer agreement turns the legal grey area into a green one.
+With steps 1–4 in place, publishing on GitHub and submitting to HACS is low-risk under German law given § 69e UrhG's interoperability carve-out.
+
+OPCC is https://de.wikipedia.org/wiki/Open_Charge_Point_Protocol so it should be interesting
+Implement:
+Replace all APK-source comments with observation-based ones. Instead of APK source: CFG_SP_CHARGER_CHG_OPEN_FIELD_NUMBER → cfgSpChargerChgOpen, write observed field name: cfgSpChargerChgOpen. This removes the explicit APK-decompilation paper trail.
+Add a clear DISCLAIMER.md stating: the integration was developed by observing network traffic from a lawfully-owned device; no proprietary code was copied; EcoFlow credentials are never shared; use at your own risk.
+License the code under MIT — these are the most HA-ecosystem-friendly licenses and make the interoperability intent explicit.
+Keep fixtures anonymised — replace all real serial numbers with placeholders (already done with SN_INVERTERBOX01, SN_E_DEVICEBOX01, etc. ✓).
+Do not replicate EcoFlow's trade secrets — don't publish authentication flows that bypass their security, or signing keys.
+
+Good catch — OCPP (Open Charge Point Protocol) is a very relevant standard for the PowerPulse EV charger. I'll note it for a follow-up investigation, but first let me execute all five legal-hygiene tasks.
+
+
+Ausgeführt 2 Befehle
+Let me read the remaining files before editing:
+
+
+Gelesen 4 Dateien
+Now I have everything. Let me do all the edits in parallel:
+
+
+Bearbeitet 3 Dateien
+Picking up where I left off — finishing number.py, then cleaning the remaining 8 files.
+
+
+Gelesen 8 Dateien
+Now I'll do all the APK comment replacements across all files in parallel.
+
+Bearbeitet
+number.py
++1
+-1
+API-Fehler
+You're out of extra usage · resets 5pm (UTC)
+proceed 
+additionally: Fix errors in log related to the extension.
+Improve getting values for powerocean system setters as well.
+
+Check for similar problems with other setters.
+research opcc integration opportunities
+
+API-Fehler
+You're out of extra usage · resets 5pm (UTC)
+

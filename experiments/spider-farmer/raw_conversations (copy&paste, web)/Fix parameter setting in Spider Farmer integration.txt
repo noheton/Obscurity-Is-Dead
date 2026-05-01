@@ -1,0 +1,63 @@
+
+home-assistant_spider_farmer_2026-04-26T11-31-51.573Z.log contains debugging information. setting parameters does not seem to work
+
+Let me read the log file and explore the codebase to understand the issue.
+
+
+Ausgeführt ein Befehl, gelesen 3 Dateien
+Let me search the log specifically for spider_farmer entries and read the source files.
+
+
+Ausgeführt ein Befehl, gelesen eine Datei
+Let me look at more of the log around the parameter setting activity and the source files.
+
+
+Ausgeführt ein Befehl, gelesen eine Datei
+Now let me read the fan.py and coordinator to understand the full picture.
+
+
+Gelesen 2 Dateien
+Let me check the const.py and ble_protocol.py for more context.
+
+
+Gelesen 2 Dateien
+Now I have a clear picture. Let me look at a specific section of the log around the double "attempt 1" errors.
+
+Lesen
+home-assistant_spider_farmer_2026-04-26T11-31-51.573Z.log
+The log reveals two distinct bugs:
+
+Race condition: Lines 997-999 show TWO concurrent _send() calls both logged as "attempt 1" milliseconds apart — the poll loop and an entity command are fighting over shared _pending_id/_resp_event state.
+Retry after disconnect: After a write fails with a GATT/connection error, the retry loop continues without checking if the connection is still up, causing "Characteristic 0000ff02 was not found!" on attempt 2 (the client is already disconnected).
+There's also a usability issue: commands succeed (device returns code 200) but the entity state in HA doesn't update immediately — it waits for the next 30s poll cycle.
+
+Let me fix all three issues now.
+
+
+Ausgeführt 2 Befehle
+Good, I'm already on the correct branch. Now let me apply the three fixes.
+
+
+Bearbeitet 2 Dateien
+Now add optimistic state updates in light.py and fan.py so HA reflects command results immediately:
+
+
+Bearbeitet 2 Dateien
+Let me verify all three changes look correct:
+
+Lesen
+ble_coordinator.py
+Good. Now let me commit and push:
+
+
+Ausgeführt 3 Befehle
+Three bugs were identified from the log and fixed:
+
+Bug 1 — Race condition (root cause of most failures): Lines 997–999 show two simultaneous BLE write failed (attempt 1) messages ~1ms apart. This proves the poll loop and an entity service call were both inside _send() at the same time, sharing _pending_id/_resp_event. The result: responses get matched to the wrong caller and commands silently fail. Fixed by wrapping the entire send-wait loop in asyncio.Lock.
+
+Bug 2 — Retry after disconnect: When write_gatt_char raised a connection error (GATT 133, [Errno 104], EOF), the retry loop continued unconditionally. The next attempt then hit "Characteristic 0000ff02 was not found!" because BleakClient was already disconnected. Fixed by checking self.connected after a write exception and breaking immediately if the link is gone.
+
+Bug 3 — Stale HA state after commands: After sending setLight/setFan/setBlower/setHeater the entity state in HA wasn't updated until the next getDevSta poll (30s interval). Commands appeared to "not work" even when the device accepted them (code 200). Fixed by calling coordinator.update() with the commanded values when send_command returns a non-None response.
+
+
+

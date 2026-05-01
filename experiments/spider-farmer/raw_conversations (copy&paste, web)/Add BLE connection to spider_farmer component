@@ -1,0 +1,88 @@
+
+Todos aktualisiert
+Noted — I'll add comprehensive debug logging throughout, particularly for protocol details that will help trace unconfirmed topics. Let me add it as a todo and continue:
+
+
+Aktualisiert Todos, erstellt 2 Dateien
+Now the debug logging enhancement — I'll add it across __init__.py, ble_protocol.py, and ble_coordinator.py:
+
+Todos aktualisiert
+Adding rich debug logging to __init__.py:
+
+Erstellt
+__init__.py
++216
+-0
+Now add detailed debug logging to ble_protocol.py and ble_coordinator.py:
+
+
+Bearbeitet 3 Dateien
+Now add extra debug logging to ble_coordinator.py for the activation and command flow:
+
+can we use auto discovery of devices instead of supplying the mac
+
+Bearbeitet
+ble_coordinator.py
++17
+-4
+Great point — I'll add Bluetooth passive discovery via HA's built-in BT scanner (manifest bluetooth entries + async_step_bluetooth in the flow). Let me track it and finish the current debug logging pass first:
+
+
+Aktualisiert Todos, erstellt 3 Dateien
+API-Fehler
+You've hit your limit · resets 11:10pm (UTC)
+continue
+
+
+Aktualisiert Todos, erstellt eine Datei
+Now the auto-discovery. I need to update both manifest.json (add bluetooth match rules) and config_flow.py (add async_step_bluetooth):
+
+Erstellt
+manifest.json
++17
+-0
+Now rewrite config_flow.py with async_step_bluetooth for passive discovery and a device-type dropdown that auto-selects the KEY/IV:
+
+Erstellt
+config_flow.py
++327
+-0
+I have a stray import — CONF_BLE_EMAIL_KEY doesn't exist in const.py. Let me fix that:
+
+Bearbeitet
+config_flow.py
++0
+-1
+Now verify the full set of files looks correct before committing:
+
+
+Ausgeführt 2 Befehle
+All files parse cleanly. Now verify the imports inside each file actually resolve against the exports from const.py:
+
+
+Ausgeführt 5 Befehle, aktualisiert Todos
+All done and pushed. Here's a summary of everything that was built:
+
+What was added
+3 new files
+File	Purpose
+coordinator.py	SpiderFarmerCoordinator — shared dict updated by both MQTT and BLE; fires HA entity callbacks on every change
+ble_protocol.py	AES-128-CBC packet framing, CRC16-Modbus, all command factories (setLight, setFan, setBlower, setHeater, activation flow)
+ble_coordinator.py	BLE connection loop: activation sequence, multi-fragment reassembly, send-with-retry/msgId matching, periodic polling, graceful reconnect
+Bugs fixed vs reference implementation
+Two bugs from doc/spider_farmer_ble/ were fixed:
+
+Footer CRC accounting — outer_payload_len does NOT include the 2-byte footer; the reference left 2 junk bytes per packet causing log spam
+Dynamic IV — correct value is raw[6:20] + 0x0000 (14 inner-header bytes + 2 zeros); the reference used raw[6:22] (included 2 ciphertext bytes instead)
+Updated files
+const.py — BLE UUIDs, packet constants, confirmed/candidate KEY/IV presets for CB (APK candidate), LED (confirmed), PS10 (confirmed)
+manifest.json — v2.0.0, bleak-retry-connector requirement, bluetooth[] match rules for all SF-GGS-* names
+config_flow.py — async_step_bluetooth for passive discovery; 3-step flow: MQTT → device picker (dropdown of nearby devices) → KEY/IV confirmation with auto-preset from advertising name
+__init__.py — centralised MQTT subscriber; BLE startup; verbose DEBUG logging of every MQTT message and BLE lifecycle event for protocol tracing
+sensor.py — adds CO₂, PPFD, soil temp/humidity/EC, firmware version (BLE-sourced)
+light.py, fan.py, binary_sensor.py — all refactored to coordinator pattern; light/fan commands mirrored to BLE when connected
+How parallel operation works
+Both MQTT and BLE call coordinator.update(data_dict) which deep-merges into the same state dict. Whichever transport delivers data first (or most recently) wins for each key. Entities register one callback with the coordinator and never touch MQTT or BLE directly.
+
+
+

@@ -1,0 +1,106 @@
+
+create a github issue:
+i want to extend the ecoflow powerocean and powerpulse homeassistant extension (in the current repo) to also support setting parameters. currently it only supports reading data.
+therefore we need to perform reverse engineering i supplied info in /doc
+
+Let me read the documentation first to understand what's available.
+
+
+Ausgeführt 9 Befehle, gelesen 3 Dateien
+Now I have enough context. Let me read the PDFs briefly and then create the issue.
+
+
+Gelesen 4 Dateien
+Now I have all the context I need to create a well-detailed issue. Let me load the GitHub tool.
+
+
+Verwendet 2 Tools
+The GitHub token doesn't have permission to create issues on noheton/powerocean. Let me try the correct repo from the repository scope.
+
+issue write verwendet
+The GitHub integration token doesn't have issue-creation permissions on this repository. The issue content is fully drafted — here it is so you can create it manually:
+
+Title: Feature: Add support for setting parameters (write commands) via EcoFlow Open API
+
+Body:
+
+## Summary
+
+The current integration only supports **reading** data from EcoFlow PowerOcean/PowerPulse devices. This issue tracks the work to add **write support** — allowing users to set device parameters directly from Home Assistant (e.g. target charge level, AC charging current, operating mode).
+
+---
+
+## Background & Reverse Engineering Findings
+
+EcoFlow exposes two distinct API surfaces:
+
+### 1. Current integration: Legacy cloud API (read-only)
+- Auth: `POST https://api.ecoflow.com/auth/login` → Bearer token
+- Data fetch: `GET https://{region-host}/provider-service/user/device/detail?sn={sn}`
+- Headers: `Authorization: Bearer {token}`, `product-type: {variant}`
+- This endpoint has **no documented write/set equivalent**.
+
+### 2. EcoFlow Open Platform API (read + write)
+Documented in the official demo (`ecoflow-open-demo.zip`). This API uses **accessKey / secretKey** credentials and **HMAC-SHA256 request signing**.
+
+Base URL: `https://api.ecoflow.com`
+
+| Operation | Method | Endpoint |
+|---|---|---|
+| Get specific quota | `POST` | `/iot-open/sign/device/quota` |
+| Set quota (write) | `PUT` | `/iot-open/sign/device/quota` |
+| Get all quotas | `GET` | `/iot-open/sign/device/quota/all` |
+| Device list | `GET` | `/iot-open/sign/device/list` |
+| MQTT credentials | `GET` | `/iot-open/sign/certification` |
+
+#### Request Signing Algorithm (from `HttpUtil.java` / `MyMapUtil.java` / `EncryptUtil.java`)
+
+1. Flatten the request body into a sorted key-value map (dot-notation for nested objects, `[i]` for arrays).
+2. Serialize as `key1=val1&key2=val2&...` (alphabetical order).
+3. Append `&accessKey=…&nonce={random_6digit}&timestamp={epoch_ms}`.
+4. Sign with **HMAC-SHA256** using `secretKey`.
+5. Send `accessKey`, `nonce`, `timestamp`, `sign` as request headers.
+
+For GET: signed query string is URL-encoded and appended to the URL.  
+For PUT/POST: original JSON body goes in the body; signing only in headers.
+
+#### Example — Set quota:
+```json
+PUT /iot-open/sign/device/quota
+{"sn": "DCABZ***", "params": {"cmdSet": 32, "id": 66, "enabled": 1}}
+Implementation Plan
+Phase 1 — New API client (api.py)
+EcoflowOpenApi — auth with accessKey / secretKey
+_sign_request() — HMAC-SHA256 signing
+_flatten_params() — recursive flattening (matching Java MyMapUtil)
+set_quota(), get_quota(), get_all_quotas()
+Phase 2 — Config flow
+Add accessKey and secretKey fields (optionally alongside existing credentials for backward compatibility).
+Phase 3 — New HA platforms
+number — numeric setpoints (e.g. max charge %, AC charge current)
+select — multi-option settings (e.g. operating mode)
+switch — boolean toggles (e.g. AC output, X-Boost)
+Phase 4 — Parameter mapping (commands.py)
+Map known PowerOcean/PowerPulse writable parameters to their cmdSet/id values (to be extracted from powerocean.pdf / geninfo.pdf).
+Files to Touch
+File	Change
+api.py	Add EcoflowOpenApi with signing + write methods
+ecoflow.py	HA wrapper for Open API
+config_flow.py	Add accessKey/secretKey fields
+const.py	Add number, select, switch to PLATFORMS
+number.py (new)	Writable numeric entities
+select.py (new)	Writable select entities
+switch.py (new)	Writable switch entities
+commands.py (new)	WRITABLE_PARAMS mapping
+strings.json / translations/	New config fields
+Open Questions
+Credential strategy: Migrate fully to Open API for both read+write, or keep legacy read path alongside Open API write path?
+Parameter catalogue: Full cmdSet/id list for PowerOcean/PowerPulse needs to be extracted from the PDFs in /doc.
+MQTT: Open API also provides MQTT credentials — real-time push could replace polling as a future follow-up.
+References
+doc/ecoflow-open-demo.zip — Java reference implementation
+doc/powerocean.pdf — PowerOcean protocol/parameter doc
+doc/geninfo.pdf — General EcoFlow Open API info
+The token limitation is a GitHub App permissions issue — the integration doesn't have the `issues: write` scope on this repo. You can paste the above directly at `https://github.com/noheton/powerocean/issues/new`.
+
+
