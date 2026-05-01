@@ -175,3 +175,31 @@ This logbook is the operating record for the paper and research process.
 - [2026-05-01] Performed an AI-assisted research audit across imported case studies and verified experiment artifact presence.
 - [2026-05-01] Created detailed `REPORT.md` summaries for `experiments/spider-farmer` and `experiments/ecoflow-powerocean` and linked them from each README.
 - [2026-05-01] Added per-case-study `provenance.md` files and seeded `docs/sources.md` with verification-status-tagged source entries.
+- [2026-05-01] Re-ran the audit against the embedded vendor copies (commit `ffdf60c`); upgraded source register entries from `[repo-referenced]`/`[unverified-external]` to `[repo-vendored]` and verified each transcript's technical claims against the actual code.
+
+### 2026-05-01 (audit against embedded vendor code)
+- Session lead: Researcher (with AI-assisted analysis)
+- Actions taken:
+  - Rebased the audit branch onto `origin/main` to pick up `ffdf60c` (*feat(experiments): embed vendor repos as plain files for agent access*), which materialises both case-study `original/` directories as plain files instead of submodule pins.
+  - Verified every transcript-recorded technical claim against the actual code in `original/`:
+    - **Spider Farmer** — confirmed corrected CB key/IV (`const.py` lines 45-47), static-IV-first decrypt path (`ble_protocol.py` 195-204), `asyncio.Lock` for write serialisation (`ble_coordinator.py` 79), `async_migrate_entry` (`__init__.py` 95), bluetooth match rules (`manifest.json`), and the dynamic-IV slice formula. Discovered the integration is now at `VERSION = 3` (`config_flow.py` 87) and `"version": "3.0.0"` (`manifest.json`), past the T4-era `1→2` migration.
+    - **EcoFlow PowerOcean** — confirmed the regex fix `(?<!st)(amp\|current)$` (`types.py` 90), version `2026.05.01` (`manifest.json` 12), domain `powerocean_dev` (`const.py` 10), 3-step config flow (`config_flow.py`, 510 lines), and the legacy `setDeviceProperty` write path (`api.py` 306). The previously-open "two API surfaces" question is resolved by `original/doc/apk.md` line 52, which documents three surfaces and the integration's choice to use the legacy endpoint.
+  - Surfaced new evidence not anticipated by the prior audit: in Spider Farmer, the community discussion in `original/doc/log.md` documents the MQTT-broker MITM and recovered credentials (`[REDACTED:username:S-SF-5-username]` / `[REDACTED:credential:S-SF-5-password]`) — a strong piece of independent evidence for the security claim. In EcoFlow, the four committed APKs and the six raw extraction logs are now first-class artifacts.
+  - Identified two corrections to the prior audit: (a) the upstream of `powerocean_dev` is `[REDACTED:repo-path:EF-IMPL-1]`, not `noheton/powerocean` (per `const.py` `ISSUE_URL`); (b) the empty Spider Farmer transcript T7 ("Add logo…") was preserved as zero bytes, but the deliverable (`original/logo.png`, `original/brand/icon.png`, `icon@2x.png`) was actually completed.
+  - Rewrote both `provenance.md` files to map each transcript to specific verified files and line numbers in `original/`. Updated `docs/sources.md` to upgrade most entries from `[repo-referenced]` to `[repo-vendored]`, added the four APKs and the user manuals as new source entries, and refined the verification-status legend.
+  - Recorded redaction risks for any public release: device serial `[REDACTED:serial:S-SF-device]`, broker IP `[REDACTED:ip:S-SF-device]`, and the recovered MQTT password.
+- Files updated:
+  - `experiments/spider-farmer/provenance.md`
+  - `experiments/ecoflow-powerocean/provenance.md`
+  - `docs/sources.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Promote `[repo-vendored]` as a stronger verification status than `[repo-referenced]` to reflect that artifacts are now directly cite-able.
+  - Treat the missing HA log files (the `home-assistant_spider_farmer_*.log` series) as the only outstanding artifact gap in the Spider Farmer case study.
+- Open issues:
+  - § 69e UrhG / EU 2009/24/EC remain `[unverified-external]`; AI-generated legal opinions are still flagged as not legal advice.
+  - Vendor APK and PDF redistribution status needs to be checked before any public release.
+  - The `VERSION 2 → 3` migration step in Spider Farmer is not documented by any preserved transcript and should be reconstructed.
+- Next steps:
+  - Begin the literature search for the `[needs-research]` items in `docs/sources.md`.
+  - Decide on a redaction policy for the live credentials and device identifiers in the case-study artifacts before any public release.
