@@ -203,3 +203,26 @@ This logbook is the operating record for the paper and research process.
 - Next steps:
   - Begin the literature search for the `[needs-research]` items in `docs/sources.md`.
   - Decide on a redaction policy for the live credentials and device identifiers in the case-study artifacts before any public release.
+
+### 2026-05-01 (paper structure draft)
+- Session lead: Researcher (with AI-assisted drafting)
+- Actions taken:
+  - Restructured `paper/main.md` to the seven-section outline requested for the paper: Introduction and Motivation, Methodology, Experiment & Analysis 1 (Spider Farmer), Experiment & Analysis 2 (EcoFlow PowerOcean), Synthesis, Discussion, Conclusion.
+  - Wired each section to the verified evidence already in the repo: source register entries (`docs/sources.md`), per-case `provenance.md` files, `REPORT.md` summaries, and the embedded vendor code at commit `ffdf60c`.
+  - Carried forward open issues from the prior audit (legal-source verification, redaction policy, undocumented `VERSION 2 → 3` Spider Farmer migration) into the paper's Threats to Validity and Future Work subsections.
+  - Preserved the abstract from the previous skeleton; replaced the flat case-study sections with structured §3 and §4 that mirror the methodology (artifact inventory → workflow → findings → validation → security implications → KPIs).
+- Files updated:
+  - `paper/main.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Treat the two case studies as parallel `Experiment & Analysis` sections rather than a single "Case Studies" block, to make the cross-case comparison in §5 (Synthesis) more legible.
+  - Keep KPI tables stubbed rather than fabricated; numbers must come from the existing logbook and provenance evidence in a follow-up pass.
+  - Make the dual-use evaluation part of each case study's findings (§3.6, §4.6) rather than only a Discussion subsection.
+- Open issues:
+  - KPI tables in §3.7 and §4.7 are stubbed and need to be populated from logbook + provenance evidence.
+  - Redaction of S-SF-5 (live MQTT credentials) is required before any public release of the paper.
+  - § 69e UrhG / EU 2009/24/EC sourcing remains `[unverified-external]`.
+- Next steps:
+  - Populate the KPI tables from the logbook and provenance maps.
+  - Begin the literature pass against `docs/sources.md` `[needs-research]` items.
+  - Resolve vendor APK/PDF redistribution status before any public release.
