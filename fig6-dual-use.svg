@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  
+        <text x="32" y="40" class="lbl-title">Cloud-bound default vs. local control</text>
+
+        
+        <line class="hairline" x1="240" y1="60" x2="240" y2="298"></line>
+
+        
+        <text x="136" y="74" class="lbl-bold" text-anchor="middle">Vendor default</text>
+
+        
+        <rect x="60" y="226" width="60" height="40" fill="#fff" stroke="#000" stroke-width="0.8"></rect>
+        <text x="90" y="242" class="lbl-sm" text-anchor="middle">Home</text>
+        <text x="90" y="256" class="lbl-bold" text-anchor="middle">PowerOcean</text>
+
+        
+        <rect x="156" y="226" width="60" height="40" fill="#fff" stroke="#000" stroke-width="0.8"></rect>
+        <text x="186" y="246" class="lbl-bold" text-anchor="middle">App</text>
+        <text x="186" y="258" class="lbl-sm" text-anchor="middle">phone</text>
+
+        
+        <rect x="92" y="106" width="92" height="44" fill="#fff" stroke="#000" stroke-width="0.8"></rect>
+        <text x="138" y="124" class="lbl-bold" text-anchor="middle">Vendor cloud</text>
+        <text x="138" y="138" class="lbl-sm" text-anchor="middle">required hop</text>
+
+        
+        <path d="M 90 226 C 90 180, 110 160, 138 150" class="hairline" stroke="#000" stroke-width="1"></path>
+        <path d="M 186 226 C 186 180, 166 160, 138 150" class="hairline" stroke="#000" stroke-width="1"></path>
+        <polygon points="138,150 134,156 142,156" fill="#000"></polygon>
+
+        <text x="60" y="194" class="lbl-sm">telemetry</text>
+        <text x="216" y="194" class="lbl-sm" text-anchor="end">commands</text>
+
+        
+        <text x="136" y="290" class="lbl-sm" text-anchor="middle">latency · outage · data egress · lock-in</text>
+
+        
+        <text x="360" y="74" class="lbl-bold" text-anchor="middle">AI-assisted local</text>
+
+        <rect x="284" y="226" width="60" height="40" fill="#fff" stroke="#000" stroke-width="0.8"></rect>
+        <text x="314" y="242" class="lbl-sm" text-anchor="middle">Home</text>
+        <text x="314" y="256" class="lbl-bold" text-anchor="middle">PowerOcean</text>
+
+        
+        <rect x="380" y="226" width="60" height="40" fill="#d1e8fa" stroke="#00658b" stroke-width="1"></rect>
+        <text x="410" y="244" class="lbl-bold" text-anchor="middle" fill="#00658b">Local broker</text>
+        <text x="410" y="258" class="lbl-sm" text-anchor="middle">on LAN</text>
+
+        
+        <rect x="316" y="106" width="92" height="44" fill="#fff" stroke="#00658b" stroke-width="1"></rect>
+        <text x="362" y="124" class="lbl-bold" text-anchor="middle" fill="#00658b">Protocol map</text>
+        <text x="362" y="138" class="lbl-sm" text-anchor="middle">packets, telemetry</text>
+
+        
+        <line x1="344" y1="246" x2="380" y2="246" class="accent-stroke"></line>
+        <polygon points="380,246 374,243 374,249" fill="#00658b"></polygon>
+
+        
+        <path d="M 410 226 C 410 180, 380 158, 362 150" stroke="#b1b1b1" stroke-width="1" stroke-dasharray="3 3" fill="none"></path>
+        <text x="420" y="174" class="lbl-sm">optional</text>
+
+        
+        <text x="360" y="290" class="lbl-sm" text-anchor="middle">no vendor hop · own data · resilient</text>
+      </svg>
