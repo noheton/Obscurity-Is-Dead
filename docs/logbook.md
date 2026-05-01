@@ -226,3 +226,27 @@ This logbook is the operating record for the paper and research process.
   - Populate the KPI tables from the logbook and provenance maps.
   - Begin the literature pass against `docs/sources.md` `[needs-research]` items.
   - Resolve vendor APK/PDF redistribution status before any public release.
+
+### 2026-05-01 (academic literature pass)
+- Session lead: Researcher (with AI-assisted search via the Consensus academic database)
+- Actions taken:
+  - Ran a structured literature search session against Consensus (Semantic Scholar / PubMed / Scopus / arXiv) targeting the eight `[needs-research]` items previously enumerated in `docs/sources.md`.
+  - Added two new verification statuses to the source-register legend: `[lit-retrieved]` (database-surfaced, not yet read) and `[lit-read]` (read in full and confirmed). The earlier four-status legend remained insufficient to honestly describe the state of citations after a database query.
+  - Populated `docs/sources.md` with eight claim clusters (A–H) covering: LLM-assisted RE, LLM-assisted vulnerability/exploit generation, hardcoded secrets in mobile apps, BLE/IoT security-through-obscurity, IoT right-to-repair, local-first smart home, DMCA § 1201(f) legal exemption, and counter-positions on interoperability. ~50 papers registered with stable handles `L-<cluster>-<n>`.
+  - Surfaced specific papers that **contradict or qualify** the paper's claims and flagged them as such — most importantly L-RE-4 (Pearce et al. 2022, "LLMs are not yet ready for zero-shot RE"), L-VD-2 (Zhao et al. 2025, 8–34% PoC success on disclosed CVEs — qualifies the asymmetry-of-collapse claim in §6.3), L-COUNTER-1 (Boniface et al. 2020, interoperability as security-cost optimisation), and L-COUNTER-2 (Mitra & Ransbotham 2015, full disclosure accelerates attack diffusion).
+  - Added a coverage table mapping each prior `[needs-research]` item to its retrieved anchor citations, leaving two items open: § 69e UrhG / EU 2009/24/EC (needs German-language / EUR-Lex search) and vendor-published positions on community RE (grey-literature problem, not solvable through academic-database search).
+- Files updated:
+  - `docs/sources.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Mark every newly retrieved citation as `[lit-retrieved]` rather than letting it pass as a usable source. Upgrading to `[lit-read]` requires a researcher reading the full paper, not just the abstract surfaced by the database.
+  - Deliberately retain papers that **contradict** the paper's claims (L-RE-4, L-VD-2, L-COUNTER-1, L-COUNTER-2). The paper's intellectual honesty depends on these being engaged with, not omitted.
+  - Defer the German-language legal search and the grey-literature pass on vendor positions to a separate session — both require different sourcing strategies than the Consensus academic-database approach.
+- Open issues:
+  - All Cluster A–H citations are `[lit-retrieved]`, not `[lit-read]`. No paper claim should cite them directly until the underlying full text has been read.
+  - § 69e UrhG / EU 2009/24/EC sourcing remains unresolved.
+  - Vendor-position grey-literature pass is unstarted.
+- Next steps:
+  - Read the highest-priority full texts and upgrade their status to `[lit-read]`: L-HC-1 (SecretLoc), L-VD-1 (script-kiddies AEG), L-RE-4 (Pop Quiz), L-RR-1 (right-to-repair-IoT), L-COUNTER-1 (security implications of interoperability), L-COUNTER-2 (disclosure & attack diffusion), L-BLE-5 (Living in the Past).
+  - Targeted German-language search for § 69e UrhG and EU 2009/24/EC.
+  - Define the grey-literature sourcing strategy for vendor positions on community reverse engineering.
