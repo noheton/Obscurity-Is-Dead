@@ -1,0 +1,13 @@
+{
+  "domain": "powerocean_dev",
+  "name": "Ecoflow PowerOcean (dev)",
+  "codeowners": [
+    "@[REDACTED:maintainer-handle:EF-IMPL-1]"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/[REDACTED:repo-path:EF-IMPL-1]",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/[REDACTED:repo-path:EF-IMPL-1]/issues",
+  "version": "2026.05.01"
+}
