@@ -1,0 +1,50 @@
+name: Build paper
+
+on:
+  push:
+    paths:
+      - 'paper/**'
+      - '.github/workflows/build-paper.yml'
+  pull_request:
+    paths:
+      - 'paper/**'
+      - '.github/workflows/build-paper.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          working_directory: paper
+          latexmk_use_xelatex: false
+          latexmk_shell_escape: false
+          args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
+
+      - name: Build arXiv submission tarball
+        working-directory: paper
+        run: |
+          # Re-run latexmk to ensure .bbl is fresh, then package.
+          tar --transform 's,^,arxiv-submission/,' \
+              -czf arxiv-submission.tar.gz \
+              main.tex main.bbl references.bib
+          tar -tzf arxiv-submission.tar.gz
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-pdf
+          path: paper/main.pdf
+          if-no-files-found: error
+
+      - name: Upload arXiv submission tarball
+        uses: actions/upload-artifact@v4
+        with:
+          name: arxiv-submission
+          path: paper/arxiv-submission.tar.gz
+          if-no-files-found: error
