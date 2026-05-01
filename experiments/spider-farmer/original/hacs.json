@@ -1,0 +1,7 @@
+{
+  "name": "Spider Farmer",
+  "content_in_root": true,
+  "render_readme": true,
+  "logo": "https://raw.githubusercontent.com/noheton/spider_farmer/main/logo.png",
+  "homeassistant": "2023.1.0"
+}
