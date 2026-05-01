@@ -279,7 +279,7 @@ The case-study artifacts are vendored under `experiments/paper-meta-process/` wi
 | §6.4 + §10 | `3b85606` | Consumer vs industrial qualifier; Pandora moment | ~1.5 h |
 | Redaction + Rules 12–14 | `e5762a0` | Redaction pass; redaction-policy.md; Makefile warning | ~2 h |
 | Discussion expansion + timelines | `8f92658` | §7.10, §7.11, KPI tables, figures README, README | ~3 h |
-| DLR design + data-driven fig1 | `(see log)` | `dlr_style.py`, `data/effort-gap.csv`, `fig1-effort-gap.py` adapted from DLR design bundle; Rule-14 compliance for fig1 | ~1.5 h |
+| DLR design + data-driven fig1 | `456f7ef` | `dlr_style.py`, `data/effort-gap.csv`, `fig1-effort-gap.py` adapted from DLR design bundle; Rule-14 compliance for fig1 | ~1.5 h |
 | **Total AI-assisted (paper)** | | | **~17 h** |
 
 **Estimated manual baseline** (writing a research paper of this scope — 10 sections, FAIR metadata, 70-entry literature register, provenance maps, LaTeX build pipeline, redaction policy — without AI assistance): **200–400 h** of research, writing, and tooling work.
