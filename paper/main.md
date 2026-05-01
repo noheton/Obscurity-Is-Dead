@@ -280,11 +280,12 @@ The case-study artifacts are vendored under `experiments/paper-meta-process/` wi
 | Redaction + Rules 12–14 | `e5762a0` | Redaction pass; redaction-policy.md; Makefile warning | ~2 h |
 | Discussion expansion + timelines | `8f92658` | §7.10, §7.11, KPI tables, figures README, README | ~3 h |
 | DLR design + data-driven fig1 | `456f7ef` | `dlr_style.py`, `data/effort-gap.csv`, `fig1-effort-gap.py` adapted from DLR design bundle; Rule-14 compliance for fig1 | ~1.5 h |
-| **Total AI-assisted (paper)** | | | **~17 h** |
+| Democratisation of science §10 | `(see log)` | Citizen-science / democratisation paragraph added to §10; §5.7 updated | ~0.5 h |
+| **Total AI-assisted (paper)** | | | **~17.5 h** |
 
 **Estimated manual baseline** (writing a research paper of this scope — 10 sections, FAIR metadata, 70-entry literature register, provenance maps, LaTeX build pipeline, redaction policy — without AI assistance): **200–400 h** of research, writing, and tooling work.
 
-**Effort-gap metric**: **~17 / 300 ≈ 6% of manual effort** (updated as of current session; see table above).
+**Effort-gap metric**: **~17.5 / 300 ≈ 6% of manual effort** (updated each session; see table above).
 
 **Other KPIs (as of 2026-05-01):**
 - Commits on development branch since divergence from main: **21** (including merges).
@@ -490,6 +491,12 @@ The novelty we claim in this paper is not in the substance of the case studies. 
 8. **FAIR alignment as a precondition, not an afterthought.** `CITATION.cff`, `.zenodo.json`, `codemeta.json`, and `docs/fair.md` map every FAIR principle to the concrete repository feature that satisfies it.
 
 None of these practices is individually novel. Conversation logs have been shipped with replications before; verification-status labels exist in evidence-based-medicine practice; provenance maps exist in bioinformatics; FAIR predates LLMs. **The novelty is the integration**: assembling these practices into a single, executable, runnable research protocol (`docs/research-protocol-prompt.md`) that an AI agent can be instructed to follow and that a human reviewer can audit by reading the artifacts the protocol produces.
+
+**A fourth structural claim: democratisation of science production.** The effort-gap collapse documented in §3 and §4 is not confined to device integration. The meta-process (§5) is the same phenomenon applied recursively to the *production of empirical research itself*: a single independent researcher, without institutional infrastructure, produced a publication-quality paper — provenance maps, FAIR metadata, dual-format submission source, 70-entry literature register — in approximately 17 hours of AI-assisted work, estimated at 6% of the manual-equivalent effort (§5.7). This is citizen science, but in a mode that has no direct precedent in the citizen-science tradition.
+
+Classical citizen science democratises *data collection*: Galaxy Zoo enlists amateur observers to classify galaxies; Folding@home distributes protein-folding computation; iNaturalist aggregates biodiversity observations. The bottleneck those platforms attack is human time at the sensing layer; research design and analysis remain institutional. What AI-assisted research democratises is different — it attacks the *cognitive and documentational* bottleneck: the activation energy of turning a well-posed question and working integration evidence into a structured, attributed, reproducible argument. That bottleneck has historically been managed by institutional infrastructure: research libraries, writing support, supervisory relationships, peer networks, methodology courses. Those barriers are not gone; they are lower.
+
+This is both the most hopeful and the most dangerous implication of the present work. Hopeful, because it extends the reach of the scientific method to researchers who lack institutional affiliation, funding, or time — groups that include the fastest-growing category of knowledge workers in the current economy. Dangerous, because the same compression applies to low-quality production as to high-quality production; §7.6 (sloppification) and §7.7 (model collapse) are the corpus-level consequence of democratised *production* without democratised *verification*. The response is not to restrict access to the tools but to make the methodology auditable — to ensure that, as the jar opens wider, the Hope that remains is the kind that shows its work.
 
 The implicit contrast is with the prevailing practice. Two failure modes dominate the AI-assisted research literature today, and both are documented quantitatively in `docs/sources.md` cluster I:
 
