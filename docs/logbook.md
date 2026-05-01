@@ -532,3 +532,44 @@ This logbook is the operating record for the paper and research process.
 - Next steps:
   - Verify CI passes on this branch.
   - Continue tracking §5.7 KPI each session until submission.
+
+---
+
+### Session 5 — 2026-05-01 (README PDF link)
+
+- Branch: `claude/add-pdf-link-readme-ZnUTX`
+
+- Added a PDF reference to `README.md`:
+  - New badge `[![Paper PDF](.../paper-PDF-informational)](paper/main.pdf)` in the
+    badge row, alongside the existing License / FAIR / arXiv-LaTeX badges.
+  - New "PDF" bullet in the "Reading the paper" section pointing to
+    `paper/main.pdf` and noting that the file is gitignored by default
+    (`paper/.gitignore` line "main.pdf"; tracked only when explicitly committed
+    per the comment in that file). Cross-references `paper/Makefile` for the
+    build target.
+
+- Files updated:
+  - `README.md`
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - Link to the canonical local-build path `paper/main.pdf` rather than to a
+    hosted PDF: no Zenodo DOI is minted yet (rule 13 — no public distribution
+    without explicit author consent) and no GitHub Release artifact exists. The
+    badge resolves once a build is committed; the bullet honestly states the
+    current absence.
+  - Badge style/color (`informational`) chosen to match the existing shields.io
+    palette without implying a hosted/peer-reviewed PDF.
+
+- Open issues:
+  - `paper/main.pdf` is not currently committed; the README link will 404 on
+    GitHub until either (a) a build is committed under explicit author consent
+    or (b) a Zenodo/Release URL replaces the relative path. Rule 13 forbids
+    automating either step.
+  - All prior session open issues carry over (history rewrite, vendor
+    redistribution, `[lit-retrieved]` → `[lit-read]`, Zenodo DOI).
+
+- Next steps:
+  - On first author-approved release, replace the relative `paper/main.pdf`
+    link with the Zenodo / GitHub Release URL.
+  - Continue tracking §5.7 KPI each session until submission.
