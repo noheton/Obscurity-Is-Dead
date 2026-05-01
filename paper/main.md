@@ -1,5 +1,10 @@
 # AI-Assisted Hacking: Key to Interoperability or Security Nightmare?
 
+**Author:** Florian Krebs (ORCID: [0000-0001-6033-801X](https://orcid.org/0000-0001-6033-801X))
+**Affiliation:** Independent researcher (personal capacity)
+
+> **Statement of independence.** This is a hobbyist project carried out by the author in a personal capacity. It is not part of, endorsed by, funded by, or representative of the views of any employer, including the German Aerospace Center (DLR / *Deutsches Zentrum für Luft- und Raumfahrt*). The full statement is in §9.5.
+
 ## Abstract
 This paper investigates how modern large language models collapse the traditional "effort gap" in reverse engineering. Through two empirical case studies — Spider Farmer BLE devices and EcoFlow PowerOcean energy systems — we show how AI-assisted analysis turns theoretical protocol knowledge into practical, replicable local integrations. We then assess whether this collapse is a force for interoperability and right-to-repair or a systemic security risk, and we propose a research methodology that treats AI conversation transcripts, vendor artifacts, and version history as first-class evidence.
 
@@ -145,69 +150,188 @@ Every constant and endpoint above was re-checked against `original/` at commit `
 
 ---
 
-## 5. Synthesis
+## 5. Experiment & Analysis 3 — The paper as an AI-assisted artifact
 
-### 5.1 Cross-case comparison
-| Dimension | Spider Farmer | EcoFlow PowerOcean |
-|---|---|---|
-| Defence model | Hardcoded AES keys/IVs in APK + self-signed MQTT cert | Three undocumented API surfaces, vendor publishes only one |
-| Primary AI lift | Reconciling four independent implementations | Discovering and choosing among API surfaces; type-system bug fix |
-| Independent corroboration | 3 community implementations + community MITM thread | 1 vendor reference implementation + 1 upstream community fork |
-| Live credential recovery | Yes (MQTT broker creds) | No (token-bearer model) |
-| Dual-use blast radius | Per-device control over horticulture hardware | Grid-in / battery-reserve / EV-charger control |
-| Status of vendor public docs | None | Open API documented; consumer app uses different surface |
+### 5.1 System and threat model
+The unit of analysis here is recursive: the paper that documents AI-assisted reverse engineering is itself an AI-assisted artifact. The "system" is the paper-generation pipeline: prompts, AI conversation transcripts, repository state, and the human researcher in the loop. Specific risks to evaluate are:
+- **Fabricated citations.** LLMs are known to hallucinate references; an entry surfaced from a database is not the same as a paper that has been read.
+- **Silent memorisation / plagiarism.** AI-drafted prose may reproduce training-data text without attribution.
+- **Prompt injection.** Vendor APK strings, community-thread excerpts, and PDF contents embedded under `experiments/*/original/` are read by the agent and could in principle inject instructions.
+- **Misrepresentation of source claims.** A Consensus-surfaced abstract is not a peer-reviewed claim until the full text has been read.
+- **Tooling drift.** Identical prompts in later sessions produce non-identical outputs.
+- **AI-generated legal opinion mistaken for sourced legal commentary.** A specific instance from the EcoFlow transcripts has already been flagged; the failure mode is generalisable.
 
-### 5.2 What the AI workflow added
-- **Spider Farmer.** Not protocol *discovery* — the four community implementations had already done that — but *reconciliation* across conflicting key tables and verification of the dynamic-IV slice formula.
-- **EcoFlow PowerOcean.** Surface enumeration and field-name convention recovery: a manual reverse-engineer would have eventually found the legacy endpoint, but the AI-assisted workflow recovered the full writeable-parameter catalogue from APK constants in a single pass.
+### 5.2 Artifact inventory
+The case-study artifacts are vendored under `experiments/paper-meta-process/` with the same shape as the other two case studies (`README.md`, `REPORT.md`, `provenance.md`, `raw_conversations (copy&paste, web)/`):
 
-### 5.3 Common patterns
-- Both defences relied on the *combination* of obscurity and effort, not on either alone.
-- Both yielded clean local integrations once a single piece of evidence (key table; API surface) was identified.
-- In both cases, AI assistance compressed the *reconciliation* phase more than the *discovery* phase. The effort-gap collapse is unevenly distributed across workflow stages.
+- The git history of this repository on `main` and on the development branch `claude/develop-paper-structure-7lG2s`.
+- Conversation transcripts of paper-development sessions, preserved in `experiments/paper-meta-process/raw_conversations (copy&paste, web)/`. Each transcript declares a verification status (`[verbatim-export]` / `[curated-reconstruction]` / `[redacted]`) in its YAML header. The first preserved transcript (`T1-paper-structure-and-literature.md`) is a `[curated-reconstruction]` of the 2026-05-01 session that produced the paper structure, the literature pass, the FAIR metadata, and this case study.
+- The case-study report `experiments/paper-meta-process/REPORT.md` and the per-transcript provenance map `experiments/paper-meta-process/provenance.md` (parallel to the Spider Farmer and EcoFlow `provenance.md` files).
+- The repository AI policy: `CLAUDE_CODE_INSTRUCTIONS.md`, `.instructions.md`, `copilot-instructions.md`, `CLAUDE.md`.
+- The executable research-protocol agent prompt (`docs/research-protocol-prompt.md`).
+- The methodology document (`docs/methodology.md`) and its KPI framework (§10).
+- The literature register in `docs/sources.md` with the verification-status legend (`[repo-vendored]`, `[repo-referenced]`, `[unverified-external]`, `[lit-retrieved]`, `[lit-read]`, `[needs-research]`).
+- The logbook (`docs/logbook.md`), updated per commit per the rule established on 2026-05-01.
+- The arXiv-ready LaTeX build pipeline (`paper/main.tex`, `paper/Makefile`, `.github/workflows/build-paper.yml`).
+- The mirroring rule between `paper/main.md` and `paper/main.tex` (rule 11 in `CLAUDE_CODE_INSTRUCTIONS.md`).
+- FAIR / citation metadata at the repository root: `CITATION.cff`, `.zenodo.json`, `codemeta.json`, plus the FAIR-mapping document `docs/fair.md`.
 
-### 5.4 Limits of the comparison
-Two cases is two cases. We cannot generalise from horticulture BLE and residential energy storage to "all IoT". The case selection over-samples categories where a public Home Assistant integration was already plausible; the inference to harder targets (e.g. closed industrial protocols) is open.
+### 5.3 AI-assisted analysis workflow
+1. **Repo-context loading.** The agent reads `CLAUDE_CODE_INSTRUCTIONS.md`, `docs/methodology.md`, `docs/logbook.md`, and the per-case `provenance.md` files at session start.
+2. **Skeleton generation.** Section structure proposed by the AI from the verified case-study evidence (commit `ffdf60c`) and reviewed by the researcher.
+3. **Iterative prompting.** Each user turn maps to one or more commit-grouped edits. The conversation transcript is the source-of-truth log.
+4. **Structured literature search.** External academic-database queries (Consensus / Semantic Scholar / arXiv) batched per the tool's rate-limit guidance; results recorded with `[lit-retrieved]` status.
+5. **Mirror enforcement.** Any change to `paper/main.md` must be reflected in `paper/main.tex` before commit (rule 11).
+6. **Git-paired logbook entries.** Each meaningful commit has a paired logbook entry naming the action, files touched, decisions, open issues, and next steps.
+
+### 5.4 Findings — interoperability and reproducibility
+- The paper, including every claim in §3 and §4, is regenerable from the repository state at the pinned commit `ffdf60c` for the vendor evidence and at the head of the development branch for the prose.
+- The verification-status legend makes the read-state of every cited source explicit and prevents `[lit-retrieved]` entries from drifting into the paper as if they had been read.
+- The arXiv build pipeline reproduces the PDF and submission tarball deterministically from `paper/main.tex` plus `paper/references.bib`.
+- The methodology (§2) and KPI framework (`docs/methodology.md` §10) are themselves operationalised as the executable agent prompt (`docs/research-protocol-prompt.md`), making the research protocol a runnable artifact rather than only a description.
+
+### 5.5 Validation
+- All §3 and §4 claims were re-checked against the embedded vendor code at commit `ffdf60c` (logbook entry "audit against embedded vendor code").
+- All literature entries from the 2026-05-01 search session are marked `[lit-retrieved]`, not `[lit-read]` — explicitly capturing the gap between database-surfaced and read-in-full.
+- The mirroring rule between `paper/main.md` and `paper/main.tex` is enforced by reviewer attention at commit time and by CI (`.github/workflows/build-paper.yml`), which rebuilds the PDF on every paper-touching commit and surfaces LaTeX-syntactic regressions.
+- AI-generated legal opinions in transcripts are explicitly flagged (`docs/sources.md` S-EF-9) and held out of the paper until replaced with sourced legal commentary.
+
+### 5.6 Findings — security and dual-use implications
+- **Fabricated citations.** All ~50 entries in the literature register are `[lit-retrieved]` only. Any upgrade to `[lit-read]` without the researcher actually reading the paper would be a fabrication. The legend exists precisely to make this risk visible. The empirical base rates make this concrete: Walters & Wilder (2023) found **55% of ChatGPT-3.5 and 18% of GPT-4 generated citations were fabricated** in literature reviews, with a further 24–43% of the *real* citations carrying substantive errors [L-SLOP-1]. McGowan et al. (2023) found only **2 of 35** ChatGPT-generated psychiatry citations were real [L-SLOP-4]. Chelli et al. (2024) measured hallucination rates of 28.6%–91.4% across LLMs in systematic-review reference generation [L-SLOP-2]. These are not edge cases.
+- **AI-generated legal analysis.** A specific opinion in transcript T3 line 147 (EcoFlow) is flagged in `docs/sources.md` and §7.1 — without that flag, it would have entered the paper as if sourced.
+- **Live-credential leakage.** `docs/sources.md` S-SF-5 carries the recovered MQTT credentials for the Spider Farmer broker. These must be redacted before public release of the paper. This redaction is the single most important pre-publication action and is recorded as an open issue in the logbook.
+- **Prompt injection from imported artifacts.** Vendor APK strings, PDF contents, and community-thread excerpts under `experiments/*/original/` are read by the AI agent. The mitigation is the AI policy's labelling requirement plus researcher verification of every AI-attributed claim.
+- **Tooling drift.** The workflow and committed artifacts are the reproducible unit; the AI's exact tokens are not.
+
+### 5.7 KPI summary (Meta-process)
+*To be populated*: number of commits on the paper-development branch, number of AI sessions logged in `docs/logbook.md`, ratio of AI-generated to researcher-authored prose, count of AI-generated claims subsequently flagged or removed, count of `[lit-retrieved]` entries upgraded to `[lit-read]`, time-to-first-publishable-draft.
 
 ---
 
-## 6. Discussion
+## 6. Synthesis
 
-### 6.1 Interoperability: the automated right to repair
+### 6.1 Cross-case comparison
+| Dimension | Spider Farmer | EcoFlow PowerOcean | Meta-process (this paper) |
+|---|---|---|---|
+| Defence model | Hardcoded AES keys/IVs in APK + self-signed MQTT cert | Three undocumented API surfaces, vendor publishes only one | None — the artifact is open by construction |
+| Primary AI lift | Reconciling four independent implementations | Discovering and choosing among API surfaces; type-system bug fix | Skeleton generation, structured literature retrieval, mirror discipline |
+| Independent corroboration | 3 community implementations + community MITM thread | 1 vendor reference implementation + 1 upstream community fork | Git history; researcher review at commit time; CI build |
+| Live credential recovery | Yes (MQTT broker creds) | No (token-bearer model) | N/A — the paper is the artifact |
+| Dual-use blast radius | Per-device control over horticulture hardware | Grid-in / battery-reserve / EV-charger control | Fabricated citations; unsourced legal opinions; redaction failures |
+| Status of vendor public docs | None | Open API documented; consumer app uses different surface | All policy and provenance documented in repo |
+
+### 6.2 What the AI workflow added
+- **Spider Farmer.** Not protocol *discovery* — the four community implementations had already done that — but *reconciliation* across conflicting key tables and verification of the dynamic-IV slice formula.
+- **EcoFlow PowerOcean.** Surface enumeration and field-name convention recovery: a manual reverse-engineer would have eventually found the legacy endpoint, but the AI-assisted workflow recovered the full writeable-parameter catalogue from APK constants in a single pass.
+- **Meta-process.** Skeleton generation from sparse evidence, structured literature retrieval at scale, and the disciplined application of verification-status labels to keep the paper honest about what it has and has not read.
+
+### 6.3 Common patterns
+- All three defences/processes relied on the *combination* of obscurity and effort, not on either alone — and in the meta-process, on the *combination* of access control and labour, where the labour is the researcher reading and verifying.
+- All three yielded clean outputs once a single organising piece of evidence (key table; API surface; verification-status legend) was identified.
+- In all three cases, AI assistance compressed the *organisation and reconciliation* phase far more than the *discovery* phase. The effort-gap collapse is unevenly distributed across workflow stages.
+
+### 6.4 Limits of the comparison
+Three cases is still small. The meta-process case is also recursive — the paper documenting AI-assisted reverse engineering is itself an AI-assisted artifact, which means selection bias and tooling drift apply to its analysis the same way they apply to the integration cases. We treat the meta-process case as evidence for the methodology, not as independent confirmation of the central thesis.
+
+---
+
+## 7. Discussion
+
+### 7.1 Interoperability: the automated right to repair
 European decompilation-for-interoperability provisions (§ 69e UrhG, EU 2009/24/EC) presuppose that decompilation is *legally* possible for an end user. AI assistance makes it *practically* possible. The case studies are existence proofs that the legal carve-out can now be exercised at hobbyist scale, not just by specialised firms. Whether legislatures intended this is an empirical question for legal scholarship, not for this paper. (Sourcing: `docs/sources.md` S-EF-9, S-EF-10, both `[unverified-external]` until cross-checked.)
 
-### 6.2 The collapse of the boredom barrier
+### 7.2 The collapse of the boredom barrier
 Security through obscurity rested on a labour-market assumption: that a determined hobbyist would not invest a fortnight to integrate a grow-tent controller. That assumption is dead. The Spider Farmer case shows three independent community implementations of the same protocol and an independently recovered set of MQTT credentials — converging evidence that the obscurity barrier has perforated.
 
-### 6.3 Asymmetry of collapse
+### 7.3 Asymmetry of collapse
 The effort gap has *not* collapsed uniformly. AI assistance compresses the *known-good-protocol* path far more than the *novel-vulnerability* path; verifying an integration against a live device is cheap, and verifying an exploit against a live target is not. We argue this asymmetry is the most under-discussed feature of the post-LLM threat model.
 
-### 6.4 Dual-use accountability
+### 7.4 Dual-use accountability
 Both case studies expose live attack surfaces. In Spider Farmer the surface is already public — recovered in a community thread — and the case is a *post-hoc* documentation of a collapse that has already happened. In EcoFlow the surface is documented for the first time here, and we accordingly enumerate the redactions that must be applied before public release (logbook 2026-05-01 audit; `docs/sources.md` S-SF-5, S-EF-2..4).
 
-### 6.5 Methodological implications for security research
+### 7.5 The paper as evidence for its own thesis
+The meta-process case (§5) is recursive evidence for our central claim. The same pipeline that compresses the Spider Farmer and EcoFlow integrations compresses paper-writing — and exposes the same dual-use surface. Just as recovered MQTT credentials are a side-effect of integration work, fabricated citations and unsourced legal opinions are side-effects of paper work. The discipline that resolves both is the same: pin artifacts, label provenance, treat AI output as evidence to be verified rather than as authority.
+
+### 7.6 Sloppification: the AI methodological discount
+The most concrete and under-managed risk of AI-assisted research is what we call the *methodological discount* — the unspoken trade-off in which a researcher accepts a degraded standard of evidence in exchange for AI-assisted speed. Empirical work on LLMs in scientific writing now documents this risk concretely:
+
+- Walters & Wilder (2023), *Scientific Reports*, found that **55% of GPT-3.5 and 18% of GPT-4 generated citations were fabricated** in literature reviews, with a further substantial fraction of *real* citations carrying substantive errors [L-SLOP-1].
+- McGowan et al. (2023), *Psychiatry Research*, found only **2 of 35** ChatGPT-generated psychiatry citations were real; the remaining 33 were either subtly wrong or pastiches of existing manuscripts [L-SLOP-4].
+- Chelli et al. (2024), *JMIR*, measured hallucination rates of 28.6%–91.4% and recall rates as low as 11.9% across LLMs in systematic-review reference generation [L-SLOP-2].
+- Buchanan & Hill (2023) document >30% non-existent citations in ChatGPT outputs across the *Journal of Economic Literature* topic taxonomy [L-SLOP-3].
+- Suchak et al. (2025), *PLOS Biology*, document a real-world consequence: NHANES-based formulaic single-factor papers grew from 4 per year (2014–2021) to **190 in the first ten months of 2024** — direct evidence of paper-mill / AI-assisted output flooding the literature [L-SLOP-8].
+- Kendall & Teixeira da Silva (2023), *Learned Publishing*, and Sabel et al. (2025, *Royal Society Open Science*, the Stockholm Declaration) frame this at the system level: paper mills are now AI-assisted at industrial scale, and the publishing model needs structural reform [L-SLOP-5, L-SLOP-7].
+
+The mitigation we operationalise is mundane: a verification-status legend (`[lit-retrieved]` / `[lit-read]`) that makes the read-state of every cited source explicit, plus a refusal to upgrade an entry without the researcher actually reading the paper. Sloppification is not solved by a better model; it is solved by labour discipline that the model cannot perform.
+
+### 7.7 Model collapse and the dilution of the scientific commons
+A second, longer-horizon argument cuts in the opposite direction. Shumailov et al. (2024, *Nature*) showed that **AI models trained recursively on AI-generated content collapse** — the tails of the original distribution disappear and successive generations of models forget the genuine human-data signal [L-MC-1, L-MC-7]. Seddik et al. (2024) prove this is unavoidable when training is purely synthetic but bounded when synthetic and real data are mixed below a threshold [L-MC-3]. Gerstgrasser et al. (2024) extend this further: *accumulating* real and synthetic data over time (rather than replacing real with synthetic) can avoid collapse entirely, with a finite test-error upper bound independent of iteration count [L-MC-4]. Suresh et al. (2024) characterise the *rate* of collapse for fundamental distributions [L-MC-5]; ForTIFAI / Shabgahi et al. (2025) propose confidence-aware training objectives that delay collapse onset by >2.3× [L-MC-2].
+
+The connection to our work is direct. Each AI-assisted paper that ships *un-verified* AI output into the corpus dilutes the ground-truth signal that future models will be trained on. The two failure modes — sloppification at the paper level and model collapse at the corpus level — are the same problem at different timescales. They share a single mitigation: **preserve the provenance of human-verified, ground-truth content and keep it cleanly distinguishable from AI-generated content**. The literature points to a small set of practices that work against the dilution:
+
+- **Provenance and read-state labelling at the artifact level** — what `docs/sources.md` does for citations.
+- **Conversation-transcript preservation** — what `experiments/*/raw_conversations (copy&paste, web)/` does for AI contributions.
+- **Pinning external evidence by commit SHA** — what the `ffdf60c` audit does for vendor code.
+- **Mixing rather than replacing**: keep human-authored data alongside AI-assisted output rather than letting the AI output substitute for it [L-MC-3, L-MC-4].
+- **Disclosure and detection at the publication level** — guidelines from Cheng et al. (2025) and Pellegrina et al. (2025); Stockholm Declaration governance proposals from Sabel et al. (2025) [L-SLOP-7, L-SLOP-10, L-SLOP-12].
+- **Filtering high-confidence-token artifacts** during model training — ForTIFAI [L-MC-2]; not actionable for paper authors but actionable for foundation-model trainers.
+
+We do not claim to solve model collapse. We claim that the methodology in §2 is consistent with what the literature suggests works against it, and that publishing AI-assisted research without provenance and disclosure is, at the corpus level, an externality on every future model.
+
+### 7.8 Methodological implications for security research
 - Treat AI conversation transcripts as research artifacts. They are the equivalent of a lab notebook for the LLM era.
 - Pin all external code by commit SHA, not by branch name. Branches move; SHAs do not.
 - Embed vendor artifacts under explicit redistribution caveats rather than referencing moving URLs.
-- Mark every literature claim with a verification status. The discipline is cheap; the alternative is the current state of practice.
+- Mark every literature claim with a verification status. The discipline is cheap; the alternative is the current state of practice (§7.6).
+- Disclose AI usage explicitly. The disclosure is not an apology — it is the unit of accountability that lets the work be audited rather than guessed at.
 
-### 6.6 Threats to validity
+### 7.9 Threats to validity
 - **Selection bias.** Cases were chosen because the researcher already wanted local control; failed attempts at harder targets are under-reported.
 - **Tooling drift.** AI model behaviour changes between sessions. The workflow is reproducible against artifacts; identical AI outputs are not.
 - **Legal framing.** AI-generated legal analysis in transcripts is not legal advice and is flagged as such in the source register.
 - **Redistribution.** Vendor APKs and PDFs are vendored for cite-ability but their redistribution status is not yet resolved.
+- **Sloppification risk in this paper.** The literature register (§5.6, §7.6) is currently `[lit-retrieved]` only. No claim in this paper depends on a literature citation that has not been read in full by the researcher; we have explicitly preferred to leave a claim unsupported rather than cite a paper we have not read.
 
 ---
 
-## 7. Conclusion
+## 8. Conclusion
 
 AI-assisted reverse engineering does not invent new capabilities; it lowers the activation energy of capabilities that already existed. The Spider Farmer and EcoFlow PowerOcean cases show that this lowering is enough to collapse the effort gap that previously sustained "security through obscurity" as a viable consumer-IoT defence. The collapse is genuinely double-edged — it materially advances right-to-repair while exposing live attack surfaces — but it is also *asymmetric*, compressing the integration path more aggressively than the offensive path.
 
 The path forward is not to discourage AI-assisted research but to make it *auditable*: vendor artifacts pinned, transcripts treated as evidence, dual-use evaluation built into the methodology rather than appended to it, and legal framing always sourced. Obscurity is dead. What replaces it has to be designed, not assumed.
 
-### 7.1 Future Work
-- Extend to a third case study in a domain with no prior community integration (open question: does the asymmetry hypothesis hold there?).
+### 8.1 Future work
+- Extend to a fourth case study in a domain with no prior community integration (open question: does the asymmetry hypothesis hold there?).
 - Operationalise the effort-gap KPIs against historical reverse-engineering case studies for a longitudinal comparison.
 - Develop a responsible-disclosure framework specific to AI-assisted reverse engineering.
 - Replace `[unverified-external]` legal sources with sourced commentary; address `[needs-research]` items in `docs/sources.md`.
 - Reconstruct the Spider Farmer `VERSION 2 → 3` migration step that no preserved transcript currently documents.
+- Read in full the `[lit-retrieved]` literature in `docs/sources.md` clusters A–J and upgrade entries to `[lit-read]` before any of them is cited as authority rather than as a database pointer.
+
+---
+
+## 9. AI usage disclosure and disclaimer
+
+### 9.1 Models and tooling
+This paper was developed with Claude (Opus 4.7 model family) by Anthropic, running in the Claude Code CLI [@anthropic2026claude]. Specific session details, model versions, and conversation transcripts are committed under `experiments/*/raw_conversations (copy&paste, web)/` and referenced in `docs/logbook.md`. Structured literature retrieval was performed via the Consensus academic-database front end (Semantic Scholar / PubMed / Scopus / arXiv); the queries used and the candidate citations they returned are recorded in `docs/sources.md` clusters A–J.
+
+### 9.2 Division of labour
+- **Researcher (human).** Research question, case selection, ethical and redaction decisions, validation against vendor code at commit `ffdf60c`, and final acceptance of every paragraph.
+- **AI assistant (Claude).** Skeleton drafting, structured literature retrieval, cross-case comparison, prose tightening, LaTeX rendering, and methodology operationalisation as the executable agent prompt (`docs/research-protocol-prompt.md`).
+- **Hybrid.** Provenance maps (`experiments/*/provenance.md`), source register (`docs/sources.md`), logbook entries, and KPI scaffolding — AI drafted, researcher verified or flagged.
+
+### 9.3 What is and is not sourced
+- All technical claims in §3 and §4 are sourced to vendor code at commit `ffdf60c` and to specific transcript line numbers; verifiable by re-running the audit described in `docs/logbook.md` (entry "audit against embedded vendor code").
+- All literature in `docs/sources.md` clusters A–J (covering LLM-assisted RE, vulnerability/exploit generation, hardcoded secrets, BLE/IoT obscurity, right-to-repair, local-first smart home, DMCA § 1201(f), counter-positions, sloppification of science, and model collapse) is currently `[lit-retrieved]` — the entries were surfaced from a structured database query but the full texts have not been read by the researcher. **No claim in this paper depends on a literature citation that has not been read in full.** Where the literature is invoked, it is invoked through the source-register handles `[L-XX-N]` so the reader can independently verify what was retrieved versus what was read.
+- Legal framing (§ 69e UrhG / EU 2009/24/EC) remains unsourced and is flagged as `[unverified-external]` in `docs/sources.md`.
+
+### 9.4 Disclaimers
+- **Not legal advice.** Any reference to copyright statutes or interoperability exemptions is descriptive, not prescriptive. Specific decisions about reverse-engineering activities should be evaluated by qualified legal counsel.
+- **Not a coordinated vulnerability disclosure.** This paper documents prior community findings and integration work; it is not a coordinated disclosure for either Spider Farmer or EcoFlow products.
+- **Tooling drift.** Identical prompts at later dates may produce non-identical outputs. The workflow and committed artifacts are the reproducible unit; AI outputs are not.
+- **Live credentials.** `docs/sources.md` S-SF-5 contains recovered live credentials from a community thread. These must be redacted before any public release of the paper or repository.
+- **Fabricated-citation risk.** Empirical base rates for LLM-fabricated citations are 18%–55% for raw GPT outputs (§7.6, [L-SLOP-1, L-SLOP-2, L-SLOP-4]). Every literature entry in this repository must be upgraded from `[lit-retrieved]` to `[lit-read]` before the paper is submitted for peer review.
+- **Sloppification and model collapse.** §7.6 and §7.7 explicitly acknowledge that AI-assisted research, when shipped without verification and disclosure, contributes to both the proximate sloppification of the scientific record [L-SLOP-7, L-SLOP-8] and the distal collapse of foundation models trained on it [L-MC-1, L-MC-3]. The methodology in §2 is the authors' best-effort response to that risk.
+
+### 9.5 Statement of independence and personal capacity
+This work is a hobbyist research project carried out by the author (Florian Krebs, ORCID [0000-0001-6033-801X](https://orcid.org/0000-0001-6033-801X)) in a strictly personal capacity. It is **not** part of, endorsed by, funded by, supervised by, or representative of the views of any employer, including the German Aerospace Center (DLR / *Deutsches Zentrum für Luft- und Raumfahrt*). The author's day-job affiliation is acknowledged here only so the reader can rule it out: no DLR resources, infrastructure, datasets, or employer-confidential information were used in the preparation of this paper or its underlying repository. The author's day-time research at DLR concerns experimental data management (`shepard`) and is unrelated to consumer-IoT reverse engineering. Any opinions expressed are the author's own. The repository's `CITATION.cff`, `.zenodo.json`, `codemeta.json`, and `docs/fair.md` all carry the affiliation **"Independent researcher (personal capacity)"** in line with this statement.
