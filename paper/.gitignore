@@ -1,0 +1,21 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.run.xml
+*.bcf
+
+# Built outputs - track main.pdf only when explicitly committed
+main.pdf
+arxiv-submission.tar.gz
