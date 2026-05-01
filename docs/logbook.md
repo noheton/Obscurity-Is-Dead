@@ -71,6 +71,8 @@ This logbook is the operating record for the paper and research process.
 - Key decisions:
   - Keep the chat transcript exports as first-class evidence.
   - Map AI-assisted conversations to code/documentation changes and git history where possible.
+- Commit:
+  - `e6344102aa30dc81f3d5d75720c4e2a4e07b7da4` — feat(methodology): add executable research protocol agent prompt
 - Open issues:
   - Define concrete provenance mapping templates for transcripts.
   - Add explicit experiment protocol checklist items to the methodology.
@@ -87,6 +89,8 @@ This logbook is the operating record for the paper and research process.
   - `docs/logbook.md`
 - Key decisions:
   - Align logbook practice with version control for reproducibility and auditability.
+- Commit:
+  - `6c43033a07f9e3775b48b0890bb42a0b8831c5b5` — chore(logbook): enforce commit-corresponding logbook entries
 - Open issues:
   - Create a commit for this logbook update and ensure the entry is matched to that commit.
 - Next steps:
@@ -103,15 +107,39 @@ This logbook is the operating record for the paper and research process.
 - Key decisions:
   - Keep logbook entries aligned with individual commit actions.
   - Use grouped commits for governance, prompt definition, documentation, and raw artifact imports.
+- Commit SHAs created by `scripts/commit-logbook.sh`:
+  - `6c43033a07f9e3775b48b0890bb42a0b8831c5b5` — chore(logbook): enforce commit-corresponding logbook entries
+  - `e6344102aa30dc81f3d5d75720c4e2a4e07b7da4` — feat(methodology): add executable research protocol agent prompt
+  - `feea6c1558c13d364ed0dd702a67b58061100739` — docs(governance): add AI instruction policy and ethics documentation
+  - `d998220e7f53a74635f96063884849a3b974452d` — docs(paper): add paper skeleton and publication metadata
+  - `1f1ebd9c7358c64dcc5431ce82863364b2b81d51` — chore(experiments): add case study readmes and preserved conversation exports
 - Open issues:
-  - Execute `scripts/commit-logbook.sh` in the repository to create the commits.
-  - Capture resulting SHAs in `docs/logbook.md` after commit creation.
+  - None.
 - Next steps:
-  - Run `bash scripts/commit-logbook.sh`.
-  - Add the actual commit SHAs to this logbook entry once the commits exist.
+  - Continue tracking conversation and research actions in `docs/logbook.md` with commit correspondence.
 
 ## Change History
 - [2026-05-01] Initial logbook entry created and the repository research process documented.
 - [2026-05-01] Added methodology review log entry and committed to chat/conversation tracking.
 - [2026-05-01] Added logbook commit-tracking rule entry.
 - [2026-05-01] Added commit plan entry and helper script for creating commit-correlated log entries.
+
+### 2026-05-01 (KPI framework)
+- Session lead: Researcher
+- Actions taken:
+  - Added a KPI framework to `docs/methodology.md` for measuring the analysis process, experimental success, effort, and problem characteristics.
+  - Defined metrics such as artifact acquisition completeness, probe success rate, time-to-first-working integration, app-size vs extracted-data ratio, and discovery density.
+- Files updated:
+  - `docs/methodology.md`
+- Key decisions:
+  - Turn the methodology into measurable research practice.
+  - Track problem difficulty and process efficiency alongside technical findings.
+- Next steps:
+  - Apply the KPI framework to the Spider Farmer and EcoFlow case studies.
+
+## Change History
+- [2026-05-01] Initial logbook entry created and the repository research process documented.
+- [2026-05-01] Added methodology review log entry and committed to chat/conversation tracking.
+- [2026-05-01] Added logbook commit-tracking rule entry.
+- [2026-05-01] Added commit plan entry and helper script for creating commit-correlated log entries.
+- [2026-05-01] Added KPI framework log entry and measurement guidance.
