@@ -3,7 +3,25 @@
 
 ## AI-Assisted Hacking: Key to Interoperability or Security Nightmare?
 
-This repository is a GitHub Codespace-ready research publication for the project "Obscurity-Is-Dead." It documents two case studies where AI-assisted reverse engineering was used to recover local interoperability from proprietary IoT devices.
+**Author:** Florian Krebs ([ORCID 0000-0001-6033-801X](https://orcid.org/0000-0001-6033-801X)) — *Independent researcher (personal capacity)*
+
+> **Statement of independence.** This is a hobbyist research project carried out by the author in a personal capacity. It is **not** part of, endorsed by, funded by, supervised by, or representative of the views of any employer, including the German Aerospace Center (DLR / *Deutsches Zentrum für Luft- und Raumfahrt*). See `paper/main.md` § 9.5 ("Statement of independence and personal capacity") for the full disclaimer.
+
+### How to cite this work
+
+Citation metadata is provided in three formats so the repository works with the dominant scholarly-tooling pipelines:
+
+- **`CITATION.cff`** — [Citation File Format 1.2.0](https://citation-file-format.github.io/), recognised by GitHub's "Cite this repository" widget and consumable by reference managers.
+- **`.zenodo.json`** — [Zenodo metadata schema](https://developers.zenodo.org/), used to mint a DOI on archive.
+- **`codemeta.json`** — [CodeMeta 3.0](https://codemeta.github.io/) / schema.org JSON-LD for software citation.
+
+### FAIR alignment
+
+This repository aims to satisfy the [FAIR Guiding Principles](https://www.go-fair.org/fair-principles/) (Wilkinson et al., 2016). The mapping between repository features and individual FAIR principles is documented in [`docs/fair.md`](docs/fair.md) along with the open issues that block full compliance (notably: a top-level `LICENSE` file, the Zenodo deposit / DOI mint, and the redaction of live credentials in `docs/sources.md` S-SF-5 prior to public release).
+
+### Case studies
+
+This repository documents three case studies where AI-assisted reverse engineering was used to recover local interoperability from proprietary IoT devices, plus a recursive third case study analysing the paper-generation process itself.
 
 ### Purpose
 - Demonstrate how LLMs lower the activation energy for practical reverse engineering.
@@ -13,6 +31,7 @@ This repository is a GitHub Codespace-ready research publication for the project
 ### Case Studies
 - **Spider Farmer**: Local Home Assistant integration through APK and protocol analysis.
 - **EcoFlow PowerOcean**: Energy management system reverse engineering and local data access.
+- **Paper meta-process** (`experiments/paper-meta-process/`): the paper itself treated as an AI-assisted reverse-engineering artifact. Contains the conversation transcripts, provenance map, and case-study report for the paper-generation pipeline.
 
 ### Repository Structure
 - `README.md` — Project manifesto and navigation.
@@ -24,6 +43,9 @@ This repository is a GitHub Codespace-ready research publication for the project
 - `docs/logbook.md` — Session logbook and paper development changelog.
 - `experiments/spider-farmer/` — Spider Farmer artifacts and notes.
 - `experiments/ecoflow-powerocean/` — EcoFlow PowerOcean artifacts and notes.
+- `experiments/paper-meta-process/` — Paper meta-process case study: transcripts, REPORT, provenance.
+- `CITATION.cff`, `.zenodo.json`, `codemeta.json` — citation / FAIR metadata.
+- `docs/fair.md` — FAIR principles mapping.
 - `scripts/` — Helper scripts for analysis and integration.
 - `CLAUDE_CODE_INSTRUCTIONS.md` — Canonical AI policy for this repository.
 - `.instructions.md` — Standard alias for AI-assisted editors and agents.

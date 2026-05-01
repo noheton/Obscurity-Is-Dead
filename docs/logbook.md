@@ -250,3 +250,47 @@ This logbook is the operating record for the paper and research process.
   - Read the highest-priority full texts and upgrade their status to `[lit-read]`: L-HC-1 (SecretLoc), L-VD-1 (script-kiddies AEG), L-RE-4 (Pop Quiz), L-RR-1 (right-to-repair-IoT), L-COUNTER-1 (security implications of interoperability), L-COUNTER-2 (disclosure & attack diffusion), L-BLE-5 (Living in the Past).
   - Targeted German-language search for § 69e UrhG and EU 2009/24/EC.
   - Define the grey-literature sourcing strategy for vendor positions on community reverse engineering.
+
+### 2026-05-01 (meta-process case study, sloppification + model collapse, FAIR / citation metadata)
+- Session lead: Researcher (with AI-assisted drafting)
+- Actions taken (multiple commits to follow):
+  - **Rule 11 compliance.** Merged `origin/main` (`6177233`) which introduced the LaTeX build pipeline (`80e781b`) and rule 11 (`eef8c5b` — keep `paper/main.md` and `paper/main.tex` consistent). Rewrote `paper/main.tex` to mirror the seven-section structure already in `paper/main.md`, then expanded both files together.
+  - **Anthropic citation.** Added `anthropic2026claude` to `paper/references.bib`. Cited inline in the new §9 ("AI usage disclosure and disclaimer").
+  - **Meta-process case study.** Added §5 "Experiment & Analysis 3 — The paper as an AI-assisted artifact" to both `paper/main.md` and `paper/main.tex` with parallel structure to §3 and §4. Renumbered downstream sections (Synthesis → §6, Discussion → §7, Conclusion → §8, AI Disclosure → §9). Extended the §6 cross-case comparison table to three columns (Spider Farmer / EcoFlow / Meta-process). Added §7.5 "The paper as evidence for its own thesis".
+  - **Sloppification literature pass.** Issued two further Consensus queries (fabricated citations in academic writing; paper mills + AI). Added `docs/sources.md` cluster I (L-SLOP-1 .. L-SLOP-12). Anchored §5.6 to specific empirical base rates (Walters & Wilder 2023, McGowan et al. 2023, Chelli et al. 2024). Added §7.6 "Sloppification: the AI methodological discount".
+  - **Model-collapse literature pass.** Issued one Consensus query on model collapse and recursive training. Added `docs/sources.md` cluster J (L-MC-1 .. L-MC-9). Added §7.7 "Model collapse and the dilution of the scientific commons" citing Shumailov et al. (2024, *Nature*), Seddik et al. (2024), Gerstgrasser et al. (2024 — accumulating-data result), Borji (2024 qualifier), and ForTIFAI (2025). Mapped in-repo practices (provenance, transcript preservation, mixed-data principle, FAIR metadata) onto literature-suggested mitigations.
+  - **AI Disclosure section.** Added §9 with subsections 9.1 (models and tooling), 9.2 (division of labour), 9.3 (what is and is not sourced), 9.4 (disclaimers including the empirical fabricated-citation risk), 9.5 (statement of independence and personal capacity).
+  - **ORCID and author identity.** Resolved ORCID `0000-0001-6033-801X` to **Florian Krebs** via two independent indexed sources (DLR elib record for *shepard*; Helmholtz Research Software Directory entry for *shepard*). Recorded the ORCID and the personal-capacity affiliation across `CITATION.cff`, `.zenodo.json`, `codemeta.json`, `docs/fair.md`, `paper/main.md` (title block + §9.5), `paper/main.tex` (`\thanks` block on author + §9.5), and `README.md`.
+  - **DLR independence statement.** Added an explicit "Statement of independence" to all of: title block of `paper/main.md`, footnote on author line in `paper/main.tex`, §9.5 of both paper sources, top of `docs/fair.md`, top of `README.md`, and notes fields in `.zenodo.json` and `codemeta.json`. The disclaimer says this is hobbyist work in personal capacity; not part of, endorsed by, funded by, or representative of the views of any employer including DLR.
+  - **FAIR adherence.** Added `docs/fair.md` mapping each FAIR principle (F1–F4, A1–A2, I1–I3, R1.1–R1.3) to the concrete repository feature that satisfies it. Listed open issues blocking full compliance: persistent identifier (Zenodo DOI to mint at first release), top-level `LICENSE` file, sensitive-content redaction, vendor-artifact redistribution status.
+  - **Citation / housekeeping metadata.** Added `CITATION.cff` (Citation File Format 1.2.0), `.zenodo.json` (Zenodo metadata schema), `codemeta.json` (CodeMeta 3.0 / schema.org JSON-LD).
+  - **Conversation transcripts as experiment data.** Created `experiments/paper-meta-process/` (parallel to the Spider Farmer and EcoFlow case-study directories). Wrote `README.md`, `REPORT.md`, and `provenance.md`. Added a `[curated-reconstruction]` of the 2026-05-01 session as `raw_conversations (copy&paste, web)/T1-paper-structure-and-literature.md`. Documented a three-level transcript verification status (`[verbatim-export]` / `[curated-reconstruction]` / `[redacted]`).
+  - **README integration.** Added the citation pointer, FAIR pointer, and DLR disclaimer to the top of `README.md`. Added the new case study and metadata files to the repository structure list.
+- Files updated:
+  - `paper/main.md`, `paper/main.tex`, `paper/references.bib`
+  - `docs/sources.md`, `docs/logbook.md`, `docs/fair.md` (new)
+  - `CITATION.cff` (new), `.zenodo.json` (new), `codemeta.json` (new)
+  - `experiments/paper-meta-process/README.md` (new)
+  - `experiments/paper-meta-process/REPORT.md` (new)
+  - `experiments/paper-meta-process/provenance.md` (new)
+  - `experiments/paper-meta-process/raw_conversations (copy&paste, web)/T1-paper-structure-and-literature.md` (new)
+  - `README.md`
+- Key decisions:
+  - Default the case-3 transcript verification status to `[curated-reconstruction]` pending a verbatim export from Claude Code session storage. This is honest about the source: I (the AI) reconstructed the conversation from working memory plus public git history; it is not a transport-verbatim export.
+  - Default the metadata license to CC-BY-4.0 in `.zenodo.json` and `codemeta.json` pending researcher confirmation; flag the missing top-level `LICENSE` as an open FAIR-compliance issue rather than committing a license unilaterally.
+  - Add `\cref` cross-references in `paper/main.tex` matching `paper/main.md` §-references so the two stay aligned under future edits.
+  - Keep DLR named only in the negative ("not part of, not endorsed by, …") so the affiliation cannot be mistaken for institutional endorsement.
+  - Never upgrade a `[lit-retrieved]` entry to `[lit-read]` without the researcher reading the full text.
+- Open issues:
+  - **Top-level `LICENSE` file** missing; default declared as CC-BY-4.0 for paper text.
+  - **Verbatim export of session transcripts** still required to upgrade the meta-process T1 transcript from `[curated-reconstruction]` to `[verbatim-export]`.
+  - **All Cluster A–J literature entries are `[lit-retrieved]`** and must be read before being cited as authority.
+  - **Live-credential redaction** for `docs/sources.md` S-SF-5 still required before any public release.
+  - **Vendor APK / PDF redistribution status** still pending.
+  - **§ 69e UrhG / EU 2009/24/EC** primary legal sources still `[unverified-external]`.
+- Next steps:
+  - Mint a Zenodo DOI at first release (`F1`, `R1.1`).
+  - Add the top-level `LICENSE`.
+  - Produce a verbatim Claude Code session export and add it as a companion file to the meta-process T1 transcript.
+  - Begin reading the highest-priority `[lit-retrieved]` entries (L-SLOP-1, L-SLOP-4, L-SLOP-2, L-MC-1, L-MC-4, L-HC-1, L-VD-1, L-RR-1, L-COUNTER-1, L-COUNTER-2) and upgrade to `[lit-read]`.
+  - Targeted German-language / EUR-Lex search for § 69e UrhG and EU 2009/24/EC.
