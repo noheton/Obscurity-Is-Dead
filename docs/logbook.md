@@ -140,6 +140,32 @@ This logbook is the operating record for the paper and research process.
   - Draft a structured case study audit summary with artifact inventory, provenance mapping, and validation actions.
   - Continue aligning transcript evidence with the paper and source documentation.
 
+### 2026-05-01 (provenance maps and sources seed)
+- Session lead: Researcher (with AI-assisted drafting)
+- Actions taken:
+  - Executed the research-protocol agent prompt (`docs/research-protocol-prompt.md`) against both case studies.
+  - Surfaced the gap that `experiments/spider-farmer/original/` and `experiments/ecoflow-powerocean/original/` are empty in the working tree, despite both `REPORT.md` files referencing artifacts under those paths.
+  - Added a per-case-study provenance matrix linking each preserved chat transcript to the technical claims and external code references it underpins.
+  - Replaced the empty `docs/sources.md` template with a seeded source register covering the externally-referenced community implementations (Spider Farmer), the EcoFlow Open API materials, the HACS publishing guide, OCPP, and the § 69e UrhG / EU 2009/24/EC legal framing. Each entry carries an explicit verification status: `[repo-verified]`, `[unverified-external]`, or `[needs-research]`.
+  - Recorded that the AI-generated § 69e UrhG opinion captured in the EcoFlow transcripts is not legal advice and must be replaced with sourced legal commentary before any legal framing appears in the paper.
+- Files updated:
+  - `experiments/spider-farmer/provenance.md` (new)
+  - `experiments/ecoflow-powerocean/provenance.md` (new)
+  - `docs/sources.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Use a verification-status legend (`[repo-verified]` / `[unverified-external]` / `[needs-research]`) so that the source register can be honest about what has and has not been independently checked.
+  - Keep external-repository pins (e.g. PR numbers, short commit SHAs) inside the per-case-study `provenance.md` rather than scattered through `REPORT.md`.
+  - Do not introduce any literature citation that has not been retrieved and read; mark every such gap as `[needs-research]`.
+- Open issues:
+  - Original artifacts referenced by both `REPORT.md` files remain absent from the repo. Decide whether to vendor them, gitignore them with documented hashes, or replace with canonical-URL references.
+  - External integration repositories (Spider Farmer `noheton/spider_farmer` PR #9; EcoFlow `powerocean_dev` branch `claude/refactor-ha-integration-7dnMI`, release `v2026.05.01`) need to be pinned by full commit SHA.
+  - `docs/sources.md` `[needs-research]` items should be filled before drafting paper claims that depend on prior literature.
+- Next steps:
+  - Begin a literature-search session targeting the originality-check and security-risk items in `docs/sources.md`.
+  - Reconcile the two EcoFlow write-API descriptions (`setDeviceProperty` vs `device/quota`) in `REPORT.md` §5.1.
+  - Address the empty `Add logo to integration and repository.txt` transcript in the Spider Farmer case study.
+
 ## Change History
 - [2026-05-01] Initial logbook entry created and the repository research process documented.
 - [2026-05-01] Added methodology review log entry and committed to chat/conversation tracking.
@@ -148,3 +174,4 @@ This logbook is the operating record for the paper and research process.
 - [2026-05-01] Added KPI framework log entry and measurement guidance.
 - [2026-05-01] Performed an AI-assisted research audit across imported case studies and verified experiment artifact presence.
 - [2026-05-01] Created detailed `REPORT.md` summaries for `experiments/spider-farmer` and `experiments/ecoflow-powerocean` and linked them from each README.
+- [2026-05-01] Added per-case-study `provenance.md` files and seeded `docs/sources.md` with verification-status-tagged source entries.
