@@ -17,6 +17,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Convert SVG figures to PDF
+        run: |
+          sudo apt-get install -y librsvg2-bin
+          for svg in paper/figures/*.svg; do
+            pdf="${svg%.svg}.pdf"
+            if [ ! -f "$pdf" ]; then
+              rsvg-convert -f pdf -o "$pdf" "$svg"
+            fi
+          done
+
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:

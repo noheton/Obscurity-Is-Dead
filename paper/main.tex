@@ -6,6 +6,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{authblk}
 \usepackage[english]{babel}
 \usepackage[margin=1in]{geometry}
 \usepackage{microtype}
@@ -17,6 +18,7 @@
 \usepackage{csquotes}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{hyperref}
+\usepackage{cleveref}
 \hypersetup{
   colorlinks=true,
   linkcolor=black,
@@ -256,8 +258,10 @@ Source register entries S-SF-1 through S-SF-8. Primary artifacts:
 \begin{itemize}
   \item \texttt{original/doc/Spider Farmer\_2.3.0\_APKPure.zip},
         \texttt{Spider Farmer\_2.4.0\_APKPure.zip}.
-  \item Three independent reference implementations (ESPHome,
-        ESP32\,$\to$\,MQTT bridge, Python\,+\,MQTT).
+  \item Three independent reference implementations: ESPHome
+        component~\citep{smurfy_esphome_sf},
+        ESP32\,$\to$\,MQTT bridge~\citep{p0rigth_spiderblebridge},
+        and Python\,+\,MQTT controller~\citep{pythonspidercontroller}.
   \item \texttt{raw\_conversations (copy\&paste, web)/} (7 transcripts).
   \item The integration itself, embedded at \texttt{original/}
         (manifest version \texttt{3.0.0},
@@ -279,8 +283,8 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
   \item \textbf{APK static extraction} of strings, action fields, and
         constants.
   \item \textbf{Cross-implementation comparison} across four independent
-        reverse-engineering attempts, captured in
-        \texttt{original/doc/apk\_analysis/implementations.md}.
+        reverse-engineering attempts~\citep{smurfy_esphome_sf,p0rigth_spiderblebridge,pythonspidercontroller},
+        captured in \texttt{original/doc/apk\_analysis/implementations.md}.
   \item \textbf{AI-mediated reconciliation} of conflicting key/IV
         candidates (transcripts T1--T6).
   \item \textbf{Code-level confirmation} against the integration's
@@ -390,7 +394,7 @@ Source register entries S-EF-1 through S-EF-6. Primary artifacts:
         extraction logs.
   \item The integration \texttt{powerocean\_dev} at \texttt{manifest.json}
         version \texttt{2026.05.01}, embedded at \texttt{original/}.
-        Upstream parent \url{https://github.com/niltrip/powerocean} per
+        Upstream parent~\citep{niltrip_powerocean} per
         \texttt{const.py} line 13.
   \item \texttt{raw\_conversations (copy\&paste, web)/} (3 transcripts).
 \end{itemize}
@@ -742,8 +746,8 @@ Primary AI lift
   & Discovering and choosing among API surfaces; type-system bug fix
   & Skeleton generation, structured literature retrieval, mirror discipline \\
 Independent corroboration
-  & 3 community implementations + community MITM thread
-  & 1 vendor reference implementation + 1 upstream community fork
+  & 3 community implementations~\citep{smurfy_esphome_sf,p0rigth_spiderblebridge,pythonspidercontroller} + community MITM thread
+  & 1 vendor reference implementation + 1 upstream community fork~\citep{niltrip_powerocean}
   & Git history; researcher review at commit time; CI build \\
 Live credential recovery
   & Yes (MQTT broker creds)
