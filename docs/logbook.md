@@ -460,3 +460,75 @@ This logbook is the operating record for the paper and research process.
   - Resolve `(see log)` commit placeholder in §5.7 with actual hash after this commit.
   - Push development branch.
   - Continue tracking §5.7 KPI each session until submission.
+
+---
+
+### Session 4 — 2026-05-01 (CI pipeline fix + comparison-repo citations + SVG backgrounds)
+
+- Branch: `claude/fix-github-actions-pipeline-U795A`
+
+- **GitHub Actions pipeline repair** (`fix(ci)` commit `a330aee`).
+  Three root causes prevented the paper from compiling on CI:
+  1. `\author[1]{}` and `\affil[]{}` require the `authblk` package, which was missing
+     from `paper/main.tex`. Added `\usepackage{authblk}` after `\usepackage{lmodern}`.
+  2. `\cref{}` is used ~30 times throughout but `cleveref` was never loaded.
+     Added `\usepackage{cleveref}` after `\usepackage{hyperref}` (required load order).
+  3. Figures 2–7 exist only as `.svg` files. pdflatex cannot include SVGs and halts
+     with a file-not-found error. Added a workflow step (SVG→PDF via `rsvg-convert` /
+     `librsvg2-bin`) to `.github/workflows/build-paper.yml` that converts any SVG
+     lacking a sibling PDF before the `latex-action` runs.
+
+- **Comparison-repo citations** added to `paper/references.bib`, `paper/main.tex`,
+  `paper/main.md` (Rule 11 mirror enforced):
+  - `smurfy_esphome_sf` — `smurfy/esphome-spiderfarmer_ble-encrypt` (ESPHome C++ component).
+  - `crossnotice_sf_mqtt` — `cr0ssn0tice/Spider-Farmer-GGS-Controller-MQTT` (original
+    protocol research on which the ESPHome component is based).
+  - `p0rigth_spiderblebridge` — `p0rigth-dev/SpiderBLEBridge` (ESP32 BLE-to-MQTT bridge;
+    also referenced as `SpiderBEL_ESPtoMQTT` in `original/doc/log.md`).
+  - `pythonspidercontroller` — anonymous community Python+BLE controller (attributed
+    "noheton/community" in `implementations.md`; no public URL confirmed).
+  - `niltrip_powerocean` — `niltrip/powerocean` (upstream EcoFlow PowerOcean HA integration).
+  Citation callsites added: §3.2 artifact list, §3.3 cross-implementation comparison,
+  §4.2 upstream-parent reference (replacing bare `\url{}`), §6.1 synthesis table.
+  `main.md` updated with `[@key]` Pandoc-style citations at the same four locations.
+
+- **SVG white-background fix** — `paper/figures/fig1-effort-gap.svg` and
+  `fig2-boredom-barrier.svg` lacked a background fill; on dark themes the text was
+  invisible. A `<rect width="100%" height="100%" fill="white"/>` was inserted
+  immediately after the `<svg>` opening tag. Figures 3–7 already had explicit white
+  backgrounds and were unchanged.
+
+- Files updated:
+  - `.github/workflows/build-paper.yml`
+  - `paper/main.tex`
+  - `paper/main.md`
+  - `paper/references.bib`
+  - `paper/figures/fig1-effort-gap.svg`
+  - `paper/figures/fig2-boredom-barrier.svg`
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - `authblk` and `cleveref` are both standard CTAN packages available in TeX Live;
+    no arXiv compatibility risk.
+  - `rsvg-convert` (librsvg2-bin) chosen over Inkscape for the CI SVG→PDF step:
+    smaller install footprint, faster, sufficient for diagram-style SVGs.
+  - `PythonSpiderController` citekey uses `author = {{anonymous community contributor}}`
+    because the actual author handle is not confirmed from the vendored artifacts.
+  - The `crossnotice_sf_mqtt` entry is included in `references.bib` because the
+    ESPHome README explicitly credits it as the research basis; it is not yet cited
+    inline in the paper but is available for future use.
+  - White backgrounds added only where missing; the majority of SVGs (fig3–7) already
+    had explicit `fill="white"` backgrounds.
+
+- Open issues:
+  - Git history rewrite (BFG / git-filter-repo) still required before public mirror.
+  - Vendor redistribution caveats (S-SF-4, S-EF-2..4) unresolved.
+  - `[lit-retrieved]` → `[lit-read]` upgrades still pending.
+  - Zenodo DOI not minted.
+  - `PythonSpiderController` GitHub URL unconfirmed; entry marked anonymous.
+  - `cr0ssn0tice_sf_mqtt` not yet cited inline — add if a §3 passage discusses the
+    research lineage of the ESPHome implementation.
+
+- Next steps:
+  - Verify CI passes on this branch.
+  - Continue tracking §5.7 KPI each session until submission.
