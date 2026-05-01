@@ -17,3 +17,4 @@ When generating content or code in this repo, follow these rules:
 8. Conduct a literature review for the research question and core claims. Verify originality, identify supporting evidence, and surface contradictory positions.
 9. Document scientific sources in a dedicated sources document. If literature or data are analysed separately, keep that analysis in `docs/sources.md` alongside the paper.
 10. Maintain a logbook in `docs/logbook.md`. Read it at the start of each session and update it regularly with actions, decisions, and next steps.
+11. Keep `paper/main.md` and `paper/main.tex` consistent at all times. Any structural or content change made to one must be reflected in the other before committing. Never commit a state where the two files contradict each other in title, abstract, section structure, or claims.
