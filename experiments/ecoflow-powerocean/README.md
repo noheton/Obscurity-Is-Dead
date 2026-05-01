@@ -1,6 +1,8 @@
 # EcoFlow PowerOcean Case Study
 
-This folder will contain artifacts related to the EcoFlow PowerOcean reverse engineering effort.
+This folder contains artifacts related to the EcoFlow PowerOcean reverse engineering effort.
+
+Detailed analysis is available in `REPORT.md`.
 
 Planned contents:
 - packet captures and API analysis

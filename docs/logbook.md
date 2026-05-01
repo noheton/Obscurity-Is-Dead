@@ -124,18 +124,21 @@ This logbook is the operating record for the paper and research process.
 - [2026-05-01] Added logbook commit-tracking rule entry.
 - [2026-05-01] Added commit plan entry and helper script for creating commit-correlated log entries.
 
-### 2026-05-01 (KPI framework)
+### 2026-05-01 (research audit)
 - Session lead: Researcher
 - Actions taken:
-  - Added a KPI framework to `docs/methodology.md` for measuring the analysis process, experimental success, effort, and problem characteristics.
-  - Defined metrics such as artifact acquisition completeness, probe success rate, time-to-first-working integration, app-size vs extracted-data ratio, and discovery density.
+  - Reviewed repository AI policy and methodology documents.
+  - Catalogued available case study artifacts for `experiments/spider-farmer` and `experiments/ecoflow-powerocean`.
+  - Confirmed that raw AI conversation exports are preserved as first-class artifacts in each experiment directory.
+  - Appended repository provenance tracking to `docs/logbook.md`.
 - Files updated:
-  - `docs/methodology.md`
+  - `docs/logbook.md`
 - Key decisions:
-  - Turn the methodology into measurable research practice.
-  - Track problem difficulty and process efficiency alongside technical findings.
+  - Treat both imported experiment folders as active case studies for the research protocol.
+  - Use available raw conversation exports and imported original artifacts as the primary provenance evidence.
 - Next steps:
-  - Apply the KPI framework to the Spider Farmer and EcoFlow case studies.
+  - Draft a structured case study audit summary with artifact inventory, provenance mapping, and validation actions.
+  - Continue aligning transcript evidence with the paper and source documentation.
 
 ## Change History
 - [2026-05-01] Initial logbook entry created and the repository research process documented.
@@ -143,3 +146,5 @@ This logbook is the operating record for the paper and research process.
 - [2026-05-01] Added logbook commit-tracking rule entry.
 - [2026-05-01] Added commit plan entry and helper script for creating commit-correlated log entries.
 - [2026-05-01] Added KPI framework log entry and measurement guidance.
+- [2026-05-01] Performed an AI-assisted research audit across imported case studies and verified experiment artifact presence.
+- [2026-05-01] Created detailed `REPORT.md` summaries for `experiments/spider-farmer` and `experiments/ecoflow-powerocean` and linked them from each README.
