@@ -5,6 +5,8 @@
 
 > **Statement of independence.** This is a hobbyist project carried out by the author in a personal capacity. It is not part of, endorsed by, funded by, or representative of the views of any employer, including the German Aerospace Center (DLR / *Deutsches Zentrum für Luft- und Raumfahrt*). The full statement is in §9.5.
 
+> **DRAFT — not for distribution.** Working draft pending author review prior to submission. Do not cite, redistribute, or upload to public archives without explicit written consent from the author (rule 13, `CLAUDE_CODE_INSTRUCTIONS.md`).
+
 ## Abstract
 This paper investigates how modern large language models collapse the traditional "effort gap" in reverse engineering. Through two empirical case studies — Spider Farmer BLE devices and EcoFlow PowerOcean energy systems — we show how AI-assisted analysis turns theoretical protocol knowledge into practical, replicable local integrations. We then assess whether this collapse is a force for interoperability and right-to-repair or a systemic security risk, and we propose a research methodology that treats AI conversation transcripts, vendor artifacts, and version history as first-class evidence.
 

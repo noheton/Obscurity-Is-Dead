@@ -573,3 +573,72 @@ This logbook is the operating record for the paper and research process.
   - On first author-approved release, replace the relative `paper/main.pdf`
     link with the Zenodo / GitHub Release URL.
   - Continue tracking §5.7 KPI each session until submission.
+
+---
+
+### Session 6 — 2026-05-01 (draft PDF link + draft notice)
+
+- Branch: `claude/add-draft-pdf-readme-aXXsp`
+
+- Re-pointed the README PDF reference at the CI-generated draft and labelled it
+  as such until submission:
+  - Badge: `[![Paper PDF](.../paper-PDF-informational)](paper/main.pdf)` →
+    `[![Draft PDF](.../draft-PDF-orange)](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml)`.
+    The badge now resolves on GitHub regardless of whether `paper/main.pdf` is
+    committed: it lands on the `Build paper` workflow page where the
+    `paper-pdf` artifact is uploaded by `.github/workflows/build-paper.yml`.
+  - "Reading the paper" section: the previous single PDF bullet was split into
+    a "Draft PDF (CI build)" bullet (links to the workflow run page and
+    explains how to download the `paper-pdf` artifact) and a "Local build"
+    bullet (retains the relative `paper/main.pdf` link with the gitignored-
+    by-default caveat).
+  - Wording explicitly calls the artifact a *draft* and references rule 13
+    (no public distribution without explicit author consent).
+
+- Added a DRAFT banner inside the paper itself (kept consistent across both
+  sources per rule 11):
+  - `paper/main.tex`: red `\fcolorbox`'d notice immediately after `\maketitle`,
+    before `\begin{abstract}`. Uses the already-loaded `xcolor` package — no
+    new dependency, arXiv-friendly per existing class/package policy.
+  - `paper/main.md`: matching blockquote inserted after the Statement of
+    Independence and before the abstract.
+  - Both notices read identically: "DRAFT — not for distribution. Working
+    draft pending author review prior to submission. Do not cite,
+    redistribute, or upload to public archives without explicit written
+    consent from the author (rule 13, CLAUDE_CODE_INSTRUCTIONS.md)."
+
+- Files updated:
+  - `README.md`
+  - `paper/main.tex`
+  - `paper/main.md`
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - Use the workflow-run URL for the badge instead of a direct artifact URL.
+    GitHub Actions artifact download URLs are tied to specific run IDs and
+    expire after the configured retention window; the workflow page is the
+    stable entry point that always lists the most recent build.
+  - Keep both the CI artifact link and the relative `paper/main.pdf` link.
+    Local builds remain the canonical path for offline review and for the
+    arXiv tarball; the CI link exists so reviewers without a TeX toolchain
+    can read the current draft without the README 404 regression noted in
+    Session 5.
+  - DRAFT notice placed inside the document body (not as a watermark package
+    such as `draftwatermark`) to avoid pulling in any package that is not
+    already in the preamble — the file's header comment commits to "only
+    widely-available packages" and the existing `xcolor` import already
+    suffices.
+  - Rule 11: the LaTeX banner and Markdown blockquote were edited in the same
+    session and verified to carry identical wording.
+
+- Open issues:
+  - All prior session open issues carry over (history rewrite, vendor
+    redistribution, `[lit-retrieved]` → `[lit-read]`, Zenodo DOI).
+  - The DRAFT banner must be removed (or replaced with submission/version
+    metadata) at the moment the author authorises submission. Track this as
+    a pre-submission checklist item alongside rule 13 review.
+
+- Next steps:
+  - Verify the next CI run on this branch produces a `paper-pdf` artifact that
+    renders the new banner correctly on page 1.
+  - Continue tracking §5.7 KPI each session until submission.
