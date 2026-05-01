@@ -339,3 +339,63 @@ This logbook is the operating record for the paper and research process.
   - Verify the Hesiod translation attribution against the public-domain Loeb text.
   - Compute the actual lines-of-scaffolding-vs-prose ratio and update §10 with the real number (or remove the claim if it does not survive measurement).
   - Continue the German-language / EUR-Lex literature pass on §69e UrhG, §44b UrhG, *Kneschke v LAION*, and EU AI Act Art. 53.
+
+### 2026-05-01 (session 2 — redaction, new rules, discussion expansion, KPI timelines, figures, README)
+- Session lead: Researcher with AI-assisted drafting (Claude, claude-sonnet-4-6)
+- Actions taken:
+
+  **Merge resolution** — merged origin/main (commits 9aaca73 "Add figures" and d59bb3d "fix figure formats SVG") into `claude/develop-paper-structure-7lG2s`. Merge conflicts in `paper/main.md`, `paper/main.tex`, and `paper/references.bib` were resolved by keeping the full expanded 10-section paper (HEAD) and incorporating the seven SVG figures and updated Makefile from main. All seven figures (fig1–fig7) placed at semantically appropriate locations in both files per rule 11.
+
+  **Rules 12–14 added** to `CLAUDE_CODE_INSTRUCTIONS.md` and all three alias files:
+  - Rule 12: Redact all security-sensitive and legally questionable information; use `[REDACTED:<type>:<source-id>]` markers; record in `docs/redaction-policy.md`.
+  - Rule 13: NEVER publish, push to a public remote, create a Zenodo deposit, submit to arXiv, or otherwise distribute without explicit written consent from the author.
+  - Rule 14: If a paper figure is data-derived, commit both the data file and the generation script; reference both in main.md and main.tex.
+
+  **`docs/redaction-policy.md` created** — canonical sensitive-item register with marker format table, 5 items (R-SF-1..R-SF-5 covering MQTT username, password, device serial, local IP, and vendor UID), and a pre-publication history-rewrite checklist.
+
+  **Redaction pass applied** to 5 researcher-authored files:
+  - `docs/sources.md` S-SF-5 — raw credentials replaced with `[REDACTED:username:S-SF-5-username]` / `[REDACTED:credential:S-SF-5-password]`.
+  - `docs/logbook.md` (this file) — prior audit entry updated.
+  - `paper/main.md` §3.6 — username redacted.
+  - `paper/main.tex` §3.6 mirror — username redacted.
+  - `experiments/spider-farmer/provenance.md` — credentials and device info redacted.
+  - `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan and ventilator control in Home Assistant` — device serial, IP, and UID replaced via sed.
+  - Vendor `original/` tree NOT modified (excluded per redaction policy).
+
+  **Makefile publication-consent warning** — prominent multi-line warning block added at top of `paper/Makefile` referencing rule 13 and the three pre-publication checklist items.
+
+  **§7.10 "Proliferation of hacking"** added to both `paper/main.md` and `paper/main.tex` — covers: volume risk (growing actor pool, static vulnerable-device stock), asymmetric uplift (attacker pays same cost for more damage), normalisation effect (cultural friction disappears), tooling acceleration (compounding marginal cost reduction). Argues the structural response is open APIs + zero-trust, not suppression.
+
+  **§7.11 "Prompt injection in obfuscated software as a countermeasure?"** added to both files — examines the speculative defence of embedding adversarial strings in vendor APKs to mislead LLM analysis. Concludes feasibility is low (models increasingly resistant; custom agents filter), ethics are contested (§69e UrhG / EU 2001/29/EC TPM question), and systemic cost is negative (training-corpus contamination). Not a viable primary defence.
+
+  **KPI effort-gap timelines** added to §3.7 (Spider Farmer) and §4.7 (EcoFlow) in both files:
+  - Spider Farmer: 7 phases, ~10.5 h AI-assisted vs ~90 h estimated manual → 12% of manual effort.
+  - EcoFlow: 3 phases, ~8 h AI-assisted vs ~120 h estimated manual → 7% of manual effort.
+  - Both timelines include table-form phase breakdowns and effort-gap metrics.
+
+- Files updated:
+  - `CLAUDE_CODE_INSTRUCTIONS.md`, `.instructions.md`, `copilot-instructions.md`, `CLAUDE.md`
+  - `docs/redaction-policy.md` (new)
+  - `docs/sources.md`, `docs/logbook.md`
+  - `experiments/spider-farmer/provenance.md`
+  - `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan and ventilator control in Home Assistant`
+  - `paper/Makefile`, `paper/main.md`, `paper/main.tex`
+
+- Key decisions:
+  - Keep vendor `original/` tree untouched — its credentials are present in the source file and are the point of evidence for §3.6. The redaction policy documents this and flags the need for exclusion from any public mirror.
+  - §7.10 and §7.11 are positioned *after* §7.9 (Threats to validity) to maintain the paper's analytical → societal risk → speculative countermeasure progression.
+  - KPI effort-gap estimates are clearly labelled as *estimates* (manual baseline is a conservative reconstruction); they are not claimed to be empirically measured.
+  - The commit-timeline tables note that exact timestamps are not available for all phases; ordering is reconstructed from cross-references, not from wall-clock evidence.
+
+- Open issues:
+  - Git history rewrite (BFG / git-filter-repo) still required before any public mirror — raw credentials are in prior commits on this branch. See `docs/redaction-policy.md`.
+  - Vendor redistribution caveats (S-SF-4, S-EF-2..4) unresolved.
+  - `[lit-retrieved]` to `[lit-read]` upgrades still pending for all clusters.
+  - Zenodo DOI still not minted.
+  - README prettification (openvla-style) deferred to next sub-session.
+  - Figures fig1–fig7 are currently manually drawn SVGs. Per Rule 14 they are exempt from the data-source+script requirement but should be noted as such in the figures directory.
+
+- Next steps:
+  - Update and prettify README (openvla-style layout with badges, figure gallery, quick-start, and citation block).
+  - Note figures as manually drawn in `paper/figures/` README.
+  - Push the development branch.

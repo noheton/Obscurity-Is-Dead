@@ -329,10 +329,36 @@ corroboration of the claim that the effort gap has collapsed for
 
 \subsection{KPI summary (Spider Farmer)}
 \label{sec:sf-kpis}
-\emph{To be populated from logbook and provenance evidence}:
-artifact-acquisition completeness, transcript count (7),
-independent-implementation count (3 + integration),
-time-to-first-working-integration, residual obscurity depth.
+
+\textbf{Effort-gap timeline} (reconstructed from transcript internal evidence;
+HA log timestamps anchor T3--T5 to 2026-04-25/26):
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Phase & Transcript & Key event & Est.\ elapsed \\
+\midrule
+Discovery    & T1 & APK extraction; BLE UUID/cipher/key candidates & $\sim$2\,h \\
+Build        & T2 & HA component; BLE coordinator; config flow     & $\sim$3\,h \\
+Debug decrypt& T3 & Static-vs-dynamic IV bug fixed                 & $\sim$1\,h \\
+Debug key+migration & T4 & Correct CB key pair; \texttt{1→2} migration & $\sim$2\,h \\
+Debug race   & T5 & \texttt{asyncio.Lock}; optimistic state        & $\sim$1\,h \\
+Dataset      & T6 & Live MQTT probe trace; credentials exposed     & $\sim$1\,h \\
+Asset        & T7 & Logo addition (empty export; deliverable done) & $<$0.5\,h \\
+\midrule
+\textbf{Total AI-assisted} & & & \textbf{$\sim$10.5\,h} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Estimated manual baseline}: prior community implementations each took
+days to weeks independently; conservative estimate \textbf{60--120\,h}.
+\textbf{Effort-gap metric}: $\approx$10.5 / 90 $\approx$ \textbf{12\% of manual effort}.
+
+Other KPIs: artifact-acquisition completeness 8/8 entries vendored;
+transcript count~7; independent-implementation count 4; residual
+obscurity depth: nil (all key/IV pairs confirmed against
+\texttt{const.py} lines 45--47).
 
 % =========================================================================
 \section{Experiment \& Analysis 2 --- EcoFlow PowerOcean}
@@ -438,9 +464,33 @@ documented in-tree, not inferred.
 
 \subsection{KPI summary (EcoFlow PowerOcean)}
 \label{sec:ef-kpis}
-\emph{To be populated}: number of writeable parameters discovered,
-transcript count (3), API-surface count (3), residual obscurity depth,
-time-to-first-working-write.
+
+\textbf{Effort-gap timeline} (ordering from \texttt{apk.md}, \texttt{apk-logs.md},
+\texttt{implementation.md} internal cross-references):
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Phase & Transcript & Key event & Est.\ elapsed \\
+\midrule
+Discovery  & T1 & APK extraction; three-surface enumeration; field-name convention & $\sim$3\,h \\
+Analysis   & T2 & Legacy endpoint selected; writeable-param catalogue              & $\sim$2\,h \\
+Build+debug& T3 & Regex fix; 3-step config flow; \texttt{async\_step\_import}      & $\sim$3\,h \\
+\midrule
+\textbf{Total AI-assisted} & & & \textbf{$\sim$8\,h} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Estimated manual baseline}: three API surfaces, no prior independent
+protocol map; discovering and choosing between the legacy and Open API
+surfaces manually would likely require weeks. Conservative estimate:
+\textbf{80--160\,h}.
+\textbf{Effort-gap metric}: $\approx$8 / 120 $\approx$ \textbf{7\% of manual effort}.
+
+Other KPIs: 6 new writeable HA entities discovered; transcript count~3;
+API-surface count~3 (legacy endpoint, Open API, MQTT); residual obscurity:
+legacy-endpoint field-name convention was undocumented before this study.
 
 % =========================================================================
 \section{Experiment \& Analysis 3 --- The paper as an AI-assisted artifact}
@@ -982,6 +1032,79 @@ externality on every future model.
         researcher; we have explicitly preferred to leave a claim
         unsupported rather than cite a paper we have not read.
 \end{itemize}
+
+\subsection{Proliferation of hacking: societal and systemic risk}
+\label{sec:disc-proliferation}
+The collapse of the effort gap is not only a bilateral event between a
+single researcher and a single vendor. It has a \emph{proliferation}
+dimension: when a capability that previously required specialist knowledge
+becomes accessible to anyone with a chat interface, the distribution of
+actors who can exercise that capability widens dramatically.
+
+\begin{itemize}
+  \item \textbf{Volume risk.} A barrier that previously filtered out all
+        but the most motivated attackers now filters out only those who
+        choose not to engage. The population of capable attackers grows
+        without any corresponding shrinkage in the installed base of
+        vulnerable devices.
+  \item \textbf{Asymmetric uplift.} The interoperability researcher and
+        the adversary operate against the same technical surface, but the
+        adversary has no obligation to stop at a working integration.
+        The AI workflow yields the protocol map and the credential surface
+        as a byproduct of integration work.
+  \item \textbf{Normalisation effect.} As AI-assisted RE becomes common,
+        the cultural friction that previously discouraged casual
+        exploitation disappears. This normalisation is distinct from the
+        technical capability gain and may be harder to reverse.
+  \item \textbf{Tooling acceleration.} Community RE workflows are
+        increasingly trained on by successive model generations. The
+        marginal cost of the next RE task is lower than the last --- a
+        compounding effect rather than a one-time step change.
+\end{itemize}
+
+The response is not to suppress the methodology but to argue explicitly
+for the countervailing obligations: open APIs, published specifications,
+credential rotation, and zero-trust architecture at the device level.
+Obscurity that has already been defeated offers no protection; the goal
+must shift to making the attack surface unattractive rather than
+invisible.
+
+\subsection{Prompt injection in obfuscated software as a countermeasure}
+\label{sec:disc-prompt-injection}
+A speculative but technically coherent countermeasure deserves mention:
+\emph{adversarial prompt injection embedded in the vendor artifact itself}.
+If the primary attack surface is an LLM analysing vendor code or APK
+strings, a vendor could in principle embed strings designed to manipulate
+the AI's analysis --- plausible-but-invalid cryptographic constants that
+an LLM might surface as ground truth, false protocol documentation, or
+safety-triggering content designed to invoke the model's refusal
+behaviours.
+
+The feasibility and ethics of this approach are genuinely contested:
+\begin{itemize}
+  \item \textbf{Feasibility.} Modern LLMs are increasingly resistant to
+        naive injection attempts. A determined attacker with a custom
+        agent would likely filter vendor-embedded strings; the defence
+        degrades faster than the attack capability it counteracts.
+  \item \textbf{Ethics and legality.} A vendor deploying adversarial
+        injection strings in a consumer product raises
+        \S{} 69e UrhG / EU 2009/24/EC interoperability questions: does
+        the injection constitute an additional technical protection measure
+        (\emph{TPM}) under EU Directive 2001/29/EC? Does it breach
+        good-faith obligations toward legitimate interoperability
+        researchers?
+  \item \textbf{Systemic cost.} Injection artefacts in vendor code would
+        propagate into training corpora and degrade general-purpose
+        code-analysis models for legitimate users --- a negative
+        externality of the same type as synthetic sloppification
+        (\cref{sec:disc-sloppification}, \cref{sec:disc-model-collapse}).
+\end{itemize}
+
+The most robust conclusion is that prompt injection is not a viable
+primary defence. It can impose a modest cost on na\"ive attacks but
+provides no durable protection against a determined adversary. The
+structural answer remains: design systems that do not depend on secret
+protocols.
 
 % =========================================================================
 \section{Conclusion}
