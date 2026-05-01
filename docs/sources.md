@@ -58,7 +58,7 @@ Many entries below were upgraded from `[repo-referenced]` (or `[unverified-exter
 - Reference: `sf.mqtt.spider-farmer.com:8333`, username `[REDACTED:username:S-SF-5-username]`, password `[REDACTED:credential:S-SF-5-password]` (recovered via self-signed-cert MITM, documented in `experiments/spider-farmer/original/doc/log.md`).
 - Status: **[repo-vendored]** (as an extracted/discovered constant).
 - Relation to research: directly supports `REPORT.md` §7 (security implications). The credential-recovery method is documented in a community thread embedded in `original/doc/log.md`.
-- **Caution**: the recovered password is a live credential. Redact before public release.
+- **Redaction notice**: raw credentials replaced per `docs/redaction-policy.md` R-SF-1 and R-SF-2. Git history rewrite required before public release.
 
 ### S-SF-6 — Spider Farmer integration code (Home Assistant component)
 - Type: community-developed integration code (subject of the case study).
