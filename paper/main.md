@@ -15,6 +15,8 @@ This paper investigates how modern large language models collapse the traditiona
 ### 1.1 The effort gap as a security model
 The dominant security posture for consumer IoT is not cryptographic but economic: proprietary protocols, obfuscated APKs, and undocumented APIs raise the activation energy of integration high enough that a casual researcher gives up. We name this implicit defence the *effort gap* and argue that it has functioned as the de-facto interoperability barrier of the last decade.
 
+![Figure 1 — The effort gap. Cumulative human effort to reach a working local integration across phases of a reverse-engineering project. AI-assisted analysis flattens the curve, leaving a wide effort gap between the two trajectories.](figures/fig1-effort-gap.svg)
+
 ### 1.2 Research question
 > Is AI-assisted hacking primarily a means to unlock interoperability, or does it instead magnify security risk by making obscurity ineffective?
 
@@ -25,7 +27,11 @@ The dominant security posture for consumer IoT is not cryptographic but economic
 - **Reproducibility crisis in security research.** Published "hacks" rarely ship with prompts, transcripts, or commit-pinned artifacts. We argue this is now a methodological defect, not a stylistic choice.
 
 ### 1.4 Thesis and contributions
-We claim that the effort gap has *collapsed asymmetrically*: it has collapsed faster for interoperability work (where success is verifiable against a working integration) than for offensive work (which still requires target selection, persistence, and operational tradecraft). The paper contributes:
+We claim that the effort gap has *collapsed asymmetrically*: it has collapsed faster for interoperability work (where success is verifiable against a working integration) than for offensive work (which still requires target selection, persistence, and operational tradecraft). The activation-energy framing is illustrated in Figure 2: the thermodynamic endpoint — a working integration — is unchanged, but AI-assisted analysis lowers the barrier separating theory from practice.
+
+![Figure 2 — The boredom barrier. Reaction-coordinate view of a reverse-engineering project. AI-assisted analysis lowers the activation energy E_a by absorbing the rote, low-novelty work where most projects historically stalled.](figures/fig2-boredom-barrier.svg)
+
+The paper contributes:
 
 1. A definition of the effort gap and an operationalisation as measurable KPIs (`docs/methodology.md` §10).
 2. Two empirical case studies with complete artifact provenance (`experiments/spider-farmer/`, `experiments/ecoflow-powerocean/`).
@@ -72,6 +78,10 @@ Each finding is reproduced against the embedded `original/` code at a pinned com
 ### 2.7 Ethics
 The dual-use evaluation is part of the methodology, not a postscript. For each case we explicitly enumerate (a) what becomes easier for an integrator and (b) what becomes easier for an attacker. Live credentials, device serials, and broker IPs are flagged for redaction before any public release (`docs/logbook.md` 2026-05-01 audit).
 
+The four-stage pipeline (Acquire → Analyse → Audit → Validate) with its feedback loop is shown in Figure 5.
+
+![Figure 5 — Methodology. The four-stage pipeline used in both case studies: Acquire → Analyse → Audit → Validate, with an explicit feedback loop from validation back into analysis.](figures/fig5-methodology.svg)
+
 ---
 
 ## 3. Experiment & Analysis 1 — Spider Farmer
@@ -87,6 +97,10 @@ Source register entries S-SF-1 through S-SF-8. Primary artifacts:
 - The integration itself, embedded at `original/` (manifest version `3.0.0`, `config_flow.py` `VERSION = 3`).
 
 ### 3.3 AI-assisted analysis workflow
+The end-to-end workflow is shown in Figure 3.
+
+![Figure 3 — Case study A · Spider Farmer. The vendor surface (APK, on-device traffic, undocumented cloud endpoints) is collapsed by an LLM-assisted analysis loop into a working local Home Assistant integration. Prompt logs and transcripts are preserved as auditable research artifacts.](figures/fig3-spider-farmer.svg)
+
 1. **APK static extraction** of strings, action fields, and constants.
 2. **Cross-implementation comparison** across four independent reverse-engineering attempts, captured in `original/doc/apk_analysis/implementations.md`.
 3. **AI-mediated reconciliation** of conflicting key/IV candidates (transcripts T1–T6).
@@ -126,6 +140,10 @@ Source register entries S-EF-1 through S-EF-6. Primary artifacts:
 - `raw_conversations (copy&paste, web)/` (3 transcripts).
 
 ### 4.3 AI-assisted analysis workflow
+Figure 4 contrasts the vendor default (cloud-bound) with the AI-assisted local-control architecture.
+
+![Figure 4 — Case study B · EcoFlow PowerOcean. Left: the vendor default routes home telemetry and user commands through a required cloud hop. Right: AI-assisted reverse engineering yields a protocol map and a local broker on the LAN, making the cloud optional and restoring data ownership.](figures/fig4-ecoflow.svg)
+
 1. **APK string and action-field extraction** to enumerate writeable parameters.
 2. **Three-surface reconciliation** — `apk.md` line 52 documents the choice to use the legacy endpoint over the Open API, resolving the prior open question.
 3. **Type-system bug discovery** — the regex `(?<!st)(amp|current)$` (`types.py` line 90) corrects a misclassification that conflated current readings with the literal "st" suffix.
@@ -255,6 +273,12 @@ The effort gap has *not* collapsed uniformly. AI assistance compresses the *know
 
 ### 7.4 Dual-use accountability
 Both case studies expose live attack surfaces. In Spider Farmer the surface is already public — recovered in a community thread — and the case is a *post-hoc* documentation of a collapse that has already happened. In EcoFlow the surface is documented for the first time here, and we accordingly enumerate the redactions that must be applied before public release (logbook 2026-05-01 audit; `docs/sources.md` S-SF-5, S-EF-2..4).
+
+The dual-use character of the technology is shown in Figure 6. AI broadens the reachable distribution of outcomes in both directions; the structural answer is a shift in threat model (Figure 7), away from a single perimeter protecting implicitly trusted devices and toward authenticated, scoped access at every hop.
+
+![Figure 6 — Dual-use map. Outcomes of AI-assisted reverse engineering plotted by interoperability gain (x) versus security risk (y). The dashed envelope shows how AI broadens the reachable distribution: legitimate use cases gain reach, but so do high-risk ones.](figures/fig6-dual-use.svg)
+
+![Figure 7 — Two threat models. Left: a single perimeter protects implicitly trusted devices — once breached, the whole system is exposed. Right: every hop is authenticated against a published specification; a breach stays local. AI-assisted reverse engineering punctures the left model and rewards systems built on the right.](figures/fig7-threat-models.svg)
 
 ### 7.5 The paper as evidence for its own thesis
 The meta-process case (§5) is recursive evidence for our central claim. The same pipeline that compresses the Spider Farmer and EcoFlow integrations compresses paper-writing — and exposes the same dual-use surface. Just as recovered MQTT credentials are a side-effect of integration work, fabricated citations and unsourced legal opinions are side-effects of paper work. The discipline that resolves both is the same: pin artifacts, label provenance, treat AI output as evidence to be verified rather than as authority.
