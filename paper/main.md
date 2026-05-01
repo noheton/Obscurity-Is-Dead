@@ -94,7 +94,7 @@ Spider Farmer GGS controllers, power strips, lamps, and grow tents communicate l
 ### 3.2 Artifact inventory
 Source register entries S-SF-1 through S-SF-8. Primary artifacts:
 - `original/doc/Spider Farmer_2.3.0_APKPure.zip`, `Spider Farmer_2.4.0_APKPure.zip`
-- Three independent reference implementations (ESPHome, ESP32→MQTT bridge, Python+MQTT)
+- Three independent reference implementations: ESPHome component [@smurfy_esphome_sf], ESP32→MQTT bridge [@p0rigth_spiderblebridge], and Python+MQTT controller [@pythonspidercontroller]
 - `raw_conversations (copy&paste, web)/` (7 transcripts)
 - The integration itself, embedded at `original/` (manifest version `3.0.0`, `config_flow.py` `VERSION = 3`).
 
@@ -104,7 +104,7 @@ The end-to-end workflow is shown in Figure 3.
 ![Figure 3 — Case study A · Spider Farmer. The vendor surface (APK, on-device traffic, undocumented cloud endpoints) is collapsed by an LLM-assisted analysis loop into a working local Home Assistant integration. Prompt logs and transcripts are preserved as auditable research artifacts.](figures/fig3-spider-farmer.svg)
 
 1. **APK static extraction** of strings, action fields, and constants.
-2. **Cross-implementation comparison** across four independent reverse-engineering attempts, captured in `original/doc/apk_analysis/implementations.md`.
+2. **Cross-implementation comparison** across four independent reverse-engineering attempts [@smurfy_esphome_sf; @p0rigth_spiderblebridge; @pythonspidercontroller], captured in `original/doc/apk_analysis/implementations.md`.
 3. **AI-mediated reconciliation** of conflicting key/IV candidates (transcripts T1–T6).
 4. **Code-level confirmation** against the integration's `const.py`, `ble_protocol.py`, `ble_coordinator.py`, and `__init__.py`.
 
@@ -160,7 +160,7 @@ Source register entries S-EF-1 through S-EF-6. Primary artifacts:
 - `original/doc/ecoflow-open-demo.zip` — vendor reference Java implementation.
 - `original/doc/powerocean.pdf`, `geninfo.pdf` — vendor documentation.
 - `original/doc/apk.md` (327 lines), `apk-logs.md` (546 lines), `implementation.md` (434 lines), six raw extraction logs.
-- The integration `powerocean_dev` at `manifest.json` version `2026.05.01`, embedded at `original/`. Upstream parent `https://github.com/[REDACTED:repo-path:EF-IMPL-1]` per `const.py` line 13.
+- The integration `powerocean_dev` at `manifest.json` version `2026.05.01`, embedded at `original/`. Upstream parent [@niltrip_powerocean] per `const.py` line 13.
 - `raw_conversations (copy&paste, web)/` (3 transcripts).
 
 ### 4.3 AI-assisted analysis workflow
@@ -304,7 +304,7 @@ The case-study artifacts are vendored under `experiments/paper-meta-process/` wi
 |---|---|---|---|
 | Defence model | Hardcoded AES keys/IVs in APK + self-signed MQTT cert | Three undocumented API surfaces, vendor publishes only one | None — the artifact is open by construction |
 | Primary AI lift | Reconciling four independent implementations | Discovering and choosing among API surfaces; type-system bug fix | Skeleton generation, structured literature retrieval, mirror discipline |
-| Independent corroboration | 3 community implementations + community MITM thread | 1 vendor reference implementation + 1 upstream community fork | Git history; researcher review at commit time; CI build |
+| Independent corroboration | 3 community implementations [@smurfy_esphome_sf; @p0rigth_spiderblebridge; @pythonspidercontroller] + community MITM thread | 1 vendor reference implementation + 1 upstream community fork [@niltrip_powerocean] | Git history; researcher review at commit time; CI build |
 | Live credential recovery | Yes (MQTT broker creds) | No (token-bearer model) | N/A — the paper is the artifact |
 | Dual-use blast radius | Per-device control over horticulture hardware | Grid-in / battery-reserve / EV-charger control | Fabricated citations; unsourced legal opinions; redaction failures |
 | Status of vendor public docs | None | Open API documented; consumer app uses different surface | All policy and provenance documented in repo |
