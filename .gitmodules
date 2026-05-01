@@ -1,0 +1,7 @@
+[submodule "experiments/spider-farmer/original"]
+	path = experiments/spider-farmer/original
+	url = https://github.com/noheton/spider_farmer
+
+[submodule "experiments/ecoflow-powerocean/original"]
+	path = experiments/ecoflow-powerocean/original
+	url = https://github.com/noheton/powerocean-dev
