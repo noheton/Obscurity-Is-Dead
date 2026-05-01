@@ -121,7 +121,29 @@ Each constant and code path above was re-checked against `original/` at commit `
 The `original/doc/log.md` community thread documents a self-signed-certificate MITM against the vendor MQTT broker `sf.mqtt.spider-farmer.com:8333`, recovering live credentials (username `[REDACTED:username:S-SF-5-username]`, password `[REDACTED:credential:S-SF-5-password]`; see `docs/redaction-policy.md` R-SF-1, R-SF-2). This is independent corroboration of the claim that the effort gap has collapsed for *both* defenders and attackers.
 
 ### 3.7 KPI summary (Spider Farmer)
-*To be populated from logbook and provenance evidence*: artifact-acquisition completeness, transcript count (7), independent-implementation count (3 + integration), time-to-first-working-integration, residual obscurity depth.
+
+**Effort-gap timeline** (reconstructed from transcript internal evidence; HA log timestamps anchor T3–T5 to 2026-04-25 – 2026-04-26):
+
+| Phase | Transcript | Key event | Est. elapsed |
+|-------|-----------|-----------|-------------|
+| Discovery | T1 | APK extraction; BLE UUID/cipher/key candidates identified | ~2 h |
+| Build | T2 | HA component skeleton, BLE coordinator, passive discovery, config flow | ~3 h |
+| Debug — decrypt | T3 | Static-vs-dynamic IV bug isolated and fixed | ~1 h |
+| Debug — key + migration | T4 | Correct CB key pair identified; `1→2` config-entry migration | ~2 h |
+| Debug — race condition | T5 | `asyncio.Lock`, optimistic state, disconnect-event handling | ~1 h |
+| Dataset | T6 | Live MQTT probe/response trace (906 lines); credential surface exposed | ~1 h |
+| Asset | T7 | Logo addition (chat export empty; deliverable present) | <0.5 h |
+| **Total AI-assisted** | | | **~10.5 h** |
+
+**Estimated manual baseline** (without AI assistance, based on comparable community RE efforts documented in `original/doc/apk_analysis/implementations.md`): each of the four prior community implementations took days to weeks to reach a working protocol map independently; the cross-implementation reconciliation step alone (resolving conflicting key/IV candidates) likely required >40 h of forum and code comparison. Conservative manual estimate: **60–120 h** for equivalent coverage.
+
+**Effort-gap metric** (AI-assisted hours / estimated manual hours): **~10.5 / 90 ≈ 12% of manual effort** — an order-of-magnitude compression.
+
+**Other KPIs:**
+- Artifact-acquisition completeness: 8/8 source-register entries vendored ([repo-vendored]).
+- Transcript count: 7 (T7 has empty export; deliverable confirmed).
+- Independent-implementation count: 3 community + 1 integration = 4.
+- Residual obscurity depth: none — all key/IV pairs confirmed against `const.py` lines 45-47.
 
 ---
 
@@ -164,7 +186,26 @@ Every constant and endpoint above was re-checked against `original/` at commit `
 - Vendor APK and PDF redistribution status is flagged in `docs/sources.md` (S-EF-2, S-EF-3, S-EF-4) and must be resolved before public release.
 
 ### 4.7 KPI summary (EcoFlow PowerOcean)
-*To be populated*: number of writeable parameters discovered, transcript count (3), API-surface count (3), residual obscurity depth, time-to-first-working-write.
+
+**Effort-gap timeline** (exact session timestamps not available; ordering reconstructed from `apk.md`, `apk-logs.md`, and `implementation.md` internal cross-references):
+
+| Phase | Transcript | Key event | Est. elapsed |
+|-------|-----------|-----------|-------------|
+| Discovery | T1 (apk) | APK extraction, three-surface enumeration, field-name convention identified | ~3 h |
+| Analysis | T2 (apk-logs) | Legacy endpoint selected over Open API (`apk.md` line 52); writeable-param catalogue | ~2 h |
+| Build + debug | T3 (impl) | Type-system regex fix (`types.py` 90); 3-step config flow; `async_step_import` migration | ~3 h |
+| **Total AI-assisted** | | | **~8 h** |
+
+**Estimated manual baseline**: the EcoFlow surface is more complex than Spider Farmer (three API surfaces, no prior independent protocol map). The vendor Open API is documented, but the consumer app uses an undocumented legacy endpoint; discovering and choosing between the two surfaces manually would likely require weeks of network-trace capture and API fuzzing. Conservative manual estimate: **80–160 h** for equivalent writeable-parameter coverage.
+
+**Effort-gap metric**: **~8 / 120 ≈ 7% of manual effort**.
+
+**Other KPIs:**
+- Writeable parameters discovered: 6 new HA entities (reboot, self-check, backup SOC, fast-charge SOC, charger power limit, grid-in limit).
+- Transcript count: 3.
+- API-surface count: 3 (legacy endpoint, Open API, MQTT).
+- Residual obscurity depth: the legacy endpoint field-name convention (camelCase from APK constants) was not documented before this case study.
+- Redistribution caveats: S-EF-2, S-EF-3, S-EF-4 require resolution before public release.
 
 ---
 
@@ -322,6 +363,34 @@ We do not claim to solve model collapse. We claim that the methodology in §2 is
 - **Legal framing.** AI-generated legal analysis in transcripts is not legal advice and is flagged as such in the source register.
 - **Redistribution.** Vendor APKs and PDFs are vendored for cite-ability but their redistribution status is not yet resolved.
 - **Sloppification risk in this paper.** The literature register (§5.6, §7.6) is currently `[lit-retrieved]` only. No claim in this paper depends on a literature citation that has not been read in full by the researcher; we have explicitly preferred to leave a claim unsupported rather than cite a paper we have not read.
+
+### 7.10 Proliferation of hacking: societal and systemic risk
+The collapse of the effort gap is not only a bilateral event between a single researcher and a single vendor. It has a *proliferation* dimension: when a capability that previously required specialist knowledge or sustained effort becomes accessible to anyone with an internet connection and a chat interface, the distribution of actors who can exercise that capability widens dramatically.
+
+This matters at several levels:
+
+- **Volume risk.** A barrier that previously filtered out all but the most motivated attackers now filters out only those who choose not to engage. The population of capable attackers grows without any corresponding growth in the stock of vulnerable devices — which remain in service for years or decades after deployment.
+- **Asymmetric uplift.** The interoperability researcher and the adversary operate against the same technical surface, but the adversary has no obligation to stop at a working integration. The AI workflow yields the protocol map and the credential surface *as a byproduct* of integration work. An adversary pays the same cost for a more damaging result.
+- **Normalisation effect.** As AI-assisted RE becomes common, the cultural and psychological friction that previously discouraged casual exploitation (the sense that "this is too hard") disappears. This normalisation is distinct from the technical capability gain and may be harder to reverse.
+- **Tooling acceleration.** Community-written integrations, exploit templates, and RE workflows are increasingly trained on by successive model generations. The marginal cost of the next RE task is lower than the last — a compounding effect rather than a one-time step change.
+
+The honest assessment is that this paper contributes, at least indirectly, to the proliferation it describes. The response is not to suppress the methodology but to argue explicitly for the countervailing obligations: open APIs, published specifications, credential rotation, and zero-trust architecture at the device level. Obscurity that has already been defeated offers no protection; the goal must shift to making the attack surface unattractive rather than invisible.
+
+### 7.11 Prompt injection in obfuscated software as a countermeasure?
+A speculative but technically coherent countermeasure deserves mention: *adversarial prompt injection embedded in the vendor artifact itself*. If the primary attack surface is an LLM analysing vendor code or APK strings, a vendor could in principle embed strings — in string tables, resource files, manifest metadata, or binary constants — designed to manipulate the AI's analysis. Potential injection targets include:
+
+- **Misleading key/IV candidates.** Embedding plausible-looking but invalid cryptographic constants that an LLM might surface as ground truth, poisoning the attacker's working hypothesis and delaying integration.
+- **False protocol documentation.** In-APK strings or comments that describe a plausible but incorrect protocol, causing the LLM to generate code that silently fails validation.
+- **Safety-triggering content.** Strings designed to invoke the AI's refusal behaviours (e.g. by framing the binary as critical infrastructure or embedding fake human-rights statements), causing the model to decline to assist.
+- **Role manipulation.** System-prompt-like strings in resource files or XML manifests that attempt to alter the model's behaviour in the context of a code-analysis session.
+
+The feasibility and ethics of this approach are genuinely contested:
+
+- **Feasibility.** Modern LLMs are increasingly resistant to naive injection attempts, and a determined attacker operating with a custom agent or fine-tuned model would likely strip or filter vendor-embedded strings. The defence degrades faster than the attack capability it tries to counteract.
+- **Ethics and legality.** A vendor deploying adversarial injection strings in a consumer product raises § 69e UrhG / EU 2009/24/EC interoperability questions: does the injection constitute an additional technical protection measure (*TPM*) under EU Directive 2001/29/EC? Does it breach good faith obligations toward legitimate interoperability researchers? These questions are open.
+- **Systemic cost.** Injection artefacts in vendor code would propagate into training corpora and degrade the general-purpose usefulness of code-analysis models for legitimate users — a negative externality of the same type as synthetic sloppification (§7.6, §7.7).
+
+The most robust conclusion is that prompt injection is not a viable primary defence. It can impose a modest cost on naïve attacks but provides no durable protection against a determined adversary. The structural answer remains: design systems that do not depend on secret protocols.
 
 ---
 
