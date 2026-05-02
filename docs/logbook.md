@@ -1155,3 +1155,18 @@ This logbook is the operating record for the paper and research process.
   - Three Technique Inventory Open Questions (Wi-Fi module RE; captive-portal / setup-AP; vendor white-label identification) may need new technique IDs created during this run and back-fed at close-out.
 - Next steps:
   - Present the Phase 0 user-facing summary (technique count, target, privacy boundary, artifact list) at the Phase 0→1 checkpoint and wait for explicit "go".
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 0 conflict resolved)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 0 (target intake conflict resolution).
+- Actions taken:
+  - Researcher confirmed at the Phase 0→1 checkpoint that the original "target artifact" link (Ondilo ICO Manager APK) was a copy-paste mistake. Correct artifact: ControlMySpa Android app (`com.controlmyspa.ownerappnew`, https://apkpure.com/controlmyspa/com.controlmyspa.ownerappnew). This is the Balboa BWA companion app and is coherent with the Balboa Gateway Ultra target.
+  - Updated `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md §0.2.1` (resolution recorded; original conflict text retained for audit) and §0.2.2 (artifact (a) confirmed as ControlMySpa).
+  - Option 1 (Balboa-only run) confirmed; experiment slug `iot-integrator-balboa-gateway-ultra` is final.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md`
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - Researcher still owes: declared control surface (read-only vs read+write), confirmation of provisional privacy boundary, and which of artifacts (b) LAN captures / (c) setup-AP capture / (d) redacted DSN they can supply.
+- Next steps:
+  - Wait for the remaining Phase 0→1 inputs, then begin Phase 1 (desk-research only, no device contact).

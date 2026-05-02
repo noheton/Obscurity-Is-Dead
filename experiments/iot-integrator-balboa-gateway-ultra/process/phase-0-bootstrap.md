@@ -79,7 +79,26 @@ rows, per §0.1.d.
 
 ## 0.2 Target Intake
 
-### 0.2.1 Apparent target / artifact conflict (rule 7 surface)
+### 0.2.1 Target / artifact conflict — **RESOLVED 2026-05-02**
+
+**Resolution.** The researcher confirmed at the Phase 0→1 checkpoint
+that the original "target artifact" link (Ondilo ICO Manager APK) was a
+copy-paste mistake. The correct target artifact is the **ControlMySpa**
+Android app:
+
+- `https://apkpure.com/controlmyspa/com.controlmyspa.ownerappnew`
+- package id: `com.controlmyspa.ownerappnew`
+
+ControlMySpa is the Balboa BWA companion app for the Gateway Ultra /
+BWA cloud, so the target (Balboa Gateway Ultra Wi-Fi module) and the
+target artifact are now coherent. **Option 1 (Balboa-only run)** is
+confirmed; the Ondilo ICO is out of scope for this run and stays
+covered by `experiments/iot-integrator-ondilo-ico-spa-v2/`.
+
+The original conflict-surfacing record is retained below for
+auditability.
+
+#### Original conflict (resolved, retained for audit)
 
 The user prompt names two URLs:
 
@@ -122,6 +141,9 @@ option 1, recorded as the working slug
 `iot-integrator-balboa-gateway-ultra`. Phase 1 will not start until
 the researcher confirms or overrides.
 
+*[Resolution recorded above. Researcher selected option 1 and supplied
+the correct ControlMySpa APK link.]*
+
 ### 0.2.2 Provisional intake (option 1, pending researcher confirmation)
 
 | Field | Value |
@@ -131,7 +153,7 @@ the researcher confirms or overrides.
 | Firmware version | unknown — researcher to read off the unit. |
 | Desired control surface | **to be set by researcher.** Candidate: read-only (water temp, heater, pump states, set-point, error flags); or read/write (set-point, jets/blower/lights, filtration cycles); or configuration only. |
 | Privacy boundary | **to be set by researcher.** Candidate baseline: no traffic to the BWA cloud (`bwgapi.balboawater.com`), no vendor account creation kept active, no mDNS/SSDP broadcast of household-identifying device names. |
-| Researcher-supplied artifacts (legal & ethical) | **to be confirmed.** Candidate set: (a) APK of the official Balboa BWA / "Spa Touch" / "Control My Spa" app the researcher has installed on their own device; (b) packet captures from the researcher's own LAN (gateway → device, gateway → BWA cloud); (c) BLE / Wi-Fi setup-AP captures from the researcher's own first-time pairing flow; (d) the redacted serial / DSN of the researcher's own module. |
+| Researcher-supplied artifacts (legal & ethical) | **partially confirmed.** Confirmed: (a) **ControlMySpa APK** (`com.controlmyspa.ownerappnew`, APKPure mirror, researcher to record SHA-256 on download in Phase 1). To be confirmed by researcher: (b) packet captures from the researcher's own LAN (gateway → device, gateway → BWA cloud); (c) Wi-Fi setup-AP / pairing-flow captures from the researcher's own first-time onboarding; (d) the redacted serial / DSN of the researcher's own module. |
 | Off-limits artifacts | Any neighbour or third-party traffic; any captures from a unit the researcher does not own; any vendor-cloud data accessed via another user's account. |
 
 ### 0.2.3 Pre-allocated redaction marker block (rule 12 / `T-CAPTURE-TIME-REDACTION`)
@@ -177,4 +199,4 @@ picks:
 - This file: `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md` ✓
 - Logbook entry: pending (this commit).
 - `docs/redaction-policy.md` row append: not yet — no marker activated.
-- User checkpoint (Phase 0 → Phase 1): pending researcher answer to §0.2.1.
+- User checkpoint (Phase 0 → Phase 1): §0.2.1 conflict resolved 2026-05-02 (ControlMySpa APK confirmed). Still pending: researcher's declared **control surface** (read-only vs read+write), confirmation of the **privacy boundary** in §0.2.2, and which of the candidate artifacts (b)/(c)/(d) they can supply.
