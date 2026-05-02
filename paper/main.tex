@@ -163,6 +163,41 @@ AI-assisted analysis lowers the barrier separating theory from practice.
   \label{fig:boredom-barrier}
 \end{figure}
 
+The effort-gap collapse documented by this paper is software-side: it
+concerns the analysis of mobile companion apps, cloud APIs, and BLE / MQTT
+protocols where the obscurity barrier is a labour cost imposed on a
+researcher who already has root-equivalent access to the artefacts. A
+parallel, \emph{researcher-hypothesised and AI-assisted-research-confirmed}
+extension of the same thesis applies to the \textbf{hardware-side
+effort gap} --- the cost of physically extracting firmware, locating
+debug interfaces, and mounting side-channel or fault-injection attacks
+on commodity embedded devices. Two peer-reviewed quantitative anchors
+triangulate this hypothesis: the ChipWhisperer platform documents an
+approximately 100$\times$ equipment-cost reduction relative to prior
+commercial side-channel rigs (L-HW-RE-2)\footnote{Cluster A.2 entries
+L-HW-RE-1 through L-HW-RE-6 are catalogued in \texttt{docs/sources.md}
+at \texttt{[lit-retrieved]} status pending Source Analyzer upgrade to
+\texttt{[ai-confirmed]}; per the verification ladder
+(\texttt{CLAUDE.md}, 2026-05-02 extension), they are referenced here as
+footnoted markers rather than inline citations until that upgrade
+lands.\label{fn:hwre-cluster}}, and Vasile et al.'s systematic survey
+of 24 commercial IoT devices reports that an exposed UART suffices for
+firmware extraction in more than 45\% of cases (L-HW-RE-3). A SOUPS
+2020 cognitive-process study finds that students reach intermediate
+hardware-reverse-engineering proficiency in 14 weeks of structured
+training, quantifying skill-floor compression (L-HW-RE-6). Practitioner
+handbooks bookend the period: the 2003--2004 Grand / Huang baseline
+(bespoke equipment, multi-day soldering, expert-only skill floor) and
+the 2021 van Woudenberg \& O'Flynn handbook (single volume + $\sim$USD
+300 toolchain) (L-HW-RE-5). AI-assisted PCB component identification
+has matured; full netlist reconstruction is emerging (L-HW-RE-4); and
+JTAGulator-class commodity devices automate debug-interface discovery
+on unknown PCBs (L-HW-RE-1). The hardware-side cluster is presented as
+a \emph{triangulated practitioner observation}, not as a benchmarked
+finding equivalent to the software-side anchors; the asymmetry between
+the two evidence bases is itself a finding of this paper and is
+treated explicitly in \cref{sec:synthesis-evidence-asymmetry}.
+
 The paper contributes:
 \begin{enumerate}
   \item A definition of the effort gap and an operationalisation as
@@ -185,6 +220,12 @@ The paper contributes:
         (L-SLOP-12).
   \item A synthesis of interoperability gains versus dual-use risks, grounded
         in the verified evidence of both cases.
+  \item A meta-observation on the \emph{evidence asymmetry} between
+        software-side and hardware-side effort-gap compression, framed
+        as a finding about the maturity of empirical
+        hardware-security-research methodology rather than as a
+        weakness of the cluster A.2 hypothesis
+        (\cref{sec:synthesis-evidence-asymmetry}).
 \end{enumerate}
 
 \subsection{Scope and non-goals}
@@ -1220,6 +1261,53 @@ from the four cases' Weakness Tables and per-case
 \fp{RESEARCH-PROTOCOL.md} gap sections.}
 \label{fig:pipeline-vulnerabilities}
 \end{figure}
+
+\subsection{Evidence asymmetry between software-side and hardware-side effort-gap compression}
+\label{sec:synthesis-evidence-asymmetry}
+The \cref{sec:contributions} thesis is supported on the software side by
+a peer-reviewed quantitative base (cluster A in
+\texttt{docs/sources.md}, entries L-RE-1 through L-RE-8) that includes
+a 24.4\% cognitive-burden reduction in AI-assisted decompilation, a
+31\%\,$\rightarrow$\,53\% correct-solve rate uplift on
+reverse-engineering tasks, and a $>$\,100\% re-executability rate for
+AI-assisted code synthesis. The hardware-side extension introduced in
+\cref{sec:contributions} rests on a structurally different evidence
+base: a single peer-reviewed equipment-cost anchor
+($\sim$\,100$\times$, ChipWhisperer 2014, L-HW-RE-2)\textsuperscript{\ref{fn:hwre-cluster}},
+a single peer-reviewed survey datapoint (Vasile et al.\ 2018,
+$>$\,45\% UART-suffices on 24 commercial IoT devices, L-HW-RE-3), one
+peer-reviewed skill-floor study (Becker et al.\ 2020 SOUPS, 14-week
+intermediate-proficiency pathway, L-HW-RE-6), and a practitioner-handbook
+bookend pair (Grand 2004 / Huang 2003 $\rightarrow$ van Woudenberg
+\& O'Flynn 2021, L-HW-RE-5) supplemented by grey-literature anchors
+(JTAGulator, L-HW-RE-1) and an emerging AI-assisted PCB-RE literature
+whose strongest published results remain at the component-detection
+layer rather than full netlist reconstruction (Botero et al.\ 2021 and
+follow-ons, L-HW-RE-4).
+
+We make this asymmetry explicit because honest framing of the evidence
+base is itself part of the contribution (\texttt{CLAUDE.md} rule 1).
+\emph{No peer-reviewed paper publishes a paired ``time-to-extract
+firmware on representative device $X$ in 2010 versus 2024''
+longitudinal benchmark.} The closest quantitative anchors are the
+equipment-cost reduction and the skill-floor pathway; longitudinal
+time-to-extract evidence currently exists only as grey literature
+(vendor blog posts, conference talks, training-course curricula). We
+read this not as a weakness of the hardware-side effort-gap-compression
+hypothesis --- the triangulation across cost-floor, skill-floor, survey
+datapoint, and bookend handbooks is internally consistent --- but as a
+finding about the maturity of empirical hardware-security-research
+methodology. Software-side reverse-engineering research has converged
+on shared benchmarks, controlled-experiment protocols, and
+re-executability metrics; hardware-side reverse-engineering research
+has not yet produced a comparable benchmarking infrastructure, and the
+absence of paired longitudinal measurements is the most visible
+symptom. Closing this gap --- for example by re-running the Vasile et
+al.\ 24-device firmware-extraction protocol against contemporary
+hardware with contemporary commodity tooling --- would be a productive
+direction for future work and would convert the present triangulated
+practitioner observation into a benchmarked finding equivalent to the
+software-side anchors.
 
 % =========================================================================
 \section{Discussion}
