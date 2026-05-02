@@ -174,25 +174,34 @@ debug interfaces, and mounting side-channel or fault-injection attacks
 on commodity embedded devices. Two peer-reviewed quantitative anchors
 triangulate this hypothesis: the ChipWhisperer platform documents an
 approximately 100$\times$ equipment-cost reduction relative to prior
-commercial side-channel rigs (L-HW-RE-2)\footnote{Cluster A.2 entries
-L-HW-RE-1 through L-HW-RE-6 are catalogued in \texttt{docs/sources.md}
-at \texttt{[lit-retrieved]} status pending Source Analyzer upgrade to
-\texttt{[ai-confirmed]}; per the verification ladder
-(\texttt{CLAUDE.md}, 2026-05-02 extension), they are referenced here as
-footnoted markers rather than inline citations until that upgrade
-lands.\label{fn:hwre-cluster}}, and Vasile et al.'s systematic survey
-of 24 commercial IoT devices reports that an exposed UART suffices for
-firmware extraction in more than 45\% of cases (L-HW-RE-3). A SOUPS
-2020 cognitive-process study finds that students reach intermediate
+commercial side-channel rigs (L-HW-RE-2)\footnote{Cluster A.2 entry
+L-HW-RE-2 (ChipWhisperer 2014) and the L-HW-RE-5 practitioner
+handbook cluster remain catalogued in \texttt{docs/sources.md} at
+grey-literature / pending-confirmation status: the load-bearing
+$\sim$100$\times$ equipment-cost quote could not be verbatim-retrieved
+from the 2014 paper in the Source Analyzer pass (all open-access
+mirrors returned HTTP~403), and the L-HW-RE-5 books are practitioner /
+grey literature rather than peer-reviewed sources; they are therefore
+referenced via this footnote rather than as inline citations, per the
+verification ladder (\texttt{CLAUDE.md}, 2026-05-02
+extension).\label{fn:hwre-cluster}}, and Vasile et al.'s systematic
+survey of 24 commercial IoT devices reports that an exposed UART
+suffices for firmware extraction in more than 45\% of cases
+(L-HW-RE-3)~\citep{vasile2018breakingallthethings}. A SOUPS 2020
+cognitive-process study finds that students reach intermediate
 hardware-reverse-engineering proficiency in 14 weeks of structured
-training, quantifying skill-floor compression (L-HW-RE-6). Practitioner
-handbooks bookend the period: the 2003--2004 Grand / Huang baseline
-(bespoke equipment, multi-day soldering, expert-only skill floor) and
-the 2021 van Woudenberg \& O'Flynn handbook (single volume + $\sim$USD
-300 toolchain) (L-HW-RE-5). AI-assisted PCB component identification
-has matured; full netlist reconstruction is emerging (L-HW-RE-4); and
-JTAGulator-class commodity devices automate debug-interface discovery
-on unknown PCBs (L-HW-RE-1). The hardware-side cluster is presented as
+training, quantifying skill-floor compression
+(L-HW-RE-6)~\citep{becker2020hwreexploratory}. Practitioner handbooks
+bookend the period: the 2003--2004 Grand / Huang baseline (bespoke
+equipment, multi-day soldering, expert-only skill floor) and the
+2021/2022 van Woudenberg \& O'Flynn handbook (single volume + $\sim$USD
+300 toolchain) (L-HW-RE-5)\textsuperscript{\ref{fn:hwre-cluster}}.
+AI-assisted PCB component identification has matured; full netlist
+reconstruction is emerging
+(L-HW-RE-4)~\citep{botero2021hwretutorial}; and JTAGulator-class
+commodity devices, documented in grey literature, automate
+debug-interface discovery on unknown PCBs
+(L-HW-RE-1)~\citep{grand2013jtagulator}. The hardware-side cluster is presented as
 a \emph{triangulated practitioner observation}, not as a benchmarked
 finding equivalent to the software-side anchors; the asymmetry between
 the two evidence bases is itself a finding of this paper and is
@@ -1258,7 +1267,7 @@ residual risk is integrator-side not integration-code-side
 (\cref{sec:synthesis-pipeline-vuln,sec:disc-malicious-integrator}).
 Source: \cref{sec:synthesis-pipeline-vuln} bullet items synthesised
 from the four cases' Weakness Tables and per-case
-\fp{RESEARCH-PROTOCOL.md} gap sections.}
+\texttt{RESEARCH-PROTOCOL.md} gap sections.}
 \label{fig:pipeline-vulnerabilities}
 \end{figure}
 
@@ -1275,15 +1284,22 @@ AI-assisted code synthesis. The hardware-side extension introduced in
 base: a single peer-reviewed equipment-cost anchor
 ($\sim$\,100$\times$, ChipWhisperer 2014, L-HW-RE-2)\textsuperscript{\ref{fn:hwre-cluster}},
 a single peer-reviewed survey datapoint (Vasile et al.\ 2018,
-$>$\,45\% UART-suffices on 24 commercial IoT devices, L-HW-RE-3), one
-peer-reviewed skill-floor study (Becker et al.\ 2020 SOUPS, 14-week
-intermediate-proficiency pathway, L-HW-RE-6), and a practitioner-handbook
-bookend pair (Grand 2004 / Huang 2003 $\rightarrow$ van Woudenberg
-\& O'Flynn 2021, L-HW-RE-5) supplemented by grey-literature anchors
-(JTAGulator, L-HW-RE-1) and an emerging AI-assisted PCB-RE literature
-whose strongest published results remain at the component-detection
-layer rather than full netlist reconstruction (Botero et al.\ 2021 and
-follow-ons, L-HW-RE-4).
+$>$\,45\% UART-suffices on 24 commercial IoT devices,
+L-HW-RE-3)~\citep{vasile2018breakingallthethings}, one peer-reviewed
+skill-floor study (Becker et al.\ 2020 SOUPS, 14-week
+intermediate-proficiency pathway,
+L-HW-RE-6)~\citep{becker2020hwreexploratory}, a peer-reviewed
+embedded-systems attack taxonomy (Papp, Ma \& Butty\'an 2015 IEEE PST,
+five-dimension taxonomy applied to a CVE
+subset)~\citep{papp2015embedded}, and a practitioner-handbook bookend
+pair (Grand 2004 / Huang 2003 $\rightarrow$ van Woudenberg \& O'Flynn
+2021/2022, L-HW-RE-5)\textsuperscript{\ref{fn:hwre-cluster}}
+supplemented by grey-literature anchors (JTAGulator,
+L-HW-RE-1)~\citep{grand2013jtagulator} and an emerging AI-assisted
+PCB-RE literature whose strongest published results remain at the
+component-detection layer rather than full netlist reconstruction
+(Botero et al.\ 2021 and follow-ons,
+L-HW-RE-4)~\citep{botero2021hwretutorial}.
 
 We make this asymmetry explicit because honest framing of the evidence
 base is itself part of the contribution (\texttt{CLAUDE.md} rule 1).
