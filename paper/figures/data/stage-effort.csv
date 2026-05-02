@@ -1,0 +1,9 @@
+case,stage,ai_hours,manual_hours_lo,manual_hours_mid,manual_hours_hi,note
+spider_farmer,Discovery,2,20,30,40,"§3.7 phase 1 (T1: APK extraction; BLE UUID/cipher/key candidates)"
+spider_farmer,Build,3,13,20,27,"§3.7 phase 2 (T2: HA component skeleton, BLE coordinator, config flow)"
+spider_farmer,Debug,4,21,32,43,"§3.7 phases 3–5 aggregated (T3 decrypt + T4 key/migration + T5 race)"
+spider_farmer,Validation,1.5,3,5,7,"§3.7 phases 6–7 (T6 live MQTT probe, T7 asset/dataset)"
+ecoflow,Discovery,3,33,50,67,"§4.7 phase 1 (T1 apk: three-surface enumeration, field-name convention)"
+ecoflow,Build,2,23,35,47,"§4.7 phase 2 (T2 apk-logs: legacy endpoint selected, writeable-param catalogue)"
+ecoflow,Debug,3,23,35,47,"§4.7 phase 3 (T3 impl: type-system regex fix, 3-step config flow, async_step_import)"
+ecoflow,Validation,0,0,0,0,"§4.7 — separate validation phase not captured in transcripts; omitted (CLAUDE.md rule 1: no fabrication)"

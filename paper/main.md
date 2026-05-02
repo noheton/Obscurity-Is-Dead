@@ -119,8 +119,21 @@ The end-to-end workflow is shown in Figure 3.
 - Concurrent-write safety via `asyncio.Lock` in `ble_coordinator.py` line 79.
 - Migration framework `async_migrate_entry` in `__init__.py` line 95; the integration is now at `VERSION = 3` past the T4-era `1→2` migration (the `2→3` step is presently undocumented by any preserved transcript — recorded as an open issue).
 
-> **[ILLUSTRATION OPPORTUNITY]** `ILL-01` — *comparison-table* — A side-by-side table of the key/IV candidates surfaced by each of the four independent implementations (ESPHome, SpiderBLEBridge, PythonSpiderController, integration `const.py`) would make the AI-mediated reconciliation claim in §3.3 immediately verifiable and show concretely where the implementations agreed and disagreed before the AI pass.
-> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
+**Table 1 — Cross-implementation comparison of the BLE crypto surface for the Spider Farmer SF-GGS family.** Rows are the protocol elements that had to be reconciled; columns are the four independent implementations the AI-mediated pass cross-checked against the in-tree integration. The right-most column records what `const.py` / `ble_protocol.py` settled on after reconciliation. *Source: `experiments/spider-farmer/original/doc/apk_analysis/implementations.md` and `experiments/spider-farmer/original/const.py` lines 40–55 at commit `ffdf60c`.*
+
+| Protocol element | ESPHome | SpiderBLEBridge | PythonSpiderController | HA integration (`const.py`) | Reconciliation outcome |
+|---|---|---|---|---|---|
+| Cipher | AES-128-CBC | AES-128-CBC | AES-128-CBC | AES-128-CBC | **Agreed** — AES-128-CBC across all four |
+| Key/IV configuration | YAML `set_aes_key()` / `set_aes_iv()` | Compile-time `arduino_secrets.h` | Per-device `devices.json` | HA `config_flow` (single device per entry) | Different *delivery*, **same protocol** — informational |
+| Static IV (app→device) | Per-device-type | Per-device-type | Per-device-type | Per-device-type | **Agreed** |
+| Dynamic IV source | `packet[6:20]` + `\x00\x00` | `memcpy(buf+6, 14)` + `\x00\x00` | `packet[6:20]` + `\x00\x00` | `raw_packet[6:6+16]` (no padding) | **Disagreement** — HA reads 16 contiguous bytes including ciphertext; resolved in favour of the three external implementations |
+| CB controller key | `iVi6D24KxbrvXUuO` | `iVi6D24KxbrvXUuO` | `iVi6D24KxbrvXUuO` | `iVi6D24KxbrvXUuO` (line 45) | **Agreed** — confirmed by live decryption (T4) |
+| CB controller IV | `RnWokNEvKW6LcWJg` | `RnWokNEvKW6LcWJg` | `RnWokNEvKW6LcWJg` | `RnWokNEvKW6LcWJg` (line 45) | **Agreed** |
+| LED lamp key/IV | confirmed pair | confirmed pair | confirmed pair | `BkJu61kLt3afuogT` / `2AKVNUbU4mvU3Elt` (line 46) | **Agreed** |
+| PS-10 power-strip key/IV | confirmed pair | confirmed pair | confirmed pair | `lVIlATSlxaS1btfd` / `84Rf7SUkinfvxNlc` (line 47) | **Agreed** |
+| Activation flow order | `getSysSta → setDevTimezone → setDevActive` | `getSysSta → setDevTimezone → setDevActive` | `getDevSta → setDevTimezone → setDevActive` *(differs)* | `getSysSta → setDevTimezone → setDevActive` | **Minor disagreement** — PythonSpiderController uses `getDevSta`; HA matches the majority |
+
+The reconciliation pattern is the central observation: the four implementations *agree* on every cryptographic primitive and on the three confirmed key/IV pairs, but *diverge* on dynamic-IV byte-range and on activation-flow opcode. Without an AI pass, locating the HA dynamic-IV bug would require reading and comparing four codebases byte-for-byte; with an AI pass, the disagreement is surfaced in minutes (T3 in the Spider Farmer transcript register).
 
 ### 3.5 Validation
 Each constant and code path above was re-checked against `original/` at commit `ffdf60c` (logbook entry "audit against embedded vendor code"). The four independent implementations agree on the BLE protocol shape; minor disagreements on key tables were resolved in favour of the in-tree `const.py`.
@@ -179,8 +192,7 @@ Figure 4 contrasts the vendor default (cloud-bound) with the AI-assisted local-c
 3. **Type-system bug discovery** — the regex `(?<!st)(amp|current)$` (`types.py` line 90) corrects a misclassification that conflated current readings with the literal "st" suffix.
 4. **Config-flow refactor** — three-step config flow (`config_flow.py`, 510 lines) with cross-domain `async_step_import` migration.
 
-> **[ILLUSTRATION OPPORTUNITY]** `ILL-02` — *architecture-diagram* — A diagram of the three EcoFlow API surfaces (legacy `setDeviceProperty` REST endpoint, published Open API with HMAC-SHA256, and MQTT surface) labelled with: which surface the consumer app uses, which surface the Open API documentation covers, and which the integration selects — would make the three-surface reconciliation finding in §4.3 self-explanatory without requiring the reader to cross-reference `original/doc/apk.md`.
-> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
+![Figure 8 — EcoFlow PowerOcean three API surfaces. The legacy `setDeviceProperty` REST endpoint, the published Open API (HMAC-SHA256 signed), and the MQTT broker each terminate at the same device, but only one is reached by the consumer app and by the integration. The Open API documentation describes a different surface than the one the app actually uses; `apk.md` line 52 records the integration's decision to follow the app rather than the docs.](figures/fig8-ecoflow-surfaces.svg)
 
 ### 4.4 Findings — interoperability
 - Write surface: `POST /iot-devices/device/setDeviceProperty` with payload `{"sn": "<device_sn>", "params": {"<camelCase_field>": <value>}}` — confirmed at `api.py` line 306.
@@ -266,8 +278,7 @@ The case-study artifacts are vendored under `experiments/paper-meta-process/` wi
 - The mirroring rule between `paper/main.md` and `paper/main.tex` is enforced by reviewer attention at commit time and by CI (`.github/workflows/build-paper.yml`), which rebuilds the PDF on every paper-touching commit and surfaces LaTeX-syntactic regressions.
 - AI-generated legal opinions in transcripts are explicitly flagged (`docs/sources.md` S-EF-9) and held out of the paper until replaced with sourced legal commentary.
 
-> **[ILLUSTRATION OPPORTUNITY]** `ILL-03` — *workflow-diagram* — A diagram of the verification-status pipeline showing how a source moves through stages (`[needs-research]` → `[lit-retrieved]` → `[lit-read]`) and how each status gates what claims may be made in the paper would concretely illustrate the sloppification mitigation described in §7.6 and make the discipline visible to readers unfamiliar with the system.
-> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
+![Figure 9 — Verification-status pipeline. Each cited source progresses through gated stages on either the literature track (`[needs-research]` → `[lit-retrieved]` → `[lit-read]`) or the artifact track (`[unverified-external]` → `[repo-referenced]` → `[repo-vendored]`). The legend in `docs/sources.md` makes the read-state of every source explicit: a paper claim may only invoke a source at the stage that source has reached. The discipline is the sloppification mitigation described in §7.6.](figures/fig9-verification-pipeline.svg)
 
 ### 5.6 Findings — security and dual-use implications
 - **Fabricated citations.** All ~50 entries in the literature register are `[lit-retrieved]` only. Any upgrade to `[lit-read]` without the researcher actually reading the paper would be a fabrication. The legend exists precisely to make this risk visible. The empirical base rates make this concrete: Walters & Wilder (2023) found **55% of ChatGPT-3.5 and 18% of GPT-4 generated citations were fabricated** in literature reviews, with a further 24–43% of the *real* citations carrying substantive errors [L-SLOP-1]. McGowan et al. (2023) found only **2 of 35** ChatGPT-generated psychiatry citations were real [L-SLOP-4]. Chelli et al. (2024) measured hallucination rates of 28.6%–91.4% across LLMs in systematic-review reference generation [L-SLOP-2]. These are not edge cases.
@@ -354,8 +365,7 @@ Security through obscurity rested on a labour-market assumption: that a determin
 ### 7.3 Asymmetry of collapse
 The effort gap has *not* collapsed uniformly. AI assistance compresses the *known-good-protocol* path far more than the *novel-vulnerability* path; verifying an integration against a live device is cheap, and verifying an exploit against a live target is not. We argue this asymmetry is the most under-discussed feature of the post-LLM threat model.
 
-> **[ILLUSTRATION OPPORTUNITY]** `ILL-04` — *bar-chart* — A grouped bar chart with workflow stage on the x-axis (Discovery / Build / Debug / Validation) and estimated effort in hours on the y-axis, with bars for AI-assisted and manual-baseline per case study, would make the asymmetric collapse claim of §7.3 empirically concrete: the organisation-and-reconciliation stages would show the largest compression ratio, while novel-discovery stages would show the smallest.
-> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
+![Figure 10 — Stage-by-stage effort gap. Left: AI-assisted vs manual-baseline effort per workflow stage (Discovery / Build / Debug / Validation) for the two integration case studies. Right: per-stage compression ratio (manual / AI). The asymmetric-collapse claim of §7.3 is visible directly: organisation-and-reconciliation stages (Build, Debug) show the largest compression, while novel-discovery stages compress least. EcoFlow's validation phase was not separately captured in the transcripts and is therefore omitted (CLAUDE.md rule 1, no fabrication). Data: `paper/figures/data/stage-effort.csv` aggregated from §3.7 and §4.7.](figures/fig10-stage-effort.svg)
 
 ### 7.4 Dual-use accountability
 Both case studies expose live attack surfaces. In Spider Farmer the surface is already public — recovered in a community thread — and the case is a *post-hoc* documentation of a collapse that has already happened. In EcoFlow the surface is documented for the first time here, and we accordingly enumerate the redactions that must be applied before public release (logbook 2026-05-01 audit; `docs/sources.md` S-SF-5, S-EF-2..4).
@@ -518,8 +528,7 @@ The novelty we claim in this paper is not in the substance of the case studies. 
 7. **Legal honesty about authorship.** The footnote on *Urheberrecht und KI* in §9.1 explains why, under § 2 UrhG, the AI is acknowledged as a contributor but is not and cannot be a co-author, and what that means for the CC-BY-4.0 grant.
 8. **FAIR alignment as a precondition, not an afterthought.** `CITATION.cff`, `.zenodo.json`, `codemeta.json`, and `docs/fair.md` map every FAIR principle to the concrete repository feature that satisfies it.
 
-> **[ILLUSTRATION OPPORTUNITY]** `ILL-05` — *conceptual-diagram* — A diagram mapping the eight integrated practices (numbered items above) onto the three failure-mode axes they address (fabricated citations / prompt injection / tooling drift) would concisely summarise the paper's methodological contribution and could serve as the visual abstract for the submission.
-> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
+![Figure 11 — Eight integrated practices × three failure-mode axes. Each row is one of the eight numbered practices listed above; each column is one of the three failure-mode axes the paper organises around. `P` marks the principal mitigation, `S` a secondary mitigation. The diagram is intended as the visual abstract for the submission: the methodological novelty is not any single row but the integration — every failure-mode axis is principally addressed by at least one practice and secondarily reinforced by at least one other.](figures/fig11-eight-practices.svg)
 
 None of these practices is individually novel. Conversation logs have been shipped with replications before; verification-status labels exist in evidence-based-medicine practice; provenance maps exist in bioinformatics; FAIR predates LLMs. **The novelty is the integration**: assembling these practices into a single, executable, runnable research protocol (`docs/prompts/research-protocol-prompt.md`) that an AI agent can be instructed to follow and that a human reviewer can audit by reading the artifacts the protocol produces.
 
