@@ -202,12 +202,46 @@ Caption compressed to one sentence plus attribution at `main.tex:2200–2202` an
 
 ---
 
-## RDB-20 — `references.bib` carries 7 entries; literature lives in `docs/sources.md`  *(L, bib-completeness)*  [DEFERRED — out-of-scope for this remediation pass.]
+## RDB-20 — `references.bib` carries 7 entries; literature lives in `docs/sources.md`  *(L, bib-completeness)*  [PARTIAL 2026-05-02 — bib has grown to 17 entries with cluster A.2; in-paper note about the dual-channel scheme has not been added.]
 
 
-**Source span.** `paper/references.bib:1–65`; all `[L-XX-N]` handles.
-**Defect.** Two-channel citation scheme is deliberate (§9.3) but the reader has no single bibliographic destination; transition path is implicit.
-**Required outcome.** No source-edit required. Recommend adding a one-paragraph note at the head of `references.bib` (or in §9.3) clarifying the dual-channel scheme. Marked **L** to track the eventual transition when entries upgrade from `[lit-retrieved]` to `[lit-read]`.
+**Source span.** `paper/references.bib`; all `[L-XX-N]` handles.
+**Defect.** Two-channel citation scheme is deliberate (§9.3) but the reader has no single bibliographic destination; transition path is now partially active (cluster A.2 entries cited in both channels) but unannounced.
+**Required outcome.** No source-edit required. Recommend adding a one-paragraph note at the head of `references.bib` (or in §9.3) clarifying the *active* dual-channel scheme. Marked **L** to track the transition; bib-channel growth from 7 → 17 entries with the cluster A.2 commits is the trigger to update the §9.3 framing.
 **Rule-11 note.** None — this is a `paper/references.bib` and `docs/sources.md` concern, not a markdown/tex parity issue.
+
+---
+
+## RDB-22 — §1.4 cluster A.2 paragraph: 254-word block, three sentences over 40 words  *(M, sentence-length / list-of-citations-as-prose)*  [NEW 2026-05-02]
+
+
+**Source span.** `main.md:43`; `main.tex` mirror at the cluster A.2 paragraph.
+**Defect.** The cluster A.2 paragraph (writer commits `f3ce051` and `537fae2`) is a single 254-word block that contains six author-named claims, seven inline literature handles `[L-HW-RE-1..6]`, five `[@bibkey]` cite-keys, and two `[^hwre-cluster]` footnote markers. Three sentences exceed 40 words; the "Two peer-reviewed quantitative anchors triangulate this hypothesis:" sentence and the "Practitioner handbooks bookend the period:" sentence are each compound, semicolon-chained list-of-claims structures. The pattern borders on the rubric's *list-doing-paragraph's-job*: each sentence introduces one literature item with the same syntactic shape.
+**Required outcome.** Split the paragraph at the natural breaks: (a) the hardware-side framing sentence; (b) the two quantitative anchors (ChipWhisperer cost-floor, Vasile UART-suffices); (c) the skill-floor and taxonomy anchors (Becker, Papp); (d) the practitioner-handbook bookend; (e) the AI-assisted-PCB-RE / JTAGulator supplement; (f) the closing "triangulated practitioner observation, not benchmarked finding" disclaimer that points to §6.8. Net: same content, ~3–4 paragraphs of ≤6 sentences each, average sentence length under 35 words.
+**Optional secondary tightening.** The doubled-citation form `[L-HW-RE-N] [@bibkey]` (handle + bib-key adjacent) is itself visually noisy; consider keeping only the bib-key for `[ai-confirmed]` entries and the handle for footnoted-only entries (currently L-HW-RE-2 and L-HW-RE-5). The dual-channel scheme is being narrowed by the inline-citation promotions, so the redundant handle markers are no longer load-bearing for the entries already cited inline.
+**Rule-11 note.** Mirror in `main.tex` in the same commit; the paragraph break in `main.md` corresponds to a `\par` (or blank line) break in `main.tex`.
+
+---
+
+## RDB-23 — §6.8 second sentence: single ~120-word list-of-citations-as-prose  *(M, sentence-length / list-of-citations-as-prose)*  [NEW 2026-05-02]
+
+
+**Source span.** `main.md:408`; `main.tex` mirror at the §6.8 second sentence.
+**Defect.** The §6.8 first paragraph is two sentences. The second sentence is a single ~120-word run-on that enumerates five evidence-base items (cost anchor, survey datapoint, skill-floor study, attack taxonomy, practitioner-handbook bookend pair) plus two grey-literature supplements (JTAGulator, AI-PCB-RE), each carrying an inline literature handle and most carrying a parallel `[@bibkey]`. This is the longest single sentence in the paper; the *list-of-citations-as-prose* pattern is more pronounced here than in §1.4 because the structure is literally a comma-separated catalogue.
+**Required outcome.** Convert the second sentence into a four- or five-sentence paragraph keyed on evidence type. Suggested wording structure:
+> The peer-reviewed evidence base is narrower. The single cost-floor anchor is ChipWhisperer (2014, L-HW-RE-2[^hwre-cluster]). The single survey datapoint is Vasile, Oswald & Chothia (2018, L-HW-RE-3) [@vasile2018breakingallthethings]: an exposed UART suffices for firmware extraction in more than 45% of 24 commercial IoT devices. The skill-floor anchor is Becker et al. (2020 SOUPS, L-HW-RE-6) [@becker2020hwreexploratory]: students reach intermediate proficiency in 14 weeks of structured training. The attack-taxonomy complement is Papp, Ma & Buttyán (2015 IEEE PST) [@papp2015embedded]. Practitioner handbooks bookend the period (Grand 2004 / Huang 2003; van Woudenberg & O'Flynn 2021/2022, L-HW-RE-5[^hwre-cluster]); JTAGulator-class commodity tooling [L-HW-RE-1] [@grand2013jtagulator] and emerging AI-assisted PCB-RE work [L-HW-RE-4] [@botero2021hwretutorial] supplement the cluster.
+
+**Alternative.** Promote the enumeration to a comparison-table figure routed to the illustrator (proposed `ILL-NN-evidence-asymmetry`: software-side anchors × hardware-side anchors × evidence-type). Either path lets the §6.8 prose carry the *framing* claim and lets the table carry the *enumeration*. The illustrator-side option is filed as a new entry in `readability-to-illustrator.md`.
+**Rule-11 note.** Mirror in `main.tex` in the same commit.
+
+---
+
+## RDB-26 — §1.4 fifth contribution breaks the artifact-tied parallelism of contributions 1–4  *(L, claim-framing / cross-reference)*  [NEW 2026-05-02]
+
+
+**Source span.** `main.md:53`; `main.tex` mirror at the §1.4 contribution list.
+**Defect.** The new fifth contribution ("A meta-observation on the *evidence asymmetry*...") is framed as a finding rather than as an artifact, breaking the parallel structure of contributions 1–4 (each named a deliverable: definition / case studies / methodology / synthesis). Contribution 5 is a *meta-observation* and points forward to §6.8 rather than to a repository artifact. The cross-reference to §6.8 is on-policy (rule 11 spirit: §6.8 carries the substance) but the parallelism break is mild and could be addressed in a future tightening pass.
+**Required outcome.** Append a half-clause naming the supporting artifact (`docs/sources.md` cluster A.2 status notes; logbook 2026-05-02 entries) so the contribution lands as an artifact-tied finding, restoring parallelism with contributions 1–4. Suggested wording: "(5) An auditable evidence-asymmetry finding (§6.8 + `docs/sources.md` cluster A.2 status notes) about the maturity of empirical hardware-security-research methodology."
+**Rule-11 note.** Mirror in `main.tex` in the same commit. **L**-priority: deferable past the next writer pass.
 
 ---

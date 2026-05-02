@@ -1623,3 +1623,32 @@ This logbook is the operating record for the paper and research process.
 - Re-scrutiny recommendations:
   - **Stage 4 (Layout)**: re-scrutinise the rebuilt 42-page `paper/main.pdf`. Specifically verify (a) the four new inline `\citep{}` calls render correctly in §1.4 and §6.8; (b) the narrowed `fn:hwre-cluster` footnote text fits the bottom of page 3 without overflow; (c) the bibliography list now contains `papp2015embedded` and shows van Woudenberg & O'Flynn as 2022. **`RE-SCRUTINY REQUIRED: yes`**.
   - **Stage 5 (Readability & novelty)**: re-scrutinise `paper/main.md`. The §1.4 paragraph density is slightly reduced (fewer footnote markers) but adds a "Vasile, Oswald & Chothia" author triplet — verify this does not push the paragraph past the readability threshold flagged in prior Stage 5 hand-backs. Verify the §6.8 Papp et al. addition does not overclaim taxonomy-based mitigation evidence. **`RE-SCRUTINY REQUIRED: yes`**.
+
+## 2026-05-02 — Stage 5: Readability & Novelty Scrutinizer (re-run after cluster A.2 + §6.8)
+
+- Branch: `claude/start-orchestrator-36qQV`. Re-scrutiny pass triggered by writer commits `f3ce051` (cluster A.2 inserted into §1.4 + new §6.8) and `537fae2` (inline-citation promotion of L-HW-RE-1/-3/-4/-6 + Papp 2015 + van Woudenberg year correction). Targets `paper/main.md` against the post-`537fae2` head; `paper/main.tex` consulted only for rule-11 parity spot-checks.
+- **Carryover annotations (RDB-01..RDB-21).** No reopen-as-new-ID; statuses applied in-place per task constraints.
+  - **[RESOLVED]** ×5: RDB-02, RDB-12, RDB-15, RDB-16, RDB-18 — all preserved across the cluster A.2 commits.
+  - **[PARTIAL]** ×1: RDB-20 — `references.bib` grew 7 → 17 with the cluster A.2 keys; the in-paper note about the dual-channel scheme has not been added.
+  - **[DEFERRED — unchanged]** ×13: RDB-01 (H, carryover), RDB-03..RDB-11, RDB-13, RDB-14, RDB-17, RDB-19. Writer commits `f3ce051` / `537fae2` did not touch these spans.
+  - **[CONFIRMED — preserved]** ×1: RDB-21 mirror-drift spot-check passed for §1.4 and §6.8.
+- **New entries (RDB-22..RDB-26).**
+  - **RDB-22** (M, sentence-length / list-of-citations-as-prose, writer): §1.4 cluster A.2 paragraph is a single 254-word block with three sentences over 40 words; remedy is a 3–4-paragraph split. Source span `main.md:43`.
+  - **RDB-23** (M, sentence-length / list-of-citations-as-prose, writer; illustrator-side optional): §6.8 second sentence is a single ~120-word run-on enumerating five evidence-base items plus two grey-literature supplements — the longest single sentence in the paper. Suggested fix: split into 4–5 short sentences keyed on evidence type; alternative is a comparison-table figure (proposed `ILL-NN-evidence-asymmetry`).
+  - **RDB-24** (positive trace; novelty audit): §6.8 *Evidence asymmetry between software-side and hardware-side effort-gap compression* is **NOVEL — no comparable peer-reviewed source found.** Verdict supported by `docs/sources.md:200` evidence-asymmetry research artefact and by absence of comparable framing in clusters A and A.2. The §6.8 prose explicitly does NOT assert equivalence with software-side anchors and does NOT subsume L-HW-RE-2.
+  - **RDB-25** (positive trace; year-consistency check): both `main.md:43` and `main.md:408` use "2021/2022" for van Woudenberg & O'Flynn; `references.bib` carries `vanwoudenberg2022hwhandbook` with `year = {2022}`. Internally consistent per Source Analyzer guidance (`docs/sources.md:197`).
+  - **RDB-26** (L, claim-framing, writer): §1.4 fifth contribution breaks the artifact-tied parallelism of contributions 1–4; remedy is a half-clause naming the supporting artifact (`docs/sources.md` cluster A.2 status notes; logbook).
+- **Sub-claim discipline check.** L-HW-RE-6 sub-claim "two participants matched expert solution times" is **CONFIRMED ABSENT** from `paper/main.md` (grep returned no matches). The Source Analyzer caveat is honoured.
+- **L-HW-RE-2 attempt-failed handling.** **ON-POLICY.** Both surface mentions cite L-HW-RE-2 with the `[^hwre-cluster]` footnote marker; the inline `\citep{}` promotion in `537fae2` did not promote L-HW-RE-2 (correctly held back per SA caveat).
+- **Defect counts.**
+  - By severity (across all 26 entries): H = 1 (RDB-01, carryover; RDB-02 H is now [RESOLVED]). M = 11. L = 8. Positive traces (no severity) = 2 (RDB-21, RDB-24, RDB-25). Mirror-drift informational = 1 (RDB-21).
+  - By severity (new entries only, RDB-22..RDB-26): H = 0. M = 2 (RDB-22, RDB-23). L = 1 (RDB-26). Positive traces = 2 (RDB-24, RDB-25).
+  - By class (new entries only): sentence-length / list-of-citations-as-prose = 2; claim-framing = 1; novelty audit = 1; year-consistency = 1.
+  - By owner (new defects only): writer-only = 3 (RDB-22, RDB-23, RDB-26); illustrator coordination is optional on RDB-23.
+- **Novelty verdicts on cluster A.2.**
+  - §1.4 hardware-side effort-gap claim: **incremental — triangulated practitioner observation**, on-policy.
+  - §6.8 evidence-asymmetry meta-observation: **NOVEL — no comparable peer-reviewed source found**.
+- **Most consequential defect (re-run).** **RDB-23** — the §6.8 second sentence as a single ~120-word list-of-citations-as-prose. Mechanical remedy; no literature-comparison or illustrator coordination required for the writer-side fix.
+- Files updated: `docs/handbacks/readability-defect-registry.md` (re-run pass; RDB-01..RDB-21 annotated in-place; RDB-22..RDB-26 appended); `docs/handbacks/readability-to-writer.md` (RDB-22, RDB-23, RDB-26 per-entry blocks appended; RDB-20 status updated to [PARTIAL]); `docs/handbacks/readability-to-illustrator.md` (optional RDB-23 secondary path appended); `docs/logbook.md` (this entry).
+- Files left untouched: `paper/main.{md,tex}`, `paper/references.bib`, all figure assets, `docs/sources.md` — scope discipline per task constraints (Stage 5 files registries only).
+- Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — two new M-severity entries (RDB-22, RDB-23) plus the H-severity carryover RDB-01 and unchanged M / L carryovers. No new H introduced by cluster A.2 / §6.8; the §6.8 novelty claim is supported. Re-scrutinise after the next writer pass that touches §1.4 and §6.8 to address RDB-22 / RDB-23.
