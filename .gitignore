@@ -6,3 +6,6 @@ temp_*/
 node_modules/
 .idea/
 .vscode/
+
+# Phase 2 derivative APKs — re-extractable from the XAPK in original/
+experiments/iot-integrator-balboa-gateway-ultra/original/extracted/*.apk
