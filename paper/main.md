@@ -8,7 +8,7 @@
 > **DRAFT — not for distribution.** Working draft pending author review prior to submission. Do not cite, redistribute, or upload to public archives without explicit written consent from the author (rule 13, `CLAUDE_CODE_INSTRUCTIONS.md`).
 
 ## Abstract
-This paper investigates how modern large language models collapse the traditional "effort gap" in reverse engineering. Through two empirical case studies — Spider Farmer BLE devices and EcoFlow PowerOcean energy systems — we show how AI-assisted analysis turns theoretical protocol knowledge into practical, replicable local integrations. We then assess whether this collapse is a force for interoperability and right-to-repair or a systemic security risk, and we propose a research methodology that treats AI conversation transcripts, vendor artifacts, and version history as first-class evidence.
+This paper investigates how modern large language models collapse the traditional "effort gap" in reverse engineering. Through two empirical case studies — Spider Farmer BLE devices and EcoFlow PowerOcean energy systems — plus a third recursive case study of the paper-generation process itself, we show how AI-assisted analysis turns theoretical protocol knowledge into practical, replicable local integrations. We then assess whether this collapse is a force for interoperability and right-to-repair or a systemic security risk, and we propose a research methodology that treats AI conversation transcripts, vendor artifacts, and version history as first-class evidence. The dual-use, *sloppification*, and model-collapse risks of AI-assisted research are made explicit and mapped to mitigations that the methodology operationalises.
 
 ---
 
@@ -67,7 +67,7 @@ For each case we vendor:
 Every technical claim is mapped, in a per-case `provenance.md`, to (a) the transcript that proposed it, (b) the file and line numbers in `original/` that confirm it, and (c) the commit SHA at which the mapping was verified. Source-register entries carry a verification status — `[repo-vendored]`, `[repo-referenced]`, `[unverified-external]`, or `[needs-research]` — so the paper can be honest about what has and has not been independently checked.
 
 ### 2.4 AI transparency and lege artis
-Following the DFG Guidelines for Safeguarding Good Research Practice, every section discloses where AI assistance was used and where it was rejected, corrected, or contradicted by the underlying code. AI-generated legal analysis is never used as legal advice. The repository's AI policy is canonicalised in `CLAUDE_CODE_INSTRUCTIONS.md` and aliased in `.instructions.md` and `copilot-instructions.md`.
+Following the DFG Guidelines for Safeguarding Good Research Practice [@dfg2023], every section discloses where AI assistance was used and where it was rejected, corrected, or contradicted by the underlying code. AI-generated legal analysis is never used as legal advice. The repository's AI policy is canonicalised in `CLAUDE_CODE_INSTRUCTIONS.md` and aliased in `.instructions.md` and `copilot-instructions.md`.
 
 ### 2.5 KPIs (effort-gap operationalisation)
 Drawn from `docs/methodology.md` §10 and applied per case study:
@@ -111,12 +111,15 @@ The end-to-end workflow is shown in Figure 3.
 4. **Code-level confirmation** against the integration's `const.py`, `ble_protocol.py`, `ble_coordinator.py`, and `__init__.py`.
 
 ### 3.4 Findings — interoperability
-- BLE service `000000ff-…`, characteristics `0000ff01` (notify) and `0000ff02` (write-with-response).
+- BLE service `000000ff-0000-1000-8000-00805f9b34fb`; characteristics `0000ff01` (notify) and `0000ff02` (write-with-response).
 - AES-128-CBC with zero padding; two-stage header with CRC16-Modbus.
 - Static outgoing IVs per device type, dynamic incoming IVs derived from packet header — confirmed in `ble_protocol.py` lines 195-204.
 - Corrected key/IV pairs for CB controller and friends, pinned in `const.py` lines 45-47.
 - Concurrent-write safety via `asyncio.Lock` in `ble_coordinator.py` line 79.
 - Migration framework `async_migrate_entry` in `__init__.py` line 95; the integration is now at `VERSION = 3` past the T4-era `1→2` migration (the `2→3` step is presently undocumented by any preserved transcript — recorded as an open issue).
+
+> **[ILLUSTRATION OPPORTUNITY]** `ILL-01` — *comparison-table* — A side-by-side table of the key/IV candidates surfaced by each of the four independent implementations (ESPHome, [REDACTED:repo-path:SF-IMPL-2], [REDACTED:repo-path:SF-IMPL-3], integration `const.py`) would make the AI-mediated reconciliation claim in §3.3 immediately verifiable and show concretely where the implementations agreed and disagreed before the AI pass.
+> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
 
 ### 3.5 Validation
 Each constant and code path above was re-checked against `original/` at commit `ffdf60c` (logbook entry "audit against embedded vendor code"). The four independent implementations agree on the BLE protocol shape; minor disagreements on key tables were resolved in favour of the in-tree `const.py`.
@@ -175,6 +178,9 @@ Figure 4 contrasts the vendor default (cloud-bound) with the AI-assisted local-c
 3. **Type-system bug discovery** — the regex `(?<!st)(amp|current)$` (`types.py` line 90) corrects a misclassification that conflated current readings with the literal "st" suffix.
 4. **Config-flow refactor** — three-step config flow (`config_flow.py`, 510 lines) with cross-domain `async_step_import` migration.
 
+> **[ILLUSTRATION OPPORTUNITY]** `ILL-02` — *architecture-diagram* — A diagram of the three EcoFlow API surfaces (legacy `setDeviceProperty` REST endpoint, published Open API with HMAC-SHA256, and MQTT surface) labelled with: which surface the consumer app uses, which surface the Open API documentation covers, and which the integration selects — would make the three-surface reconciliation finding in §4.3 self-explanatory without requiring the reader to cross-reference `original/doc/apk.md`.
+> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
+
 ### 4.4 Findings — interoperability
 - Write surface: `POST /iot-devices/device/setDeviceProperty` with payload `{"sn": "<device_sn>", "params": {"<camelCase_field>": <value>}}` — confirmed at `api.py` line 306.
 - Field-name convention: predictable camelCase from APK constants (e.g., `ACTION_W_CFG_BACKUP_REVERSE_SOC` → `cfgBackupReverseSoc`).
@@ -231,7 +237,7 @@ The case-study artifacts are vendored under `experiments/paper-meta-process/` wi
 - Conversation transcripts of paper-development sessions, preserved in `experiments/paper-meta-process/raw_conversations (copy&paste, web)/`. Each transcript declares a verification status (`[verbatim-export]` / `[curated-reconstruction]` / `[redacted]`) in its YAML header. The first preserved transcript (`T1-paper-structure-and-literature.md`) is a `[curated-reconstruction]` of the 2026-05-01 session that produced the paper structure, the literature pass, the FAIR metadata, and this case study.
 - The case-study report `experiments/paper-meta-process/REPORT.md` and the per-transcript provenance map `experiments/paper-meta-process/provenance.md` (parallel to the Spider Farmer and EcoFlow `provenance.md` files).
 - The repository AI policy: `CLAUDE_CODE_INSTRUCTIONS.md`, `.instructions.md`, `copilot-instructions.md`, `CLAUDE.md`.
-- The executable research-protocol agent prompt (`docs/research-protocol-prompt.md`).
+- The executable research-protocol agent prompt (`docs/prompts/research-protocol-prompt.md`).
 - The methodology document (`docs/methodology.md`) and its KPI framework (§10).
 - The literature register in `docs/sources.md` with the verification-status legend (`[repo-vendored]`, `[repo-referenced]`, `[unverified-external]`, `[lit-retrieved]`, `[lit-read]`, `[needs-research]`).
 - The logbook (`docs/logbook.md`), updated per commit per the rule established on 2026-05-01.
@@ -251,13 +257,16 @@ The case-study artifacts are vendored under `experiments/paper-meta-process/` wi
 - The paper, including every claim in §3 and §4, is regenerable from the repository state at the pinned commit `ffdf60c` for the vendor evidence and at the head of the development branch for the prose.
 - The verification-status legend makes the read-state of every cited source explicit and prevents `[lit-retrieved]` entries from drifting into the paper as if they had been read.
 - The arXiv build pipeline reproduces the PDF and submission tarball deterministically from `paper/main.tex` plus `paper/references.bib`.
-- The methodology (§2) and KPI framework (`docs/methodology.md` §10) are themselves operationalised as the executable agent prompt (`docs/research-protocol-prompt.md`), making the research protocol a runnable artifact rather than only a description.
+- The methodology (§2) and KPI framework (`docs/methodology.md` §10) are themselves operationalised as the executable agent prompt (`docs/prompts/research-protocol-prompt.md`), making the research protocol a runnable artifact rather than only a description.
 
 ### 5.5 Validation
 - All §3 and §4 claims were re-checked against the embedded vendor code at commit `ffdf60c` (logbook entry "audit against embedded vendor code").
 - All literature entries from the 2026-05-01 search session are marked `[lit-retrieved]`, not `[lit-read]` — explicitly capturing the gap between database-surfaced and read-in-full.
 - The mirroring rule between `paper/main.md` and `paper/main.tex` is enforced by reviewer attention at commit time and by CI (`.github/workflows/build-paper.yml`), which rebuilds the PDF on every paper-touching commit and surfaces LaTeX-syntactic regressions.
 - AI-generated legal opinions in transcripts are explicitly flagged (`docs/sources.md` S-EF-9) and held out of the paper until replaced with sourced legal commentary.
+
+> **[ILLUSTRATION OPPORTUNITY]** `ILL-03` — *workflow-diagram* — A diagram of the verification-status pipeline showing how a source moves through stages (`[needs-research]` → `[lit-retrieved]` → `[lit-read]`) and how each status gates what claims may be made in the paper would concretely illustrate the sloppification mitigation described in §7.6 and make the discipline visible to readers unfamiliar with the system.
+> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
 
 ### 5.6 Findings — security and dual-use implications
 - **Fabricated citations.** All ~50 entries in the literature register are `[lit-retrieved]` only. Any upgrade to `[lit-read]` without the researcher actually reading the paper would be a fabrication. The legend exists precisely to make this risk visible. The empirical base rates make this concrete: Walters & Wilder (2023) found **55% of ChatGPT-3.5 and 18% of GPT-4 generated citations were fabricated** in literature reviews, with a further 24–43% of the *real* citations carrying substantive errors [L-SLOP-1]. McGowan et al. (2023) found only **2 of 35** ChatGPT-generated psychiatry citations were real [L-SLOP-4]. Chelli et al. (2024) measured hallucination rates of 28.6%–91.4% across LLMs in systematic-review reference generation [L-SLOP-2]. These are not edge cases.
@@ -343,6 +352,9 @@ Security through obscurity rested on a labour-market assumption: that a determin
 
 ### 7.3 Asymmetry of collapse
 The effort gap has *not* collapsed uniformly. AI assistance compresses the *known-good-protocol* path far more than the *novel-vulnerability* path; verifying an integration against a live device is cheap, and verifying an exploit against a live target is not. We argue this asymmetry is the most under-discussed feature of the post-LLM threat model.
+
+> **[ILLUSTRATION OPPORTUNITY]** `ILL-04` — *bar-chart* — A grouped bar chart with workflow stage on the x-axis (Discovery / Build / Debug / Validation) and estimated effort in hours on the y-axis, with bars for AI-assisted and manual-baseline per case study, would make the asymmetric collapse claim of §7.3 empirically concrete: the organisation-and-reconciliation stages would show the largest compression ratio, while novel-discovery stages would show the smallest.
+> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
 
 ### 7.4 Dual-use accountability
 Both case studies expose live attack surfaces. In Spider Farmer the surface is already public — recovered in a community thread — and the case is a *post-hoc* documentation of a collapse that has already happened. In EcoFlow the surface is documented for the first time here, and we accordingly enumerate the redactions that must be applied before public release (logbook 2026-05-01 audit; `docs/sources.md` S-SF-5, S-EF-2..4).
@@ -453,7 +465,7 @@ The AI assistant is acknowledged as a contributor but is *not* a co-author of th
 
 ### 9.2 Division of labour
 - **Researcher (human).** Research question, case selection, ethical and redaction decisions, validation against vendor code at commit `ffdf60c`, and final acceptance of every paragraph.
-- **AI assistant (Claude).** Skeleton drafting, structured literature retrieval, cross-case comparison, prose tightening, LaTeX rendering, and methodology operationalisation as the executable agent prompt (`docs/research-protocol-prompt.md`).
+- **AI assistant (Claude).** Skeleton drafting, structured literature retrieval, cross-case comparison, prose tightening, LaTeX rendering, and methodology operationalisation as the executable agent prompt (`docs/prompts/research-protocol-prompt.md`).
 - **Hybrid.** Provenance maps (`experiments/*/provenance.md`), source register (`docs/sources.md`), logbook entries, and KPI scaffolding — AI drafted, researcher verified or flagged.
 
 ### 9.3 What is and is not sourced
@@ -492,7 +504,10 @@ The novelty we claim in this paper is not in the substance of the case studies. 
 7. **Legal honesty about authorship.** The footnote on *Urheberrecht und KI* in §9.1 explains why, under § 2 UrhG, the AI is acknowledged as a contributor but is not and cannot be a co-author, and what that means for the CC-BY-4.0 grant.
 8. **FAIR alignment as a precondition, not an afterthought.** `CITATION.cff`, `.zenodo.json`, `codemeta.json`, and `docs/fair.md` map every FAIR principle to the concrete repository feature that satisfies it.
 
-None of these practices is individually novel. Conversation logs have been shipped with replications before; verification-status labels exist in evidence-based-medicine practice; provenance maps exist in bioinformatics; FAIR predates LLMs. **The novelty is the integration**: assembling these practices into a single, executable, runnable research protocol (`docs/research-protocol-prompt.md`) that an AI agent can be instructed to follow and that a human reviewer can audit by reading the artifacts the protocol produces.
+> **[ILLUSTRATION OPPORTUNITY]** `ILL-05` — *conceptual-diagram* — A diagram mapping the eight integrated practices (numbered items above) onto the three failure-mode axes they address (fabricated citations / prompt injection / tooling drift) would concisely summarise the paper's methodological contribution and could serve as the visual abstract for the submission.
+> — Status: `stub` — See `docs/prompts/illustration-prompt.md`
+
+None of these practices is individually novel. Conversation logs have been shipped with replications before; verification-status labels exist in evidence-based-medicine practice; provenance maps exist in bioinformatics; FAIR predates LLMs. **The novelty is the integration**: assembling these practices into a single, executable, runnable research protocol (`docs/prompts/research-protocol-prompt.md`) that an AI agent can be instructed to follow and that a human reviewer can audit by reading the artifacts the protocol produces.
 
 **A fourth structural claim: democratisation of science production.** The effort-gap collapse documented in §3 and §4 is not confined to device integration. The meta-process (§5) is the same phenomenon applied recursively to the *production of empirical research itself*: a single independent researcher, without institutional infrastructure, produced a publication-quality paper — provenance maps, FAIR metadata, dual-format submission source, 70-entry literature register — in approximately 17 hours of AI-assisted work, estimated at 6% of the manual-equivalent effort (§5.7). This is citizen science, but in a mode that has no direct precedent in the citizen-science tradition.
 

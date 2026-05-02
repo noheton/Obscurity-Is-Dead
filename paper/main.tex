@@ -322,6 +322,9 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
         by any preserved transcript --- recorded as an open issue).
 \end{itemize}
 
+% [ILLUSTRATION OPPORTUNITY] ILL-01 — comparison-table — Side-by-side table of key/IV candidates from each of the four implementations (ESPHome, [REDACTED:repo-path:SF-IMPL-2], [REDACTED:repo-path:SF-IMPL-3], integration const.py), showing agreement and disagreement before AI-mediated reconciliation.
+% Status: stub — See docs/prompts/illustration-prompt.md
+
 \subsection{Validation}
 \label{sec:sf-validation}
 Each constant and code path above was re-checked against
@@ -355,7 +358,7 @@ Phase & Transcript & Key event & Est.\ elapsed \\
 Discovery    & T1 & APK extraction; BLE UUID/cipher/key candidates & $\sim$2\,h \\
 Build        & T2 & HA component; BLE coordinator; config flow     & $\sim$3\,h \\
 Debug decrypt& T3 & Static-vs-dynamic IV bug fixed                 & $\sim$1\,h \\
-Debug key+migration & T4 & Correct CB key pair; \texttt{1→2} migration & $\sim$2\,h \\
+Debug key+migration & T4 & Correct CB key pair; \texttt{1\,$\to$\,2} migration & $\sim$2\,h \\
 Debug race   & T5 & \texttt{asyncio.Lock}; optimistic state        & $\sim$1\,h \\
 Dataset      & T6 & Live MQTT probe trace; credentials exposed     & $\sim$1\,h \\
 Asset        & T7 & Logo addition (empty export; deliverable done) & $<$0.5\,h \\
@@ -434,6 +437,9 @@ the AI-assisted local-control architecture.
         (\texttt{config\_flow.py}, 510 lines) with cross-domain
         \texttt{async\_step\_import} migration.
 \end{enumerate}
+
+% [ILLUSTRATION OPPORTUNITY] ILL-02 — architecture-diagram — Diagram of the three EcoFlow API surfaces (legacy setDeviceProperty REST, published Open API with HMAC-SHA256, MQTT surface), labelled with which surface the consumer app uses, which is documented, and which the integration selects; makes three-surface reconciliation finding in §4.3 self-contained.
+% Status: stub — See docs/prompts/illustration-prompt.md
 
 \subsection{Findings --- interoperability}
 \label{sec:ef-interop}
@@ -564,7 +570,7 @@ two case studies (\texttt{README.md}, \texttt{REPORT.md},
         \texttt{.instructions.md}, \texttt{copilot-instructions.md},
         \texttt{CLAUDE.md}.
   \item The executable research-protocol agent prompt
-        (\texttt{docs/research-protocol-prompt.md}).
+        (\texttt{docs/prompts/research-protocol-prompt.md}).
   \item The methodology document (\texttt{docs/methodology.md}) and its KPI
         framework (\S 10).
   \item The literature register in \texttt{docs/sources.md} with the
@@ -628,7 +634,7 @@ two case studies (\texttt{README.md}, \texttt{REPORT.md},
   \item The methodology (\cref{sec:methodology}) and KPI framework
         (\texttt{docs/methodology.md} \S 10) are themselves operationalised
         as the executable agent prompt
-        (\texttt{docs/research-protocol-prompt.md}), making the research
+        (\texttt{docs/prompts/research-protocol-prompt.md}), making the research
         protocol a runnable artifact rather than only a description.
 \end{itemize}
 
@@ -653,6 +659,9 @@ two case studies (\texttt{README.md}, \texttt{REPORT.md},
         (\texttt{docs/sources.md} S-EF-9) and held out of the paper until
         replaced with sourced legal commentary.
 \end{itemize}
+
+% [ILLUSTRATION OPPORTUNITY] ILL-03 — workflow-diagram — Diagram of the verification-status pipeline: [needs-research] → [lit-retrieved] → [lit-read], with annotations on what claims each status permits, concretely illustrating the sloppification mitigation described in §7.6.
+% Status: stub — See docs/prompts/illustration-prompt.md
 
 \subsection{Findings --- security and dual-use implications}
 \label{sec:meta-security}
@@ -708,9 +717,9 @@ AI disclosure + FAIR & \texttt{ebe008d} & §5, §9, CITATION.cff, Zenodo, CodeMe
 License + UrhG/KI   & \texttt{ad46a7e} & CC-BY-4.0 LICENSE; legal footnote & $\sim$1\,h \\
 §6.4 + §10           & \texttt{3b85606} & Consumer vs industrial qualifier; Pandora & $\sim$1.5\,h \\
 Redaction + Rules    & \texttt{e5762a0} & Redaction pass; redaction-policy.md & $\sim$2\,h \\
-Discussion + timelines & \texttt{8f92658} & §7.10, §7.11, KPI tables, README & $\sim$3\,h \\
+Discussion + timelines & \texttt{8f92658} & \S{}7.10, \S{}7.11, KPI tables, README & $\sim$3\,h \\
 DLR design + fig1 data & \texttt{456f7ef} & \texttt{dlr\_style.py}, \texttt{data/effort-gap.csv}, \texttt{fig1-effort-gap.py}; Rule-14 compliance & $\sim$1.5\,h \\
-Democratisation §10 & dae235f & Citizen-science / democratisation paragraph; §5.7 updated & $\sim$0.5\,h \\
+Democratisation \S{}10 & \texttt{dae235f} & Citizen-science / democratisation paragraph; \S{}5.7 updated & $\sim$0.5\,h \\
 \midrule
 \textbf{Total AI-assisted (paper)} & & & \textbf{$\sim$17.5\,h} \\
 \bottomrule
@@ -741,6 +750,10 @@ calendar day.
 
 \begin{table}[h]
 \centering
+\caption{Cross-case comparison of the three AI-assisted case studies in
+this paper. The third column is the recursive meta-process case study
+introduced in \cref{sec:case-meta}.}
+\label{tab:cross-case}
 \footnotesize
 \begin{tabular}{p{2.6cm} p{3.6cm} p{3.6cm} p{3.6cm}}
 \toprule
@@ -772,10 +785,6 @@ Status of vendor public docs
   & All policy and provenance documented in repo \\
 \bottomrule
 \end{tabular}
-\caption{Cross-case comparison of the three AI-assisted case studies in
-this paper. The third column is the recursive meta-process case study
-introduced in \cref{sec:case-meta}.}
-\label{tab:cross-case}
 \end{table}
 
 \subsection{What the AI workflow added}
@@ -908,6 +917,9 @@ the \emph{known-good-protocol} path far more than the
 device is cheap, and verifying an exploit against a live target is not. We
 argue this asymmetry is the most under-discussed feature of the post-LLM
 threat model.
+
+% [ILLUSTRATION OPPORTUNITY] ILL-04 — bar-chart — Grouped bar chart with workflow stage (Discovery / Build / Debug / Validation) on x-axis and estimated effort in hours on y-axis, bars for AI-assisted and manual baseline per case study; makes the asymmetric-collapse claim in §7.3 empirically concrete.
+% Status: stub — See docs/prompts/illustration-prompt.md
 
 \subsection{Dual-use accountability}
 \label{sec:disc-dual-use}
@@ -1276,7 +1288,7 @@ human author named on the title page.
         literature retrieval, cross-case comparison, prose tightening,
         LaTeX rendering, and methodology operationalisation as the
         executable agent prompt
-        (\texttt{docs/research-protocol-prompt.md}).
+        (\texttt{docs/prompts/research-protocol-prompt.md}).
   \item \textbf{Hybrid.} Provenance maps
         (\texttt{experiments/*/provenance.md}), source register
         (\texttt{docs/sources.md}), logbook entries, and KPI scaffolding
@@ -1449,13 +1461,16 @@ of AI-assisted research:
         satisfies it.
 \end{enumerate}
 
+% [ILLUSTRATION OPPORTUNITY] ILL-05 — conceptual-diagram — Diagram mapping the eight integrated practices (items above) onto the three failure-mode axes they address (fabricated citations / prompt injection / tooling drift); concisely summarises the paper's methodological contribution and could serve as a visual abstract.
+% Status: stub — See docs/prompts/illustration-prompt.md
+
 None of these practices is individually novel. Conversation logs have
 been shipped with replications before; verification-status labels
 exist in evidence-based-medicine practice; provenance maps exist in
 bioinformatics; FAIR predates LLMs. \textbf{The novelty is the
 integration}: assembling these practices into a single, executable,
 runnable research protocol
-(\texttt{docs/research-protocol-prompt.md}) that an AI agent can be
+(\texttt{docs/prompts/research-protocol-prompt.md}) that an AI agent can be
 instructed to follow and that a human reviewer can audit by reading
 the artifacts the protocol produces.
 
@@ -1529,6 +1544,7 @@ refuse to pay either tax.
 Pandora's box is open. The Hope that remains is the kind that does
 work.
 
+% [AUTHOR REVIEW NEEDED: \section* produces an unnumbered section. Per typesetting rule, numbered sections are preferred unless the target journal explicitly requires unnumbered acknowledgement/ethics statements. Confirm whether this should be \section{} (numbered) or \section*{} at venue selection.]
 \section*{Ethics and reproducibility statement}
 \label{sec:ethics-statement}
 This work follows the AI-assistance disclosure policy in
