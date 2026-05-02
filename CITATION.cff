@@ -3,7 +3,7 @@ message: >
   If you use this work, please cite it using the metadata below. The paper
   source of truth is paper/main.md (Markdown) and paper/main.tex (LaTeX);
   both must be kept consistent per repo rule 11.
-title: "Obscurity-Is-Dead — AI-Assisted Hacking: Key to Interoperability or Security Nightmare?"
+title: "Obscurity Is Dead — Proprietary by Design. Open by AI."
 abstract: >
   This paper investigates how modern large language models collapse the
   traditional "effort gap" in reverse engineering. Through two empirical case
@@ -59,7 +59,8 @@ identifiers:
     description: "ORCID iD of the corresponding author."
 preferred-citation:
   type: article
-  title: "AI-Assisted Hacking: Key to Interoperability or Security Nightmare?"
+  title: "Obscurity Is Dead — Proprietary by Design. Open by AI."
+  subtitle: "A study of AI-assisted reverse engineering as a means to interoperability — and the security nightmare that comes with it."
   authors:
     - family-names: "Krebs"
       given-names: "Florian"
@@ -84,3 +85,18 @@ references:
       AI assistant used in the preparation of this paper. Conversation
       transcripts are committed under
       experiments/*/raw_conversations (copy&paste, web)/.
+  - type: software
+    title: "Gemini"
+    authors:
+      - name: "Google"
+    year: 2026
+    url: "https://gemini.google.com"
+    notes: >
+      Generative AI used by the author to produce the project's
+      visual identity (the "Obscurity Is Dead — Proprietary by Design.
+      Open by AI." logo built around the shattered Pandora-jar concept
+      and the related intact-jar visual referenced in the Pandora
+      moment, paper/main.md §10). Gemini is acknowledged as a
+      contributor to the visual assets only; it is not an author of the
+      paper, consistent with the §9.1 footnote on Urheberrecht und
+      Künstliche Intelligenz.

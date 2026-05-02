@@ -3,7 +3,7 @@
   "@type": "SoftwareSourceCode",
   "identifier": "obscurity-is-dead",
   "name": "Obscurity-Is-Dead",
-  "description": "Research-as-code repository for the paper 'AI-Assisted Hacking: Key to Interoperability or Security Nightmare?'. Contains the paper sources (paper/main.md, paper/main.tex), case-study artifacts, AI conversation transcripts, methodology, logbook, and FAIR/citation metadata.",
+  "description": "Research-as-code repository for the paper 'Obscurity Is Dead — Proprietary by Design. Open by AI.' (subtitle: a study of AI-assisted reverse engineering as a means to interoperability — and the security nightmare that comes with it). Contains the paper sources (paper/main.md, paper/main.tex), case-study artifacts, AI conversation transcripts, methodology, logbook, and FAIR/citation metadata.",
   "codeRepository": "https://github.com/noheton/Obscurity-Is-Dead",
   "url": "https://github.com/noheton/Obscurity-Is-Dead",
   "issueTracker": "https://github.com/noheton/Obscurity-Is-Dead/issues",
@@ -60,7 +60,7 @@
   "funding": "This work was carried out in the author's personal capacity, without external funding. It is not part of, endorsed by, or representative of the views of any employer, including DLR (Deutsches Zentrum für Luft- und Raumfahrt).",
   "referencePublication": {
     "@type": "ScholarlyArticle",
-    "name": "AI-Assisted Hacking: Key to Interoperability or Security Nightmare?",
+    "name": "Obscurity Is Dead — Proprietary by Design. Open by AI.",
     "url": "https://github.com/noheton/Obscurity-Is-Dead/blob/main/paper/main.md"
   }
 }

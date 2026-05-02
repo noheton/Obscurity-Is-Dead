@@ -1254,3 +1254,120 @@ This logbook is the operating record for the paper and research process.
   - Populate `experiments/iot-integrator-balboa-gateway-ultra/raw_conversations (copy&paste, web)/` with the exported transcripts of this session.
   - Pre-publication: `git rm` the XAPK and the derivative APK assets per the confirmed rule-12 retention plan; SHA-256 anchors in `phase-2-weakness.md §2.0` remain the permanent evidence.
 - No further AI-driven work is expected on this case study without a new prompt. Rule 13 publication posture: no public push beyond the working branch, no Zenodo deposit, no arXiv submission, no upstream PR.
+
+### 2026-05-02 (research protocol + scientific writer + illustration on two new IoT-Integrator cases)
+
+- Branch: `claude/research-protocol-experiments-lBeVa`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher request to (i) run the research protocol over the two new IoT-Integrator experiments (Ondilo ICO Spa V2 and Balboa Gateway Ultra), (ii) summarise through the scientific writer, (iii) run the illustrator. Researcher-side validation of both integrations is still pending; per the request, the agent assumes successful integration and produces a per-case test checklist instead. Three additional themes were specified for the writer pass: dangers from a malicious IoT-integrator agent, automated mass probing of public APK repositories, and a synthesis section on the system-class vulnerabilities of these pipelines plus a difficulty rating across the test cases (excluding the meta-process case).
+
+- Stage 1 — Research Protocol agent (`docs/prompts/research-protocol-prompt.md`):
+  - Produced `experiments/iot-integrator-ondilo-ico-spa-v2/RESEARCH-PROTOCOL.md` with Summary, Artifact inventory, Transcript provenance mapping (T1 placeholders for the close-out export), Evaluation matrix (interoperability / security / provenance / documentation / literature), Validation needs as a 10-row test checklist `T-OND-1..T-OND-10`, Recommended actions, Gaps and risks, and References.
+  - Produced `experiments/iot-integrator-balboa-gateway-ultra/RESEARCH-PROTOCOL.md` with the same shape and a 12-row test checklist `T-BAL-1..T-BAL-12` covering Cognito login, smoke test, MQTT bridge end-to-end, endpoint-inventory cross-check, TLS chain verification, hardening overlay C-1..C-6, refresh-token rotation, `AdminUserGlobalSignOut` runbook, §A DEX deep-dive, §B LAN probe, §C mitmproxy capture, and §D GDPR SAR.
+  - Both files explicitly recommend the minimum-validation set (`T-OND-1, T-OND-2, T-OND-4` for Ondilo; `T-BAL-1..T-BAL-3` for Balboa) and hand off the deeper protocols to researcher follow-up.
+
+- Stage 2 — Scientific writer pass (`docs/prompts/scientific-writer-prompt.md`):
+  - `paper/main.md` and `paper/main.tex` updated in lockstep (rule 11):
+    - **§6.5 Cross-validation from the IoT-Integrator runs.** New subsection plus a two-column table comparing Ondilo and Balboa across the same dimensions as the §6.1 cross-case table; states explicitly that both runs are *cross-validation* of the methodology, not independent confirmation of the central thesis.
+    - **§6.6 Test-case difficulty taxonomy.** New subsection with a four-row × four-column table rating Spider Farmer / Ondilo / Balboa / EcoFlow along three axes (cryptographic barrier, labour to break, blast radius) plus a composite spread column. Composite ratings: Spider Farmer Easy, Ondilo Easy, Balboa Medium, EcoFlow Medium. Meta-process case excluded per request.
+    - **§6.7 Vulnerabilities of IoT-integrator pipelines as a system class.** New subsection synthesising six recurring patterns from the four cases: vendor-cloud SPoF, long-lived refresh tokens, cross-vendor data-flow opacity, operational-obscurity anti-pattern, companion-app permission creep, static-only weakness coverage.
+    - **§7.13 The malicious IoT-integrator agent.** New subsection enumerating the dual-use surface of the IoT-Integrator prompt itself: per-device exploit pipeline, credential/token harvesting at integration time, suppression of the dual-use mirror, self-augmentation of attack capability, trust-laundered distribution, and erosion of the governance baseline through corpus contamination.
+    - **§7.14 Automated mass probing of public APK repositories.** New subsection describing the corpus-scale extension of the per-APK pipeline: sweep at corpus scale, identity-provider enumeration, cross-vendor data-flow harvest, defensive/offensive symmetry, repository operator as gatekeeper, and the unsettled legal posture of mass enumeration vs. per-device interoperability.
+  - Inserted four ILL-xx annotations during the writer pass (ILL-06 through ILL-09); these were promoted to real figure references during Stage 3.
+  - No new claims were introduced beyond what is already documented in the four `experiments/*/REPORT.md` files and `RESEARCH-PROTOCOL.md` audits; all references are repo-internal except the existing `[L-BLE-4]` and `[L-PRIV-5]` literature anchors used in §7.14.
+
+- Stage 3 — Illustration agent (`docs/prompts/illustration-prompt.md`):
+  - Produced four new figures, each with a Python generation script and (for fig12) a CSV data file:
+    - `paper/figures/fig12-difficulty-taxonomy.{py,svg,pdf}` + `paper/figures/data/difficulty-taxonomy.csv` — Rule-14-compliant heat-map (ILL-06).
+    - `paper/figures/fig13-pipeline-vulnerabilities.{py,svg,pdf}` — six-node conceptual diagram with central residual-risk node (ILL-07).
+    - `paper/figures/fig14-malicious-integrator.{py,svg,pdf}` — branching workflow contrasting researcher-governed and adversarial variants of the IoT-Integrator pipeline (ILL-08).
+    - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}` — five-stage corpus-probing pipeline with per-stage cost annotations and human-led base-rate panel (ILL-09).
+  - All four scripts use `dlr_style.py` for consistent corporate-design styling and are labelled AI-authored in their docstrings (rule 1).
+  - Updated `paper/figures/README.md` inventory table with rows for fig12–fig15 and a new "Figure 12 — compliant (data-driven)" Rule-14 subsection.
+  - Updated the top-level `README.md` per rule 15: figure-count badge from 11 → 15; repo-structure tree updated `fig1–fig11` → `fig1–fig15`; Synthesis gallery extended with the four new figures and their captions.
+  - Replaced all four `[ILLUSTRATION OPPORTUNITY] ILL-xx` annotations in `paper/main.md` and `paper/main.tex` with proper figure references (`![Figure N — ...](...)` in markdown; `\begin{figure}...\end{figure}` with `\caption{}` and `\label{fig:...}` in LaTeX).
+
+- Files updated:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/RESEARCH-PROTOCOL.md` (new)
+  - `experiments/iot-integrator-balboa-gateway-ultra/RESEARCH-PROTOCOL.md` (new)
+  - `paper/main.md` (§6.5–§6.7 added; §7.13–§7.14 added; four new figures referenced)
+  - `paper/main.tex` (mirror of the above per rule 11)
+  - `paper/figures/data/difficulty-taxonomy.csv` (new)
+  - `paper/figures/fig12-difficulty-taxonomy.{py,svg,pdf}` (new)
+  - `paper/figures/fig13-pipeline-vulnerabilities.{py,svg,pdf}` (new)
+  - `paper/figures/fig14-malicious-integrator.{py,svg,pdf}` (new)
+  - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}` (new)
+  - `paper/figures/README.md` (inventory + Rule-14 compliance subsection for fig12)
+  - `README.md` (figure-count badge; structure-tree fig range; Synthesis gallery)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The two new IoT-Integrator cases were *not* added as full top-level case-study sections (§6, §7, ...) to avoid renumbering every cross-reference, label, and figure caption that already depends on the 3 → 10 numbering. Instead they enter the paper through §6.5 as cross-validation evidence, which preserves all existing labels and is consistent with the per-case `REPORT.md` files being the citable artifacts.
+  - The difficulty taxonomy is qualitative by design; the CSV stores the numeric mapping (Low=1, Medium=2, Med-High=2.5, High=3) so the heat-map is reproducible, but the prose explicitly states that the composite is informative of *spread* not of an absolute scale (consistent with rule 1).
+  - The malicious-integrator and APK-mass-probing sections were placed in §7 (Discussion) rather than in §6 (Synthesis) because they are *prospective* threats inferred from the case-study evidence rather than findings synthesised across the cases.
+  - The §7.13 mitigation framing is structural rather than technical, mirroring the §7.4 dual-use accountability and §7.6 sloppification arguments: governance (checkpoints, redaction, dual-use mirror) rather than capability denial. This keeps the paper's structural-answer thesis consistent across all of §7.
+
+- Open issues:
+  - Researcher validation of both new IoT-Integrator cases is still pending; the test checklists in `RESEARCH-PROTOCOL.md` are the formal hand-off artifact.
+  - Both new cases need their `raw_conversations (copy&paste, web)/` exports populated before rule 4 is fully satisfied (transcripts as first-class artifacts).
+  - `[lit-retrieved]` literature for §6.7 / §7.13 / §7.14 is currently anchored only to the existing `[L-BLE-4]` and `[L-PRIV-5]` entries; a future literature pass should cover the malicious-LLM-agent and APK-corpus-probing literature explicitly (e.g. Sivakumaran et al. 2023 is already in the register but adversarial-LLM-tooling and APK-mirror-abuse literature is not).
+  - All Session 7 / 12 issues remain open.
+  - Pre-publication history-rewrite for the Balboa XAPK + derivative APKs is still owed (rule 12).
+
+- Next steps:
+  - Researcher reviews this session's additions against the per-case `REPORT.md` and `RESEARCH-PROTOCOL.md` files and either accepts or flags the writer-pass framing of the new themes.
+  - Researcher executes the `T-OND-*` and `T-BAL-*` checklists and lodges the redacted validation logs.
+  - On acceptance, the four new figures join the visual abstract gallery and the §7.13 / §7.14 framings are eligible to be cited from a future submission draft.
+
+### 2026-05-02 (literature pass M/N/O + §7.15 Scope and limitations + tagline + Gemini logo credit)
+
+- Branch: `claude/research-protocol-experiments-lBeVa`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher follow-ups to the prior session — (i) literature pass for §6.7 / §7.13 / §7.14 (adversarial-LLM-tooling and APK-mirror-abuse), (ii) writer pass to add a §7.X "Scope and limitations of the study" subsection, (iii) illustrator pass for the new section, plus (iv) move from the long question-form title to the new tagline "Proprietary by Design. Open by AI." with the project visual identity from a Google Gemini logo and (v) reference the *intact* proverbial jar later in the paper as a Hesiodic counterpoint to the shattered-jar logo.
+
+- Stage 1 — Literature pass:
+  - Three new `docs/sources.md` claim clusters appended:
+    - **Cluster M — Malicious LLM agents and adversarial agentic AI.** L-AGT-1..L-AGT-10 (Fang et al. 2024 ×2 — 87% one-day CVE exploitation by GPT-4 and autonomous website hacking; Lupinacci et al. 2025 — 94.4%/83.3%/100% prompt-injection / RAG / inter-agent trust attack rates; Chen et al. 2024 AgentPoison; Yang et al. 2024 backdoor; Zhang et al. 2024 ASB at 84.30% avg; Lee et al. 2025 SUDO Detox2Tox jailbreak of Claude for Computer Use; Ferrag et al. 2025 protocol-exploit survey; Wang et al. 2024 BadAgent; Zhang et al. 2024 Breaking Agents). Anchors §7.13 explicitly.
+    - **Cluster N — Mass probing of public APK repositories and Android-marketplace ecosystem.** L-APK-1..L-APK-7 (Zhou et al. 2012 DroidMOSS; Vidas & Christin 2013 alt-marketplaces; Chen et al. 2015 MassVet at Google-Play scale; Ishii et al. 2017 APPraiser; Hou et al. 2022 ANDSCANNER; Gao et al. 2021 lineage; Sanna et al. 2024 native-code corpus). Anchors §7.14 explicitly.
+    - **Cluster O — IoT companion apps as the integrator-side weakness surface.** L-IOTAPP-1..L-IOTAPP-5 (Schmidt et al. 2023 IoTFlow on 9,889 apps with abandoned-domains / hard-coded creds / expired certs findings — closest published prior art to the IoT-Integrator Phase-2 weakness analysis; Wang et al. 2019 component-reuse on >4,700 devices; Jin et al. 2022 IoTSpotter at market scale with 94.11% high-install crypto-violation rate; OConnor et al. 2021 companion-app MITM on 16/20 vendors; Mauro Junior et al. 2019 96-device study). Anchors §6.7 explicitly.
+  - Threaded the citation handles into the three subsections of `paper/main.md` and `paper/main.tex` (rule 11 mirror) in a single paragraph per subsection so the new clusters carry concrete numerical claims; all entries remain `[lit-retrieved]` and the existing rule that no claim depends on an unread citation is preserved.
+
+- Stage 2 — Scientific writer pass:
+  - Added **§7.15 Scope and limitations of the study** (label `sec:disc-scope-limits`) consolidating §1.5 / §6.4 / §7.9 with the new constraints introduced by the cross-validation cases and the §7.13 / §7.14 themes. Five numbered dimensions plus two interpretive constraints (recursive meta-process is methodological evidence, not independent thesis confirmation; difficulty taxonomy is qualitative spread, not absolute scale). Mirrored exactly into `paper/main.tex`. Three `\cref{}` labels in the new tex section that initially pointed at non-existent anchors were corrected (`sec:scope-non-goals` → `sec:scope`; `sec:disc-validity` → `sec:disc-threats`; `sec:disc-disclaimers` → `sec:ai-disclosure-disclaimers`).
+  - Title/tagline change applied across the canonical content surface: `paper/main.md` H1, `paper/main.tex` `\title{}` and `pdftitle`, `README.md` H1+H3, `CITATION.cff` (top-level title and preferred-citation title and a new `subtitle` field), `.zenodo.json` title and description, `codemeta.json` description and referencePublication name. New title: **"Obscurity Is Dead"** with **"Proprietary by Design. Open by AI."** as the subtitle and *"A study of AI-assisted reverse engineering as a means to interoperability — and the security nightmare that comes with it."* as the long-form description.
+  - Acknowledged **Google Gemini** as the generator of the project's visual identity in `paper/main.md` §9.1 (and the matching `paper/main.tex` §9.1), in `paper/figures/README.md`, and as a `references` entry in `CITATION.cff`. Per CLAUDE.md rule 1, Gemini's contribution is visibly labelled and confined to the visual assets; per the §9.1 *Urheberrecht und KI* footnote, Gemini is not an author.
+  - Inserted the proverbial-jar-intact image reference at §10 in both `main.md` and `main.tex` immediately after the Hesiod quote, as the Hesiodic counterpoint to the shattered-jar logo at the front matter.
+  - Two binary assets are *not* yet committed (researcher-supplied): `paper/figures/logo-obscurity-is-dead.png` (front-matter / README hero) and `paper/figures/logo-pandora-jar-intact.png` (§10 / fig:pandora-jar-intact). Until these are dropped in by the author, the README hero image and the §10 figure render as broken-image placeholders; the broken state is intentional (rule 1 transparency over rule 15 aesthetics) and documented in `paper/figures/README.md`.
+
+- Stage 3 — Illustration agent:
+  - Produced **fig16-scope-limitations** (ILL-10) — a concentric perimeter diagram with five in-scope dimensions on an inner ring and the named exclusions on the outside; `paper/figures/fig16-scope-limitations.{py,svg,pdf}`, AI-authored docstring (rule 1), uses `dlr_style.py` for consistency.
+  - The `[ILLUSTRATION OPPORTUNITY] ILL-10` placeholder was replaced with a real figure reference in both `paper/main.md` and `paper/main.tex`.
+
+- Files updated:
+  - `docs/sources.md` (clusters M, N, O appended)
+  - `paper/main.md` (clusters threaded into §6.7 / §7.13 / §7.14; new §7.15; new title block; §9.1 Gemini credit; §10 intact-jar image; ILL-10 placeholder replaced)
+  - `paper/main.tex` (mirror of all of the above; broken `\cref` labels in the new section corrected)
+  - `README.md` (new title/tagline; logo at hero; figure-count badge 15 → 16; structure-tree updated; Synthesis gallery extended with fig16 + intact-jar)
+  - `CITATION.cff` (top-level title; preferred-citation title + subtitle; Gemini reference)
+  - `.zenodo.json` (title + description)
+  - `codemeta.json` (description + referencePublication.name)
+  - `paper/figures/README.md` (fig16 row; logo rows; AI-authored programmatic-diagram list extended)
+  - `paper/figures/fig16-scope-limitations.{py,svg,pdf}` (new)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The new clusters are deliberately threaded as *one paragraph per subsection* rather than as bibliography expansion: each subsection now has a numerical anchor pointing at the literature, but no individual claim depends on a single citation having been read in full (consistent with the §9.3 discipline).
+  - The §7.15 section consolidates limitations rather than introducing new ones; this was a writer-pass move (per `docs/prompts/scientific-writer-prompt.md`: "do not add, remove, or modify research claims") that surfaces existing constraints from §1.5, §6.4, §7.9, §6.7, §7.13, §7.14 in a single readable place.
+  - Title change fires rule 11 (md ↔ tex), rule 15 (README), and the FAIR-metadata mirror set (CITATION.cff, .zenodo.json, codemeta.json) — all updated in this commit.
+  - The two Gemini-generated logo binaries are intentionally not stubbed with placeholder PNGs; a broken image is more honest than a fake one (rule 1).
+
+- Open issues:
+  - **Researcher to drop in `paper/figures/logo-obscurity-is-dead.png` and `paper/figures/logo-pandora-jar-intact.png`** (Gemini-generated assets); the README hero and §10 figure render as broken images until then.
+  - The Gemini iteration history / generation prompts referenced in §9.1 are not yet committed; researcher to append them to this logbook entry once available.
+  - All Session 7 / 12 issues remain open.
+  - All entries in clusters M/N/O are `[lit-retrieved]` only; no claim in the paper depends on an unread citation.
+
+- Next steps:
+  - Researcher reviews the new title/tagline rollout across the canonical-content surface and either accepts or asks for further revision.
+  - Researcher commits the two Gemini logo binaries and updates §9.1 with the iteration history.
+  - On acceptance, the README's Visual abstract and front matter render with the new identity.
