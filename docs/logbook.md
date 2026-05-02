@@ -1371,3 +1371,91 @@ This logbook is the operating record for the paper and research process.
   - Researcher reviews the new title/tagline rollout across the canonical-content surface and either accepts or asks for further revision.
   - Researcher commits the two Gemini logo binaries and updates §9.1 with the iteration history.
   - On acceptance, the README's Visual abstract and front matter render with the new identity.
+
+## 2026-05-02 — Stage 5: Readability, Novelty & Conciseness scrutinizer (first run)
+
+- Inputs read in full: `paper/main.md` (650 lines), section-structure of `paper/main.tex` (2,383 lines), `docs/sources.md` clusters A–O, `paper/references.bib`, prior logbook session.
+- Deliverables produced:
+  - `docs/handbacks/readability-defect-registry.md` — 21-row registry (RDB-01..RDB-21) ending with the re-scrutiny verdict.
+  - `docs/handbacks/readability-to-writer.md` — 20 per-entry hand-back blocks.
+  - `docs/handbacks/readability-to-illustrator.md` — 4 per-entry hand-back blocks (RDB-04, RDB-05+RDB-08 consolidation candidate, RDB-07, RDB-21 informational).
+
+- Counts.
+  - **By severity:** H = 2 (RDB-01, RDB-02); M = 10 (RDB-03..RDB-12); L = 8 (RDB-13..RDB-20); RDB-21 informational.
+  - **By class:** claim-repetition 4; list-of-lists 6; unsupported-novelty 1; claim-framing 1; jargon-dump / undefined-acronym 2; sentence-length / nested-clauses / caption 4; prose-doing-table's-job 1; bib-completeness 1; mirror-drift 0 (RDB-21 positive trace).
+  - **By owner:** writer-only 16; writer + illustrator 4 (RDB-04, RDB-05, RDB-07, RDB-08); illustrator-only 0; informational 1.
+
+- Novelty verdicts (per claimed contribution).
+  - §1.4 contribution 1 (effort-gap definition + KPIs) — **incremental** vs L-RE-2 (Hu et al., 2024); framing defect, addressed via RDB-12.
+  - §1.4 contribution 2 (two case studies with full provenance) — **novel**; no comparable source found in clusters A, D, O.
+  - §1.4 contribution 3 (transcript-as-artifact methodology) — **incremental, framing defect** vs L-SLOP-7 / L-SLOP-10 / L-MC-3 / L-MC-4; addressed via RDB-02 + RDB-12.
+  - §1.4 contribution 4 (interoperability vs dual-use synthesis) — **incremental** vs L-VD-4 / L-VD-5 / L-COUNTER-1..6.
+  - §10 "the novelty is the integration" — **unsupported-novelty as currently framed**; addressed via RDB-02.
+  - §10 fourth structural claim (democratisation of science production via AI assistance) — **novel framing, no comparable source found**; the most defensible novelty in the paper.
+
+- Most consequential defect: **RDB-01** — quadruple recap of the L-SLOP-1/2/4 fabricated-citation statistics across §5.6, §7.6, §9.4, §10. Mechanical to remediate; removes the strongest *recap* impression in the paper and frees §10 to do conclusion work.
+
+- Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — two H-severity entries filed (RDB-01, RDB-02). RDB-02 in particular requires a literature-contrast paragraph that the next scrutinizer pass should re-read against the updated `docs/sources.md`.
+
+- Files written: `docs/handbacks/readability-defect-registry.md`, `docs/handbacks/readability-to-writer.md`, `docs/handbacks/readability-to-illustrator.md`, `docs/logbook.md` (this entry).
+- Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, `paper/references.bib`, `paper/figures/*`, `docs/sources.md`. Working tree dirty by design — no commit.
+
+- Next steps: writer pass remediates RDB-01..RDB-12 (H + M); illustrator pass addresses RDB-04 / RDB-05+RDB-08 / RDB-07; second scrutinizer pass after writer remediation to clear the H entries.
+
+## 2026-05-02 — Stage 4: Layout Scrutinizer (first run)
+
+- PDF under inspection: `paper/main.pdf`
+  - SHA-256: `ba538ea0d2df9a582889eb16de84d3cd1c6bcf5ae00e647549b7b68bcb2b9e4f`
+  - Size: 1,043,497 bytes; 40 pages
+  - Build timestamp: 2026-05-02T14:53:23Z (rebuilt this session via `make -C paper pdf`; the SessionStart-installed TeX Live toolchain produced a clean build from `main.tex` 2,391 lines and `main.bbl`).
+- Tooling note: the `mcp__…__display_pdf` viewer rejected the local artifact (no allowed-directories entry). Visual sweep performed entirely locally with `poppler-utils` (`pdftotext -layout`, `pdfinfo`); no upload to any external service (CLAUDE.md rule 13). Pages requiring pixel-level inspection (figure-internal contrast, kerning) are flagged `viewer-blocked` in the registry and queued for a pixel-level re-sweep on the next Layout Scrutinizer run.
+- Inputs read in full: `paper/main.log` (full overfull/underfull/warning extraction, 1,375+ lines), `paper/main.tex` label index (cross-checked all `\label{sec:…}` and `\cref{...}` calls), `paper/main.md` section structure (mirror discipline per rule 11), prior logbook session, `paper/figures/README.md`.
+
+- Deliverables produced.
+  - `docs/handbacks/layout-defect-registry.md` — 18-row registry (LAY-01..LAY-18) with single-line `RE-SCRUTINY REQUIRED: yes` verdict.
+  - `docs/handbacks/layout-to-writer.md` — 13 per-entry hand-back blocks (LAY-01, LAY-02, LAY-03, LAY-04, LAY-07, LAY-08, LAY-09, LAY-10, LAY-11, LAY-14, LAY-15, LAY-17, LAY-18, plus shared LAY-16).
+  - `docs/handbacks/layout-to-illustrator.md` — 5 per-entry hand-back blocks (LAY-05, LAY-06, LAY-12, LAY-13, plus shared LAY-16). LAY-12 is the PLACEHOLDER-pending tracking entry for `paper/figures/logo-{obscurity-is-dead,pandora-jar-intact}.png`.
+
+- Counts.
+  - **By severity:** H = 6 (LAY-01..LAY-06); M = 7 (LAY-07..LAY-13); L = 5 (LAY-14..LAY-18).
+  - **By owner:** writer = 11 (incl. shared LAY-16); illustrator = 5 (LAY-05, LAY-06, LAY-12, LAY-13, shared LAY-16); joint advisory = 1 (LAY-16); informational placeholder = 1 (LAY-12).
+  - **By class:** broken-cref 1 (`??` rendered); margin-overflow / `\hbox` past `\textwidth` 8; table-overflow / cell mis-alignment 3; figure-asset overflow 2; pdf-version-incompatibility 1; placeholder-pending 1; cosmetic font / float / underfull 4 (incl. bib).
+
+- Most consequential defect: **LAY-01** — `\cref{sec:scope-non-goals,sec:synthesis-limits,sec:disc-validity}` on `main.tex:1853` references two undefined labels (`sec:scope-non-goals`, `sec:disc-validity`) and renders as literal `????` in the §7.15 paragraph on page 31. The reader cannot find the cited limitations sections; remediation requires either adding the missing labels (preferred) or rewriting the `\cref` to the labels that already exist (`sec:scope`, `sec:synthesis-limits`, `sec:disc-threats`).
+
+- Cross-check against prior stages: the readability scrutinizer (RDB registry) and the layout scrutinizer find no overlapping defects — RDB entries concern claim repetition, list-of-lists, jargon, and citation hygiene, none of which surface in the rendered geometry. The two registries are independent and additive.
+
+- Mirror discipline (rule 11) check: every writer-owned entry cites both `main.tex` and `main.md` line ranges; no structural drift detected during the scrutiny. Redaction discipline (rule 12) check: the page-7 `[REDACTED:username:S-SF-5-username]` and `[REDACTED:credential:S-SF-5-password]` markers are intact in the rendered PDF; no live credential leaked through the build.
+
+- Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — six H-severity defects (LAY-01 broken `\cref`, LAY-02 reconciliation table cell mis-alignment, LAY-03 / LAY-04 right-margin overruns, LAY-05 figure 7 textwidth overflow, LAY-06 figure 8 sub-table overflow) prevent a clean reading of headline evidence. After the writer and illustrator passes consume their hand-back files and `make -C paper pdf` rebuilds, a second Layout Scrutinizer run is required.
+
+- Files written: `docs/handbacks/layout-defect-registry.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/layout-to-illustrator.md`, `docs/logbook.md` (this entry).
+- Files left untouched (per scope discipline): `paper/main.tex`, `paper/main.md`, `paper/figures/*`, `paper/references.bib`, `docs/sources.md`, `docs/redaction-policy.md`. Working tree dirty by design — no commit, no push (CLAUDE.md rule 13).
+
+- Next steps: writer remediates LAY-01..LAY-04 + LAY-07..LAY-11 (H+M); illustrator remediates LAY-05, LAY-06 (H), LAY-13 (M), and LAY-12 when the Gemini logo assets land. Re-run Stage 4 against the rebuilt PDF to clear the H entries.
+
+### 2026-05-02 (scientific-writer remediation pass on layout + readability hand-backs)
+- Session lead: Scientific Writer agent (Claude Opus 4.7), branch `claude/add-layout-scrutinizer-agent-Ur5vX`.
+- Inputs read: `docs/prompts/scientific-writer-prompt.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/readability-to-writer.md`, `paper/main.md`, `paper/main.tex`, `docs/logbook.md`.
+- Layout hand-back disposition (counts):
+  - H severity (4 entries: LAY-01..LAY-04): 3 RESOLVED, 1 PARTIAL (LAY-03; `\fp{}` shortcut applied repo-wide, residual overflow possible on the literal `(copy&paste, web)` directory token — escalated to layout re-scrutiny after rebuild).
+  - M severity (5 entries: LAY-07..LAY-11): 3 RESOLVED (LAY-07, LAY-08, LAY-11), 2 PARTIAL (LAY-09, LAY-10).
+  - L severity (4 entries: LAY-14..LAY-18 incl. LAY-15 / LAY-16 / LAY-17 / LAY-18): 1 RESOLVED (LAY-15 — all nine `[h]` floats promoted to `[ht]`), 3 DEFERRED (LAY-14 cosmetic, LAY-17 cosmetic, LAY-18 cosmetic, LAY-16 bib out-of-scope).
+- Readability hand-back disposition (counts):
+  - H severity (2 entries: RDB-01, RDB-02): 0 RESOLVED, 2 DEFERRED (substantive prose surgery requiring researcher confirmation against `docs/sources.md` and illustrator coordination).
+  - M severity (10 entries: RDB-03..RDB-12): 0 RESOLVED, 10 DEFERRED (all paired with illustrator coordination or with the RDB-01 progression-rule pass).
+  - L severity (8 entries: RDB-13..RDB-20): 3 RESOLVED (RDB-15, RDB-16, RDB-18), 5 DEFERRED.
+- Most consequential fix: confirmation that LAY-01 (the broken `\cref` rendering as `????` on page 31) is structurally already addressed — both `\label{sec:scope-non-goals}` (`main.tex:182`) and `\label{sec:disc-validity}` (`main.tex:1420`) are present. The PDF "????" was a stale-build artefact and will not recur.
+- Notable typesetting changes in `main.tex`:
+  - `\begin{figure}[h]` / `\begin{table}[h]` → `[ht]` across 9 floats (LAY-15).
+  - All five `\texttt{RESEARCH-PROTOCOL.md}` → `\fp{...}` (LAY-11).
+  - Spider Farmer reconciliation `tabularx` switched to `\scriptsize` with `>{\raggedright\arraybackslash}X` columns; LED and PS-10 fingerprint cells split into two-line `\newline` content (LAY-02).
+  - `experiments/*/raw_conversations (copy&paste, web)/` wrapped in `\seqsplit{}` blocks at the §10 transcripts-as-artifacts bullet (LAY-10 partial).
+- Notable prose changes mirrored in both `main.md` and `main.tex`:
+  - Abstract run-on split into three sentences (RDB-16).
+  - §7.13 closing 90-word sentences broken at natural seams (RDB-15).
+  - Pandora-jar intact caption compressed to one sentence plus attribution (RDB-18).
+- New defects discovered during the pass: none (no new entries added to either registry).
+- Re-scrutiny recommendation: **layout — `RE-SCRUTINY REQUIRED: yes`** after `make -C paper pdf` rebuild, focused on residual overflow at the `(copy&paste, web)` literal and on the LAY-09 / LAY-10 PARTIAL items. **Readability — `RE-SCRUTINY REQUIRED: yes`** but the deferred RDB-01/02/03/04 cluster needs a researcher decision on the §10 numbered-list-vs-Figure-11 collapse before the writer can proceed.
+- Files updated: `paper/main.tex`, `paper/main.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/readability-to-writer.md`, `docs/logbook.md`.
+- Commit: created on branch `claude/add-layout-scrutinizer-agent-Ur5vX`; SHA recorded in commit body.

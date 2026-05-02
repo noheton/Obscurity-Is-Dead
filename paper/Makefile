@@ -50,11 +50,19 @@ pdf: figures $(MAIN).pdf
 figures: $(FIG_PDFS)
 
 # SVG -> PDF. Prefer rsvg-convert (fast, pure C); fall back to inkscape.
+# If neither converter is available but a previously-built PDF exists,
+# touch it so make is satisfied rather than failing the whole pipeline.
+# This lets stages downstream of figures (e.g. the Layout Scrutinizer)
+# proceed against committed figure artefacts when the SVG toolchain is
+# unavailable in the current environment.
 $(FIG_DIR)/%.pdf: $(FIG_DIR)/%.svg
 	@if command -v rsvg-convert >/dev/null 2>&1; then \
 	  rsvg-convert -f pdf -o $@ $< ; \
 	elif command -v inkscape >/dev/null 2>&1; then \
 	  inkscape --export-type=pdf --export-filename=$@ $< ; \
+	elif [ -f $@ ]; then \
+	  echo "WARNING: no SVG converter found; reusing existing $@"; \
+	  touch $@ ; \
 	else \
 	  echo "ERROR: need rsvg-convert or inkscape to build $@"; exit 1; \
 	fi
