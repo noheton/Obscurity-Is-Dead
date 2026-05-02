@@ -120,3 +120,57 @@ These KPIs help turn the methodology into measurable research practice, allow cr
 - Use the prompt in `docs/research-protocol-prompt.md` when instructing Claude Code or an equivalent AI agent.
 - The prompt should direct the agent to collect artifacts, map chat transcripts to git/documentation evidence, evaluate findings, and produce structured outputs for the paper.
 - This makes the methodology executable and reproducible, not just descriptive.
+
+## 12. The Agent Pipeline (introduced 2026-04 .. 2026-05)
+
+The single research-protocol prompt has grown into a seven-stage pipeline coordinated by an orchestrator. Each stage has a dedicated prompt under `docs/prompts/`; the canonical workflow table lives in `CLAUDE.md` §"Agent workflow". The pipeline is itself a research artifact (Rule 4): every dispatch decision and every hand-back is committed to `docs/handbacks/` and `docs/logbook.md`.
+
+### 12.1 Stages and separation of concerns
+
+- **Stage 0 — Orchestrator.** Inspects state, applies the dispatch table in `docs/prompts/orchestrator-prompt.md`, and routes work to exactly one downstream stage at a time. Never edits the paper. Introduced after the pipeline crossed five stages and the dependency graph stopped fitting in a researcher's head.
+- **Stage 1 — Research protocol.** Per case study; produces sources, transcripts, and provenance maps.
+- **Stage 1.5 — Source Analyzer.** *(introduced 2026-05-02)* Reads the full text of `[lit-retrieved]` entries and upgrades obvious cases to `[ai-confirmed]`. Edge cases are flagged for human review. Reduces the verification overhead that was the single biggest bottleneck observed during the 2026-05 writer-pass cycle.
+- **Stage 2 — Scientific writer.** Owns prose, register, and LaTeX typesetting. Consumes Source Analyzer hand-backs to upgrade footnote-only citations to inline citations and to pull verified numbers verbatim into the paper.
+- **Stage 3 — Illustration.** Owns figure assets. Prefers `[ai-confirmed]` / `[lit-read]` data over `[lit-retrieved]` for any plotted number; halts and hands back to the Source Analyzer when only `[lit-retrieved]` evidence is available for a load-bearing figure value.
+- **Stage 4 — Layout scrutinizer.** Reads `paper/main.pdf`. Files defects against geometry, visibility, and rendered cross-references. Never edits source.
+- **Stage 5 — Readability & novelty scrutinizer.** Reads `paper/main.md`. Files defects against repetition, list-of-lists prose, conciseness, and literature-grounded novelty (using `docs/sources.md` as the literature ledger). Never edits source.
+
+### 12.2 Verification status ladder
+
+`[unverified-external]` → `[needs-research]` → `[lit-retrieved]` → `[ai-confirmed]` *(new)* → `[lit-read]`. Inline citation in the paper is permitted from `[ai-confirmed]` onward, except for load-bearing or contested claims (first-of-its-kind effect-size claims, legal interpretation, the only quantitative anchor for a paragraph), which still require `[lit-read]`. The legend in `docs/sources.md` is canonical; this paragraph mirrors it for the methodology narrative.
+
+### 12.3 Lessons learned in the 2026-05 cycle
+
+The first end-to-end seven-stage cycle surfaced four lessons that shape current practice.
+
+1. **Build access is part of the methodology.** The Layout Scrutinizer's rule-1 clause ("if the PDF is missing or stale, halt") is unhelpful in environments without the LaTeX toolchain. The repository now ships a `SessionStart` hook (`.claude/hooks/session-start.sh`) that provisions TeX Live + librsvg2-bin and verifies via `make -C paper check` before any agent runs. This makes the build a first-class part of the meta-process rather than an out-of-band assumption.
+2. **Asset honesty over asset completeness.** When a paper references an asset that does not yet exist, generate a labelled placeholder rather than blocking the pipeline. The placeholder PNG must visibly identify itself as AI-authored and pending; the prose must mark the asset state explicitly. Rule 14 (data + script committed) and Rule 1 (honesty) compose into a placeholder pattern: `paper/figures/logo-placeholders.py` is the reference implementation.
+3. **Verification overhead is real and dominates writer cycles.** Most `[lit-retrieved]` entries are obvious-from-the-abstract and never warranted a full human read; a small minority anchor contested or first-of-its-kind claims and warrant nothing less. The single-tier `[lit-read]` gate forced the human reader through both populations at the same cost. The `[ai-confirmed]` tier and the Source Analyzer agent split that workload.
+4. **Diagnose vs. repair separation pays for itself.** Stages 4 and 5 file registries; stages 2 and 3 repair. Forcing the diagnosis to commit before the repair starts means each scrutinizer's verdict is auditable independently of the writer's interpretation, and the chain-of-custody is preserved across pipeline cycles. The cost is one extra commit boundary per cycle; the payoff is that "what did the scrutinizer actually flag?" has a single canonical answer in git history.
+
+### 12.4 Peer work and teamwork in AI
+
+The agent pipeline is, structurally, a *team* of single-skill specialists managed by an orchestrator and audited by two scrutinizers — not a single generalist. This shape is a deliberate methodological commitment, not an artefact of tooling. Three observations:
+
+- **Specialisation reduces hallucination at the seam.** When a single generalist agent owned both prose and figures, claim-evidence drift accumulated silently across passes. Splitting the writer from the illustrator forces every claim that crosses the seam (a number plotted in a figure that is also stated in prose) to traverse a `docs/sources.md` entry, which makes drift visible.
+- **Adversarial scrutiny is not redundant labour.** The scrutinizers do not produce paper content; they produce *defect registries*. Treating them as peer reviewers — not as second-pass authors — is what keeps the writer accountable to a separable diagnosis. The Layout Scrutinizer's first run filed six H-class defects that survived a writer pass; without the explicit peer-review step those defects would have shipped.
+- **Human-in-the-loop is a *team* role, not a *gate* role.** The human author sits at the apex of the pipeline (Rule 13: no publication without consent) but also participates as the irreplaceable peer for `[lit-read]` upgrades on contested claims, for asset judgment calls (the Gemini-generated logos), and for Orchestrator escalations when rule #9 fires (pipeline quiescent). Framing the human as one role in the team, rather than as an external supervisor, makes the boundary between agent work and human work explicit on every artefact.
+
+This pattern — specialised agents, adversarial scrutinisers, human as a peer with veto rights — is the *meta-process* the paper documents. The pipeline is the team; the team is the methodology.
+
+### 12.5 Experiment ordering convention
+
+The `experiments/` directory contains four case studies of consumer-IoT reverse engineering (Spider Farmer, EcoFlow PowerOcean, Ondilo ICO, Balboa Gateway) plus one *meta* experiment (`paper-meta-process/`) that records the writing of this paper as its own object of study. The meta experiment differs in nature from the case studies: it is the recursion of the methodology onto itself.
+
+**Convention (2026-05-02):** the meta experiment is always last in any ordered presentation of experiments — in `paper/main.md` and `paper/main.tex` (case studies appear in §3..§6, the meta-process discussion in §10), in the README's case-study gallery, and in any future programmatic enumeration. Directories are not currently renamed (the alphabetical `paper-meta-process` precedes `spider-farmer` lexicographically), but iteration code that traverses `experiments/` must apply the convention explicitly. A future repository hygiene pass may rename directories with numeric prefixes (e.g. `01-spider-farmer/` … `99-meta-process/`) once the renaming cost can be paid in a single commit; until then the convention is enforced by documentation and review.
+
+### 12.6 Open work (meta-analysis still running)
+
+This methodology document records what the pipeline *is*, not yet what the pipeline *establishes*. The meta-analysis pass — the systematic comparison of effort, defect count, and verification overhead across the four case studies plus the meta experiment — is still running at the time of this commit (2026-05-02). Open items the next pass must close:
+
+- Quantitative comparison of writer-cycle overhead before and after the `[ai-confirmed]` tier was introduced.
+- Defect counts per scrutinizer per case-study chapter, as a stand-in for "where in the paper does layout cost dominate, and where does readability cost dominate?".
+- Rate of human escalation per Orchestrator dispatch — a measure of how often the rule table actually settles a routing decision without human intervention.
+- Cost (in tokens, in wall-clock minutes, in human review minutes) per pipeline cycle, broken out by stage. The Source Analyzer's introduction makes this an apples-to-oranges comparison until at least one full post-introduction cycle is logged.
+
+These items are tracked in `docs/logbook.md` open-issue lines and will be closed in the next research-protocol pass.
