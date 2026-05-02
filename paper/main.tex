@@ -166,13 +166,23 @@ AI-assisted analysis lowers the barrier separating theory from practice.
 The paper contributes:
 \begin{enumerate}
   \item A definition of the effort gap and an operationalisation as
-        measurable KPIs (\texttt{docs/methodology.md} \S 10).
+        measurable KPIs (\texttt{docs/methodology.md} \S 10), complementing
+        prior effort-gap exemplars in the reverse-engineering literature
+        (L-RE-2).
   \item Two empirical case studies with complete artifact provenance
         (\texttt{experiments/spider-farmer/},
-        \texttt{experiments/ecoflow-powerocean/}).
+        \texttt{experiments/ecoflow-powerocean/}), against the consumer-IoT
+        base rate of \textgreater{}70\% of 17{,}243 BLE-enabled Android APKs
+        carrying at least one vulnerability (L-BLE-4).
   \item An auditable methodology that treats AI conversation transcripts as
         research artifacts, mapped to git history and vendor code
-        (\texttt{experiments/*/provenance.md}).
+        (\texttt{experiments/*/provenance.md}); this complements --- and
+        operationalises at artifact level --- the publishing-system reforms
+        proposed in the Stockholm Declaration (L-SLOP-7), the
+        practitioner-level ethical-use guidance of Cheng, Calhoun \&
+        Reedy (L-SLOP-10), and the AI-detector / citation /
+        image-verification landscape reviewed by Pellegrina \& Helmy
+        (L-SLOP-12).
   \item A synthesis of interoperability gains versus dual-use risks, grounded
         in the verified evidence of both cases.
 \end{enumerate}
@@ -2295,12 +2305,27 @@ of AI-assisted research:
 None of these practices is individually novel. Conversation logs have
 been shipped with replications before; verification-status labels
 exist in evidence-based-medicine practice; provenance maps exist in
-bioinformatics; FAIR predates LLMs. \textbf{The novelty is the
-integration}: assembling these practices into a single, executable,
-runnable research protocol
-(\texttt{docs/prompts/research-protocol-prompt.md}) that an AI agent can be
-instructed to follow and that a human reviewer can audit by reading
-the artifacts the protocol produces.
+bioinformatics; FAIR predates LLMs. The closest published comparators
+address the same problem at three different layers: at the
+publishing-system layer, Sabel \& Larhammar's \emph{Stockholm
+Declaration} (L-SLOP-7) proposes academia-controlled non-profit
+publishing, quality-not-quantity incentives, and independent fraud
+detection; at the practitioner layer, Cheng, Calhoun \& Reedy
+(L-SLOP-10) articulate four key principles and three categories of
+ethically sound generative-AI use for academic writing; at the
+technical-mitigation layer, Pellegrina \& Helmy (L-SLOP-12) review
+AI detectors and AI-assisted error / citation / image-verification
+tooling and conclude that these ``are not yet sufficiently accurate or
+reliable yet for use in academic assessment''. The differential of the
+present work is to apply these three strands in concert to the
+security-research interoperability context, and to operationalise them
+as an \emph{executable agent prompt}
+(\texttt{docs/prompts/research-protocol-prompt.md}) that an AI agent
+can be instructed to follow and that a human reviewer can audit by
+reading the artifacts the protocol produces. We do not claim to
+subsume the Stockholm Declaration's system-level reforms or
+Cheng~et~al.'s practitioner guidelines; we claim to extend them into a
+runnable protocol whose compliance is checkable per artifact.
 
 \paragraph{A fourth structural claim: democratisation of science production.}
 The effort-gap collapse documented in
