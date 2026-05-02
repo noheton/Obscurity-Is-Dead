@@ -927,6 +927,175 @@ This logbook is the operating record for the paper and research process.
   - Resume `[lit-retrieved]` → `[lit-read]` upgrades.
   - Continue tracking §5.7 KPI; this session adds ~2 h AI-assisted work and produces one new data file, four new generation scripts, eight new figure assets, one new table, and one promoted prompt.
 
+### Session 13 — 2026-05-02 (IoT Integrator agent — Phase 0 bootstrap, Ondilo ICO Spa V2)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher invoked `docs/prompts/iot-integrator-prompt.md` with target `https://ondilo.com/de/produkt/ico-spa-v2-vernetzter-wasseranalysator/` (Ondilo ICO Spa V2 connected water analyzer).
+
+- Actions:
+  1. Created the experiment folder `experiments/iot-integrator-ondilo-ico-spa-v2/` with the full subfolder layout required by the prompt (`process/`, `original/`, `captures/`, `integration/`, `raw_conversations (copy&paste, web)/`).
+  2. Read the three prior `REPORT.md` files (EcoFlow PowerOcean, Spider Farmer, paper-meta-process) and distilled a 15-entry **Technique Inventory** with explicit source-section citations. Every entry traces to a specific prior `REPORT.md` section per the prompt's "do not invent techniques" constraint.
+  3. Drafted the **Target Intake Summary** with what the researcher has declared (vendor URL, model V2, device class) and an explicit table of the five open intake fields (control surface, privacy boundary, available artifacts, ownership confirmation, cloud-touching probe authorisation). Per the prompt these are blockers before Phase 1.
+  4. Recorded a provisional privacy-relevance heuristic: even read-only spa-analyzer telemetry leaks presence/occupancy patterns, so the integration is not "low-stakes" by default.
+  5. Wrote `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` describing the layout and current status.
+
+- Files created:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/README.md`
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-0-bootstrap.md`
+  - (empty subfolders) `original/`, `captures/`, `integration/`, `raw_conversations (copy&paste, web)/`
+
+- Key decisions:
+  - Target slug: `ondilo-ico-spa-v2`. Mirrors the prompt's `iot-integrator-<target-slug>/` convention and matches the prior case studies' naming style.
+  - Phase 0 is paused at the user checkpoint pending researcher answers to the five intake gaps. No vendor cloud, no LAN probes, no APK download has been performed; rule 12 redaction has therefore not yet had to be applied (no new markers in `docs/redaction-policy.md`).
+  - The privacy-relevance heuristic is documented now so that Phase 1 cannot quietly treat the device as innocuous.
+
+- Open issues:
+  - Five Target Intake fields await researcher input (see `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-0-bootstrap.md` §0.2).
+  - All Session 7 issues (G1–G7) and Session 12 open items still apply.
+
+- Next steps:
+  - Researcher reviews the Technique Inventory and the five intake gaps, then issues an explicit "go" with the answers needed to start Phase 1 (Research).
+  - On "go", Phase 1 will produce `process/phase-1-research.md` covering existing HA / community integrations for the Ondilo ICO line, vendor and ecosystem (legal entity, jurisdiction, privacy policy), candidate interfaces (LAN HTTP, BLE, Ondilo public API), and open questions.
+
+### Session 14 — 2026-05-02 (IoT Integrator agent — Phase 1 research, Ondilo ICO Spa V2)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher closed the five Phase 0 intake gaps with: read-only scope; "as private as reasonable" privacy boundary with local preference; APKPure listing for `fr.ondilo.ico.icomanager` as the seed artifact; ownership confirmed; cloud-touching probes deferred until per-call confirmation.
+
+- Actions:
+  1. Updated `process/phase-0-bootstrap.md` to record the researcher's answers verbatim alongside the protocol resolution for each field.
+  2. Wrote `process/phase-1-research.md` with the four sections required by the prompt — Existing Solutions (7 entries), Vendor and Ecosystem (Ondilo SAS / SIREN 818423626 / Saint-Cannat / OVH-hosted), Available Artifacts (8-row catalogue, no downloads), Candidate Interfaces A–F (Cloud REST / LAN HTTP / BLE GATT / Wi-Fi MQTT / ESPHome reflash ruled out / Adopt-ES-1 documentation-only) — plus an Open Questions table OQ-1..OQ-7 carried into Phase 2.
+  3. Recorded the central Phase 1 finding: every catalogued working integration depends on the Ondilo cloud via OAuth2; no LAN-local or BLE-local read path is implemented anywhere we could find. The "gap that justifies new work" is therefore the absence of a local-first read-only integration, not a missing feature in the cloud path.
+  4. Refreshed `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` with the per-phase status board.
+
+- Files updated/created:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-0-bootstrap.md` (intake gaps → researcher answers)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-1-research.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` (status board)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - No Phase 1 web fetch was authenticated; several vendor pages returned HTTP 403 to the tool and were summarised from search snippets — clearly flagged in §1.7. No researcher-side fetch was requested in this turn; if Phase 2 needs the page contents, the researcher will be asked to fetch them locally.
+  - APK was *not* downloaded. Per the prompt, Phase 1 catalogues; Phase 2 ingests with SHA-256 recording.
+  - Interface E (ESPHome reflash) was ruled out at the paper-sketch stage on physical-feasibility grounds (sealed floating spa probe, electrochemical sensors, calibration loss).
+  - The "Adopt ES-1 with documented privacy mitigations" Interface F is preserved as a *valid* Phase 3 outcome under prompt §3.2's documentation-only branch, contingent on the researcher's per-call cloud authorisation.
+
+- Open issues:
+  - OQ-1..OQ-7 in `phase-1-research.md` §1.5 — hardware delta V1→V2, LAN HTTP existence, BLE measurement-vs-setup role, data jurisdiction, third-party SDK inventory, refresh-token revocation surface, household-identifier exposure during HA OAuth.
+  - All Session 7 / Session 12 issues remain open.
+
+- Next steps:
+  - Researcher reviews Phase 1 and explicitly authorises (or refuses) the move into Phase 2. Phase 2 will require *per-probe* researcher authorisation for any APK download, BLE scan, LAN scan, or vendor-cloud authenticated call, per the researcher's intake answer "escalate to public api after confirmation with user".
+  - If approved, the first Phase 2 step will be `T-APK-STRINGS` static analysis on a researcher-downloaded copy of `fr.ondilo.ico.icomanager`, with all sensitive identifiers tagged at capture time.
+
+### Session 15 — 2026-05-02 (IoT Integrator agent — Phase 2 weakness, Ondilo ICO Spa V2)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher checkpoint reply "then escalate to cloud" authorising the cloud-path integration shape (Interface A / F from `phase-1-research.md` §1.4).
+
+- Actions:
+  1. Cross-referenced HA core `ondilo_ico/{const,api,coordinator,sensor}.py` and the JeromeHXP `ondilo` library against the vendor Customer API doc to produce a verbatim constants list (OAuth endpoints, hardcoded `client_id="customer_api"`, empty client secret, hub poll 20 min, measurement poll ~65 min, no 429 / no token-refresh-failure handling).
+  2. Drafted `process/phase-2-weakness.md` with the weakness table W-1..W-7, an explicit Privacy & Security Review (§2.4), an EcoFlow / Spider-Farmer dual-use comparison per `CLAUDE.md` rule 5, and a pre-allocated redaction-marker plan (`S-OND-1` … `S-OND-8`) ready to activate against `docs/redaction-policy.md` when Phase 3 records its first researcher-side artifact.
+  3. Recommended Phase 3 shape: **Interface F — configuration-only adoption of the existing HA core integration with documented operational mitigations.** No new custom_component, per the prompt's §3.1 "reject scope creep" rule. APK static analysis (`T-APK-STRINGS`) and any LAN/BLE probes remain explicitly deferred; the researcher's cloud authorisation made them unnecessary for the chosen shape.
+  4. Refreshed `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` with the new status.
+
+- Files updated/created:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-2-weakness.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` (status board)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - No vendor-cloud authenticated call was issued; the researcher's "escalate to cloud" authorises the *integration shape*, not an agent-side login.
+  - No APK download in this turn; the cloud-shape Phase 3 does not depend on the SDK inventory. The researcher can re-open OQ-5 later if onboarding privacy becomes a deciding factor.
+  - Spider-Farmer-style hardcoded-key analysis is *not* applicable to the chosen path (cloud TLS+OAuth is genuine authentication, not obscurity); this is recorded in §2.4.4 as a deliberate non-application of `T-IV-KEY-RECOVERY` rather than an oversight.
+  - Redaction markers `S-OND-1` … `S-OND-8` are *pre-allocated* and will be activated lazily — only the ones that actually appear in committed artifacts will be added to `docs/redaction-policy.md`. No new entries in `docs/redaction-policy.md` in this turn.
+
+- Open issues:
+  - OQ-1, OQ-2, OQ-3, OQ-4, OQ-5, OQ-7 from `phase-1-research.md` §1.5 remain open (deferred deliberately by the cloud-path choice).
+  - OQ-6 (refresh-token revocation surface) is partially answered: documentation says "non-expiring"; account-level revocation path needs empirical confirmation in Phase 3 if it matters.
+
+- Next steps:
+  - Researcher reviews the weakness table and explicitly authorises (or refuses) the move into Phase 3 with shape Interface F. On approval, Phase 3 will produce: (a) the configuration-only artifact in `integration/` describing the steps for adopting `ondilo_ico` in HA, (b) operational notes (token rotation, backup hygiene, pool nickname aliasing), (c) dual-use reflection per rule 5, and (d) `docs/redaction-policy.md` updates as researcher-supplied identifiers come in.
+
+### Session 16 — 2026-05-02 (IoT Integrator agent — Phase 3 implementation, APK addendum, close-out)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher checkpoint reply "yes" (interpreted as: go for Phase 3 with Interface F, accept pool-nickname alias recommendation, defer APK SDK detail) and a follow-up "perform the apk analysis in parallel".
+
+- Actions:
+  1. Wrote `process/phase-2-weakness-apk-addendum.md` closing W-7 / OQ-5 to the manifest-permission layer (22 declared permissions, latest mirror version 4.3.1, minSDK 23, arm64-v8a). Surfaced FCM (`c2dm.RECEIVE`), Play Install Referrer, and Google Advertising ID as *manifest-level* signals; full DEX-level SDK inventory queued as researcher-runnable §A.5 protocol. **No APK was downloaded by the agent.**
+  2. Wrote `process/phase-3-implementation.md` covering Design (§3.1), Build (§3.2), Validation (§3.3 — agent validated upstream constants; end-to-end runs are researcher-side), Operational notes (§3.4), and Dual-use reflection (§3.5). Chosen integration shape: **Interface F — configuration-only adoption of the existing HA core integration** with documented operational mitigations. Producing a parallel custom_component would have violated prompt §3.1 scope-creep rule.
+  3. Built the runnable artifact set under `experiments/iot-integrator-ondilo-ico-spa-v2/integration/`: `README.md`, `operational-notes.md`, `validation-checklist.md`, `dual-use.md`, and `smoke-test.py`. The smoke-test contains placeholder tokens only and is opt-in (`--live`).
+  4. Wrote close-out files: `process/summary.md` (paper-citation narrative), `REPORT.md` (top-level mirror of prior case-study reports), `provenance.md` (per-artifact AI/researcher attribution and verification-status).
+  5. Refreshed `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` status board.
+
+- Files updated/created:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-2-weakness-apk-addendum.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-3-implementation.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/summary.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/REPORT.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/provenance.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/README.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/operational-notes.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/validation-checklist.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/dual-use.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/smoke-test.py` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` (status update)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - **No new custom_component.** The HA core `ondilo_ico` integration already implements the read-only intake exactly; producing a fork would duplicate without privacy benefit. This is the prompt §3.2 "documentation-only recommendation" branch *softened* — the privacy cost is acceptable to the researcher (cloud authorised), so the deliverable is configuration steps + ops notes + dual-use, not a no-go.
+  - APK analysis stayed on the manifest-permission public-mirror layer; the binary layer is documented as a researcher-runnable protocol (§A.5). Justification: the chosen Phase 3 shape does not depend on the DEX-level SDK list, and downloading the APK without need would have widened the third-party-data surface unnecessarily.
+  - Validation is researcher-side. The agent has no access to the researcher's account, browser, or HA instance; the artifact set ships a redaction-aware checklist that produces one redacted log under `captures/`.
+  - `docs/redaction-policy.md` carries no new rows: the markers `S-OND-1` … `S-OND-8` are pre-allocated in `phase-2-weakness.md` §2.5 and will be added to the policy *only* for those that are actually used in the validation log.
+
+- Open issues:
+  - Researcher-side validation log under `captures/phase-3-validation.log.redacted` is not yet produced.
+  - Raw conversation transcript export under `raw_conversations (copy&paste, web)/` not yet produced.
+  - OQ-1, OQ-2, OQ-3, OQ-4, OQ-5 (DEX-level), OQ-6, OQ-7 from `phase-1-research.md` §1.5 remain deferred by the cloud-shape choice and the deliberate stop at the manifest-permission APK layer.
+  - All Session 7 / 12 issues remain open.
+
+- Next steps:
+  - Researcher executes `integration/validation-checklist.md` and lands the redacted log.
+  - Researcher exports the chat session that produced this case study into `raw_conversations (copy&paste, web)/`.
+  - Researcher reviews `provenance.md` against the actual session sequence and amends the AI/researcher attribution if needed.
+  - When the paper next cites this case study, link to `experiments/iot-integrator-ondilo-ico-spa-v2/process/summary.md` (the consolidated narrative, not the per-phase reports).
+
+### Session 17 — 2026-05-02 (IoT Integrator prompt — generalised to enumerate all experiments)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher request "generalize the iot integrator prompt to learn from all existing experiments" — replace the hard-coded list of three prior case studies with runtime enumeration of `experiments/*/REPORT.md`, so the prompt is self-augmenting in the strict sense (each new IoT Integrator run feeds the next without an edit to the prompt).
+
+- Actions on `docs/prompts/iot-integrator-prompt.md`:
+  1. Removed the canonical "three prior case studies" list from Purpose §1, Context, and Phase 0.1. The prompt now requires the agent to enumerate `experiments/*/REPORT.md` at runtime, exclude only the new run's own report (if it exists from a partial earlier attempt), and read each remaining file in full.
+  2. Restructured Phase 0.1 into 0.1.a–0.1.e: enumerate, read, extract, deduplicate-do-not-invent, and explicitly weight prior IoT Integrator reports equally with the original case studies (closing the self-augmenting loop).
+  3. Replaced the canonical case-study enumeration in Context with informational *tags* (cloud-write-surface, BLE/radio RE, paper meta-process, prior IoT Integrator runs) and licensed the agent to invent a new tag when a runtime report does not match any of them.
+  4. Generalised the structural-mirror reference under continuous-documentation duties from "mirroring `ecoflow-powerocean` and `spider-farmer`" to "mirroring the existing case studies under `experiments/`".
+  5. Generalised the obscurity-vs-authentication precedent from "cite the Spider Farmer precedent" to "cite the closest applicable precedent from the input set, by exact path and section".
+  6. Rewrote the closing "Why this is the self-augmenting stage" section to describe the loop in concrete steps: run N enumerates → inventory → REPORT.md → run N+1 enumerates again with run N's report included.
+
+- Files updated:
+  - `docs/prompts/iot-integrator-prompt.md` (six edits as above)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The prompt is now order-agnostic about the input set. It does not say "EcoFlow first, then Spider Farmer, then paper-meta-process"; it says "every `experiments/*/REPORT.md`, equal weight". This avoids privileging early case studies over later runs of the same prompt.
+  - Prior IoT Integrator reports are explicitly *not* second-class. Their techniques can shape the next run's Technique Inventory exactly like the original three did. This is the strict form of self-augmentation.
+  - The original three case-study shapes are kept as informational tags, not as a canonical list, so a researcher reading the prompt still gets a quick mental model of the input set's *kinds* without the prompt becoming a frozen registry.
+
+- Open issues:
+  - The just-completed `experiments/iot-integrator-ondilo-ico-spa-v2/REPORT.md` is now an eligible methodological input for the next IoT Integrator run. A future run targeting a different device will see its `T-CAPTURE-TIME-REDACTION`, `T-OBSCURITY-VS-AUTH` (cloud-openness form), `T-DUAL-USE-MIRROR` (narrow form), and the per-phase researcher-checkpoint discipline as anchored techniques.
+  - All Session 7 / 12 issues remain open.
+
+- Next steps:
+  - Researcher reviews the generalised prompt and confirms the runtime-enumeration approach is what was meant.
+  - Optional: a small CI / pre-commit check that fails if the prompt re-introduces a hard-coded case-study path (regex `experiments/(ecoflow-powerocean|spider-farmer|paper-meta-process)/REPORT\.md` outside an example block).
+
 ### Session 12 — 2026-05-02 (README ↔ paper mirror discipline; rule 15)
 
 - Branch: `claude/enhance-readme-illustrations-hcKqw`.
