@@ -48,19 +48,18 @@ section numbers in the form required by `docs/prompts/iot-integrator-prompt.md`
 - **Device class:** Connected pool/spa water-quality analyzer. The first-generation Ondilo ICO is widely catalogued as a Wi-Fi + Bluetooth floating sensor reporting ORP, pH, water temperature, salinity (model-dependent), and battery state to a vendor cloud, with a Home Assistant cloud-polling integration in the HA core. Whether the "V2" hardware preserves this interface profile, and whether it adds local control, is itself an open question to be resolved in Phase 1.
 - **Firmware version:** unknown.
 
-### Gaps (the prompt §0.2 requires these before Phase 1 may start)
+### Researcher answers (received 2026-05-02)
 
-The prompt is explicit: *"If any of these are missing, stop and ask."* The
-following intake fields have not been provided by the researcher and are
-therefore left as gaps to be filled at the Phase 0 → Phase 1 user checkpoint.
+The researcher closed the five intake gaps in the Phase 0 → Phase 1 checkpoint
+turn. Recorded verbatim and resolved as follows:
 
-| Intake field | Status | Question to researcher |
-|--------------|--------|------------------------|
-| Desired control surface | **Open** | Read-only sensor exposure (pH, ORP, temperature, salinity, battery) only? Or also write/actuation (e.g. recommended-treatment dispatch, set-point thresholds, calibration triggers) and/or device configuration / OTA control? |
-| Privacy boundary | **Open** | Hard "no traffic to Ondilo cloud" (LAN/BLE-only)? Or "cloud accepted but with documented telemetry minimisation"? Are mDNS/SSDP broadcasts of device names containing the household identifier acceptable? Is any third-party analytics SDK in the vendor app a hard blocker? |
-| Artifacts available | **Open** | Which of the following can the researcher legally and ethically supply: (a) Ondilo Android/iOS app APK/IPA the researcher has downloaded for their own device; (b) BLE advertisements from the researcher's *own* ICO Spa V2; (c) packet captures of the device's traffic on the researcher's own LAN; (d) HA debug logs from the existing Ondilo HA integration if installed; (e) any vendor-published API/SDK documentation? |
-| Device ownership status | **Open** | Confirm the researcher owns the device under study (rule 5 / refuse third-party access path constraint). |
-| Cloud-touching probes | **Open** | Is the researcher authorising any cloud-touching probe in Phase 2 (e.g. authenticated call to the documented Ondilo public API on the researcher's own account), or is the boundary strictly LAN/BLE-local? |
+| Intake field | Researcher answer | Resolution for the protocol |
+|--------------|-------------------|-----------------------------|
+| Desired control surface | "read only in this case" | Read-only telemetry: temperature, ORP, pH, TDS, salt, battery, RSSI. No write, no actuation, no configuration, no OTA. Phase 2 weakness analysis must not produce write handles. |
+| Privacy boundary | "as private as reasonable" + "prefer local" | Soft local-first boundary: prefer LAN/BLE-only paths; cloud allowed only with documented privacy cost and explicit per-call authorisation. mDNS/SSDP scoped to user's own device, no neighbour logging. No new vendor accounts beyond the one the researcher already operates. |
+| Artifacts available | "initial artifact `https://apkpure.com/ico-%E2%80%93-smart-pool-spa-partner/fr.ondilo.ico.icomanager`" | Vendor app APK from APKPure (package `fr.ondilo.ico.icomanager`) is the seed artifact. Other artifacts (BLE captures, LAN PCAP, HA logs) deferred — researcher will be asked per-probe in Phase 2 before any local capture. |
+| Device ownership status | "i own this device" | Confirmed. Researcher's own ICO Spa V2 is the only device class in scope. No third-party device, no second-hand-ownership ambiguity. |
+| Cloud-touching probes | "escalate to public api after confirmation with user" | No vendor-cloud authenticated call in Phase 1. The Ondilo Customer API (cloud) is **available** as an escalation path, but each authenticated call must be re-confirmed at the moment it is needed in Phase 2 or Phase 3. |
 
 ### Non-targets (ruled out at intake)
 
@@ -87,15 +86,13 @@ research does not silently treat the device as innocuous.
 
 ## 0.3 Status and next step
 
-- **Phase 0 work product complete** for the parts that do not depend on
-  researcher input: the Technique Inventory is closed and traced to prior
-  REPORTs.
-- **Phase 0 is blocked** on the five Target Intake gaps above. Per the prompt's
-  user-checkpoint rule, Phase 1 may not start until the researcher has
-  acknowledged this summary and supplied (or explicitly deferred) each open
-  intake field.
-- No live system, vendor cloud, or third-party artifact has been touched in
-  Phase 0. No new redaction markers were introduced; `docs/redaction-policy.md`
-  is unchanged by this phase.
+- **Phase 0 closed** on 2026-05-02. Technique Inventory finalised; Target Intake
+  resolved by the researcher's checkpoint reply.
+- **Phase 1 unblocked.** Scope: read-only desk research, no live system or vendor
+  cloud contacted. The seed artifact for Phase 2 will be the APKPure listing
+  the researcher named (`fr.ondilo.ico.icomanager`); the package itself is
+  *catalogued* in Phase 1, not downloaded.
+- No new redaction markers introduced in Phase 0; `docs/redaction-policy.md`
+  unchanged.
 
 — end Phase 0 bootstrap —

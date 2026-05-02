@@ -22,9 +22,13 @@ the three prior experiments in this repository:
 
 ## Status
 
-Phase 0 (bootstrap + target intake) drafted. Awaiting researcher input on the
-five open intake fields recorded in `process/phase-0-bootstrap.md` §0.2 before
-Phase 1 may start.
+- **Phase 0** (bootstrap + target intake) — closed 2026-05-02. Researcher
+  answers recorded in `process/phase-0-bootstrap.md` §0.2.
+- **Phase 1** (read-only desk research) — drafted 2026-05-02 in
+  `process/phase-1-research.md`. Awaiting researcher acknowledgement at the
+  Phase 1 → Phase 2 checkpoint.
+- **Phase 2** (weakness analysis) — not started.
+- **Phase 3** (implementation) — not started.
 
 ## AI / researcher attribution
 
