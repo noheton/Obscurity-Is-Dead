@@ -642,3 +642,81 @@ This logbook is the operating record for the paper and research process.
   - Verify the next CI run on this branch produces a `paper-pdf` artifact that
     renders the new banner correctly on page 1.
   - Continue tracking §5.7 KPI each session until submission.
+
+---
+
+### Session 7 — 2026-05-02 (submission plan)
+
+- Branch: `claude/plan-paper-submission-0Mzoa`
+- Session lead: Researcher (with AI-assisted drafting; Claude, claude-opus-4-7)
+
+- User request: produce a submission plan based on the paper, with high
+  relevance, archive-allowed venues, and Zenodo as fallback.
+
+- Actions taken:
+  - Surveyed the paper's hybrid character (security empirical + AI
+    methodology + research-integrity + legal/right-to-repair) and mapped each
+    research strand to a candidate venue family.
+  - Created `docs/submission-plan.md` (new): canonical plan with paper-fit
+    assessment, nine readiness gates G1–G9 (DRAFT-banner removal, git history
+    rewrite, vendor redistribution, lit-read upgrade, UrhG sourcing,
+    pre-publication legal review, Zenodo DOI minting, CI re-verify, §5.7 KPI
+    re-verify), a five-tier venue ranking (P1 arXiv → P2 USENIX Security →
+    P3 ACM FAccT → P4 ACM DTRAP → P5 CCS / S&P / NDSS) with explicit
+    fit-risk notes, a per-submission workflow, a Zenodo fallback procedure,
+    a decision-flow diagram, an author-consent gate list (rule 13), and
+    five open questions the author must decide before any submission step.
+  - Designated arXiv (cs.CR primary, cs.CY / cs.SE cross-list) as the
+    unconditional first move once gates are clear; designated Zenodo as the
+    explicit fallback if no peer-reviewed path is pursued or accepted, and
+    as the recommended companion archive even when peer review is pursued.
+  - Excluded venues that require copyright transfer or that prohibit
+    pre-/post-print self-archiving (incompatible with CC-BY-4.0 grant).
+  - Reaffirmed rule 13 as the binding gate: the plan is a forecast and a
+    checklist, not authorisation. Every public step requires explicit
+    written consent and a logbook entry recording the consent decision.
+
+- Files updated:
+  - `docs/submission-plan.md` (new)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - Do **not** designate a single primary venue. The choice between P2
+    (USENIX Security), P3 (FAccT), and P4 (DTRAP) is a substantive
+    research-strategy decision the author must make. The plan ranks them
+    with reasoning but defers the choice.
+  - Treat G4 (lit-read upgrade for ~70 `[lit-retrieved]` entries) as a
+    **soft** blocker for arXiv but a **hard** blocker for any peer-reviewed
+    venue. Arxiv-ing a paper with unread citations would publicise the
+    sloppification problem the paper itself critiques (§7.6); the plan
+    recommends clearing G4 before any public release.
+  - Default the Zenodo deposit to **exclude** `experiments/*/original/`
+    until G3 (vendor redistribution status) is resolved, citing the paper's
+    own reproducibility argument: claims are reproducible against the
+    GitHub repo at the pinned commit, so the Zenodo record can carry the
+    human-authored research artifact alone.
+  - State all submission deadlines as patterns ("rolling cycles", "annual
+    Feb deadline") rather than hard dates; live CFPs change annually and
+    the plan must survive deadline shifts.
+
+- Open issues (carried over and re-stated for completeness):
+  - G1 — DRAFT banner still present in `paper/main.md` and `paper/main.tex`.
+  - G2 — Git history rewrite still required; raw credentials remain in
+    prior commits on `claude/develop-paper-structure-7lG2s`.
+  - G3 — Vendor APK / PDF redistribution status unresolved (S-SF-4,
+    S-EF-2..4 in `docs/sources.md`).
+  - G4 — All Cluster A–K literature entries are `[lit-retrieved]`, none
+    `[lit-read]`. Reading and upgrading is the largest piece of
+    pre-submission work.
+  - G5 — § 69e UrhG / § 44b UrhG / EU 2009/24/EC / EU DSM 2019/790 / EU AI
+    Act Art. 53 / *Kneschke v LAION* still `[unverified-external]`.
+  - G6 — Pre-publication legal review pending.
+  - G7 — Zenodo DOI not yet minted (gated by G2 since deposits are
+    immutable).
+
+- Next steps:
+  - Author decides among the five open questions in
+    `docs/submission-plan.md` §8 (primary venue, lit-read sequencing,
+    vendor-tarball inclusion, co-author invitation, submission cycle).
+  - Continue clearing G1–G7 in priority order.
+  - Continue tracking §5.7 KPI each session until submission.
