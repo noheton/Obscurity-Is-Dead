@@ -21,3 +21,15 @@ When generating content or code in this repo, follow these rules:
 12. Redact all security-sensitive and legally questionable information before any public-facing commit. Items requiring redaction include: live credentials (usernames, passwords, API keys, tokens), device serial numbers, local IP addresses, private UIDs, and any information that could enable exploitation of a live system. Replace redacted values with a structured marker of the form `[REDACTED:<type>:<source-id>]` (e.g. `[REDACTED:credential:S-SF-5-password]`). Record every redacted item in `docs/redaction-policy.md`. Never commit redacted items to history; a git history rewrite is required before any public mirror or Zenodo archive is created.
 13. Never publish, push to a public remote, create a Zenodo deposit, submit to arXiv, or otherwise distribute the paper or repository without explicit written consent from the human author (Florian Krebs). The build pipeline (`make pdf`, `make arxiv`) produces local artifacts only. The Makefile `arxiv` target must never be run automatically; it requires explicit human approval. Add a prominent warning to `paper/Makefile` if not already present.
 14. If a paper figure, plot, or chart is based on data, the data file and the generation script that produces the figure must both be committed to the repository and referenced in both `paper/main.md` and `paper/main.tex`. Figures produced by external tools or manually drawn are exempt but must be noted as such in a comment in the figure directory.
+
+## Agent workflow
+
+The repository uses a three-stage agent pipeline. Executable prompts are stored in `docs/prompts/`:
+
+| Stage | Prompt file | Trigger |
+|-------|-------------|---------|
+| 1. Research protocol | `docs/prompts/research-protocol-prompt.md` | New case study or evidence pass |
+| 2. Scientific writer | `docs/prompts/scientific-writer-prompt.md` | After research pass; before submission |
+| 3. Illustration | `docs/prompts/illustration-prompt.md` | After scientific writer produces the Illustration Opportunities Registry (stub — not yet executable) |
+
+Run the stages in order. The scientific writer may not be run until the researcher has completed a full pass. The illustration agent may not be run until the scientific writer has produced the Illustration Opportunities Registry and the researcher has confirmed the priority entries.

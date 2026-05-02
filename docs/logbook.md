@@ -720,3 +720,52 @@ This logbook is the operating record for the paper and research process.
     vendor-tarball inclusion, co-author invitation, submission cycle).
   - Continue clearing G1–G7 in priority order.
   - Continue tracking §5.7 KPI each session until submission.
+
+---
+
+### Session 8 — 2026-05-02 (scientific-writer prompt + docs/prompts/ directory)
+
+- Branch: `claude/add-scientific-writer-prompt-MR22b`
+- Session lead: AI-assisted (Claude, claude-sonnet-4-6); researcher review pending.
+
+- Actions taken:
+  - **Introduced `docs/prompts/` directory** as the canonical home for all agent prompt files.
+  - **Moved `docs/research-protocol-prompt.md`** → `docs/prompts/research-protocol-prompt.md`. The file was previously at the top of `docs/`; it now lives alongside the other agent prompts for consistency.
+  - **Wrote `docs/prompts/scientific-writer-prompt.md`** (new). A full executable agent prompt covering:
+    - Step 1: orientation (read logbook, sources, both paper files; surface rule 11 conflicts before editing).
+    - Step 2: scientific register and prose quality (vocabulary, sentence structure, claims/evidence coupling, abstract BMRC form).
+    - Step 3: LaTeX typesetting conventions (dashes, ties, math/text mode, figures, references, sectioning).
+    - Step 4: illustration opportunity identification — agents insert structured `[ILLUSTRATION OPPORTUNITY] ILL-xx` annotations in both paper files and produce a consolidated Illustration Opportunities Registry.
+    - Step 5: rule 11 consistency verification.
+    - Deliverables: updated `paper/main.md`, updated `paper/main.tex`, registry, change summary, logbook entry draft.
+  - **Created `docs/prompts/illustration-prompt.md`** (new stub). Records the purpose and inputs of the future illustration agent. Includes a stub-promotion checklist requiring the scientific writer's Illustration Opportunities Registry and researcher confirmation before the stub becomes executable.
+  - **Relocated `README_notes.md`** from the repository root to `experiments/paper-meta-process/raw_conversations (copy&paste, web)/T0-initial-gemini-seed.md`. This file is the verbatim text of the initial Gemini conversation that seeded the paper concept; it is a first-class research artifact and now resides alongside the other conversation transcripts. It was superfluous at the root level.
+  - **Updated `CLAUDE.md` and all three mirrors** (`CLAUDE_CODE_INSTRUCTIONS.md`, `copilot-instructions.md`, `.instructions.md`) to document the three-stage agent pipeline as a new "Agent workflow" section referencing `docs/prompts/`.
+
+- Files updated:
+  - `docs/prompts/research-protocol-prompt.md` (moved from `docs/research-protocol-prompt.md`)
+  - `docs/prompts/scientific-writer-prompt.md` (new)
+  - `docs/prompts/illustration-prompt.md` (new stub)
+  - `experiments/paper-meta-process/raw_conversations (copy&paste, web)/T0-initial-gemini-seed.md` (moved from `README_notes.md`)
+  - `CLAUDE.md`, `CLAUDE_CODE_INSTRUCTIONS.md`, `copilot-instructions.md`, `.instructions.md`
+  - `docs/logbook.md` (this entry)
+
+- Files removed:
+  - `docs/research-protocol-prompt.md` (moved to `docs/prompts/`)
+  - `README_notes.md` (moved to `experiments/paper-meta-process/`)
+
+- Key decisions:
+  - The scientific writer prompt is intentionally read-only with respect to claims: it elevates register and typesetting but must not alter meaning. Ambiguous sentences are annotated `[AUTHOR REVIEW NEEDED]` rather than silently rewritten.
+  - Illustration opportunities are injected as structured stub annotations (`ILL-xx`) rather than being executed immediately; this allows the researcher to review the registry and set priorities before any figure work begins.
+  - The illustration prompt is committed as a stub rather than left absent so that the registry's target location is explicit and the checklist for promotion is visible to all agents.
+  - `README_notes.md` at the root was superfluous: its content (the original Gemini brainstorm) is a research artifact of the paper's meta-process case study, not a project-level README. Moving it preserves the artifact without cluttering the root.
+
+- Open issues (carried over):
+  - G1–G7 from Session 7 all remain open.
+  - `[lit-retrieved]` → `[lit-read]` upgrades still pending for all clusters.
+
+- Next steps:
+  - Run the scientific writer prompt against `paper/main.md` and `paper/main.tex` to produce the Illustration Opportunities Registry.
+  - Researcher reviews the registry and confirms priority H entries.
+  - Promote `docs/prompts/illustration-prompt.md` from stub to executable once registry is confirmed.
+  - Continue tracking §5.7 KPI each session until submission.
