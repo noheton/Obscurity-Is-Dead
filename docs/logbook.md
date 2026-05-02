@@ -772,6 +772,8 @@ This logbook is the operating record for the paper and research process.
 
 ---
 
+---
+
 ### Session 9 — 2026-05-02 (privacy as a user right — data-backed remarks)
 
 - Branch: `claude/add-privacy-remarks-Zr1eE`
@@ -808,3 +810,73 @@ This logbook is the operating record for the paper and research process.
   - Commit and push to `claude/add-privacy-remarks-Zr1eE`.
   - Update §5.7 KPI table in a follow-up session if requested (this session adds ~1.5 h of AI-assisted scaffolding and prose).
   - Begin reading the highest-priority L-PRIV entries (L-PRIV-1 Ren 2019 IMC; L-PRIV-5 Nan 2023; L-PRIV-9 Kazlouski 2022; L-PRIV-11 Kollnig 2021) and upgrade to `[lit-read]`.
+
+---
+
+### Session 10 — 2026-05-02 (scientific writer pass)
+
+- Branch: `claude/run-scientific-writer-prompt-mETYO`
+- Session lead: AI-assisted (Claude, claude-sonnet-4-6); researcher review pending.
+- Prompt executed: `docs/prompts/scientific-writer-prompt.md`
+
+- Actions taken:
+
+  **Step 1 — Orientation.** Read `docs/logbook.md`, `docs/sources.md`, `paper/main.md`, and `paper/main.tex` in full. Confirmed both paper files are structurally consistent before editing. Identified four categories of issue requiring correction before illustration-opportunity insertion:
+  1. Abstract mismatch (main.md shorter than main.tex — missing third case study sentence and sloppification/model-collapse sentence).
+  2. Stale file path: `docs/research-protocol-prompt.md` → `docs/prompts/research-protocol-prompt.md` (4 locations in each file; file was moved in Session 8).
+  3. Missing `[@dfg2023]` citation in `paper/main.md` §2.4 (present in main.tex `\citep{dfg2023}` but absent from MD counterpart).
+  4. Truncated BLE UUID in `paper/main.md` §3.4 (`000000ff-…` → `000000ff-0000-1000-8000-00805f9b34fb`, matching main.tex).
+
+  **Step 2 — Scientific register and prose quality.**
+  - Abstract: synchronised `paper/main.md` to match `paper/main.tex` (added third recursive case study mention; added sloppification/model-collapse sentence).
+  - §2.4: added `[@dfg2023]` Pandoc-style citation after "DFG Guidelines for Safeguarding Good Research Practice" in `paper/main.md` to match `\citep{dfg2023}` in `paper/main.tex`.
+  - §3.4: corrected truncated BLE service UUID in `paper/main.md`; changed comma separator to semicolon to match `paper/main.tex`.
+  - No `[CITATION NEEDED]` flags required: all empirical claims are sourced to vendor code or to explicitly `[lit-retrieved]` source-register handles.
+  - No `[AUTHOR REVIEW NEEDED]` flags required in prose; one flag added to `paper/main.tex` (see below).
+
+  **Step 3 — LaTeX typesetting corrections.**
+  - Fixed raw Unicode arrow `→` in SF KPI table (§3.7, line 358) to `\texttt{1\,$\to$\,2}` — consistent with usage elsewhere in the file.
+  - Fixed meta-process KPI table (§5.7, line 713): bare commit SHA `dae235f` wrapped in `\texttt{}`; `§10`, `§7.10`, `§7.11`, `§5.7` tokens replaced with `\S{}10`, `\S{}7.10`, `\S{}7.11`, `\S{}5.7`.
+  - Moved cross-case comparison table caption (§6.1 / `tab:cross-case`) above `\begin{tabular}` per the "table captions above table body" rule.
+  - Added `[AUTHOR REVIEW NEEDED]` comment before `\section*{Ethics and reproducibility statement}` flagging that the unnumbered section should be confirmed against the target venue's style requirements.
+  - Fixed `paper/references.bib` `@article{dfg2023}` → `@misc{dfg2023}` (the entry has `howpublished`, not `journal`; also corrected the author field to the full institutional name).
+
+  **Step 4 — Illustration opportunities.**
+  Five `ILL-xx` annotations inserted in both `paper/main.md` (blockquote format) and `paper/main.tex` (comment format):
+  - **ILL-01** (`comparison-table`, §3.4, H): key/IV candidates from the four implementations side-by-side, showing pre- and post-reconciliation agreement.
+  - **ILL-02** (`architecture-diagram`, §4.3, H): EcoFlow three-surface API diagram labelled with consumer-app surface, documented surface, and integration selection.
+  - **ILL-03** (`workflow-diagram`, §5.5, M): verification-status pipeline `[needs-research]` → `[lit-retrieved]` → `[lit-read]` annotated with what claims each status permits.
+  - **ILL-04** (`bar-chart`, §7.3, H): effort-gap by workflow stage (Discovery / Build / Debug / Validation) per case, making the asymmetric-collapse claim empirically concrete.
+  - **ILL-05** (`conceptual-diagram`, §10, M): mapping of the eight integrated practices onto failure-mode axes (fabricated citations / prompt injection / tooling drift); candidate visual abstract.
+
+  **Step 5 — Rule 11 consistency verification.**
+  - Every prose correction in `paper/main.md` mirrored to `paper/main.tex` and vice versa.
+  - Path updates applied to both files via `replace_all`.
+  - Illustration blockquotes and LaTeX comments inserted at matching locations.
+  - No outstanding cross-file inconsistencies found after edits.
+
+- Files updated:
+  - `paper/main.md`
+  - `paper/main.tex`
+  - `paper/references.bib`
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - Stale `docs/research-protocol-prompt.md` paths corrected in both files — this was a silent inconsistency introduced when Session 8 moved the file to `docs/prompts/`.
+  - The DFG citation discrepancy between the two files is now resolved; `[@dfg2023]` added to the MD.
+  - `\section*{Ethics and reproducibility statement}` left unnumbered but flagged for venue-dependent confirmation; changing it to numbered would add §11 and is a substantive editorial decision.
+  - `dfg2023` bib entry corrected from `@article` to `@misc` to avoid a BibTeX warning about missing `journal` field; author expanded to institutional form for `plainnat` style.
+  - ILL-04 assigned H priority because the asymmetric-collapse claim (§7.3) is one of the paper's central arguments and currently lacks any quantitative visualisation.
+  - Session numbering: this session was originally recorded as Session 9; renumbered to Session 10 after merging Session 9 (privacy remarks, PR #10) from main.
+
+- Open issues (carried over):
+  - G1–G7 from Session 7 all remain open.
+  - `[lit-retrieved]` → `[lit-read]` upgrades still pending for all clusters (A–L).
+  - ILL-01 through ILL-05 are stubs; illustration agent cannot run until researcher confirms priorities.
+  - `\section*{Ethics and reproducibility statement}` numbering decision pending venue selection.
+
+- Next steps:
+  - Researcher reviews the Illustration Opportunities Registry and marks priority entries.
+  - Promote `docs/prompts/illustration-prompt.md` from stub to executable once priority entries are confirmed.
+  - Continue clearing G1–G7 in priority order.
+  - Continue tracking §5.7 KPI each session until submission.
