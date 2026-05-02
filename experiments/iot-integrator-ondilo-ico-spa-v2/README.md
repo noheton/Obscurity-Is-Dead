@@ -27,7 +27,10 @@ the three prior experiments in this repository:
 - **Phase 1** (read-only desk research) — drafted 2026-05-02 in
   `process/phase-1-research.md`. Awaiting researcher acknowledgement at the
   Phase 1 → Phase 2 checkpoint.
-- **Phase 2** (weakness analysis) — not started.
+- **Phase 2** (weakness analysis) — drafted 2026-05-02 in
+  `process/phase-2-weakness.md` after the researcher authorised the cloud
+  escalation. Awaiting researcher acknowledgement at the Phase 2 → Phase 3
+  checkpoint.
 - **Phase 3** (implementation) — not started.
 
 ## AI / researcher attribution

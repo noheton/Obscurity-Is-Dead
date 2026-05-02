@@ -990,6 +990,36 @@ This logbook is the operating record for the paper and research process.
   - Researcher reviews Phase 1 and explicitly authorises (or refuses) the move into Phase 2. Phase 2 will require *per-probe* researcher authorisation for any APK download, BLE scan, LAN scan, or vendor-cloud authenticated call, per the researcher's intake answer "escalate to public api after confirmation with user".
   - If approved, the first Phase 2 step will be `T-APK-STRINGS` static analysis on a researcher-downloaded copy of `fr.ondilo.ico.icomanager`, with all sensitive identifiers tagged at capture time.
 
+### Session 15 — 2026-05-02 (IoT Integrator agent — Phase 2 weakness, Ondilo ICO Spa V2)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher checkpoint reply "then escalate to cloud" authorising the cloud-path integration shape (Interface A / F from `phase-1-research.md` §1.4).
+
+- Actions:
+  1. Cross-referenced HA core `ondilo_ico/{const,api,coordinator,sensor}.py` and the JeromeHXP `ondilo` library against the vendor Customer API doc to produce a verbatim constants list (OAuth endpoints, hardcoded `client_id="customer_api"`, empty client secret, hub poll 20 min, measurement poll ~65 min, no 429 / no token-refresh-failure handling).
+  2. Drafted `process/phase-2-weakness.md` with the weakness table W-1..W-7, an explicit Privacy & Security Review (§2.4), an EcoFlow / Spider-Farmer dual-use comparison per `CLAUDE.md` rule 5, and a pre-allocated redaction-marker plan (`S-OND-1` … `S-OND-8`) ready to activate against `docs/redaction-policy.md` when Phase 3 records its first researcher-side artifact.
+  3. Recommended Phase 3 shape: **Interface F — configuration-only adoption of the existing HA core integration with documented operational mitigations.** No new custom_component, per the prompt's §3.1 "reject scope creep" rule. APK static analysis (`T-APK-STRINGS`) and any LAN/BLE probes remain explicitly deferred; the researcher's cloud authorisation made them unnecessary for the chosen shape.
+  4. Refreshed `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` with the new status.
+
+- Files updated/created:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-2-weakness.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` (status board)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - No vendor-cloud authenticated call was issued; the researcher's "escalate to cloud" authorises the *integration shape*, not an agent-side login.
+  - No APK download in this turn; the cloud-shape Phase 3 does not depend on the SDK inventory. The researcher can re-open OQ-5 later if onboarding privacy becomes a deciding factor.
+  - Spider-Farmer-style hardcoded-key analysis is *not* applicable to the chosen path (cloud TLS+OAuth is genuine authentication, not obscurity); this is recorded in §2.4.4 as a deliberate non-application of `T-IV-KEY-RECOVERY` rather than an oversight.
+  - Redaction markers `S-OND-1` … `S-OND-8` are *pre-allocated* and will be activated lazily — only the ones that actually appear in committed artifacts will be added to `docs/redaction-policy.md`. No new entries in `docs/redaction-policy.md` in this turn.
+
+- Open issues:
+  - OQ-1, OQ-2, OQ-3, OQ-4, OQ-5, OQ-7 from `phase-1-research.md` §1.5 remain open (deferred deliberately by the cloud-path choice).
+  - OQ-6 (refresh-token revocation surface) is partially answered: documentation says "non-expiring"; account-level revocation path needs empirical confirmation in Phase 3 if it matters.
+
+- Next steps:
+  - Researcher reviews the weakness table and explicitly authorises (or refuses) the move into Phase 3 with shape Interface F. On approval, Phase 3 will produce: (a) the configuration-only artifact in `integration/` describing the steps for adopting `ondilo_ico` in HA, (b) operational notes (token rotation, backup hygiene, pool nickname aliasing), (c) dual-use reflection per rule 5, and (d) `docs/redaction-policy.md` updates as researcher-supplied identifiers come in.
+
 ### Session 12 — 2026-05-02 (README ↔ paper mirror discipline; rule 15)
 
 - Branch: `claude/enhance-readme-illustrations-hcKqw`.
