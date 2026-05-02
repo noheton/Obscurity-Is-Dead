@@ -53,14 +53,21 @@ The protocol is organised in three sequential phases — **Research**, **Weaknes
 Continuous documentation duties (apply during every phase):
 
 - Maintain `docs/logbook.md`. Append a dated entry at the start of each phase, at every major decision, and at the end of each phase. Each entry names the phase, the action, the artifact produced, and the next planned step.
-- Maintain a per-phase report under `docs/iot-integrator/<target-slug>/`:
+- The integrator agent works **inside a single new experiment subfolder** for the chosen target — `experiments/iot-integrator-<target-slug>/` — so that the *whole process* (bootstrap, phase reports, vendor artifacts, runnable integration, raw conversations) is captured in one citable case-study directory mirroring `ecoflow-powerocean` and `spider-farmer`. Do not split process artifacts into `docs/`; only cross-cutting registers (`docs/logbook.md`, `docs/redaction-policy.md`) live outside the experiment folder.
+- Maintain a per-phase report under `experiments/iot-integrator-<target-slug>/process/`:
   - `phase-0-bootstrap.md`
   - `phase-1-research.md`
   - `phase-2-weakness.md`
   - `phase-3-implementation.md`
-  - `summary.md` (consolidated, written at the end)
+  - `summary.md` (consolidated, written at the end; `REPORT.md` at the experiment root links to it)
 - Apply rule 12 redaction inline, never retroactively. Log every redaction in `docs/redaction-policy.md`.
-- The case study folder `experiments/iot-integrator-<target-slug>/` mirrors the layout of `ecoflow-powerocean` and `spider-farmer` and holds the *vendor* artifacts (APKs, captures, manifests, raw conversations). The `docs/iot-integrator/<target-slug>/` folder holds the *process* artifacts (phase reports, technique inventory, decisions). Do not conflate the two.
+- The experiment folder layout is:
+  - `process/` — phase reports, technique inventory, decisions (process artifacts).
+  - `original/` — vendor artifacts (APKs, firmware dumps, manifests) the user has supplied.
+  - `captures/` — redacted packet captures, BLE logs, mDNS/SSDP scans from the user's own LAN.
+  - `integration/` — runnable artifact (custom component, ESPHome YAML, MQTT bridge, etc.).
+  - `raw_conversations (copy&paste, web)/` — exported chat transcripts.
+  - `README.md`, `REPORT.md`, `provenance.md` at the root, mirroring the prior case studies.
 
 ---
 
@@ -133,7 +140,7 @@ Do not invent techniques that are not anchored in a prior REPORT.md section.
 
 If any of these are missing, stop and ask.
 
-**Deliverables:** `docs/iot-integrator/<target-slug>/phase-0-bootstrap.md` containing the Technique Inventory table and the Target Intake Summary. Logbook entry.
+**Deliverables:** `experiments/iot-integrator-<target-slug>/process/phase-0-bootstrap.md` containing the Technique Inventory table and the Target Intake Summary. Logbook entry.
 
 **User checkpoint (Phase 0 → Phase 1):** Present a concise summary to the user — Technique Inventory size, target, declared privacy boundary, list of artifacts the user has confirmed available. Wait for explicit "go" before starting Phase 1.
 
@@ -172,7 +179,7 @@ For each entry record: name, URL, license, last-updated date, scope (read-only /
 
 Phase 1 produces no executable artifacts and contacts no live system. Web fetches that the user has authorised are permitted; vendor-cloud authenticated calls are not.
 
-**Deliverables:** `docs/iot-integrator/<target-slug>/phase-1-research.md` with sections *Existing Solutions*, *Vendor and Ecosystem*, *Available Artifacts*, *Candidate Interfaces*, *Open Questions*. Tables where appropriate. Citations inline. Logbook entry.
+**Deliverables:** `experiments/iot-integrator-<target-slug>/process/phase-1-research.md` with sections *Existing Solutions*, *Vendor and Ecosystem*, *Available Artifacts*, *Candidate Interfaces*, *Open Questions*. Tables where appropriate. Citations inline. Logbook entry.
 
 **User checkpoint (Phase 1 → Phase 2):** Summarise to the user — number of existing solutions found, gap that justifies new work (or recommendation to adopt an existing solution and stop), top three candidate interfaces, and the privacy-relevant findings from the vendor research. Wait for explicit "go".
 
@@ -215,7 +222,7 @@ For each probe record: command issued, redacted response, whether any third part
 - whether the protocol provides authentication or only obfuscation (cite the Spider Farmer precedent when applicable);
 - residual risk if the user's artifacts (APK, captures) leaked.
 
-**Deliverables:** `docs/iot-integrator/<target-slug>/phase-2-weakness.md` containing the redacted execution log, the weakness table, and the Privacy & Security Review. Logbook entry.
+**Deliverables:** `experiments/iot-integrator-<target-slug>/process/phase-2-weakness.md` containing the redacted execution log, the weakness table, and the Privacy & Security Review. Logbook entry.
 
 **User checkpoint (Phase 2 → Phase 3):** Summarise to the user — number of weaknesses found, which of them are usable as integration handles within the declared privacy boundary, which are *not* to be exploited (and why), and the proposed integration shape (LAN REST custom component, ESPHome reflash, MQTT bridge, BLE local component, or "do not integrate"). Wait for explicit "go".
 
@@ -248,7 +255,7 @@ Place runnable artifacts in `experiments/iot-integrator-<target-slug>/integratio
 
 **3.5 Dual-use reflection.** Restate, in light of the implementation, what the same techniques would enable an attacker to do, and what mitigations the household operator can apply (rule 5).
 
-**Deliverables:** `docs/iot-integrator/<target-slug>/phase-3-implementation.md` (design, validation log, operational notes, dual-use reflection) and the runnable artifact under `experiments/iot-integrator-<target-slug>/integration/`. Logbook entry.
+**Deliverables:** `experiments/iot-integrator-<target-slug>/process/phase-3-implementation.md` (design, validation log, operational notes, dual-use reflection) and the runnable artifact under `experiments/iot-integrator-<target-slug>/integration/`. Logbook entry.
 
 **User checkpoint (Phase 3 → close-out):** Summarise to the user — what was built, what was validated, what was *not* validated, residual risks, and recommended follow-up. Wait for explicit acceptance before close-out.
 
@@ -256,7 +263,7 @@ Place runnable artifacts in `experiments/iot-integrator-<target-slug>/integratio
 
 #### Close-out
 
-- Write `docs/iot-integrator/<target-slug>/summary.md` consolidating the three phase reports into a single narrative suitable for citation from `paper/main.md`.
+- Write `experiments/iot-integrator-<target-slug>/process/summary.md` consolidating the three phase reports into a single narrative suitable for citation from `paper/main.md`.
 - Populate `experiments/iot-integrator-<target-slug>/` with `README.md`, `REPORT.md`, `provenance.md`, and `raw_conversations (copy&paste, web)/`, mirroring the prior case studies.
 - Record AI-vs-researcher attribution per rule 1.
 - Confirm rule 12 redaction across all committed files. Confirm rule 13 (no public push, no Zenodo, no arXiv) before any remote operation.
@@ -266,7 +273,9 @@ Place runnable artifacts in `experiments/iot-integrator-<target-slug>/integratio
 
 ### Deliverables
 
-Per phase, under `docs/iot-integrator/<target-slug>/`:
+All deliverables live inside the new experiment subfolder `experiments/iot-integrator-<target-slug>/`, except the two repository-wide registers.
+
+Per phase, under `experiments/iot-integrator-<target-slug>/process/`:
 
 1. `phase-0-bootstrap.md` — Technique Inventory (table) and Target Intake Summary.
 2. `phase-1-research.md` — Existing Solutions, Vendor and Ecosystem, Available Artifacts, Candidate Interfaces, Open Questions.
@@ -274,11 +283,15 @@ Per phase, under `docs/iot-integrator/<target-slug>/`:
 4. `phase-3-implementation.md` — Design, Validation Log, Operational Notes, Dual-Use Reflection.
 5. `summary.md` — consolidated narrative for paper citation.
 
-Across the repository:
+At the experiment root `experiments/iot-integrator-<target-slug>/`:
 
-6. `docs/logbook.md` updated at every phase boundary and major decision.
-7. `docs/redaction-policy.md` updated with every redaction marker introduced.
-8. `experiments/iot-integrator-<target-slug>/` populated with `README.md`, `REPORT.md`, `provenance.md`, `raw_conversations (copy&paste, web)/`, `original/` for vendor artifacts, and `integration/` for the runnable artifact (if any).
+6. `README.md`, `REPORT.md`, `provenance.md`.
+7. `original/` (vendor artifacts), `captures/` (redacted local captures), `integration/` (runnable artifact, if any), `raw_conversations (copy&paste, web)/` (exported transcripts).
+
+Across the repository (cross-cutting registers only):
+
+8. `docs/logbook.md` updated at every phase boundary and major decision.
+9. `docs/redaction-policy.md` updated with every redaction marker introduced.
 
 User-facing summaries (verbal/markdown, not files):
 
