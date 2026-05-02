@@ -1371,3 +1371,33 @@ This logbook is the operating record for the paper and research process.
   - Researcher reviews the new title/tagline rollout across the canonical-content surface and either accepts or asks for further revision.
   - Researcher commits the two Gemini logo binaries and updates §9.1 with the iteration history.
   - On acceptance, the README's Visual abstract and front matter render with the new identity.
+
+## 2026-05-02 — Stage 5: Readability, Novelty & Conciseness scrutinizer (first run)
+
+- Inputs read in full: `paper/main.md` (650 lines), section-structure of `paper/main.tex` (2,383 lines), `docs/sources.md` clusters A–O, `paper/references.bib`, prior logbook session.
+- Deliverables produced:
+  - `docs/handbacks/readability-defect-registry.md` — 21-row registry (RDB-01..RDB-21) ending with the re-scrutiny verdict.
+  - `docs/handbacks/readability-to-writer.md` — 20 per-entry hand-back blocks.
+  - `docs/handbacks/readability-to-illustrator.md` — 4 per-entry hand-back blocks (RDB-04, RDB-05+RDB-08 consolidation candidate, RDB-07, RDB-21 informational).
+
+- Counts.
+  - **By severity:** H = 2 (RDB-01, RDB-02); M = 10 (RDB-03..RDB-12); L = 8 (RDB-13..RDB-20); RDB-21 informational.
+  - **By class:** claim-repetition 4; list-of-lists 6; unsupported-novelty 1; claim-framing 1; jargon-dump / undefined-acronym 2; sentence-length / nested-clauses / caption 4; prose-doing-table's-job 1; bib-completeness 1; mirror-drift 0 (RDB-21 positive trace).
+  - **By owner:** writer-only 16; writer + illustrator 4 (RDB-04, RDB-05, RDB-07, RDB-08); illustrator-only 0; informational 1.
+
+- Novelty verdicts (per claimed contribution).
+  - §1.4 contribution 1 (effort-gap definition + KPIs) — **incremental** vs L-RE-2 (Hu et al., 2024); framing defect, addressed via RDB-12.
+  - §1.4 contribution 2 (two case studies with full provenance) — **novel**; no comparable source found in clusters A, D, O.
+  - §1.4 contribution 3 (transcript-as-artifact methodology) — **incremental, framing defect** vs L-SLOP-7 / L-SLOP-10 / L-MC-3 / L-MC-4; addressed via RDB-02 + RDB-12.
+  - §1.4 contribution 4 (interoperability vs dual-use synthesis) — **incremental** vs L-VD-4 / L-VD-5 / L-COUNTER-1..6.
+  - §10 "the novelty is the integration" — **unsupported-novelty as currently framed**; addressed via RDB-02.
+  - §10 fourth structural claim (democratisation of science production via AI assistance) — **novel framing, no comparable source found**; the most defensible novelty in the paper.
+
+- Most consequential defect: **RDB-01** — quadruple recap of the L-SLOP-1/2/4 fabricated-citation statistics across §5.6, §7.6, §9.4, §10. Mechanical to remediate; removes the strongest *recap* impression in the paper and frees §10 to do conclusion work.
+
+- Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — two H-severity entries filed (RDB-01, RDB-02). RDB-02 in particular requires a literature-contrast paragraph that the next scrutinizer pass should re-read against the updated `docs/sources.md`.
+
+- Files written: `docs/handbacks/readability-defect-registry.md`, `docs/handbacks/readability-to-writer.md`, `docs/handbacks/readability-to-illustrator.md`, `docs/logbook.md` (this entry).
+- Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, `paper/references.bib`, `paper/figures/*`, `docs/sources.md`. Working tree dirty by design — no commit.
+
+- Next steps: writer pass remediates RDB-01..RDB-12 (H + M); illustrator pass addresses RDB-04 / RDB-05+RDB-08 / RDB-07; second scrutinizer pass after writer remediation to clear the H entries.
