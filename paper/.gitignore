@@ -19,3 +19,13 @@
 # Built outputs - track main.pdf only when explicitly committed
 main.pdf
 arxiv-submission.tar.gz
+
+# Legacy figure SVG -> PDF conversions for fig2..fig7 are produced at
+# build time from the committed SVGs; the resulting PDFs are not
+# tracked (only fig1 and fig8..fig16 carry committed PDFs).
+figures/fig2-boredom-barrier.pdf
+figures/fig3-spider-farmer.pdf
+figures/fig4-ecoflow.pdf
+figures/fig5-methodology.pdf
+figures/fig6-dual-use.pdf
+figures/fig7-threat-models.pdf
