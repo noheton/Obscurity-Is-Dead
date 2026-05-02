@@ -17,7 +17,7 @@
 
 ---
 
-## RDB-02 — Unsupported-novelty framing of "the novelty is the integration"  *(H, novelty)*  [DEFERRED 2026-05-02 — requires drafting a comparator paragraph that names L-SLOP-7 / L-SLOP-10 / L-SLOP-12 with the differential framing; this is substantive content addition that must be confirmed by the researcher against `docs/sources.md`. Routed back to next writer pass.]
+## RDB-02 — Unsupported-novelty framing of "the novelty is the integration"  *(H, novelty)*  [RESOLVED 2026-05-02 — §10 paragraph at `main.md:635` / `main.tex:2295` rewritten to name the three-layer comparator triplet (L-SLOP-7 system-level reforms; L-SLOP-10 practitioner-level guidance; L-SLOP-12 technical-mitigation review) and recast the integration claim as application of these named prior strands to the security-research interoperability context, with explicit "complement / extend, not subsume" hedging.]
 
 
 **Sections.** §10.
@@ -119,7 +119,7 @@
 
 ---
 
-## RDB-12 — §1.4 contributions framed without comparators  *(M, claim-framing)*  [DEFERRED — paired with RDB-02; substantive comparator framing required.]
+## RDB-12 — §1.4 contributions framed without comparators  *(M, claim-framing)*  [RESOLVED 2026-05-02 — §1.4 contributions list at `main.md:43–48` / `main.tex:166–178` extended with comparator half-clauses: contribution 1 ↔ L-RE-2; contribution 2 ↔ L-BLE-4 base rate; contribution 3 ↔ L-SLOP-7 / L-SLOP-10 / L-SLOP-12 triplet. RDB-02 was cleared in the same commit.]
 
 
 **Source span.** `main.md:43–48`; `main.tex:160–175`.
