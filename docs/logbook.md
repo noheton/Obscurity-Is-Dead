@@ -958,6 +958,38 @@ This logbook is the operating record for the paper and research process.
   - Researcher reviews the Technique Inventory and the five intake gaps, then issues an explicit "go" with the answers needed to start Phase 1 (Research).
   - On "go", Phase 1 will produce `process/phase-1-research.md` covering existing HA / community integrations for the Ondilo ICO line, vendor and ecosystem (legal entity, jurisdiction, privacy policy), candidate interfaces (LAN HTTP, BLE, Ondilo public API), and open questions.
 
+### Session 14 — 2026-05-02 (IoT Integrator agent — Phase 1 research, Ondilo ICO Spa V2)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher closed the five Phase 0 intake gaps with: read-only scope; "as private as reasonable" privacy boundary with local preference; APKPure listing for `fr.ondilo.ico.icomanager` as the seed artifact; ownership confirmed; cloud-touching probes deferred until per-call confirmation.
+
+- Actions:
+  1. Updated `process/phase-0-bootstrap.md` to record the researcher's answers verbatim alongside the protocol resolution for each field.
+  2. Wrote `process/phase-1-research.md` with the four sections required by the prompt — Existing Solutions (7 entries), Vendor and Ecosystem (Ondilo SAS / SIREN 818423626 / Saint-Cannat / OVH-hosted), Available Artifacts (8-row catalogue, no downloads), Candidate Interfaces A–F (Cloud REST / LAN HTTP / BLE GATT / Wi-Fi MQTT / ESPHome reflash ruled out / Adopt-ES-1 documentation-only) — plus an Open Questions table OQ-1..OQ-7 carried into Phase 2.
+  3. Recorded the central Phase 1 finding: every catalogued working integration depends on the Ondilo cloud via OAuth2; no LAN-local or BLE-local read path is implemented anywhere we could find. The "gap that justifies new work" is therefore the absence of a local-first read-only integration, not a missing feature in the cloud path.
+  4. Refreshed `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` with the per-phase status board.
+
+- Files updated/created:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-0-bootstrap.md` (intake gaps → researcher answers)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-1-research.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` (status board)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - No Phase 1 web fetch was authenticated; several vendor pages returned HTTP 403 to the tool and were summarised from search snippets — clearly flagged in §1.7. No researcher-side fetch was requested in this turn; if Phase 2 needs the page contents, the researcher will be asked to fetch them locally.
+  - APK was *not* downloaded. Per the prompt, Phase 1 catalogues; Phase 2 ingests with SHA-256 recording.
+  - Interface E (ESPHome reflash) was ruled out at the paper-sketch stage on physical-feasibility grounds (sealed floating spa probe, electrochemical sensors, calibration loss).
+  - The "Adopt ES-1 with documented privacy mitigations" Interface F is preserved as a *valid* Phase 3 outcome under prompt §3.2's documentation-only branch, contingent on the researcher's per-call cloud authorisation.
+
+- Open issues:
+  - OQ-1..OQ-7 in `phase-1-research.md` §1.5 — hardware delta V1→V2, LAN HTTP existence, BLE measurement-vs-setup role, data jurisdiction, third-party SDK inventory, refresh-token revocation surface, household-identifier exposure during HA OAuth.
+  - All Session 7 / Session 12 issues remain open.
+
+- Next steps:
+  - Researcher reviews Phase 1 and explicitly authorises (or refuses) the move into Phase 2. Phase 2 will require *per-probe* researcher authorisation for any APK download, BLE scan, LAN scan, or vendor-cloud authenticated call, per the researcher's intake answer "escalate to public api after confirmation with user".
+  - If approved, the first Phase 2 step will be `T-APK-STRINGS` static analysis on a researcher-downloaded copy of `fr.ondilo.ico.icomanager`, with all sensitive identifiers tagged at capture time.
+
 ### Session 12 — 2026-05-02 (README ↔ paper mirror discipline; rule 15)
 
 - Branch: `claude/enhance-readme-illustrations-hcKqw`.
