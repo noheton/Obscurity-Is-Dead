@@ -16,6 +16,28 @@ This paper investigates how modern large language models collapse the traditiona
 
 ---
 
+## Executive Summary {#sec:executive-summary}
+
+*This summary re-presents the claims of the full paper for readers deciding whether to read further. It introduces no new findings; every numerical anchor below is sourced and developed in the body.*
+
+**Research question.** Is AI-assisted hacking primarily a means to unlock interoperability, or does it instead magnify security risk by making obscurity ineffective? The paper answers: both — but asymmetrically, and the asymmetry favours integrators over attackers.
+
+**Software-side evidence that the effort gap has collapsed.** Peer-reviewed measurements anchor the software-side compression: a 24.4% reduction in cognitive burden when reading AI-augmented decompiler output [L-RE-2]; a 31% → 53% correct-solve-rate uplift on reverse-engineering tasks (with the authors' own *p* = 0.189 caveat preserved at the body) [L-RE-3]; and a >100% improvement in re-executability for AI-assisted code synthesis [L-RE-1]. The two case studies developed below report the same compression at workflow level (§3.7, §4.7).
+
+**Hardware-side evidence that the same collapse is underway.** The hardware side rests on a structurally different evidence base. An exposed UART suffices for firmware extraction in more than 45% of 24 commercial IoT devices [@vasile2018breakingallthethings]; intermediate hardware-reverse-engineering proficiency is reachable in roughly 14 weeks of structured training [@becker2020hwreexploratory]; and the practitioner-handbook bookends move from the Grand / Huang 2003–2004 baseline (bespoke equipment, expert-only skill floor) to van Woudenberg & O'Flynn (2021/2022, single volume plus a roughly USD 300 toolchain). The asymmetry between the two evidence bases is itself a finding, treated as §6.8.
+
+**Asymmetric collapse.** The same compression that benefits integrators benefits attackers, but not equally. Recent evaluations report that LLMs are far more cooperative than competent at automated exploit generation — no model successfully synthesised exploits for refactored security labs [L-VD-1] — while disclosed-CVE proof-of-concept generation reaches 8–34% on public information alone and 68–72% with adaptive reasoning [L-VD-2]. The cost-asymmetry literature reports that LLM-mediated malicious-content production is roughly 125–500× cheaper than human effort [L-VD-5][^exec-edge]. The defender-side corollary is blunt: a static-token study of 20 production weather apps concludes that "it is not possible to securely hide sensitive information within applications" [L-HC-4].
+
+**Two case studies.** Spider Farmer (BLE horticulture controllers) was sealed by AES-128-CBC with hardcoded keys and a self-signed-cert MQTT broker; AI-assisted reconciliation across four independent reverse-engineering attempts elucidated the protocol surface and shipped as a working Home Assistant integration in roughly 10.5 hours of AI-assisted work versus an estimated 60–120 hours of manual baseline (§3). EcoFlow PowerOcean (residential energy systems) was sealed by an undocumented legacy REST endpoint and a published-but-unused Open API; AI-assisted three-surface reconciliation produced a local-control integration and surfaced a previously undocumented attack surface that is enumerated under the redaction policy (§4). Both cases illustrate the dual-use signature explicitly: the same workflow yields both the local integration and the recovered live attack surface.
+
+**Eight integrated practices.** The methodological response — see \cref{fig:eight-practices} — is the integration of eight individually unoriginal practices: transcript preservation, verification-status labelling, provenance maps, mirror discipline, the recursive meta-process case study, base-rate-anchored AI disclosure, legal honesty about authorship, and FAIR alignment as a precondition. The novelty is the *integration*, not any single row; details are in §10.
+
+**Headline finding.** Obscurity is dead as a primary defence for consumer IoT: the labour-cost moat that protected proprietary protocols has been compressed by an order of magnitude on the integration side and is being compressed, more unevenly, on the offensive side. The interoperability dividend is real; so is the dual-use surface; the eight practices reduce the methodological externalities of AI-assisted security research without requiring the underlying protocols to remain secret. Readers wanting the contributions should turn to §1.4; the evidence-asymmetry meta-finding is in §6.8; the prescriptive register is §10.
+
+[^exec-edge]: The L-VD-1 refactored-labs cornerstone and the L-VD-5 cost-asymmetry quantitative anchor are recorded at `[edge-case]` verification status in `docs/sources.md` (load-bearing, first-of-its-kind, awaiting human `[lit-read]`). They are footnoted here per the verification ladder (CLAUDE.md, 2026-05-02 extension) and not promoted to inline citation.
+
+---
+
 ## 1. Introduction and Motivation
 
 ### 1.1 The effort gap as a security model
