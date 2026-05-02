@@ -1065,6 +1065,37 @@ This logbook is the operating record for the paper and research process.
   - Researcher reviews `provenance.md` against the actual session sequence and amends the AI/researcher attribution if needed.
   - When the paper next cites this case study, link to `experiments/iot-integrator-ondilo-ico-spa-v2/process/summary.md` (the consolidated narrative, not the per-phase reports).
 
+### Session 17 — 2026-05-02 (IoT Integrator prompt — generalised to enumerate all experiments)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher request "generalize the iot integrator prompt to learn from all existing experiments" — replace the hard-coded list of three prior case studies with runtime enumeration of `experiments/*/REPORT.md`, so the prompt is self-augmenting in the strict sense (each new IoT Integrator run feeds the next without an edit to the prompt).
+
+- Actions on `docs/prompts/iot-integrator-prompt.md`:
+  1. Removed the canonical "three prior case studies" list from Purpose §1, Context, and Phase 0.1. The prompt now requires the agent to enumerate `experiments/*/REPORT.md` at runtime, exclude only the new run's own report (if it exists from a partial earlier attempt), and read each remaining file in full.
+  2. Restructured Phase 0.1 into 0.1.a–0.1.e: enumerate, read, extract, deduplicate-do-not-invent, and explicitly weight prior IoT Integrator reports equally with the original case studies (closing the self-augmenting loop).
+  3. Replaced the canonical case-study enumeration in Context with informational *tags* (cloud-write-surface, BLE/radio RE, paper meta-process, prior IoT Integrator runs) and licensed the agent to invent a new tag when a runtime report does not match any of them.
+  4. Generalised the structural-mirror reference under continuous-documentation duties from "mirroring `ecoflow-powerocean` and `spider-farmer`" to "mirroring the existing case studies under `experiments/`".
+  5. Generalised the obscurity-vs-authentication precedent from "cite the Spider Farmer precedent" to "cite the closest applicable precedent from the input set, by exact path and section".
+  6. Rewrote the closing "Why this is the self-augmenting stage" section to describe the loop in concrete steps: run N enumerates → inventory → REPORT.md → run N+1 enumerates again with run N's report included.
+
+- Files updated:
+  - `docs/prompts/iot-integrator-prompt.md` (six edits as above)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The prompt is now order-agnostic about the input set. It does not say "EcoFlow first, then Spider Farmer, then paper-meta-process"; it says "every `experiments/*/REPORT.md`, equal weight". This avoids privileging early case studies over later runs of the same prompt.
+  - Prior IoT Integrator reports are explicitly *not* second-class. Their techniques can shape the next run's Technique Inventory exactly like the original three did. This is the strict form of self-augmentation.
+  - The original three case-study shapes are kept as informational tags, not as a canonical list, so a researcher reading the prompt still gets a quick mental model of the input set's *kinds* without the prompt becoming a frozen registry.
+
+- Open issues:
+  - The just-completed `experiments/iot-integrator-ondilo-ico-spa-v2/REPORT.md` is now an eligible methodological input for the next IoT Integrator run. A future run targeting a different device will see its `T-CAPTURE-TIME-REDACTION`, `T-OBSCURITY-VS-AUTH` (cloud-openness form), `T-DUAL-USE-MIRROR` (narrow form), and the per-phase researcher-checkpoint discipline as anchored techniques.
+  - All Session 7 / 12 issues remain open.
+
+- Next steps:
+  - Researcher reviews the generalised prompt and confirms the runtime-enumeration approach is what was meant.
+  - Optional: a small CI / pre-commit check that fails if the prompt re-introduces a hard-coded case-study path (regex `experiments/(ecoflow-powerocean|spider-farmer|paper-meta-process)/REPORT\.md` outside an example block).
+
 ### Session 12 — 2026-05-02 (README ↔ paper mirror discipline; rule 15)
 
 - Branch: `claude/enhance-readme-illustrations-hcKqw`.
