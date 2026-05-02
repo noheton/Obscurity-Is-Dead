@@ -927,6 +927,37 @@ This logbook is the operating record for the paper and research process.
   - Resume `[lit-retrieved]` → `[lit-read]` upgrades.
   - Continue tracking §5.7 KPI; this session adds ~2 h AI-assisted work and produces one new data file, four new generation scripts, eight new figure assets, one new table, and one promoted prompt.
 
+### Session 13 — 2026-05-02 (IoT Integrator agent — Phase 0 bootstrap, Ondilo ICO Spa V2)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher invoked `docs/prompts/iot-integrator-prompt.md` with target `https://ondilo.com/de/produkt/ico-spa-v2-vernetzter-wasseranalysator/` (Ondilo ICO Spa V2 connected water analyzer).
+
+- Actions:
+  1. Created the experiment folder `experiments/iot-integrator-ondilo-ico-spa-v2/` with the full subfolder layout required by the prompt (`process/`, `original/`, `captures/`, `integration/`, `raw_conversations (copy&paste, web)/`).
+  2. Read the three prior `REPORT.md` files (EcoFlow PowerOcean, Spider Farmer, paper-meta-process) and distilled a 15-entry **Technique Inventory** with explicit source-section citations. Every entry traces to a specific prior `REPORT.md` section per the prompt's "do not invent techniques" constraint.
+  3. Drafted the **Target Intake Summary** with what the researcher has declared (vendor URL, model V2, device class) and an explicit table of the five open intake fields (control surface, privacy boundary, available artifacts, ownership confirmation, cloud-touching probe authorisation). Per the prompt these are blockers before Phase 1.
+  4. Recorded a provisional privacy-relevance heuristic: even read-only spa-analyzer telemetry leaks presence/occupancy patterns, so the integration is not "low-stakes" by default.
+  5. Wrote `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` describing the layout and current status.
+
+- Files created:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/README.md`
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-0-bootstrap.md`
+  - (empty subfolders) `original/`, `captures/`, `integration/`, `raw_conversations (copy&paste, web)/`
+
+- Key decisions:
+  - Target slug: `ondilo-ico-spa-v2`. Mirrors the prompt's `iot-integrator-<target-slug>/` convention and matches the prior case studies' naming style.
+  - Phase 0 is paused at the user checkpoint pending researcher answers to the five intake gaps. No vendor cloud, no LAN probes, no APK download has been performed; rule 12 redaction has therefore not yet had to be applied (no new markers in `docs/redaction-policy.md`).
+  - The privacy-relevance heuristic is documented now so that Phase 1 cannot quietly treat the device as innocuous.
+
+- Open issues:
+  - Five Target Intake fields await researcher input (see `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-0-bootstrap.md` §0.2).
+  - All Session 7 issues (G1–G7) and Session 12 open items still apply.
+
+- Next steps:
+  - Researcher reviews the Technique Inventory and the five intake gaps, then issues an explicit "go" with the answers needed to start Phase 1 (Research).
+  - On "go", Phase 1 will produce `process/phase-1-research.md` covering existing HA / community integrations for the Ondilo ICO line, vendor and ecosystem (legal entity, jurisdiction, privacy policy), candidate interfaces (LAN HTTP, BLE, Ondilo public API), and open questions.
+
 ### Session 12 — 2026-05-02 (README ↔ paper mirror discipline; rule 15)
 
 - Branch: `claude/enhance-readme-illustrations-hcKqw`.
