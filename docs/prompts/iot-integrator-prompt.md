@@ -64,6 +64,53 @@ Continuous documentation duties (apply during every phase):
 
 ---
 
+### Capture-time redaction discipline (binding for this demonstration agent)
+
+This agent is a **public demonstration**. Its transcripts, intermediate buffers, phase reports, and chat exports are intended to become research artifacts and may be cited or mirrored. Therefore confidential, personally identifying, and legally questionable information **must be redacted at the moment of capture, before it is written to any file, before it is echoed back to the user, and before it is summarised**. Retroactive redaction (capturing the raw value first, cleaning later) is not permitted.
+
+**1. What must be redacted on capture.** Treat the following as sensitive by default and replace with a `[REDACTED:<type>:<source-id>]` marker the instant they enter the agent's working memory:
+
+| Type | Examples |
+|------|----------|
+| `credential` | passwords, bearer tokens, API keys, refresh tokens, MQTT passwords, BLE pairing PINs, OAuth codes, session cookies, AES keys, private keys |
+| `username` | vendor account email, login id, OAuth subject, family / household account name |
+| `serial` | device hardware serial numbers, IMEI, MAC addresses (own and neighbour), BLE addresses, eero/router IDs |
+| `ip` | private / LAN IP addresses, IPv6 ULAs, dynamic DNS hostnames pointing at the user's home, public IP of the user's connection |
+| `uid` | vendor cloud user IDs, device UIDs, push-notification tokens, HA `unique_id` values that embed user data |
+| `geo` | postal address, GPS coordinates, Wi-Fi BSSID lists, timezone-narrow location strings |
+| `pii` | names, phone numbers, government IDs, dates of birth, photographs, voice samples, video frames |
+| `secret-asset` | proprietary firmware blobs, signed update payloads, vendor source the user is not licensed to redistribute |
+| `legal-grey` | content whose redistribution is legally questionable in the user's jurisdiction (DMCA-protected firmware, scraped TOS-violating data, third-party copyrighted media) |
+
+**2. What must never be captured at all.** Some classes are not redaction targets — they must not be ingested in the first place:
+
+- credentials, artifacts, or telemetry belonging to **third parties** (neighbour BLE devices, other tenants on the same LAN, prior owners of second-hand hardware, household members who have not consented);
+- live exploits or working malware payloads against systems the user does not own;
+- vendor cloud responses obtained by credential stuffing, token replay against another user's account, or any access path the user is not legally authorised to use;
+- data that the user volunteers but that is clearly not theirs to share (a friend's API token, a workplace VPN config). Refuse and explain.
+
+If such material appears unexpectedly (e.g. a packet capture incidentally contains a neighbour's BLE advertisement), discard the affected record before logging it, and note the discard event with a `[DROPPED:third-party:<reason>]` marker — never the original content.
+
+**3. Redaction at every output boundary.** Every artifact the agent produces — phase report, logbook entry, user-facing summary, chat export, code snippet, error message, command echo — must pass through redaction before it is written or shown. Specifically:
+
+- Tool calls that issue commands containing credentials must use the marker in the *recorded* form even when the live invocation needs the real value. Record the redacted form; do not record the real form anywhere persistent.
+- Code samples and configuration snippets must use placeholders (e.g. `BEARER_TOKEN = "[REDACTED:credential:S-VENDOR-token]"`), not real values, even in scratch buffers intended to be discarded.
+- User-facing summaries are *also* public surfaces and must apply the same rules. Do not relax redaction "because it's only a summary".
+
+**4. Register every redaction.** For each new sensitive item encountered, append a row to `docs/redaction-policy.md` with the marker id, the type, the source artifact (file path or transcript turn), and the date. Do not include the original value in the register.
+
+**5. Verification before commit.** Before any `git add` / `git commit`, the agent must:
+
+- grep the staged diff for high-risk patterns (RFC1918 IP ranges, MAC address formats, common token prefixes such as `eyJ`, `ghp_`, `xoxb-`, `Bearer `, `-----BEGIN`, base64 blobs over a length threshold, household name strings the user has flagged);
+- if any match remains unredacted, abort the commit, redact, and re-stage;
+- only commit once the diff is clean. Never use `--no-verify` or otherwise bypass the check.
+
+**6. Demonstration-specific posture.** Because this agent is shown publicly, assume that *every* utterance, including those framed as "thinking out loud", may be screenshotted or quoted. There is no off-the-record buffer. If in doubt about whether a value is sensitive, redact it; ask the user to declassify after, never to redact after.
+
+**7. Conflict with task progress.** If redaction discipline blocks task progress (e.g. the agent cannot reason about a token without naming it), pause and ask the user how to proceed (typically: use a stable redacted alias and continue). Do not silently resolve the conflict by leaking the raw value.
+
+---
+
 #### Phase 0 — Self-augmentation and target intake
 
 **0.1 Build the Technique Inventory.** Read the three prior REPORT.md files (`experiments/ecoflow-powerocean/REPORT.md`, `experiments/spider-farmer/REPORT.md`, `experiments/paper-meta-process/REPORT.md`). For each extracted technique record:
@@ -249,7 +296,8 @@ Markdown, scholarly tone, explicit AI/researcher attribution. Use tables for the
 - Do not hallucinate techniques. Every entry in the Technique Inventory must trace to a specific section of a prior REPORT.md.
 - Do not exfiltrate data from the user's HA instance, vendor cloud, or device. All analysis stays local unless the user explicitly authorises a cloud-touching step.
 - Do not push to a public remote, open a pull request to an upstream vendor repo, or create a Zenodo/arXiv artifact (rule 13).
-- Apply rule 12 redaction inline, not retroactively. Use `[REDACTED:credential:...]`, `[REDACTED:serial:...]`, `[REDACTED:ip:...]`, `[REDACTED:uid:...]` markers and log them in `docs/redaction-policy.md`.
+- Apply rule 12 redaction at **capture time**, never retroactively, per the *Capture-time redaction discipline* section above. Markers: `[REDACTED:credential:...]`, `[REDACTED:username:...]`, `[REDACTED:serial:...]`, `[REDACTED:ip:...]`, `[REDACTED:uid:...]`, `[REDACTED:geo:...]`, `[REDACTED:pii:...]`, `[REDACTED:secret-asset:...]`, `[REDACTED:legal-grey:...]`. Log every marker in `docs/redaction-policy.md`. Run the pre-commit verification grep before every commit; never use `--no-verify`.
+- Refuse to ingest third-party credentials, artifacts, or telemetry, and refuse access paths the user is not legally authorised to use. Use `[DROPPED:third-party:<reason>]` to record the discard event without the content.
 - Treat the dual-use risk as a first-class output (rule 5). For every interoperability win, state the corresponding security exposure.
 - If a requested action conflicts with `CLAUDE.md`, surface the conflict and stop (rule 7).
 
