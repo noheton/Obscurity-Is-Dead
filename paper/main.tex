@@ -22,6 +22,9 @@
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{hyperref}
 \usepackage{cleveref}
+\usepackage{seqsplit}
+% \fp{...} -- "file path": use \path semantics so TeX may break at `/' or `_'.
+\newcommand{\fp}[1]{\path{#1}}
 \hypersetup{
   colorlinks=true,
   linkcolor=black,
@@ -65,14 +68,14 @@
 
 \begin{abstract}
 This paper investigates how modern large language models collapse the traditional
-``effort gap'' in reverse engineering. Through two empirical case studies ---
-Spider Farmer BLE devices and EcoFlow PowerOcean energy systems --- plus a third
-recursive case study of the paper-generation process itself, we show how
-AI-assisted analysis turns theoretical protocol knowledge into practical,
+``effort gap'' in reverse engineering. Two empirical case studies --- Spider
+Farmer BLE devices and EcoFlow PowerOcean energy systems --- together with a
+third recursive case study of the paper-generation process itself demonstrate
+how AI-assisted analysis turns theoretical protocol knowledge into practical,
 replicable local integrations. We then assess whether this collapse is a force
-for interoperability and right-to-repair or a systemic security risk, and we
-propose a research methodology that treats AI conversation transcripts, vendor
-artifacts, and version history as first-class evidence. The dual-use,
+for interoperability and right-to-repair or a systemic security risk. To that
+end we propose a research methodology that treats AI conversation transcripts,
+vendor artifacts, and version history as first-class evidence. The dual-use,
 \emph{sloppification}, and model-collapse risks of AI-assisted research are
 made explicit and mapped to mitigations that the methodology operationalises.
 \end{abstract}
@@ -176,6 +179,7 @@ The paper contributes:
 
 \subsection{Scope and non-goals}
 \label{sec:scope}
+\label{sec:scope-non-goals}
 \begin{itemize}
   \item We do \textbf{not} publish weaponised exploit code; recovered
         credentials are flagged for redaction (\texttt{docs/logbook.md}
@@ -360,8 +364,8 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
     \texttt{experiments/spider-farmer/original/const.py} lines 40--55 at
     commit \texttt{ffdf60c}.}
   \label{tab:sf-crypto-reconciliation}
-  \footnotesize
-  \begin{tabularx}{\textwidth}{@{}l X X X X X@{}}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
     \toprule
     \textbf{Element} & \textbf{ESPHome} & \textbf{SpiderBLEBridge} &
     \textbf{PythonSpider} & \textbf{HA \texttt{const.py}} &
@@ -384,9 +388,9 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
       \texttt{RnWokNEv\ldots} & \texttt{RnWokNEv\ldots} &
       Agreed \\
     LED key/IV & confirmed & confirmed & confirmed &
-      \texttt{BkJu61kL\ldots/2AKVNUbU\ldots} & Agreed \\
+      \texttt{BkJu61kL\ldots}\newline \texttt{2AKVNUbU\ldots} & Agreed \\
     PS-10 key/IV & confirmed & confirmed & confirmed &
-      \texttt{lVIlATSl\ldots/84Rf7SUk\ldots} & Agreed \\
+      \texttt{lVIlATSl\ldots}\newline \texttt{84Rf7SUk\ldots} & Agreed \\
     Activation order & \texttt{getSysSta} & \texttt{getSysSta} &
       \texttt{getDevSta}\,(diff.) & \texttt{getSysSta} & Majority \\
     \bottomrule
@@ -414,9 +418,9 @@ favour of the in-tree \texttt{const.py}.
 The \texttt{original/doc/log.md} community thread documents a
 self-signed-certificate MITM against the vendor MQTT broker
 \texttt{sf.mqtt.spider-farmer.com:8333}, recovering live credentials
-(username \texttt{[REDACTED:username:S-SF-5-username]}, password
-\texttt{[REDACTED:credential:S-SF-5-password]}; see
-\texttt{docs/redaction-policy.md} R-SF-1, R-SF-2). This is independent
+(username \seqsplit{\texttt{[REDACTED:username:S-SF-5-username]}}, password
+\seqsplit{\texttt{[REDACTED:credential:S-SF-5-password]}}; see
+\fp{docs/redaction-policy.md} R-SF-1, R-SF-2). This is independent
 corroboration of the claim that the effort gap has collapsed for
 \emph{both} defenders and attackers.
 
@@ -531,21 +535,21 @@ the AI-assisted local-control architecture.
 \subsection{Findings --- interoperability}
 \label{sec:ef-interop}
 \begin{itemize}
-  \item Write surface: \texttt{POST /iot-devices/device/setDeviceProperty}
+  \item Write surface: \fp{POST /iot-devices/device/setDeviceProperty}
         with payload
         \texttt{\{"sn": "<device\_sn>", "params": \{"<camelCase\_field>":
         <value>\}\}} --- confirmed at \texttt{api.py} line 306.
   \item Field-name convention: predictable camelCase from APK constants
-        (e.g.\ \texttt{ACTION\_W\_CFG\_BACKUP\_REVERSE\_SOC}\,$\to$\,
+        (e.g.\ \fp{ACTION_W_CFG_BACKUP_REVERSE_SOC}\,$\to$\,
         \texttt{cfgBackupReverseSoc}).
-  \item New writeable HA entities: \texttt{button.system\_reboot},
-        \texttt{button.system\_selfcheck},
-        \texttt{number.backup\_reserve\_soc},
-        \texttt{number.fast\_chg\_max\_soc},
-        \texttt{number.charger\_power\_limit},
-        \texttt{number.grid\_in\_pwr\_limit}.
-  \item Domain \texttt{powerocean\_dev} (\texttt{const.py} line 10),
-        HACS/hassfest conformance per \texttt{REPORT.md} \S 5.3.
+  \item New writeable HA entities: \fp{button.system_reboot},
+        \fp{button.system_selfcheck},
+        \fp{number.backup_reserve_soc},
+        \fp{number.fast_chg_max_soc},
+        \fp{number.charger_power_limit},
+        \fp{number.grid_in_pwr_limit}.
+  \item Domain \fp{powerocean_dev} (\fp{const.py} line 10),
+        HACS/hassfest conformance per \fp{REPORT.md} \S 5.3.
 \end{itemize}
 
 \subsection{Validation}
@@ -632,51 +636,51 @@ state, and the human researcher in the loop. Specific risks to evaluate are:
 \subsection{Artifact inventory}
 \label{sec:meta-artifacts}
 The case-study artifacts are vendored under
-\texttt{experiments/paper-meta-process/} with the same shape as the other
-two case studies (\texttt{README.md}, \texttt{REPORT.md},
-\texttt{provenance.md}, \texttt{raw\_conversations (copy\&paste, web)/}):
+\fp{experiments/paper-meta-process/} with the same shape as the other
+two case studies (\fp{README.md}, \fp{REPORT.md},
+\fp{provenance.md}, \fp{raw_conversations (copy&paste, web)/}):
 \begin{itemize}
   \item The git history of this repository on \texttt{main} and on the
-        development branch \texttt{claude/develop-paper-structure-7lG2s}.
+        development branch \seqsplit{\texttt{claude/develop-paper-structure-7lG2s}}.
   \item Conversation transcripts of paper-development sessions, preserved
-        in \texttt{experiments/paper-meta-process/raw\_conversations
-        (copy\&paste, web)/}. Each transcript declares a verification
+        in \fp{experiments/paper-meta-process/raw_conversations (copy&paste, web)/}.
+        Each transcript declares a verification
         status (\texttt{[verbatim-export]} /
         \texttt{[curated-reconstruction]} / \texttt{[redacted]}) in its
         YAML header. The first preserved transcript
-        (\texttt{T1-paper-structure-and-literature.md}) is a
+        (\fp{T1-paper-structure-and-literature.md}) is a
         \texttt{[curated-reconstruction]} of the 2026-05-01 session that
         produced the paper structure, the literature pass, the FAIR
         metadata, and this case study.
   \item The case-study report
-        \texttt{experiments/paper-meta-process/REPORT.md} and the
+        \fp{experiments/paper-meta-process/REPORT.md} and the
         per-transcript provenance map
-        \texttt{experiments/paper-meta-process/provenance.md} (parallel
-        to the Spider Farmer and EcoFlow \texttt{provenance.md} files).
-  \item The repository AI policy: \texttt{CLAUDE\_CODE\_INSTRUCTIONS.md},
-        \texttt{.instructions.md}, \texttt{copilot-instructions.md},
-        \texttt{CLAUDE.md}.
+        \fp{experiments/paper-meta-process/provenance.md} (parallel
+        to the Spider Farmer and EcoFlow \fp{provenance.md} files).
+  \item The repository AI policy: \fp{CLAUDE_CODE_INSTRUCTIONS.md},
+        \fp{.instructions.md}, \fp{copilot-instructions.md},
+        \fp{CLAUDE.md}.
   \item The executable research-protocol agent prompt
-        (\texttt{docs/prompts/research-protocol-prompt.md}).
-  \item The methodology document (\texttt{docs/methodology.md}) and its KPI
+        (\fp{docs/prompts/research-protocol-prompt.md}).
+  \item The methodology document (\fp{docs/methodology.md}) and its KPI
         framework (\S 10).
-  \item The literature register in \texttt{docs/sources.md} with the
+  \item The literature register in \fp{docs/sources.md} with the
         verification-status legend (\texttt{[repo-vendored]},
         \texttt{[repo-referenced]}, \texttt{[unverified-external]},
         \texttt{[lit-retrieved]}, \texttt{[lit-read]},
         \texttt{[needs-research]}).
-  \item The logbook (\texttt{docs/logbook.md}), updated per commit per the
+  \item The logbook (\fp{docs/logbook.md}), updated per commit per the
         rule established on 2026-05-01.
-  \item The arXiv-ready LaTeX build pipeline (\texttt{paper/main.tex},
-        \texttt{paper/Makefile},
-        \texttt{.github/workflows/build-paper.yml}).
-  \item The mirroring rule between \texttt{paper/main.md} and
-        \texttt{paper/main.tex} (rule 11 in
-        \texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}).
+  \item The arXiv-ready LaTeX build pipeline (\fp{paper/main.tex},
+        \fp{paper/Makefile},
+        \fp{.github/workflows/build-paper.yml}).
+  \item The mirroring rule between \fp{paper/main.md} and
+        \fp{paper/main.tex} (rule 11 in
+        \fp{CLAUDE_CODE_INSTRUCTIONS.md}).
   \item FAIR / citation metadata at the repository root:
-        \texttt{CITATION.cff}, \texttt{.zenodo.json},
-        \texttt{codemeta.json}, plus the FAIR-mapping document
-        \texttt{docs/fair.md}.
+        \fp{CITATION.cff}, \fp{.zenodo.json},
+        \fp{codemeta.json}, plus the FAIR-mapping document
+        \fp{docs/fair.md}.
 \end{itemize}
 
 \subsection{AI-assisted analysis workflow}
@@ -848,7 +852,7 @@ calendar day.
 \subsection{Cross-case comparison}
 \label{sec:synthesis-table}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \caption{Cross-case comparison of the three AI-assisted case studies in
 this paper. The third column is the recursive meta-process case study
@@ -988,21 +992,21 @@ case is left to future work
 \label{sec:synthesis-iot-integrator}
 Two further case studies have been completed under the self-augmenting
 \emph{IoT Integrator} stage of the methodology and are vendored under
-\texttt{experiments/iot-integrator-ondilo-ico-spa-v2/} and
-\texttt{experiments/iot-integrator-balboa-gateway-ultra/}. Each followed
+\fp{experiments/iot-integrator-ondilo-ico-spa-v2/} and
+\fp{experiments/iot-integrator-balboa-gateway-ultra/}. Each followed
 the same Phase~0--3 protocol
-(\texttt{docs/prompts/iot-integrator-prompt.md}), produced a
-\texttt{REPORT.md}, a \texttt{process/summary.md}, a runnable
-\texttt{integration/} deliverable, and a \texttt{RESEARCH-PROTOCOL.md}
+(\fp{docs/prompts/iot-integrator-prompt.md}), produced a
+\fp{REPORT.md}, a \fp{process/summary.md}, a runnable
+\fp{integration/} deliverable, and a \fp{RESEARCH-PROTOCOL.md}
 audit (deliverable of
-\texttt{docs/prompts/research-protocol-prompt.md}). Validation by the
+\fp{docs/prompts/research-protocol-prompt.md}). Validation by the
 human researcher is in progress; the per-case test checklists are
-recorded as \texttt{T-OND-1..T-OND-10} and \texttt{T-BAL-1..T-BAL-12}
-in the respective \texttt{RESEARCH-PROTOCOL.md} files. Both cases are
+recorded as \texttt{T-OND-1}\,..\,\texttt{T-OND-10} and \texttt{T-BAL-1}\,..\,\texttt{T-BAL-12}
+in the respective \fp{RESEARCH-PROTOCOL.md} files. Both cases are
 treated here as \emph{cross-validation} of the methodology rather than
 as independent confirmation of the central thesis.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \caption{Cross-validation case studies from the self-augmenting IoT
 Integrator stage. Both cases produced a configuration-only Phase~3
@@ -1060,7 +1064,7 @@ and assigned by the researcher from the per-case \texttt{REPORT.md}
 evidence; it is offered as a way to read the cross-case spread, not as
 a quantitative metric.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \caption{Qualitative difficulty taxonomy for the four
 device-integration case studies. The composite rating is informative of
@@ -1104,7 +1108,7 @@ organisation-and-reconciliation work most, the novel-discovery work
 least, and the absolute difficulty floor of consumer-IoT defences sits
 low across the entire spread.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/fig12-difficulty-taxonomy.pdf}
 \caption{Test-case difficulty taxonomy. Heat-map of the four
@@ -1138,7 +1142,7 @@ visible. We synthesise the following recurring patterns:
   \item \textbf{Long-lived refresh-token surface.} Ondilo's
         non-expiring refresh tokens and Balboa's 30-day Cognito refresh
         tokens dominate the residual-risk picture in both
-        \texttt{RESEARCH-PROTOCOL.md} files. A refresh token compromised
+        \fp{RESEARCH-PROTOCOL.md} files. A refresh token compromised
         once in plaintext (HA backup, integration log, transcript
         export) outlives almost every other secret in the system.
   \item \textbf{Cross-vendor data-flow opacity.} The Balboa run
@@ -1192,7 +1196,7 @@ cases are coherent with this baseline; the contribution of
 \emph{integrator-side} mitigations that the prior literature does not
 address.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\linewidth]{figures/fig13-pipeline-vulnerabilities.pdf}
 \caption{Vulnerabilities of IoT-integrator pipelines as a system class.
@@ -1203,7 +1207,7 @@ residual risk is integrator-side not integration-code-side
 (\cref{sec:synthesis-pipeline-vuln,sec:disc-malicious-integrator}).
 Source: \cref{sec:synthesis-pipeline-vuln} bullet items synthesised
 from the four cases' Weakness Tables and per-case
-\texttt{RESEARCH-PROTOCOL.md} gap sections.}
+\fp{RESEARCH-PROTOCOL.md} gap sections.}
 \label{fig:pipeline-vulnerabilities}
 \end{figure}
 
@@ -1413,6 +1417,7 @@ externality on every future model.
 
 \subsection{Threats to validity}
 \label{sec:disc-threats}
+\label{sec:disc-validity}
 \begin{itemize}
   \item \textbf{Selection bias.} Cases were chosen because the researcher
         already wanted local control; failed attempts at harder targets are
@@ -1693,22 +1698,22 @@ across a 27-method $\times$ 13-backbone $\times$ 10-scenario benchmark
 [L-AGT-8].
 
 The mitigation set is structural rather than technical and consistent
-with the rest of the paper: pin the governance prompt by commit SHA at
-every run; require explicit researcher checkpoints between phases;
-preserve the dual-use mirror as an immutable column; surface every
+with the rest of the paper. Pin the governance prompt by commit SHA at
+every run; require explicit researcher checkpoints between phases.
+Preserve the dual-use mirror as an immutable column; surface every
 weakness \emph{with} its mitigation in the same artifact; and treat
 the technique inventory as a redaction-aware document rather than a
 raw attack-capability log. None of these mitigations defeat a
 determined adversary; they raise the cost of laundering an exploit
 pipeline as a research artifact, which is the cost we can credibly
-raise. The literature is consistent with this framing: capability-side
+raise. The literature is consistent with this framing. Capability-side
 defences (safety training, fine-tuning on trusted data) are
 demonstrably insufficient against adversarial agents [L-AGT-10,
-L-AGT-7], whereas governance-side defences (provenance, checkpoints,
+L-AGT-7]; governance-side defences (provenance, checkpoints,
 redaction discipline) are the only durable answer the field currently
 offers.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\linewidth]{figures/fig14-malicious-integrator.pdf}
 \caption{The malicious IoT-integrator agent: same prompt, different
@@ -1830,7 +1835,7 @@ weaknesses), and a community norm that publication of corpus-scale
 findings carries a coordinated-disclosure obligation comparable to
 per-vendor vulnerability research today.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.97\linewidth]{figures/fig15-apk-mass-probing.pdf}
 \caption{Automated mass probing of public APK repositories. The
@@ -1887,7 +1892,7 @@ at commit \texttt{ffdf60c}; the Ondilo and Balboa runs are
 \emph{cross-validation} of the methodology with researcher-side device
 validation still pending (test checklists \texttt{T-OND-1..T-OND-10}
 and \texttt{T-BAL-1..T-BAL-12} in the per-case
-\texttt{RESEARCH-PROTOCOL.md}). Until those checklists are executed,
+\fp{RESEARCH-PROTOCOL.md}). Until those checklists are executed,
 the two new cases enter the paper as evidence for the methodology's
 \emph{transferability}, not for end-to-end integration correctness on
 the specific physical devices.
@@ -1935,7 +1940,7 @@ composite rating is informative of the \emph{spread} across cases,
 not of an absolute scale, and a reader should not treat ``Easy'' /
 ``Medium'' as calibrated against any external benchmark.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/fig16-scope-limitations.pdf}
 \caption{Scope and limitations of the study. Concentric perimeter
@@ -2015,11 +2020,19 @@ at the author's request on 2026-05-02. Gemini is acknowledged as a
 contributor to the visual assets only; consistent with the
 \cref{sec:ai-disclosure-models} footnote on \emph{Urheberrecht und
 K\"unstliche Intelligenz}, it is not an author of the paper. The
-Gemini-generated logo files are committed under
+two logo files live under
 \texttt{paper/figures/logo-obscurity-is-dead.png} and
-\texttt{paper/figures/logo-pandora-jar-intact.png}; their generation
-prompts and the iteration history are appended to the project's
-logbook entry for 2026-05-02.
+\texttt{paper/figures/logo-pandora-jar-intact.png}. As of the current
+commit, the shattered-jar front-matter logo
+(\texttt{logo-obscurity-is-dead.png}) is the final
+Google-Gemini-generated artwork delivered by the author on 2026-05-02;
+the intact-jar companion (\texttt{logo-pandora-jar-intact.png}) is
+still an AI-authored \emph{placeholder} rendered by
+\texttt{paper/figures/logo-placeholders.py} pending its Gemini final.
+Both assets are committed (Rule~14: when the placeholder script and
+its outputs are both in the tree, regeneration is reproducible);
+generation prompts and iteration history for the Gemini run are
+appended to the project's logbook entry for 2026-05-02.
 
 The AI assistant is acknowledged as a contributor but is \emph{not} a
 co-author of this work.\footnote{\textbf{Footnote on Urheberrecht und
@@ -2181,18 +2194,12 @@ the rim of the great jar, and did not fly out at the door.''}\\
 (trans.\ Hugh G.\ Evelyn-White, 1914)
 \end{quote}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.55\linewidth]{figures/logo-pandora-jar-intact.png}
-\caption{The proverbial jar --- intact. The companion image to the
-project logo (\texttt{figures/logo-obscurity-is-dead.png}, the
-shattered Pandora-jar motif used at the front matter): here the jar is
-whole and closed, with Hope still under its rim. The intact-jar visual
-is the Hesiodic counterpoint to the shattered-jar logo --- the
-methodology of \cref{sec:pandora} is the latch that lets \emph{Hope}
-remain inside the jar even as the rest of its contents have escaped.
-Asset generated by Google Gemini at the author's request, 2026-05-02
-(rule 1: AI contributions visibly labelled).}
+\caption{The proverbial jar --- intact: the Hesiodic counterpoint to
+the shattered-jar front-matter logo. (Asset generated by Google
+Gemini at the author's request, 2026-05-02; rule~1.)}
 \label{fig:pandora-jar-intact}
 \end{figure}
 
@@ -2220,7 +2227,7 @@ of AI-assisted research:
 \begin{enumerate}
   \item \textbf{AI conversation transcripts as first-class artifacts.}
         Every paper-development session is preserved in
-        \texttt{experiments/*/raw\_conversations (copy\&paste, web)/}
+        \seqsplit{\texttt{experiments/*/raw\_conversations}} \seqsplit{\texttt{(copy\&paste,~web)/}}
         with an explicit verification status
         (\texttt{[verbatim-export]} /
         \texttt{[curated-reconstruction]} / \texttt{[redacted]}). The

@@ -54,6 +54,15 @@ is structural rather than empirical.
 - For derived numbers (e.g., aggregated stage effort), record the
   aggregation rule in a comment in the generation script and the data
   CSV.
+- *Verified-source data preference (2026-05-02 update).* When a
+  data-driven figure can plausibly use numbers from a `docs/sources.md`
+  entry, prefer entries marked `[ai-confirmed]` or `[lit-read]` over
+  entries marked `[lit-retrieved]`. Quote the value verbatim from the
+  Source Analyzer's recorded passage (or the human reader's note) and
+  cite the entry ID in the figure caption. If only `[lit-retrieved]`
+  evidence is available for a number you would otherwise plot, halt
+  the figure and file a hand-back to the Source Analyzer requesting
+  upgrade to `[ai-confirmed]` before the figure ships.
 
 ### 3. Generate the artifact
 

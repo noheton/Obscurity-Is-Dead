@@ -63,7 +63,9 @@ Apply the following rules throughout both files. Prefer precision over fluency. 
 **Claims and evidence coupling**
 - Every empirical claim must be followed immediately by its citation or by a direct reference to the supporting evidence in the repository (e.g. "see §3.2" or "Table 1").
 - Flag any empirical claim lacking a citation or evidence reference with an inline marker `[CITATION NEEDED]`. Do not silently delete the claim.
-- Do not upgrade `[lit-retrieved]` citations to inline use; these may only appear as `[lit-retrieved]` footnotes pending the researcher's `[lit-read]` upgrade.
+- Inline citations may use entries at `[ai-confirmed]` or `[lit-read]` tiers (extended legend, 2026-05-02). `[lit-retrieved]` entries may only appear as footnotes pending an `[ai-confirmed]` (Source Analyzer) or `[lit-read]` (human) upgrade. Load-bearing or contested claims (first-of-its-kind effect-size claims, legal interpretation, the only quantitative anchor for a paragraph) remain gated on `[lit-read]` even when an `[ai-confirmed]` annotation exists.
+- When the Source Analyzer files `docs/handbacks/source-analyzer-to-writer.md`, treat each newly-`[ai-confirmed]` entry as a citation-upgrade worklist: the writer promotes those references from footnote-only `[lit-retrieved]` mentions to normal in-text citations, and tightens any paper claim that the AI confirmation revealed to be weaker or narrower than the prior entry summary suggested.
+- Pull *verified* numeric or quoted evidence into the paper rather than paraphrasing entry summaries. When an entry is `[ai-confirmed]` or `[lit-read]`, the writer may quote the recorded passage or restate the recorded numbers verbatim (with the citation). When an entry is at `[lit-retrieved]` only, the writer must keep the claim general and footnote-only.
 
 **Abstract**
 - Confirm the abstract follows the structured Background / Methods / Results / Conclusions (BMRC) form.
