@@ -1135,3 +1135,23 @@ This logbook is the operating record for the paper and research process.
 - Next steps:
   - Researcher reviews the new README layout and the rule-15 wording in `CLAUDE.md`.
   - Consider adding a CI step that lists `paper/figures/fig*.svg` and greps `README.md` for each filename, failing if any figure is unreferenced.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 0 bootstrap)
+- Session lead: AI agent (Claude Opus 4.7), executing `docs/prompts/iot-integrator-prompt.md` on branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 0 (self-augmentation + target intake).
+- Actions taken:
+  - Enumerated input set with `ls experiments/*/REPORT.md` (4 reports: ecoflow-powerocean, iot-integrator-ondilo-ico-spa-v2, paper-meta-process, spider-farmer). Recorded verbatim in `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md §0.1.a`.
+  - Read each `REPORT.md` in full and distilled an 18-row Technique Inventory, every row anchored to a specific section citation, no fabricated entries. Three gaps recorded as Open Questions, not invented techniques.
+  - Treated the prior `iot-integrator-ondilo-ico-spa-v2` run with equal weight to the original three case studies (prompt §0.1.e).
+  - Created experiment subfolder layout `experiments/iot-integrator-balboa-gateway-ultra/{process,original,captures,integration,raw_conversations (copy&paste, web)}/`.
+  - Surfaced an apparent target/artifact conflict (Balboa Gateway Ultra Wi-Fi module vs Ondilo ICO APK link) at intake per CLAUDE.md rule 7. Three candidate resolutions presented; provisional default = Balboa-only run; agent did not guess. Phase 1 will not start until the researcher answers.
+  - Pre-allocated redaction marker block `S-BAL-1..S-BAL-8` in the bootstrap report. None activated yet, so `docs/redaction-policy.md` is unchanged.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - Researcher must resolve the Balboa-vs-ICO target conflict before Phase 1.
+  - Researcher must declare the desired control surface and privacy boundary, and confirm which artifacts they can legally / ethically supply.
+  - Three Technique Inventory Open Questions (Wi-Fi module RE; captive-portal / setup-AP; vendor white-label identification) may need new technique IDs created during this run and back-fed at close-out.
+- Next steps:
+  - Present the Phase 0 user-facing summary (technique count, target, privacy boundary, artifact list) at the Phase 0→1 checkpoint and wait for explicit "go".
