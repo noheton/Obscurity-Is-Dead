@@ -106,6 +106,156 @@
                   academic assessment''.}
 }
 
+@misc{grand2013jtagulator,
+  author       = {Grand, Joe},
+  title        = {{JTAGulator}: Assisted Discovery of On-Chip Debug Interfaces},
+  howpublished = {{DEF CON} 21 presentation;
+                  \url{https://defcon.org/images/defcon-21/dc-21-presentations/Grand/DEFCON-21-Grand-JTAGulator.pdf};
+                  vendor \url{https://www.grandideastudio.com/jtagulator/};
+                  source \url{https://github.com/grandideastudio/jtagulator}},
+  year         = {2013},
+  note         = {Cross-referenced as L-HW-RE-1 in \texttt{docs/sources.md};
+                  status \texttt{[lit-retrieved]} \texttt{[grey-literature]}
+                  2026-05-02. Canonical grey-literature anchor for
+                  automated JTAG / UART / SWD pinout discovery on
+                  unknown PCBs at commodity hardware cost.}
+}
+
+@inproceedings{oflynn2014chipwhisperer,
+  author       = {O'Flynn, Colin and Chen, Zhizhang (David)},
+  title        = {{ChipWhisperer}: An Open-Source Platform for Hardware Embedded Security Research},
+  booktitle    = {Constructive Side-Channel Analysis and Secure Design ({COSADE} 2014)},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {8622},
+  pages        = {243--260},
+  year         = {2014},
+  publisher    = {Springer},
+  doi          = {10.1007/978-3-319-10175-0_17},
+  note         = {Preprint at \url{https://eprint.iacr.org/2014/204}.
+                  Cross-referenced as L-HW-RE-2 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} 2026-05-02. Anchors a
+                  $\sim$100$\times$ equipment-cost reduction
+                  (\textgreater{}USD~30{,}000 commercial SCA rigs
+                  $\rightarrow$ $\sim$USD~300 ChipWhisperer Lite).}
+}
+
+@inproceedings{vasile2018breakingallthethings,
+  author       = {Vasile, Sergei and Oswald, David F. and Chothia, Tom},
+  title        = {Breaking All the Things --- A Systematic Survey of Firmware Extraction Techniques for {IoT} Devices},
+  booktitle    = {Smart Card Research and Advanced Applications ({CARDIS} 2018)},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {11389},
+  pages        = {171--185},
+  year         = {2018},
+  publisher    = {Springer},
+  doi          = {10.1007/978-3-030-15462-2_12},
+  note         = {Cross-referenced as L-HW-RE-3 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} 2026-05-02. Reports that
+                  across 24 commercial IoT devices, an exposed UART
+                  suffices for firmware extraction in
+                  \textgreater{}45\% of cases.}
+}
+
+@article{botero2021hwretutorial,
+  author       = {Botero, Ulbert J. and Wilson, Ronald and Lu, Hangwei and Rahman, Mir Tanjidur and Mukhopadhyay, Mukhil Azhagan Mallaiyan and Ganji, Fatemeh and Asadizanjani, Navid and Tehranipoor, Mark M. and Woodard, Damon L. and Forte, Domenic},
+  title        = {Hardware Trust and Assurance through Reverse Engineering: A Tutorial and Outlook from Image Analysis and Machine Learning Perspectives},
+  journal      = {ACM Journal on Emerging Technologies in Computing Systems ({JETC})},
+  volume       = {17},
+  number       = {4},
+  year         = {2021},
+  doi          = {10.1145/3464959},
+  note         = {Preprint \url{https://arxiv.org/abs/2002.04210}.
+                  Cross-referenced as L-HW-RE-4 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} 2026-05-02. Canonical
+                  peer-reviewed entry-point for AI-assisted PCB + IC
+                  reverse engineering.}
+}
+
+@book{grand2004hardwarehacking,
+  author       = {Grand, Joe and Russell, Ryan and Mitnick, Kevin D.},
+  title        = {Hardware Hacking: Have Fun While Voiding Your Warranty},
+  publisher    = {Syngress},
+  year         = {2004},
+  isbn         = {978-1932266832},
+  note         = {Cross-referenced as L-HW-RE-5 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} \texttt{[practitioner]}
+                  2026-05-02. 2003--2004 baseline practitioner anchor
+                  for the historical hardware-RE effort floor.}
+}
+
+@book{huang2003hackingxbox,
+  author       = {Huang, Andrew (``bunnie'')},
+  title        = {Hacking the {Xbox}: An Introduction to Reverse Engineering},
+  publisher    = {No Starch Press},
+  year         = {2003},
+  isbn         = {978-1593270292},
+  note         = {Cross-referenced as L-HW-RE-5 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} \texttt{[practitioner]}
+                  2026-05-02. 2003 baseline practitioner anchor
+                  (bespoke equipment, multi-day soldering / bus-tap
+                  workflow).}
+}
+
+@book{huang2017hardwarehacker,
+  author       = {Huang, Andrew (``bunnie'')},
+  title        = {The Hardware Hacker: Adventures in Making and Breaking Hardware},
+  publisher    = {No Starch Press},
+  year         = {2017},
+  isbn         = {978-1593277581},
+  note         = {Cross-referenced as L-HW-RE-5 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} \texttt{[practitioner]}
+                  2026-05-02. Mid-period practitioner anchor.}
+}
+
+@book{vanwoudenberg2021hwhandbook,
+  author       = {van Woudenberg, Jasper and O'Flynn, Colin},
+  title        = {The Hardware Hacking Handbook: Breaking Embedded Security with Hardware Attacks},
+  publisher    = {No Starch Press},
+  year         = {2021},
+  isbn         = {978-1593278748},
+  note         = {Cross-referenced as L-HW-RE-5 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} \texttt{[practitioner]}
+                  2026-05-02. 2021 ``after'' practitioner anchor:
+                  single book + $\sim$USD~300 toolchain replaces the
+                  2003--2004 expert-only floor.}
+}
+
+@book{smith2016carhackershandbook,
+  author       = {Smith, Craig},
+  title        = {The Car Hacker's Handbook: A Guide for the Penetration Tester},
+  publisher    = {No Starch Press},
+  year         = {2016},
+  isbn         = {978-1593277031},
+  note         = {Cross-referenced as L-HW-RE-5 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} \texttt{[practitioner]}
+                  2026-05-02. Vehicle-side practitioner complement to
+                  the bookend pair.}
+}
+
+@inproceedings{becker2020hwreexploratory,
+  author       = {Becker, Steffen and Wiesen, Carina and Albartus, Nils and Rummel, Nikol and Paar, Christof},
+  title        = {An Exploratory Study of Hardware Reverse Engineering --- Technical and Cognitive Processes},
+  booktitle    = {Sixteenth Symposium on Usable Privacy and Security ({SOUPS} 2020)},
+  year         = {2020},
+  publisher    = {{USENIX} Association},
+  url          = {https://www.usenix.org/system/files/soups2020-becker.pdf},
+  note         = {Preprint \url{https://arxiv.org/abs/2105.14943}.
+                  Cross-referenced as L-HW-RE-6 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} 2026-05-02. Closest
+                  peer-reviewed analogue to L-RE-3 on the hardware
+                  side: students reach intermediate HRE proficiency in
+                  14 weeks of structured training.}
+}
+
 @misc{anthropic2026claude,
   author       = {{Anthropic}},
   title        = {Claude (Opus 4.7 model family)},
