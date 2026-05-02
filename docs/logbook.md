@@ -1242,3 +1242,15 @@ This logbook is the operating record for the paper and research process.
 - Next steps:
   - Present the close-out summary to the researcher and wait for explicit acceptance.
   - On acceptance: case study is feature-complete on this branch; no further AI-driven work expected without a new prompt.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, researcher acceptance and close-out)
+- Session lead: Researcher.
+- Action: explicit acceptance of the close-out summary ("accepted", 2026-05-02). Case study `experiments/iot-integrator-balboa-gateway-ultra/` is feature-complete on branch `claude/iot-pool-spa-integration-tkpaD`.
+- Pointer for citation: `experiments/iot-integrator-balboa-gateway-ultra/process/summary.md` (consolidated narrative); `experiments/iot-integrator-balboa-gateway-ultra/REPORT.md` (top-level case-study report).
+- Outstanding researcher-side work, recorded so it does not get lost:
+  - Run `integration/validation-checklist.md` end-to-end and lodge `captures/phase-3-validation.log.redacted`.
+  - Activate `S-BAL-*` markers in `docs/redaction-policy.md` as they appear during the validation run.
+  - Optional: §A jadx deep-dive (W-3 reachability, W-5 conditionality), §B LAN probe, §C mitmproxy capture, §D GDPR SAR with BWG and WaterGuru.
+  - Populate `experiments/iot-integrator-balboa-gateway-ultra/raw_conversations (copy&paste, web)/` with the exported transcripts of this session.
+  - Pre-publication: `git rm` the XAPK and the derivative APK assets per the confirmed rule-12 retention plan; SHA-256 anchors in `phase-2-weakness.md §2.0` remain the permanent evidence.
+- No further AI-driven work is expected on this case study without a new prompt. Rule 13 publication posture: no public push beyond the working branch, no Zenodo deposit, no arXiv submission, no upstream PR.
