@@ -151,9 +151,9 @@ the correct ControlMySpa APK link.]*
 | Vendor | Balboa Water Group (BWG) — module reseller: Perfect Spa GmbH (perfect-spa.eu). |
 | Product | Balboa "Gateway Ultra" Wi-Fi module (retrofit Wi-Fi bridge for BP-series spa packs). |
 | Firmware version | unknown — researcher to read off the unit. |
-| Desired control surface | **to be set by researcher.** Candidate: read-only (water temp, heater, pump states, set-point, error flags); or read/write (set-point, jets/blower/lights, filtration cycles); or configuration only. |
-| Privacy boundary | **to be set by researcher.** Candidate baseline: no traffic to the BWA cloud (`bwgapi.balboawater.com`), no vendor account creation kept active, no mDNS/SSDP broadcast of household-identifying device names. |
-| Researcher-supplied artifacts (legal & ethical) | **partially confirmed.** Confirmed: (a) **ControlMySpa APK** (`com.controlmyspa.ownerappnew`, APKPure mirror, researcher to record SHA-256 on download in Phase 1). To be confirmed by researcher: (b) packet captures from the researcher's own LAN (gateway → device, gateway → BWA cloud); (c) Wi-Fi setup-AP / pairing-flow captures from the researcher's own first-time onboarding; (d) the redacted serial / DSN of the researcher's own module. |
+| Desired control surface | **read+write**, confirmed 2026-05-02. Read: water/heater/pump/set-point readback and error flags. Write: set-point, jets / blower / lights, filtration cycles, where the chosen interface supports them. |
+| Privacy boundary | **"as local as possible"**, confirmed 2026-05-02. Operationalised as: prefer any LAN-only path that exposes the declared control surface; fall back to the BWA cloud only if Phase 1 shows no working local path covers the write surface, and only with explicit per-call authorisation at the Phase 2 checkpoint. No kept-active vendor account beyond what the device firmware requires. No household-identifying mDNS/SSDP names. |
+| Researcher-supplied artifacts (legal & ethical) | **finalised at Phase 0→1.** Confirmed now: (a) **ControlMySpa APK** (`com.controlmyspa.ownerappnew`, APKPure mirror, researcher to record SHA-256 on download in Phase 1). Possible later: (b) LAN packet captures from the researcher's own gateway. Not in scope this run: (c) setup-AP capture, (d) explicit DSN supply (the researcher may share a redacted DSN if needed for Phase 2 weakness analysis, but the agent must not request it pre-emptively). |
 | Off-limits artifacts | Any neighbour or third-party traffic; any captures from a unit the researcher does not own; any vendor-cloud data accessed via another user's account. |
 
 ### 0.2.3 Pre-allocated redaction marker block (rule 12 / `T-CAPTURE-TIME-REDACTION`)
@@ -199,4 +199,4 @@ picks:
 - This file: `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md` ✓
 - Logbook entry: pending (this commit).
 - `docs/redaction-policy.md` row append: not yet — no marker activated.
-- User checkpoint (Phase 0 → Phase 1): §0.2.1 conflict resolved 2026-05-02 (ControlMySpa APK confirmed). Still pending: researcher's declared **control surface** (read-only vs read+write), confirmation of the **privacy boundary** in §0.2.2, and which of the candidate artifacts (b)/(c)/(d) they can supply.
+- User checkpoint (Phase 0 → Phase 1): **closed 2026-05-02**. Conflict resolved (ControlMySpa APK), control surface declared (read+write), privacy boundary declared ("as local as possible"), artifact set finalised ((a) APK now, (b) LAN captures possible later, (c)/(d) deferred). Phase 1 may begin.

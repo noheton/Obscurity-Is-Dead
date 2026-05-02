@@ -1170,3 +1170,23 @@ This logbook is the operating record for the paper and research process.
   - Researcher still owes: declared control surface (read-only vs read+write), confirmation of provisional privacy boundary, and which of artifacts (b) LAN captures / (c) setup-AP capture / (d) redacted DSN they can supply.
 - Next steps:
   - Wait for the remaining Phase 0→1 inputs, then begin Phase 1 (desk-research only, no device contact).
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 1 desk research)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 1 (research; desk-only; no device, no LAN, no vendor cloud contact).
+- Actions taken:
+  - Catalogued nine existing solutions (ES-1..ES-9) in two families: local-protocol integrations targeting the older BWA Wi-Fi Module 50350 (ES-1..ES-5, all incompatible with the researcher's 59303) and cloud integrations targeting `iot.controlmyspa.com` (ES-6..ES-9, all requiring a vendor account).
+  - Recorded the headline gap: no open-source project documents a LAN-only path that talks to the Gateway Ultra (59303). The researcher's "as local as possible" privacy boundary therefore collides with the device's intended architecture; Phase 2 must determine whether *any* LAN surface exists at all.
+  - Mapped vendor and ecosystem: BWG / Costa Mesa CA / parent Helios Technologies; EU reseller Perfect Spa GmbH; ControlMySpa cloud at `iot.controlmyspa.com` with a documented TLS-chain breakage since June 2023 — recorded as a paper-relevant vendor signal.
+  - Catalogued candidate interfaces CI-1..CI-6; none selected. CI-2 (legacy local TCP) and CI-5/CI-6 (mDNS / BLE) are the Phase-2 questions.
+  - Recorded five Open Questions to carry into Phase 2.
+  - Three vendor URLs returned 403 to the agent (perfect-spa.eu product page, home-assistant.io balboa docs, manuals.plus 59303 manual). Affected claims annotated; researcher must re-verify with direct fetch before any paper citation.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-1-research.md` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - All five Phase-1 Open Questions (§1.5) carried into Phase 2.
+  - `docs/sources.md` cluster K (Balboa / ControlMySpa) to be populated at close-out.
+  - Researcher promotion of `[lit-retrieved]` → `[lit-read]` required before any Phase 1 claim is asserted as authority in `paper/main.md`.
+- Next steps:
+  - Present the Phase 1 user-facing summary at the Phase 1→2 checkpoint (existing-solutions count, gap, top three candidate interfaces, vendor privacy posture). Wait for explicit "go" before Phase 2.
