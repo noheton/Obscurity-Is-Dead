@@ -11,7 +11,7 @@
 [![arXiv-ready LaTeX](https://img.shields.io/badge/paper-arXiv--ready-red)](paper/main.tex)
 [![Draft PDF](https://img.shields.io/badge/draft-PDF-orange)](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml)
 [![Figures: 16](https://img.shields.io/badge/figures-16-purple)](paper/figures/)
-[![Case studies: 3](https://img.shields.io/badge/case%20studies-3-teal)](experiments/)
+[![Case studies: 5](https://img.shields.io/badge/case%20studies-5-teal)](experiments/)
 
 **Author:** Florian Krebs · [ORCID 0000-0001-6033-801X](https://orcid.org/0000-0001-6033-801X) · *Independent researcher (personal capacity).*
 This is a hobbyist project. It is **not** part of, endorsed by, funded by, or representative of any employer, including the German Aerospace Center (DLR). See `paper/main.md` §9.5.
@@ -38,6 +38,19 @@ This is a hobbyist project. It is **not** part of, endorsed by, funded by, or re
 | **Dual-use blast radius** | Per-device horticulture control | Grid-in / battery-reserve / EV-charger writes | Fabricated citations, unsourced legal opinions, redaction failures |
 
 Source: `paper/main.md` §3.7, §4.7, §5.7, §6.1.
+
+### Cross-validation — IoT-Integrator runs (§6.5)
+
+| | Ondilo ICO Spa V2 | Balboa Gateway Ultra (BWG 59303) |
+|---|---|---|
+| **Defence model** | Conventional OAuth2; non-expiring refresh tokens dominate residual risk | Cryptographically sound AWS Cognito us-west-2; weak operational layer (broken intermediate-CA chain, `TrustAllStrategy` symbol, public mobile client secret) |
+| **Primary AI lift** | Manifest-permission audit; existing-solutions enumeration; technique-inventory bootstrap | Static APK analysis; cross-implementation validation against ES-6; identification of endpoints absent from any open-source library |
+| **Phase 3 outcome** | Configuration-only: upstream `ondilo_ico` integration + operational notes + smoke test | Configuration-only: upstream `[REDACTED:repo-path:BALBOA-UPSTREAM-1]` + six-control hardening overlay (C-1..C-6) + smoke test |
+| **Dual-use blast radius** | Bounded read-only telemetry | Full ControlMySpa control surface + cross-vendor data flow to WaterGuru |
+| **Composite difficulty** (§6.6) | Easy | Medium |
+| **Validation status** | Cross-validation; researcher-side device tests `T-OND-1..T-OND-10` pending | Cross-validation; researcher-side device tests `T-BAL-1..T-BAL-12` pending |
+
+These two cases enter the paper as evidence for the methodology's *transferability* rather than as independent confirmation of the central thesis (§6.5, §8 limitation 3). They place a useful spread on the obscurity-vs-authentication axis: Spider Farmer (no auth) → Balboa (sound auth, weak operational layer) → Ondilo (clean OAuth2) → EcoFlow (multiple authenticated surfaces).
 
 | | |
 |---|---|
@@ -69,8 +82,10 @@ A research paper **and** its full evidence trail — case studies, AI conversati
 | **Fig 5** — Acquire → Analyse → Audit → Validate. | **Fig 9** — Two-track verification. |
 | ![Dual-use outcome map.](paper/figures/fig6-dual-use.svg) | ![Per-stage AI vs. manual effort.](paper/figures/fig10-stage-effort.svg) |
 | **Fig 6** — Dual-use outcome map. | **Fig 10** — Where the gap actually compresses. |
+| ![Vulnerabilities of IoT-integrator pipelines as a system class.](paper/figures/fig13-pipeline-vulnerabilities.svg) | ![The malicious IoT-integrator agent: same prompt, different governance.](paper/figures/fig14-malicious-integrator.svg) |
+| **Fig 13** — Pipeline-class vulnerabilities synthesised across the four device cases (§6.7). | **Fig 14** — Researcher-governed vs. adversarial IoT-Integrator branches (§7.13). |
 
-The full inventory (Figs 7, 8, 12–16, plus the Pandora bookend) lives in [`paper/figures/README.md`](paper/figures/README.md).
+The full inventory (Figs 7, 8, 12, 15, 16, plus the Pandora bookend) lives in [`paper/figures/README.md`](paper/figures/README.md).
 
 </details>
 
@@ -80,7 +95,9 @@ The full inventory (Figs 7, 8, 12–16, plus the Pandora bookend) lives in [`pap
 
 ```
 paper/         # main.md, main.tex (rule-11 mirror), references.bib, Makefile, figures/
-experiments/   # spider-farmer/, ecoflow-powerocean/, paper-meta-process/
+experiments/   # spider-farmer/, ecoflow-powerocean/,
+               # iot-integrator-ondilo-ico-spa-v2/, iot-integrator-balboa-gateway-ultra/,
+               # paper-meta-process/
 docs/          # methodology, sources, logbook, fair, redaction-policy, ethics, prompts/
 CITATION.cff · .zenodo.json · codemeta.json · LICENSE · CLAUDE.md
 ```
