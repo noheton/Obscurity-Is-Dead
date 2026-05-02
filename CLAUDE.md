@@ -25,12 +25,14 @@ When generating content or code in this repo, follow these rules:
 
 ## Agent workflow
 
-The repository uses a three-stage agent pipeline. Executable prompts are stored in `docs/prompts/`:
+The repository uses a five-stage agent pipeline. Executable prompts are stored in `docs/prompts/`:
 
 | Stage | Prompt file | Trigger |
 |-------|-------------|---------|
 | 1. Research protocol | `docs/prompts/research-protocol-prompt.md` | New case study or evidence pass |
 | 2. Scientific writer | `docs/prompts/scientific-writer-prompt.md` | After research pass; before submission |
-| 3. Illustration | `docs/prompts/illustration-prompt.md` | After scientific writer produces the Illustration Opportunities Registry (stub — not yet executable) |
+| 3. Illustration | `docs/prompts/illustration-prompt.md` | After scientific writer produces the Illustration Opportunities Registry |
+| 4. Layout scrutinizer | `docs/prompts/layout-scrutinizer-prompt.md` | After `make pdf` produces an up-to-date `paper/main.pdf`; routes defects back to writer / illustrator |
+| 5. Readability & novelty scrutinizer | `docs/prompts/readability-novelty-prompt.md` | After scientific writer pass; runs in parallel with stage 4 but is logically distinct (operates on `paper/main.md`, not the PDF) |
 
-Run the stages in order. The scientific writer may not be run until the researcher has completed a full pass. The illustration agent may not be run until the scientific writer has produced the Illustration Opportunities Registry and the researcher has confirmed the priority entries.
+Run the stages in order. The scientific writer may not be run until the researcher has completed a full pass. The illustration agent may not be run until the scientific writer has produced the Illustration Opportunities Registry and the researcher has confirmed the priority entries. The layout scrutinizer may not be run against a stale PDF; rebuild via `make pdf` first. Stages 4 and 5 do **not** edit source files — they produce defect registries under `docs/handbacks/` that hand work back to stages 2 and 3, which then re-run, after which stages 4 and 5 re-scrutinise. Iterate until each scrutinizer reports `RE-SCRUTINY REQUIRED: no`.
