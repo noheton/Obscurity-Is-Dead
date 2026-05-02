@@ -12,6 +12,7 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{tabularx}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{xcolor}
@@ -340,8 +341,59 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
         by any preserved transcript --- recorded as an open issue).
 \end{itemize}
 
-% [ILLUSTRATION OPPORTUNITY] ILL-01 — comparison-table — Side-by-side table of key/IV candidates from each of the four implementations (ESPHome, SpiderBLEBridge, PythonSpiderController, integration const.py), showing agreement and disagreement before AI-mediated reconciliation.
-% Status: stub — See docs/prompts/illustration-prompt.md
+\begin{table}[htbp]
+  \centering
+  \caption{Cross-implementation comparison of the BLE crypto surface
+    for the Spider Farmer SF-GGS family. Rows are the protocol elements
+    reconciled by the AI-mediated pass; columns are the four independent
+    implementations cross-checked against the in-tree integration. The
+    right-most column records what \texttt{const.py} /
+    \texttt{ble\_protocol.py} settled on after reconciliation. Source:
+    \texttt{experiments/spider-farmer/original/doc/apk\_analysis/}
+    \texttt{implementations.md} and
+    \texttt{experiments/spider-farmer/original/const.py} lines 40--55 at
+    commit \texttt{ffdf60c}.}
+  \label{tab:sf-crypto-reconciliation}
+  \footnotesize
+  \begin{tabularx}{\textwidth}{@{}l X X X X X@{}}
+    \toprule
+    \textbf{Element} & \textbf{ESPHome} & \textbf{SpiderBLEBridge} &
+    \textbf{PythonSpider} & \textbf{HA \texttt{const.py}} &
+    \textbf{Outcome} \\
+    \midrule
+    Cipher & AES-128-CBC & AES-128-CBC & AES-128-CBC & AES-128-CBC &
+      Agreed \\
+    Key/IV delivery & YAML &
+      \texttt{arduino\_secrets.h} & \texttt{devices.json} &
+      HA config flow & Same protocol \\
+    Static IV (app$\to$dev) & per type & per type & per type & per type &
+      Agreed \\
+    Dynamic IV source & \texttt{[6:20]+00\,00} &
+      \texttt{memcpy(+6,14)+00\,00} & \texttt{[6:20]+00\,00} &
+      \texttt{[6:6+16]} & \textbf{HA bug} \\
+    CB key & \texttt{iVi6D24K\ldots} & \texttt{iVi6D24K\ldots} &
+      \texttt{iVi6D24K\ldots} & \texttt{iVi6D24K\ldots} &
+      Agreed \\
+    CB IV & \texttt{RnWokNEv\ldots} & \texttt{RnWokNEv\ldots} &
+      \texttt{RnWokNEv\ldots} & \texttt{RnWokNEv\ldots} &
+      Agreed \\
+    LED key/IV & confirmed & confirmed & confirmed &
+      \texttt{BkJu61kL\ldots/2AKVNUbU\ldots} & Agreed \\
+    PS-10 key/IV & confirmed & confirmed & confirmed &
+      \texttt{lVIlATSl\ldots/84Rf7SUk\ldots} & Agreed \\
+    Activation order & \texttt{getSysSta} & \texttt{getSysSta} &
+      \texttt{getDevSta}\,(diff.) & \texttt{getSysSta} & Majority \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The reconciliation pattern is the central observation: the four
+implementations \emph{agree} on every cryptographic primitive and on the
+three confirmed key/IV pairs, but \emph{diverge} on dynamic-IV byte-range
+and on activation-flow opcode. Without an AI pass, locating the HA
+dynamic-IV bug would require reading and comparing four codebases
+byte-for-byte; with an AI pass, the disagreement is surfaced in minutes
+(T3 in the Spider Farmer transcript register).
 
 \subsection{Validation}
 \label{sec:sf-validation}
@@ -456,8 +508,19 @@ the AI-assisted local-control architecture.
         \texttt{async\_step\_import} migration.
 \end{enumerate}
 
-% [ILLUSTRATION OPPORTUNITY] ILL-02 — architecture-diagram — Diagram of the three EcoFlow API surfaces (legacy setDeviceProperty REST, published Open API with HMAC-SHA256, MQTT surface), labelled with which surface the consumer app uses, which is documented, and which the integration selects; makes three-surface reconciliation finding in §4.3 self-contained.
-% Status: stub — See docs/prompts/illustration-prompt.md
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.92\linewidth]{fig8-ecoflow-surfaces.pdf}
+  \caption{\textbf{EcoFlow PowerOcean three API surfaces.} The legacy
+    \texttt{setDeviceProperty} REST endpoint, the published Open API
+    (HMAC-SHA256 signed), and the MQTT broker each terminate at the same
+    device, but only one is reached by the consumer app and by the
+    integration. The Open API documentation describes a different surface
+    than the one the app actually uses; \texttt{apk.md} line~52 records the
+    integration's decision to follow the app rather than the docs.
+    Script: \texttt{figures/fig8-ecoflow-surfaces.py}.}
+  \label{fig:ecoflow-surfaces}
+\end{figure}
 
 \subsection{Findings --- interoperability}
 \label{sec:ef-interop}
@@ -678,8 +741,21 @@ two case studies (\texttt{README.md}, \texttt{REPORT.md},
         replaced with sourced legal commentary.
 \end{itemize}
 
-% [ILLUSTRATION OPPORTUNITY] ILL-03 — workflow-diagram — Diagram of the verification-status pipeline: [needs-research] → [lit-retrieved] → [lit-read], with annotations on what claims each status permits, concretely illustrating the sloppification mitigation described in §7.6.
-% Status: stub — See docs/prompts/illustration-prompt.md
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\linewidth]{fig9-verification-pipeline.pdf}
+  \caption{\textbf{Verification-status pipeline.} Each cited source
+    progresses through gated stages on either the literature track
+    (\texttt{[needs-research]}\,$\to$\,\texttt{[lit-retrieved]}\,$\to$\,\texttt{[lit-read]})
+    or the artifact track
+    (\texttt{[unverified-external]}\,$\to$\,\texttt{[repo-referenced]}\,$\to$\,\texttt{[repo-vendored]}).
+    The legend in \texttt{docs/sources.md} makes the read-state of every
+    source explicit: a paper claim may only invoke a source at the stage
+    that source has reached. The discipline is the sloppification
+    mitigation described in \cref{sec:disc-sloppification}. Script:
+    \texttt{figures/fig9-verification-pipeline.py}.}
+  \label{fig:verification-pipeline}
+\end{figure}
 
 \subsection{Findings --- security and dual-use implications}
 \label{sec:meta-security}
@@ -936,8 +1012,23 @@ device is cheap, and verifying an exploit against a live target is not. We
 argue this asymmetry is the most under-discussed feature of the post-LLM
 threat model.
 
-% [ILLUSTRATION OPPORTUNITY] ILL-04 — bar-chart — Grouped bar chart with workflow stage (Discovery / Build / Debug / Validation) on x-axis and estimated effort in hours on y-axis, bars for AI-assisted and manual baseline per case study; makes the asymmetric-collapse claim in §7.3 empirically concrete.
-% Status: stub — See docs/prompts/illustration-prompt.md
+% Rule 14: data source = figures/data/stage-effort.csv; generation script = figures/fig10-stage-effort.py
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.96\linewidth]{fig10-stage-effort.pdf}
+  \caption{\textbf{Stage-by-stage effort gap.} Left: AI-assisted vs
+    manual-baseline effort per workflow stage (Discovery, Build, Debug,
+    Validation) for the two integration case studies, with manual ranges
+    shown as error bars. Right: per-stage compression ratio (manual\,/\,AI).
+    The asymmetric-collapse claim is visible directly: organisation-and-
+    reconciliation stages (Build, Debug) compress most, novel-discovery
+    stages compress least. EcoFlow's validation phase was not separately
+    captured in the transcripts and is therefore omitted (CLAUDE.md
+    rule~1, no fabrication). Data:
+    \texttt{figures/data/stage-effort.csv}; script:
+    \texttt{figures/fig10-stage-effort.py}.}
+  \label{fig:stage-effort}
+\end{figure}
 
 \subsection{Dual-use accountability}
 \label{sec:disc-dual-use}
@@ -1571,8 +1662,20 @@ of AI-assisted research:
         satisfies it.
 \end{enumerate}
 
-% [ILLUSTRATION OPPORTUNITY] ILL-05 — conceptual-diagram — Diagram mapping the eight integrated practices (items above) onto the three failure-mode axes they address (fabricated citations / prompt injection / tooling drift); concisely summarises the paper's methodological contribution and could serve as a visual abstract.
-% Status: stub — See docs/prompts/illustration-prompt.md
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\linewidth]{fig11-eight-practices.pdf}
+  \caption{\textbf{Eight integrated practices $\times$ three failure-mode
+    axes.} Each row is one of the eight numbered practices listed above;
+    each column is one of the three failure-mode axes the paper organises
+    around. \texttt{P} marks the principal mitigation, \texttt{S} a
+    secondary mitigation. Intended as the visual abstract for the
+    submission: the methodological novelty is not any single row but the
+    integration --- every failure-mode axis is principally addressed by
+    at least one practice and secondarily reinforced by at least one
+    other. Script: \texttt{figures/fig11-eight-practices.py}.}
+  \label{fig:eight-practices}
+\end{figure}
 
 None of these practices is individually novel. Conversation logs have
 been shipped with replications before; verification-status labels
