@@ -769,3 +769,42 @@ This logbook is the operating record for the paper and research process.
   - Researcher reviews the registry and confirms priority H entries.
   - Promote `docs/prompts/illustration-prompt.md` from stub to executable once registry is confirmed.
   - Continue tracking §5.7 KPI each session until submission.
+
+---
+
+### Session 9 — 2026-05-02 (privacy as a user right — data-backed remarks)
+
+- Branch: `claude/add-privacy-remarks-Zr1eE`
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+
+- User request: "add some remarks, backed by data, that it might also be key for users' rights of privacy and still use the devices as intended" — a request to add a data-anchored privacy framing alongside the existing right-to-repair / interoperability framing.
+
+- Actions taken:
+  - **Literature pass.** Issued three Consensus queries targeting (i) smart-home IoT telemetry/privacy measurement, (ii) IoT GDPR compliance and data-minimisation, (iii) IoT companion-app trackers and blocking-without-breaking-functionality. Twelve candidate papers retained as `[lit-retrieved]` citations; cornerstone anchors are Ren et al. (2019, *IMC*) for the 81-device / 34,586-experiment baseline and Nan et al. (2023) for the 6,208-companion-app / 1,973-leaky / 1,559-vendor static analysis. Counter-evidence retained: Kollnig et al. (2021) on the limited post-GDPR change in mobile-app tracking.
+  - **`docs/sources.md` Cluster L added** — "Privacy as a user right reachable via local interoperability". Twelve citations split into four sub-clusters: empirical baseline (L-PRIV-1..5), companion-app surface (L-PRIV-6..8), local-first-as-mitigation (L-PRIV-9..10), and counter-evidence (L-PRIV-11..12). All `[lit-retrieved]`. Coverage table extended with a new row.
+  - **§1.3 Motivation bullet added** to `paper/main.md` and `paper/main.tex` (rule 11 mirror enforced) — a fifth bullet "Privacy and data sovereignty" between "User sovereignty" and "Right-to-repair", citing the empirical baseline (L-PRIV-1, L-PRIV-2, L-PRIV-5) and the existence-proof for intended-use-without-telemetry (L-PRIV-9, L-PRIV-10).
+  - **§7.12 added** to both paper sources — "Privacy as a user right: keeping the device, dropping the cloud". Five paragraphs: (i) GDPR / *informationelle Selbstbestimmung* anchor, (ii) empirical baseline with L-PRIV-1..4, (iii) companion-app surface with L-PRIV-5..8, (iv) local-first as mitigation that preserves intended use with L-PRIV-9..10 and the Spider Farmer / EcoFlow case-study link, (v) counter-evidence (L-PRIV-11..12) and structural conclusion that privacy joins right-to-repair as a substantive beneficiary of the methodology — *single-edged and net-positive* in privacy terms even though dual-edged in security terms (§7.4).
+
+- Files updated:
+  - `docs/sources.md` (Cluster L added; coverage table row added)
+  - `paper/main.md` (§1.3 motivation; §7.12 new subsection)
+  - `paper/main.tex` (§1.3 motivation mirror; §7.12 new subsection mirrored with `\paragraph{}` blocks; `\cref` cross-references corrected to `sec:disc-r2r` and `sec:disc-dual-use`)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - Frame privacy as a *separate user right* from right-to-repair, not a sub-aspect of it. The two share a remedy (local interoperability) but rest on distinct legal bases (GDPR Art. 5/25/21 and *Volkszählungsurteil* informational self-determination for privacy; § 69e UrhG / EU 2009/24/EC for interoperability).
+  - State the asymmetry explicitly: the effort-gap collapse is double-edged in security terms (§7.4) but single-edged and net-positive in privacy terms. The local-integration workflow lets the user keep using the device while opting out of the data pipeline. The empirically-disprovable vendor objection is "users cannot exercise their privacy rights without breaking the product".
+  - Use plain author-date text plus `[L-PRIV-N]` handles in both sources (matching the established pattern from §7.6 / §7.7), not bibtex `\citet`. The bibtex entries are reserved for the project's committed-code references, not literature citations that are still `[lit-retrieved]`.
+  - Place §7.12 *after* §7.11 (Prompt injection) rather than renumbering — preserves stable section numbers across all prior commits and rhetorically pivots from "what attackers might do" back to "what users gain" before the conclusion.
+  - Retain the counter-evidence (L-PRIV-11 Kollnig et al. 2021; L-PRIV-12 George et al. 2019) in line with the paper's intellectual-honesty practice from prior sessions: the counter-position is that GDPR alone has *not* materially reduced tracking, which strengthens — not weakens — the user-side technical-instrument argument.
+
+- Open issues:
+  - All Cluster L entries are `[lit-retrieved]`, not `[lit-read]`. They must be upgraded before any of these citations is used as authority.
+  - §1.3 and §7.12 cite GDPR Art. 5(1)(c), Art. 25, Art. 21 and the *BVerfG Volkszählungsurteil* (1983) as legal anchors. Like the existing § 69e UrhG / § 44b UrhG framing, these primary legal sources are `[unverified-external]` and require a German-language / EUR-Lex pass before any legal claim is made.
+  - The §1.3 motivation bullet list now has five items (User sovereignty, Privacy and data sovereignty, Right-to-repair, Dual use, Reproducibility crisis). At a future copy-edit pass, consider whether to merge "User sovereignty" and "Privacy and data sovereignty" since they overlap conceptually — left separate for now to keep the data-anchored privacy framing visible.
+  - All prior open issues (G1–G7 from Session 7, history rewrite, vendor redistribution, Zenodo DOI, etc.) carry over.
+
+- Next steps:
+  - Commit and push to `claude/add-privacy-remarks-Zr1eE`.
+  - Update §5.7 KPI table in a follow-up session if requested (this session adds ~1.5 h of AI-assisted scaffolding and prose).
+  - Begin reading the highest-priority L-PRIV entries (L-PRIV-1 Ren 2019 IMC; L-PRIV-5 Nan 2023; L-PRIV-9 Kazlouski 2022; L-PRIV-11 Kollnig 2021) and upgrade to `[lit-read]`.

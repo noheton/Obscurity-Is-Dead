@@ -103,6 +103,24 @@ it instead magnify security risk by making obscurity ineffective?
   \item \textbf{User sovereignty.} Owners of energy and horticulture hardware
         are increasingly forced into vendor cloud silos for basic local
         control.
+  \item \textbf{Privacy and data sovereignty.} Cloud-bound consumer IoT
+        routinely exports telemetry that users did not bargain for.
+        Ren et al.\ (2019, \emph{IMC}) characterised 81 devices in
+        34{,}586 controlled experiments and documented unencrypted
+        exposures and traffic to third-party destinations [L-PRIV-1];
+        Nan et al.\ (2023) statically analysed \textbf{6{,}208} IoT
+        companion apps and found \textbf{1{,}973} of them --- covering
+        $\geq\,1{,}559$ distinct vendors --- exposing user data without
+        proper disclosure [L-PRIV-5]; Apthorpe et al.\ (2017) showed
+        that even \emph{encrypted} IoT traffic leaks user activity to a
+        passive observer [L-PRIV-2]. A local Home Assistant integration
+        replaces the vendor-cloud round-trip with on-LAN BLE or HTTPS,
+        letting the owner keep using the device as it was sold while
+        exercising the data-minimisation principle that GDPR Art.\ 5(1)(c)
+        requires of controllers but rarely sees enforced [L-PRIV-10];
+        Kazlouski et al.\ (2022) provide a concrete existence proof ---
+        Fitbit core functionality is preserved when third-party domains
+        are blocked at the network layer [L-PRIV-9].
   \item \textbf{Right-to-repair and \S{} 69e UrhG / EU 2009/24/EC.} European
         law explicitly permits decompilation for interoperability; AI
         assistance changes the \emph{practical} --- not the \emph{legal} ---
@@ -1155,6 +1173,98 @@ primary defence. It can impose a modest cost on na\"ive attacks but
 provides no durable protection against a determined adversary. The
 structural answer remains: design systems that do not depend on secret
 protocols.
+
+\subsection{Privacy as a user right: keeping the device, dropping the cloud}
+\label{sec:disc-privacy}
+The interoperability framing in
+\cref{sec:disc-r2r} is incomplete without its sibling: the
+right to \emph{use the device as intended} without exporting telemetry to
+the vendor cloud. This is a separate user right, anchored in EU GDPR
+Art.\ 5(1)(c) (data minimisation), Art.\ 25 (data protection by design and
+by default), Art.\ 21 (right to object), and --- in German constitutional
+doctrine --- \emph{informationelle Selbstbestimmung} (informational
+self-determination, \emph{BVerfG, Volksz\"ahlungsurteil} 1983). The
+empirical literature documents that the consumer-IoT baseline routinely
+violates the spirit of these provisions, and that AI-assisted local
+integrations are one of the few user-side instruments that materially
+close the gap.
+
+\paragraph{The empirical baseline is severe.}
+Ren et al.\ (2019, \emph{IMC}) is the cornerstone measurement: 81
+consumer IoT devices in US/UK labs, 34{,}586 controlled experiments
+characterising destinations, encryption state, inferable interactions,
+and unexpected exposures (including a recording device that covertly
+transmitted video) [L-PRIV-1]. Apthorpe et al.\ (2017) showed that even
+when the payload \emph{is} encrypted, traffic-rate side channels reveal
+sensitive user interactions to a passive observer such as the user's ISP
+for four representative devices (sleep monitor, indoor camera, smart
+switch, smart speaker) [L-PRIV-2]. Acar et al.\ (2018) reported $>$\,90\%
+accuracy in identifying device states and ongoing user activities from
+passively-sniffed encrypted traffic across WiFi, ZigBee, and BLE
+[L-PRIV-3]. Apthorpe et al.\ (2018) surveyed 1{,}731 US adults across
+3{,}840 contextual-integrity information flows and found that the egress
+patterns documented in the measurement studies are \emph{contrary to}
+what users hold as smart-home privacy norms, not just contrary to a
+regulatory ideal [L-PRIV-4].
+
+\paragraph{The companion-app surface compounds the cloud surface.}
+Most consumer IoT devices route a second telemetry path through their
+mobile companion app. Nan et al.\ (2023) statically analysed
+\textbf{6{,}208} IoT companion apps and identified \textbf{1{,}973} that
+exposed user data --- health status, home address, behavioural patterns
+--- to first or third parties without proper disclosure, covering
+devices from at least \textbf{1{,}559 distinct vendors} [L-PRIV-5].
+Tazi et al.\ (2025) and Neupane et al.\ (2022) audited 455 IoT companion
+apps and found systematic over-requesting of permissions unrelated to
+the apps' stated purpose, with two of the analysed apps transmitting
+credentials in unencrypted form [L-PRIV-6, L-PRIV-8]. Chatzoglou et al.\
+(2022) confirmed the same pattern across $>$\,40 chart-topping Android
+IoT apps from six device categories [L-PRIV-7].
+
+\paragraph{Local interoperability is a privacy mitigation that
+preserves intended use.}
+The Spider Farmer (\cref{sec:case-spider-farmer}) and EcoFlow PowerOcean
+(\cref{sec:case-ecoflow}) integrations are concrete examples: replacing
+the vendor-cloud path with a Home Assistant custom integration changes
+the data flow from ``device $\to$ vendor cloud $\to$ third parties + ISP
+observer'' to ``device $\to$ user's LAN $\to$ user's local store''. The
+device continues to perform its advertised function --- switching the
+grow-tent fan, reporting the battery state of charge --- but the
+telemetry that previously left the home does not. Kazlouski et al.\
+(2022) provide the closest published existence proof for the general
+principle: Fitbit trackers correctly report steps, workouts, and sleep
+duration/quality (and synchronise with six partner apps) when
+third-party domains are blocked at the network layer; each studied app
+contacted between 1 and 20 \emph{non-required} third parties [L-PRIV-9].
+The user-side instrument and the vendor-side default differ by exactly
+that delta. Kounoudes et al.\ (2020) systematise the mapping from such
+user-side practices onto GDPR Art.\ 5 / Art.\ 25 [L-PRIV-10].
+
+\paragraph{Counter-evidence: regulation alone is not the answer.}
+Kollnig et al.\ (2021) studied tracking in nearly two million Android
+apps before and after GDPR and found \emph{limited change} in the
+prevalence of third-party tracking, with concentration among large
+gatekeepers persisting [L-PRIV-11]. George et al.\ (2019) further
+document ``transient processing'' patterns that escape the regulation's
+scope altogether [L-PRIV-12]. The lesson is not that GDPR has failed
+but that statutory rights to data minimisation require user-side
+technical alternatives to be exercised, not just declared. AI-assisted
+local integration is one such alternative --- and, as
+\cref{sec:case-spider-farmer,sec:case-ecoflow} show, it is now within
+reach of an individual hobbyist on a Saturday afternoon, not only of
+specialised firms.
+
+\paragraph{Implication for the paper's central thesis.}
+The collapse of the effort gap is double-edged in security terms
+(\cref{sec:disc-dual-use}) but it is \emph{single-edged and net-positive}
+in privacy terms: the same workflow that exposes a vendor's MQTT broker
+also lets the device's owner keep using the device while opting out of
+the vendor's data pipeline. Privacy as a user right thus joins
+right-to-repair (\cref{sec:disc-r2r}) as a substantive
+rather than incidental beneficiary of the methodology. A vendor
+objection of the form ``users cannot exercise their privacy rights
+without breaking the product'' is, after these case studies,
+empirically disprovable: the product still works.
 
 % =========================================================================
 \section{Conclusion}
