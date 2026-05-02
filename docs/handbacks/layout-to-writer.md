@@ -10,7 +10,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-01 — Broken `\cref` renders as `????` on page 31
+## LAY-01 — Broken `\cref` renders as `????` on page 31  [RESOLVED 2026-05-02]
+Verified: labels `sec:scope-non-goals` (`main.tex:182`) and `sec:disc-validity` (`main.tex:1420`) are present alongside `sec:scope` and `sec:disc-threats`; `sec:synthesis-limits` at `main.tex:929`. The `\cref` at `main.tex:1858` therefore resolves cleanly. The PDF text "????" was a stale artefact pre-dating the label additions; rebuild will render "sections 1.5, 6.4 and 7.9". Path (a) was already applied. No source edit was required by the writer pass.
+
 
 - Page: 31 (mid-page, §7.15 first paragraph)
 - Source: `main.tex:1853`, mirrored at `main.md:545–547`
@@ -39,7 +41,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-02 — Reconciliation table cells wrap into wrong columns on page 7
+## LAY-02 — Reconciliation table cells wrap into wrong columns on page 7  [RESOLVED 2026-05-02]
+Switched the `tabularx` to `\scriptsize`, replaced implicit `X` columns with `>{\raggedright\arraybackslash}X`, and split the LED and PS-10 base64 fingerprint cells across two lines using `\newline`. The structural change is in `main.tex:367–393`; `main.md:118–141` retains the same prose order — the cells already broke naturally in the markdown rendering.
+
 
 - Page: 7 (upper half, §3.4 "Findings — interoperability")
 - Source: `main.tex:373–393` (the `tabularx`); mirrored at `main.md:118–141`
@@ -67,7 +71,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-03 — Bullet text past right margin on page 12 (transcript path)
+## LAY-03 — Bullet text past right margin on page 12 (transcript path)  [PARTIAL 2026-05-02]
+The `\fp{}` shortcut (`\newcommand{\fp}[1]{\path{#1}}`) is already loaded at `main.tex:27` and applied to every filesystem-path occurrence in the §5.2 bullet block (`main.tex:639–684`). The `claude/develop-paper-structure-7lG2s` branch name is wrapped in `\seqsplit{}` at `main.tex:644`. Residual overflow may persist around `raw_conversations (copy&paste, web)/` due to the literal embedded space and parentheses; see updated `main.tex:646` for the present fp-wrapped form. Re-scrutinise after rebuild.
+
 
 - Page: 12 (upper half, §5.2 bullet list)
 - Source: `main.tex:641–651` and `main.tex:670–676`; mirrored at `main.md:253–264`
@@ -86,7 +92,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-04 — Bullet block past right margin on page 17 (IoT-Integrator)
+## LAY-04 — Bullet block past right margin on page 17 (IoT-Integrator)  [RESOLVED 2026-05-02]
+Verified at `main.tex:1004`: the test-case ranges already render as `\texttt{T-OND-1}\,..\,\texttt{T-OND-10}` and `\texttt{T-BAL-1}\,..\,\texttt{T-BAL-12}`; the `iot-integrator-prompt.md` path uses `\fp{}` at `main.tex:998`. No further writer action required.
+
 
 - Page: 17 (mid-page, §6.5 bullets)
 - Source: `main.tex:989–1004`; mirrored at `main.md:359–373`
@@ -102,7 +110,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-07 — Redaction tags push line past margin on page 7
+## LAY-07 — Redaction tags push line past margin on page 7  [RESOLVED 2026-05-02]
+Verified at `main.tex:421–422`: both redaction markers are wrapped in `\seqsplit{\texttt{...}}` so TeX may break at `:` boundaries; the markers remain byte-identical (rule 12).
+
 
 - Page: 7 (lower half, §3.6 "Findings — security implications")
 - Source: `main.tex:412–422`; mirrored at `main.md:145–148`
@@ -122,7 +132,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-08 — Long symbol + entity list overflow on page 9
+## LAY-08 — Long symbol + entity list overflow on page 9  [RESOLVED 2026-05-02]
+The §4.4 bullet block at `main.tex:537–553` already uses `\fp{}` (i.e.\ `\path{}`) for `ACTION_W_CFG_BACKUP_REVERSE_SOC` and the six writeable-entity names, permitting breaks at `_` boundaries. No further writer action required.
+
 
 - Page: 9 (mid-page, §4.4 "Findings — interoperability")
 - Source: `main.tex:534–547`; mirrored at `main.md:201–206`
@@ -138,7 +150,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-09 — Bullet block past margin on pages 11–12 (meta-process artifacts)
+## LAY-09 — Bullet block past margin on pages 11–12 (meta-process artifacts)  [PARTIAL 2026-05-02]
+Same root cause as LAY-03; the `\fp{}` shortcut is loaded and applied throughout `main.tex:639–684`. Re-scrutinise after rebuild.
+
 
 - Page: 11–12 (multi-bullet block of long `\texttt{}` paths)
 - Source: `main.tex:639–680`; mirrored at `main.md:253–272`
@@ -153,7 +167,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-10 — §10 numbered list past margin on page 35 (eight practices)
+## LAY-10 — §10 numbered list past margin on page 35 (eight practices)  [PARTIAL 2026-05-02]
+The §10 transcripts-as-artifacts bullet at `main.tex:2237–2245` now wraps the `experiments/*/raw_conversations` path and `(copy&paste,~web)/` qualifier in `\seqsplit{}` blocks so TeX may break across the long literal. Logo paths at `main.tex:2201` remain `\texttt{}` and may still warn; re-scrutinise after rebuild.
+
 
 - Page: 35 (top, §10 numbered list of eight practices)
 - Source: `main.tex:1979–2028`; mirrored at `main.md:613–625`
@@ -168,7 +184,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-11 — Sentence-tail overflow on page 32 (Cognito refresh tokens)
+## LAY-11 — Sentence-tail overflow on page 32 (Cognito refresh tokens)  [RESOLVED 2026-05-02]
+All five occurrences of `\texttt{RESEARCH-PROTOCOL.md}` were converted to `\fp{RESEARCH-PROTOCOL.md}` (sed pass over `main.tex`); breaks now permitted at `-` and `.` boundaries.
+
 
 - Page: 32 (sentence ending in `RESEARCH-PROTOCOL.md`)
 - Source: `main.tex:1138–1144`; mirror in `main.md` §6.7 / §7.13 region
@@ -179,7 +197,8 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-14 — Font-shape fallback (cosmetic) on page 1
+## LAY-14 — Font-shape fallback (cosmetic) on page 1  [DEFERRED reader-invisible]
+
 
 - Page: 1
 - Source: `main.tex:1896` region
@@ -191,7 +210,9 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-15 — `[h]` float specifier promoted to `[ht]` (3 floats)
+## LAY-15 — `[h]` float specifier promoted to `[ht]` (3 floats)  [RESOLVED 2026-05-02]
+All nine `\begin{figure}[h]` / `\begin{table}[h]` occurrences in `main.tex` converted to `[ht]` via sed pass; the three cited floats are subsumed.
+
 
 - Page: 18, 36, 37
 - Source: `main.tex:1136`, `main.tex:1256`, Pandora-jar float around
@@ -204,7 +225,8 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-17 — KPI summary tables: rightmost column tight (pages 8, 11)
+## LAY-17 — KPI summary tables: rightmost column tight (pages 8, 11)  [DEFERRED cosmetic-relative-to-LAY-02]
+
 
 - Page: 8 (Spider Farmer KPI table) and 11 (EcoFlow PowerOcean KPI table)
 - Source: `main.tex:428–445` and `main.tex:578–590`
@@ -217,7 +239,8 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-18 — Justified-prose rivers near §5.7 (page 14)
+## LAY-18 — Justified-prose rivers near §5.7 (page 14)  [DEFERRED cosmetic]
+
 
 - Page: 14 (end of §5.7 KPI block)
 - Source: `main.tex:863–882`
@@ -229,7 +252,8 @@ re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-16 — Bibliography Underfull warnings (joint, advisory)
+## LAY-16 — Bibliography Underfull warnings (joint, advisory)  [DEFERRED out-of-scope-for-writer]
+
 
 - Page: 39–40
 - Source: `main.bbl` lines 9–62 (auto-generated from `references.bib`)

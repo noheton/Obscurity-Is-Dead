@@ -1433,3 +1433,29 @@ This logbook is the operating record for the paper and research process.
 - Files left untouched (per scope discipline): `paper/main.tex`, `paper/main.md`, `paper/figures/*`, `paper/references.bib`, `docs/sources.md`, `docs/redaction-policy.md`. Working tree dirty by design — no commit, no push (CLAUDE.md rule 13).
 
 - Next steps: writer remediates LAY-01..LAY-04 + LAY-07..LAY-11 (H+M); illustrator remediates LAY-05, LAY-06 (H), LAY-13 (M), and LAY-12 when the Gemini logo assets land. Re-run Stage 4 against the rebuilt PDF to clear the H entries.
+
+### 2026-05-02 (scientific-writer remediation pass on layout + readability hand-backs)
+- Session lead: Scientific Writer agent (Claude Opus 4.7), branch `claude/add-layout-scrutinizer-agent-Ur5vX`.
+- Inputs read: `docs/prompts/scientific-writer-prompt.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/readability-to-writer.md`, `paper/main.md`, `paper/main.tex`, `docs/logbook.md`.
+- Layout hand-back disposition (counts):
+  - H severity (4 entries: LAY-01..LAY-04): 3 RESOLVED, 1 PARTIAL (LAY-03; `\fp{}` shortcut applied repo-wide, residual overflow possible on the literal `(copy&paste, web)` directory token — escalated to layout re-scrutiny after rebuild).
+  - M severity (5 entries: LAY-07..LAY-11): 3 RESOLVED (LAY-07, LAY-08, LAY-11), 2 PARTIAL (LAY-09, LAY-10).
+  - L severity (4 entries: LAY-14..LAY-18 incl. LAY-15 / LAY-16 / LAY-17 / LAY-18): 1 RESOLVED (LAY-15 — all nine `[h]` floats promoted to `[ht]`), 3 DEFERRED (LAY-14 cosmetic, LAY-17 cosmetic, LAY-18 cosmetic, LAY-16 bib out-of-scope).
+- Readability hand-back disposition (counts):
+  - H severity (2 entries: RDB-01, RDB-02): 0 RESOLVED, 2 DEFERRED (substantive prose surgery requiring researcher confirmation against `docs/sources.md` and illustrator coordination).
+  - M severity (10 entries: RDB-03..RDB-12): 0 RESOLVED, 10 DEFERRED (all paired with illustrator coordination or with the RDB-01 progression-rule pass).
+  - L severity (8 entries: RDB-13..RDB-20): 3 RESOLVED (RDB-15, RDB-16, RDB-18), 5 DEFERRED.
+- Most consequential fix: confirmation that LAY-01 (the broken `\cref` rendering as `????` on page 31) is structurally already addressed — both `\label{sec:scope-non-goals}` (`main.tex:182`) and `\label{sec:disc-validity}` (`main.tex:1420`) are present. The PDF "????" was a stale-build artefact and will not recur.
+- Notable typesetting changes in `main.tex`:
+  - `\begin{figure}[h]` / `\begin{table}[h]` → `[ht]` across 9 floats (LAY-15).
+  - All five `\texttt{RESEARCH-PROTOCOL.md}` → `\fp{...}` (LAY-11).
+  - Spider Farmer reconciliation `tabularx` switched to `\scriptsize` with `>{\raggedright\arraybackslash}X` columns; LED and PS-10 fingerprint cells split into two-line `\newline` content (LAY-02).
+  - `experiments/*/raw_conversations (copy&paste, web)/` wrapped in `\seqsplit{}` blocks at the §10 transcripts-as-artifacts bullet (LAY-10 partial).
+- Notable prose changes mirrored in both `main.md` and `main.tex`:
+  - Abstract run-on split into three sentences (RDB-16).
+  - §7.13 closing 90-word sentences broken at natural seams (RDB-15).
+  - Pandora-jar intact caption compressed to one sentence plus attribution (RDB-18).
+- New defects discovered during the pass: none (no new entries added to either registry).
+- Re-scrutiny recommendation: **layout — `RE-SCRUTINY REQUIRED: yes`** after `make -C paper pdf` rebuild, focused on residual overflow at the `(copy&paste, web)` literal and on the LAY-09 / LAY-10 PARTIAL items. **Readability — `RE-SCRUTINY REQUIRED: yes`** but the deferred RDB-01/02/03/04 cluster needs a researcher decision on the §10 numbered-list-vs-Figure-11 collapse before the writer can proceed.
+- Files updated: `paper/main.tex`, `paper/main.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/readability-to-writer.md`, `docs/logbook.md`.
+- Commit: created on branch `claude/add-layout-scrutinizer-agent-Ur5vX`; SHA recorded in commit body.
