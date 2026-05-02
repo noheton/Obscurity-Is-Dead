@@ -1020,6 +1020,51 @@ This logbook is the operating record for the paper and research process.
 - Next steps:
   - Researcher reviews the weakness table and explicitly authorises (or refuses) the move into Phase 3 with shape Interface F. On approval, Phase 3 will produce: (a) the configuration-only artifact in `integration/` describing the steps for adopting `ondilo_ico` in HA, (b) operational notes (token rotation, backup hygiene, pool nickname aliasing), (c) dual-use reflection per rule 5, and (d) `docs/redaction-policy.md` updates as researcher-supplied identifiers come in.
 
+### Session 16 — 2026-05-02 (IoT Integrator agent — Phase 3 implementation, APK addendum, close-out)
+
+- Branch: `claude/iot-water-analyzer-integration-mIbFv`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher checkpoint reply "yes" (interpreted as: go for Phase 3 with Interface F, accept pool-nickname alias recommendation, defer APK SDK detail) and a follow-up "perform the apk analysis in parallel".
+
+- Actions:
+  1. Wrote `process/phase-2-weakness-apk-addendum.md` closing W-7 / OQ-5 to the manifest-permission layer (22 declared permissions, latest mirror version 4.3.1, minSDK 23, arm64-v8a). Surfaced FCM (`c2dm.RECEIVE`), Play Install Referrer, and Google Advertising ID as *manifest-level* signals; full DEX-level SDK inventory queued as researcher-runnable §A.5 protocol. **No APK was downloaded by the agent.**
+  2. Wrote `process/phase-3-implementation.md` covering Design (§3.1), Build (§3.2), Validation (§3.3 — agent validated upstream constants; end-to-end runs are researcher-side), Operational notes (§3.4), and Dual-use reflection (§3.5). Chosen integration shape: **Interface F — configuration-only adoption of the existing HA core integration** with documented operational mitigations. Producing a parallel custom_component would have violated prompt §3.1 scope-creep rule.
+  3. Built the runnable artifact set under `experiments/iot-integrator-ondilo-ico-spa-v2/integration/`: `README.md`, `operational-notes.md`, `validation-checklist.md`, `dual-use.md`, and `smoke-test.py`. The smoke-test contains placeholder tokens only and is opt-in (`--live`).
+  4. Wrote close-out files: `process/summary.md` (paper-citation narrative), `REPORT.md` (top-level mirror of prior case-study reports), `provenance.md` (per-artifact AI/researcher attribution and verification-status).
+  5. Refreshed `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` status board.
+
+- Files updated/created:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-2-weakness-apk-addendum.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/phase-3-implementation.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/process/summary.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/REPORT.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/provenance.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/README.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/operational-notes.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/validation-checklist.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/dual-use.md` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/integration/smoke-test.py` (new)
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/README.md` (status update)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - **No new custom_component.** The HA core `ondilo_ico` integration already implements the read-only intake exactly; producing a fork would duplicate without privacy benefit. This is the prompt §3.2 "documentation-only recommendation" branch *softened* — the privacy cost is acceptable to the researcher (cloud authorised), so the deliverable is configuration steps + ops notes + dual-use, not a no-go.
+  - APK analysis stayed on the manifest-permission public-mirror layer; the binary layer is documented as a researcher-runnable protocol (§A.5). Justification: the chosen Phase 3 shape does not depend on the DEX-level SDK list, and downloading the APK without need would have widened the third-party-data surface unnecessarily.
+  - Validation is researcher-side. The agent has no access to the researcher's account, browser, or HA instance; the artifact set ships a redaction-aware checklist that produces one redacted log under `captures/`.
+  - `docs/redaction-policy.md` carries no new rows: the markers `S-OND-1` … `S-OND-8` are pre-allocated in `phase-2-weakness.md` §2.5 and will be added to the policy *only* for those that are actually used in the validation log.
+
+- Open issues:
+  - Researcher-side validation log under `captures/phase-3-validation.log.redacted` is not yet produced.
+  - Raw conversation transcript export under `raw_conversations (copy&paste, web)/` not yet produced.
+  - OQ-1, OQ-2, OQ-3, OQ-4, OQ-5 (DEX-level), OQ-6, OQ-7 from `phase-1-research.md` §1.5 remain deferred by the cloud-shape choice and the deliberate stop at the manifest-permission APK layer.
+  - All Session 7 / 12 issues remain open.
+
+- Next steps:
+  - Researcher executes `integration/validation-checklist.md` and lands the redacted log.
+  - Researcher exports the chat session that produced this case study into `raw_conversations (copy&paste, web)/`.
+  - Researcher reviews `provenance.md` against the actual session sequence and amends the AI/researcher attribution if needed.
+  - When the paper next cites this case study, link to `experiments/iot-integrator-ondilo-ico-spa-v2/process/summary.md` (the consolidated narrative, not the per-phase reports).
+
 ### Session 12 — 2026-05-02 (README ↔ paper mirror discipline; rule 15)
 
 - Branch: `claude/enhance-readme-illustrations-hcKqw`.

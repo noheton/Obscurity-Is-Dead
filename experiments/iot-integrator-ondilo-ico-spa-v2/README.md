@@ -22,16 +22,16 @@ the three prior experiments in this repository:
 
 ## Status
 
-- **Phase 0** (bootstrap + target intake) — closed 2026-05-02. Researcher
-  answers recorded in `process/phase-0-bootstrap.md` §0.2.
-- **Phase 1** (read-only desk research) — drafted 2026-05-02 in
-  `process/phase-1-research.md`. Awaiting researcher acknowledgement at the
-  Phase 1 → Phase 2 checkpoint.
-- **Phase 2** (weakness analysis) — drafted 2026-05-02 in
-  `process/phase-2-weakness.md` after the researcher authorised the cloud
-  escalation. Awaiting researcher acknowledgement at the Phase 2 → Phase 3
-  checkpoint.
-- **Phase 3** (implementation) — not started.
+- **Phase 0** — closed 2026-05-02. `process/phase-0-bootstrap.md`.
+- **Phase 1** — closed 2026-05-02. `process/phase-1-research.md`.
+- **Phase 2** — closed 2026-05-02. `process/phase-2-weakness.md` and
+  `process/phase-2-weakness-apk-addendum.md`.
+- **Phase 3** — drafted 2026-05-02. `process/phase-3-implementation.md`;
+  runnable artifact under `integration/`. **Researcher-side validation
+  pending** — see `integration/validation-checklist.md`.
+- **Close-out** — `process/summary.md`, `REPORT.md`, `provenance.md`
+  written. Awaiting researcher review and the `captures/` validation
+  log.
 
 ## AI / researcher attribution
 
