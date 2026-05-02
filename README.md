@@ -8,7 +8,7 @@
 [![FAIR compliant](https://img.shields.io/badge/FAIR-compliant-blue)](docs/fair.md)
 [![arXiv-ready LaTeX](https://img.shields.io/badge/paper-arXiv--ready-red)](paper/main.tex)
 [![Draft PDF](https://img.shields.io/badge/draft-PDF-orange)](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml)
-[![Figures: 11](https://img.shields.io/badge/figures-11-purple)](paper/figures/)
+[![Figures: 15](https://img.shields.io/badge/figures-15-purple)](paper/figures/)
 [![Case studies: 3](https://img.shields.io/badge/case%20studies-3-teal)](experiments/)
 
 > **Statement of independence.** This is a hobbyist research project carried out by the author in a personal capacity. It is **not** part of, endorsed by, funded by, or representative of the views of any employer, including the German Aerospace Center (DLR). See `paper/main.md` §9.5 for the full disclaimer.
@@ -79,6 +79,10 @@ The figures are grouped here the way the paper uses them: thesis → case studie
 |---|---|
 | ![Dual-use outcome map: interoperability gain vs. security risk per case.](paper/figures/fig6-dual-use.svg) | ![Single-perimeter threat model vs. per-hop authenticated model.](paper/figures/fig7-threat-models.svg) |
 | **Fig 6** — Dual-use outcome map. | **Fig 7** — Perimeter model vs. per-hop authenticated model. |
+| ![Test-case difficulty taxonomy heat-map across the four device-integration cases.](paper/figures/fig12-difficulty-taxonomy.svg) | ![Six recurring system-class vulnerabilities of IoT-integrator pipelines.](paper/figures/fig13-pipeline-vulnerabilities.svg) |
+| **Fig 12** — Difficulty taxonomy across four cases (ILL-06). | **Fig 13** — System-class vulnerabilities of IoT-integrator pipelines (ILL-07). |
+| ![Researcher-governed vs. malicious-integrator branching workflow.](paper/figures/fig14-malicious-integrator.svg) | ![Automated mass probing pipeline for public APK repositories.](paper/figures/fig15-apk-mass-probing.svg) |
+| **Fig 14** — Malicious IoT-integrator agent (ILL-08). | **Fig 15** — Automated mass probing of public APK repositories (ILL-09). |
 
 ---
 
@@ -91,7 +95,7 @@ Obscurity-Is-Dead/
 │   ├── main.tex             # arXiv-ready LaTeX mirror (rule 11: must stay in sync)
 │   ├── references.bib       # BibTeX bibliography
 │   ├── Makefile             # Build pipeline: make pdf | make figures | make arxiv
-│   └── figures/             # SVG figures (fig1–fig11) + scripts + data + README
+│   └── figures/             # SVG figures (fig1–fig15) + scripts + data + README
 ├── experiments/
 │   ├── spider-farmer/       # Case study 1: artifacts, transcripts, provenance
 │   ├── ecoflow-powerocean/  # Case study 2: artifacts, transcripts, provenance

@@ -1,0 +1,9 @@
+# Difficulty taxonomy data for fig12-difficulty-taxonomy.py (ILL-06).
+# Source: paper/main.md §6.6 — qualitative researcher rating from per-case
+# REPORT.md evidence. Mapping: Low=1, Medium=2, Medium-High=2.5, High=3.
+# Composite is informative of spread, not absolute scale.
+case,crypto_barrier,labour_to_break,blast_radius,composite
+Spider Farmer,1,1,2,1
+Ondilo ICO Spa V2,2,1,1,1
+Balboa Gateway Ultra,2,2,3,2
+EcoFlow PowerOcean,2.5,2,3,2

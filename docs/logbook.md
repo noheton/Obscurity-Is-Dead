@@ -1254,3 +1254,67 @@ This logbook is the operating record for the paper and research process.
   - Populate `experiments/iot-integrator-balboa-gateway-ultra/raw_conversations (copy&paste, web)/` with the exported transcripts of this session.
   - Pre-publication: `git rm` the XAPK and the derivative APK assets per the confirmed rule-12 retention plan; SHA-256 anchors in `phase-2-weakness.md §2.0` remain the permanent evidence.
 - No further AI-driven work is expected on this case study without a new prompt. Rule 13 publication posture: no public push beyond the working branch, no Zenodo deposit, no arXiv submission, no upstream PR.
+
+### 2026-05-02 (research protocol + scientific writer + illustration on two new IoT-Integrator cases)
+
+- Branch: `claude/research-protocol-experiments-lBeVa`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher request to (i) run the research protocol over the two new IoT-Integrator experiments (Ondilo ICO Spa V2 and Balboa Gateway Ultra), (ii) summarise through the scientific writer, (iii) run the illustrator. Researcher-side validation of both integrations is still pending; per the request, the agent assumes successful integration and produces a per-case test checklist instead. Three additional themes were specified for the writer pass: dangers from a malicious IoT-integrator agent, automated mass probing of public APK repositories, and a synthesis section on the system-class vulnerabilities of these pipelines plus a difficulty rating across the test cases (excluding the meta-process case).
+
+- Stage 1 — Research Protocol agent (`docs/prompts/research-protocol-prompt.md`):
+  - Produced `experiments/iot-integrator-ondilo-ico-spa-v2/RESEARCH-PROTOCOL.md` with Summary, Artifact inventory, Transcript provenance mapping (T1 placeholders for the close-out export), Evaluation matrix (interoperability / security / provenance / documentation / literature), Validation needs as a 10-row test checklist `T-OND-1..T-OND-10`, Recommended actions, Gaps and risks, and References.
+  - Produced `experiments/iot-integrator-balboa-gateway-ultra/RESEARCH-PROTOCOL.md` with the same shape and a 12-row test checklist `T-BAL-1..T-BAL-12` covering Cognito login, smoke test, MQTT bridge end-to-end, endpoint-inventory cross-check, TLS chain verification, hardening overlay C-1..C-6, refresh-token rotation, `AdminUserGlobalSignOut` runbook, §A DEX deep-dive, §B LAN probe, §C mitmproxy capture, and §D GDPR SAR.
+  - Both files explicitly recommend the minimum-validation set (`T-OND-1, T-OND-2, T-OND-4` for Ondilo; `T-BAL-1..T-BAL-3` for Balboa) and hand off the deeper protocols to researcher follow-up.
+
+- Stage 2 — Scientific writer pass (`docs/prompts/scientific-writer-prompt.md`):
+  - `paper/main.md` and `paper/main.tex` updated in lockstep (rule 11):
+    - **§6.5 Cross-validation from the IoT-Integrator runs.** New subsection plus a two-column table comparing Ondilo and Balboa across the same dimensions as the §6.1 cross-case table; states explicitly that both runs are *cross-validation* of the methodology, not independent confirmation of the central thesis.
+    - **§6.6 Test-case difficulty taxonomy.** New subsection with a four-row × four-column table rating Spider Farmer / Ondilo / Balboa / EcoFlow along three axes (cryptographic barrier, labour to break, blast radius) plus a composite spread column. Composite ratings: Spider Farmer Easy, Ondilo Easy, Balboa Medium, EcoFlow Medium. Meta-process case excluded per request.
+    - **§6.7 Vulnerabilities of IoT-integrator pipelines as a system class.** New subsection synthesising six recurring patterns from the four cases: vendor-cloud SPoF, long-lived refresh tokens, cross-vendor data-flow opacity, operational-obscurity anti-pattern, companion-app permission creep, static-only weakness coverage.
+    - **§7.13 The malicious IoT-integrator agent.** New subsection enumerating the dual-use surface of the IoT-Integrator prompt itself: per-device exploit pipeline, credential/token harvesting at integration time, suppression of the dual-use mirror, self-augmentation of attack capability, trust-laundered distribution, and erosion of the governance baseline through corpus contamination.
+    - **§7.14 Automated mass probing of public APK repositories.** New subsection describing the corpus-scale extension of the per-APK pipeline: sweep at corpus scale, identity-provider enumeration, cross-vendor data-flow harvest, defensive/offensive symmetry, repository operator as gatekeeper, and the unsettled legal posture of mass enumeration vs. per-device interoperability.
+  - Inserted four ILL-xx annotations during the writer pass (ILL-06 through ILL-09); these were promoted to real figure references during Stage 3.
+  - No new claims were introduced beyond what is already documented in the four `experiments/*/REPORT.md` files and `RESEARCH-PROTOCOL.md` audits; all references are repo-internal except the existing `[L-BLE-4]` and `[L-PRIV-5]` literature anchors used in §7.14.
+
+- Stage 3 — Illustration agent (`docs/prompts/illustration-prompt.md`):
+  - Produced four new figures, each with a Python generation script and (for fig12) a CSV data file:
+    - `paper/figures/fig12-difficulty-taxonomy.{py,svg,pdf}` + `paper/figures/data/difficulty-taxonomy.csv` — Rule-14-compliant heat-map (ILL-06).
+    - `paper/figures/fig13-pipeline-vulnerabilities.{py,svg,pdf}` — six-node conceptual diagram with central residual-risk node (ILL-07).
+    - `paper/figures/fig14-malicious-integrator.{py,svg,pdf}` — branching workflow contrasting researcher-governed and adversarial variants of the IoT-Integrator pipeline (ILL-08).
+    - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}` — five-stage corpus-probing pipeline with per-stage cost annotations and human-led base-rate panel (ILL-09).
+  - All four scripts use `dlr_style.py` for consistent corporate-design styling and are labelled AI-authored in their docstrings (rule 1).
+  - Updated `paper/figures/README.md` inventory table with rows for fig12–fig15 and a new "Figure 12 — compliant (data-driven)" Rule-14 subsection.
+  - Updated the top-level `README.md` per rule 15: figure-count badge from 11 → 15; repo-structure tree updated `fig1–fig11` → `fig1–fig15`; Synthesis gallery extended with the four new figures and their captions.
+  - Replaced all four `[ILLUSTRATION OPPORTUNITY] ILL-xx` annotations in `paper/main.md` and `paper/main.tex` with proper figure references (`![Figure N — ...](...)` in markdown; `\begin{figure}...\end{figure}` with `\caption{}` and `\label{fig:...}` in LaTeX).
+
+- Files updated:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/RESEARCH-PROTOCOL.md` (new)
+  - `experiments/iot-integrator-balboa-gateway-ultra/RESEARCH-PROTOCOL.md` (new)
+  - `paper/main.md` (§6.5–§6.7 added; §7.13–§7.14 added; four new figures referenced)
+  - `paper/main.tex` (mirror of the above per rule 11)
+  - `paper/figures/data/difficulty-taxonomy.csv` (new)
+  - `paper/figures/fig12-difficulty-taxonomy.{py,svg,pdf}` (new)
+  - `paper/figures/fig13-pipeline-vulnerabilities.{py,svg,pdf}` (new)
+  - `paper/figures/fig14-malicious-integrator.{py,svg,pdf}` (new)
+  - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}` (new)
+  - `paper/figures/README.md` (inventory + Rule-14 compliance subsection for fig12)
+  - `README.md` (figure-count badge; structure-tree fig range; Synthesis gallery)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The two new IoT-Integrator cases were *not* added as full top-level case-study sections (§6, §7, ...) to avoid renumbering every cross-reference, label, and figure caption that already depends on the 3 → 10 numbering. Instead they enter the paper through §6.5 as cross-validation evidence, which preserves all existing labels and is consistent with the per-case `REPORT.md` files being the citable artifacts.
+  - The difficulty taxonomy is qualitative by design; the CSV stores the numeric mapping (Low=1, Medium=2, Med-High=2.5, High=3) so the heat-map is reproducible, but the prose explicitly states that the composite is informative of *spread* not of an absolute scale (consistent with rule 1).
+  - The malicious-integrator and APK-mass-probing sections were placed in §7 (Discussion) rather than in §6 (Synthesis) because they are *prospective* threats inferred from the case-study evidence rather than findings synthesised across the cases.
+  - The §7.13 mitigation framing is structural rather than technical, mirroring the §7.4 dual-use accountability and §7.6 sloppification arguments: governance (checkpoints, redaction, dual-use mirror) rather than capability denial. This keeps the paper's structural-answer thesis consistent across all of §7.
+
+- Open issues:
+  - Researcher validation of both new IoT-Integrator cases is still pending; the test checklists in `RESEARCH-PROTOCOL.md` are the formal hand-off artifact.
+  - Both new cases need their `raw_conversations (copy&paste, web)/` exports populated before rule 4 is fully satisfied (transcripts as first-class artifacts).
+  - `[lit-retrieved]` literature for §6.7 / §7.13 / §7.14 is currently anchored only to the existing `[L-BLE-4]` and `[L-PRIV-5]` entries; a future literature pass should cover the malicious-LLM-agent and APK-corpus-probing literature explicitly (e.g. Sivakumaran et al. 2023 is already in the register but adversarial-LLM-tooling and APK-mirror-abuse literature is not).
+  - All Session 7 / 12 issues remain open.
+  - Pre-publication history-rewrite for the Balboa XAPK + derivative APKs is still owed (rule 12).
+
+- Next steps:
+  - Researcher reviews this session's additions against the per-case `REPORT.md` and `RESEARCH-PROTOCOL.md` files and either accepts or flags the writer-pass framing of the new themes.
+  - Researcher executes the `T-OND-*` and `T-BAL-*` checklists and lodges the redacted validation logs.
+  - On acceptance, the four new figures join the visual abstract gallery and the §7.13 / §7.14 framings are eligible to be cited from a future submission draft.
