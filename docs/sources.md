@@ -186,6 +186,21 @@ The register is organised by paper claim. Inline IDs (`L-RE-1` etc.) are stable 
 
 ---
 
+### Claim cluster A.2 — Hardware-side effort-gap reduction (researcher hypothesis 2026-05-02)
+
+*Hypothesis raised by the researcher (Florian Krebs) during the orchestrator-coordinated session: the effort gap is not only software-side (decompilers + LLMs reading binaries) but also **hardware-access-side** — getting at firmware physically. Soldering JTAG/UART/SPI/SWD test pads, identifying boundary-scan chains, glitching, chip-off, and the broader physical-attack-surface chain has been compressed by a class of analysis-and-automation tools (JTAGulator-style scan-line identifiers, ChipWhisperer-class side-channel / glitching platforms, AI-assisted PCB photo analysis, automated UART-baudrate detection, off-the-shelf FFC / pogo-pin breakouts replacing custom soldering). Predicts: the "sealed device → readable firmware" path has compressed in parallel with the "binary → readable code" path, and the dual-use framing in §6 / §7 should reflect both.*
+
+- **L-HW-RE-1** *(placeholder, awaiting research pass)* — JTAGulator (Joe Grand): automated identification of JTAG/UART pinouts on unknown PCBs. **[needs-research]**. Anchors the "test-point identification no longer requires datasheet access" sub-claim.
+- **L-HW-RE-2** *(placeholder)* — ChipWhisperer (NewAE / O'Flynn et al., academic publications): commodity side-channel and fault-injection platform. **[needs-research]**. Anchors the "voltage / clock glitching has commodity tooling" sub-claim.
+- **L-HW-RE-3** *(placeholder)* — Academic literature on automated firmware extraction from sealed embedded devices (chip-off, in-circuit programming, SPI-flash dumping). **[needs-research]**. Search terms: "automated firmware extraction", "embedded device firmware dump", "chip-off forensics", "in-circuit SPI flash extraction".
+- **L-HW-RE-4** *(placeholder)* — AI-assisted PCB analysis: identification of test points, trace following, BOM reconstruction from board photographs. **[needs-research]**. Search terms: "machine learning PCB component detection", "automated reverse engineering PCB", "deep learning circuit board analysis".
+- **L-HW-RE-5** *(placeholder)* — Hardware-hacking handbooks and review articles documenting the historical effort floor (Grand 2014; Andrews 2019; van Woudenberg & O'Flynn 2021 *Hardware Hacker's Handbook*). **[needs-research]**. Used to establish the "before" baseline against which the compression is measured.
+- **L-HW-RE-6** *(placeholder)* — Quantitative or longitudinal evidence of effort reduction in physical firmware access (time-to-extract, cost-of-equipment, skill-floor metrics). **[needs-research]**. This is the hardest evidence to find; if absent, the §1.4 effort-gap claim should explicitly distinguish *qualitative* hardware-side compression from the *quantitative* software-side anchors (L-RE-2 24.4%, L-RE-3 31%→53%, L-RE-1 >100%).
+
+**Open question for the researcher / next research pass:** does the compression in hardware-access tooling rise to a peer-reviewed, citable level, or is the evidence currently confined to community blogs, conference talks (DEF CON / Hardwear.io / TROOPERS), and vendor product pages? If the latter, the writer should frame this as an *observed practitioner trend* with grey-literature citations (transcripts-as-artefact, rule 4) rather than a literature-anchored claim. The asymmetry between software-side (heavily peer-reviewed, large-scale benchmarks) and hardware-side (largely grey literature, conference talks, single-vendor evaluations) is itself a finding worth recording.
+
+---
+
 ### Claim cluster B — LLM-assisted vulnerability discovery and exploit generation (asymmetry-of-collapse hypothesis)
 *Tests `paper/main.md` §6.3: the integration path compresses faster than the offensive path.*
 
