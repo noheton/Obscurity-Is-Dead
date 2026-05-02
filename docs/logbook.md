@@ -1135,3 +1135,122 @@ This logbook is the operating record for the paper and research process.
 - Next steps:
   - Researcher reviews the new README layout and the rule-15 wording in `CLAUDE.md`.
   - Consider adding a CI step that lists `paper/figures/fig*.svg` and greps `README.md` for each filename, failing if any figure is unreferenced.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 0 bootstrap)
+- Session lead: AI agent (Claude Opus 4.7), executing `docs/prompts/iot-integrator-prompt.md` on branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 0 (self-augmentation + target intake).
+- Actions taken:
+  - Enumerated input set with `ls experiments/*/REPORT.md` (4 reports: ecoflow-powerocean, iot-integrator-ondilo-ico-spa-v2, paper-meta-process, spider-farmer). Recorded verbatim in `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md §0.1.a`.
+  - Read each `REPORT.md` in full and distilled an 18-row Technique Inventory, every row anchored to a specific section citation, no fabricated entries. Three gaps recorded as Open Questions, not invented techniques.
+  - Treated the prior `iot-integrator-ondilo-ico-spa-v2` run with equal weight to the original three case studies (prompt §0.1.e).
+  - Created experiment subfolder layout `experiments/iot-integrator-balboa-gateway-ultra/{process,original,captures,integration,raw_conversations (copy&paste, web)}/`.
+  - Surfaced an apparent target/artifact conflict (Balboa Gateway Ultra Wi-Fi module vs Ondilo ICO APK link) at intake per CLAUDE.md rule 7. Three candidate resolutions presented; provisional default = Balboa-only run; agent did not guess. Phase 1 will not start until the researcher answers.
+  - Pre-allocated redaction marker block `S-BAL-1..S-BAL-8` in the bootstrap report. None activated yet, so `docs/redaction-policy.md` is unchanged.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - Researcher must resolve the Balboa-vs-ICO target conflict before Phase 1.
+  - Researcher must declare the desired control surface and privacy boundary, and confirm which artifacts they can legally / ethically supply.
+  - Three Technique Inventory Open Questions (Wi-Fi module RE; captive-portal / setup-AP; vendor white-label identification) may need new technique IDs created during this run and back-fed at close-out.
+- Next steps:
+  - Present the Phase 0 user-facing summary (technique count, target, privacy boundary, artifact list) at the Phase 0→1 checkpoint and wait for explicit "go".
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 0 conflict resolved)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 0 (target intake conflict resolution).
+- Actions taken:
+  - Researcher confirmed at the Phase 0→1 checkpoint that the original "target artifact" link (Ondilo ICO Manager APK) was a copy-paste mistake. Correct artifact: ControlMySpa Android app (`com.controlmyspa.ownerappnew`, https://apkpure.com/controlmyspa/com.controlmyspa.ownerappnew). This is the Balboa BWA companion app and is coherent with the Balboa Gateway Ultra target.
+  - Updated `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md §0.2.1` (resolution recorded; original conflict text retained for audit) and §0.2.2 (artifact (a) confirmed as ControlMySpa).
+  - Option 1 (Balboa-only run) confirmed; experiment slug `iot-integrator-balboa-gateway-ultra` is final.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md`
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - Researcher still owes: declared control surface (read-only vs read+write), confirmation of provisional privacy boundary, and which of artifacts (b) LAN captures / (c) setup-AP capture / (d) redacted DSN they can supply.
+- Next steps:
+  - Wait for the remaining Phase 0→1 inputs, then begin Phase 1 (desk-research only, no device contact).
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 1 desk research)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 1 (research; desk-only; no device, no LAN, no vendor cloud contact).
+- Actions taken:
+  - Catalogued nine existing solutions (ES-1..ES-9) in two families: local-protocol integrations targeting the older BWA Wi-Fi Module 50350 (ES-1..ES-5, all incompatible with the researcher's 59303) and cloud integrations targeting `iot.controlmyspa.com` (ES-6..ES-9, all requiring a vendor account).
+  - Recorded the headline gap: no open-source project documents a LAN-only path that talks to the Gateway Ultra (59303). The researcher's "as local as possible" privacy boundary therefore collides with the device's intended architecture; Phase 2 must determine whether *any* LAN surface exists at all.
+  - Mapped vendor and ecosystem: BWG / Costa Mesa CA / parent Helios Technologies; EU reseller Perfect Spa GmbH; ControlMySpa cloud at `iot.controlmyspa.com` with a documented TLS-chain breakage since June 2023 — recorded as a paper-relevant vendor signal.
+  - Catalogued candidate interfaces CI-1..CI-6; none selected. CI-2 (legacy local TCP) and CI-5/CI-6 (mDNS / BLE) are the Phase-2 questions.
+  - Recorded five Open Questions to carry into Phase 2.
+  - Three vendor URLs returned 403 to the agent (perfect-spa.eu product page, home-assistant.io balboa docs, manuals.plus 59303 manual). Affected claims annotated; researcher must re-verify with direct fetch before any paper citation.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-1-research.md` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - All five Phase-1 Open Questions (§1.5) carried into Phase 2.
+  - `docs/sources.md` cluster K (Balboa / ControlMySpa) to be populated at close-out.
+  - Researcher promotion of `[lit-retrieved]` → `[lit-read]` required before any Phase 1 claim is asserted as authority in `paper/main.md`.
+- Next steps:
+  - Present the Phase 1 user-facing summary at the Phase 1→2 checkpoint (existing-solutions count, gap, top three candidate interfaces, vendor privacy posture). Wait for explicit "go" before Phase 2.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 2 weakness analysis)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 2 (weakness analysis; static-only; no device, no LAN, no vendor cloud contact).
+- Actions taken:
+  - Researcher uploaded `ControlMySpa_4.1.9_APKPure.xapk` to the experiment folder root via direct push to the branch. AI agent moved it under `original/`, extracted the XAPK bundle into `original/extracted/` (1 base APK + 2 split APKs + manifest.json + icon), and recorded SHA-256 anchors for all four binary artifacts.
+  - Ran static analysis without an APK decompiler (sandbox lacks apktool/jadx): `unzip` + `strings` + `grep` over `classes{,2,3,4}.dex`, plus the verbatim XAPK manifest.json for the permission inventory.
+  - Cross-validated cloud REST endpoints between APK 4.1.9 and ES-6 (`arska/controlmyspa`); APK exposes endpoints not in ES-6 (chromozone color/power/speed; filter-cycles schedule; toggle-filter2-state; time; c8zone; spas claim/unlink/set-default; temperature scale).
+  - Identified identity provider as AWS Cognito us-west-2 (resolves Phase 1 OQ-4: 1 h access / 30 d refresh by default).
+  - Identified third-party hosts: WaterGuru API (Helios sister brand — cross-vendor data flow), Firebase Analytics + Crashlytics 18.5.0 + Performance 20.5.0 + Sessions 1.1.0 + Remote Config + FCM, Google Sign-in, Google Mobile Ads SDK strings, ML Kit Barcode (QR pairing). No AppsFlyer/Adjust/Mixpanel/Branch/Sentry/OneSignal/Datadog/Bugsnag/Kochava/Tealium/mParticle/Braze/Leanplum/Amplitude/Segment.
+  - Recorded TLS posture: OkHttp `CertificatePinner` imported but no concrete sha256/ pin observed in DEX strings; Apache `TrustAllStrategy` symbol present (W-3) — combined with the documented June-2023 chain breakage at iot.controlmyspa.com (Phase 1 §1.2.3) this is the canonical "obscurity-as-security" anti-pattern for `T-OBSCURITY-VS-AUTH`.
+  - Compiled an 8-row Weakness Table (W-1..W-8) with explicit dual-use mirrors per `T-DUAL-USE-MIRROR`.
+  - Wrote four researcher-runnable follow-up protocols (§A DEX deep-dive, §B LAN probe, §C live cloud capture with mitmproxy, §D GDPR SAR) — mirrors the Ondilo §A.5 pattern.
+  - Surfaced rule-12 `legal-grey` consideration on whether to keep the XAPK binary in git history vs SHA-256-only at the Zenodo/arXiv stage.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/original/ControlMySpa_4.1.9_APKPure.xapk` (moved from experiment root after pull from origin)
+  - `experiments/iot-integrator-balboa-gateway-ultra/original/extracted/{base APK, 2 split APKs, manifest.json, icon.png}` (new — extracted)
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-2-weakness.md` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - OQ-1 (LAN-only service on the 59303): refined; final answer requires researcher §B LAN probe.
+  - OQ-2 (signed firmware OTA): open; requires live capture or vendor disclosure.
+  - OQ-3 (BWG vs Perfect Spa GDPR controller): open; researcher §D SAR is the canonical resolution path.
+  - W-3 reachability of `TrustAllStrategy` requires researcher §A jadx run.
+  - Rule-12 decision: retain XAPK in git or SHA-256-only at publication time. Recommendation logged in §2.4.5; final decision is researcher's at close-out.
+- Next steps:
+  - Present the Phase 2 user-facing summary at the Phase 2→3 checkpoint with the three Phase 3 options (do-not-integrate / cloud-only configuration-only / defer until §A/§B). Wait for explicit choice + cloud authorisation if option 2 is selected.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 3 implementation + close-out)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 3 (configuration-only outcome) and close-out.
+- Researcher Phase 2→3 decision: option 2 (cloud-only configuration-only); cloud-touching authorisation explicitly granted, scoped to the household account; XAPK retention plan confirmed (keep on working branch, `git rm` before any Zenodo/arXiv publication).
+- Actions taken:
+  - Wrote `integration/{README.md, smoke-test.py, operational-notes.md, validation-checklist.md, dual-use.md}` — five-file deliverable set mirroring the Ondilo §5.5 pattern (`T-CONFIG-ONLY-OUTCOME`). The Python smoke test is a read-only auth+state validator that uses `controlmyspa==4.0.0` and reads credentials from `CONTROLMYSPA_USER`/`CONTROLMYSPA_PASS` env vars.
+  - Defined the six-control hardening overlay C-1..C-6 (secondary onboarding device, network-edge sinkhole for WaterGuru + Google ad hosts, spa nickname alias, dedicated email alias, 90 d password rotation, encrypted backups). Documented five explicitly-not-done controls for audit.
+  - Wrote `process/phase-3-implementation.md` (design / build / validation / operational notes / dual-use reflection), `process/summary.md` (consolidated narrative for paper citation), `REPORT.md` (top-level case-study report mirroring prior cases), `README.md` (folder reader's-guide), `provenance.md` (per-artifact + per-claim AI/researcher attribution).
+  - Recorded two new technique tags proposed for the next-run inventory: `T-CROSS-VENDOR-CORPORATE-FLOW` (BWG ↔ WaterGuru inside Helios) and `T-OPERATIONAL-OBSCURITY` (sound auth scheme, weak operational layer).
+  - No `S-BAL-*` redaction markers activated by the agent (no live capture). First activation expected during researcher-side validation-checklist.md run.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/integration/{README.md, smoke-test.py, operational-notes.md, validation-checklist.md, dual-use.md}` (new)
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/{phase-3-implementation.md, summary.md}` (new)
+  - `experiments/iot-integrator-balboa-gateway-ultra/{REPORT.md, README.md, provenance.md}` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - Researcher to execute `integration/validation-checklist.md` end-to-end and lodge `captures/phase-3-validation.log.redacted`.
+  - Researcher §A jadx run resolves W-3 (TrustAllStrategy reachability) and W-5 (WaterGuru conditionality).
+  - Researcher §D SAR resolves OQ-3 (BWG vs Perfect Spa GDPR controller).
+  - Pre-publication: `git rm` the XAPK and the derivative APK assets per the rule-12 retention plan.
+  - Researcher to populate `raw_conversations (copy&paste, web)/`.
+- Next steps:
+  - Present the close-out summary to the researcher and wait for explicit acceptance.
+  - On acceptance: case study is feature-complete on this branch; no further AI-driven work expected without a new prompt.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, researcher acceptance and close-out)
+- Session lead: Researcher.
+- Action: explicit acceptance of the close-out summary ("accepted", 2026-05-02). Case study `experiments/iot-integrator-balboa-gateway-ultra/` is feature-complete on branch `claude/iot-pool-spa-integration-tkpaD`.
+- Pointer for citation: `experiments/iot-integrator-balboa-gateway-ultra/process/summary.md` (consolidated narrative); `experiments/iot-integrator-balboa-gateway-ultra/REPORT.md` (top-level case-study report).
+- Outstanding researcher-side work, recorded so it does not get lost:
+  - Run `integration/validation-checklist.md` end-to-end and lodge `captures/phase-3-validation.log.redacted`.
+  - Activate `S-BAL-*` markers in `docs/redaction-policy.md` as they appear during the validation run.
+  - Optional: §A jadx deep-dive (W-3 reachability, W-5 conditionality), §B LAN probe, §C mitmproxy capture, §D GDPR SAR with BWG and WaterGuru.
+  - Populate `experiments/iot-integrator-balboa-gateway-ultra/raw_conversations (copy&paste, web)/` with the exported transcripts of this session.
+  - Pre-publication: `git rm` the XAPK and the derivative APK assets per the confirmed rule-12 retention plan; SHA-256 anchors in `phase-2-weakness.md §2.0` remain the permanent evidence.
+- No further AI-driven work is expected on this case study without a new prompt. Rule 13 publication posture: no public push beyond the working branch, no Zenodo deposit, no arXiv submission, no upstream PR.
