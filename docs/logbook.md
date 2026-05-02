@@ -1318,3 +1318,56 @@ This logbook is the operating record for the paper and research process.
   - Researcher reviews this session's additions against the per-case `REPORT.md` and `RESEARCH-PROTOCOL.md` files and either accepts or flags the writer-pass framing of the new themes.
   - Researcher executes the `T-OND-*` and `T-BAL-*` checklists and lodges the redacted validation logs.
   - On acceptance, the four new figures join the visual abstract gallery and the §7.13 / §7.14 framings are eligible to be cited from a future submission draft.
+
+### 2026-05-02 (literature pass M/N/O + §7.15 Scope and limitations + tagline + Gemini logo credit)
+
+- Branch: `claude/research-protocol-experiments-lBeVa`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher follow-ups to the prior session — (i) literature pass for §6.7 / §7.13 / §7.14 (adversarial-LLM-tooling and APK-mirror-abuse), (ii) writer pass to add a §7.X "Scope and limitations of the study" subsection, (iii) illustrator pass for the new section, plus (iv) move from the long question-form title to the new tagline "Proprietary by Design. Open by AI." with the project visual identity from a Google Gemini logo and (v) reference the *intact* proverbial jar later in the paper as a Hesiodic counterpoint to the shattered-jar logo.
+
+- Stage 1 — Literature pass:
+  - Three new `docs/sources.md` claim clusters appended:
+    - **Cluster M — Malicious LLM agents and adversarial agentic AI.** L-AGT-1..L-AGT-10 (Fang et al. 2024 ×2 — 87% one-day CVE exploitation by GPT-4 and autonomous website hacking; Lupinacci et al. 2025 — 94.4%/83.3%/100% prompt-injection / RAG / inter-agent trust attack rates; Chen et al. 2024 AgentPoison; Yang et al. 2024 backdoor; Zhang et al. 2024 ASB at 84.30% avg; Lee et al. 2025 SUDO Detox2Tox jailbreak of Claude for Computer Use; Ferrag et al. 2025 protocol-exploit survey; Wang et al. 2024 BadAgent; Zhang et al. 2024 Breaking Agents). Anchors §7.13 explicitly.
+    - **Cluster N — Mass probing of public APK repositories and Android-marketplace ecosystem.** L-APK-1..L-APK-7 (Zhou et al. 2012 DroidMOSS; Vidas & Christin 2013 alt-marketplaces; Chen et al. 2015 MassVet at Google-Play scale; Ishii et al. 2017 APPraiser; Hou et al. 2022 ANDSCANNER; Gao et al. 2021 lineage; Sanna et al. 2024 native-code corpus). Anchors §7.14 explicitly.
+    - **Cluster O — IoT companion apps as the integrator-side weakness surface.** L-IOTAPP-1..L-IOTAPP-5 (Schmidt et al. 2023 IoTFlow on 9,889 apps with abandoned-domains / hard-coded creds / expired certs findings — closest published prior art to the IoT-Integrator Phase-2 weakness analysis; Wang et al. 2019 component-reuse on >4,700 devices; Jin et al. 2022 IoTSpotter at market scale with 94.11% high-install crypto-violation rate; OConnor et al. 2021 companion-app MITM on 16/20 vendors; Mauro Junior et al. 2019 96-device study). Anchors §6.7 explicitly.
+  - Threaded the citation handles into the three subsections of `paper/main.md` and `paper/main.tex` (rule 11 mirror) in a single paragraph per subsection so the new clusters carry concrete numerical claims; all entries remain `[lit-retrieved]` and the existing rule that no claim depends on an unread citation is preserved.
+
+- Stage 2 — Scientific writer pass:
+  - Added **§7.15 Scope and limitations of the study** (label `sec:disc-scope-limits`) consolidating §1.5 / §6.4 / §7.9 with the new constraints introduced by the cross-validation cases and the §7.13 / §7.14 themes. Five numbered dimensions plus two interpretive constraints (recursive meta-process is methodological evidence, not independent thesis confirmation; difficulty taxonomy is qualitative spread, not absolute scale). Mirrored exactly into `paper/main.tex`. Three `\cref{}` labels in the new tex section that initially pointed at non-existent anchors were corrected (`sec:scope-non-goals` → `sec:scope`; `sec:disc-validity` → `sec:disc-threats`; `sec:disc-disclaimers` → `sec:ai-disclosure-disclaimers`).
+  - Title/tagline change applied across the canonical content surface: `paper/main.md` H1, `paper/main.tex` `\title{}` and `pdftitle`, `README.md` H1+H3, `CITATION.cff` (top-level title and preferred-citation title and a new `subtitle` field), `.zenodo.json` title and description, `codemeta.json` description and referencePublication name. New title: **"Obscurity Is Dead"** with **"Proprietary by Design. Open by AI."** as the subtitle and *"A study of AI-assisted reverse engineering as a means to interoperability — and the security nightmare that comes with it."* as the long-form description.
+  - Acknowledged **Google Gemini** as the generator of the project's visual identity in `paper/main.md` §9.1 (and the matching `paper/main.tex` §9.1), in `paper/figures/README.md`, and as a `references` entry in `CITATION.cff`. Per CLAUDE.md rule 1, Gemini's contribution is visibly labelled and confined to the visual assets; per the §9.1 *Urheberrecht und KI* footnote, Gemini is not an author.
+  - Inserted the proverbial-jar-intact image reference at §10 in both `main.md` and `main.tex` immediately after the Hesiod quote, as the Hesiodic counterpoint to the shattered-jar logo at the front matter.
+  - Two binary assets are *not* yet committed (researcher-supplied): `paper/figures/logo-obscurity-is-dead.png` (front-matter / README hero) and `paper/figures/logo-pandora-jar-intact.png` (§10 / fig:pandora-jar-intact). Until these are dropped in by the author, the README hero image and the §10 figure render as broken-image placeholders; the broken state is intentional (rule 1 transparency over rule 15 aesthetics) and documented in `paper/figures/README.md`.
+
+- Stage 3 — Illustration agent:
+  - Produced **fig16-scope-limitations** (ILL-10) — a concentric perimeter diagram with five in-scope dimensions on an inner ring and the named exclusions on the outside; `paper/figures/fig16-scope-limitations.{py,svg,pdf}`, AI-authored docstring (rule 1), uses `dlr_style.py` for consistency.
+  - The `[ILLUSTRATION OPPORTUNITY] ILL-10` placeholder was replaced with a real figure reference in both `paper/main.md` and `paper/main.tex`.
+
+- Files updated:
+  - `docs/sources.md` (clusters M, N, O appended)
+  - `paper/main.md` (clusters threaded into §6.7 / §7.13 / §7.14; new §7.15; new title block; §9.1 Gemini credit; §10 intact-jar image; ILL-10 placeholder replaced)
+  - `paper/main.tex` (mirror of all of the above; broken `\cref` labels in the new section corrected)
+  - `README.md` (new title/tagline; logo at hero; figure-count badge 15 → 16; structure-tree updated; Synthesis gallery extended with fig16 + intact-jar)
+  - `CITATION.cff` (top-level title; preferred-citation title + subtitle; Gemini reference)
+  - `.zenodo.json` (title + description)
+  - `codemeta.json` (description + referencePublication.name)
+  - `paper/figures/README.md` (fig16 row; logo rows; AI-authored programmatic-diagram list extended)
+  - `paper/figures/fig16-scope-limitations.{py,svg,pdf}` (new)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The new clusters are deliberately threaded as *one paragraph per subsection* rather than as bibliography expansion: each subsection now has a numerical anchor pointing at the literature, but no individual claim depends on a single citation having been read in full (consistent with the §9.3 discipline).
+  - The §7.15 section consolidates limitations rather than introducing new ones; this was a writer-pass move (per `docs/prompts/scientific-writer-prompt.md`: "do not add, remove, or modify research claims") that surfaces existing constraints from §1.5, §6.4, §7.9, §6.7, §7.13, §7.14 in a single readable place.
+  - Title change fires rule 11 (md ↔ tex), rule 15 (README), and the FAIR-metadata mirror set (CITATION.cff, .zenodo.json, codemeta.json) — all updated in this commit.
+  - The two Gemini-generated logo binaries are intentionally not stubbed with placeholder PNGs; a broken image is more honest than a fake one (rule 1).
+
+- Open issues:
+  - **Researcher to drop in `paper/figures/logo-obscurity-is-dead.png` and `paper/figures/logo-pandora-jar-intact.png`** (Gemini-generated assets); the README hero and §10 figure render as broken images until then.
+  - The Gemini iteration history / generation prompts referenced in §9.1 are not yet committed; researcher to append them to this logbook entry once available.
+  - All Session 7 / 12 issues remain open.
+  - All entries in clusters M/N/O are `[lit-retrieved]` only; no claim in the paper depends on an unread citation.
+
+- Next steps:
+  - Researcher reviews the new title/tagline rollout across the canonical-content surface and either accepts or asks for further revision.
+  - Researcher commits the two Gemini logo binaries and updates §9.1 with the iteration history.
+  - On acceptance, the README's Visual abstract and front matter render with the new identity.

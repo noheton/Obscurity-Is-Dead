@@ -1,6 +1,6 @@
 {
-  "title": "Obscurity-Is-Dead — AI-Assisted Hacking: Key to Interoperability or Security Nightmare?",
-  "description": "Research-as-code repository for the paper 'AI-Assisted Hacking: Key to Interoperability or Security Nightmare?'. Documents two empirical case studies (Spider Farmer BLE; EcoFlow PowerOcean) plus a recursive third case study of the paper-generation process itself. Treats AI conversation transcripts, vendor artifacts, and version history as first-class evidence. Explicitly addresses sloppification of science and model collapse. Adheres to DFG Guidelines for Safeguarding Good Research Practice and to the FAIR data principles (see docs/fair.md).",
+  "title": "Obscurity Is Dead — Proprietary by Design. Open by AI.",
+  "description": "Research-as-code repository for the paper 'Obscurity Is Dead — Proprietary by Design. Open by AI.' (subtitle: a study of AI-assisted reverse engineering as a means to interoperability — and the security nightmare that comes with it). Documents two empirical case studies (Spider Farmer BLE; EcoFlow PowerOcean) plus a recursive third case study of the paper-generation process itself. Treats AI conversation transcripts, vendor artifacts, and version history as first-class evidence. Explicitly addresses sloppification of science and model collapse. Adheres to DFG Guidelines for Safeguarding Good Research Practice and to the FAIR data principles (see docs/fair.md).",
   "creators": [
     {
       "name": "Krebs, Florian",
