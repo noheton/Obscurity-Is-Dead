@@ -1401,3 +1401,35 @@ This logbook is the operating record for the paper and research process.
 - Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, `paper/references.bib`, `paper/figures/*`, `docs/sources.md`. Working tree dirty by design — no commit.
 
 - Next steps: writer pass remediates RDB-01..RDB-12 (H + M); illustrator pass addresses RDB-04 / RDB-05+RDB-08 / RDB-07; second scrutinizer pass after writer remediation to clear the H entries.
+
+## 2026-05-02 — Stage 4: Layout Scrutinizer (first run)
+
+- PDF under inspection: `paper/main.pdf`
+  - SHA-256: `ba538ea0d2df9a582889eb16de84d3cd1c6bcf5ae00e647549b7b68bcb2b9e4f`
+  - Size: 1,043,497 bytes; 40 pages
+  - Build timestamp: 2026-05-02T14:53:23Z (rebuilt this session via `make -C paper pdf`; the SessionStart-installed TeX Live toolchain produced a clean build from `main.tex` 2,391 lines and `main.bbl`).
+- Tooling note: the `mcp__…__display_pdf` viewer rejected the local artifact (no allowed-directories entry). Visual sweep performed entirely locally with `poppler-utils` (`pdftotext -layout`, `pdfinfo`); no upload to any external service (CLAUDE.md rule 13). Pages requiring pixel-level inspection (figure-internal contrast, kerning) are flagged `viewer-blocked` in the registry and queued for a pixel-level re-sweep on the next Layout Scrutinizer run.
+- Inputs read in full: `paper/main.log` (full overfull/underfull/warning extraction, 1,375+ lines), `paper/main.tex` label index (cross-checked all `\label{sec:…}` and `\cref{...}` calls), `paper/main.md` section structure (mirror discipline per rule 11), prior logbook session, `paper/figures/README.md`.
+
+- Deliverables produced.
+  - `docs/handbacks/layout-defect-registry.md` — 18-row registry (LAY-01..LAY-18) with single-line `RE-SCRUTINY REQUIRED: yes` verdict.
+  - `docs/handbacks/layout-to-writer.md` — 13 per-entry hand-back blocks (LAY-01, LAY-02, LAY-03, LAY-04, LAY-07, LAY-08, LAY-09, LAY-10, LAY-11, LAY-14, LAY-15, LAY-17, LAY-18, plus shared LAY-16).
+  - `docs/handbacks/layout-to-illustrator.md` — 5 per-entry hand-back blocks (LAY-05, LAY-06, LAY-12, LAY-13, plus shared LAY-16). LAY-12 is the PLACEHOLDER-pending tracking entry for `paper/figures/logo-{obscurity-is-dead,pandora-jar-intact}.png`.
+
+- Counts.
+  - **By severity:** H = 6 (LAY-01..LAY-06); M = 7 (LAY-07..LAY-13); L = 5 (LAY-14..LAY-18).
+  - **By owner:** writer = 11 (incl. shared LAY-16); illustrator = 5 (LAY-05, LAY-06, LAY-12, LAY-13, shared LAY-16); joint advisory = 1 (LAY-16); informational placeholder = 1 (LAY-12).
+  - **By class:** broken-cref 1 (`??` rendered); margin-overflow / `\hbox` past `\textwidth` 8; table-overflow / cell mis-alignment 3; figure-asset overflow 2; pdf-version-incompatibility 1; placeholder-pending 1; cosmetic font / float / underfull 4 (incl. bib).
+
+- Most consequential defect: **LAY-01** — `\cref{sec:scope-non-goals,sec:synthesis-limits,sec:disc-validity}` on `main.tex:1853` references two undefined labels (`sec:scope-non-goals`, `sec:disc-validity`) and renders as literal `????` in the §7.15 paragraph on page 31. The reader cannot find the cited limitations sections; remediation requires either adding the missing labels (preferred) or rewriting the `\cref` to the labels that already exist (`sec:scope`, `sec:synthesis-limits`, `sec:disc-threats`).
+
+- Cross-check against prior stages: the readability scrutinizer (RDB registry) and the layout scrutinizer find no overlapping defects — RDB entries concern claim repetition, list-of-lists, jargon, and citation hygiene, none of which surface in the rendered geometry. The two registries are independent and additive.
+
+- Mirror discipline (rule 11) check: every writer-owned entry cites both `main.tex` and `main.md` line ranges; no structural drift detected during the scrutiny. Redaction discipline (rule 12) check: the page-7 `[REDACTED:username:S-SF-5-username]` and `[REDACTED:credential:S-SF-5-password]` markers are intact in the rendered PDF; no live credential leaked through the build.
+
+- Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — six H-severity defects (LAY-01 broken `\cref`, LAY-02 reconciliation table cell mis-alignment, LAY-03 / LAY-04 right-margin overruns, LAY-05 figure 7 textwidth overflow, LAY-06 figure 8 sub-table overflow) prevent a clean reading of headline evidence. After the writer and illustrator passes consume their hand-back files and `make -C paper pdf` rebuilds, a second Layout Scrutinizer run is required.
+
+- Files written: `docs/handbacks/layout-defect-registry.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/layout-to-illustrator.md`, `docs/logbook.md` (this entry).
+- Files left untouched (per scope discipline): `paper/main.tex`, `paper/main.md`, `paper/figures/*`, `paper/references.bib`, `docs/sources.md`, `docs/redaction-policy.md`. Working tree dirty by design — no commit, no push (CLAUDE.md rule 13).
+
+- Next steps: writer remediates LAY-01..LAY-04 + LAY-07..LAY-11 (H+M); illustrator remediates LAY-05, LAY-06 (H), LAY-13 (M), and LAY-12 when the Gemini logo assets land. Re-run Stage 4 against the rebuilt PDF to clear the H entries.
