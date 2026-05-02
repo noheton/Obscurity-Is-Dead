@@ -1536,3 +1536,11 @@ This logbook is the operating record for the paper and research process.
 - Files updated: `docs/sources.md` (10 annotations); `docs/handbacks/source-analyzer-report.md` (slice-2 section + cumulative summary); `docs/handbacks/source-analyzer-to-writer.md` (8 new in-text-citation candidates); `docs/logbook.md` (this entry).
 - Re-analysis verdict: **`RE-ANALYSIS REQUIRED: yes`** — 2 attempt-failed entries plus ~109 unprocessed `[lit-retrieved]` entries.
 - Next anticipated stage: a follow-up Stage 2 Writer pass that promotes the eight slice-2 inline citations from footnote to in-text. After that, `make -C paper pdf` and Stages 4 + 5 re-scrutiny.
+
+## 2026-05-02 — Researcher hypothesis: hardware-side effort gap
+
+- Researcher (Florian Krebs) raised an extension to the §1.4 effort-gap thesis during the orchestrator-coordinated session: AI-assisted reverse engineering compresses not only the *software* path (decompilers + LLMs reading binaries) but also the *hardware-access* path — soldering JTAG/UART/SPI test pads, glitching, chip-off, AI-assisted PCB photo analysis. Predicts the "sealed device → readable firmware" chain has compressed in parallel with the "binary → readable code" chain.
+- Action taken: lodged six placeholder entries (L-HW-RE-1..6) in `docs/sources.md` under a new **Claim cluster A.2 — Hardware-side effort-gap reduction**, all marked `[needs-research]`. Identified anchor candidates (JTAGulator, ChipWhisperer, *Hardware Hacker's Handbook*, automated firmware-extraction literature, AI-assisted PCB analysis literature) and an explicit open question about software-side ↔ hardware-side evidence asymmetry (peer-reviewed benchmarks vs grey literature).
+- No edits to `paper/main.{md,tex}`: per CLAUDE.md rule 8 the new cluster is not yet citable inline; per the verification ladder a Stage 1 (Research) pass plus a Stage 1.5 (Source Analyzer) confirmation are required before the writer can incorporate the claim into §1.4.
+- Files: `docs/sources.md` (cluster A.2 inserted between cluster A and cluster B); `docs/logbook.md` (this entry).
+- Recommended next stage: **Stage 1 (Research)** dispatched against the L-HW-RE-1..6 placeholders to retrieve canonical citations (academic + grey-literature with explicit labels). The orchestrator should run this before the next writer pass that touches §1.4.
