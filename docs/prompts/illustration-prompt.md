@@ -116,6 +116,12 @@ In **both** `paper/main.md` and `paper/main.tex` (CLAUDE.md rule 11):
 - **Rule 14 — Data + script committed.** Data-driven figures require
   both a data file and a generation script to be committed and
   registered in `paper/figures/README.md`.
+- **Rule 15 — README mirror.** When a figure is added, replaced, or
+  retired, the top-level `README.md` gallery must be updated in the
+  same commit so the flashy front door stays consistent with the
+  paper. The visual abstract (currently `fig11-eight-practices.svg`)
+  is the README's hero image; other figures slot into the case-study,
+  methodology, or synthesis groups by section anchor.
 
 ## Output
 

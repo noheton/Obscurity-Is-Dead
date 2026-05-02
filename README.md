@@ -8,16 +8,31 @@
 [![FAIR compliant](https://img.shields.io/badge/FAIR-compliant-blue)](docs/fair.md)
 [![arXiv-ready LaTeX](https://img.shields.io/badge/paper-arXiv--ready-red)](paper/main.tex)
 [![Draft PDF](https://img.shields.io/badge/draft-PDF-orange)](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml)
+[![Figures: 11](https://img.shields.io/badge/figures-11-purple)](paper/figures/)
+[![Case studies: 3](https://img.shields.io/badge/case%20studies-3-teal)](experiments/)
 
 > **Statement of independence.** This is a hobbyist research project carried out by the author in a personal capacity. It is **not** part of, endorsed by, funded by, or representative of the views of any employer, including the German Aerospace Center (DLR). See `paper/main.md` §9.5 for the full disclaimer.
 
 ---
 
+## Visual abstract
+
+![Visual abstract — Eight integrated practices for AI-assisted reverse-engineering research, mapped against three failure-mode axes (sloppification, model collapse, dual-use). Source: paper §10, ILL-05.](paper/figures/fig11-eight-practices.svg)
+
+> *Eight practices · three failure modes · one auditable workflow. The full registry lives in `paper/main.md` §10.*
+
+---
+
 ## What is this?
 
-This repository is a research paper and its full supporting evidence — case studies, AI conversation transcripts, provenance maps, and methodology — published as a single, auditable, git-tracked artifact.
+This repository is a research paper **and** its full supporting evidence — case studies, AI conversation transcripts, provenance maps, and methodology — published as a single, auditable, git-tracked artifact.
 
-**Central thesis.** The dominant security posture for consumer IoT is economic, not cryptographic: proprietary protocols and obfuscated APKs raise the *effort gap* high enough that a casual researcher gives up. Large language models collapse that gap. This paper documents *how far* it has collapsed, *how asymmetrically* (faster for interoperability than for exploitation), and *what to do about it*.
+> **Central thesis.** The dominant security posture for consumer IoT is economic, not cryptographic: proprietary protocols and obfuscated APKs raise the *effort gap* high enough that a casual researcher gives up. Large language models collapse that gap. This paper documents *how far* it has collapsed, *how asymmetrically* (faster for interoperability than for exploitation), and *what to do about it*.
+
+| | |
+|---|---|
+| ![The effort gap collapses with AI assistance.](paper/figures/fig1-effort-gap.svg) | ![Reaction-coordinate view: AI lowers the activation energy E_a.](paper/figures/fig2-boredom-barrier.svg) |
+| **Fig 1** — The effort gap collapses with AI assistance (data-driven, `data/effort-gap.csv`). | **Fig 2** — The boredom barrier: AI lowers the activation energy *Eₐ*. |
 
 ---
 
@@ -32,20 +47,38 @@ This repository is a research paper and its full supporting evidence — case st
 | **Live credentials exposed** | Yes (MQTT broker) — redacted | No (token-bearer model) |
 | **Dual-use blast radius** | Per-device horticulture control | Grid-in / battery-reserve / EV-charger writes |
 
+![Per-stage AI vs. manual effort, aggregated to four stages (Discovery / Build / Debug / Validation). Source: paper §7.3, ILL-04, data/stage-effort.csv.](paper/figures/fig10-stage-effort.svg)
+
+*Fig 10 — Where the gap actually compresses: per-stage effort, AI vs. manual, across both case studies.*
+
 ---
 
-## Paper figures
+## Visual tour of the paper
+
+The figures are grouped here the way the paper uses them: thesis → case studies → methodology → synthesis. The full inventory and Rule-14 compliance notes live in [`paper/figures/README.md`](paper/figures/README.md).
+
+### Case studies (§3, §4)
 
 | | |
 |---|---|
-| ![Effort gap](paper/figures/fig1-effort-gap.svg) | ![Boredom barrier](paper/figures/fig2-boredom-barrier.svg) |
-| *Fig 1 — The effort gap collapses with AI assistance* | *Fig 2 — AI lowers the activation energy E_a* |
-| ![Spider Farmer workflow](paper/figures/fig3-spider-farmer.svg) | ![EcoFlow architecture](paper/figures/fig4-ecoflow.svg) |
-| *Fig 3 — Spider Farmer: vendor APK → HA integration* | *Fig 4 — EcoFlow: cloud-bound vs local-broker* |
-| ![Methodology](paper/figures/fig5-methodology.svg) | ![Dual-use map](paper/figures/fig6-dual-use.svg) |
-| *Fig 5 — Four-stage methodology pipeline* | *Fig 6 — Dual-use outcome map* |
-| ![Threat models](paper/figures/fig7-threat-models.svg) | |
-| *Fig 7 — Perimeter model vs. per-hop authenticated model* | |
+| ![Spider Farmer: vendor APK → local Home Assistant integration via an AI-assisted reconciliation loop.](paper/figures/fig3-spider-farmer.svg) | ![EcoFlow PowerOcean: cloud-bound default vs. AI-assisted local broker.](paper/figures/fig4-ecoflow.svg) |
+| **Fig 3** — Spider Farmer: vendor surface → local HA integration. | **Fig 4** — EcoFlow: cloud-bound vs. local-broker architectures. |
+| ![EcoFlow exposes three undocumented API surfaces; vendor docs cover only one.](paper/figures/fig8-ecoflow-surfaces.svg) | |
+| **Fig 8** — EcoFlow's three API surfaces (consumer / docs / integration mapping; ILL-02). | |
+
+### Methodology (§2, §5, §7.6)
+
+| | |
+|---|---|
+| ![Four-stage methodology pipeline: Acquire → Analyse → Audit → Validate, with feedback loop.](paper/figures/fig5-methodology.svg) | ![Verification-status pipeline: literature track and artifact track converge at the sloppification gate.](paper/figures/fig9-verification-pipeline.svg) |
+| **Fig 5** — Four-stage pipeline: Acquire → Analyse → Audit → Validate. | **Fig 9** — Verification-status pipeline (ILL-03). |
+
+### Synthesis (§6, §7, §8)
+
+| | |
+|---|---|
+| ![Dual-use outcome map: interoperability gain vs. security risk per case.](paper/figures/fig6-dual-use.svg) | ![Single-perimeter threat model vs. per-hop authenticated model.](paper/figures/fig7-threat-models.svg) |
+| **Fig 6** — Dual-use outcome map. | **Fig 7** — Perimeter model vs. per-hop authenticated model. |
 
 ---
 
@@ -58,7 +91,7 @@ Obscurity-Is-Dead/
 │   ├── main.tex             # arXiv-ready LaTeX mirror (rule 11: must stay in sync)
 │   ├── references.bib       # BibTeX bibliography
 │   ├── Makefile             # Build pipeline: make pdf | make figures | make arxiv
-│   └── figures/             # SVG figures (fig1–fig7) + README
+│   └── figures/             # SVG figures (fig1–fig11) + scripts + data + README
 ├── experiments/
 │   ├── spider-farmer/       # Case study 1: artifacts, transcripts, provenance
 │   ├── ecoflow-powerocean/  # Case study 2: artifacts, transcripts, provenance
@@ -69,12 +102,13 @@ Obscurity-Is-Dead/
 │   ├── logbook.md           # Session-by-session development changelog
 │   ├── fair.md              # FAIR principles compliance mapping
 │   ├── redaction-policy.md  # Sensitive-item register and pre-publication checklist
-│   └── ethics.md            # Ethical considerations and dual-use framing
+│   ├── ethics.md            # Ethical considerations and dual-use framing
+│   └── prompts/             # Three-stage agent pipeline (research / writer / illustration)
 ├── CITATION.cff             # Citation File Format 1.2.0
 ├── .zenodo.json             # Zenodo metadata (for DOI minting)
 ├── codemeta.json            # CodeMeta 3.0 / schema.org JSON-LD
 ├── LICENSE                  # CC-BY-4.0 (human-authored portions only)
-└── CLAUDE_CODE_INSTRUCTIONS.md  # Canonical AI policy (14 rules)
+└── CLAUDE_CODE_INSTRUCTIONS.md  # Canonical AI policy (15 rules)
 ```
 
 ---
@@ -92,7 +126,7 @@ Obscurity-Is-Dead/
   - §6 Synthesis — cross-case comparison and limits
   - §7 Discussion — interoperability, asymmetry, proliferation risk, prompt-injection countermeasure
   - §9 AI usage disclosure — model acknowledgement, legal framing, independence
-  - §10 The Pandora moment — artifact-level disclosure as a research methodology
+  - §10 The Pandora moment — artifact-level disclosure as a research methodology (visual abstract, Fig 11)
 
 ---
 
@@ -103,7 +137,7 @@ Every technical claim is:
 2. **Transcript-anchored** — the AI conversation that proposed it is preserved in `experiments/*/raw_conversations (copy&paste, web)/`.
 3. **Verification-status labelled** — `[repo-vendored]` / `[lit-read]` / `[lit-retrieved]` / `[unverified-external]` as appropriate (see `docs/sources.md` legend).
 
-AI outputs are **never used as authority** — only as claims to be checked against vendor code.
+AI outputs are **never used as authority** — only as claims to be checked against vendor code. The two-track verification pipeline (literature + artifact, converging at the sloppification gate) is depicted in **Fig 9** above.
 
 ---
 
@@ -157,6 +191,12 @@ AI-generated text is acknowledged but is not a copyrightable contribution under 
 [![R — Reusable](https://img.shields.io/badge/R-Reusable-yellow)](docs/fair.md)
 
 See [`docs/fair.md`](docs/fair.md) for the full F1–R1.3 compliance mapping and the open issues blocking full compliance (notably: Zenodo DOI, git history rewrite, vendor redistribution).
+
+---
+
+## How this README stays honest
+
+This README is the flashy front door of `paper/main.md`. Per **rule 15** of the repository AI policy (`CLAUDE.md`), it must mirror the paper's title, thesis, headline KPIs, and figure inventory in the same commit that any of those change in the paper. Title, thesis, and KPI table above are pulled from `paper/main.md` §1 and §6.1; every figure is rendered straight from `paper/figures/`. If you spot a contradiction between this page and the paper, the paper wins — and please open an issue.
 
 ---
 

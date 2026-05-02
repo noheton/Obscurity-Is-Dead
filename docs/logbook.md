@@ -926,3 +926,43 @@ This logbook is the operating record for the paper and research process.
   - Researcher reviews the five new figures and the ILL-01 table.
   - Resume `[lit-retrieved]` → `[lit-read]` upgrades.
   - Continue tracking §5.7 KPI; this session adds ~2 h AI-assisted work and produces one new data file, four new generation scripts, eight new figure assets, one new table, and one promoted prompt.
+
+### Session 12 — 2026-05-02 (README ↔ paper mirror discipline; rule 15)
+
+- Branch: `claude/enhance-readme-illustrations-hcKqw`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: explicit request to "add a rule to keep README always consistent with main.md but in a flashier way" and to integrate illustrations.
+
+- Actions:
+  1. Added **rule 15** to the canonical AI policy and propagated it to all four mirror files (`CLAUDE.md`, `.instructions.md`, `copilot-instructions.md`, `CLAUDE_CODE_INSTRUCTIONS.md`). The rule requires `README.md` to mirror `paper/main.md` in title, central thesis, headline KPIs, and structural summary, while explicitly licensing a flashier, illustration-forward register (badges, hero visual, grouped galleries, pull-quotes). It binds README updates to the same commit as any figure change under `paper/figures/` or any headline-number revision in the paper.
+  2. Refactored `README.md`:
+     - Promoted `fig11-eight-practices.svg` to a hero **visual abstract** at the top of the page, matching ILL-05's role in §10.
+     - Inlined `fig1-effort-gap.svg` and `fig2-boredom-barrier.svg` next to the central-thesis blockquote.
+     - Added `fig10-stage-effort.svg` directly under the headline KPI table to visualise the per-stage compression numbers.
+     - Reorganised the figure gallery into thematic groups (Case studies / Methodology / Synthesis), pulling in `fig8-ecoflow-surfaces.svg` and `fig9-verification-pipeline.svg` that were missing from the previous gallery.
+     - Added "How this README stays honest" footer naming rule 15 explicitly so readers know the consistency invariant.
+     - Added two new shields-io badges (figure count, case-study count) and a cross-reference to `docs/prompts/` in the repo-structure tree.
+  3. Updated `docs/prompts/illustration-prompt.md` Constraints section with a **Rule 15 — README mirror** entry, so future illustration runs update the README in the same commit they touch `paper/figures/`.
+
+- Files updated:
+  - `CLAUDE.md`
+  - `.instructions.md`
+  - `copilot-instructions.md`
+  - `CLAUDE_CODE_INSTRUCTIONS.md`
+  - `README.md`
+  - `docs/prompts/illustration-prompt.md`
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The flashy register is *additive*, not contradictory: the README may use callouts, pull-quotes, and badges that the paper would not, but every claim it makes must already be in the paper. This is the rule-1 honesty constraint extended to the front-matter.
+  - Visual abstract chosen as `fig11` (ILL-05) because it is the single figure that summarises the eight integrated practices the paper asks the field to adopt.
+  - No new figures were generated in this session; the work was structural reuse of existing assets in `paper/figures/`.
+
+- Open issues:
+  - All Session 7 issues (G1–G7) remain open.
+  - History rewrite for redacted credentials still pending before any public archive (CLAUDE.md rule 12).
+  - Rule 15 is not yet enforced by CI; a lightweight check that flags figure-set drift between `README.md` and `paper/figures/` would harden the invariant.
+
+- Next steps:
+  - Researcher reviews the new README layout and the rule-15 wording in `CLAUDE.md`.
+  - Consider adding a CI step that lists `paper/figures/fig*.svg` and greps `README.md` for each filename, failing if any figure is unreferenced.
