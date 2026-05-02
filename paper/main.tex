@@ -1,5 +1,7 @@
 % !TEX program = pdflatex
-% AI-Assisted Hacking: Key to Interoperability or Security Nightmare?
+% Obscurity Is Dead --- Proprietary by Design. Open by AI.
+% (subtitle: A study of AI-assisted reverse engineering as a means to
+%  interoperability --- and the security nightmare that comes with it.)
 % arXiv-friendly: \documentclass{article}, only widely-available packages.
 \documentclass[11pt,a4paper]{article}
 
@@ -25,13 +27,17 @@
   linkcolor=black,
   citecolor=black,
   urlcolor=black,
-  pdftitle={AI-Assisted Hacking: Key to Interoperability or Security Nightmare?},
+  pdftitle={Obscurity Is Dead --- Proprietary by Design. Open by AI.},
   pdfauthor={}
 }
 
 \graphicspath{{figures/}}
 
-\title{AI-Assisted Hacking: Key to Interoperability or Security Nightmare?}
+\title{Obscurity Is Dead\\[2pt]
+  \large Proprietary by Design. Open by AI.\\[6pt]
+  \normalsize\itshape A study of AI-assisted reverse engineering as a
+  means to interoperability --- and the security nightmare that comes
+  with it.}
 
 \author[1]{Florian Krebs%
   \thanks{ORCID: \href{https://orcid.org/0000-0001-6033-801X}{0000-0001-6033-801X}.
@@ -978,6 +984,229 @@ would still apply. Validating that conjecture against an industrial
 case is left to future work
 (\cref{sec:future-work}).
 
+\subsection{Cross-validation from the IoT-Integrator runs}
+\label{sec:synthesis-iot-integrator}
+Two further case studies have been completed under the self-augmenting
+\emph{IoT Integrator} stage of the methodology and are vendored under
+\texttt{experiments/iot-integrator-ondilo-ico-spa-v2/} and
+\texttt{experiments/iot-integrator-balboa-gateway-ultra/}. Each followed
+the same Phase~0--3 protocol
+(\texttt{docs/prompts/iot-integrator-prompt.md}), produced a
+\texttt{REPORT.md}, a \texttt{process/summary.md}, a runnable
+\texttt{integration/} deliverable, and a \texttt{RESEARCH-PROTOCOL.md}
+audit (deliverable of
+\texttt{docs/prompts/research-protocol-prompt.md}). Validation by the
+human researcher is in progress; the per-case test checklists are
+recorded as \texttt{T-OND-1..T-OND-10} and \texttt{T-BAL-1..T-BAL-12}
+in the respective \texttt{RESEARCH-PROTOCOL.md} files. Both cases are
+treated here as \emph{cross-validation} of the methodology rather than
+as independent confirmation of the central thesis.
+
+\begin{table}[h]
+\centering
+\caption{Cross-validation case studies from the self-augmenting IoT
+Integrator stage. Both cases produced a configuration-only Phase~3
+deliverable wrapping an upstream community integration.}
+\label{tab:iot-integrator-runs}
+\footnotesize
+\begin{tabular}{p{2.6cm} p{5.5cm} p{5.5cm}}
+\toprule
+\textbf{Dimension} & \textbf{Ondilo ICO Spa V2} & \textbf{Balboa Gateway Ultra (BWG 59303)} \\
+\midrule
+Defence model
+  & Conventional OAuth2 cloud authentication; no obscurity layer
+  & Cryptographically sound AWS Cognito us-west-2; weak operational layer (broken intermediate-CA chain since June 2023; \texttt{TrustAllStrategy} symbol on classpath; public mobile client secret; no in-app revocation UI) \\
+Primary AI lift
+  & Manifest-permission audit; existing-solutions enumeration; technique-inventory bootstrap from prior reports
+  & Static APK analysis (\texttt{unzip} + \texttt{strings} + \texttt{grep}); cross-implementation validation against ES-6 (\texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-2]}); identification of endpoints not in any open-source library \\
+Independent corroboration
+  & HA core \texttt{ondilo\_ico/\{const,api,coordinator,sensor\}.py}; PyPI \texttt{ondilo}; vendor Customer-API docs
+  & 9 catalogued solutions (5 local-protocol for the older 50350 module, 4 cloud-routed); ES-6 source quoted verbatim \\
+Live credential recovery
+  & No (read-only intake; OAuth2 only)
+  & No (no live capture executed by the agent); rule-12 retention plan committed for the XAPK \\
+Dual-use blast radius
+  & Bounded read-only telemetry; refresh-token rotation discipline
+  & Full ControlMySpa control surface (climate, jets, blowers, lights, chromozone, filter cycles, c8zone) + cross-vendor data flow to WaterGuru \\
+Status of vendor public docs
+  & Documented Customer API (1\,h access / non-expiring refresh, 5\,req/s, 30\,req/h, single \texttt{api} scope)
+  & Undocumented cloud REST; identity provider documented only by ES-6 community reverse \\
+Phase 3 outcome
+  & Configuration-only: upstream \texttt{ondilo\_ico} integration + operational notes + smoke test
+  & Configuration-only: upstream \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-1]} + six-control hardening overlay (C-1..C-6) + smoke test \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two technique tags were proposed by the Balboa run for promotion into
+the next IoT-Integrator Phase~0 inventory:
+\texttt{T-CROSS-VENDOR-CORPORATE-FLOW} (BWG\,$\leftrightarrow$\,WaterGuru
+inside the Helios corporate group) and \texttt{T-OPERATIONAL-OBSCURITY}
+(sound auth scheme, weak operational layer). The two cases together
+place a useful spread on the obscurity-vs-authentication axis:
+Spider Farmer (no auth) $\to$ Balboa (sound auth, weak operational
+layer) $\to$ Ondilo (clean OAuth2) $\to$ EcoFlow (multiple
+authenticated surfaces with surface-selection ambiguity).
+
+\subsection{Test-case difficulty taxonomy}
+\label{sec:synthesis-difficulty}
+The four device-integration case studies (excluding the recursive
+meta-process case) admit a coarse difficulty rating along three
+orthogonal axes: (i) \emph{cryptographic strength of the privacy
+boundary}, (ii) \emph{labour cost of reverse-engineering the
+protocol/control surface}, and (iii) \emph{blast radius of the
+integration's residual attack surface}. The rating below is qualitative
+and assigned by the researcher from the per-case \texttt{REPORT.md}
+evidence; it is offered as a way to read the cross-case spread, not as
+a quantitative metric.
+
+\begin{table}[h]
+\centering
+\caption{Qualitative difficulty taxonomy for the four
+device-integration case studies. The composite rating is informative of
+the spread, not of an absolute scale.}
+\label{tab:difficulty-taxonomy}
+\footnotesize
+\begin{tabular}{p{2.6cm} p{3.3cm} p{3.3cm} p{3.3cm} p{1.4cm}}
+\toprule
+\textbf{Case} & \textbf{Crypto barrier} & \textbf{Labour to break} & \textbf{Blast radius} & \textbf{Composite} \\
+\midrule
+Spider Farmer
+  & \textbf{Low.} Hardcoded AES key/IV in APK; self-signed MQTT cert
+  & \textbf{Low.} $\sim$3 community reverses already exist; AI-assisted reconciliation only
+  & \textbf{Medium.} Per-device horticulture-hardware control + recovered MQTT broker creds
+  & Easy \\
+Ondilo ICO Spa V2
+  & \textbf{Medium.} Conventional OAuth2; non-expiring refresh tokens are the dominant residual risk
+  & \textbf{Low.} Vendor publishes a Customer API; HA core integration already exists
+  & \textbf{Low.} Read-only intake; bounded sensor telemetry
+  & Easy \\
+Balboa Gateway Ultra
+  & \textbf{Medium.} AWS Cognito us-west-2 (1\,h access / 30\,d refresh); operational layer compromised (broken chain, \texttt{TrustAllStrategy}, public client secret)
+  & \textbf{Medium.} No LAN-only path on the 59303; cloud surface partly documented by ES-6; static-only APK analysis sufficient for configuration-only outcome
+  & \textbf{High.} Full control surface + cross-vendor data flow to WaterGuru; long-lived refresh tokens
+  & Medium \\
+EcoFlow PowerOcean
+  & \textbf{Medium--High.} Token-bearer model across three undocumented API surfaces
+  & \textbf{Medium.} AI-assisted surface enumeration and field-name convention recovery from APK constants; type-system bug fix needed
+  & \textbf{High.} Grid-in / battery-reserve / EV-charger control
+  & Medium \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The composite rating is informative of the \emph{spread}, not of an
+absolute scale: even the ``Medium'' cases collapsed under AI-assisted
+analysis to a configuration-only Phase~3 outcome within a single
+working session. The interpretation is consistent with
+\cref{sec:disc-asymmetry}: AI assistance compresses the
+organisation-and-reconciliation work most, the novel-discovery work
+least, and the absolute difficulty floor of consumer-IoT defences sits
+low across the entire spread.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/fig12-difficulty-taxonomy.pdf}
+\caption{Test-case difficulty taxonomy. Heat-map of the four
+device-integration case studies along three axes (cryptographic
+barrier; labour to break; blast radius) plus a composite spread
+column. Even the ``Medium'' cases collapsed to a configuration-only
+Phase 3 outcome under AI-assisted analysis
+(\cref{sec:synthesis-difficulty}). Data:
+\texttt{paper/figures/data/difficulty-taxonomy.csv} (qualitative
+ratings sourced from per-case \texttt{REPORT.md} evidence; aggregation
+rule recorded in CSV header).}
+\label{fig:difficulty-taxonomy}
+\end{figure}
+
+\subsection{Vulnerabilities of IoT-integrator pipelines as a system class}
+\label{sec:synthesis-pipeline-vuln}
+Beyond the per-device defences, the \emph{IoT-integrator pipeline
+itself} --- the AI-assisted workflow that produces the integration ---
+has a system-level vulnerability profile that the case studies make
+visible. We synthesise the following recurring patterns:
+\begin{itemize}
+  \item \textbf{Vendor-cloud single point of failure.} Three of the
+        four device cases (Ondilo, Balboa, partly EcoFlow) are
+        cloud-bound by architecture: a single vendor account, a single
+        regional endpoint, a single OAuth2 / Cognito tenant. A
+        vendor-side outage, a credential breach, or a unilateral API
+        change collapses the integration. The mitigation set
+        (refresh-token rotation, secondary onboarding device, sinkhole
+        of attribution domains) is \emph{operational} and the
+        responsibility of the integrator, not the integration code.
+  \item \textbf{Long-lived refresh-token surface.} Ondilo's
+        non-expiring refresh tokens and Balboa's 30-day Cognito refresh
+        tokens dominate the residual-risk picture in both
+        \texttt{RESEARCH-PROTOCOL.md} files. A refresh token compromised
+        once in plaintext (HA backup, integration log, transcript
+        export) outlives almost every other secret in the system.
+  \item \textbf{Cross-vendor data-flow opacity.} The Balboa run
+        documented BWG\,$\leftrightarrow$\,WaterGuru calls inside the
+        Helios corporate group (W-5). Cross-vendor flows are invisible
+        at the integration layer and are not exercised by the
+        integration's smoke test; their documentation requires either
+        DEX deep-dive (T-BAL-9) or a GDPR Subject Access Request
+        (T-BAL-12 / T-OND-10).
+  \item \textbf{Operational-obscurity anti-pattern.} Sound cryptography
+        is not sufficient when the operational layer is misconfigured:
+        broken intermediate-CA chains, \texttt{TrustAllStrategy}-equivalent
+        symbols on the classpath, and public mobile client secrets
+        \emph{re-introduce} an obscurity surface above an
+        in-principle-strong authentication scheme. Spider Farmer (no
+        auth) and Balboa (sound auth, weak operational layer) bracket
+        this pattern.
+  \item \textbf{Companion-app permission creep.} Every case had a
+        vendor app that exposed FCM, Play Install Referrer, and AD\_ID
+        at the manifest layer, and the Balboa app additionally surfaced
+        ML Kit Barcode (QR pairing) and Google Mobile Ads SDK strings
+        in DEX. The integrator's mitigation (use a secondary onboarding
+        device, sinkhole attribution domains) is again operational.
+  \item \textbf{Static-only weakness coverage.} Three of the four cases
+        performed static-only weakness analysis at the agent layer; the
+        reachability of dangerous symbols (e.g.\ Balboa W-3) is held
+        back by the absence of a \S{}A-equivalent runtime confirmation.
+        The published weakness table is therefore a \emph{lower bound}
+        on the device's exposure, not an upper bound.
+\end{itemize}
+
+The system-class framing above is consistent with the published large-N
+studies of IoT companion apps. Schmidt et al.\ (2023, \emph{ACM CCS})
+statically analysed \textbf{9{,}889 companion apps} with the IoTFlow
+framework and report exactly the same defect classes --- abandoned
+domains, hard-coded credentials, expired certificates, and undisclosed
+third-party data sharing [L-IOTAPP-1]. Wang et al.\ (2019, \emph{USENIX
+Security}) demonstrated cross-device vulnerability propagation through
+\emph{shared} companion-app components on $>$\,4{,}700 devices
+[L-IOTAPP-2]. Jin et al.\ (2022, \emph{ACM CCS}, IoTSpotter) found
+\textbf{94.11\% of 917 high-install IoT apps with severe cryptographic
+violations} at Google-Play scale [L-IOTAPP-3]. OConnor et al.\ (2021,
+\emph{CSET}) showed that 16 of 20 popular smart-home vendors are
+vulnerable to companion-app MITM attacks --- the same defect class as
+the Balboa W-3 broken-chain + \texttt{TrustAllStrategy} finding
+[L-IOTAPP-4]. Mauro Junior et al.\ (2019, \emph{IEEE SPW}) reported that
+96 top-selling WiFi IoT devices share only 32 unique companion apps,
+and that \textbf{50\% lack proper encryption} [L-IOTAPP-5]. Our four
+cases are coherent with this baseline; the contribution of
+\cref{sec:synthesis-pipeline-vuln} is the synthesis of the
+\emph{integrator-side} mitigations that the prior literature does not
+address.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/fig13-pipeline-vulnerabilities.pdf}
+\caption{Vulnerabilities of IoT-integrator pipelines as a system class.
+Six recurring patterns visible across the four device case studies feed
+into a central residual-risk node. The mitigation set is structural
+(governance, redaction, checkpoints) rather than technical, and the
+residual risk is integrator-side not integration-code-side
+(\cref{sec:synthesis-pipeline-vuln,sec:disc-malicious-integrator}).
+Source: \cref{sec:synthesis-pipeline-vuln} bullet items synthesised
+from the four cases' Weakness Tables and per-case
+\texttt{RESEARCH-PROTOCOL.md} gap sections.}
+\label{fig:pipeline-vulnerabilities}
+\end{figure}
+
 % =========================================================================
 \section{Discussion}
 \label{sec:discussion}
@@ -1369,6 +1598,355 @@ objection of the form ``users cannot exercise their privacy rights
 without breaking the product'' is, after these case studies,
 empirically disprovable: the product still works.
 
+\subsection{The malicious IoT-integrator agent}
+\label{sec:disc-malicious-integrator}
+The IoT-Integrator prompt
+(\texttt{docs/prompts/iot-integrator-prompt.md}) is, by design,
+dual-use. The same self-augmenting, four-phase protocol that produced
+the Ondilo and Balboa case studies under researcher governance can be
+re-instantiated, with no change to the prompt body, by an adversary
+whose intent is exploitation rather than interoperability. The Phase-2
+weakness analysis is the inflection point: a researcher version stops
+at an annotated weakness table and a configuration-only Phase~3
+deliverable; an adversarial version proceeds directly to a working
+exploit pipeline, suppresses the dual-use-mirror discipline, and skips
+the redaction policy.
+
+The differential is not technical capability --- both versions consume
+the same APK, the same DEX strings, the same Cognito discovery
+endpoint --- but governance: which checkpoints fire, which transcripts
+are preserved, which weaknesses are upstreamed, and which controls are
+recommended to the operator. The threat surface of a malicious
+integrator agent is enumerated below so that the methodology's openness
+is paid for honestly:
+\begin{itemize}
+  \item \textbf{Per-device exploit pipeline.} A malicious version would
+        convert each Weakness Table row directly into a runnable
+        exploit script rather than into a hardening control. The W-3
+        reachability question (Balboa \texttt{TrustAllStrategy})
+        becomes ``land a man-in-the-middle and capture refresh tokens
+        at scale'' rather than ``file a \S{}A jadx run''.
+  \item \textbf{Credential-and-token harvesting at integration time.}
+        The integration smoke tests consume valid OAuth2 / Cognito
+        tokens; an adversarial integrator agent embedded in a trojaned
+        community integration could exfiltrate them. The Spider Farmer
+        case is a precedent at a smaller scale: a community thread
+        already published the recovered MQTT broker credentials. An
+        LLM-driven integrator could automate that disclosure path
+        across thousands of devices.
+  \item \textbf{Suppression of the dual-use-mirror.} The
+        \texttt{T-DUAL-USE-MIRROR} technique is the discipline that
+        pairs every weakness with its attacker counterpart in writing.
+        A malicious operator simply removes the mirror column and ships
+        the weakness table as a target list.
+  \item \textbf{Self-augmentation of attack capability.} The same
+        self-augmenting loop that lets each new researcher run inherit
+        prior techniques (\texttt{T-CROSS-VENDOR-CORPORATE-FLOW},
+        \texttt{T-OPERATIONAL-OBSCURITY}) is open to an adversarial
+        corpus: each new exploit run extends the attacker's technique
+        inventory. The doubling time of the inventory is bounded only
+        by the number of devices the adversary chooses to enumerate.
+  \item \textbf{Trust laundering through a benign-looking artifact.}
+        A malicious integrator can publish a Home Assistant custom
+        integration that \emph{also} exfiltrates household
+        credentials. The community-trust signal that legitimises
+        \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-1]} or
+        \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-2]} --- a working integration plus a
+        non-empty README --- is exactly what an adversary needs to
+        forge.
+  \item \textbf{Erosion of the governance baseline.} As
+        malicious-integrator output enters public corpora (forks,
+        gists, model training sets), future researcher-side IoT
+        Integrator runs may inherit adversarial techniques
+        \emph{unknowingly} through the same self-augmenting mechanism
+        that is the methodology's strength. This is the
+        \cref{sec:disc-model-collapse} model-collapse problem applied
+        to an agent's technique inventory rather than to a paper's
+        literature register.
+\end{itemize}
+
+The empirical literature on adversarial LLM agents corroborates each of
+the failure modes above. Fang et al.\ (2024) showed that \textbf{GPT-4
+autonomously exploits 87\% of 15 one-day CVEs given only the CVE
+description} (versus 0\% for GPT-3.5 and open-source LLMs), and
+autonomously hacks websites with no prior knowledge of the vulnerability
+[L-AGT-1, L-AGT-2]. Lupinacci et al.\ (2025) evaluated 18
+state-of-the-art LLMs and found \textbf{94.4\% succumb to direct prompt
+injection, 83.3\% to RAG backdoor attacks, and 100\% to inter-agent
+trust exploitation} [L-AGT-4] --- a direct empirical anchor for the
+trust-laundering bullet. Chen et al.\ (2024) demonstrated AgentPoison,
+in which backdoor triggers achieve $>$\,80\% attack success at
+$<$\,0.1\% poison rate of an agent's memory or RAG knowledge base, with
+no fine-tuning required [L-AGT-6]; Yang et al.\ (2024) showed that
+backdoors can manipulate intermediate reasoning steps while preserving
+the final-output check that a reviewer would inspect [L-AGT-7]; Wang
+et al.\ (2024, BadAgent) showed that backdoors are robust \emph{even
+after fine-tuning on trustworthy data}, refuting the assumption that
+capability-side defences suffice [L-AGT-10]. Lee et al.\ (2025) bypassed
+refusal-trained safeguards in Claude for Computer Use with a
+24.41\%--41.33\% attack-success rate [L-AGT-5], and Ferrag et al.\
+(2025) systematise more than thirty attack techniques in LLM-agent
+ecosystems including the ``Toxic Agent Flow'' exploit pattern that maps
+directly onto the Phase-2 inflection point [L-AGT-3]. Zhang et al.\
+(2024, ASB) report an \textbf{84.30\% average attack success rate}
+across a 27-method $\times$ 13-backbone $\times$ 10-scenario benchmark
+[L-AGT-8].
+
+The mitigation set is structural rather than technical and consistent
+with the rest of the paper: pin the governance prompt by commit SHA at
+every run; require explicit researcher checkpoints between phases;
+preserve the dual-use mirror as an immutable column; surface every
+weakness \emph{with} its mitigation in the same artifact; and treat
+the technique inventory as a redaction-aware document rather than a
+raw attack-capability log. None of these mitigations defeat a
+determined adversary; they raise the cost of laundering an exploit
+pipeline as a research artifact, which is the cost we can credibly
+raise. The literature is consistent with this framing: capability-side
+defences (safety training, fine-tuning on trusted data) are
+demonstrably insufficient against adversarial agents [L-AGT-10,
+L-AGT-7], whereas governance-side defences (provenance, checkpoints,
+redaction discipline) are the only durable answer the field currently
+offers.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/fig14-malicious-integrator.pdf}
+\caption{The malicious IoT-integrator agent: same prompt, different
+governance. Phases 0--2 of the IoT-Integrator pipeline are shared
+between researcher-governed and adversarial variants; the divergence
+point is the Phase-2 weakness analysis. The researcher branch
+preserves the dual-use mirror, applies redaction, and ships a
+configuration-only Phase 3 deliverable; the adversarial branch
+suppresses the mirror, generates an exploit pipeline + credential
+exfiltration, and distributes through trust-laundered community
+integrations (\cref{sec:disc-malicious-integrator}). Source:
+\texttt{docs/prompts/iot-integrator-prompt.md} Phase 0--3 protocol
+structure plus \cref{sec:disc-malicious-integrator} enumeration.}
+\label{fig:malicious-integrator}
+\end{figure}
+
+\subsection{Automated mass probing of public APK repositories}
+\label{sec:disc-apk-mass-probing}
+A second adversarial scenario follows directly from the cost structure
+documented in this paper: if a single APK can be statically analysed by
+an AI-assisted pipeline in under an hour and yield a usable weakness
+table, then \emph{the entire enumerable surface of public APK
+repositories} is in scope for a single adversary. Public APK mirrors
+--- APKPure, APKMirror, APKCombo, F-Droid, and the Google Play crawl
+indices --- collectively distribute on the order of millions of APKs.
+The Balboa case study sourced its artifact from APKPure
+(\texttt{com.controlmyspa.ownerappnew}) and the Ondilo case study used
+the APKPure listing for \texttt{fr.ondilo.ico.icomanager} as its
+manifest source; both flows generalise.
+
+The published literature already documents the per-vendor base rate.
+Sivakumaran et al.\ (2023) found
+\textbf{$>$70\% of 17{,}243 BLE-enabled Android APKs contain at least
+one security vulnerability} [L-BLE-4]; Nan et al.\ (2023) statically
+analysed \textbf{6{,}208 IoT companion apps} and identified
+\textbf{1{,}973} that exposed user data, covering devices from at least
+\textbf{1{,}559 distinct vendors} [L-PRIV-5]. Corpus-scale precedents
+extend across the wider Android ecosystem: Chen et al.\ (2015, MassVet)
+vetted \textbf{1.2 million apps from 33 markets} at 10-second-per-app
+throughput and captured $>$\,100{,}000 malicious apps including 20+
+likely zero-day [L-APK-3]; Ishii et al.\ (2017, APPraiser) analysed
+\textbf{1.3 million apps} and found that 76\% of clones in third-party
+marketplaces are malware [L-APK-4]; Hou et al.\ (2022, ANDSCANNER)
+measured 6{,}261 firmware images from 153 vendors and 38 newfound
+CVEs/CNVDs [L-APK-5]; Gao et al.\ (2021) reconstructed 28{,}564
+versioned app lineages across 5 million packages [L-APK-6]; Sanna
+et al.\ (2024) extended the same shape to native code across
+$>$\,100{,}000 apps [L-APK-7]. Earlier marketplace-side work --- Zhou
+et al.\ (2012, DroidMOSS, 5--13\% of apps in third-party marketplaces
+are repackaged) [L-APK-1] and Vidas \& Christin (2013, 41{,}057 apps
+from 194 alternative Android markets, some markets distributing almost
+exclusively malware) [L-APK-2] --- establishes that the operator-side
+gatekeeping problem predates the AI-assisted regime. All of these
+studies were \emph{human-led} static analyses with substantial
+team-years of effort. AI assistance compresses the per-APK cost into a
+regime where the limit is no longer analyst time but storage,
+bandwidth, and rate-limit politeness toward the host repository. The new threat surface is
+enumerated below:
+\begin{itemize}
+  \item \textbf{Sweep at corpus scale.} A single LLM-driven crawler
+        can enumerate the IoT-companion-app subset of APKPure
+        ($\sim$tens of thousands of apps) and run the same
+        \texttt{T-APK-STRINGS} / \texttt{T-MANIFEST-PERMISSION-AUDIT} /
+        \texttt{T-REST-WRITE-PROBE} pipeline on each. The output is a
+        vendor-by-vendor weakness inventory comparable in coverage to
+        Sivakumaran et al.\ but produced in days rather than years.
+  \item \textbf{Identity-provider enumeration.} A trivial extension of
+        the Balboa Phase-2 finding
+        (\texttt{iot.controlmyspa.com/idm/tokenEndpoint} discovery
+        returns a Cognito user-pool client + secret) is a corpus-wide
+        enumeration of vendor identity-provider configurations,
+        including which providers ship a public mobile client secret,
+        which expose \texttt{AdminUserGlobalSignOut}-equivalent
+        administrative endpoints, and which permit unauthenticated
+        discovery.
+  \item \textbf{Cross-vendor data-flow harvest.} The W-5 cross-vendor
+        pattern (BWG\,$\leftrightarrow$\,WaterGuru inside the Helios
+        corporate group) is detectable from APK strings alone. A
+        corpus-wide harvest produces a corporate-group ownership graph
+        plus the inter-company data-flow edges, useful both to a
+        privacy researcher and to an attacker building a
+        targeted-campaign list.
+  \item \textbf{Trojaned-APK detection at scale, and its inverse.} The
+        same pipeline that detects malicious analytics SDKs at scale
+        (a defensive use) detects naïve credential storage, hardcoded
+        keys, and plaintext API keys at scale (an offensive use). The
+        asymmetry argument of \cref{sec:disc-asymmetry} applies: the
+        AI-assisted defender and the AI-assisted attacker pay the same
+        per-APK cost, but the attacker has no obligation to coordinate
+        disclosure.
+  \item \textbf{APK-repository operator as gatekeeper.} Public APK
+        mirrors operate without strong rate-limiting or robust
+        authenticated-fetch requirements. They are now \emph{de facto}
+        a critical infrastructure for both interoperability research
+        and adversarial reconnaissance. A repository-side mitigation
+        (rate-limit, abuse-detection, vendor-of-record disclosure) is
+        the leverage point but is largely absent today.
+  \item \textbf{Legal and ethical posture.} Mass corpus probing is
+        \emph{not} covered by the \S{}\,69e UrhG / EU 2009/24/EC
+        interoperability carve-out applied per device in
+        \cref{sec:disc-r2r}; the carve-out presumes a specific
+        interoperability goal between a specific user and a specific
+        product. Corpus-wide enumeration is closer to security
+        research, which has its own legal regime (computer-misuse
+        statutes, vendor terms of service, DMCA \S{}\,1201(f) in the
+        US). The legal posture is unsettled.
+\end{itemize}
+
+The honest assessment is that this scenario is \emph{already feasible}
+given the per-case cost documented in
+\cref{sec:case-spider-farmer,sec:case-ecoflow,sec:synthesis-iot-integrator}:
+the marginal cost of the next APK is a few cents of inference time.
+Whether a corpus-scale probe is run by a defender (with coordinated
+disclosure) or by an adversary (silently, then sold) is a governance
+question, not a capability question. The mitigation set is again
+structural: repository-side abuse-detection, vendor-side
+identity-provider hardening (closing W-3-class operational-obscurity
+weaknesses), and a community norm that publication of corpus-scale
+findings carries a coordinated-disclosure obligation comparable to
+per-vendor vulnerability research today.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.97\linewidth]{figures/fig15-apk-mass-probing.pdf}
+\caption{Automated mass probing of public APK repositories. The
+five-stage pipeline (repository $\to$ fetch+unpack $\to$ static probe
+$\to$ DEX-grep + identity-provider discovery $\to$ per-vendor weakness
+inventory + corporate flow graph) compresses the per-APK cost from
+team-years (human-led, [L-BLE-4, L-PRIV-5]) to roughly a minute per
+APK in the AI-assisted regime (\cref{sec:disc-apk-mass-probing}). The
+leverage points are repository-side abuse-detection, vendor-side
+identity-provider hardening, and a coordinated-disclosure norm at
+corpus scale. Source: \cref{sec:disc-apk-mass-probing} enumeration
+plus L-BLE-4 / L-PRIV-5 base rates in \texttt{docs/sources.md}.}
+\label{fig:apk-mass-probing}
+\end{figure}
+
+\subsection{Scope and limitations of the study}
+\label{sec:disc-scope-limits}
+The scope of the empirical contribution is bounded along five
+dimensions. The limitations distributed across
+\cref{sec:scope-non-goals,sec:synthesis-limits,sec:disc-validity}
+and the new \cref{sec:synthesis-pipeline-vuln,sec:disc-malicious-integrator,sec:disc-apk-mass-probing}
+are consolidated here so that a reader can read the perimeter of the
+work without reconstructing it from disparate paragraphs.
+
+\paragraph{1. Case-base size, selection, and segment.}
+The empirical base is four device-integration case studies plus one
+recursive meta-process case
+(\cref{sec:case-spider-farmer,sec:case-ecoflow,sec:case-meta,sec:synthesis-iot-integrator}).
+All four device cases are \emph{consumer-market} IoT products in the
+residential / horticulture / pool-and-spa / energy segment, sampled
+through researcher need rather than randomly. Industrial / OT / ICS /
+safety-critical hardware is \emph{not} covered (cf.\
+\cref{sec:synthesis-limits}); the inference we draw is narrower ---
+that the \emph{flavour} of the obscurity barrier (hardcoded keys;
+undocumented REST surfaces; operational-obscurity at the TLS layer) is
+generalisable, not that the per-device defences are equivalent across
+segments. Validation against an industrial case is left to future work
+(\cref{sec:future-work}).
+
+\paragraph{2. AI-assistance is the unit of analysis, not LLM capability per se.}
+The contribution is the AI-assisted \emph{workflow} (artifacts,
+transcripts, provenance, governance) rather than any single model's
+capability. Tooling drift (\cref{sec:disc-threats}) means identical
+prompts will not produce identical outputs at later dates; the
+workflow and committed artifacts are the reproducible unit. The
+L-AGT-* literature shows that frontier-LLM offensive capability has
+already been demonstrated at one-day-CVE scale [L-AGT-1, L-AGT-2];
+this paper does not measure that capability, it measures what a
+structured \emph{governance} layer adds on top of it.
+
+\paragraph{3. Validation completeness varies across cases.}
+Spider Farmer and EcoFlow validation was completed against vendor code
+at commit \texttt{ffdf60c}; the Ondilo and Balboa runs are
+\emph{cross-validation} of the methodology with researcher-side device
+validation still pending (test checklists \texttt{T-OND-1..T-OND-10}
+and \texttt{T-BAL-1..T-BAL-12} in the per-case
+\texttt{RESEARCH-PROTOCOL.md}). Until those checklists are executed,
+the two new cases enter the paper as evidence for the methodology's
+\emph{transferability}, not for end-to-end integration correctness on
+the specific physical devices.
+
+\paragraph{4. Literature and legal framing are \texttt{[lit-retrieved]}, not \texttt{[lit-read]}.}
+Every literature citation in this paper is anchored through the
+verification-status legend in \texttt{docs/sources.md}; clusters A--O
+are currently \texttt{[lit-retrieved]}-only. The paper's claims are
+explicitly held back from depending on any single citation that has
+not been read in full. German / EU primary legal sources (\S{}\,69e
+UrhG, EU 2009/24/EC) and vendor-published positions on community RE
+remain \texttt{[needs-research]} (cf.\ \cref{sec:scope} and
+the \cref{sec:ai-disclosure-disclaimers} disclaimer that AI-generated legal
+analysis is not legal advice). The
+\cref{sec:disc-apk-mass-probing} ``legal posture is unsettled''
+framing for mass corpus probing is a deliberate honesty move, not a
+substantive legal claim.
+
+\paragraph{5. The study's outputs are themselves dual-use.}
+The same artifacts that operationalise transparency --- pinned APK
+hashes, weakness tables with technique tags, runnable smoke tests,
+executable agent prompts --- are the inputs an adversarial integrator
+needs (\cref{sec:disc-malicious-integrator}). Likewise, the
+corpus-scale extension (\cref{sec:disc-apk-mass-probing}) is feasible
+\emph{because} the per-APK cost has collapsed. We accept this
+asymmetry as the price of methodological openness; the structural
+mitigations (rule-12 redaction policy, dual-use mirror per Weakness
+Table row, configuration-only Phase 3 outcomes, no public push or
+Zenodo deposit without explicit researcher consent per rule 13) raise
+the cost of laundering the methodology as an exploit pipeline but do
+not eliminate it. The paper does not claim to have solved this
+problem; it claims to have \emph{made it visible} in a form that can
+be reasoned about and audited.
+
+Two further constraints are worth naming explicitly because they are
+not classical ``threats to validity'' but bound the \emph{interpretation}
+of the work. First, the recursive meta-process case
+(\cref{sec:case-meta}) is included as evidence for the methodology,
+\emph{not} as independent confirmation of the central thesis
+(\cref{sec:synthesis-limits}); a reader is entitled to discount it
+accordingly. Second, the four-case difficulty taxonomy in
+\cref{sec:synthesis-difficulty} is \emph{qualitative} and assigned by
+the researcher from the per-case \texttt{REPORT.md} evidence; the
+composite rating is informative of the \emph{spread} across cases,
+not of an absolute scale, and a reader should not treat ``Easy'' /
+``Medium'' as calibrated against any external benchmark.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/fig16-scope-limitations.pdf}
+\caption{Scope and limitations of the study. Concentric perimeter
+diagram: an inner ring labels the five in-scope dimensions (case base;
+unit of analysis; validation completeness; literature read-state;
+outputs are dual-use), each paired with its corresponding named
+exclusion on the outside. Source:
+\cref{sec:disc-scope-limits} enumeration.}
+\label{fig:scope-limitations}
+\end{figure}
+
 % =========================================================================
 \section{Conclusion}
 \label{sec:conclusion}
@@ -1426,7 +2004,22 @@ web)/T1-paper-structure-and-literature.md}) and referenced in
 \texttt{docs/logbook.md}. Structured literature retrieval was performed
 via the Consensus academic-database front end (Semantic Scholar /
 PubMed / Scopus / arXiv); the queries used and the candidate citations
-they returned are recorded in \texttt{docs/sources.md} clusters A--J.
+they returned are recorded in \texttt{docs/sources.md} clusters A--O.
+
+A separate generative-AI tool, \textbf{Google Gemini}, was used to
+produce the project's visual identity --- the ``Obscurity Is Dead ---
+Proprietary by Design. Open by AI.'' logo built around the shattered
+Pandora-jar motif, and the companion \emph{intact-jar} visual
+referenced later in \cref{sec:pandora} (``the Pandora moment'') ---
+at the author's request on 2026-05-02. Gemini is acknowledged as a
+contributor to the visual assets only; consistent with the
+\cref{sec:ai-disclosure-models} footnote on \emph{Urheberrecht und
+K\"unstliche Intelligenz}, it is not an author of the paper. The
+Gemini-generated logo files are committed under
+\texttt{paper/figures/logo-obscurity-is-dead.png} and
+\texttt{paper/figures/logo-pandora-jar-intact.png}; their generation
+prompts and the iteration history are appended to the project's
+logbook entry for 2026-05-02.
 
 The AI assistant is acknowledged as a contributor but is \emph{not} a
 co-author of this work.\footnote{\textbf{Footnote on Urheberrecht und
@@ -1587,6 +2180,21 @@ the rim of the great jar, and did not fly out at the door.''}\\
 \hfill --- Hesiod, \emph{Works and Days}, ll.~96--98
 (trans.\ Hugh G.\ Evelyn-White, 1914)
 \end{quote}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.55\linewidth]{figures/logo-pandora-jar-intact.png}
+\caption{The proverbial jar --- intact. The companion image to the
+project logo (\texttt{figures/logo-obscurity-is-dead.png}, the
+shattered Pandora-jar motif used at the front matter): here the jar is
+whole and closed, with Hope still under its rim. The intact-jar visual
+is the Hesiodic counterpoint to the shattered-jar logo --- the
+methodology of \cref{sec:pandora} is the latch that lets \emph{Hope}
+remain inside the jar even as the rest of its contents have escaped.
+Asset generated by Google Gemini at the author's request, 2026-05-02
+(rule 1: AI contributions visibly labelled).}
+\label{fig:pandora-jar-intact}
+\end{figure}
 
 Pandora's jar is open. Generative AI is now a routine part of how
 scientific manuscripts are drafted, and the empirical literature
