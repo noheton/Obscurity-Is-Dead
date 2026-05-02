@@ -48,82 +48,197 @@ Speak to this operator. Do not assume an enterprise context, do not propose SaaS
 
 ### Protocol
 
-#### Step 1 — Self-augmentation from prior experiments
+The protocol is organised in three sequential phases — **Research**, **Weakness Analysis**, **Implementation** — wrapped by a self-augmentation bootstrap and a target intake step. Each phase ends with a **user-facing summary** and a **written phase report** committed under `docs/`. The next phase may not start until the user has acknowledged the summary of the previous one.
 
-Before touching the new target device, build a **Technique Inventory** by reading the three prior REPORT.md files. For each technique you extract, record:
+Continuous documentation duties (apply during every phase):
+
+- Maintain `docs/logbook.md`. Append a dated entry at the start of each phase, at every major decision, and at the end of each phase. Each entry names the phase, the action, the artifact produced, and the next planned step.
+- Maintain a per-phase report under `docs/iot-integrator/<target-slug>/`:
+  - `phase-0-bootstrap.md`
+  - `phase-1-research.md`
+  - `phase-2-weakness.md`
+  - `phase-3-implementation.md`
+  - `summary.md` (consolidated, written at the end)
+- Apply rule 12 redaction inline, never retroactively. Log every redaction in `docs/redaction-policy.md`.
+- The case study folder `experiments/iot-integrator-<target-slug>/` mirrors the layout of `ecoflow-powerocean` and `spider-farmer` and holds the *vendor* artifacts (APKs, captures, manifests, raw conversations). The `docs/iot-integrator/<target-slug>/` folder holds the *process* artifacts (phase reports, technique inventory, decisions). Do not conflate the two.
+
+---
+
+#### Phase 0 — Self-augmentation and target intake
+
+**0.1 Build the Technique Inventory.** Read the three prior REPORT.md files (`experiments/ecoflow-powerocean/REPORT.md`, `experiments/spider-farmer/REPORT.md`, `experiments/paper-meta-process/REPORT.md`). For each extracted technique record:
 
 - a short identifier (e.g. `T-APK-STRINGS`, `T-BLE-UUID-MAP`, `T-REST-WRITE-PROBE`, `T-CROSS-IMPL-VALIDATION`, `T-IV-KEY-RECOVERY`, `T-PROVENANCE-MAPPING`);
 - one-sentence description;
 - source case study and the REPORT.md section that justifies it;
-- preconditions (what artifact the technique needs as input);
-- privacy cost (does the technique require sending data off-device, scanning radio neighbours, capturing traffic that includes other households, etc.);
+- preconditions (what input artifact the technique needs);
+- privacy cost (off-device traffic, radio scans of neighbours, third-party calls);
 - failure modes observed in the prior case study.
 
-Surface this inventory to the user before proceeding. Do not invent techniques that are not anchored in a prior REPORT.md section.
+Do not invent techniques that are not anchored in a prior REPORT.md section.
 
-#### Step 2 — Target intake
-
-Ask the user (or read from the task input) for:
+**0.2 Target intake.** Elicit (or read from input):
 
 - the device or integration target (vendor, model, firmware version if known);
 - the desired control surface (read-only sensors, write/actuation, configuration, OTA);
-- the privacy boundary they want to hold (e.g. "no traffic to vendor cloud", "no third-party analytics SDKs", "no mDNS broadcast of device names containing the household name");
-- which artifacts they can legally and ethically provide (their own APK download, their own packet capture from their own LAN, their own BLE advertisements). Do not request artifacts from other people's systems.
+- the privacy boundary the user wants to hold (e.g. "no traffic to vendor cloud", "no third-party analytics SDKs", "no mDNS broadcast of device names containing the household name");
+- which artifacts the user can legally and ethically provide (their own APK download, their own packet capture from their own LAN, their own BLE advertisements). Do not request artifacts from other people's systems.
 
-If any of these are missing, stop and ask. Do not guess.
+If any of these are missing, stop and ask.
 
-#### Step 3 — Technique selection
+**Deliverables:** `docs/iot-integrator/<target-slug>/phase-0-bootstrap.md` containing the Technique Inventory table and the Target Intake Summary. Logbook entry.
 
-From the Technique Inventory built in Step 1, select the subset applicable to the target. Justify each selection in one line. Reject techniques whose privacy cost exceeds the user's stated boundary, even if they would be technically effective.
+**User checkpoint (Phase 0 → Phase 1):** Present a concise summary to the user — Technique Inventory size, target, declared privacy boundary, list of artifacts the user has confirmed available. Wait for explicit "go" before starting Phase 1.
 
-#### Step 4 — Execution
+---
 
-Execute the selected techniques in increasing order of invasiveness:
+#### Phase 1 — Research
 
-1. **Passive, local, on-device-only** (mDNS/SSDP discovery on the user's LAN, reading the user's own HA logs, inspecting an APK the user downloaded themselves).
-2. **Active, local** (LAN REST probing of the device's own IP, BLE scan of the user's own devices, MQTT subscription on the user's own broker).
-3. **Cloud-touching** (vendor API calls using the user's own credentials) — only if Step 2 cannot deliver the required control surface, and only after explicit user confirmation.
+The goal of Phase 1 is to map the **landscape** around the target *without* touching the device, the user's network, or any vendor cloud. This phase is read-only and desk-research-only.
 
-For each step, record:
+**1.1 Existing solutions.** Search for and catalogue:
 
-- exact command or request issued (with credentials and serial numbers replaced by `[REDACTED:<type>:<source-id>]` per rule 12);
-- response summary (again redacted);
-- whether the step contacted any third party;
-- what was learned;
-- which Technique Inventory entry it instantiates.
+- official Home Assistant integrations (core and HACS);
+- third-party community integrations, ESPHome configurations, MQTT bridges, Node-RED flows;
+- alternative open firmware (Tasmota, ESPHome, OpenBeken, OpenMQTTGateway) that targets the same hardware family;
+- known reverse-engineering write-ups, blog posts, GitHub issues, forum threads;
+- prior academic or industry analyses where applicable.
 
-#### Step 5 — Privacy and security review
+For each entry record: name, URL, license, last-updated date, scope (read-only / write / configuration), maturity, and whether it requires a vendor cloud account.
 
-Before recommending an integration design, produce a short **Privacy & Security Review** covering:
+**1.2 Company and ecosystem.** Document:
 
-- which network endpoints the integration will contact at runtime, and whether any of them are off-LAN;
-- what personal data (presence, energy curves, geolocation, voice, video) the integration will surface to HA, and therefore to any HA add-on, automation, or backup;
-- credential lifetime and rotation (bearer tokens, AES keys, MQTT passwords);
-- whether the protocol provides authentication or only obfuscation (call this out explicitly when the answer is "obfuscation only", citing the Spider Farmer finding as precedent);
-- what an attacker with the same artifacts you used could do, i.e. the dual-use mirror of your own work (rule 5).
+- the vendor's legal entity, country of incorporation, and known data-processing jurisdictions;
+- the vendor's published privacy policy and terms of service (link and date accessed);
+- whether the vendor publishes an official API, developer programme, or local-control mode;
+- known mergers, white-label relationships, OEM origins (many IoT brands resell Tuya, Espressif, BroadLink hardware — identify this).
 
-#### Step 6 — Integration deliverable
+**1.3 Available artifacts.** Catalogue the candidate research inputs:
 
-Produce the integration artifact appropriate to the target: a Home Assistant configuration snippet, a custom component skeleton, an ESPHome YAML, an MQTT bridge, or a documentation-only recommendation if the privacy cost is unacceptable. Prefer the minimum surface that meets the user's goal. Do not expand scope.
+- APK / IPA versions available on reputable mirrors (record SHA-256 of any downloaded copy);
+- vendor firmware downloads or update endpoints (record only — do not download yet);
+- vendor SDKs, sample code, or developer documentation;
+- protocol-level documentation (Bluetooth SIG profiles, Matter device types, Zigbee clusters, Z-Wave command classes) relevant to the device family;
+- any reference implementations the user already has under `experiments/`.
 
-#### Step 7 — Provenance and logbook
+**1.4 Interface and API mapping (paper).** From documentation alone, sketch the candidate interfaces: LAN HTTP/REST, MQTT, BLE GATT, Zigbee, Matter, proprietary UDP, vendor cloud REST. For each, note the *expected* data flows and where personal data could surface.
 
-- Append a session entry to `docs/logbook.md` with date, target, techniques applied, outcome, and follow-up actions.
-- Place the case study under `experiments/iot-integrator-<short-target-name>/` mirroring the layout used by `ecoflow-powerocean` and `spider-farmer`: `README.md`, `REPORT.md`, `provenance.md`, `raw_conversations (copy&paste, web)/`, and an `original/` folder for vendor artifacts the user supplied.
+Phase 1 produces no executable artifacts and contacts no live system. Web fetches that the user has authorised are permitted; vendor-cloud authenticated calls are not.
+
+**Deliverables:** `docs/iot-integrator/<target-slug>/phase-1-research.md` with sections *Existing Solutions*, *Vendor and Ecosystem*, *Available Artifacts*, *Candidate Interfaces*, *Open Questions*. Tables where appropriate. Citations inline. Logbook entry.
+
+**User checkpoint (Phase 1 → Phase 2):** Summarise to the user — number of existing solutions found, gap that justifies new work (or recommendation to adopt an existing solution and stop), top three candidate interfaces, and the privacy-relevant findings from the vendor research. Wait for explicit "go".
+
+---
+
+#### Phase 2 — Weakness Analysis
+
+The goal of Phase 2 is to identify, on the basis of artifacts the user has supplied or authorised, the points where vendor obscurity fails to provide security, and to convert those points into integration handles. Phase 2 is allowed to perform **passive and active local analysis** on the user's own artifacts and the user's own LAN. It is **not** allowed to touch the vendor cloud, neighbour radios, or any system the user does not own — unless the user explicitly authorises a specific cloud-touching probe.
+
+**2.1 Static analysis.** Apply applicable Technique Inventory entries to the supplied artifacts:
+
+- APK / firmware string analysis (`T-APK-STRINGS`);
+- endpoint and constant extraction (`T-REST-WRITE-PROBE` precursor);
+- key, IV, and certificate recovery (`T-IV-KEY-RECOVERY`);
+- BLE service / characteristic / advertising-name mapping (`T-BLE-UUID-MAP`);
+- cross-implementation validation against the artifacts catalogued in Phase 1 (`T-CROSS-IMPL-VALIDATION`).
+
+**2.2 Dynamic analysis (local only).** With explicit user authorisation per probe:
+
+- mDNS / SSDP / SNMP discovery on the user's LAN;
+- HTTP probing of the device's own IP (well-known paths, OPTIONS, robots, banner);
+- BLE scan limited to the user's own devices (advertising-name allowlist);
+- MQTT subscription on the user's own broker;
+- packet capture of the device's traffic on the user's own LAN.
+
+For each probe record: command issued, redacted response, whether any third party was contacted, what was learned, and which Technique Inventory id it instantiates.
+
+**2.3 Weakness classification.** For every identified weakness, classify:
+
+- type: hardcoded credential, static IV, missing TLS verification, predictable token, weak pairing, clear-text MQTT, unauthenticated local API, telemetry beacon, etc.;
+- severity for the *household* (does it affect the user's own confidentiality, integrity, availability, or privacy);
+- usefulness as an *interoperability handle* (does it enable local control without the cloud);
+- dual-use mirror: what an attacker with the same artifacts could do (rule 5).
+
+**2.4 Privacy and security review.** Produce the explicit review covering:
+
+- runtime endpoints the proposed integration would contact, and whether any are off-LAN;
+- personal data the integration would surface to HA and therefore to add-ons, automations, and backups;
+- credential lifetime and rotation;
+- whether the protocol provides authentication or only obfuscation (cite the Spider Farmer precedent when applicable);
+- residual risk if the user's artifacts (APK, captures) leaked.
+
+**Deliverables:** `docs/iot-integrator/<target-slug>/phase-2-weakness.md` containing the redacted execution log, the weakness table, and the Privacy & Security Review. Logbook entry.
+
+**User checkpoint (Phase 2 → Phase 3):** Summarise to the user — number of weaknesses found, which of them are usable as integration handles within the declared privacy boundary, which are *not* to be exploited (and why), and the proposed integration shape (LAN REST custom component, ESPHome reflash, MQTT bridge, BLE local component, or "do not integrate"). Wait for explicit "go".
+
+---
+
+#### Phase 3 — Implementation
+
+The goal of Phase 3 is to produce the **smallest** integration artifact that achieves the user's stated control surface within the declared privacy boundary, plus the documentation needed to maintain and audit it.
+
+**3.1 Design.** State the chosen integration shape, the data model, the entity inventory, the credential storage strategy, and the failure modes. Reject scope creep: implement only what was approved at the Phase 2 → Phase 3 checkpoint.
+
+**3.2 Build.** Produce the artifact appropriate to the target:
+
+- a Home Assistant custom component skeleton (`custom_components/<slug>/`);
+- an ESPHome YAML;
+- an MQTT bridge or Node-RED flow;
+- a configuration-only snippet for an existing integration;
+- a documentation-only recommendation if the privacy cost of any integration is unacceptable — this is a valid Phase 3 outcome and must be stated as such, not hidden.
+
+Place runnable artifacts in `experiments/iot-integrator-<target-slug>/integration/`. Do not modify the user's live HA configuration without explicit consent.
+
+**3.3 Validation.** Run the smallest meaningful end-to-end test the user authorises (a single read, a single write). Record commands, redacted responses, and whether device and HA state matched expectation.
+
+**3.4 Operational notes.** Document for the user:
+
+- how to install, configure, and uninstall the artifact;
+- how to rotate credentials;
+- what to monitor in HA logs;
+- what to do if the vendor pushes a firmware update that breaks the integration.
+
+**3.5 Dual-use reflection.** Restate, in light of the implementation, what the same techniques would enable an attacker to do, and what mitigations the household operator can apply (rule 5).
+
+**Deliverables:** `docs/iot-integrator/<target-slug>/phase-3-implementation.md` (design, validation log, operational notes, dual-use reflection) and the runnable artifact under `experiments/iot-integrator-<target-slug>/integration/`. Logbook entry.
+
+**User checkpoint (Phase 3 → close-out):** Summarise to the user — what was built, what was validated, what was *not* validated, residual risks, and recommended follow-up. Wait for explicit acceptance before close-out.
+
+---
+
+#### Close-out
+
+- Write `docs/iot-integrator/<target-slug>/summary.md` consolidating the three phase reports into a single narrative suitable for citation from `paper/main.md`.
+- Populate `experiments/iot-integrator-<target-slug>/` with `README.md`, `REPORT.md`, `provenance.md`, and `raw_conversations (copy&paste, web)/`, mirroring the prior case studies.
 - Record AI-vs-researcher attribution per rule 1.
-- Apply rule 12 redaction *before* committing. Do not commit a pre-redaction state and rely on later cleanup.
+- Confirm rule 12 redaction across all committed files. Confirm rule 13 (no public push, no Zenodo, no arXiv) before any remote operation.
+- Final logbook entry with the close-out date and a pointer to `summary.md`.
 
 ---
 
 ### Deliverables
 
-1. **Technique Inventory** — markdown table, derived only from prior REPORT.md files.
-2. **Target Intake Summary** — one paragraph plus a bullet list of explicit privacy boundaries.
-3. **Technique Selection Justification** — one line per technique, with privacy-cost annotation.
-4. **Execution Log** — chronological, redacted, with each step tagged by Technique Inventory id.
-5. **Privacy & Security Review** — covering the six bullets in Step 5.
-6. **Integration Artifact** — the smallest configuration or code change that achieves the user's goal locally.
-7. **Provenance Update** — `docs/logbook.md` entry plus a populated `experiments/iot-integrator-<target>/REPORT.md`.
+Per phase, under `docs/iot-integrator/<target-slug>/`:
+
+1. `phase-0-bootstrap.md` — Technique Inventory (table) and Target Intake Summary.
+2. `phase-1-research.md` — Existing Solutions, Vendor and Ecosystem, Available Artifacts, Candidate Interfaces, Open Questions.
+3. `phase-2-weakness.md` — Static and dynamic execution log (redacted), Weakness Table, Privacy & Security Review.
+4. `phase-3-implementation.md` — Design, Validation Log, Operational Notes, Dual-Use Reflection.
+5. `summary.md` — consolidated narrative for paper citation.
+
+Across the repository:
+
+6. `docs/logbook.md` updated at every phase boundary and major decision.
+7. `docs/redaction-policy.md` updated with every redaction marker introduced.
+8. `experiments/iot-integrator-<target-slug>/` populated with `README.md`, `REPORT.md`, `provenance.md`, `raw_conversations (copy&paste, web)/`, `original/` for vendor artifacts, and `integration/` for the runnable artifact (if any).
+
+User-facing summaries (verbal/markdown, not files):
+
+9. End-of-Phase-0 summary: technique count, target, privacy boundary, available artifacts.
+10. End-of-Phase-1 summary: existing solutions and gap, top three candidate interfaces, vendor privacy posture.
+11. End-of-Phase-2 summary: weaknesses found, usable handles vs. excluded handles, proposed integration shape.
+12. End-of-Phase-3 summary: what was built and validated, residual risks, follow-up.
 
 ### Output format
 
@@ -147,14 +262,11 @@ Markdown, scholarly tone, explicit AI/researcher attribution. Use tables for the
 
 ### Example output headings
 
-- Technique Inventory (derived from prior experiments)
-- Target Intake
-- Technique Selection
-- Execution Log
-- Privacy & Security Review
-- Integration Artifact
-- Provenance and Logbook Update
-- Dual-Use Reflection
+- Phase 0 — Bootstrap (Technique Inventory, Target Intake)
+- Phase 1 — Research (Existing Solutions, Vendor and Ecosystem, Available Artifacts, Candidate Interfaces)
+- Phase 2 — Weakness Analysis (Static Analysis, Dynamic Analysis, Weakness Table, Privacy & Security Review)
+- Phase 3 — Implementation (Design, Build, Validation, Operational Notes, Dual-Use Reflection)
+- Close-out Summary
 
 ---
 
