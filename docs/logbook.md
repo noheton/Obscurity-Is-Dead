@@ -1459,3 +1459,21 @@ This logbook is the operating record for the paper and research process.
 - Re-scrutiny recommendation: **layout — `RE-SCRUTINY REQUIRED: yes`** after `make -C paper pdf` rebuild, focused on residual overflow at the `(copy&paste, web)` literal and on the LAY-09 / LAY-10 PARTIAL items. **Readability — `RE-SCRUTINY REQUIRED: yes`** but the deferred RDB-01/02/03/04 cluster needs a researcher decision on the §10 numbered-list-vs-Figure-11 collapse before the writer can proceed.
 - Files updated: `paper/main.tex`, `paper/main.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/readability-to-writer.md`, `docs/logbook.md`.
 - Commit: created on branch `claude/add-layout-scrutinizer-agent-Ur5vX`; SHA recorded in commit body.
+
+## 2026-05-02 — Stage 0: Orchestrator (first run)
+
+- Branch: `claude/start-orchestrator-36qQV`. Predecessor commit: `f342d1c` (merge of PR #20).
+- Inputs read: `docs/handbacks/{layout,readability}-defect-registry.md`; `docs/handbacks/{layout,readability}-to-{writer,illustrator}.md`; last ten logbook entries; `git status` / `git log -5`; `paper/main.{tex,md}` mtime; `paper/main.pdf` (missing); ladder counts in `docs/sources.md`.
+- State map at orchestration:
+  - Working tree clean; `paper/main.pdf` not present (gitignored; needs rebuild before stage-4 re-scrutiny).
+  - Layout registry: `RE-SCRUTINY REQUIRED: yes`. Writer-side: 6 RESOLVED, 3 PARTIAL, 4 DEFERRED. Illustrator-side: 5 entries (LAY-05, LAY-06, LAY-12, LAY-13, LAY-16) **untouched** — no illustrator pass has run.
+  - Readability registry: `RE-SCRUTINY REQUIRED: yes`. Writer-side: 3 RESOLVED (RDB-15/16/18), 17 DEFERRED (incl. H-severity RDB-01 and RDB-02). Illustrator-side: 4 entries untouched.
+  - Source ladder: 129 `[lit-retrieved]`, 2 `[ai-confirmed]`, 4 `[lit-read]`, 4 `[needs-research]`, 10 `[unverified-external]`, 0 `[edge-case]`.
+- Decision rule walked top-to-bottom:
+  - #1 — no stage named in the human directive ("start orchestrator"). Skip.
+  - #2 — no new unlogged case study. Skip.
+  - **#3 — fires.** `[lit-retrieved]` backlog is 129 entries (≥ 10). RDB-02 (H, unsupported-novelty framing) is independently blocked on comparator citations against L-SLOP-7 / L-SLOP-10 / L-SLOP-12, so the writer-flagged sub-condition also holds.
+- Dispatch: **Stage 1.5 — Source Analyzer** (`docs/prompts/source-analyzer-prompt.md`). Rationale per the orchestrator-prompt conflict-resolution rule: if the writer has a queued remediation but the Source Analyzer has newly confirmable sources that change the writer's worklist, run the Source Analyzer first so the writer's pass is informed.
+- Anticipated downstream sequence: Stage 5 re-eval → Stage 2 (writer consumes RDB-02 / RDB-12 comparator framings + remaining DEFERRED H/M cluster) → Stage 3 (illustrator consumes LAY-05/06/12/13, RDB-04, RDB-05+08, RDB-07) → `make -C paper pdf` → Stages 4 + 5 in parallel for re-scrutiny. Loop until both registries report `RE-SCRUTINY REQUIRED: no`.
+- Files written by the orchestrator: `docs/handbacks/orchestrator-dispatch.md` (new, append-only dispatch log; first entry); this logbook entry. No edits to `paper/main.{md,tex}`, `docs/sources.md`, or any scrutinizer registry (orchestrator scope discipline per orchestrator-prompt §Constraints).
+- Sub-agent invocation: not auto-launched by this harness invocation — the dispatch directive in `docs/handbacks/orchestrator-dispatch.md` is the human-actionable hand-off; the human (or a follow-up session) launches the Source Analyzer with `docs/prompts/source-analyzer-prompt.md` against `docs/sources.md`.
