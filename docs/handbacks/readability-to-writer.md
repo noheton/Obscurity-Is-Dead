@@ -6,7 +6,8 @@
 
 ---
 
-## RDB-01 — Quadruple recap of the fabricated-citation statistics  *(H, claim-repetition)*
+## RDB-01 — Quadruple recap of the fabricated-citation statistics  *(H, claim-repetition)*  [DEFERRED 2026-05-02 — substantive prose surgery touching §5.6, §7.6, §9.4 and §10 simultaneously; risks altering claim coupling and exceeds remaining tool budget. Routed back to next writer pass.]
+
 
 **Sections.** §5.6, §7.6, §9.4, §10.
 **Source span.** `main.md:288`; `main.md:432–438`; `main.md:605`; `main.md:620`. Mirror: `main.tex:766–800`, `main.tex:1304–1342`, `main.tex:2128–2147`, `main.tex:2199–2212`.
@@ -16,7 +17,8 @@
 
 ---
 
-## RDB-02 — Unsupported-novelty framing of "the novelty is the integration"  *(H, novelty)*
+## RDB-02 — Unsupported-novelty framing of "the novelty is the integration"  *(H, novelty)*  [DEFERRED 2026-05-02 — requires drafting a comparator paragraph that names L-SLOP-7 / L-SLOP-10 / L-SLOP-12 with the differential framing; this is substantive content addition that must be confirmed by the researcher against `docs/sources.md`. Routed back to next writer pass.]
+
 
 **Sections.** §10.
 **Source span.** `main.md:622–648`; `main.tex:2214–2363`.
@@ -27,7 +29,8 @@
 
 ---
 
-## RDB-03 — Triple-restated contribution list (abstract / §1.4 / §10)  *(M, claim-repetition)*
+## RDB-03 — Triple-restated contribution list (abstract / §1.4 / §10)  *(M, claim-repetition)*  [DEFERRED — paired with RDB-04; requires illustrator-side coordination on Figure 11 axes before §10 can be re-prosed.]
+
 
 **Source span.** abstract `main.md:14–15`; §1.4 `main.md:43–48`; §10 `main.md:622–631` and `main.md:637`. Mirror: `main.tex:65–75`, `main.tex:160–175`, `main.tex:2214–2310`.
 **Defect.** Contribution list is enumerated three times. The abstract → §1.4 → §10 sequence is currently *restatement*, not *progression*.
@@ -36,7 +39,8 @@
 
 ---
 
-## RDB-04 — Eight-item enumeration duplicates Figure 11 axes  *(M, list-of-lists)*
+## RDB-04 — Eight-item enumeration duplicates Figure 11 axes  *(M, list-of-lists)*  [DEFERRED — illustrator-side coordination required before collapsing the §10 numbered list.]
+
 
 **Source span.** `main.md:622–631`; `main.tex:2217–2271`.
 **Defect.** §10 enumerates the eight practices as a numbered list, then Figure 11 carries the same eight items as rows × three failure-mode columns, then `main.md:643–648` restates "Concealment / Token disclosure / artifact-level disclosure" — the columns of the same figure — as prose.
@@ -45,7 +49,8 @@
 
 ---
 
-## RDB-05 — §6.7 six-bullet system-class enumeration  *(M, list-of-lists)*
+## RDB-05 — §6.7 six-bullet system-class enumeration  *(M, list-of-lists)*  [DEFERRED — illustrator coordination on whether one matrix figure absorbs §6.7+§7.13.]
+
 
 **Source span.** `main.md:391–396`; `main.tex:1130–1190`.
 **Defect.** Six paragraph-sized bullets carry the system-class vulnerability claims; Figure 13 already exists for this content; bullets restate the figure rows in prose.
@@ -54,7 +59,8 @@
 
 ---
 
-## RDB-06 — §7.10 four-bullet "proliferation of hacking" enumeration  *(M, list-of-lists)*
+## RDB-06 — §7.10 four-bullet "proliferation of hacking" enumeration  *(M, list-of-lists)*  [DEFERRED — substantive prose conversion; routed to next writer pass.]
+
 
 **Source span.** `main.md:472–479`; `main.tex:1438–1469`.
 **Defect.** Four paragraph-sized bullets ("Volume risk", "Asymmetric uplift", "Normalisation effect", "Tooling acceleration") in a section that otherwise reads as discursive prose (§7.2, §7.5).
@@ -63,7 +69,8 @@
 
 ---
 
-## RDB-07 — §7.11 double-list (injection targets + considerations)  *(M, list-of-lists)*
+## RDB-07 — §7.11 double-list (injection targets + considerations)  *(M, list-of-lists)*  [DEFERRED — illustrator-side decision pending.]
+
 
 **Source span.** `main.md:484–495`; `main.tex:1473–1505`.
 **Defect.** Two consecutive bullet lists in a single subsection — four "potential injection targets" then three "feasibility / ethics / cost" considerations — with a one-paragraph conclusion.
@@ -72,7 +79,8 @@
 
 ---
 
-## RDB-08 — §7.13 six-bullet malicious-integrator enumeration  *(M, list-of-lists)*
+## RDB-08 — §7.13 six-bullet malicious-integrator enumeration  *(M, list-of-lists)*  [DEFERRED — paired with RDB-05.]
+
 
 **Source span.** `main.md:514–520`; `main.tex:1614–1717`.
 **Defect.** Six paragraph-sized bullets; Figure 14 exists for the same content; bullets restate the figure in prose. Same pattern as RDB-05.
@@ -81,7 +89,8 @@
 
 ---
 
-## RDB-09 — §7.14 six-bullet APK-mass-probing enumeration  *(M, list-of-lists)*
+## RDB-09 — §7.14 six-bullet APK-mass-probing enumeration  *(M, list-of-lists)*  [DEFERRED — substantive prose conversion.]
+
 
 **Source span.** `main.md:533–538`; `main.tex:1772–1822`.
 **Defect.** Six paragraph-sized bullets; Figure 15 exists for the pipeline structure; the "Legal and ethical posture" item changes register and does not belong in the same list.
@@ -90,7 +99,8 @@
 
 ---
 
-## RDB-10 — §1.3 dense privacy-bullet (jargon-dump / undefined acronyms)  *(M)*
+## RDB-10 — §1.3 dense privacy-bullet (jargon-dump / undefined acronyms)  *(M)*  [DEFERRED — paired with RDB-01 / RDB-03 progression rule.]
+
 
 **Source span.** `main.md:33`; `main.tex:113–127`.
 **Defect.** A single bullet introduces five literature handles (L-PRIV-1, L-PRIV-5, L-PRIV-2, L-PRIV-10, L-PRIV-9) plus three statistical claims, GDPR Art. 5(1)(c), and Ren et al.'s "34,586 controlled experiments" in one continuous sentence-of-clauses (>70 words).
@@ -99,7 +109,8 @@
 
 ---
 
-## RDB-11 — §6.4 statistics duplicated in §6.7 and §7.12  *(M, claim-repetition)*
+## RDB-11 — §6.4 statistics duplicated in §6.7 and §7.12  *(M, claim-repetition)*  [DEFERRED — three-section single-homing exercise.]
+
 
 **Source span.** `main.md:354–355`; `main.tex:935–981`. Repetition sites: §6.7 `main.md:398`, §7.12 `main.md:500`.
 **Defect.** L-PRIV-5's "6,208 / 1,973 / 1,559", L-BLE-4's ">70 % of 17,243", and L-CONS-1's "28.25 % of 1,362,906" appear in §6.4 and again in §6.7 / §7.12 in near-identical wording.
@@ -108,7 +119,8 @@
 
 ---
 
-## RDB-12 — §1.4 contributions framed without comparators  *(M, claim-framing)*
+## RDB-12 — §1.4 contributions framed without comparators  *(M, claim-framing)*  [DEFERRED — paired with RDB-02; substantive comparator framing required.]
+
 
 **Source span.** `main.md:43–48`; `main.tex:160–175`.
 **Defect.** The four numbered contributions are framed as artifacts without naming the closest published comparator. Contribution 1 has L-RE-2 (Hu et al., 2024) as direct comparator; contribution 3 has L-SLOP-7, L-SLOP-10, L-SLOP-12 as comparators; none are referenced.
@@ -117,7 +129,8 @@
 
 ---
 
-## RDB-13 — §3.4 bullets pre-summarise Table 1  *(L, prose-doing-table's-job)*
+## RDB-13 — §3.4 bullets pre-summarise Table 1  *(L, prose-doing-table's-job)*  [DEFERRED — L priority; routed to next pass.]
+
 
 **Source span.** `main.md:118–124`; `main.tex:329–402`.
 **Defect.** Six bullets immediately followed by Table 1, which carries the same fields.
@@ -126,7 +139,8 @@
 
 ---
 
-## RDB-14 — §5 inherited Background/Method/Result scaffold for a single claim  *(L, structural-repetition)*
+## RDB-14 — §5 inherited Background/Method/Result scaffold for a single claim  *(L, structural-repetition)*  [DEFERRED — L priority structural fix.]
+
 
 **Source span.** `main.md:239–323`; `main.tex:603–843`.
 **Defect.** §5 follows the §3/§4 internal scaffold; §5.4 ("Findings — interoperability and reproducibility") is a single claim wrapped in the inherited scaffold.
@@ -135,7 +149,9 @@
 
 ---
 
-## RDB-15 — §7.13 closing 90-word sentence  *(L, sentence-length)*
+## RDB-15 — §7.13 closing 90-word sentence  *(L, sentence-length)*  [RESOLVED 2026-05-02]
+Both long sentences at `main.tex:1700–1714` (and the matching `main.md:524`) split at the natural breaks: the first at "every run" and the second at "this framing".
+
 
 **Source span.** `main.md:524`; `main.tex:1700–1713`.
 **Defect.** Two consecutive >40-word sentences at the close of §7.13.
@@ -144,7 +160,9 @@
 
 ---
 
-## RDB-16 — Abstract single-sentence run-on  *(L, sentence-length)*
+## RDB-16 — Abstract single-sentence run-on  *(L, sentence-length)*  [RESOLVED 2026-05-02]
+The 60-word run-on at `main.tex:69–81` / `main.md:14–15` is split into three sentences while preserving every BMRC component and the four-claim structure.
+
 
 **Source span.** `main.md:14–15`; `main.tex:65–75`.
 **Defect.** ~60-word sentence runs from "Through two empirical case studies" to "first-class evidence".
@@ -153,7 +171,8 @@
 
 ---
 
-## RDB-17 — §9.1 *Urheberrecht und KI* footnote density  *(L, sentence-length / nested-clauses)*
+## RDB-17 — §9.1 *Urheberrecht und KI* footnote density  *(L, sentence-length / nested-clauses)*  [DEFERRED — structural promotion to subsection requires researcher confirmation.]
+
 
 **Source span.** `main.md:588`; `main.tex:1995–2074`.
 **Defect.** A ~700-word footnote with three nested sub-paragraphs and several >40-word sentences. Crosses the page in PDF rendering.
@@ -162,7 +181,9 @@
 
 ---
 
-## RDB-18 — Intact-jar caption restates §10 prose  *(L, caption-restates-prose)*
+## RDB-18 — Intact-jar caption restates §10 prose  *(L, caption-restates-prose)*  [RESOLVED 2026-05-02]
+Caption compressed to one sentence plus attribution at `main.tex:2200–2202` and mirrored at `main.md:618`.
+
 
 **Source span.** `main.md:618`; `main.tex:2184–2197`.
 **Defect.** The caption re-states the §10 opening prose ("Pandora's jar is open … Hope still under its rim") and includes the rule-1 attribution. The rhetorical setup is already in the §10 paragraph.
@@ -171,7 +192,8 @@
 
 ---
 
-## RDB-19 — Undefined acronyms (ES-6, DEX, FCM, AD\_ID, ML Kit Barcode)  *(L, undefined-acronym)*
+## RDB-19 — Undefined acronyms (ES-6, DEX, FCM, AD\_ID, ML Kit Barcode)  *(L, undefined-acronym)*  [DEFERRED — five-acronym definition pass; routed to next writer pass.]
+
 
 **Source span.** `main.md:360–372`, `main.md:393`, `main.md:395`, `main.md:522`; `main.tex:987–1049`, `main.tex:1130–1190`, `main.tex:1614–1717`.
 **Defect.** Cold reader meets these terms without expansion.
@@ -180,7 +202,8 @@
 
 ---
 
-## RDB-20 — `references.bib` carries 7 entries; literature lives in `docs/sources.md`  *(L, bib-completeness)*
+## RDB-20 — `references.bib` carries 7 entries; literature lives in `docs/sources.md`  *(L, bib-completeness)*  [DEFERRED — out-of-scope for this remediation pass.]
+
 
 **Source span.** `paper/references.bib:1–65`; all `[L-XX-N]` handles.
 **Defect.** Two-channel citation scheme is deliberate (§9.3) but the reader has no single bibliographic destination; transition path is implicit.
