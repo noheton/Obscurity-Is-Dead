@@ -1217,3 +1217,28 @@ This logbook is the operating record for the paper and research process.
   - Rule-12 decision: retain XAPK in git or SHA-256-only at publication time. Recommendation logged in §2.4.5; final decision is researcher's at close-out.
 - Next steps:
   - Present the Phase 2 user-facing summary at the Phase 2→3 checkpoint with the three Phase 3 options (do-not-integrate / cloud-only configuration-only / defer until §A/§B). Wait for explicit choice + cloud authorisation if option 2 is selected.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 3 implementation + close-out)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 3 (configuration-only outcome) and close-out.
+- Researcher Phase 2→3 decision: option 2 (cloud-only configuration-only); cloud-touching authorisation explicitly granted, scoped to the household account; XAPK retention plan confirmed (keep on working branch, `git rm` before any Zenodo/arXiv publication).
+- Actions taken:
+  - Wrote `integration/{README.md, smoke-test.py, operational-notes.md, validation-checklist.md, dual-use.md}` — five-file deliverable set mirroring the Ondilo §5.5 pattern (`T-CONFIG-ONLY-OUTCOME`). The Python smoke test is a read-only auth+state validator that uses `controlmyspa==4.0.0` and reads credentials from `CONTROLMYSPA_USER`/`CONTROLMYSPA_PASS` env vars.
+  - Defined the six-control hardening overlay C-1..C-6 (secondary onboarding device, network-edge sinkhole for WaterGuru + Google ad hosts, spa nickname alias, dedicated email alias, 90 d password rotation, encrypted backups). Documented five explicitly-not-done controls for audit.
+  - Wrote `process/phase-3-implementation.md` (design / build / validation / operational notes / dual-use reflection), `process/summary.md` (consolidated narrative for paper citation), `REPORT.md` (top-level case-study report mirroring prior cases), `README.md` (folder reader's-guide), `provenance.md` (per-artifact + per-claim AI/researcher attribution).
+  - Recorded two new technique tags proposed for the next-run inventory: `T-CROSS-VENDOR-CORPORATE-FLOW` (BWG ↔ WaterGuru inside Helios) and `T-OPERATIONAL-OBSCURITY` (sound auth scheme, weak operational layer).
+  - No `S-BAL-*` redaction markers activated by the agent (no live capture). First activation expected during researcher-side validation-checklist.md run.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/integration/{README.md, smoke-test.py, operational-notes.md, validation-checklist.md, dual-use.md}` (new)
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/{phase-3-implementation.md, summary.md}` (new)
+  - `experiments/iot-integrator-balboa-gateway-ultra/{REPORT.md, README.md, provenance.md}` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - Researcher to execute `integration/validation-checklist.md` end-to-end and lodge `captures/phase-3-validation.log.redacted`.
+  - Researcher §A jadx run resolves W-3 (TrustAllStrategy reachability) and W-5 (WaterGuru conditionality).
+  - Researcher §D SAR resolves OQ-3 (BWG vs Perfect Spa GDPR controller).
+  - Pre-publication: `git rm` the XAPK and the derivative APK assets per the rule-12 retention plan.
+  - Researcher to populate `raw_conversations (copy&paste, web)/`.
+- Next steps:
+  - Present the close-out summary to the researcher and wait for explicit acceptance.
+  - On acceptance: case study is feature-complete on this branch; no further AI-driven work expected without a new prompt.
