@@ -529,3 +529,34 @@ The triplet (L-IND-1 framing + L-IND-2 empirics + L-IND-3 structural) gives the 
 ### References.bib correction
 
 `paper/references.bib` should record L-IND-2's first author as **Duque Antón, S. D.** (compound surname; common to mis-render as "Antón, S." which would reorder under "A" instead of "D"). All other L-IND author lists, years, and venues match the verified records.
+
+---
+
+## Slice 13 (pass 11) — Cluster L-PRIV partial, privacy-baseline anchors (2026-05-03)
+
+Six entries processed: five `[ai-confirmed]` plus one `[ai-confirmed-bibliographic]`. The cluster's *baseline* anchors (what cloud-bound consumer IoT actually exports) and the *companion-app surface* lead anchor are now writer-actionable for §1.3 motivation and §7.12.
+
+### Newly available for inline citation
+
+- **L-PRIV-1 — Ren, Dubois, Choffnes, Mandalari, Kolcun, Haddadi, 2019, *Proc. IMC* — `[ai-confirmed]`.** **Cornerstone empirical anchor for §1.3.** Citable inline for the verified verbatim numbers: **81 devices**, **34,586 controlled experiments**, **72/81 devices contact a non-first-party destination**, **56% US / 83.8% UK contact destinations outside their region**, **all 81 devices expose at least one plaintext flow**, **30/81 devices' user/device behavior inferable from traffic (encrypted or otherwise)**. Use as the headline scale anchor.
+- **L-PRIV-2 — Apthorpe, Reisman, Feamster, 2017, arXiv:1705.06805 — `[ai-confirmed]`.** Citable inline for the *encryption-is-not-sufficient* claim (four representative devices: Sense / Nest Cam / WeMo / Echo). Best paired with L-PRIV-3 for the corpus-scale generalisation.
+- **L-PRIV-3 — Acar, Fereidooni, Abera, Sikder, Miettinen, Aksu, Conti, Sadeghi, Uluagac, 2020, *Proc. ACM WiSec* (arXiv:1808.02741, 2018) — `[ai-confirmed]`.** Citable inline for the **>90% accuracy** activity-inference claim across **WiFi, ZigBee, BLE** on **22 commercial smart-home devices**. **Bibliographic correction needed in `references.bib`:** venue is **WiSec 2020** (13th ACM Conference on Security and Privacy in Wireless and Mobile Networks, 8-10 July 2020, Linz, virtual), not WiSec 2018; the 2018 date is the arXiv preprint date. Cite as Acar et al., 2020 in main.{md,tex}.
+- **L-PRIV-4 — Apthorpe, Shvartzshnaider, Mathur, Reisman, Feamster, 2018, *Proc. ACM IMWUT* 2(2), art. 59 — `[ai-confirmed]`.** Citable inline for the contextual-integrity framing: **1,731 American adults**, **3,840 information flows**, mapping which smart-home flows users find acceptable to first vs. third parties. Useful for the §7.12 framing that vendor-cloud egress is contrary to *user-held* privacy norms (not just a regulatory ideal).
+- **L-PRIV-5 — Nan, Wang, Xing, Liao, Wu, Wu, Zhang, Wang, 2023, *USENIX Security '23* — `[ai-confirmed]`.** **Strongest large-N anchor for §7.12.** Citable inline for the verified verbatim numbers: **6,208 IoT companion apps**, **1,973 apps (31.8%) expose user data without proper disclosure**, **1,559 unique vendors**, sensitive categories include **health status and home address**, with cross-border third-party sharing. **Bibliographic note for `references.bib`:** add USENIX Security '23 venue (currently absent from entry header); pages 6665-6682.
+- **L-PRIV-6 — Tazi, Saka, Neupane, Myers, Das, De Carli, Ray, 2025, *IEEE Transactions on Services Computing* — `[ai-confirmed-bibliographic]`.** Citable as a *bibliographic* reference for the 455-app corpus and the multi-dimensional analysis line of work. Specific claims about over-requested permissions and cross-axis non-correlation are corroborated by the same group's DBSec'22 paper (L-PRIV-8) on the same corpus and the CHI EA'23 accessibility paper (https://ldklab.github.io/assets/papers/chi23-accessibility.pdf), but the TSC 2025 full text was not retrieved by the agent. If a load-bearing TSC-specific quantitative claim is wanted in §6.7 / §7.12, upgrade to `[lit-read]` first.
+
+### Suggested writer follow-up
+
+The §1.3 / §7.12 privacy-motivation block can now be tightened to:
+
+1. cite **L-PRIV-1** as the *cornerstone* empirical anchor (81 devices, 34,586 experiments, regional differences attributable to GDPR);
+2. cite **L-PRIV-2** + **L-PRIV-3** in a single sentence for the *encryption-is-not-sufficient* claim (four-device existence proof + 22-device >90% generalisation);
+3. cite **L-PRIV-4** for the *user-held privacy norms* framing (vendor-cloud egress to third parties is *contrary to* what users find acceptable);
+4. cite **L-PRIV-5** as the *companion-app data-exposure* anchor at corpus scale (6,208 apps, 1,973 leaky, 1,559 vendors).
+
+This four-anchor block gives the §7.12 "privacy as a user right" argument a peer-reviewed empirical foundation symmetric to the K-CONS base-rate anchors (slice 11) and the K-IND industrial-counterpoint anchors (slice 12).
+
+### References.bib corrections
+
+1. **L-PRIV-3** — change venue/year from "Proc. ACM WiSec, 2018" to "Proc. of the 13th ACM Conference on Security and Privacy in Wireless and Mobile Networks (WiSec '20), July 2020". Update inline citations to "Acar et al., 2020".
+2. **L-PRIV-5** — add venue "Proceedings of the 32nd USENIX Security Symposium (USENIX Security '23), August 2023, pp. 6665-6682" to the bibliography entry; currently the entry header omits the venue.
