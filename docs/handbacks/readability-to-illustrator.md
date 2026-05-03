@@ -56,3 +56,73 @@ Spot-checks of `paper/main.md` against `paper/main.tex` (§1.4, §7.6, §10, §9
 The Stage 2 logbook entry on 2026-05-02 records that two researcher-supplied binary assets are not yet committed: `paper/figures/logo-obscurity-is-dead.png` (front matter / README hero) and `paper/figures/logo-pandora-jar-intact.png` (§10). The intentional broken-image state is consistent with rule 1 (transparency over aesthetics). RDB-18 (writer-side) shortens the §10 caption when those assets land.
 
 **[PARTIALLY RESOLVED 2026-05-03]** — `logo-obscurity-is-dead.png` landed (re-encoded, 1408x768 preserved, ~1.63 MB) and is now wired into `README.md` as the centered hero image with Gemini provenance disclosed in the alt-text per rule 1 (commits `7e1f297`, `062b1d3`; cleaned up by illustrator on 2026-05-03). Stage 4 and Stage 5 narrow-scope scrutinizers both reported `RE-SCRUTINY REQUIRED: no` for the wire-up. **Still OPEN:** `logo-pandora-jar-intact.png` remains the AI-authored placeholder rendered by `paper/figures/logo-placeholders.py`; the second Gemini deliverable has not yet been supplied. RDB-18 cannot be closed until the intact-jar binary lands.
+
+---
+
+## 2026-05-03 — Stage 5 re-scrutiny carry-note (no new request)
+
+The illustrator pass `84c2da0` cleared **RDB-04** (Figure 11 row-label
+legibility verified, no-op asset change required). No new illustrator-
+owned defect was introduced by writer pass `329bc28` or by the §7.6
+LaTeX-only fix `b5162ee`. The §6.8 evidence-asymmetry second sentence
+(RDB-23) was resolved by the writer in prose; the alternative
+"comparison-table figure routed to the illustrator" (proposed
+`ILL-NN-evidence-asymmetry`) is **no longer required** — the writer
+chose the prose-split path and Stage 5 verifies the result passes the
+≤6-sentence and <40-word rubric.
+
+**Standing illustrator-coordination items (unchanged from prior pass).**
+RDB-05 + RDB-08 (consolidate fig13 + fig14 into a single integrator
+matrix) — DEFERRED per the registry; the two figures serve different
+rhetorical positions and the merge is a structural authorial decision.
+RDB-07 (§7.11 prompt-injection 4 × 3 matrix figure) — DEFERRED per the
+registry; writer-side prose conversion unblocks. Both remain on the
+human-author decision list.
+
+---
+
+## 2026-05-03 round 2 — no new illustrator-owned defects
+
+Stage 5 round-2 sweep against writer commit `370e792` and illustrator
+pass `d2858ac` filed five prose entries (RDB-30..-34) and two caption
+entries (RDB-35, -36) — all owner = writer. No new illustrator-owned
+defect introduced.
+
+**Carry-note on RDB-35 / RDB-36 (writer-side, illustrator-flagged).**
+The two caption tweaks the illustrator flagged in
+`illustrator-pass-2026-05-03-overhaul.md` §E (Fig 9 = 4-stage track;
+Fig 11 = legend-duplication tightening) are *should-do* (rule-11
+caption-fidelity), routed to the writer. The illustrator does not
+need to act unless the writer's caption rewrite reveals a residual
+asset-vs-caption mismatch.
+
+**Standing illustrator-coordination items (unchanged from round 1).**
+RDB-04 (consolidate the §10 eight-row enumeration into Figure 11) is
+now *complicated* by the new ninth practice in §10 prose — Stage 5
+still endorses option (b) (drop the §10 enumeration, lean on Figure
+11 + a one-sentence recap, with the ninth practice surviving as a
+clearly-set-off "*Looking ahead*" addendum). Figure 11 itself stays
+at 8 rows per the explicit `main.md:715` instruction; no illustrator
+action required. RDB-05 + RDB-08 (consolidate fig13 + fig14) and
+RDB-07 (§7.11 4 × 3 prompt-injection matrix) remain DEFERRED on the
+human-author decision list.
+
+---
+
+# Round 3 hand-back (2026-05-03; against `37ded1f`)
+
+**No new illustrator action required this round.**
+
+- RDB-35 (Fig 9 caption — 4 stages) and RDB-36 (Fig 11 caption —
+  legend duplication) are **RESOLVED-confirmed** in writer loop 3
+  (`37ded1f`). The illustrator's round-2 caption-fidelity flags
+  (`illustrator-pass-2026-05-03-overhaul.md` §E) are now closed at
+  the caption-text layer.
+- The two new round-3 defects (RDB-37 §4.6 sentence-length M;
+  RDB-38 §10 middle sentence L) are writer-only. No figure or asset
+  change involved.
+- Standing illustrator-coordination items unchanged from round 2:
+  RDB-04 / RDB-02 §10 list-of-eight vs Figure 11 still DEFERRED on
+  human-author option a/b/c decision; RDB-05 + RDB-08 (fig13/fig14
+  consolidation) and RDB-07 (§7.11 prompt-injection matrix) remain
+  DEFERRED.

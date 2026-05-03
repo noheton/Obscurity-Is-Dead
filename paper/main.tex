@@ -24,7 +24,16 @@
 \usepackage{cleveref}
 \usepackage{seqsplit}
 % \fp{...} -- "file path": use \path semantics so TeX may break at `/' or `_'.
+% NOTE: a Stage-4 round-3 attempt to redefine as \seqsplit{\texttt{#1}} broke the
+% build because tokens like ACTION_W_CFG_BACKUP_REVERSE_SOC enter math mode under
+% \texttt; reverted 2026-05-03. Path-bullet M items in the layout registry
+% remain deferred for a future cprotect/verbatim-aware refactor.
 \newcommand{\fp}[1]{\path{#1}}
+% \Description{...} -- accessibility alt-text shim. No-op fallback when the
+% acmart / tagpdf machinery that defines a real \Description is not loaded;
+% the macro is kept in source so a future class change picks up the alt-text
+% automatically (FIG-01, layout-defect-registry 2026-05-03).
+\providecommand{\Description}[1]{}
 \hypersetup{
   colorlinks=true,
   linkcolor=black,
@@ -81,6 +90,167 @@ made explicit and mapped to mitigations that the methodology operationalises.
 \end{abstract}
 
 % =========================================================================
+\section*{Author's Note --- Advice for reading}
+\label{sec:authors-note}
+\addcontentsline{toc}{section}{Author's Note --- Advice for reading}
+
+\noindent A short methodological note from me (Florian Krebs), placed
+up-front because \emph{how} you read this paper matters as much as
+\emph{what} is in it. Treat the note as an invitation --- to read
+closely, to argue back, and to bring evidence. The framings below are
+the lenses I would most want a thoughtful reader to bring to the rest
+of the document; none of them softens an empirical claim, and all of
+them open a door to discussion.
+
+\paragraph{From a horticulture controller to AI safety.}
+This paper began as a pure interoperability project --- a few weekends
+of trying to bring a Spider Farmer BLE controller and an EcoFlow
+PowerOcean energy system into Home Assistant without depending on the
+vendor cloud. AI assistance turned what would have been months of solo
+reverse engineering into days, and the integrations work. But the
+\emph{speed} of that collapse --- the disappearance of the effort gap
+that has historically protected proprietary protocols --- kept
+surfacing harder questions: if I can do this in days as a hobbyist,
+what does the same compression look like for an attacker, a paper
+mill, or an unverified claim that nobody noticed an LLM wrote? The
+case studies stayed; the centre of gravity shifted. What started as
+\emph{``how do I make this controller talk to my smart home''} became
+\emph{``what does responsible practice look like when the methodology
+that produced this paper is the same methodology that, used badly,
+fills the literature with synthetic noise
+(\cref{sec:disc-sloppification},
+\cref{sec:disc-model-collapse})?''} That arc is the reason the paper
+has a \cref{sec:pandora} at all; without it, this would have been a
+how-to and not a piece of empirical methodology.
+
+\paragraph{Process, not product.}
+View this work less as the \emph{output} of frontier agentic AI and
+more as a \emph{process}. The methodology here tries to leverage
+generative AI's analytical lift while warding against its documented
+failure modes --- fabrication, opacity, dual-use amplification, and the
+asymmetric collapse developed in \cref{sec:disc-asymmetry} and
+\cref{sec:disc-model-collapse}. The case-study substance is mostly
+prior community work; the contribution is the eight-practice register
+in \cref{sec:pandora} and the discipline that produced it. If the
+discipline is the contribution, then disagreement \emph{about} the
+discipline is the most useful kind of engagement a reader can offer,
+and it is the kind I am most hoping for.
+
+\paragraph{Frameworks evolve with capabilities.}
+The eight practices in \cref{sec:pandora} are calibrated to a specific
+snapshot --- Claude Opus 4.7, the Claude Code CLI, the Consensus
+literature front end, and consumer-IoT case studies in mid-2026. That
+snapshot will age. Some practices will be subsumed by tooling
+(transcript export becomes a click); some will become inadequate
+(verification-status legends will need finer grain); some I cannot yet
+name will need to be invented. Treat the eight as a starting point and
+a conversation opener, not a final state, and please tell me when you
+see one of the eight begin to age out.
+
+\paragraph{Pandora's jar is open.}
+The shattered-jar logo in the front matter is deliberate, and the
+framing is firm: the empirical literature on fabricated citations
+(\texttt{docs/sources.md} L-SLOP-1, L-SLOP-2), paper-mill output
+(L-SLOP-8), and longer-horizon model collapse (L-MC-1, L-MC-3)
+documents what is already out of the jar, and no appeal to obscurity,
+vendor terms of service, or moratoria on capability research will put
+it back. The intact-jar reference in \cref{sec:pandora} is the
+Hesiodic counterpoint: the jar can be closed only if Hope is what
+remains inside, and Hope here is operational --- structured,
+transparent, attributed practice that the next reader can audit,
+replicate, or refute. The point of the framing is not pessimism; it is
+to name what we are working with so the work has somewhere honest to
+go.
+
+\paragraph{The irony, acknowledged.}
+I am aware of the obvious irony of writing a paper \emph{about} the
+failure modes of AI-assisted research \emph{using} AI-assisted
+research. I do not have a clever way out of it, and pretending I did
+would itself be one of the failure modes. The honest answer is the one
+operationalised in \cref{sec:ai-disclosure}: AI usage is disclosed at
+the \emph{artifact} level, every claim is backed by an exportable
+transcript committed in this repository, and the methodology tries to
+make the discipline that --- absent disclosure --- would let the
+failure modes scale. Refusing to use the tools while writing about
+them would not have produced a more honest paper; it would have ceded
+the methodological ground to those who use them without disclosure
+(\cref{sec:disc-sloppification}, \cref{sec:disc-model-collapse}).
+Pandora's jar is open. The only way out is through, and ``through''
+looks like this --- disclosed, attributed, auditable, and willing to
+be argued with.
+
+\paragraph{What surprised me about the assistant.}
+Working through the case studies, I expected --- and braced for ---
+moments where the model would refuse to help me reverse-engineer a
+proprietary BLE protocol or pull credentials out of a vendored APK,
+or where the session would be flagged or terminated. That happened
+far less often than I anticipated. The dominant register was
+\emph{cooperative competence}, including for steps that an attacker
+would also want. This is a useful empirical observation, and a
+sobering one: it tells us that current guardrails are real but
+bounded, and that the surface they protect is much smaller than the
+surface they touch. The conclusion I take from this is uncomfortable
+but not pessimistic: guardrails are a band-aid --- necessary, but a
+band-aid (\cref{sec:disc-dual-use} develops this against the Mythos /
+Project Glasswing case). The durable answer is \emph{security by
+design at the artifact level} --- published specifications,
+authenticated and scoped APIs, and threat models that assume the
+existence of capable, willing, AI-augmented adversaries
+(\cref{fig:dual-use} and \cref{fig:threat-models}). Treating AI as
+just another vector under-counts what is changing; the magnitude and
+frequency of attempts that any given system will face is materially
+higher in 2026 than it was in 2024, and the trajectory points further
+the same way. Build for that.
+
+\paragraph{Open to constructive criticism --- actively.}
+I welcome criticism, replication attempts, and challenges to the
+framework --- to the eight practices, the case-study choices, and the
+legal framing in \cref{sec:ai-disclosure}. Disagree with the
+synthesis; surface a counter-example; flag a fabricated citation, an
+unsourced legal claim, or a verification-status entry that cannot
+survive scrutiny --- all of these are useful, and all of them are
+welcome. The transcript-as-artifact discipline (rule~4 in
+\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}) is what makes serious critique
+tractable: every claim in this paper is backed by an exportable
+conversation log committed in this repository, so an objection can
+land on a specific line, transcript, or commit rather than on vibes.
+If you find such a claim that cannot survive scrutiny, or if you simply
+have a better way to do any part of this, I genuinely want to hear it.
+
+\paragraph{Not a paper mill --- a shower-thought-to-plausibility loop.}
+This needs saying clearly because the empirical baseline is bad:
+paper-mill output and undisclosed AI-assisted production are the
+dominant failure modes (\texttt{docs/sources.md} L-SLOP-8, L-SLOP-1,
+L-SLOP-2). The methodology described here is designed to do the
+opposite. The agent pipeline (\texttt{docs/prompts/}) takes a
+\emph{hypothesis} --- often a ``shower thought'' provoked by a specific
+device, transcript, or paragraph --- and iterates it through structured
+passes (research $\rightarrow$ source analysis $\rightarrow$ scientific
+writing $\rightarrow$ illustration $\rightarrow$ layout / readability
+scrutiny). At each stage the question is the same:
+\emph{does this still look plausible against the evidence we now have?}
+Plausible hypotheses survive into the paper with their verification
+status visible; implausible ones are rejected, recorded in the logbook
+with a reason, and remain auditable. The output volume is therefore
+intentionally bounded by what survives plausibility, not by what an
+LLM can be cajoled into producing. The repository carries roughly as
+many lines of methodological scaffolding as paper prose precisely so
+the volume cannot run away from the verification.
+
+\paragraph{An invitation, in concrete form.}
+GitHub issues on this repository are a first-class channel for new
+ideas, counter-examples, and critique. Issues labelled \texttt{idea}
+(a hypothesis worth investigating), \texttt{critique} (a specific
+challenge to a claim, figure, or framing), or \texttt{provenance-gap}
+(a missing transcript or unverifiable artifact) feed directly into the
+agent pipeline. An \texttt{idea} triggers a research-protocol pass; a
+\texttt{critique} routes to the relevant scrutinizer hand-back; a
+\texttt{provenance-gap} routes to the meta-process case study
+(\cref{sec:case-meta}). If you have
+read this far, you are already the kind of reader I am writing for ---
+and the issue tracker is the best place to continue the conversation.
+
+% =========================================================================
 \section*{Executive Summary}
 \label{sec:executive-summary}
 \addcontentsline{toc}{section}{Executive Summary}
@@ -112,7 +282,7 @@ intermediate hardware-reverse-engineering proficiency is reachable in
 roughly 14 weeks of structured training~\citep{becker2020hwreexploratory};
 and the practitioner-handbook bookends move from the Grand / Huang
 2003--2004 baseline (bespoke equipment, expert-only skill floor) to van
-Woudenberg \& O'Flynn (2021/2022, single volume plus a roughly USD~300
+Woudenberg \& O'Flynn (2022, single volume plus a roughly USD~300
 toolchain). The asymmetry between the two evidence bases is itself a
 finding, treated as \cref{sec:synthesis-evidence-asymmetry}.
 
@@ -186,6 +356,7 @@ it has functioned as the de-facto interoperability barrier of the last decade.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig1-effort-gap.pdf}
+  \Description{Two cumulative-effort curves across reverse-engineering phases: a steep manual-baseline curve and a shallow AI-assisted curve, with the vertical gap between them marked.}
   \caption{\textbf{The effort gap.} Cumulative human effort to reach a working local integration across phases of a reverse-engineering project. AI-assisted analysis flattens the curve: the activation energy that historically gated practical interoperability work collapses, leaving a wide effort gap between the two trajectories. Data: \texttt{figures/data/effort-gap.csv}; script: \texttt{figures/fig1-effort-gap.py}.}
   \label{fig:effort-gap}
 \end{figure}
@@ -207,11 +378,12 @@ it instead magnify security risk by making obscurity ineffective?
         routinely exports telemetry that users did not bargain for.
         Ren et al.\ (2019, \emph{IMC}) characterised 81 devices in
         34{,}586 controlled experiments and documented unencrypted
-        exposures and traffic to third-party destinations [L-PRIV-1];
-        Nan et al.\ (2023) statically analysed \textbf{6{,}208} IoT
-        companion apps and found \textbf{1{,}973} of them --- covering
-        $\geq\,1{,}559$ distinct vendors --- exposing user data without
-        proper disclosure [L-PRIV-5]; Apthorpe et al.\ (2017) showed
+        exposures and traffic to third-party
+        destinations~\citep{ren2019iotinforming}; Nan et al.\ (2023)
+        statically analysed \textbf{6{,}208} IoT companion apps and
+        found \textbf{1{,}973} of them --- covering $\geq\,1{,}559$
+        distinct vendors --- exposing user data without proper
+        disclosure~\citep{nan2023iotapp}; Apthorpe et al.\ (2017) showed
         that even \emph{encrypted} IoT traffic leaks user activity to a
         passive observer [L-PRIV-2]. A local Home Assistant integration
         replaces the vendor-cloud round-trip with on-LAN BLE or HTTPS,
@@ -249,6 +421,7 @@ AI-assisted analysis lowers the barrier separating theory from practice.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig2-boredom-barrier.pdf}
+  \Description{Reaction-coordinate diagram showing two energy curves with identical endpoints; the AI-assisted curve has a lower activation-energy peak than the manual baseline.}
   \caption{\textbf{The boredom barrier.} Reaction-coordinate view of a reverse-engineering project. The thermodynamic endpoint --- a working integration --- is unchanged. AI-assisted analysis lowers the activation energy $E_\mathrm{a}$ by absorbing the rote, low-novelty work where most projects historically stalled.}
   \label{fig:boredom-barrier}
 \end{figure}
@@ -261,41 +434,49 @@ parallel, \emph{researcher-hypothesised and AI-assisted-research-confirmed}
 extension of the same thesis applies to the \textbf{hardware-side
 effort gap} --- the cost of physically extracting firmware, locating
 debug interfaces, and mounting side-channel or fault-injection attacks
-on commodity embedded devices. Two peer-reviewed quantitative anchors
-triangulate this hypothesis: the ChipWhisperer platform documents an
-approximately 100$\times$ equipment-cost reduction relative to prior
-commercial side-channel rigs (L-HW-RE-2)\footnote{Cluster A.2 entry
-L-HW-RE-2 (ChipWhisperer 2014) and the L-HW-RE-5 practitioner
-handbook cluster remain catalogued in \texttt{docs/sources.md} at
-grey-literature / pending-confirmation status: the load-bearing
-$\sim$100$\times$ equipment-cost quote could not be verbatim-retrieved
-from the 2014 paper in the Source Analyzer pass (all open-access
-mirrors returned HTTP~403), and the L-HW-RE-5 books are practitioner /
-grey literature rather than peer-reviewed sources; they are therefore
-referenced via this footnote rather than as inline citations, per the
-verification ladder (\texttt{CLAUDE.md}, 2026-05-02
-extension).\label{fn:hwre-cluster}}, and Vasile et al.'s systematic
-survey of 24 commercial IoT devices reports that an exposed UART
-suffices for firmware extraction in more than 45\% of cases
-(L-HW-RE-3)~\citep{vasile2018breakingallthethings}. A SOUPS 2020
-cognitive-process study finds that students reach intermediate
-hardware-reverse-engineering proficiency in 14 weeks of structured
-training, quantifying skill-floor compression
-(L-HW-RE-6)~\citep{becker2020hwreexploratory}. Practitioner handbooks
-bookend the period: the 2003--2004 Grand / Huang baseline (bespoke
-equipment, multi-day soldering, expert-only skill floor) and the
-2021/2022 van Woudenberg \& O'Flynn handbook (single volume + $\sim$USD
-300 toolchain) (L-HW-RE-5)\textsuperscript{\ref{fn:hwre-cluster}}.
-AI-assisted PCB component identification has matured; full netlist
-reconstruction is emerging
-(L-HW-RE-4)~\citep{botero2021hwretutorial}; and JTAGulator-class
+on commodity embedded devices.
+
+Two peer-reviewed quantitative anchors triangulate this hypothesis. The
+ChipWhisperer platform documents an approximately 100$\times$
+equipment-cost reduction relative to prior commercial side-channel
+rigs (L-HW-RE-2)\footnote{Cluster A.2 entry L-HW-RE-2 (ChipWhisperer
+2014) and the L-HW-RE-5 practitioner handbook cluster remain
+catalogued in \texttt{docs/sources.md} at grey-literature /
+pending-confirmation status: the load-bearing $\sim$100$\times$
+equipment-cost quote could not be verbatim-retrieved from the 2014
+paper in the Source Analyzer pass (all open-access mirrors returned
+HTTP~403), and the L-HW-RE-5 books are practitioner / grey literature
+rather than peer-reviewed sources; they are therefore referenced via
+this footnote rather than as inline citations, per the verification
+ladder (\texttt{CLAUDE.md}, 2026-05-02
+extension).\label{fn:hwre-cluster}}. Vasile, Oswald \& Chothia's
+systematic survey of 24 commercial IoT devices reports that an
+exposed UART suffices for firmware extraction in more than 45\% of
+cases~\citep{vasile2018breakingallthethings}.
+
+A SOUPS 2020 cognitive-process study finds that students reach
+intermediate hardware-reverse-engineering proficiency in 14 weeks of
+structured training, quantifying skill-floor
+compression~\citep{becker2020hwreexploratory}. A peer-reviewed
+embedded-systems attack taxonomy (Papp, Ma \& Butty{\'a}n,
+2015)~\citep{papp2015embedded} complements the cost- and skill-floor
+anchors at the categorisation layer.
+
+Practitioner handbooks bookend the period: the 2003--2004 Grand /
+Huang baseline (bespoke equipment, multi-day soldering, expert-only
+skill floor) and the 2022 van Woudenberg \& O'Flynn handbook (single
+volume + $\sim$USD 300 toolchain)
+(L-HW-RE-5)\textsuperscript{\ref{fn:hwre-cluster}}. AI-assisted PCB
+component identification has matured; full netlist reconstruction is
+emerging~\citep{botero2021hwretutorial}; and JTAGulator-class
 commodity devices, documented in grey literature, automate
-debug-interface discovery on unknown PCBs
-(L-HW-RE-1)~\citep{grand2013jtagulator}. The hardware-side cluster is presented as
-a \emph{triangulated practitioner observation}, not as a benchmarked
-finding equivalent to the software-side anchors; the asymmetry between
-the two evidence bases is itself a finding of this paper and is
-treated explicitly in \cref{sec:synthesis-evidence-asymmetry}.
+debug-interface discovery on unknown PCBs~\citep{grand2013jtagulator}.
+
+The hardware-side cluster is presented as a \emph{triangulated
+practitioner observation}, not as a benchmarked finding equivalent to
+the software-side anchors; the asymmetry between the two evidence
+bases is itself a finding of this paper and is treated explicitly in
+\cref{sec:synthesis-evidence-asymmetry}.
 
 The paper contributes:
 \begin{enumerate}
@@ -425,6 +606,7 @@ with its feedback loop is shown in Figure~\ref{fig:methodology}.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig5-methodology.pdf}
+  \Description{Four-stage block-diagram pipeline labelled Acquire, Analyse, Audit, Validate, with a feedback arrow from Validate back into Analyse.}
   \caption{\textbf{Methodology.} The four-stage pipeline used in both case studies: Acquire (artifacts \& prompt logs) $\rightarrow$ Analyse (LLM-assisted) $\rightarrow$ Audit (provenance, commit history, transcript review) $\rightarrow$ Validate (reproduce, replay, log failures), with an explicit feedback loop from validation back into analysis.}
   \label{fig:methodology}
 \end{figure}
@@ -463,6 +645,7 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig3-spider-farmer.pdf}
+  \Description{Architecture diagram of the Spider Farmer case: vendor APK and undocumented cloud endpoints feed an LLM-assisted analysis loop that emits a local Home Assistant integration plus archived transcripts.}
   \caption{\textbf{Case study A --- Spider Farmer.} The vendor surface (APK, on-device traffic, undocumented cloud endpoints) is collapsed by an LLM-assisted analysis loop into a working local Home Assistant integration. Prompt logs and transcripts are preserved as auditable research artifacts.}
   \label{fig:case-spider-farmer}
 \end{figure}
@@ -495,10 +678,37 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
   \item Concurrent-write safety via \texttt{asyncio.Lock} in
         \texttt{ble\_coordinator.py} line 79.
   \item Migration framework \texttt{async\_migrate\_entry} in
-        \texttt{\_\_init\_\_.py} line 95; the integration is now at
+        \texttt{\_\_init\_\_.py} line~95; the integration is now at
         \texttt{VERSION = 3} past the T4-era \texttt{1\,$\to$\,2}
-        migration (the \texttt{2\,$\to$\,3} step is presently undocumented
-        by any preserved transcript --- recorded as an open issue).
+        migration. The \texttt{2\,$\to$\,3} step is \textbf{not covered
+        by any preserved chat transcript}, but the migration logic
+        itself --- vendored at
+        \texttt{experiments/spider-farmer/original/\_\_init\_\_.py}
+        lines 95--135 --- is self-documenting and reconstructs to four
+        steps:
+        \begin{enumerate}
+          \item Drop the legacy MQTT-only config-entry fields
+                \texttt{uid} and \texttt{mqtt\_topic}.
+          \item Derive \texttt{pid} deterministically from the stored
+                BLE address (failing closed if no BLE address is
+                present).
+          \item Idempotently carry forward the
+                \texttt{v1\,$\to$\,v2} CB-key correction.
+          \item Bump the entry version and emit
+                \texttt{"Migrated Spider Farmer entry \%s to version 3
+                (BLE-only)"}.
+        \end{enumerate}
+        Architecturally this is a transport simplification (BLE-only;
+        MQTT retained only as a security-research dataset surface,
+        \S3.6), not a protocol change. \textbf{Provenance gap that
+        remains:} the upstream commit history of
+        \texttt{noheton/spider\_farmer} was not retrievable from the
+        build environment used for this paper (clone, GitHub API, and
+        codeload tarball all failed); reconstruction worked from the
+        embedded \texttt{original/} snapshot at repo commit
+        \texttt{ffdf60c} only. Date, commit SHA, and any associated PR
+        or issue thread for the v2\,$\to$\,v3 transition are therefore
+        \texttt{[unverified-external]}.
 \end{itemize}
 
 \begin{table}[htbp]
@@ -581,7 +791,7 @@ corroboration of the claim that the effort gap has collapsed for
 HA log timestamps anchor T3--T5 to 2026-04-25/26):
 
 \begin{center}
-\begin{tabular}{llll}
+\begin{tabularx}{\linewidth}{@{}l l >{\raggedright\arraybackslash}X r@{}}
 \toprule
 Phase & Transcript & Key event & Est.\ elapsed \\
 \midrule
@@ -595,7 +805,7 @@ Asset        & T7 & Logo addition (empty export; deliverable done) & $<$0.5\,h \
 \midrule
 \textbf{Total AI-assisted} & & & \textbf{$\sim$10.5\,h} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \textbf{Estimated manual baseline}: prior community implementations each took
@@ -665,6 +875,20 @@ Source register entries S-EF-1 through S-EF-6. Primary artifacts:
   \item \texttt{raw\_conversations (copy\&paste, web)/} (3 transcripts).
 \end{itemize}
 
+As of 2026-05-03 the upstream \texttt{noheton/powerocean-dev}
+repository has removed the APK splits, derivative APK analysis,
+vendor PDFs, vendor sample-code archive, GDPR-personal-data log
+files, and the \texttt{equipment.md} personal-data file from its
+working tree (commit
+\texttt{5c8b815cf9}~\citep{noheton2026powerocean5c8b815}), citing
+UrhG and GDPR concerns. The accompanying \texttt{doc/README.md}~\citep{noheton2026powerocean_docreadme}
+explicitly notes that \texttt{git rm} does not purge prior commits
+from repository history (a fresh-clone \texttt{git filter-repo}
+rewrite would be required for a true purge). The snapshot preserved
+here under \texttt{experiments/ecoflow-powerocean/original/}
+predates that redaction event and is retained for research
+provenance only.
+
 \subsection{AI-assisted analysis workflow}
 \label{sec:ef-workflow}
 Figure~\ref{fig:case-ecoflow} contrasts the vendor default (cloud-bound) with
@@ -673,13 +897,31 @@ the AI-assisted local-control architecture.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig4-ecoflow.pdf}
+  \Description{Two-panel diagram contrasting the EcoFlow vendor default (cloud-routed control) with the AI-assisted local-control architecture (LAN broker, no cloud hop required).}
   \caption{\textbf{Case study B --- EcoFlow PowerOcean.} Left: the vendor default routes home telemetry and user commands through a required cloud hop. Right: AI-assisted reverse engineering yields a protocol map and a local broker on the LAN, making the cloud optional and restoring data ownership.}
   \label{fig:case-ecoflow}
 \end{figure}
 
 \begin{enumerate}
   \item \textbf{APK string and action-field extraction} to enumerate
-        writeable parameters.
+        writeable parameters.\footnote{This describes the
+        \emph{researcher-side} method used in this case study. The
+        \emph{upstream-redistributable} method is now framed differently:
+        the upstream \texttt{noheton/powerocean-dev}
+        \texttt{DISCLAIMER.md} (added
+        2026-05-03)~\citep{noheton2026powerocean_disclaimer} documents
+        the integration's committed code as derived from observed
+        HTTP traffic between the EcoFlow mobile app and the EcoFlow
+        cloud API, citing \S{}~69e UrhG and Art.~6 of EU Software
+        Directive 2009/24/EC. Commit
+        \texttt{1aa96507ef}~\citep{noheton2026powerocean1aa9650}
+        separately captures OCPP-1.6 schema material from an APK
+        decompile, indicating a two-track methodology in which
+        decompilation supports protocol \emph{understanding} while
+        the redistributable artifact contains only traffic-observable
+        structures. The paper's case study documents the research
+        arm; the upstream disclaimer describes the redistribution
+        arm.}
   \item \textbf{Three-surface reconciliation} --- \texttt{apk.md} line 52
         documents the choice to use the legacy endpoint over the Open API,
         resolving the prior open question.
@@ -695,6 +937,7 @@ the AI-assisted local-control architecture.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig8-ecoflow-surfaces.pdf}
+  \Description{Diagram of three API surfaces (legacy REST, signed Open API, MQTT broker) terminating at the same EcoFlow device, with arrows showing which surface the consumer app and the integration each use.}
   \caption{\textbf{EcoFlow PowerOcean three API surfaces.} The legacy
     \texttt{setDeviceProperty} REST endpoint, the published Open API
     (HMAC-SHA256 signed), and the MQTT broker each terminate at the same
@@ -747,6 +990,25 @@ documented in-tree, not inferred.
         resolved before public release.
 \end{itemize}
 
+A subsequent upstream development surface --- the OCPP
+backend-binding work landed on \texttt{noheton/powerocean-dev}
+between 2026-05-01 and 2026-05-03 ($\sim$+440\,LOC across
+\texttt{api.py}, \texttt{\_\_init\_\_.py}, \texttt{services.yaml}, and
+\texttt{const.py}; new endpoints
+\fp{GET /provider-service/app/ocppPlatformConfig/list} and
+\fp{POST /provider-service/app/ocppPlatformConfig}) --- illustrates a
+concrete \emph{catalog-vs-runtime} asymmetry inside the same legacy
+bearer-token API plane: the integration can now write the
+EcoFlow-side OCPP catalog, but the upstream \texttt{README.md} notes
+a runtime-handover gap, namely a \texttt{vendorInfoSet} proto write
+that is \emph{not yet shipped} and that the charger requires before
+it will redirect to the third-party host at
+runtime~\citep{noheton2026powerocean5c8b815}. Catalog-level
+interoperability is therefore reachable while runtime-level
+interoperability is not --- a useful empirical data point for the
+synthesis on the maturity of effort-gap compression
+(\cref{sec:synthesis-evidence-asymmetry}).
+
 \subsection{KPI summary (EcoFlow PowerOcean)}
 \label{sec:ef-kpis}
 
@@ -754,7 +1016,7 @@ documented in-tree, not inferred.
 \texttt{implementation.md} internal cross-references):
 
 \begin{center}
-\begin{tabular}{llll}
+\begin{tabularx}{\linewidth}{@{}l l >{\raggedright\arraybackslash}X r@{}}
 \toprule
 Phase & Transcript & Key event & Est.\ elapsed \\
 \midrule
@@ -764,7 +1026,7 @@ Build+debug& T3 & Regex fix; 3-step config flow; \texttt{async\_step\_import}   
 \midrule
 \textbf{Total AI-assisted} & & & \textbf{$\sim$8\,h} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \textbf{Estimated manual baseline}: three API surfaces, no prior independent
@@ -928,9 +1190,13 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.95\linewidth]{fig9-verification-pipeline.pdf}
+  \Description{Two parallel verification pipelines (literature track and artifact track) with gated stages and arrows showing how each cited source progresses to a final confirmed status.}
   \caption{\textbf{Verification-status pipeline.} Each cited source
     progresses through gated stages on either the literature track
-    (\texttt{[needs-research]}\,$\to$\,\texttt{[lit-retrieved]}\,$\to$\,\texttt{[lit-read]})
+    (\texttt{[needs-research]}\,$\to$\,\texttt{[lit-retrieved]}\,$\to$\,\texttt{[ai-confirmed]}\,$\to$\,\texttt{[lit-read]};
+    the \texttt{[ai-confirmed]} stage is owned by the
+    Source Analyzer agent per the \texttt{CLAUDE.md} verification-status
+    ladder extension of 2026-05-02)
     or the artifact track
     (\texttt{[unverified-external]}\,$\to$\,\texttt{[repo-referenced]}\,$\to$\,\texttt{[repo-vendored]}).
     The legend in \texttt{docs/sources.md} makes the read-state of every
@@ -949,14 +1215,16 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
         to \texttt{[lit-read]} without the researcher actually reading the
         paper would be a fabrication. The empirical base rates make this
         concrete: Walters \& Wilder (2023) found \textbf{55\% of
-        ChatGPT-3.5 and 18\% of GPT-4 generated citations were fabricated}
-        in literature reviews, with a further 24--43\% of the \emph{real}
-        citations carrying substantive errors (\texttt{docs/sources.md}
-        L-SLOP-1). McGowan et al.\ (2023) found only \textbf{2 of 35}
-        ChatGPT-generated psychiatry citations were real (L-SLOP-4).
-        Chelli et al.\ (2024) measured hallucination rates of
-        28.6\%--91.4\% across LLMs in systematic-review reference
-        generation (L-SLOP-2). These are not edge cases.
+        ChatGPT-3.5 and 18\% of GPT-4 generated citations were
+        fabricated} in literature reviews, with a further 24--43\% of
+        the \emph{real} citations carrying substantive
+        errors~\citep{walters2023fabricated}. McGowan et al.\ (2023)
+        found only \textbf{2 of 35} ChatGPT-generated psychiatry
+        citations were real~\citep{mcgowan2023chatgpt}. Chelli et al.\
+        (2024) measured hallucination rates of 28.6\%--91.4\% across
+        LLMs in systematic-review reference
+        generation~\citep{chelli2024hallucination}. These are not edge
+        cases.
   \item \textbf{AI-generated legal analysis.} A specific opinion in
         transcript T3 line 147 (EcoFlow) is flagged in
         \texttt{docs/sources.md} and \cref{sec:disc-r2r} --- without that
@@ -983,7 +1251,7 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
 \textbf{Effort-gap timeline} (commit-anchored; all work 2026-05-01):
 
 \begin{center}
-\begin{tabular}{llll}
+\begin{tabularx}{\linewidth}{@{}l l >{\raggedright\arraybackslash}X r@{}}
 \toprule
 Phase & Commit & Key event & Est.\ elapsed \\
 \midrule
@@ -1001,7 +1269,7 @@ Democratisation \S{}10 & \texttt{dae235f} & Citizen-science / democratisation pa
 \midrule
 \textbf{Total AI-assisted (paper)} & & & \textbf{$\sim$17.5\,h} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \textbf{Estimated manual baseline}: writing a 10-section paper with FAIR
@@ -1121,7 +1389,7 @@ two parts:
         1{,}362{,}906 deployed IoT devices and found \textbf{28.25\%
         suffer from at least one N-days vulnerability}, with
         \textbf{88\% of analysed MQTT servers having no password
-        protection} (\texttt{docs/sources.md} L-CONS-1). Kumar et al.\
+        protection}~\citep{zhao2022iotbaseline}. Kumar et al.\
         (2019) studied 83 million devices in 16 million households and
         documented widespread weak default credentials and open
         services (L-CONS-2). Davis et al.\ (2020) explicitly compared
@@ -1134,18 +1402,19 @@ two parts:
         EcoFlow are not exceptional cases of consumer-IoT insecurity;
         they are the median.
   \item \textbf{Industrial / higher-end hardware is \emph{not}
-        automatically immune.} Serror et al.\ (2020) frame IIoT as
+        automatically immune.} Serror et al.\ (2021) frame IIoT as
         sharing many security concerns with consumer IoT despite its
         different goal stack of safety, productivity, and longer
-        lifetimes (L-IND-1). Antón et al.\ (2021) directly puncture
-        the ``industrial-grade therefore safer'' intuition: they
-        enumerated \textbf{$>$13{,}000 OT/ICS devices directly exposed
-        on the public internet, almost all containing at least one
-        vulnerability} (L-IND-2). Asghar et al.\ (2019) observe that
-        ICS were originally designed for isolated environments and
-        that modern enterprise integration has opened structural
-        cybersecurity problems that the original designs never
-        anticipated (L-IND-3). Higher cost, regulatory floors, and
+        lifetimes~\citep{serror2021iiot}. Duque Ant{\'o}n et al.\
+        (2021) directly puncture the ``industrial-grade therefore
+        safer'' intuition: they enumerated \textbf{$>$13{,}000 OT/ICS
+        devices directly exposed on the public internet, almost all
+        containing at least one
+        vulnerability}~\citep{duqueanton2021ics}. Asghar et al.\
+        (2019) observe that ICS were originally designed for isolated
+        environments and that modern enterprise integration has opened
+        structural cybersecurity problems that the original designs
+        never anticipated~\citep{asghar2019ics}. Higher cost, regulatory floors, and
         certification raise the \emph{baseline} but do not close the
         effort gap that AI assistance compresses.
 \end{itemize}
@@ -1285,6 +1554,7 @@ low across the entire spread.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/fig12-difficulty-taxonomy.pdf}
+\Description{Heat-map matrix with four device case-study rows and three difficulty-axis columns (cryptographic barrier, labour to break, blast radius), each cell shaded by qualitative rating.}
 \caption{Test-case difficulty taxonomy. Heat-map of the four
 device-integration case studies along three axes (cryptographic
 barrier; labour to break; blast radius) plus a composite spread
@@ -1358,11 +1628,11 @@ Security}) demonstrated cross-device vulnerability propagation through
 \emph{shared} companion-app components on $>$\,4{,}700 devices
 [L-IOTAPP-2]. Jin et al.\ (2022, \emph{ACM CCS}, IoTSpotter) found
 \textbf{94.11\% of 917 high-install IoT apps with severe cryptographic
-violations} at Google-Play scale [L-IOTAPP-3]. OConnor et al.\ (2021,
-\emph{CSET}) showed that 16 of 20 popular smart-home vendors are
-vulnerable to companion-app MITM attacks --- the same defect class as
-the Balboa W-3 broken-chain + \texttt{TrustAllStrategy} finding
-[L-IOTAPP-4]. Mauro Junior et al.\ (2019, \emph{IEEE SPW}) reported that
+violations} at Google-Play scale [L-IOTAPP-3]. OConnor, Jessee \&
+Campos~\citep{oconnor2021homealone} (2021, \emph{CSET}) showed that 16
+of 20 popular smart-home vendors are vulnerable to companion-app MITM
+attacks --- the same defect class as the Balboa W-3 broken-chain +
+\texttt{TrustAllStrategy} finding. Mauro Junior et al.\ (2019, \emph{IEEE SPW}) reported that
 96 top-selling WiFi IoT devices share only 32 unique companion apps,
 and that \textbf{50\% lack proper encryption} [L-IOTAPP-5]. Our four
 cases are coherent with this baseline; the contribution of
@@ -1373,6 +1643,7 @@ address.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\linewidth]{figures/fig13-pipeline-vulnerabilities.pdf}
+\Description{Hub-and-spoke diagram with six recurring vulnerability patterns from the four device case studies feeding into a central residual-risk node.}
 \caption{Vulnerabilities of IoT-integrator pipelines as a system class.
 Six recurring patterns visible across the four device case studies feed
 into a central residual-risk node. The mitigation set is structural
@@ -1395,25 +1666,27 @@ a 24.4\% cognitive-burden reduction in AI-assisted decompilation, a
 reverse-engineering tasks, and a $>$\,100\% re-executability rate for
 AI-assisted code synthesis. The hardware-side extension introduced in
 \cref{sec:contributions} rests on a structurally different evidence
-base: a single peer-reviewed equipment-cost anchor
-($\sim$\,100$\times$, ChipWhisperer 2014, L-HW-RE-2)\textsuperscript{\ref{fn:hwre-cluster}},
-a single peer-reviewed survey datapoint (Vasile et al.\ 2018,
-$>$\,45\% UART-suffices on 24 commercial IoT devices,
-L-HW-RE-3)~\citep{vasile2018breakingallthethings}, one peer-reviewed
-skill-floor study (Becker et al.\ 2020 SOUPS, 14-week
-intermediate-proficiency pathway,
-L-HW-RE-6)~\citep{becker2020hwreexploratory}, a peer-reviewed
-embedded-systems attack taxonomy (Papp, Ma \& Butty\'an 2015 IEEE PST,
-five-dimension taxonomy applied to a CVE
-subset)~\citep{papp2015embedded}, and a practitioner-handbook bookend
-pair (Grand 2004 / Huang 2003 $\rightarrow$ van Woudenberg \& O'Flynn
-2021/2022, L-HW-RE-5)\textsuperscript{\ref{fn:hwre-cluster}}
-supplemented by grey-literature anchors (JTAGulator,
-L-HW-RE-1)~\citep{grand2013jtagulator} and an emerging AI-assisted
-PCB-RE literature whose strongest published results remain at the
-component-detection layer rather than full netlist reconstruction
-(Botero et al.\ 2021 and follow-ons,
-L-HW-RE-4)~\citep{botero2021hwretutorial}.
+base. The single peer-reviewed equipment-cost anchor is the
+ChipWhisperer 2014 platform's $\sim$\,100$\times$ reduction
+(L-HW-RE-2)\textsuperscript{\ref{fn:hwre-cluster}}. The single
+peer-reviewed survey datapoint is Vasile, Oswald \& Chothia
+(2018)~\citep{vasile2018breakingallthethings}: an exposed UART
+suffices for firmware extraction in more than 45\% of 24 commercial
+IoT devices. The skill-floor anchor is Becker et al.\ (2020,
+SOUPS)~\citep{becker2020hwreexploratory}: students reach intermediate
+proficiency in 14 weeks of structured training. The attack-taxonomy
+complement is Papp, Ma \& Butty\'an (2015, IEEE
+PST)~\citep{papp2015embedded}, applying a five-dimension taxonomy to a
+CVE subset.
+
+Practitioner handbooks bookend the period (Grand 2004 / Huang 2003
+$\rightarrow$ van Woudenberg \& O'Flynn 2022,
+L-HW-RE-5)\textsuperscript{\ref{fn:hwre-cluster}}; JTAGulator-class
+commodity tooling supplements the cluster as grey
+literature~\citep{grand2013jtagulator}, and an emerging AI-assisted
+PCB-RE literature reports its strongest results at the
+component-detection layer rather than at full netlist
+reconstruction~\citep{botero2021hwretutorial}.
 
 We make this asymmetry explicit because honest framing of the evidence
 base is itself part of the contribution (\texttt{CLAUDE.md} rule 1).
@@ -1473,10 +1746,45 @@ device is cheap, and verifying an exploit against a live target is not. We
 argue this asymmetry is the most under-discussed feature of the post-LLM
 threat model.
 
+A live counter-data-point landed during the writing of this paper. On
+2026-04-07 Anthropic announced \textbf{Claude Mythos
+Preview}~\citep{anthropic2026glasswing,anthropicred2026mythos} ---
+a frontier model that, in the company's own published red-team work,
+autonomously identified zero-day vulnerabilities in \emph{every major
+operating system and every major web browser}.
+
+Specifically: the oldest such finding is a 27-year-old OpenBSD bug;
+Mythos chained four-vulnerability browser exploits with JIT
+heap-spray, autonomously obtained local privilege escalation via
+subtle race conditions and KASLR bypass, and split a multi-gadget ROP
+chain across packets to root unauthenticated NFS servers. Crucially
+for this paper's thesis, it also reverse-engineers stripped
+closed-source binaries to plausible source code at scale --- the
+strongest published acknowledgement to date that the offensive-side
+gap is closing faster than the L-VD-1\,/\,L-VD-2 era of evidence
+(which the \cref{sec:contributions} framing was calibrated against)
+suggested.
+
+Mythos is not yet broadly deployed adversarial capability. Anthropic
+chose \emph{not} to release it generally, instead launching
+\textbf{Project Glasswing}, a coordinated defensive deployment to AWS,
+Apple, Cisco, CrowdStrike, Google, JPMorganChase, Linux Foundation,
+Microsoft, NVIDIA, and Palo Alto Networks. Anthropic shipped the more
+cautious Claude Opus 4.7~\citep{anthropic2026opus47} as the
+safeguarded sibling. But the existence proof is now concrete: capable
+autonomous offensive AI is on hand at a frontier lab, and the lab
+itself describes it as a \emph{``watershed''} demanding
+industry-coordinated defence. The asymmetry-of-collapse argument in
+this section is not falsified --- verifying an integration is still
+cheaper than verifying an exploit --- but the gap is narrower, and
+the time horizon over which it remains a defender-favouring
+asymmetry is shorter, than this paper's first draft assumed.
+
 % Rule 14: data source = figures/data/stage-effort.csv; generation script = figures/fig10-stage-effort.py
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.96\linewidth]{fig10-stage-effort.pdf}
+  \Description{Two-panel chart: left, grouped bars for AI-assisted versus manual-baseline hours per workflow stage with error bars; right, per-stage compression-ratio bars.}
   \caption{\textbf{Stage-by-stage effort gap.} Left: AI-assisted vs
     manual-baseline effort per workflow stage (Discovery, Build, Debug,
     Validation) for the two integration case studies, with manual ranges
@@ -1511,6 +1819,7 @@ access at every hop.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig6-dual-use.pdf}
+  \Description{Scatter plot with interoperability gain on the x-axis and security risk on the y-axis; a dashed envelope shows AI-assisted outcomes spanning a wider distribution than manual-only outcomes.}
   \caption{\textbf{Dual-use map.} Outcomes of AI-assisted reverse engineering plotted by interoperability gain ($x$) versus security risk ($y$). The dashed envelope shows how AI broadens the reachable distribution: legitimate use cases gain reach, but so do high-risk ones --- the policy question is which quadrants to incentivise.}
   \label{fig:dual-use}
 \end{figure}
@@ -1518,9 +1827,44 @@ access at every hop.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig7-threat-models.pdf}
+  \Description{Side-by-side network diagram: left, single perimeter enclosing implicitly trusted devices; right, per-hop authenticated topology where a breach stays local.}
   \caption{\textbf{Two threat models.} Left: a single perimeter protects implicitly trusted devices --- once breached, the whole system is exposed. Right: every hop is authenticated against a published specification; a breach stays local. AI-assisted reverse engineering punctures the left model and rewards systems built on the right.}
   \label{fig:threat-models}
 \end{figure}
+
+\paragraph{Guardrails as band-aid: a security-by-design imperative.}
+The Project Glasswing model (\cref{sec:disc-asymmetry}) and the
+safeguarded Claude Opus 4.7
+release~\citep{anthropic2026opus47} are interesting precisely as a
+\emph{concrete public example of guardrails as band-aid}. Anthropic's
+response to demonstrating Mythos's offensive capability was not to
+install guardrails sufficient to release Mythos broadly --- they
+explicitly chose not to release it generally, and the safeguards
+bolted onto Opus 4.7 are described as ``automatically detect and
+block requests that indicate prohibited or high-risk cybersecurity
+uses''. This is necessary work, and Anthropic is being unusually
+transparent about it. But the band-aid is structural: every guardrail
+is a classifier, every classifier has a false-negative rate, and any
+false-negative rate combined with autonomous offensive capability and
+global proliferation \emph{plausibly} converges to attacker-side
+capability over a horizon whose length we cannot yet quantify ---
+a claim we present as engineering intuition rather than proof, and
+one the
+L-MYTHOS evidence base~\citep{anthropic2026glasswing,anthropicred2026mythos}
+documents qualitatively but does not yet bound numerically. The author's own observation while writing this
+paper (Author's Note: \emph{What surprised me about the assistant})
+corroborates this from the inside: Opus 4.7 --- the safeguarded
+sibling --- was \emph{cooperatively competent} at the steps an
+attacker would also want, and the session was not flagged. The
+durable answer is \emph{security by design at the artifact level}
+--- published specifications, authenticated and scoped APIs, and
+threat models that assume the existence of capable, willing,
+AI-augmented adversaries (\cref{fig:dual-use},
+\cref{fig:threat-models}). The frame to retire is ``AI is just
+another vector''; the frame to adopt is \emph{AI massively increases
+the magnitude and frequency of attempts that any given system will
+face, and only systems that survive that increase by design will
+survive at all}.
 
 \subsection{The paper as evidence for its own thesis}
 \label{sec:disc-recursion}
@@ -1539,33 +1883,31 @@ The most concrete and under-managed risk of AI-assisted research is what
 we call the \emph{methodological discount} --- the unspoken trade-off in
 which a researcher accepts a degraded standard of evidence in exchange
 for AI-assisted speed. Empirical work on LLMs in scientific writing now
-documents this risk concretely:
+documents this risk concretely.
+The base-rate evidence is established in
+\cref{sec:meta-security}: independent samples by Walters \&
+Wilder~\citep{walters2023fabricated},
+McGowan~et~al.~\citep{mcgowan2023chatgpt}, and Chelli et
+al.~\citep{chelli2024hallucination} bracket the same effect across
+multidisciplinary, psychiatric, and systematic-review contexts. Three
+further empirical layers extend that base-rate picture:
 \begin{itemize}
-  \item Walters \& Wilder (2023), \emph{Scientific Reports}, found that
-        \textbf{55\% of GPT-3.5 and 18\% of GPT-4 generated citations
-        were fabricated} in literature reviews, with a further substantial
-        fraction of \emph{real} citations carrying substantive errors
-        (\texttt{docs/sources.md} L-SLOP-1).
-  \item McGowan et al.\ (2023), \emph{Psychiatry Research}, found only
-        \textbf{2 of 35} ChatGPT-generated psychiatry citations were
-        real; the remaining 33 were either subtly wrong or pastiches of
-        existing manuscripts (L-SLOP-4).
-  \item Chelli et al.\ (2024), \emph{JMIR}, measured hallucination rates
-        of 28.6\%--91.4\% and recall rates as low as 11.9\% across LLMs
-        in systematic-review reference generation (L-SLOP-2).
-  \item Buchanan \& Hill (2023) document $>$30\% non-existent citations
-        in ChatGPT outputs across the \emph{Journal of Economic
-        Literature} topic taxonomy (L-SLOP-3).
-  \item Suchak et al.\ (2025), \emph{PLOS Biology}, document a real-world
-        consequence: NHANES-based formulaic single-factor papers grew
-        from 4 per year (2014--2021) to \textbf{190 in the first ten
-        months of 2024} --- direct evidence of paper-mill / AI-assisted
-        output flooding the literature (L-SLOP-8).
-  \item Kendall \& Teixeira da Silva (2023), \emph{Learned Publishing},
-        and Sabel et al.\ (2025, \emph{Royal Society Open Science}, the
-        Stockholm Declaration) frame this at the system level: paper
+  \item Buchanan, Hill \& Shapoval~\citep{buchanan2024fabricated},
+        \emph{The American Economist}, replicate the fabrication
+        finding ($>$30\% non-existent ChatGPT citations) in a third
+        discipline, with reliability decreasing as prompts become more
+        specific.
+  \item Suchak et al.~\citep{suchak2025nhanes}, \emph{PLOS Biology},
+        document a real-world consequence: NHANES-based formulaic
+        single-factor papers grew from 4 per year (2014--2021) to
+        \textbf{190 in the first ten months of 2024} --- direct
+        empirical evidence of paper-mill / AI-assisted output flooding
+        the literature.
+  \item Kendall \& Teixeira da Silva (2024), \emph{Learned Publishing},
+        and Sabel \& Larhammar~\citep{sabel2025stockholm}, the
+        Stockholm Declaration, frame this at the system level: paper
         mills are now AI-assisted at industrial scale, and the
-        publishing model needs structural reform (L-SLOP-5, L-SLOP-7).
+        publishing model needs structural reform (L-SLOP-5).
 \end{itemize}
 The mitigation we operationalise is mundane: a verification-status
 legend (\texttt{[lit-retrieved]} / \texttt{[lit-read]}) that makes the
@@ -1578,15 +1920,17 @@ discipline that the model cannot perform.
 \label{sec:disc-model-collapse}
 A second, longer-horizon argument cuts in the opposite direction.
 Shumailov et al.\ (2024, \emph{Nature}) showed that \textbf{AI models
-trained recursively on AI-generated content collapse} --- the tails of
-the original distribution disappear and successive generations of models
-forget the genuine human-data signal (L-MC-1, L-MC-7). Seddik et al.\
-(2024) prove this is unavoidable when training is purely synthetic but
-bounded when synthetic and real data are mixed below a threshold
-(L-MC-3). Gerstgrasser et al.\ (2024) extend this further:
+trained recursively on AI-generated content
+collapse}~\citep{shumailov2024modelcollapse} --- the tails of the
+original distribution disappear and successive generations of models
+forget the genuine human-data signal. Seddik et
+al.~\citep{seddik2024collapse} prove this is unavoidable when training
+is purely synthetic but bounded when synthetic and real data are mixed
+below a threshold. Gerstgrasser et
+al.~\citep{gerstgrasser2024accumulate} extend this further:
 \emph{accumulating} real and synthetic data over time (rather than
 replacing real with synthetic) can avoid collapse entirely, with a
-finite test-error upper bound independent of iteration count (L-MC-4).
+finite test-error upper bound independent of iteration count.
 Suresh et al.\ (2024) characterise the \emph{rate} of collapse for
 fundamental distributions (L-MC-5); ForTIFAI / Shabgahi et al.\ (2025)
 propose confidence-aware training objectives that delay collapse onset
@@ -1755,18 +2099,18 @@ integrations are one of the few user-side instruments that materially
 close the gap.
 
 \paragraph{The empirical baseline is severe.}
-Ren et al.\ (2019, \emph{IMC}) is the cornerstone measurement: 81
-consumer IoT devices in US/UK labs, 34{,}586 controlled experiments
+Ren et al.~\citep{ren2019iotinforming} is the cornerstone measurement:
+81 consumer IoT devices in US/UK labs, 34{,}586 controlled experiments
 characterising destinations, encryption state, inferable interactions,
 and unexpected exposures (including a recording device that covertly
-transmitted video) [L-PRIV-1]. Apthorpe et al.\ (2017) showed that even
-when the payload \emph{is} encrypted, traffic-rate side channels reveal
-sensitive user interactions to a passive observer such as the user's ISP
-for four representative devices (sleep monitor, indoor camera, smart
-switch, smart speaker) [L-PRIV-2]. Acar et al.\ (2018) reported $>$\,90\%
-accuracy in identifying device states and ongoing user activities from
-passively-sniffed encrypted traffic across WiFi, ZigBee, and BLE
-[L-PRIV-3]. Apthorpe et al.\ (2018) surveyed 1{,}731 US adults across
+transmitted video). Apthorpe et al.\ (2017) showed that even when the
+payload \emph{is} encrypted, traffic-rate side channels reveal
+sensitive user interactions to a passive observer such as the user's
+ISP for four representative devices (sleep monitor, indoor camera,
+smart switch, smart speaker) [L-PRIV-2]. Acar et
+al.~\citep{acar2020wisec} (WiSec 2020) reported $>$\,90\% accuracy in
+identifying device states and ongoing user activities from
+passively-sniffed encrypted traffic across WiFi, ZigBee, and BLE. Apthorpe et al.\ (2018) surveyed 1{,}731 US adults across
 3{,}840 contextual-integrity information flows and found that the egress
 patterns documented in the measurement studies are \emph{contrary to}
 what users hold as smart-home privacy norms, not just contrary to a
@@ -1774,11 +2118,12 @@ regulatory ideal [L-PRIV-4].
 
 \paragraph{The companion-app surface compounds the cloud surface.}
 Most consumer IoT devices route a second telemetry path through their
-mobile companion app. Nan et al.\ (2023) statically analysed
-\textbf{6{,}208} IoT companion apps and identified \textbf{1{,}973} that
-exposed user data --- health status, home address, behavioural patterns
---- to first or third parties without proper disclosure, covering
-devices from at least \textbf{1{,}559 distinct vendors} [L-PRIV-5].
+mobile companion app. Nan et al.~\citep{nan2023iotapp} statically
+analysed \textbf{6{,}208} IoT companion apps and identified
+\textbf{1{,}973} that exposed user data --- health status, home
+address, behavioural patterns --- to first or third parties without
+proper disclosure, covering devices from at least \textbf{1{,}559
+distinct vendors}.
 Tazi et al.\ (2025) and Neupane et al.\ (2022) audited 455 IoT companion
 apps and found systematic over-requesting of permissions unrelated to
 the apps' stated purpose, with two of the analysed apps transmitting
@@ -1945,6 +2290,7 @@ offers.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\linewidth]{figures/fig14-malicious-integrator.pdf}
+\Description{Branching workflow diagram: the IoT-Integrator pipeline shares Phases 0 to 2 across researcher and adversarial branches, then diverges at the Phase-2 weakness analysis into two distinct Phase-3 deliverables.}
 \caption{The malicious IoT-integrator agent: same prompt, different
 governance. Phases 0--2 of the IoT-Integrator pipeline are shared
 between researcher-governed and adversarial variants; the divergence
@@ -1974,12 +2320,12 @@ the APKPure listing for \texttt{fr.ondilo.ico.icomanager} as its
 manifest source; both flows generalise.
 
 The published literature already documents the per-vendor base rate.
-Sivakumaran et al.\ (2023) found
+Sivakumaran et al.~\citep{sivakumaran2023bleguuide} (2023) found
 \textbf{$>$70\% of 17{,}243 BLE-enabled Android APKs contain at least
-one security vulnerability} [L-BLE-4]; Nan et al.\ (2023) statically
-analysed \textbf{6{,}208 IoT companion apps} and identified
-\textbf{1{,}973} that exposed user data, covering devices from at least
-\textbf{1{,}559 distinct vendors} [L-PRIV-5]. Corpus-scale precedents
+one security vulnerability}; Nan et al.~\citep{nan2023iotapp} (2023)
+statically analysed \textbf{6{,}208 IoT companion apps} and identified
+\textbf{1{,}973} that exposed user data, covering devices from at
+least \textbf{1{,}559 distinct vendors}. Corpus-scale precedents
 extend across the wider Android ecosystem: Chen et al.\ (2015, MassVet)
 vetted \textbf{1.2 million apps from 33 markets} at 10-second-per-app
 throughput and captured $>$\,100{,}000 malicious apps including 20+
@@ -2067,6 +2413,7 @@ per-vendor vulnerability research today.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.97\linewidth]{figures/fig15-apk-mass-probing.pdf}
+\Description{Five-stage horizontal pipeline: APK repository, fetch and unpack, static probe, DEX-grep with identity-provider discovery, per-vendor weakness inventory and corporate flow graph.}
 \caption{Automated mass probing of public APK repositories. The
 five-stage pipeline (repository $\to$ fetch+unpack $\to$ static probe
 $\to$ DEX-grep + identity-provider discovery $\to$ per-vendor weakness
@@ -2172,6 +2519,7 @@ not of an absolute scale, and a reader should not treat ``Easy'' /
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/fig16-scope-limitations.pdf}
+\Description{Concentric perimeter diagram: an inner ring lists five in-scope dimensions of the study, each paired with its corresponding named exclusion on the outer ring.}
 \caption{Scope and limitations of the study. Concentric perimeter
 diagram: an inner ring labels the five in-scope dimensions (case base;
 unit of analysis; validation completeness; literature read-state;
@@ -2213,9 +2561,12 @@ to be designed, not assumed.
   \item Replace \texttt{[unverified-external]} legal sources with sourced
         commentary; address \texttt{[needs-research]} items in
         \texttt{docs/sources.md}.
-  \item Reconstruct the Spider Farmer
-        \texttt{VERSION 2\,$\to$\,3} migration step that no preserved
-        transcript currently documents.
+  \item Recover upstream \texttt{noheton/spider\_farmer}
+        commit-history metadata (date, SHA, PR/issue references) for
+        the \texttt{VERSION 2\,$\to$\,3} migration. The technical
+        content of the migration has been reconstructed from the
+        embedded \texttt{original/\_\_init\_\_.py} (see \S3.4); only
+        the dated commit-history narrative remains outstanding.
   \item Read in full the \texttt{[lit-retrieved]} literature in
         \texttt{docs/sources.md} clusters A--J and upgrade entries to
         \texttt{[lit-read]} before any of them is cited as authority
@@ -2231,10 +2582,12 @@ to be designed, not assumed.
 This paper was developed with Claude (Opus 4.7 model family) by
 Anthropic, running in the Claude Code CLI~\citep{anthropic2026claude}.
 Specific session details, model versions, and conversation transcripts
-are committed under \texttt{experiments/*/raw\_conversations
-(copy\&paste, web)/} (notably
-\texttt{experiments/paper-meta-process/raw\_conversations (copy\&paste,
-web)/T1-paper-structure-and-literature.md}) and referenced in
+are committed under
+\seqsplit{\texttt{experiments/*/raw\_conversations}}~\seqsplit{\texttt{(copy\&paste,~web)/}}
+(notably the paper-meta-process transcript
+\seqsplit{\texttt{T1-paper-structure-and-literature.md}} under
+\seqsplit{\texttt{experiments/paper-meta-process/raw\_conversations}}~\seqsplit{\texttt{(copy\&paste,~web)/}})
+and referenced in
 \texttt{docs/logbook.md}. Structured literature retrieval was performed
 via the Consensus academic-database front end (Semantic Scholar /
 PubMed / Scopus / arXiv); the queries used and the candidate citations
@@ -2436,55 +2789,6 @@ all carry the affiliation \textbf{``Independent researcher (personal
 capacity)''} in line with this statement.
 
 % =========================================================================
-\section{Author's Note}
-\label{sec:authors-note}
-
-A short methodological reflection.
-
-\paragraph{Process, not product.}
-View this work less as the \emph{output} of frontier agentic AI and
-more as a \emph{process} --- a methodology that tries to leverage
-generative AI's analytical lift while warding against its failure
-modes: fabrication, opacity, dual-use amplification, and the
-asymmetric collapse described in \cref{sec:disc-asymmetry} and
-\cref{sec:disc-model-collapse}. The case-study substance is mostly
-prior community work; the contribution is the eight-practice register
-in \cref{sec:pandora} and the discipline that produced it.
-
-\paragraph{Frameworks evolve with capabilities.}
-The eight practices in \cref{sec:pandora} are calibrated to a specific
-snapshot --- Claude Opus 4.7, the Claude Code CLI, the Consensus
-literature front end, and consumer-IoT case studies in mid-2026. As
-capabilities and tooling evolve, the register must evolve with them.
-Some practices will be subsumed by tooling (transcript export becomes a
-click), some will become inadequate (verification-status legends will
-need finer grain), and some I cannot yet name will need to be invented.
-Treat the eight as a starting point, not a final state.
-
-\paragraph{Pandora's jar is open.}
-The shattered-jar logo in the front matter is deliberate. The
-empirical literature on fabricated citations, paper-mill output, and
-model collapse documents what is already out --- and no appeal to
-obscurity, vendor terms of service, or moratoria on capability research
-will put it back. The intact-jar reference in \cref{sec:pandora} is
-the Hesiodic counterpoint: the jar can be closed only if Hope is what
-remains inside, and Hope here is operational --- structured,
-transparent, attributed practice that the next reader can audit,
-replicate, or refute.
-
-\paragraph{Open to constructive criticism.}
-I (Florian Krebs) welcome criticism, replication attempts, and
-challenges to the framework --- to the eight practices, the case-study
-choices, and the legal framing in \cref{sec:ai-disclosure}. The
-transcript-as-artifact discipline (rule~4 in
-\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}) is precisely the affordance
-that makes such critique possible: every claim is backed by an
-exportable conversation log committed in this repository. If you find
-a fabricated citation, an unsourced legal claim, or a
-verification-status entry that cannot survive scrutiny, I want to hear
-about it.
-
-% =========================================================================
 \section{The Pandora moment: this paper as a novel mode of transparent AI-assisted research}
 \label{sec:pandora}
 
@@ -2498,6 +2802,7 @@ the rim of the great jar, and did not fly out at the door.''}\\
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.55\linewidth]{figures/logo-pandora-jar-intact.png}
+\Description{Stylised illustration of an intact ceramic jar, the Hesiodic counterpoint to the shattered-jar logo in the front matter.}
 \caption{The proverbial jar --- intact: the Hesiodic counterpoint to
 the shattered-jar front-matter logo. (Asset generated by Google
 Gemini at the author's request, 2026-05-02; rule~1.)}
@@ -2507,12 +2812,14 @@ Gemini at the author's request, 2026-05-02; rule~1.)}
 Pandora's jar is open. Generative AI is now a routine part of how
 scientific manuscripts are drafted, and the empirical literature
 documents what comes out of the jar: fabricated citation rates of
-18\%--55\% for raw GPT outputs (\texttt{docs/sources.md} L-SLOP-1),
+18\%--55\% for raw GPT outputs~\citep{walters2023fabricated},
 hallucination rates up to 91.4\% in systematic-review reference
-generation (L-SLOP-2), paper-mill output growing from 4 to 190 NHANES
-papers in a single year (L-SLOP-8), and a longer-horizon model-collapse
+generation~\citep{chelli2024hallucination}, paper-mill output growing
+from 4 to 190 NHANES papers in a single
+year~\citep{suchak2025nhanes}, and a longer-horizon model-collapse
 risk in which the next generation of foundation models is trained on
-the corrupted outputs of the present one (L-MC-1, L-MC-3). These
+the corrupted outputs of the present
+one~\citep{shumailov2024modelcollapse, seddik2024collapse}. These
 problems are not solved by refusing to use AI; refusal does not put the
 technology back in the jar, and it concedes the ground of methodological
 practice to those who \emph{do} use it without disclosure. What is left
@@ -2578,18 +2885,52 @@ of AI-assisted research:
         satisfies it.
 \end{enumerate}
 
+A \emph{ninth} practice has come into focus during this paper's own
+preparation, and is logged here for the next iteration of the
+framework rather than added to \cref{fig:eight-practices}. It
+addresses a meta-question that the eight practices above do not
+directly answer --- \emph{how do we safeguard against unintentional
+plagiarism?} The verification ladder (practice 2) and provenance maps
+(practice 3) make every cited claim auditable, and the
+transcript-as-artifact discipline (practice 1) makes the
+prompt-to-paragraph link explicit; what they do \emph{not} directly
+catch is a generation-time risk: that an LLM might reproduce passages
+from its training data closely enough to constitute plagiarism even
+when neither the human author nor the model intends it.
+
+\begin{enumerate}
+  \setcounter{enumi}{8}
+  \item \textbf{Verbatim-string scanning against the assistant's
+        likely training corpus.} The mitigation operationalised in
+        this paper is mundane and partial: every paper-ready paragraph
+        is searched against the public web (Exa MCP
+        \texttt{web\_search\_exa}) for suspicious verbatim $n$-gram
+        hits before commit; matches above a threshold are either
+        replaced with paraphrase plus citation, or wrapped in an
+        inline quotation with attribution. This is a \emph{first cut}.
+        It does not catch paraphrase-level overlap (which requires
+        similarity tooling beyond exact-string search), and it does
+        not catch overlap with closed corpora the assistant was
+        trained on. The honest framing is that the plagiarism-safeguard
+        problem in the AI-assisted-writing era is not yet solved, and
+        that practice~9 will need to evolve with detection tooling as
+        that tooling matures. It is named here so that the \emph{next}
+        iteration of this framework can argue with it, replace it, or
+        tighten it (Author's Note: \emph{Frameworks evolve with
+        capabilities}).
+\end{enumerate}
+
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.95\linewidth]{fig11-eight-practices.pdf}
+  \Description{Grid with eight practice rows and three failure-mode-axis columns; each cell carries either a P (principal mitigation) or S (secondary mitigation) marker, demonstrating that every axis is principally addressed.}
   \caption{\textbf{Eight integrated practices $\times$ three failure-mode
-    axes.} Each row is one of the eight numbered practices listed above;
-    each column is one of the three failure-mode axes the paper organises
-    around. \texttt{P} marks the principal mitigation, \texttt{S} a
-    secondary mitigation. Intended as the visual abstract for the
-    submission: the methodological novelty is not any single row but the
-    integration --- every failure-mode axis is principally addressed by
-    at least one practice and secondarily reinforced by at least one
-    other. Script: \texttt{figures/fig11-eight-practices.py}.}
+    axes.} See the in-figure legend for the P / S mitigation roles.
+    Intended as the visual abstract for the submission: the
+    methodological novelty is not any single row but the integration
+    --- every failure-mode axis is principally addressed by at least
+    one practice and secondarily reinforced by at least one other.
+    Script: \texttt{figures/fig11-eight-practices.py}.}
   \label{fig:eight-practices}
 \end{figure}
 
@@ -2617,6 +2958,30 @@ reading the artifacts the protocol produces. We do not claim to
 subsume the Stockholm Declaration's system-level reforms or
 Cheng~et~al.'s practitioner guidelines; we claim to extend them into a
 runnable protocol whose compliance is checkable per artifact.
+
+\paragraph{A real-world precedent for the redaction discipline.}
+Two of the eight practices --- provenance maps (practice~3) and FAIR
+alignment (practice~8) --- sit alongside an unlisted hygiene step
+that this paper enforces under \texttt{CLAUDE.md} rules 12 and 13:
+secrets, personal data, and other rule-12 material must be redacted
+\emph{and} purged from git history before any public-facing release,
+because \texttt{git rm} alone leaves the deleted blobs reachable from
+prior commits. A recently-dated, publicly-visible enactment of
+exactly this discipline appeared during this paper's preparation: on
+2026-05-03 the upstream \texttt{noheton/powerocean-dev} integration
+removed its \texttt{doc/} subtree (APK splits, derivative APK
+analysis, vendor PDFs, vendor sample-code archive,
+GDPR-personal-data files, raw extraction logs) on UrhG / GDPR
+grounds and replaced it with an 80-line \texttt{doc/README.md} that
+explicitly notes ``\texttt{git rm} does not purge history'' and
+points readers to \texttt{git filter-repo} on a fresh clone for a
+true
+purge~\citep{noheton2026powerocean5c8b815,noheton2026powerocean_docreadme}.
+The precedent strengthens the methodological argument made here
+without requiring this paper to claim attribution: an independent
+AI-assisted-integration project, working under separate constraints,
+arrived at the same redaction-and-history-rewrite step that the
+paper's rule-12 / rule-13 framing demands.
 
 \paragraph{A fourth structural claim: democratisation of science production.}
 The effort-gap collapse documented in

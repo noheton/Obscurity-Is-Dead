@@ -115,6 +115,24 @@ order and dispatching the first that fires.
 | 8 | Most recent readability-defect-registry has `RE-SCRUTINY REQUIRED: yes` and `paper/main.md` is newer than the registry. | Stage 5 (Readability & Novelty Scrutinizer). |
 | 9 | All scrutinizer registries report `RE-SCRUTINY REQUIRED: no` AND no open writer/illustrator hand-backs remain. | **PIPELINE QUIESCENT** — escalate to the human author for the next directive (publication-track decision, new case study, or repository hygiene). |
 
+### GitHub-issue dispatch table
+
+Open GitHub issues with the following labels are now first-class inputs
+to the pipeline. The orchestrator **must** poll open issues at the start
+of every pipeline run (mandatory, not conditional on the absence of a
+human directive) via the GitHub MCP tools where available
+(`mcp__github__list_issues`, `mcp__github__issue_read`) and otherwise
+ask the human author for a current snapshot. The poll result must be
+recorded in the dispatch directive's preamble (issue numbers, labels,
+and the routing applied to each); a "no open issues" outcome is also
+recorded explicitly. Each label maps to a dispatch as follows:
+
+| Label | Dispatch | Notes |
+|-------|----------|-------|
+| `idea` | Stage 1 (Research Protocol) with the issue body as the seed hypothesis. | Treat the issue title/body as the case-study or claim being proposed; cite the issue number in the resulting `docs/sources.md` and `docs/logbook.md` entries (rule 2). |
+| `critique` | **Default route: Stage 2 (Scientific Writer)** with the issue body appended as a writer hand-back. The orchestrator may override to Stage 4 (Layout Scrutinizer) or Stage 5 (Readability & Novelty Scrutinizer) only if the critique unambiguously targets layout or readability and the writer has nothing to do with it; otherwise Stage 2 owns the response. | Routing decision must be recorded in the dispatch directive's `Decision rule fired` line. Sub-labels (`critique:layout` / `critique:readability` / `critique:prose`) are not required; absent a sub-label, default to Stage 2. |
+| `provenance-gap` | Stage 1 (Research Protocol) targeted at the named experiment, AND a meta-process note in §5 (Termination/escalation) summarising which provenance gap was opened and which artifact class is implicated. | The meta-process note ensures provenance gaps are visible to the human author at quiescence even if the research pass closes them silently. |
+
 Conflict resolution:
 
 - If a writer- and illustrator-owned defect target the same float

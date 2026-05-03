@@ -1,155 +1,80 @@
-# Layout Scrutinizer — Hand-back to Scientific Writer
+# Layout → Writer Hand-back
 
-Source: `docs/handbacks/layout-defect-registry.md` (PDF SHA-256
-`62e68f6a5208814d47a51a8124bc7c7a836e7c9f3104951bc40a5c8dfda81384`,
-build 2026-05-02T19:44:30Z, 42 pages, rebuilt by writer pass `537fae2`).
+> Stage 4 (Layout Scrutinizer) — round 3, 2026-05-03 (Claude Opus 4.7).
+> Branch: `claude/review-open-issues-PfNx9`. Commit under inspection:
+> `37ded1f`. PDF: 54 pages, SHA-256
+> `4a85be8dd1b56221aa94920da184f9014babb6b45be8dd6098c47677d745de15`.
+> 33 overfulls (was 34); zero H-severity entries open.
 
-This is the **second** Layout Scrutinizer pass on the paper. The first
-pass (PDF SHA `ba538ea0…`, 40 pages) filed LAY-01..LAY-18; the writer
-pass between the two filed `f3ce051` (cluster A.2 + §6.8 insertion) and
-`537fae2` (inline-citation promotion + bib corrections + Figure 13
-caption macro fix). Each block below is one defect routed to the writer.
-After remediation, rebuild via `make -C paper pdf` and request a Layout
-Scrutinizer re-run; do **not** invoke `make arxiv` (CLAUDE.md rule 13).
+## Closed this round
 
----
+### LAY-26 — RESOLVED. Confirmed at `paper/main.tex:2582–2585`. The `\seqsplit{...}` wrap at the `(copy\&paste,~web)/` boundary, plus the refactor of the longer sibling into "the paper-meta-process transcript ... under <path>", eliminated the 168.71pt overflow. No overfull anchored on lines 2570–2620. The pattern matches the §10 enumeration `\seqsplit{}` precedent at `:2834`. Excellent fix.
 
-## Disposition of LAY-01..LAY-18 (writer-owned)
+## Open M-severity entries (writer-owned)
 
-- **LAY-01 — `\cref` `??`** : **[RESOLVED]**. Labels `sec:scope-non-goals`
-  (`main.tex:242`), `sec:synthesis-limits` (`:989`), `sec:disc-validity`
-  (`:1534`) all present. No reader action required.
-- **LAY-02 — reconciliation-table mis-alignment** : **[PARTIAL → M]**.
-  `\scriptsize` + `\newline` inside cells fixed cross-row visual bleed.
-  4 small overfulls remain at lines 388–391 and 457; cosmetic only.
-- **LAY-03 — bullet-list margin overflow §5.2** : **[PARTIAL → M]**.
-  `\fp{...}` partial conversion took worst overflow from 168.80pt to
-  70.84pt (lines 705–732). Finish the wrap pass on the surviving
-  parenthetical `\texttt{}` runs.
-- **LAY-04 — bullet-list margin overflow §6.5** : **[PARTIAL → M]**.
-  Worst overflow at lines 1053–1068 is now 0.18pt. Residual 52.64pt at
-  1087–1088 is in the surrounding paragraph (see LAY-21).
-- **LAY-07 — redaction-tag overflow** : **[PARTIAL → L]**.
-  `\seqsplit{\texttt{[REDACTED:…]}}` wrap removed the previous
-  40.73pt / 55.48pt overflows. Markers still literal (rule 12 ✓).
-- **LAY-08 — §4.4 bullet overflow** : **[PARTIAL → L]**. Down from four
-  overfulls (max 105.99pt) to two (66.67pt + 12.76pt at lines 598–611).
-- **LAY-09 — §5.2 multi-bullet block** : **[PARTIAL → M]**. Tied to
-  LAY-03; same root cause; closing LAY-03 closes LAY-09.
-- **LAY-10 — §10 eight-practices list** : **[PARTIAL → M]**. Three
-  residual overfulls at lines 2098–2150; the 168.71pt at 2116–2127 is
-  the single worst surviving margin overflow in the document. Cause
-  unchanged: `experiments/paper-meta-process/raw_conversations
-  (copy&paste, web)/T1-paper-structure-and-literature.md` path is not
-  yet wrapped. Same fix shape as LAY-03.
-- **LAY-11 — §6.7 single-line overfull** : **[RESOLVED at original
-  site]**. The `\fp{RESEARCH-PROTOCOL.md}` caption-macro fix in `537fae2`
-  removed the 7.79pt overfull. (The new 8.80pt overfull at 1136–1137 is
-  the difficulty-taxonomy header row and is folded into LAY-06.)
-- **LAY-14 — author-block font fallback** : **[UNCHANGED — L]**.
-- **LAY-15 — `[h]`→`[ht]` placement promotions** : **[UNCHANGED — L]**.
-- **LAY-17 — KPI table column-width pressure** : **[REGRESSED → M]**.
-  Spider Farmer (lines 494–509, 55.48pt) and EcoFlow (643–654,
-  113.47pt) tables both retain their pre-existing overflow magnitude.
-  Severity raised L→M because of the family pattern with new LAY-19.
-- **LAY-18 — §5.7 underfull rivers** : **[PARTIAL — UNCHANGED — L]**.
+### LAY-29 — §10 ninth-practice / closing-paragraph path-bullet cluster (NEW, top residual)
+- Page: ~50–52 (within §10 + §10.AI-disclosure tail)
+- Source: `main.tex:2841–2849` (**70.91pt**); `:2854–2859` (32.31pt); `:2877–2882` (16.08pt). Mirrored at `main.md:~733–760` (line range to confirm during edit).
+- Observed: the `\fp{experiments/paper-meta-process/raw_conversations (copy&paste, web)/}` literal at `:2849` is the exact same unbreakable shape as the closed LAY-26 monster; siblings carry the same wrap pressure.
+- Required action: apply the LAY-26 fix pattern — wrap each long `\fp{...}` or `\texttt{...}` path in `\seqsplit{}` segments split at `(copy\&paste,~web)/` boundaries, or rewrite the parenthetical out of the path. The `\fp{}` macro can be retargeted to expand to `\seqsplit{\texttt{...}}` if a global change is preferred over per-site edits.
+- Severity: M
 
----
+### LAY-09 / LAY-25 — §5.2 + §6.6/§6.7 path-bullet cluster (line-shifted)
+- Page: mid-doc (§6 region)
+- Source: 7 overfulls in `main.tex:1077–1162` (range 5.21–70.84pt). Largest at `:1077–1087` (70.84pt) and `:1092–1095` (69.91pt).
+- Observed: paths such as `\fp{experiments/paper-meta-process/raw_conversations (copy&paste, web)/}`, `\fp{ACTION_W_CFG_BACKUP_REVERSE_SOC}`, and HA-entity `\fp{}` lists (button/number entities) drive the bullets past the right margin.
+- Required action: same `\seqsplit{}` / `\path{}` sweep. Consider redefining `\fp{}` to wrap its argument in `\seqsplit{\texttt{...}}` for a one-line global fix; this would close LAY-09, LAY-25, LAY-29, and parts of LAY-22 in a single edit.
+- Severity: M
 
-## NEW defects requiring writer action
+### LAY-22 — trailing-matter / appendix path-list residuals
+- Source: `main.tex:2677–2681` (37.70pt); `:2854–2859` (32.31pt — also tagged under LAY-29); `:2223–2232` (25.74pt, trust-laundering bullet with `[REDACTED:repo-path:BALBOA-UPSTREAM-{1,2}]`).
+- Observed: the redaction-tag bullet is wrapped in `\texttt{}` but **not** in `\seqsplit{}`.
+- Required action: wrap the two `[REDACTED:repo-path:BALBOA-UPSTREAM-{1,2}]` `\texttt{}` calls at `:2228–2229` in `\seqsplit{}`, matching the precedent set for the credential redaction tags at `main.tex:777–778`.
+- Severity: M
 
-## LAY-19 — Meta-process KPI tabular: 226.22pt overfull (worst in document)
-- Page: ~14 (the §5.6 Meta-process effort-gap timeline)
-- Source: `main.tex:872–891` (the `\begin{tabular}{llll} … \end{tabular}`
-  block), mirrored at `main.md` §5.6 (search `Effort-gap timeline`).
-- Observed: `Overfull \hbox (226.22418pt too wide) in paragraph at lines
-  872--891`. The third column (`Key event`) carries multi-clause
-  sentences such as
-  `7-section paper structure from scratch`,
-  `arXiv-ready pipeline; mirrors \texttt{main.md}`,
-  `\texttt{dlr\_style.py}, \texttt{data/effort-gap.csv},
-  \texttt{fig1-effort-gap.py}; Rule-14 compliance`,
-  `Citizen-science / democratisation paragraph; \S{}5.7 updated`.
-  These overflow the implicit `l` column width by ~7.97 cm.
-- Required action: convert the four-column table from
-  `\begin{tabular}{llll}` to
-  `\begin{tabularx}{\textwidth}{l l >{\raggedright\arraybackslash}X r}`
-  and let the `Key event` column wrap. Apply the same conversion to
-  the LAY-17 sibling tables (Spider Farmer at 494–509 and EcoFlow at
-  643–654) for consistency. **Do not** wrap with `\resizebox{\textwidth}{!}`.
-  Mirror in `main.md`.
-- Severity: **H**
+### LAY-02 / LAY-24 — §1.6 contributions enumerate
+- Source: `main.tex:479–488` (32.16pt + 11.72pt).
+- Required action: rebreak the two `\texttt{docs/methodology.md}` and `\texttt{experiments/spider-farmer/}` paths with `\seqsplit{}` or wording.
+- Severity: M
 
-## LAY-20 — §6.4 citation-pack underfull cluster + 52.64pt overfull
-- Page: ~22
-- Source: `main.tex:1078–1101`; mirrored at `main.md` §6.4 region.
-- Observed: 12 underfull warnings (badness 1796–10000) within 24 source
-  lines, plus an `Overfull \hbox (52.64pt too wide) at lines 1087--1088`.
-  The paragraph is heavy on inline `\citep{a, b, c, d}` packs that drive
-  both compression and stretching.
-- Required action: rebreak the longest citation pack across two
-  `\citep{...}` calls separated by a short prose phrase, OR downgrade
-  three of the inline citations to a single-keyed `\citep{...}`
-  followed by a "see also" footnote bundling the rest. Mirror in `.md`.
-- Severity: **M**
+### LAY-08 — §4.4 writeable-entity comma-list
+- Source: `main.tex:625–627` (12.07pt) + `:657–660` (66.39pt).
+- Required action: break the writeable-entity comma list across two paragraphs or convert to a bullet list with `\seqsplit{}` on each entity name.
+- Severity: M
 
-## LAY-21 — §6.5 single-line overfull (bookkeeping for LAY-20)
-- Page: ~17
-- Source: `main.tex:1087–1088`.
-- Observed: tied to LAY-20.
-- Required action: a one-line rebreak should close it without disturbing
-  the surrounding paragraph.
-- Severity: **L**
+### LAY-10 — §10 path-bullet cluster (improved, not closed)
+- Source: `main.tex:2557–2614` (50.18pt + 3.58pt + 35.69pt).
+- Required action: same `\seqsplit{}` sweep applies; some entries are already in the LAY-26 patched paragraph but downstream items at `:2557–2566` and `:2592–2614` still need attention.
+- Severity: M
 
-## LAY-22 — Trailing-matter margin overflows (4 new occurrences)
-- Pages: §11 / §12 / appendix tail (varies)
-- Source: `main.tex:2213–2217 (37.70pt)`, `:2351–2359 (70.91pt)`,
-  `:2364–2369 (32.31pt)`, `:2387–2392 (16.08pt)`.
-- Observed: four overfull warnings in the trailing matter that were not
-  previously flagged because the file was shorter (`f3ce051` insertion
-  reflowed §10 + appendix onto pages where these overflows now matter).
-  Worst is 70.91pt at 2351–2359.
-- Required action: same shape as LAY-03 / LAY-10 — wrap long
-  `\texttt{}`paths in `\fp{...}` (or `\seqsplit`); rebreak the long
-  appendix-citation lines. Mirror in `.md`.
-- Severity: **M**
+### LAY-20 / LAY-21 — §6.4 wrap pressure
+- Source: `main.tex:1464–1480` cluster (30.26pt + 52.64pt + 23.06pt).
+- Severity: M
 
----
+## Open L-severity entries (deferrable)
 
-## Cluster A.2 / §6.8 verification (no writer action — informational)
+- **LAY-04** — 0.18pt at `:1432–1447`. Effectively closable; defer.
+- **LAY-23** — preamble OT1/cmtt → OT1/lmtt cosmetic; pre-existing.
+- **LAY-27** — Spider Farmer tabularx intra-cell at `:753` (11.03/9.38/15.04pt). Cosmetic.
+- **LAY-28** — §6.4 underfull cluster. Cosmetic rivers.
+- **LAY-30 (new)** — bibliography underfull cluster gained 6 entries from the new `noheton2026powerocean*` `@misc` records. Auto-generated. Optional `\urlstyle{tt}` / truncation.
 
-- All four new `\citep{}` calls in §1.4 (`vasile`, `becker`, `botero`,
-  `grand`) plus the §6.8 `\citep{papp2015embedded}` resolve cleanly:
-  zero `Citation … undefined` warnings in `main.log`.
-- `\cref{sec:synthesis-evidence-asymmetry}` (target at `main.tex:1275`,
-  references at `:208, :237`) resolves.
-- `\textsuperscript{\ref{fn:hwre-cluster}}` (label at `:187`,
-  reuses at `:198, :1285, :1296`) resolves.
-- §1.4 cluster A.2 paragraph (`main.tex:165–208`) introduces **zero**
-  new `\hbox` overruns despite the higher inline-citation density.
-- Bibliography contains `papp2015embedded` (`main.bbl:94`).
-  `vanwoudenberg2022hwhandbook` is bib-only-not-cited (intentional
-  per the writer's footnote-not-inline policy for L-HW-RE-5);
-  flagged here as a fact, not a defect.
-- L-HW-RE-2 (ChipWhisperer) appears at `main.tex:175–177` as a
-  `(L-HW-RE-2)\footnote{...}` reference and at `:1285` via
-  `\textsuperscript{\ref{fn:hwre-cluster}}` reuse. No `\citep{}` call
-  references the ChipWhisperer claim, consistent with its
-  `[ai-confirmed-attempt-failed]` source-ladder status.
+## Recommended bundling
 
----
+A single writer pass that redefines `\fp{}` from `\texttt{#1}` to
+`\seqsplit{\texttt{#1}}` (or applies `\seqsplit{}` at every long-path
+site) would close LAY-09, LAY-22, LAY-25, LAY-29, and parts of LAY-10 in
+one edit — five M-severity entries with one global change. The fix is
+the same family that closed LAY-26 and is precedent-supported by the
+existing redaction-tag `\seqsplit{}` use at `main.tex:777–778`.
 
-## Suggested writer remediation order (lowest-cost-of-fix first)
+## Out of scope for the writer
 
-1. **LAY-19 + LAY-17 family** (one `tabularx` conversion repeated three
-   times): closes the H-severity defect plus two M-severity defects.
-2. **LAY-10 + LAY-22** (path-wrapping pass with `\fp{...}` /
-   `\seqsplit`): closes the second-worst surviving cluster.
-3. **LAY-03 + LAY-09** (residual `\texttt{}` parenthetical wrap):
-   closes the §5.2 cluster.
-4. **LAY-20 + LAY-21** (citation-pack rebreak): closes §6.4 rivers.
-5. **LAY-04, LAY-08, LAY-18** (cosmetic): defer or batch with the above.
+LAY-12 (Gemini deliverable), FIG-04, FIG-09, FIG-10, FIG-11 are
+illustrator-owned; see `layout-to-illustrator.md`.
 
-After remediation, rebuild via `make -C paper pdf` and request Stage 4
-re-scrutiny. Constraint reminder: rule 11 mirror discipline applies to
-every fix (mirror in `paper/main.md` in the same commit).
+## Verdict
+
+No H-severity items remain. The pipeline is non-blocked on layout. The
+M-severity path-bullet cluster is the dominant residual and is highly
+amenable to a single bundled writer pass.

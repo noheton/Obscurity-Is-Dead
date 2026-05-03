@@ -115,6 +115,70 @@ Walk the PDF from cover to bibliography. For each page, inspect:
 - Caption text that exceeds the float width or wraps under the figure
   body.
 
+### 2a. Figure & image critique
+
+> **Note (2026-05-03):** the human author has acknowledged that the
+> current figure stock is lacking. The first figure-critique pass should
+> therefore flag *every* shortcoming observed against the criteria below
+> rather than reserving flags for the most severe defects. Severity
+> grading still applies (H/M/L), but the bar for filing an entry is
+> "any criterion failed", not "the criterion failed badly".
+
+For every figure or image in `paper/figures/` that is referenced by the
+rebuilt PDF, perform a structured critique on the following dimensions
+and file defects under a new `FIG-` prefix in the same registry format
+used for `LAY-` entries:
+
+1. **Legibility at print resolution.** Inspect font sizes (axis labels,
+   tick labels, legend text, in-figure annotations), stroke weights of
+   lines and arrows, marker sizes, and contrast against the figure
+   background at the size the figure is rendered in the PDF. Flag any
+   text below ~7 pt at print scale, hairline strokes that disappear at
+   600 dpi, or markers that collide.
+2. **Caption-figure consistency.** Read the LaTeX caption and confirm
+   that every claim it makes is actually visible in the figure (axis
+   ranges, panel labels, called-out features, numerical anchors).
+   Flag any caption assertion that the figure does not show, and any
+   figure feature that the caption does not name.
+3. **Information density vs whitespace.** Flag figures that waste a
+   majority of their bounding box on whitespace (under-using a full
+   `\textwidth` float) and figures that crowd unrelated panels or
+   overlay too many series without disambiguation.
+4. **Colour accessibility.** Flag palettes that fail colour-blind
+   safety (deuteranopia / protanopia / tritanopia simulation) and
+   palettes that lose meaning when printed in greyscale. The DLR-style
+   palette in `paper/figures/dlr_style.py` is a recurring offender;
+   prefer ColorBrewer or Viridis where categorical/sequential semantics
+   permit.
+5. **Alt-text presence in the LaTeX source.** Confirm that every
+   `\includegraphics` is accompanied by an alt-text mechanism
+   (e.g. a `\Description{…}` macro, a `pdftex` `/Alt` entry, or a
+   sentence-level description in the caption). Flag any figure with no
+   machine-readable alternative text.
+6. **Data-to-ink ratio (Tufte).** Flag chartjunk: redundant gridlines,
+   3D bevels, drop shadows, decorative borders, oversized legends,
+   redundant titles that duplicate the caption, and tick labels at
+   excessive precision. Flag also the inverse failure — under-inked
+   figures whose data series cannot be distinguished.
+7. **Rule-14 source compliance for SVG-derived figures.** For every
+   SVG-derived figure in the PDF, confirm that both the source `.svg`
+   and any generation script (Python, R, shell, Inkscape recipe) are
+   present in the repository tree under `paper/figures/` or a clearly
+   referenced sibling, and that `paper/figures/README.md` records the
+   provenance. Flag any figure whose source or generator is missing as
+   a rule-14 violation (high severity by default — rule-14 is a
+   committed-source requirement, not a stylistic preference).
+
+`FIG-` entries follow the same column schema as `LAY-` entries
+(`ID | Page | Region | Defect class | Severity | Owner | Source span |
+Suggested fix`) with `Defect class` drawn from the seven dimensions
+above (e.g. `legibility`, `caption-mismatch`, `density`,
+`colour-accessibility`, `alt-text-missing`, `data-to-ink`,
+`rule14-source-missing`). Owner is almost always `illustrator`, except
+for caption-mismatch defects (owner `writer`) and alt-text-missing
+defects (owner `joint` — writer adds the macro, illustrator confirms
+the description matches the asset).
+
 ### 3. Cross-check against source
 
 For each candidate defect:
