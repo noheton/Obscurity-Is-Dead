@@ -20,12 +20,12 @@
 main.pdf
 arxiv-submission.tar.gz
 
-# Legacy figure SVG -> PDF conversions for fig2..fig7 are produced at
-# build time from the committed SVGs; the resulting PDFs are not
-# tracked (only fig1 and fig8..fig16 carry committed PDFs).
+# Legacy figure SVG -> PDF conversions for fig2..fig5 are produced at
+# build time from the committed manually drawn SVGs; the resulting PDFs
+# are not tracked. fig6 and fig7 were promoted to scripted-source on
+# 2026-05-03 (illustration overhaul pass) and now ship a committed PDF
+# alongside the .py / .svg, like fig1 and fig8..fig16.
 figures/fig2-boredom-barrier.pdf
 figures/fig3-spider-farmer.pdf
 figures/fig4-ecoflow.pdf
 figures/fig5-methodology.pdf
-figures/fig6-dual-use.pdf
-figures/fig7-threat-models.pdf

@@ -245,3 +245,321 @@ Caption compressed to one sentence plus attribution at `main.tex:2200–2202` an
 **Rule-11 note.** Mirror in `main.tex` in the same commit. **L**-priority: deferable past the next writer pass.
 
 ---
+
+## RDB-27 — Author's Note: two over-long sentences  *(L, sentence-length)*  [NEW 2026-05-03]
+
+**Section.** Author's Note (`main.md:19–33`).
+**Source span.** `main.md:31` (paper-mill framing, third sentence); `main.md:33` (invitation framing, middle sentence). Mirror: `main.tex` corresponding lines.
+**Defect.** Two sentences cross the 40-word rubric threshold: (a) the *paper-mill* third sentence at `main.md:31` chains a parenthetical and a nested arrow-list ("research → source analysis → scientific writing → illustration → layout / readability scrutiny") and runs to ~70 words; (b) the *invitation* middle sentence at `main.md:33` chains three GitHub-issue labels (`idea` / `critique` / `provenance-gap`) with parenthetical glosses and runs to ~70 words. The other four framings stay within rubric bounds. Severity **L**: not comprehension-blocking; the Author's Note remains readable, and the candid first-person register is appropriate for a front-matter advice section.
+**Required outcome (when the writer next touches the Author's Note).** Split the *paper-mill* third sentence at "iterates it through structured passes" → "It iterates the hypothesis through structured passes (research → source analysis → scientific writing → illustration → layout / readability scrutiny). At each stage the question is the same: does this still look plausible against the evidence we now have?" Split the *invitation* middle sentence at "feed directly into the agent pipeline" → "These labels feed directly into the agent pipeline. An idea triggers a research-protocol pass; a critique routes to the relevant scrutinizer hand-back; a provenance-gap routes to the meta-process case study (§5)."
+**Rule-11 note.** Mirror in `main.tex` in the same commit. **L**-priority: deferable.
+
+---
+
+## RDB-28 — §3.4 v2→v3 reconstruction sub-bullet single-sentence run-on  *(L, sentence-length / list-of-clauses-as-prose)*  [NEW 2026-05-03]
+
+**Section.** §3.4 Findings — interoperability.
+**Source span.** `main.md:177` (the sixth sub-bullet of the §3.4 itemize). Mirror: `main.tex` corresponding `\item`.
+**Defect.** The §3.4 v2→v3 migration-reconstruction sub-bullet (introduced in commit `ebd0c5c`) is a single ~254-word `\item` whose substantive content is one semicolon-and-numbered-clause sentence ("the migration logic itself … reconstructs to: (i) drop the legacy MQTT-only config-entry fields … (ii) derive `pid` deterministically … (iii) idempotently carry forward the `v1→v2` CB-key correction; (iv) bump the entry version and emit …") plus an "**Architecturally this is a transport simplification …**" closing clause and a "**Provenance gap that remains:**" coda. The bullet sits inside a 6-bullet itemize whose other bullets average ~30 words each, breaking the visual cadence. The rule-1 "reconstructs to" framing and the rule-11 mirror are both clean; the only complaint is prose form.
+**Required outcome (when the writer next touches §3.4).** Convert the long bullet into either (a) two sub-bullets — the migration-logic numbered enumeration as a nested itemize + the provenance-gap coda as the closing bullet — or (b) promote the v2→v3 reconstruction to its own short paragraph immediately after the §3.4 itemize so the four-step reconstruction can be a real numbered list and the itemize cadence is preserved. Either option preserves the rule-1 honesty disclosure and the rule-11 mirror.
+**Rule-11 note.** Mirror in `main.tex` in the same commit. **L**-priority: deferable.
+
+---
+
+## RDB-01 — optional final tightening at §7.6 back-reference  *(M, claim-repetition)*  [RESOLVED-but-residual 2026-05-03]
+
+**Section.** §7.6.
+**Source span.** `main.md:496`. Mirror: `main.tex`.
+**Defect.** The §7.6 sentence "The base-rate evidence is established in §5.6: independent samples by Walters & Wilder, McGowan et al., and Chelli et al. bracket the same effect across multidisciplinary, psychiatric, and systematic-review contexts." re-names the same three authors that §5.6 already lists. This is a *named-author* repetition, not a *number* repetition; the verbatim 55% / 18% / "2 of 35" / 28.6%–91.4% statistics no longer recur in §7.6. Recap count is now 3.5× rather than 4×.
+**Optional outcome.** Replace "independent samples by Walters & Wilder, McGowan et al., and Chelli et al. bracket the same effect" with "the §5.6 base-rate triplet brackets the same effect" so §7.6 carries the back-reference but not the named-author triplet. Not blocking; defer if the writer is touching §7.6 for any other reason.
+**Rule-11 note.** Mirror in `main.tex` in the same commit. **M**-priority but optional: the writer pass `329bc28` already cleared the load-bearing duplication.
+
+---
+
+## RDB-02 / RDB-04 — §10 list-of-eight vs Figure 11 collapse: Stage 5 recommendation  *(M, structural — author decision)*  [DEFERRED 2026-05-03]
+
+**Sections.** §10, Figure 11.
+**Source span.** `main.md:688–698` (eight numbered practices), `main.md:699` (Figure 11 callout), `main.md:709–714` (Concealment / Token-disclosure / artifact-level paraphrase). Mirror: `main.tex`.
+**Author-decision options (per writer hand-back `writer-pass-2026-05-03.md`).** (a) keep enumeration, drop the Concealment / Token-disclosure paraphrase block; (b) drop the enumeration, lean on Figure 11 + a single recapping sentence; (c) keep both but tighten Figure 11 caption so the prose can defer to the figure.
+**Stage 5 recommendation.** **Option (b) preferred.** Rationale: it best matches the writer hand-back's "discipline is the contribution" thesis; lets §10 carry the Concealment / Token-disclosure / artifact-level-disclosure rhetorical arc without competing with the figure for the same content; and the illustrator pass `84c2da0` confirmed Figure 11 row labels are legible (RDB-04 figure-side prerequisite met). **Option (c) acceptable fallback** if the author wants to preserve the enumeration for accessibility (monochrome printer, screen reader). **Option (a) not preferred**: dropping the Concealment / Token-disclosure / artifact-level naming would lose the rhetorical centre of §10.
+**Rule-11 note.** Whichever option the author selects, mirror in `main.tex` in the same commit. The Figure 11 caption is currently 2 sentences in `main.md:699`; option (b) can be implemented without caption surgery if the recap sentence names each of the eight practices in order.
+
+---
+
+## 2026-05-03 round 2 — new entries from post-`370e792` re-scrutiny
+
+The five prose entries below were filed against the new §7.3 Mythos /
+Glasswing paragraph, the new §7.4 *Guardrails as band-aid* sub-paragraph,
+the new Author's Note "What surprised me about the assistant" paragraph,
+and the new §10 ninth practice. Two caption entries follow at the end of
+this block. Full diagnosis in
+`docs/handbacks/readability-scrutiny-2026-05-03-round2.md`.
+
+---
+
+## RDB-30 — §7.3 Mythos paragraph: split two long sentences  *(M, sentence-length / paragraph-density)*  [NEW round-2]
+
+**Sections.** §7.3 *Asymmetry of collapse*.
+**Source span.** `main.md:491`; `main.tex:1684–1722`.
+**Defect.** The Mythos / Glasswing counter-data-point lands as a single
+~257-word paragraph of 6 sentences. Two of those sentences cross 40
+words: (a) the "frontier model that, in the company's own published
+red-team work, autonomously identified zero-day vulnerabilities … to
+root unauthenticated NFS servers" sentence at ~78 words; (b) the
+"Mythos is not yet broadly deployed adversarial capability — Anthropic
+chose *not* to release it generally, instead launching **Project
+Glasswing** … shipping the more cautious Claude Opus 4.7 as the
+safeguarded sibling" sentence at ~57 words.
+**Required outcome.** Split sentence (a) at "every major web browser"
+so the four red-team capability findings become a second sentence
+keyed on "Specifically:". Split sentence (b) at "Project Glasswing"
+so the partner-list and the safeguarded-sibling claim become two
+short sentences. Net: 6 → 8 short-medium sentences; word count
+unchanged.
+**Rule-11 note.** Mirror in `main.tex` (around lines 1697–1716) in the
+same commit.
+
+---
+
+## RDB-31 — §7.4 band-aid sentence: tighten the hedge  *(M, hedging-tightness / overclaim risk)*  [NEW round-2]
+
+**Sections.** §7.4 *Dual-use accountability — Guardrails as band-aid*.
+**Source span.** `main.md:504`; `main.tex:1775–1797`.
+**Defect.** The load-bearing sentence "every guardrail is a classifier,
+every classifier has a false-negative rate, and any false-negative
+rate combined with autonomous offensive capability and global
+proliferation collapses to attacker-side capability over a short
+enough horizon" carries a soft hedge ("over a short enough horizon")
+but reads as a near-deductive claim. No `[lit-read]` or `[lit-retrieved]`
+source in `docs/sources.md` quantifies the asserted false-negative-rate
+× proliferation collapse; closest comparators (L-VD-1, L-VD-2,
+L-MYTHOS-1, L-MYTHOS-2) do not state the band-aid argument as a
+deductive identity.
+**Required outcome.** Reframe as engineering intuition: replace
+"collapses to attacker-side capability over a short enough horizon"
+with "*plausibly* converges to attacker-side capability over a short
+enough horizon — a claim we present as engineering intuition rather
+than proof, and one the L-MYTHOS evidence base does not yet quantify."
+Alternatively, move the caveat into a footnote keyed off "short
+enough horizon" so the body sentence reads cleanly and the caveat is
+auditable.
+**Rule-11 note.** Mirror in `main.tex` in the same commit.
+
+---
+
+## RDB-32 — Author's Note "What surprised me about the assistant": optional sentence splits  *(L, paragraph-density / sentence-length)*  [NEW round-2]
+
+**Sections.** Author's Note paragraph 6 ("*What surprised me about the
+assistant.*").
+**Source span.** `main.md:33`; `main.tex:178–203`.
+**Defect.** New 213-word / 8-sentence paragraph. Three sentences > 40w:
+(a) opening "Working through the case studies, I expected — and braced
+for — moments where the model would refuse to help me reverse-engineer
+a proprietary BLE protocol or pull credentials out of a vendored APK,
+or where the session would be flagged or terminated" (~50w); (b)
+"durable answer is *security by design at the artifact level*" sentence
+(~46w); (c) closing "magnitude and frequency of attempts that any
+given system will face is materially higher in 2026 than it was in
+2024, and the trajectory points further the same way" (~52w). Author's
+Note now 9 paragraphs (was 4 in the first draft) with this paragraph
+the longest.
+**Required outcome.** Optional, not blocking. Split (a) at "or where
+the session would be flagged or terminated"; split (c) at "in 2026
+than it was in 2024". The triple statement of *security by design*
+across Author's Note / §7.4 / Author's Note closing is on-policy
+under the Author's-Note-as-trailer convention; Stage 5 endorses
+retaining it.
+**Rule-11 note.** Mirror in `main.tex` if the splits are applied.
+
+---
+
+## RDB-33 — §10 ninth practice: anchor or delete the closing forward-looking promise  *(L, novelty-inflation risk)*  [NEW round-2]
+
+**Sections.** §10 ninth practice (verbatim-string scanning).
+**Source span.** `main.md:715–717`; `main.tex:2822–2862`.
+**Defect.** Closing line "evolve with detection tooling as that tooling
+matures" is uncited and presents as a free-floating promise. The "first
+cut" framing and the "logged for the next iteration of the framework
+rather than added to Figure 11" hedge correctly bound the practice
+itself; only the closing half-sentence floats. The practice is
+therefore *not* novelty-inflated — but the closing promise should
+either be deleted, or anchored to L-SLOP-12 (Pellegrina & Helmy on
+the current accuracy ceiling for AI detectors), already cited at
+`main.md:721`.
+**Required outcome.** Replace "evolve with detection tooling as that
+tooling matures" with "evolve with detection tooling as that tooling
+matures (cf. L-SLOP-12 on the current accuracy ceiling)" — or delete
+the closing half-sentence and let the *first-cut* framing carry the
+load alone.
+**Rule-11 note.** Mirror in `main.tex` in the same commit.
+
+---
+
+## RDB-34 — §10 eight-vs-nine count mismatch: prime the reader at the lede  *(L, structural inconsistency)*  [NEW round-2]
+
+**Sections.** §10, Figure 11.
+**Source span.** `main.md:704–719`; `main.tex:2790..2862`.
+**Defect.** §10 opens with "Eight integrated practices distinguish this
+paper from the prevailing modes of AI-assisted research" at
+`main.md:704`, before the ninth practice is introduced three
+paragraphs later at `main.md:715`. A cold reader hits the Figure 11
+callout, counts eight rows, then encounters a ninth in prose. The
+"logged here for the next iteration of the framework rather than
+added to Figure 11" hedge handles the mismatch correctly under
+rule 1, but arrives late.
+**Required outcome.** Prime the reader at the lede: replace
+`main.md:704` "Eight integrated practices distinguish this paper" with
+"Eight integrated practices — with a ninth in development, see below
+— distinguish this paper". Alternatively, set the ninth-practice
+block off under a "*Looking ahead: a candidate ninth practice*"
+sub-heading visually + structurally separated from the eight-row
+enumeration.
+**Rule-11 note.** Mirror in `main.tex` in the same commit. Whichever
+option the author selects, the eight-row Figure 11 stays unchanged.
+**Coordination.** Pairs with the long-deferred RDB-04. Stage 5
+**still endorses option (b)** (drop the §10 prose enumeration, lean
+on Figure 11 + a one-sentence recap), now with an explicit "eight + 1
+forward-looking" framing so the figure ↔ text count asymmetry is on
+record.
+
+---
+
+## RDB-35 — Fig 9 caption: 3 stages → 4 stages  *(L, rule-11 caption-fidelity)*  [NEW round-2 — illustrator-flagged in `illustrator-pass-2026-05-03-overhaul.md` §E]
+
+**Sections.** Figure 9 caption.
+**Source span.** Fig 9 caption in `paper/main.md` and `paper/main.tex`
+(the `\includegraphics{fig9-verification-pipeline}` block).
+**Defect.** Illustrator pass `d2858ac` extended the literature track
+in `fig9-verification-pipeline` from 3 to 4 stages by inserting the
+`[ai-confirmed]` stage between `[lit-retrieved]` and `[lit-read]` per
+the CLAUDE.md verification-status-ladder extension (2026-05-02). The
+current caption text may still mention only 3 stages. This is a
+rule-11 honesty defect against the now-4-stage figure.
+**Required outcome.** Update the Fig 9 caption to enumerate all four
+stages of the literature track (`[needs-research]` → `[lit-retrieved]`
+→ `[ai-confirmed]` → `[lit-read]`) and to name the Source Analyzer
+agent that owns the `[ai-confirmed]` upgrade. Mirror in both
+`paper/main.md` and `paper/main.tex`.
+**Rule-11 note.** Both files updated in the same commit.
+
+---
+
+## RDB-36 — Fig 11 caption: tighten to remove legend duplication  *(L, caption-restates-prose)*  [NEW round-2 — illustrator-flagged in `illustrator-pass-2026-05-03-overhaul.md` §E]
+
+**Sections.** Figure 11 caption.
+**Source span.** `main.md:719`; `paper/main.tex` Fig 11 caption block.
+**Defect.** Illustrator pass `d2858ac` redrew Figure 11 with an
+in-figure legend ("P (filled disc) = principal mitigation; S (ring
+with bar) = secondary mitigation"). The current caption duplicates
+this legend in prose, restating what the asset already shows.
+**Required outcome.** Tighten the caption to a one-sentence pointer:
+"Eight integrated practices × three failure-mode axes; P / S
+mitigation roles per the in-figure legend." Let the asset carry the
+P / S definition. Mirror in both files in the same commit.
+**Rule-11 note.** Caption parity is a rule-11 invariant; the writer
+must update both files together.
+
+---
+
+# Round 3 hand-back (2026-05-03; against `37ded1f`)
+
+## Closures verified (no writer action required)
+
+- **RDB-30** §7.3 Mythos paragraph split — RESOLVED-confirmed at
+  `main.md:497`, `:499`, `:501`.
+- **RDB-31** §7.4 band-aid hedge — RESOLVED-confirmed at
+  `main.md:514`. Strengthened ground (modal verb + horizon-uncertainty
+  hedge + L-MYTHOS-1/-2 inline cites + "engineering intuition not
+  proof" caveat) supports the rhetorical conclusion.
+- **RDB-35** Fig 9 caption — RESOLVED-confirmed at `main.md:358`.
+- **RDB-36** Fig 11 caption — RESOLVED-confirmed at `main.md:729`.
+
+## Standing deferrals (still **L**, on-policy to defer)
+
+- **RDB-32** Author's Note paragraph density — DEFERRED-unchanged.
+- **RDB-33** §10 ninth-practice closing-promise cite — DEFERRED-
+  unchanged. Optional: replace "evolve with detection tooling as
+  that tooling matures" with "(cf. L-SLOP-12 on the current accuracy
+  ceiling)" or delete the closing half-sentence.
+- **RDB-34** §10 eight-vs-nine count primed late — DEFERRED-unchanged.
+
+## RDB-37 — §4.6 OCPP runtime-handover paragraph: split the 155-word sentence  *(M, sentence-length)* [NEW round-3]
+
+**Sections.** §4.6 Findings — security implications.
+**Source span.** `paper/main.md:286`; `paper/main.tex:984-1004`.
+**Defect.** The new OCPP runtime-handover paragraph from the
+powerocean resync (writer loop 3, item d.6) is a single ~155-word
+sentence packing six load-bearing items: (a) the upstream code
+surface (~+440 LOC across `api.py`, `__init__.py`, `services.yaml`,
+`const.py`); (b) the modified files; (c) the new endpoints (`GET
+/provider-service/app/ocppPlatformConfig/list`, `POST
+/provider-service/app/ocppPlatformConfig`); (d) the
+*catalog-vs-runtime* asymmetry framing; (e) the runtime-handover gap
+(`vendorInfoSet` proto write not yet shipped); (f) the synthesis-
+relevance pointer to §6. Crosses the 40-word rubric ~3.9×. The §4.6
+paragraph is a load-bearing forward pointer to §6 synthesis on the
+maturity of effort-gap compression; a clean two-sentence form serves
+that pointer better than the current single-sentence form.
+**Required outcome.** Split at "— illustrates a concrete
+*catalog-vs-runtime* asymmetry inside the same legacy bearer-token
+API plane:". Suggested rewrite (writer to refine):
+
+> A subsequent upstream development surface — the OCPP backend-
+> binding work landed on `noheton/powerocean-dev` between 2026-05-01
+> and 2026-05-03 (~+440 LOC across `api.py`, `__init__.py`,
+> `services.yaml`, and `const.py`; new endpoints `GET /provider-
+> service/app/ocppPlatformConfig/list` and `POST /provider-service/
+> app/ocppPlatformConfig`) — illustrates a concrete *catalog-vs-
+> runtime* asymmetry inside the same legacy bearer-token API plane.
+> The integration can now write the EcoFlow-side OCPP catalog, but
+> the upstream `README.md` notes a runtime-handover gap: a
+> `vendorInfoSet` proto write that is *not yet shipped* and that the
+> charger requires before it will redirect to the third-party host
+> at runtime [@noheton2026powerocean5c8b815]. Catalog-level
+> interoperability is therefore reachable while runtime-level
+> interoperability is not — a useful empirical data point for the
+> synthesis on the maturity of effort-gap compression (§6).
+
+Net ~80 + ~75 + ~45 words instead of one 155-word sentence; no
+content loss; the §6 forward pointer is preserved as the closing
+clause.
+**Rule-11 note.** Mirror in `paper/main.tex` paragraph at
+`:984-1004`.
+
+## RDB-38 — §10 redaction-precedent paragraph: middle sentence length  *(L, sentence-length, OPTIONAL)* [NEW round-3]
+
+**Sections.** §10 *A real-world precedent for the redaction
+discipline.*
+**Source span.** `paper/main.md:733`; `paper/main.tex:2957-2978`.
+**Defect.** The middle sentence of the new redaction-precedent
+paragraph runs ~85 words and packs the removed-`doc/`-artifact list,
+the 80-line `doc/README.md` reference, and the inline "`git rm` does
+not purge history" quotation in one main clause.
+**Required outcome — *optional*.** If the writer judges that the
+"during this paper's preparation" temporal anchor is rhetorically
+load-bearing and binds the artifact-list + quotation to a single
+sentence, **leave as-is**. If a split is acceptable, break at "and
+replaced it with an 80-line `doc/README.md`": first sentence carries
+the redaction event + artifact list + temporal anchor; second
+sentence carries the `doc/README.md` content + the inline "`git rm`
+does not purge history" quotation + `git filter-repo` pointer.
+**Stage-5 endorsement.** Stage 5 does not endorse the split if the
+temporal-anchor argument prevails. RDB-38 is filed at **L** for
+completeness, not as a required fix.
+**Rule-11 note.** Mirror in `paper/main.tex` paragraph at
+`:2957-2978` if split is taken.
+
+## Novelty audit — round 3 (no writer action required)
+
+- §4.2 redaction acknowledgement, §4.3 two-track footnote, §4.6 OCPP
+  paragraph: descriptive framing throughout; no novelty inflation.
+- §10 redaction-precedent paragraph: the upstream powerocean event
+  is framed as "**a** recently-dated, publicly-visible enactment"
+  (indefinite article), with explicit "**without requiring this
+  paper to claim attribution**" disclaimer and "**arrived at the
+  same** redaction-and-history-rewrite step" convergence framing
+  (independent triangulation, not derivative). No "first" / "sole"
+  / "first-of-its-kind" / "unprecedented" language anywhere in the
+  span. **Verdict: ON-POLICY.** Stage 5 explicitly endorses the
+  paragraph as load-bearing rule-12 / rule-13 evidence without
+  novelty overclaim.

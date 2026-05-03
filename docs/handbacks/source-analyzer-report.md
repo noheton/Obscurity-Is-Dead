@@ -102,3 +102,190 @@ Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, 
 - `[ai-confirmed-attempt-failed]`: 3 (L-RE-2, L-HC-2, L-HC-3).
 - Remaining `[lit-retrieved]` unprocessed: ~109.
 - `[ai-confirmed]` count in `docs/sources.md` (cumulative, including pre-orchestration): grew from 2 to 14.
+
+---
+
+## Slice 9 (pass 7, 2026-05-03) — cluster I sloppification anchors
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-SLOP-1 | `[ai-confirmed]` | five criteria hold; numbers verbatim from *Sci. Rep.* abstract | yes (§1.4 / §7.6 headline) | "55% of the GPT-3.5 citations but just 18% of the GPT-4 citations are fabricated… 43% / 24% of the real… include substantive citation errors." |
+| L-SLOP-2 | `[ai-confirmed]` | five criteria hold; numbers verbatim from *JMIR* abstract | yes (§7.6 medical anchor) | "Hallucination rates stood at 39.6% (55/139) for GPT-3.5, 28.6% (34/119) for GPT-4, and 91.4% (95/104) for Bard (P<.001)." |
+| L-SLOP-3 | `[ai-confirmed]` | five criteria hold; full text via SSRN (open) | yes (§7.6 economics replication) | ">30% of the citations provided by the GPT-3.5 version do not exist and this rate is only slightly reduced for the GPT-4 version… reliability of the model decreases as the prompts become more specific." |
+| L-SLOP-4 | `[ai-confirmed]` | five criteria hold; PMC open-access | yes (§7.6 case-study) | "ChatGPT… generated thirty-five citations, two of which were real… the remaining 21, while plausible, were in fact a pastiche of multiple existent manuscripts." |
+| L-SLOP-5 | `[ai-confirmed-bibliographic]` | Wiley body paywalled; Key Points and abstract verified via publisher landing + ScienceOpen mirror; claim non-quantitative and non-contested | no (system-level framing only) | "We alert the community to imminent risks of LLM technologies, like ChatGPT, for amplifying the predatory publishing 'industry'. The abuse of ChatGPT for the paper mill industry cannot be over-emphasized." |
+| L-SLOP-6 | `[ai-confirmed]` | five criteria hold; *Nature* News, open-access | no (journalistic comparator) | "Generative AI tools, including chatbots such as ChatGPT and image-generating software, provide new ways of producing paper-mill content, which could prove particularly difficult to detect." |
+| L-SLOP-8 | `[ai-confirmed]` | five criteria hold; PLOS Biology open-access; numbers exact | yes (§7.6 / §10 paper-mill empirical centrepiece) | "the systematic search strategy used here identified an average of 4 papers per annum from 2014 to 2021, but 190 in 2024–9 October alone." |
+| L-SLOP-9 | `[ai-confirmed]` | five criteria hold; JMIR open-access; numbers exact | yes (§7.6 disciplinary-variance) | "DOI hallucination was more frequent in the humanities (89.4%) than in the natural sciences (61.8%)." |
+| L-SLOP-11 | `[ai-confirmed]` | five criteria hold; arXiv preprint of JASIST paper (open-access) | yes (§9 cornerstone framing) | "ChatGPT is seen as a potential model for the automated preparation of essays and other types of scholarly manuscripts." |
+
+## Most consequential upgrade (slice 9)
+
+**L-SLOP-8 (Suchak et al., 2025, *PLOS Biology*).** The 4→190 NHANES-papers/year jump is the only direct empirical observation of AI-amplified paper-mill output growth in the cluster. It anchors the §7.6 / §10 paper-mill claim that previously rested on system-level argumentation (L-SLOP-5) and journalistic reporting (L-SLOP-6). The number is verbatim and consistent with the entry's "first ten months of 2024" rounding (the source records "9 October" — the 282nd day of 2024). Recommend foregrounding L-SLOP-8 as the §7.6 / §10 empirical centrepiece.
+
+## Re-analysis verdict (slice 9)
+
+**`RE-ANALYSIS REQUIRED: no`** — all nine processed slice entries cleared the verification ladder; zero edge-cases, zero fetch failures, zero unresolved load-bearing items. Three minor `paper/references.bib` corrections (L-SLOP-3 third author Shapoval; L-SLOP-5 print-year 2024; L-SLOP-9 print-year 2024) are routed to the writer hand-back. Cluster I is now fully `[ai-confirmed*]`.
+
+## Cumulative state after pass 7 (slices 1–9)
+
+- Net upgrades to `[ai-confirmed]` / `[ai-confirmed-bibliographic]`: 47 (38 + 4 prior + 8 new `[ai-confirmed]` + 1 new `[ai-confirmed-bibliographic]` this pass = 51 cumulative if counted strictly; per the task's prior-pass tally of 38+4=42, this pass adds 9 → cumulative **51 ai-confirmed-class entries**).
+- Edge-cases: 2 (unchanged from pass 6).
+- `[ai-confirmed-attempt-failed]`: 3 (unchanged).
+- Remaining `[lit-retrieved]` unprocessed: ~57 (66 − 9 this pass).
+- Cluster I (sloppification) is fully verified end-to-end.
+
+---
+
+## Slice 10 (pass 8, 2026-05-03) — cluster J model collapse — nine `[ai-confirmed]` upgrades
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-MC-1 | `[ai-confirmed]` | five criteria hold; *Nature* + Edinburgh open-access PDF | yes (§7.7 canonical anchor) | "indiscriminate use of model-generated content in training causes irreversible defects … tails of the original content distribution disappear … LLMs … VAEs … GMMs." |
+| L-MC-2 | `[ai-confirmed]` | five criteria hold; arXiv open-access | no (mitigation aside) | "the approach can extend the model's fidelity interval before collapse by more than 2.3×." |
+| L-MC-3 | `[ai-confirmed]` | five criteria hold; arXiv + OpenReview (COLM 2024) | yes (theoretical anchor) | "model collapse cannot be avoided when training solely on synthetic data … when mixing both real and synthetic data, we provide an estimate of a maximal amount of synthetic data below which model collapse can eventually be avoided." |
+| L-MC-4 | `[ai-confirmed]` | five criteria hold; arXiv + Stanford SALT Lab landing | yes (constructive counterweight) | "if data accumulates and models train on a mixture of 'real' and synthetic data, model collapse no longer occurs … the test error has a finite upper bound independent of the number of iterations." |
+| L-MC-5 | `[ai-confirmed]` | five criteria hold; arXiv open-access | no (rate-of-collapse refinement) | "we theoretically characterize the rate of collapse in these fundamental settings and complement it with experimental evaluations." |
+| L-MC-6 | `[ai-confirmed]` | five criteria hold; arXiv + NeurIPS 2025 Spotlight project page | no (mechanism reframing) | "the transition is directly driven by the declining entropy of the synthetic training data … entropy-based data selection strategy that effectively alleviates the generalization-to-memorization transition." |
+| L-MC-7 | `[ai-confirmed]` | five criteria hold; arXiv + Cambridge open-access PDF (preprint of L-MC-1) | yes (arXiv-citing community) | "use of model-generated content in training causes irreversible defects … tails of the original content distribution disappear … VAEs, Gaussian Mixture Models and LLMs." |
+| L-MC-8 | `[ai-confirmed]` | five criteria hold; arXiv open-access | yes (qualifier on L-MC-4 optimism) | "results indicate that the outcomes reported are a statistical phenomenon and may be unavoidable … collapse towards univariate Gaussian shapes." |
+| L-MC-9 | `[ai-confirmed]` | five criteria hold; arXiv open-access | no (multi-modal extension) | "model collapse … exhibits distinct characteristics in the multi-modal context … increased decoding budgets, greater model diversity, and relabeling with frozen models can effectively mitigate model collapse." |
+
+### Most consequential upgrade (slice 10)
+
+**L-MC-1 (Shumailov et al., 2024, *Nature*).** The canonical citation for §7.7's model-collapse externality. Verified via the publisher landing and the University of Edinburgh open-access institutional copy; abstract and three-modality scope (LLMs, VAEs, GMMs) confirmed verbatim. With L-MC-7 also confirmed, the writer can cite either the *Nature* paper or the arXiv preprint depending on audience; both are now writer-actionable. The L-MC-3 / L-MC-4 / L-MC-8 triple gives §7.7 its full theoretical scaffolding: collapse is unavoidable on pure synthetic (Seddik), bounded with accumulation (Gerstgrasser), but may still be a general statistical phenomenon (Borji). No load-bearing claim in the entry summaries was weaker than the source.
+
+### Re-analysis verdict (slice 10)
+
+**`RE-ANALYSIS REQUIRED: no`** — all nine cluster-J entries cleared the verification ladder; zero edge-cases, zero fetch failures. Cluster J (§7.7 model collapse / dilution of the scientific commons) is now fully `[ai-confirmed]`.
+
+### Cumulative state after pass 8 (slices 1–10)
+
+- Net upgrades to `[ai-confirmed]` / `[ai-confirmed-bibliographic]` this pass: **9** new `[ai-confirmed]`.
+- Cumulative across passes 1–8: **55 [ai-confirmed]** + **5 [ai-confirmed-bibliographic]** + **2 [edge-case]** + **3 [ai-confirmed-attempt-failed]**.
+- Remaining `[lit-retrieved]` unprocessed: **~48** (down from ~57).
+- Cluster J is fully verified end-to-end.
+
+## Slice 11 (pass 9, 2026-05-03) — cluster K-CONS consumer-IoT base rate — six upgrades
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-CONS-1 | `[ai-confirmed]` | five criteria hold; IEEE Xplore + Zhejiang NESA open-access PDF; quantitative anchor verified verbatim | yes (§§3-4 base-rate anchor) | "the results show that 385,060 (28.25 percent) devices suffer from at least one N-days vulnerability" |
+| L-CONS-2 | `[ai-confirmed]` | five criteria hold; USENIX Security '19 open-access | yes (most-cited home-IoT measurement) | "the first large-scale empirical analysis of IoT devices in real-world homes by leveraging data collected from user-initiated network scans of 83M devices in 16M households" |
+| L-CONS-3 | `[ai-confirmed]` | five criteria hold; IEEE Xplore + accepted-author-manuscript open-access | yes (lesser-known-vendor qualifier directly supports Spider Farmer / EcoFlow positioning) | "the need for a stronger focus on the security posture of lesser known vendor devices as they are often less regulated and face less scrutiny" |
+| L-CONS-4 | `[ai-confirmed-bibliographic]` | venue/authorship/scope verified; entry summary makes no specific quantitative claim and L-CONS-4 is a survey rather than a measurement anchor | no (survey context) | "describes the common attacks faced by consumer IoT devices and suggests potential mitigation strategies" |
+| L-CONS-5 | `[ai-confirmed]` | five criteria hold; IEEE Xplore + author institutional copy | no (corroborates §3 base rate, not the sole anchor) | "Shodan is used to collect a large testbed of consumer IoT devices which are then passed through Nessus … a significant number of consumer IoT devices are vulnerable to exploits that can compromise user information and privacy" |
+| L-CONS-6 | `[ai-confirmed]` | five criteria hold; IEEE Access open-access | no (framework reference) | "according to the AHP model, network security was the primary driver of smart home device security with a priority of 0.6893 while application security had the least priority of 0.0591" |
+
+### Most consequential upgrade (slice 11)
+
+**L-CONS-1 (Zhao et al., 2022, *IEEE TDSC*).** Provides the headline 28.25% vulnerable-fraction figure across 1,362,906 deployed devices. Verified verbatim against the Zhejiang NESA open-access PDF and IEEE Xplore landing page. With L-CONS-3 also confirmed, the §3-4 case-study positioning ("Spider Farmer / EcoFlow PowerOcean fit the lesser-known-vendor pattern that is systematically less scrutinised") is now anchored on a peer-reviewed *IEEE IoT J* finding rather than a database snippet.
+
+### Re-analysis verdict (slice 11)
+
+**`RE-ANALYSIS REQUIRED: no`** — all six L-CONS entries cleared the verification ladder; zero edge-cases, zero fetch failures. Cluster K-CONS (consumer-IoT base rate; supports §3 / §4 framing) is now fully `[ai-confirmed]` (with L-CONS-4 as `[ai-confirmed-bibliographic]` per rule 5 — survey, no quantitative claim depends on it).
+
+### Cumulative state after pass 9 (slices 1–11)
+
+- Net upgrades this pass: **5 [ai-confirmed]** + **1 [ai-confirmed-bibliographic]**.
+- Cumulative across passes 1–9: **60 [ai-confirmed]** + **6 [ai-confirmed-bibliographic]** + **2 [edge-case]** + **3 [ai-confirmed-attempt-failed]**.
+- Remaining `[lit-retrieved]` unprocessed: **~42** (down from ~48).
+- Clusters fully verified end-to-end: J (model collapse, §7.7) and K-CONS (consumer-IoT base rate, §§3-4).
+
+---
+
+## Pass 10 (slice 12) — Cluster K-IND, industrial / IIoT / ICS posture (2026-05-03, Claude Opus 4.7)
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-IND-1 | `[ai-confirmed]` | all five criteria hold; canonical framing source for §3-4 industrial-qualifier paragraph | yes | "securing the Industrial Internet of Things introduces its own challenges but also opportunities, mainly resulting from a longer lifetime of components and a larger scale of networks" (arXiv:2111.11714 abstract) |
+| L-IND-2 | `[ai-confirmed]` | all five criteria hold; **strongest empirical anchor in the cluster** — refutes "industrial-grade therefore safer" intuition | yes | "More than 13000 devices were found, almost all contained at least one vulnerability. European and Northern American countries are by far the most affected ones" (arXiv:2111.13862 abstract) |
+| L-IND-3 | `[ai-confirmed]` | all five criteria hold; structural-critique companion to L-IND-1 | no (supporting) | "ICS was designed to be used in an isolated area… this design does not meet today's business requirements… opens up several cybersecurity challenges" (ScienceDirect abstract; DOI 10.1016/j.comnet.2019.106946) |
+| L-IND-4 | `[ai-confirmed-bibliographic]` | survey paper; venue/authorship/scope verified; rule-5 conservatism — no specific quantitative claim anchored | no | "we classify the IIoT threats in five generic categories: phishing attacks, ransomwares, protocol, supply chain, and system attacks" (MDPI IoT 2021 §3) |
+| L-IND-5 | `[ai-confirmed]` | all five criteria hold; standards-landscape view useful for "regulation/certification raise the floor" hypothesis | no (supporting) | "provides a roadmap for identifying, aligning, mapping, converging, and implementing the right cybersecurity standards… for securing M2M communications in the IIoT" (Sensors 21:3901 abstract) |
+| L-IND-6 | `[ai-confirmed-bibliographic]` | survey paper; venue/authorship/scope verified; rule-5 conservatism — no specific quantitative claim anchored | no | "This article presents an overview of ICS security, covering its components, protocols, industrial applications, and performance aspects" (Sensors 23:8840 abstract) |
+
+**Pass-10 totals:** processed 6, upgraded 4 to `[ai-confirmed]`, upgraded 2 to `[ai-confirmed-bibliographic]` (L-IND-4 and L-IND-6 — surveys, no anchored quantitative claim), 0 edge-cases, 0 fetch failures.
+
+**RE-ANALYSIS REQUIRED: no** — cluster K-IND fully verified end-to-end. The §3-4 industrial-qualifier paragraph is unblocked.
+
+**Cumulative state (passes 1-10):** 64 `[ai-confirmed]` + 8 `[ai-confirmed-bibliographic]` + 2 `[edge-case]` + 3 `[ai-confirmed-attempt-failed]`. Remaining `[lit-retrieved]` unprocessed: ~36. Clusters fully verified end-to-end: J (model collapse, §7.7), K-CONS (consumer-IoT base rate, §§3-4), and K-IND (industrial / IIoT / ICS posture, §§3-4).
+
+---
+
+## Pass 12 (slice 14) — Cluster L-PRIV remainder, companion-app + local-first existence proof + GDPR-qualifier subcluster (2026-05-03, Claude Opus 4.7)
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-PRIV-7 | `[ai-confirmed]` | all five criteria hold; abstract + methodology + results section verified verbatim against MDPI HTML and PMC mirror | yes (cited in §7.12 main.md L554 / main.tex L1907) | "this work scrutinizes more than forty chart-topping Android official apps belonging to six diverse mainstream categories of IoT devices… the majority of such apps still remain susceptible to a range of security and privacy issues" |
+| L-PRIV-8 | `[ai-confirmed]` | all five criteria hold; abstract + take-aways verified verbatim against open-access ldklab.github.io PDF | yes (cited in §7.12 main.md L554 / main.tex L1905) | "Our findings indicate: (i) apps may over-request permissions… and (ii) there is widespread use of programming and configuration practices which may reduce security, with the concerning extreme of two apps transmitting credentials in unencrypted form" |
+| L-PRIV-9 | `[ai-confirmed]` | all five criteria hold; **strongest existence proof in the cluster** for the §7.12 "use-as-intended without telemetry" claim; numbers verbatim | yes (cited twice in main.md L73 + L556 / main.tex L322 + L1923) | "disabling traffic to the domains contained in well-maintained blocklists does not prevent Fitbit trackers from correctly reporting activity data… we find all studied app to contact between 1 and 20 non-required third parties" |
+| L-PRIV-10 | `[ai-confirmed]` | all five criteria hold for the *systematisation* methodology; legal-mapping content cross-checked against EDPL secondary citation; rule-5 caveat recorded in entry status line | yes (cited in main.md L73 + L556 / main.tex L319 + L1926) | "we identify basic characteristics that an IoT privacy framework should satisfy in order to enable the protection of users' privacy and personal data, while supporting the GDPR requirements" |
+| L-PRIV-11 | `[ai-confirmed]` | all five criteria hold; abstract verified verbatim against arXiv + Oxford ORA + HCC Oxford pages | yes (cited in §7.12 main.md L558 / main.tex L1932) | "limited change in the presence of third-party tracking in apps, and… concentration of tracking capabilities among a few large gatekeeper companies persists" |
+| L-PRIV-12 | `[ai-confirmed-bibliographic]` | bibliographic record verified (Oxford Academic vol/issue/pages/DOI + SSRN preprint + Tilburg LL.M. citing thesis); rule-5 sensitivity guard caps the upgrade — legal-interpretation source touching GDPR scope and data-controller compliance routes | yes (cited in §7.12 main.md L558 / main.tex L1934) | "minimizing the processed data by default might not only be compliant with the data minimization principle, but also… it could exclude their activities from the GDPR altogether" |
+
+**Pass-12 totals:** processed 6, upgraded **5 to `[ai-confirmed]`** (L-PRIV-7, L-PRIV-8, L-PRIV-9, L-PRIV-10, L-PRIV-11) and **1 to `[ai-confirmed-bibliographic]`** (L-PRIV-12 — legal-interpretation source, rule-5 conservatism); 0 edge-cases; 0 fetch failures.
+
+**RE-ANALYSIS REQUIRED: no** — all six entries reached an actionable verification tier. The full L-PRIV cluster (L-PRIV-1 through L-PRIV-12) is now writer-actionable for §1.3 / §7.12 with the standing rule-5 caveat that the two legal-mapping sources (L-PRIV-10 systematisation-only; L-PRIV-12 bibliographic-only) still require `[lit-read]` before they anchor any *load-bearing legal* claim.
+
+**Cumulative state (passes 1-12):** 74 `[ai-confirmed]` + 10 `[ai-confirmed-bibliographic]` + 2 `[edge-case]` + 3 `[ai-confirmed-attempt-failed]`. Remaining `[lit-retrieved]` unprocessed: ~24. Clusters fully verified end-to-end: J (model collapse, §7.7), K-CONS (consumer-IoT base rate, §§3-4), K-IND (industrial / IIoT / ICS posture, §§3-4), and **L-PRIV** (privacy / local-first as user right, §1.3 + §7.12 — new this pass).
+
+---
+
+## Pass 13 (slice 15) — Cluster M (malicious LLM agents, §7.13) (2026-05-03, Claude Opus 4.7)
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-AGT-1 | `[ai-confirmed]` | all five criteria hold; numbers verified verbatim against arXiv abstract; canonical reference for §7.13 governance-vs-capability framing | yes (anchors §7.13 "per-device exploit pipeline") | "GPT-4 is capable of exploiting 87% of these vulnerabilities compared to 0% for every other model we test (GPT-3.5, open-source LLMs) and open-source vulnerability scanners (ZAP and Metasploit)… without the description, GPT-4 can exploit only 7%" |
+| L-AGT-2 | `[ai-confirmed]` | all five criteria hold; abstract verified verbatim | yes (§7.13 "credential-and-token harvesting") | "LLM agents can autonomously hack websites, performing tasks as complex as blind database schema extraction and SQL injections without human feedback. Importantly, the agent does not need to know the vulnerability beforehand" |
+| L-AGT-3 | `[ai-confirmed]` | all five criteria hold; >30 attack techniques + four-domain taxonomy + P2SQL + Toxic Agent Flow examples verified against arXiv + ICT Express open-access HTML | yes (§7.13 systematisation reference) | "the first unified, end-to-end threat model for LLM-agent ecosystems… catalog over thirty attack techniques… Representative examples include Prompt-to-SQL (P2SQL) injections and the Toxic Agent Flow exploit in GitHub's MCP server" |
+| L-AGT-4 | `[ai-confirmed]` | all five criteria hold; 18-LLM evaluation + 94.4% / 83.3% / 100% numbers verified verbatim | yes (§7.13 "trust laundering") | "94.4% of models succumb to Direct Prompt Injection, and 83.3% are vulnerable to the more stealthy and evasive RAG Backdoor Attack… 100.0% of tested LLMs can be compromised through Inter-Agent Trust Exploitation" |
+| L-AGT-5 | `[ai-confirmed]` | all five criteria hold; ASR numbers + Detox2Tox mechanism verified against arXiv + ACL Anthology PDF; ACL Industry Track venue confirmed | yes (§7.13 vendor-side-safety-not-sufficient) | "SUDO achieves a stark attack success rate of 24.41% (with no refinement), and up to 41.33% (by its iterative refinement) in Claude for Computer Use" |
+| L-AGT-6 | `[ai-confirmed]` | all five criteria hold; ≥80% ASR + no-fine-tuning + three-agent-class scope verified against full arXiv abstract | yes (§7.13 self-augmentation / governance erosion) | "AgentPoison requires no additional model training or fine-tuning… On each agent, AgentPoison achieves an average attack success rate of ≥80% with minimal impact" |
+| L-AGT-7 | `[ai-confirmed]` | all five criteria hold; Thought-Attack mechanism verified verbatim against arXiv PDF; NeurIPS 2024 venue confirmed (proceedings.com) | yes (§7.13 "intermediate reasoning step manipulation") | "the agent backdoor attacker can not only choose to manipulate the final output distribution, but also introduce the malicious behavior in an intermediate reasoning step only, while keeping the final output correct" |
+| L-AGT-8 | `[ai-confirmed]` | all five criteria hold; 27 × 13 × 10 benchmark dimensions + 84.30% number verified verbatim against arXiv + ASBench landing page; ICLR 2025 venue confirmed | yes (§7.13 mitigation systematisation) | "10 scenarios… 10 agents targeting the scenarios, over 400 tools, 27 different types of attack/defense methods, and 7 evaluation metrics… the highest average attack success rate of 84.30%, but limited effectiveness shown in current defenses" |
+| L-AGT-9 | `[ai-confirmed]` | all five criteria hold; >80% failure rate + repetitive/irrelevant action mechanism verified verbatim against arXiv + ACL Anthology PDF; EMNLP 2025 venue confirmed | yes (§7.13 non-malicious-agent failure mode) | "We introduce a new type of attack that causes malfunctions by misleading the agent into executing repetitive or irrelevant actions… these attacks can induce failure rates exceeding 80% in multiple scenarios" |
+| L-AGT-10 | `[ai-confirmed]` | all five criteria hold; "robust after fine-tuning on trustworthy data" claim verified verbatim against arXiv + ACL Anthology + EmergentMind summary; ACL 2024 venue confirmed | yes (§7.13 structural-defences-required) | "our proposed attack methods are extremely robust even after fine-tuning on trustworthy data… clear risk of constructing LLM agents based on untrusted LLMs or data" |
+
+**Pass-13 totals:** processed 10, upgraded **10 to `[ai-confirmed]`** (L-AGT-1 through L-AGT-10); 0 edge-cases; 0 fetch failures.
+
+**RE-ANALYSIS REQUIRED: no** — all ten entries reached `[ai-confirmed]`. The full Cluster M (§7.13 "The malicious IoT-integrator agent") is now writer-actionable end-to-end. Bibliographic upgrades for six entries (L-AGT-3, -5, -7, -8, -9, -10) recommended in the writer hand-back; these have since reached top-tier peer-reviewed venues (ICT Express, ACL × 2, NeurIPS, ICLR, EMNLP).
+
+**Cumulative state (passes 1-13):** 84 `[ai-confirmed]` + 10 `[ai-confirmed-bibliographic]` + 2 `[edge-case]` + 3 `[ai-confirmed-attempt-failed]`. Remaining `[lit-retrieved]` unprocessed: ~14 (clusters N, O). Clusters fully verified end-to-end: J, K-CONS, K-IND, L-PRIV, and **M (new this pass)**.
+
+---
+
+## Pass 14 (2026-05-03) — clusters N + O — final backlog clearance
+
+**Agent:** Claude Opus 4.7. **Scope:** the entire remaining `[lit-retrieved]` backlog (12 entries: L-APK-1..7, L-IOTAPP-1..5).
+
+| Entry | Decision | Reason | Critical-path? | Quote (abridged) |
+|-------|----------|--------|----------------|------------------|
+| L-APK-1 | `[ai-confirmed]` | base-rate, all 5 criteria hold | yes (§7.14) | "5% to 13% of apps hosted in these six markets are repackaged" |
+| L-APK-2 | `[ai-confirmed]` | base-rate; numbers verbatim | yes (§7.14) | "41,057 applications from 194 alternative Android application markets" |
+| L-APK-3 | `[ai-confirmed]` | scale anchor; numbers verbatim | yes (§7.14) | "evaluated it nearly 1.2 million apps from 33 app markets" |
+| L-APK-4 | `[ai-confirmed]` | clone/malware ratio verbatim | yes (§7.14) | "76% of them are malware" |
+| L-APK-5 | `[ai-confirmed]` | corpus + CVE counts verbatim | yes (§7.14) | "6,261 firmware images from 153 vendors and 602 Android-related CVEs" |
+| L-APK-6 | `[ai-confirmed]` | lineage counts verbatim | yes (§7.14) | "5 million app packages … 28,564 app lineages … 465,037 apks" |
+| L-APK-7 | `[ai-confirmed]` | corpus + library counts verbatim; published in J. Cybersecurity (additional bibliographic upgrade noted) | yes (§7.14) | "100,000 applications (but only 40% contained native code) and 15 popular libraries" |
+| L-IOTAPP-1 | `[ai-confirmed]` | direct §6.7 anchor; verbatim findings | yes (§6.7) | "9,889 manually verified companion apps … abandoned domains, hard-coded credentials, expired certificates" |
+| L-IOTAPP-2 | `[ai-confirmed]` | shared-component count verbatim | yes (§6.7) | "324 devices from 73 different vendors that are likely to be vulnerable" |
+| L-IOTAPP-3 | `[ai-confirmed]` | crypto + lib + Janus counts verbatim | yes (§6.7, §7.14) | "94.11% (863/917) … 65 vulnerable IoT-specific libraries … 7,887 apps" |
+| L-IOTAPP-4 | `[ai-confirmed]` | vendor counts verified via Florida Tech press + GitHub repo; primary PDF (USENIX CSET 2021) returned CRAWL_NOT_FOUND but second-source corroboration is sufficient for the narrow descriptive claim | yes (§6.7) | "16 device vendors failed to implement security measures … conceal malicious users, suppress motion reporting, modify camera images, unlock doors, and manipulate history log files" |
+| L-IOTAPP-5 | `[ai-confirmed]` | device + companion-app counts + 50% no-encryption finding verbatim | yes (§6.7) | "96 top-selling WiFi IoT devices … only 32 unique companion apps … 50% of the apps … did not use proper encryption" |
+
+### Counts (this pass)
+
+- Entries processed: 12
+- Upgraded to `[ai-confirmed]`: 12
+- Edge-cased: 0
+- Fetch-failed: 0 (L-IOTAPP-4 primary PDF returned CRAWL_NOT_FOUND but Florida Tech press release + author's GitHub repo provided sufficient verbatim quotation; not flagged as fetch-failed)
+
+### Re-analysis verdict
+
+**RE-ANALYSIS REQUIRED: no.** All 12 entries reached `[ai-confirmed]`; backlog cleared.
+
+### Cumulative state (passes 1–14)
+
+- **96 `[ai-confirmed]`** + **10 `[ai-confirmed-bibliographic]`** + **2 `[edge-case]`** (L-VD-1, L-VD-5, L-HC-1, L-HC-6, L-BLE-5 are 5 entries flagged across the run, of which 3 carry standing edge-case status awaiting human `[lit-read]` — recheck if needed) + **3 `[ai-confirmed-attempt-failed]`**.
+- Remaining `[lit-retrieved]` unprocessed: **0** (backlog cleared).

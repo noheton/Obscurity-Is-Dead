@@ -3,10 +3,21 @@
 Figure 12 — Test-case difficulty taxonomy (ILL-06).
 
 Heat-map of the four device-integration case studies along three
-difficulty axes (cryptographic barrier, labour to break, blast radius)
-plus a composite column. Visualises the §6.6 taxonomy spread.
+difficulty axes (cryptographic barrier, labour to break, blast radius).
+Visualises the §6.6 taxonomy spread.
 
-Authorship: AI-authored (illustration agent, 2026-05-02).
+The composite axis previously rendered as a fourth column has been
+**dropped** from the figure (illustrator pass 2026-05-03, LAY-06
+PARTIAL-fix): the preceding `tab:difficulty-taxonomy` already carries
+the Composite ("Easy / Medium / Hard") rating in textual form, and
+duplicating it as a heat-map column was the source of the "Med High"
+two-line wrap that triggered the LAY-06 row-split warning. Removing
+the Composite column also relieves text-width pressure on the figure
+include and keeps the heat-map focused on the three independent axes.
+
+Authorship: AI-authored (illustration agent, 2026-05-02; revised
+2026-05-03 by illustrator pass to drop the redundant composite column
+per LAY-06).
 
 Source data: paper/figures/data/difficulty-taxonomy.csv (qualitative
 ratings sourced from per-case REPORT.md evidence; aggregation rule
@@ -30,12 +41,12 @@ DATA = os.path.join(HERE, "data", "difficulty-taxonomy.csv")
 df = pd.read_csv(DATA, comment="#")
 
 cases = df["case"].tolist()
-cols = ["crypto_barrier", "labour_to_break", "blast_radius", "composite"]
-col_labels = ["Crypto\nbarrier", "Labour\nto break", "Blast\nradius", "Composite\n(spread)"]
+cols = ["crypto_barrier", "labour_to_break", "blast_radius"]
+col_labels = ["Crypto\nbarrier", "Labour\nto break", "Blast\nradius"]
 
 M = df[cols].values  # rows = cases, cols = axes
 
-fig, ax = plt.subplots(figsize=(8.8, 4.8))
+fig, ax = plt.subplots(figsize=(7.2, 4.8))
 
 # Custom colormap from DLR palette: light yellow -> dark blue
 from matplotlib.colors import LinearSegmentedColormap
@@ -51,11 +62,7 @@ labels_for_value = {1: "Low", 1.5: "Low–Med", 2: "Medium", 2.5: "Med–High", 
 for i in range(M.shape[0]):
     for j in range(M.shape[1]):
         v = M[i, j]
-        if j < 3:
-            text = labels_for_value.get(v, f"{v:g}")
-        else:
-            # composite: show the qualitative composite rating (Easy/Medium)
-            text = "Easy" if v <= 1 else ("Medium" if v <= 2 else "Hard")
+        text = labels_for_value.get(v, f"{v:g}")
         color = "white" if v >= 2.2 else "#222"
         ax.text(j, i, text, ha="center", va="center",
                 fontsize=10, fontweight="bold", color=color)
@@ -80,8 +87,9 @@ cbar.outline.set_visible(False)
 # Footer caption
 fig.text(
     0.5, -0.02,
-    "Qualitative rating; composite is informative of spread, not an "
-    "absolute scale (§6.6). Source: paper/figures/data/difficulty-taxonomy.csv",
+    "Qualitative rating along three independent axes; composite "
+    "(Easy / Medium / Hard) is reported separately in the preceding "
+    "table (§6.6). Source: paper/figures/data/difficulty-taxonomy.csv",
     ha="center", va="top", fontsize=8.6, style="italic",
     color=dlr_style.DLR_GRAY,
 )

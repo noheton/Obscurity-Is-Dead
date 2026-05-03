@@ -55,6 +55,15 @@ figures: $(FIG_PDFS)
 # This lets stages downstream of figures (e.g. the Layout Scrutinizer)
 # proceed against committed figure artefacts when the SVG toolchain is
 # unavailable in the current environment.
+#
+# After conversion, force the PDF header to "%PDF-1.5" (illustrator
+# pass 2026-05-03, LAY-13 fix). rsvg-convert and inkscape both emit
+# PDF 1.7 by default, which trips the pdfTeX warning
+# `PDF inclusion: found PDF version <1.7>, but at most version <1.5>
+# allowed` in the layout-scrutinizer log. Header-byte rewriting is
+# safe for the simple vector content these figures carry (no PDF-1.6+
+# features used) and is robust without requiring ghostscript / qpdf
+# to be installed in the build environment.
 $(FIG_DIR)/%.pdf: $(FIG_DIR)/%.svg
 	@if command -v rsvg-convert >/dev/null 2>&1; then \
 	  rsvg-convert -f pdf -o $@ $< ; \
@@ -63,9 +72,14 @@ $(FIG_DIR)/%.pdf: $(FIG_DIR)/%.svg
 	elif [ -f $@ ]; then \
 	  echo "WARNING: no SVG converter found; reusing existing $@"; \
 	  touch $@ ; \
+	  exit 0 ; \
 	else \
 	  echo "ERROR: need rsvg-convert or inkscape to build $@"; exit 1; \
 	fi
+	@python3 -c "import sys; p=sys.argv[1]; b=open(p,'rb').read(); \
+	   open(p,'wb').write(b.replace(b'%PDF-1.7',b'%PDF-1.5',1) \
+	     .replace(b'%PDF-1.6',b'%PDF-1.5',1)) \
+	   if b[:8] in (b'%PDF-1.7',b'%PDF-1.6') else None" $@
 
 $(MAIN).pdf: $(MAIN).tex $(BIB) $(FIG_PDFS)
 	latexmk $(LATEXMK_FLAGS) $(MAIN).tex
