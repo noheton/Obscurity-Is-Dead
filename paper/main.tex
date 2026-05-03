@@ -602,6 +602,30 @@ Asset        & T7 & Logo addition (empty export; deliverable done) & $<$0.5\,h \
 days to weeks independently; conservative estimate \textbf{60--120\,h}.
 \textbf{Effort-gap metric}: $\approx$10.5 / 90 $\approx$ \textbf{12\% of manual effort}.
 
+\textbf{Hedge against the literature.} We are unaware of a peer-reviewed
+study that pairs manual and AI-assisted wall-clock data on an
+embedded-protocol reconstruction task. The closest published anchor is
+Basque et al.\ (NDSS 2026, \emph{Distinguished Paper})~\citep{basque2026synergy},
+which reports \textbf{up to 2.4$\times$ faster triage of known-algorithm
+functions} and {\raise.17ex\hbox{$\scriptstyle\sim$}}98\% novice
+comprehension uplift across 48 participants and 109 hours of instrumented
+software reverse engineering. Generalised greenfield productivity
+proxies---Peng et al.\ 2023 (55.8\% faster Copilot RCT, $n{=}95$)~\citep{peng2023copilot}
+and Cui et al.\ 2025 ($+$26\% tasks completed, $n{=}4{,}867$)~\citep{cui2025genai}---bracket
+the upper end; METR 2025 ($n{=}16$, $\mathbf{-19\%}$ slower for
+experienced developers in mature codebases)~\citep{metr2025productivity} anchors
+the lower end and is the closest literature analog to our brownfield
+integration setting. Our 8.6$\times$ compression (1 / 0.12) sits well
+above Basque's 2.4$\times$ and is in tension with METR's slowdown
+finding; we therefore present 10.5\,h vs 60--120\,h as a
+\emph{single-researcher point estimate}, not a benchmarked comparator,
+and read it as a lower-bound illustration consistent with---but not
+validated by---the existing literature. The asymmetry between
+greenfield gains and brownfield slowdowns documented in cluster~A.3 is
+itself a finding worth flagging in
+\cref{sec:synthesis-evidence-asymmetry} alongside the cluster~A.2
+evidence-asymmetry meta-observation.
+
 Other KPIs: artifact-acquisition completeness 8/8 entries vendored;
 transcript count~7; independent-implementation count 4; residual
 obscurity depth: nil (all key/IV pairs confirmed against
