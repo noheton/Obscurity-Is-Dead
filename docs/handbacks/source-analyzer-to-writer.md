@@ -457,3 +457,46 @@ Cluster J (§7.7 model collapse / dilution of the scientific commons) is now ful
 - **Multi-modal extension** — L-MC-9 (VLMs + diffusion).
 
 No `paper/references.bib` corrections required for cluster J — author lists, years, and venues in the entry summaries match the verified records (Shumailov 2024 *Nature* 631:755–759; Borji 2024 arXiv; Gerstgrasser 2024 arXiv; Seddik 2024 COLM/arXiv; Suresh et al. 2024 arXiv; Shi et al. 2025 NeurIPS arXiv; Hu et al. 2025 arXiv; Shabgahi et al. 2025 arXiv). The writer should consider citing the **2025 Author Correction** (https://www.nature.com/articles/s41586-025-08905-3) alongside L-MC-1 if it materially affects the headline numbers — flagged for human review but not load-bearing for the §7.7 prose.
+
+---
+
+## Slice 11 (pass 9, 2026-05-03) — cluster K-CONS — six upgrades available for inline citation
+
+These entries are now writer-actionable for §3 (case-study framing) and §4 (consumer-IoT empirical baseline). All six are `[ai-confirmed]` (or `[ai-confirmed-bibliographic]` for the survey) and may be promoted from footnote-only references to in-text citations.
+
+### L-CONS-1 — Zhao et al., 2022, *IEEE TDSC* — `[ai-confirmed]`
+
+Now citable inline as the **headline consumer-IoT base-rate anchor**: 1,362,906 deployed IoT devices analysed; **385,060 (28.25%)** carry at least one N-day vulnerability. Strongest single quantitative claim available for "consumer hardware is broadly vulnerable" framing in §3 / §4. Use verbatim figure (28.25%) — no rounding tightening required.
+
+### L-CONS-2 — Kumar et al., 2019, USENIX Security — `[ai-confirmed]`
+
+Now citable inline as the **most-cited home-IoT measurement**: 83M devices across 16M households (Stanford / UIUC / Avast). Use as the breadth complement to L-CONS-1's depth: regional variance and weak default credentials are documented at internet scale.
+
+### L-CONS-3 — Davis et al., 2020, *IEEE IoT Journal* — `[ai-confirmed]`
+
+Now citable inline as the **lesser-known-vendor qualifier**: directly supports the Spider Farmer / EcoFlow PowerOcean positioning in §3 / §4. The paper's main finding (lesser-known vendors are less-regulated and less-scrutinised) is verbatim aligned with the entry summary.
+
+### L-CONS-4 — Alladi et al., 2020, *IEEE Consumer Electronics Magazine* — `[ai-confirmed-bibliographic]`
+
+Use only as a **survey citation** for the broader context of consumer-IoT attack categories. Bibliographic-only confirmation per rule 5 (no specific quantitative claim is anchored to it).
+
+### L-CONS-5 — Williams et al., 2017, IEEE ISI — `[ai-confirmed]`
+
+Now citable inline as the **Shodan + Nessus corroborating measurement**. Use as additional supporting evidence for L-CONS-1's base-rate claim, not as a sole anchor.
+
+### L-CONS-6 — Allifah & Zualkernan, 2022, *IEEE Access* — `[ai-confirmed]`
+
+Now citable inline as the **AHP framework reference**. Available if §3 / §4 wants to invoke a multi-criterion device-category ranking; not load-bearing for any current claim. Network-security priority weight (0.6893) is the most quotable specific figure if needed.
+
+---
+
+## Slice 11 readiness summary
+
+Cluster K-CONS (consumer-IoT base rate) is now fully `[ai-confirmed]`: five `[ai-confirmed]` plus one `[ai-confirmed-bibliographic]`; zero edge-cases, zero fetch failures. The §3 / §4 base-rate scaffolding is now anchored on:
+- **Headline quantitative anchor** — L-CONS-1 (Zhao 2022, *IEEE TDSC*: 28.25% of 1.36M devices vulnerable).
+- **Breadth corroboration** — L-CONS-2 (Kumar 2019 USENIX: 83M devices) and L-CONS-5 (Williams 2017 ISI: Shodan + Nessus).
+- **Lesser-known-vendor qualifier** — L-CONS-3 (Davis 2020 *IEEE IoT J*).
+- **Survey context** — L-CONS-4 (Alladi 2020 *IEEE CEM*).
+- **Optional ranking framework** — L-CONS-6 (Allifah 2022 *IEEE Access*).
+
+No `paper/references.bib` corrections required for cluster K-CONS — author lists, years, and venues match the verified records.
