@@ -16,6 +16,20 @@ This paper investigates how modern large language models collapse the traditiona
 
 ---
 
+## Author's Note — Advice for reading {#sec:authors-note}
+
+A short methodological reflection, placed up-front so readers can decide how to engage with what follows.
+
+*Process, not product.* View this work less as the *output* of frontier agentic AI and more as a *process* — a methodology that tries to leverage generative AI's analytical lift while warding against its failure modes: fabrication, opacity, dual-use amplification, and the asymmetric collapse described in §7.3 and §7.7. The case-study substance is mostly prior community work; the contribution is the eight-practice register in §10 and the discipline that produced it.
+
+*Frameworks evolve with capabilities.* The eight practices in §10 are calibrated to a specific snapshot — Claude Opus 4.7, the Claude Code CLI, the Consensus literature front end, and consumer-IoT case studies in mid-2026. As capabilities and tooling evolve, the register must evolve with them. Some practices will be subsumed by tooling (transcript export becomes a click), some will become inadequate (verification-status legends will need finer grain), and some I cannot yet name will need to be invented. Treat the eight as a starting point, not a final state.
+
+*Pandora's jar is open.* The shattered-jar logo in the front matter is deliberate. The empirical literature on fabricated citations, paper-mill output, and model collapse documents what is already out — and no appeal to obscurity, vendor terms of service, or moratoria on capability research will put it back. The intact-jar reference in §10 is the Hesiodic counterpoint: the jar can be closed only if Hope is what remains inside, and Hope here is operational — structured, transparent, attributed practice that the next reader can audit, replicate, or refute.
+
+*Open to constructive criticism.* I (Florian Krebs) welcome criticism, replication attempts, and challenges to the framework — to the eight practices, the case-study choices, and the legal framing in §9. The transcript-as-artifact discipline (rule 4 in `CLAUDE_CODE_INSTRUCTIONS.md`) is precisely the affordance that makes such critique possible: every claim is backed by an exportable conversation log committed in this repository. If you find a fabricated citation, an unsourced legal claim, or a verification-status entry that cannot survive scrutiny, I want to hear about it.
+
+---
+
 ## Executive Summary {#sec:executive-summary}
 
 *This summary re-presents the claims of the full paper for readers deciding whether to read further. It introduces no new findings; every numerical anchor below is sourced and developed in the body.*
@@ -644,20 +658,6 @@ Several community maintainers and their public repositories underpin the Spider 
 
 ### 9.5 Statement of independence and personal capacity
 This work is a hobbyist research project carried out by the author (Florian Krebs, ORCID [0000-0001-6033-801X](https://orcid.org/0000-0001-6033-801X)) in a strictly personal capacity. It is **not** part of, endorsed by, funded by, supervised by, or representative of the views of any employer, including the German Aerospace Center (DLR / *Deutsches Zentrum für Luft- und Raumfahrt*). The author's day-job affiliation is acknowledged here only so the reader can rule it out: no DLR resources, infrastructure, datasets, or employer-confidential information were used in the preparation of this paper or its underlying repository. The author's day-time research at DLR concerns experimental data management (`shepard`) and is unrelated to consumer-IoT reverse engineering. Any opinions expressed are the author's own. The repository's `CITATION.cff`, `.zenodo.json`, `codemeta.json`, and `docs/fair.md` all carry the affiliation **"Independent researcher (personal capacity)"** in line with this statement.
-
----
-
-## Author's Note {#sec:authors-note}
-
-A short methodological reflection.
-
-*Process, not product.* View this work less as the *output* of frontier agentic AI and more as a *process* — a methodology that tries to leverage generative AI's analytical lift while warding against its failure modes: fabrication, opacity, dual-use amplification, and the asymmetric collapse described in §7.3 and §7.7. The case-study substance is mostly prior community work; the contribution is the eight-practice register in §10 and the discipline that produced it.
-
-*Frameworks evolve with capabilities.* The eight practices in §10 are calibrated to a specific snapshot — Claude Opus 4.7, the Claude Code CLI, the Consensus literature front end, and consumer-IoT case studies in mid-2026. As capabilities and tooling evolve, the register must evolve with them. Some practices will be subsumed by tooling (transcript export becomes a click), some will become inadequate (verification-status legends will need finer grain), and some I cannot yet name will need to be invented. Treat the eight as a starting point, not a final state.
-
-*Pandora's jar is open.* The shattered-jar logo in the front matter is deliberate. The empirical literature on fabricated citations, paper-mill output, and model collapse documents what is already out — and no appeal to obscurity, vendor terms of service, or moratoria on capability research will put it back. The intact-jar reference in §10 is the Hesiodic counterpoint: the jar can be closed only if Hope is what remains inside, and Hope here is operational — structured, transparent, attributed practice that the next reader can audit, replicate, or refute.
-
-*Open to constructive criticism.* I (Florian Krebs) welcome criticism, replication attempts, and challenges to the framework — to the eight practices, the case-study choices, and the legal framing in §9. The transcript-as-artifact discipline (rule 4 in `CLAUDE_CODE_INSTRUCTIONS.md`) is precisely the affordance that makes such critique possible: every claim is backed by an exportable conversation log committed in this repository. If you find a fabricated citation, an unsourced legal claim, or a verification-status entry that cannot survive scrutiny, I want to hear about it.
 
 ---
 
