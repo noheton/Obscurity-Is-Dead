@@ -166,7 +166,7 @@ The end-to-end workflow is shown in Figure 3.
 - Static outgoing IVs per device type, dynamic incoming IVs derived from packet header — confirmed in `ble_protocol.py` lines 195-204.
 - Corrected key/IV pairs for CB controller and friends, pinned in `const.py` lines 45-47.
 - Concurrent-write safety via `asyncio.Lock` in `ble_coordinator.py` line 79.
-- Migration framework `async_migrate_entry` in `__init__.py` line 95; the integration is now at `VERSION = 3` past the T4-era `1→2` migration (the `2→3` step is presently undocumented by any preserved transcript — recorded as an open issue).
+- Migration framework `async_migrate_entry` in `__init__.py` line 95; the integration is now at `VERSION = 3` past the T4-era `1→2` migration. The `2→3` step is **not covered by any preserved chat transcript**, but the migration logic itself — vendored at `experiments/spider-farmer/original/__init__.py` lines 95–135 — is self-documenting and reconstructs to: (i) drop the legacy MQTT-only config-entry fields `uid` and `mqtt_topic`; (ii) derive `pid` deterministically from the stored BLE address (failing closed if no BLE address is present); (iii) idempotently carry forward the `v1→v2` CB-key correction; (iv) bump the entry version and emit `"Migrated Spider Farmer entry %s to version 3 (BLE-only)"`. Architecturally this is a transport simplification (BLE-only; MQTT retained only as a security-research dataset surface, §3.6), not a protocol change. **Provenance gap that remains:** the upstream commit history of `noheton/spider_farmer` was not retrievable from the build environment used for this paper (clone, GitHub API, and codeload tarball all failed); reconstruction worked from the embedded `original/` snapshot at repo commit `ffdf60c` only. Date, commit SHA, and any associated PR or issue thread for the v2→v3 transition are therefore unverified-external.
 
 **Table 1 — Cross-implementation comparison of the BLE crypto surface for the Spider Farmer SF-GGS family.** Rows are the protocol elements that had to be reconciled; columns are the four independent implementations the AI-mediated pass cross-checked against the in-tree integration. The right-most column records what `const.py` / `ble_protocol.py` settled on after reconciliation. *Source: `experiments/spider-farmer/original/doc/apk_analysis/implementations.md` and `experiments/spider-farmer/original/const.py` lines 40–55 at commit `ffdf60c`.*
 
@@ -623,7 +623,7 @@ The path forward is not to discourage AI-assisted research but to make it *audit
 - Operationalise the effort-gap KPIs against historical reverse-engineering case studies for a longitudinal comparison.
 - Develop a responsible-disclosure framework specific to AI-assisted reverse engineering.
 - Replace `[unverified-external]` legal sources with sourced commentary; address `[needs-research]` items in `docs/sources.md`.
-- Reconstruct the Spider Farmer `VERSION 2 → 3` migration step that no preserved transcript currently documents.
+- Recover upstream `noheton/spider_farmer` commit-history metadata (date, SHA, PR/issue references) for the `VERSION 2 → 3` migration. The technical content of the migration has been reconstructed from the embedded `original/__init__.py` (see §3.4); only the dated commit-history narrative remains outstanding.
 - Read in full the `[lit-retrieved]` literature in `docs/sources.md` clusters A–J and upgrade entries to `[lit-read]` before any of them is cited as authority rather than as a database pointer.
 
 ---
