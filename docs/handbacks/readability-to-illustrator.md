@@ -56,3 +56,25 @@ Spot-checks of `paper/main.md` against `paper/main.tex` (§1.4, §7.6, §10, §9
 The Stage 2 logbook entry on 2026-05-02 records that two researcher-supplied binary assets are not yet committed: `paper/figures/logo-obscurity-is-dead.png` (front matter / README hero) and `paper/figures/logo-pandora-jar-intact.png` (§10). The intentional broken-image state is consistent with rule 1 (transparency over aesthetics). RDB-18 (writer-side) shortens the §10 caption when those assets land.
 
 **[PARTIALLY RESOLVED 2026-05-03]** — `logo-obscurity-is-dead.png` landed (re-encoded, 1408x768 preserved, ~1.63 MB) and is now wired into `README.md` as the centered hero image with Gemini provenance disclosed in the alt-text per rule 1 (commits `7e1f297`, `062b1d3`; cleaned up by illustrator on 2026-05-03). Stage 4 and Stage 5 narrow-scope scrutinizers both reported `RE-SCRUTINY REQUIRED: no` for the wire-up. **Still OPEN:** `logo-pandora-jar-intact.png` remains the AI-authored placeholder rendered by `paper/figures/logo-placeholders.py`; the second Gemini deliverable has not yet been supplied. RDB-18 cannot be closed until the intact-jar binary lands.
+
+---
+
+## 2026-05-03 — Stage 5 re-scrutiny carry-note (no new request)
+
+The illustrator pass `84c2da0` cleared **RDB-04** (Figure 11 row-label
+legibility verified, no-op asset change required). No new illustrator-
+owned defect was introduced by writer pass `329bc28` or by the §7.6
+LaTeX-only fix `b5162ee`. The §6.8 evidence-asymmetry second sentence
+(RDB-23) was resolved by the writer in prose; the alternative
+"comparison-table figure routed to the illustrator" (proposed
+`ILL-NN-evidence-asymmetry`) is **no longer required** — the writer
+chose the prose-split path and Stage 5 verifies the result passes the
+≤6-sentence and <40-word rubric.
+
+**Standing illustrator-coordination items (unchanged from prior pass).**
+RDB-05 + RDB-08 (consolidate fig13 + fig14 into a single integrator
+matrix) — DEFERRED per the registry; the two figures serve different
+rhetorical positions and the merge is a structural authorial decision.
+RDB-07 (§7.11 prompt-injection 4 × 3 matrix figure) — DEFERRED per the
+registry; writer-side prose conversion unblocks. Both remain on the
+human-author decision list.

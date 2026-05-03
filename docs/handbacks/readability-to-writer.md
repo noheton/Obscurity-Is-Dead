@@ -245,3 +245,41 @@ Caption compressed to one sentence plus attribution at `main.tex:2200–2202` an
 **Rule-11 note.** Mirror in `main.tex` in the same commit. **L**-priority: deferable past the next writer pass.
 
 ---
+
+## RDB-27 — Author's Note: two over-long sentences  *(L, sentence-length)*  [NEW 2026-05-03]
+
+**Section.** Author's Note (`main.md:19–33`).
+**Source span.** `main.md:31` (paper-mill framing, third sentence); `main.md:33` (invitation framing, middle sentence). Mirror: `main.tex` corresponding lines.
+**Defect.** Two sentences cross the 40-word rubric threshold: (a) the *paper-mill* third sentence at `main.md:31` chains a parenthetical and a nested arrow-list ("research → source analysis → scientific writing → illustration → layout / readability scrutiny") and runs to ~70 words; (b) the *invitation* middle sentence at `main.md:33` chains three GitHub-issue labels (`idea` / `critique` / `provenance-gap`) with parenthetical glosses and runs to ~70 words. The other four framings stay within rubric bounds. Severity **L**: not comprehension-blocking; the Author's Note remains readable, and the candid first-person register is appropriate for a front-matter advice section.
+**Required outcome (when the writer next touches the Author's Note).** Split the *paper-mill* third sentence at "iterates it through structured passes" → "It iterates the hypothesis through structured passes (research → source analysis → scientific writing → illustration → layout / readability scrutiny). At each stage the question is the same: does this still look plausible against the evidence we now have?" Split the *invitation* middle sentence at "feed directly into the agent pipeline" → "These labels feed directly into the agent pipeline. An idea triggers a research-protocol pass; a critique routes to the relevant scrutinizer hand-back; a provenance-gap routes to the meta-process case study (§5)."
+**Rule-11 note.** Mirror in `main.tex` in the same commit. **L**-priority: deferable.
+
+---
+
+## RDB-28 — §3.4 v2→v3 reconstruction sub-bullet single-sentence run-on  *(L, sentence-length / list-of-clauses-as-prose)*  [NEW 2026-05-03]
+
+**Section.** §3.4 Findings — interoperability.
+**Source span.** `main.md:177` (the sixth sub-bullet of the §3.4 itemize). Mirror: `main.tex` corresponding `\item`.
+**Defect.** The §3.4 v2→v3 migration-reconstruction sub-bullet (introduced in commit `ebd0c5c`) is a single ~254-word `\item` whose substantive content is one semicolon-and-numbered-clause sentence ("the migration logic itself … reconstructs to: (i) drop the legacy MQTT-only config-entry fields … (ii) derive `pid` deterministically … (iii) idempotently carry forward the `v1→v2` CB-key correction; (iv) bump the entry version and emit …") plus an "**Architecturally this is a transport simplification …**" closing clause and a "**Provenance gap that remains:**" coda. The bullet sits inside a 6-bullet itemize whose other bullets average ~30 words each, breaking the visual cadence. The rule-1 "reconstructs to" framing and the rule-11 mirror are both clean; the only complaint is prose form.
+**Required outcome (when the writer next touches §3.4).** Convert the long bullet into either (a) two sub-bullets — the migration-logic numbered enumeration as a nested itemize + the provenance-gap coda as the closing bullet — or (b) promote the v2→v3 reconstruction to its own short paragraph immediately after the §3.4 itemize so the four-step reconstruction can be a real numbered list and the itemize cadence is preserved. Either option preserves the rule-1 honesty disclosure and the rule-11 mirror.
+**Rule-11 note.** Mirror in `main.tex` in the same commit. **L**-priority: deferable.
+
+---
+
+## RDB-01 — optional final tightening at §7.6 back-reference  *(M, claim-repetition)*  [RESOLVED-but-residual 2026-05-03]
+
+**Section.** §7.6.
+**Source span.** `main.md:496`. Mirror: `main.tex`.
+**Defect.** The §7.6 sentence "The base-rate evidence is established in §5.6: independent samples by Walters & Wilder, McGowan et al., and Chelli et al. bracket the same effect across multidisciplinary, psychiatric, and systematic-review contexts." re-names the same three authors that §5.6 already lists. This is a *named-author* repetition, not a *number* repetition; the verbatim 55% / 18% / "2 of 35" / 28.6%–91.4% statistics no longer recur in §7.6. Recap count is now 3.5× rather than 4×.
+**Optional outcome.** Replace "independent samples by Walters & Wilder, McGowan et al., and Chelli et al. bracket the same effect" with "the §5.6 base-rate triplet brackets the same effect" so §7.6 carries the back-reference but not the named-author triplet. Not blocking; defer if the writer is touching §7.6 for any other reason.
+**Rule-11 note.** Mirror in `main.tex` in the same commit. **M**-priority but optional: the writer pass `329bc28` already cleared the load-bearing duplication.
+
+---
+
+## RDB-02 / RDB-04 — §10 list-of-eight vs Figure 11 collapse: Stage 5 recommendation  *(M, structural — author decision)*  [DEFERRED 2026-05-03]
+
+**Sections.** §10, Figure 11.
+**Source span.** `main.md:688–698` (eight numbered practices), `main.md:699` (Figure 11 callout), `main.md:709–714` (Concealment / Token-disclosure / artifact-level paraphrase). Mirror: `main.tex`.
+**Author-decision options (per writer hand-back `writer-pass-2026-05-03.md`).** (a) keep enumeration, drop the Concealment / Token-disclosure paraphrase block; (b) drop the enumeration, lean on Figure 11 + a single recapping sentence; (c) keep both but tighten Figure 11 caption so the prose can defer to the figure.
+**Stage 5 recommendation.** **Option (b) preferred.** Rationale: it best matches the writer hand-back's "discipline is the contribution" thesis; lets §10 carry the Concealment / Token-disclosure / artifact-level-disclosure rhetorical arc without competing with the figure for the same content; and the illustrator pass `84c2da0` confirmed Figure 11 row labels are legible (RDB-04 figure-side prerequisite met). **Option (c) acceptable fallback** if the author wants to preserve the enumeration for accessibility (monochrome printer, screen reader). **Option (a) not preferred**: dropping the Concealment / Token-disclosure / artifact-level naming would lose the rhetorical centre of §10.
+**Rule-11 note.** Whichever option the author selects, mirror in `main.tex` in the same commit. The Figure 11 caption is currently 2 sentences in `main.md:699`; option (b) can be implemented without caption surgery if the recap sentence names each of the eight practices in order.
