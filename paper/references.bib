@@ -698,3 +698,75 @@
                   primary Anthropic release-note URL not retrievable from
                   this build environment).}
 }
+
+@misc{noheton2026powerocean5c8b815,
+  author       = {{noheton}},
+  title        = {Add {OCPP} catalog services; redact decompile/{PII} from \texttt{doc/}},
+  year         = {2026},
+  month        = may,
+  howpublished = {\url{https://github.com/noheton/powerocean-dev/commit/5c8b815cf9}},
+  note         = {Upstream commit on \texttt{noheton/powerocean-dev@main},
+                  2026-05-03. Removes the \texttt{doc/} subtree (APK splits,
+                  derivative APK analysis, vendor PDFs, GDPR-personal-data
+                  log files, and the vendor sample-code archive) from the
+                  working tree and replaces it with an 80-line
+                  \texttt{doc/README.md} that explicitly notes
+                  ``\texttt{git rm} does not purge history''. Cited as a
+                  real-world precedent for the \texttt{CLAUDE.md} rule-12 /
+                  rule-13 redaction discipline. Probe date 2026-05-03;
+                  status \texttt{[lit-retrieved]} pending Source Analyzer
+                  upgrade.}
+}
+
+@misc{noheton2026powerocean1aa9650,
+  author       = {{noheton}},
+  title        = {Capture {OCPP} 1.6 schema from {APK} decompile (\texttt{raw\_ocpp.txt})},
+  year         = {2026},
+  month        = may,
+  howpublished = {\url{https://github.com/noheton/powerocean-dev/commit/1aa96507ef}},
+  note         = {Upstream commit on \texttt{noheton/powerocean-dev@main},
+                  2026-05-03. Companion to commit \texttt{5c8b815cf9}:
+                  records that the OCPP 1.6 schema material the integration
+                  ships was originally captured from an APK decompile,
+                  while the redistributable code itself derives only from
+                  observed HTTP traffic per the upstream
+                  \texttt{DISCLAIMER.md}. Cited as evidence of the
+                  two-track methodology (decompile-to-understand,
+                  traffic-observation-to-redistribute).}
+}
+
+@misc{noheton2026powerocean_disclaimer,
+  author       = {{noheton}},
+  title        = {{DISCLAIMER.md} on \texttt{noheton/powerocean-dev}},
+  year         = {2026},
+  month        = may,
+  howpublished = {\url{https://github.com/noheton/powerocean-dev/blob/main/DISCLAIMER.md}},
+  note         = {Upstream legal-method statement, added 2026-05-03.
+                  Documents the integration's committed code as derived
+                  from observed HTTP traffic between the EcoFlow mobile
+                  application and the EcoFlow cloud API, citing
+                  \S{}~69e UrhG and Art.~6 of EU Software Directive
+                  2009/24/EC for interoperability scope. Probe date
+                  2026-05-03; status \texttt{[lit-retrieved]}.}
+}
+
+@misc{noheton2026powerocean_docreadme,
+  author       = {{noheton}},
+  title        = {\texttt{doc/README.md}: redaction note and \texttt{git rm}-doesn't-purge caveat},
+  year         = {2026},
+  month        = may,
+  howpublished = {\url{https://github.com/noheton/powerocean-dev/blob/main/doc/README.md}},
+  note         = {Upstream redaction-policy note, added with commit
+                  \texttt{5c8b815cf9} (2026-05-03). Explains the removal
+                  of the previous \texttt{doc/} contents (APK, derivative
+                  analysis, vendor PDFs, vendor sample-code archive,
+                  \texttt{equipment.md} personal-data file referencing
+                  real names and device serial numbers, \texttt{logs/}
+                  raw extraction logs) on UrhG / GDPR grounds, and
+                  explicitly notes that \texttt{git rm} does not purge
+                  prior commits from history --- \texttt{git filter-repo}
+                  on a fresh clone is required for a true purge.
+                  Cited as a recently-dated, real-world enactment of the
+                  history-rewrite requirement implied by
+                  \texttt{CLAUDE.md} rules 12 and 13.}
+}

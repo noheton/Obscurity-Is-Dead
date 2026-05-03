@@ -871,6 +871,20 @@ Source register entries S-EF-1 through S-EF-6. Primary artifacts:
   \item \texttt{raw\_conversations (copy\&paste, web)/} (3 transcripts).
 \end{itemize}
 
+As of 2026-05-03 the upstream \texttt{noheton/powerocean-dev}
+repository has removed the APK splits, derivative APK analysis,
+vendor PDFs, vendor sample-code archive, GDPR-personal-data log
+files, and the \texttt{equipment.md} personal-data file from its
+working tree (commit
+\texttt{5c8b815cf9}~\citep{noheton2026powerocean5c8b815}), citing
+UrhG and GDPR concerns. The accompanying \texttt{doc/README.md}~\citep{noheton2026powerocean_docreadme}
+explicitly notes that \texttt{git rm} does not purge prior commits
+from repository history (a fresh-clone \texttt{git filter-repo}
+rewrite would be required for a true purge). The snapshot preserved
+here under \texttt{experiments/ecoflow-powerocean/original/}
+predates that redaction event and is retained for research
+provenance only.
+
 \subsection{AI-assisted analysis workflow}
 \label{sec:ef-workflow}
 Figure~\ref{fig:case-ecoflow} contrasts the vendor default (cloud-bound) with
@@ -886,7 +900,24 @@ the AI-assisted local-control architecture.
 
 \begin{enumerate}
   \item \textbf{APK string and action-field extraction} to enumerate
-        writeable parameters.
+        writeable parameters.\footnote{This describes the
+        \emph{researcher-side} method used in this case study. The
+        \emph{upstream-redistributable} method is now framed differently:
+        the upstream \texttt{noheton/powerocean-dev}
+        \texttt{DISCLAIMER.md} (added
+        2026-05-03)~\citep{noheton2026powerocean_disclaimer} documents
+        the integration's committed code as derived from observed
+        HTTP traffic between the EcoFlow mobile app and the EcoFlow
+        cloud API, citing \S{}~69e UrhG and Art.~6 of EU Software
+        Directive 2009/24/EC. Commit
+        \texttt{1aa96507ef}~\citep{noheton2026powerocean1aa9650}
+        separately captures OCPP-1.6 schema material from an APK
+        decompile, indicating a two-track methodology in which
+        decompilation supports protocol \emph{understanding} while
+        the redistributable artifact contains only traffic-observable
+        structures. The paper's case study documents the research
+        arm; the upstream disclaimer describes the redistribution
+        arm.}
   \item \textbf{Three-surface reconciliation} --- \texttt{apk.md} line 52
         documents the choice to use the legacy endpoint over the Open API,
         resolving the prior open question.
@@ -954,6 +985,25 @@ documented in-tree, not inferred.
         \texttt{docs/sources.md} (S-EF-2, S-EF-3, S-EF-4) and must be
         resolved before public release.
 \end{itemize}
+
+A subsequent upstream development surface --- the OCPP
+backend-binding work landed on \texttt{noheton/powerocean-dev}
+between 2026-05-01 and 2026-05-03 ($\sim$+440\,LOC across
+\texttt{api.py}, \texttt{\_\_init\_\_.py}, \texttt{services.yaml}, and
+\texttt{const.py}; new endpoints
+\fp{GET /provider-service/app/ocppPlatformConfig/list} and
+\fp{POST /provider-service/app/ocppPlatformConfig}) --- illustrates a
+concrete \emph{catalog-vs-runtime} asymmetry inside the same legacy
+bearer-token API plane: the integration can now write the
+EcoFlow-side OCPP catalog, but the upstream \texttt{README.md} notes
+a runtime-handover gap, namely a \texttt{vendorInfoSet} proto write
+that is \emph{not yet shipped} and that the charger requires before
+it will redirect to the third-party host at
+runtime~\citep{noheton2026powerocean5c8b815}. Catalog-level
+interoperability is therefore reachable while runtime-level
+interoperability is not --- a useful empirical data point for the
+synthesis on the maturity of effort-gap compression
+(\cref{sec:synthesis-evidence-asymmetry}).
 
 \subsection{KPI summary (EcoFlow PowerOcean)}
 \label{sec:ef-kpis}
@@ -1139,7 +1189,10 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
   \Description{Two parallel verification pipelines (literature track and artifact track) with gated stages and arrows showing how each cited source progresses to a final confirmed status.}
   \caption{\textbf{Verification-status pipeline.} Each cited source
     progresses through gated stages on either the literature track
-    (\texttt{[needs-research]}\,$\to$\,\texttt{[lit-retrieved]}\,$\to$\,\texttt{[lit-read]})
+    (\texttt{[needs-research]}\,$\to$\,\texttt{[lit-retrieved]}\,$\to$\,\texttt{[ai-confirmed]}\,$\to$\,\texttt{[lit-read]};
+    the \texttt{[ai-confirmed]} stage is owned by the
+    Source Analyzer agent per the \texttt{CLAUDE.md} verification-status
+    ladder extension of 2026-05-02)
     or the artifact track
     (\texttt{[unverified-external]}\,$\to$\,\texttt{[repo-referenced]}\,$\to$\,\texttt{[repo-vendored]}).
     The legend in \texttt{docs/sources.md} makes the read-state of every
@@ -1694,31 +1747,34 @@ A live counter-data-point landed during the writing of this paper. On
 Preview}~\citep{anthropic2026glasswing,anthropicred2026mythos} ---
 a frontier model that, in the company's own published red-team work,
 autonomously identified zero-day vulnerabilities in \emph{every major
-operating system and every major web browser} (the oldest a
-27-year-old OpenBSD bug), chained four-vulnerability browser exploits
-with JIT heap-spray, autonomously obtained local privilege escalation
-via subtle race conditions and KASLR bypass, and split a multi-gadget
-ROP chain across packets to root unauthenticated NFS servers.
-Crucially for this paper's thesis, Mythos also reverse-engineers
-stripped closed-source binaries to plausible source code at scale ---
-the strongest published acknowledgement to date that the
-offensive-side gap is closing faster than the L-VD-1\,/\,L-VD-2 era of
-evidence (which the \cref{sec:contributions} framing was calibrated
-against) suggested. Mythos is not yet broadly deployed adversarial
-capability --- Anthropic chose \emph{not} to release it generally,
-instead launching \textbf{Project Glasswing}, a coordinated defensive
-deployment to AWS, Apple, Cisco, CrowdStrike, Google,
-JPMorganChase, Linux Foundation, Microsoft, NVIDIA, and Palo Alto
-Networks, and shipping the more cautious Claude Opus
-4.7~\citep{anthropic2026opus47} as the safeguarded sibling. But the
-existence proof is now concrete: capable autonomous offensive AI is on
-hand at a frontier lab, and the lab itself describes it as a
-\emph{``watershed''} demanding industry-coordinated defence. The
-asymmetry-of-collapse argument in this section is not falsified ---
-verifying an integration is still cheaper than verifying an exploit
---- but the gap is narrower, and the time horizon over which it
-remains a defender-favouring asymmetry is shorter, than this paper's
-first draft assumed.
+operating system and every major web browser}.
+
+Specifically: the oldest such finding is a 27-year-old OpenBSD bug;
+Mythos chained four-vulnerability browser exploits with JIT
+heap-spray, autonomously obtained local privilege escalation via
+subtle race conditions and KASLR bypass, and split a multi-gadget ROP
+chain across packets to root unauthenticated NFS servers. Crucially
+for this paper's thesis, it also reverse-engineers stripped
+closed-source binaries to plausible source code at scale --- the
+strongest published acknowledgement to date that the offensive-side
+gap is closing faster than the L-VD-1\,/\,L-VD-2 era of evidence
+(which the \cref{sec:contributions} framing was calibrated against)
+suggested.
+
+Mythos is not yet broadly deployed adversarial capability. Anthropic
+chose \emph{not} to release it generally, instead launching
+\textbf{Project Glasswing}, a coordinated defensive deployment to AWS,
+Apple, Cisco, CrowdStrike, Google, JPMorganChase, Linux Foundation,
+Microsoft, NVIDIA, and Palo Alto Networks. Anthropic shipped the more
+cautious Claude Opus 4.7~\citep{anthropic2026opus47} as the
+safeguarded sibling. But the existence proof is now concrete: capable
+autonomous offensive AI is on hand at a frontier lab, and the lab
+itself describes it as a \emph{``watershed''} demanding
+industry-coordinated defence. The asymmetry-of-collapse argument in
+this section is not falsified --- verifying an integration is still
+cheaper than verifying an exploit --- but the gap is narrower, and
+the time horizon over which it remains a defender-favouring
+asymmetry is shorter, than this paper's first draft assumed.
 
 % Rule 14: data source = figures/data/stage-effort.csv; generation script = figures/fig10-stage-effort.py
 \begin{figure}[t]
@@ -1786,8 +1842,12 @@ uses''. This is necessary work, and Anthropic is being unusually
 transparent about it. But the band-aid is structural: every guardrail
 is a classifier, every classifier has a false-negative rate, and any
 false-negative rate combined with autonomous offensive capability and
-global proliferation collapses to attacker-side capability over a
-short enough horizon. The author's own observation while writing this
+global proliferation \emph{plausibly} converges to attacker-side
+capability over a horizon whose length we cannot yet quantify ---
+a claim we present as engineering intuition rather than proof, and
+one the
+L-MYTHOS evidence base~\citep{anthropic2026glasswing,anthropicred2026mythos}
+documents qualitatively but does not yet bound numerically. The author's own observation while writing this
 paper (Author's Note: \emph{What surprised me about the assistant})
 corroborates this from the inside: Opus 4.7 --- the safeguarded
 sibling --- was \emph{cooperatively competent} at the steps an
@@ -2518,10 +2578,12 @@ to be designed, not assumed.
 This paper was developed with Claude (Opus 4.7 model family) by
 Anthropic, running in the Claude Code CLI~\citep{anthropic2026claude}.
 Specific session details, model versions, and conversation transcripts
-are committed under \texttt{experiments/*/raw\_conversations
-(copy\&paste, web)/} (notably
-\texttt{experiments/paper-meta-process/raw\_conversations (copy\&paste,
-web)/T1-paper-structure-and-literature.md}) and referenced in
+are committed under
+\seqsplit{\texttt{experiments/*/raw\_conversations}}~\seqsplit{\texttt{(copy\&paste,~web)/}}
+(notably the paper-meta-process transcript
+\seqsplit{\texttt{T1-paper-structure-and-literature.md}} under
+\seqsplit{\texttt{experiments/paper-meta-process/raw\_conversations}}~\seqsplit{\texttt{(copy\&paste,~web)/}})
+and referenced in
 \texttt{docs/logbook.md}. Structured literature retrieval was performed
 via the Consensus academic-database front end (Semantic Scholar /
 PubMed / Scopus / arXiv); the queries used and the candidate citations
@@ -2859,14 +2921,12 @@ when neither the human author nor the model intends it.
   \includegraphics[width=0.95\linewidth]{fig11-eight-practices.pdf}
   \Description{Grid with eight practice rows and three failure-mode-axis columns; each cell carries either a P (principal mitigation) or S (secondary mitigation) marker, demonstrating that every axis is principally addressed.}
   \caption{\textbf{Eight integrated practices $\times$ three failure-mode
-    axes.} Each row is one of the eight numbered practices listed above;
-    each column is one of the three failure-mode axes the paper organises
-    around. \texttt{P} marks the principal mitigation, \texttt{S} a
-    secondary mitigation. Intended as the visual abstract for the
-    submission: the methodological novelty is not any single row but the
-    integration --- every failure-mode axis is principally addressed by
-    at least one practice and secondarily reinforced by at least one
-    other. Script: \texttt{figures/fig11-eight-practices.py}.}
+    axes.} See the in-figure legend for the P / S mitigation roles.
+    Intended as the visual abstract for the submission: the
+    methodological novelty is not any single row but the integration
+    --- every failure-mode axis is principally addressed by at least
+    one practice and secondarily reinforced by at least one other.
+    Script: \texttt{figures/fig11-eight-practices.py}.}
   \label{fig:eight-practices}
 \end{figure}
 
@@ -2894,6 +2954,30 @@ reading the artifacts the protocol produces. We do not claim to
 subsume the Stockholm Declaration's system-level reforms or
 Cheng~et~al.'s practitioner guidelines; we claim to extend them into a
 runnable protocol whose compliance is checkable per artifact.
+
+\paragraph{A real-world precedent for the redaction discipline.}
+Two of the eight practices --- provenance maps (practice~3) and FAIR
+alignment (practice~8) --- sit alongside an unlisted hygiene step
+that this paper enforces under \texttt{CLAUDE.md} rules 12 and 13:
+secrets, personal data, and other rule-12 material must be redacted
+\emph{and} purged from git history before any public-facing release,
+because \texttt{git rm} alone leaves the deleted blobs reachable from
+prior commits. A recently-dated, publicly-visible enactment of
+exactly this discipline appeared during this paper's preparation: on
+2026-05-03 the upstream \texttt{noheton/powerocean-dev} integration
+removed its \texttt{doc/} subtree (APK splits, derivative APK
+analysis, vendor PDFs, vendor sample-code archive,
+GDPR-personal-data files, raw extraction logs) on UrhG / GDPR
+grounds and replaced it with an 80-line \texttt{doc/README.md} that
+explicitly notes ``\texttt{git rm} does not purge history'' and
+points readers to \texttt{git filter-repo} on a fresh clone for a
+true
+purge~\citep{noheton2026powerocean5c8b815,noheton2026powerocean_docreadme}.
+The precedent strengthens the methodological argument made here
+without requiring this paper to claim attribution: an independent
+AI-assisted-integration project, working under separate constraints,
+arrived at the same redaction-and-history-rewrite step that the
+paper's rule-12 / rule-13 framing demands.
 
 \paragraph{A fourth structural claim: democratisation of science production.}
 The effort-gap collapse documented in
