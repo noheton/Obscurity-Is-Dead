@@ -2184,3 +2184,24 @@ This logbook is the operating record for the paper and research process.
 - Dispatched: none (parent-session edit). Downstream actions queued for the next iteration: (i) Stage 4 layout re-scrutiny after `make pdf` (the new §7.4 paragraph and §10 ninth-practice block will affect pagination and may surface new overfulls); (ii) Stage 5 readability re-scrutiny for paragraph-density on the new §7.3 Mythos paragraph (~340 words single paragraph — likely flagged); (iii) the comprehensive figure overhaul still pending per the human author's "only fig 1 acceptable" directive.
 - Rule check: rule 1 (AI vs human contribution clearly labelled in the new prose), rule 11 (md/tex parity at every touched span), rule 12 (no new credentials introduced), rule 13 (no public push beyond the working branch).
 - Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+
+## 2026-05-03 — illustrator: comprehensive figure-overhaul pass (Stage 3)
+
+- **Agent:** Claude Opus 4.7 (`claude-opus-4-7`).
+- **Branch:** `claude/review-open-issues-PfNx9`.
+- **Trigger:** orchestrator dispatch after the human author's "only fig 1 is acceptable" verdict; full sweep of figs 2-16 against the 7-dimension critique in `docs/prompts/layout-scrutinizer-prompt.md` § "FIGURE & IMAGE CRITIQUE".
+- **Method note:** pixel inspection unavailable (PDF viewer MCP disconnected); critique performed at source-level — read every `.py` / `.svg` head; checked palette hex against Wong / Tol CB-safe palettes; checked font sizes against ~9 pt print-legibility threshold.
+- **Inventory + dispositions** (full table in `docs/handbacks/illustrator-pass-2026-05-03-overhaul.md`):
+  - **KEEP:** fig1 (author-accepted), fig12 (already redone this morning), fig13.
+  - **REWORK (this pass):** fig6, fig7, fig9, fig10, fig11 (hero / visual abstract), fig14 — 6 figures.
+  - **DEFER:** fig2-fig5 (manual SVG, low cite-count), fig8 (red has semantic load — needs author confirmation), fig15 (borderline, lower leverage), fig16 (small font + red exclusion ring), logo-pandora-jar-intact (gated on Gemini delivery).
+- **Highlights of the rework:**
+  - **fig6 + fig7**: promoted from manually drawn SVG to scripted-source matplotlib generators (`fig6-dual-use.py`, `fig7-threat-models.py`); now rule-14 compliant; both are 4×-cited.
+  - **fig11 (hero)**: replaced red `#c0392b` failure-axis header with Tol-bright CB-safe triple `#4477aa`/`#228833`/`#aa7733`; row labels 8.6 → 10.5 pt; P/S markers shape-redundant with colour for greyscale survival.
+  - **fig9**: replaced red+green stage palette (failed deuteranopia) with sequential blue ramp; added the `[ai-confirmed]` 4th literature stage per CLAUDE.md ladder extension.
+  - **fig10**: case-by-colour (DLR_BLUE vs DLR_GREEN) instead of case-by-alpha (which collapses in greyscale); recoloured red rule-1 annotation to slate-grey.
+  - **fig14**: replaced pure-red adversarial branch palette with Tol-bright `#ee6677` + hatched fill so branch identity survives both CVD and greyscale.
+- **Files touched:** `paper/figures/fig{6,7}-*.py` (new); `paper/figures/fig{6,7,9,10,11,14}-*.{py,svg,pdf}`; `paper/figures/README.md` (inventory + Rule-14 sections updated; fig6 + fig7 promoted; fig2-fig5 still exempt); `docs/handbacks/illustrator-pass-2026-05-03-overhaul.md` (new, full inventory + dispositions + items needing human-author input); this logbook entry.
+- **Items needing human-author decision:** (i) second Gemini deliverable for `logo-pandora-jar-intact.png`; (ii) confirm whether fig8's red semantically encodes "do-not-use" (drives next-pass palette story); (iii) decide whether to promote fig2-fig5 to scripted-source (low-leverage but completes rule-14 coverage); (iv) §10 enumeration vs Figure 11 collapse decision — the strengthened Figure 11 unblocks options (a)/(b)/(c).
+- **Rule check:** rule 1 (every regenerated docstring records what changed and why; ordinal positions in fig6 flagged as author-assigned, not measured); rule 11 (no `paper/main.{md,tex}` edits — labels preserved so all `\cref` resolve); rule 13 (no `make pdf`, no `make arxiv`, no push); rule 14 (fig6 + fig7 promoted to compliant); rule 15 (visual abstract reworked but filename/label preserved — top-level README hero unchanged).
+- **Hand-back to other agents:** Stage 4 must rebuild `paper/main.pdf` and re-sweep — expected deltas: 6 figures now CB-safe, fig11 row labels legible at print scale, fig9 caption may need writer update for 4-stage track, fig11 caption may have legend redundancy. **FIG-01 (alt-text-missing across all 18 floats)** is unchanged this pass — owned by writer (`\Description{...}` macro insertion).
