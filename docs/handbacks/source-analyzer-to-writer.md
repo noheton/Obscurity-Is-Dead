@@ -560,3 +560,30 @@ This four-anchor block gives the §7.12 "privacy as a user right" argument a pee
 
 1. **L-PRIV-3** — change venue/year from "Proc. ACM WiSec, 2018" to "Proc. of the 13th ACM Conference on Security and Privacy in Wireless and Mobile Networks (WiSec '20), July 2020". Update inline citations to "Acar et al., 2020".
 2. **L-PRIV-5** — add venue "Proceedings of the 32nd USENIX Security Symposium (USENIX Security '23), August 2023, pp. 6665-6682" to the bibliography entry; currently the entry header omits the venue.
+
+---
+
+## Slice 14 (pass 12) — L-PRIV remainder (companion-app + local-first existence proof + GDPR qualifier), 2026-05-03, Claude Opus 4.7
+
+**Status change:** L-PRIV-7, L-PRIV-8, L-PRIV-9, L-PRIV-10, L-PRIV-11 upgraded `[lit-retrieved]` → `[ai-confirmed]`. L-PRIV-12 upgraded to `[ai-confirmed-bibliographic]` (legal-interpretation source, rule-5 sensitivity guard — bibliographic record verified; load-bearing legal claim still requires `[lit-read]`).
+
+**Sections affected (already inline-cited; verbatim grounding now available):**
+
+- `paper/main.md` L73 (abstract / motivation paragraph) — L-PRIV-9 + L-PRIV-10 are now `[ai-confirmed]`; the `[L-PRIV-9]` and `[L-PRIV-10]` markers in the data-minimisation sentence are unblocked.
+- `paper/main.md` L554 / `paper/main.tex` L1905-1907 (§7.12 "companion-app surface") — L-PRIV-7 and L-PRIV-8 are now `[ai-confirmed]`; the `[L-PRIV-7]` and `[L-PRIV-6, L-PRIV-8]` markers are unblocked. (L-PRIV-6 remains at `[ai-confirmed-bibliographic]` from slice 13.)
+- `paper/main.md` L556 / `paper/main.tex` L1923+L1926 (§7.12 "local interoperability is a privacy mitigation") — L-PRIV-9 and L-PRIV-10 markers unblocked.
+- `paper/main.md` L558 / `paper/main.tex` L1932+L1934 (§7.12 "regulation alone is not the answer") — L-PRIV-11 unblocked; L-PRIV-12 carries the rule-5 caveat (cite the *empirical/structural* observation, not a legal interpretation).
+
+**Recommended writer action (no defects to fix; promotion only):**
+
+1. The §7.12 paragraph block ("companion-app surface compounds the cloud surface" → "local interoperability is a privacy mitigation that preserves intended use" → "counter-evidence: regulation alone is not the answer") is now end-to-end `[ai-confirmed]`-grade with the single L-PRIV-12 caveat. No content edits required; the citations may be upgraded from footnote-only `[lit-retrieved]` markers to in-text peer-reviewed citations on the next writer pass.
+2. For the L-PRIV-12 sentence ("George et al. (2019) further document 'transient processing' patterns that escape the regulation's scope altogether"), the *bibliographic* citation is now confirmed; the *interpretation* of GDPR scope remains a `[lit-read]`-tier claim. If retained as a load-bearing legal qualifier, schedule a human read of George/Reutimann/Tamò-Larrieux (2019) before publication.
+
+### References.bib corrections
+
+1. **L-PRIV-7** — add full venue/DOI: *Sensors* **22**(2):513, doi:10.3390/s22020513.
+2. **L-PRIV-8** — add full venue: *Data and Applications Security and Privacy XXXVI* (Proc. DBSec'22, 36th IFIP WG 11.3 Conference), Newark NJ, July 18-20 2022, Springer LNCS pp. 162-182.
+3. **L-PRIV-9** — add full venue/DOI: Proc. 12th ACM International Conference on the Internet of Things (IoT '22), Delft, Nov 7-10 2022, doi:10.1145/3567445.3567457.
+4. **L-PRIV-10** — author list is **Kounoudes & Kapitsaki** (two authors); current entry uses "Kounoudes et al." which would be correct for the 2023 fitness-tracker follow-up (three authors) but not for the 2020 *Internet of Things* article (two authors). Volume/page: *Internet of Things* **11**:100179.
+5. **L-PRIV-11** — change venue from "ArXiv" to **Internet Policy Review 10(4)** (peer-reviewed venue), doi:10.14763/2021.4.1611. Authors: Kollnig, Binns, Van Kleek, Lyngs, Zhao, Tinsman, Shadbolt.
+6. **L-PRIV-12** — full citation: George, Reutimann & Tamò-Larrieux (2019), *International Data Privacy Law* **9**(4):285-298, doi:10.1093/idpl/ipz017.
