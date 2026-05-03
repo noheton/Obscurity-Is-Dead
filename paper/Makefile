@@ -2,7 +2,7 @@
 #
 # Targets:
 #   make pdf      - build main.pdf via latexmk (default)
-#   make figures  - convert paper figures from SVG to PDF
+#   make figures  - regenerate scripted figs from .py + convert SVG figs to PDF
 #   make watch    - continuous rebuild on save (latexmk -pvc)
 #   make clean    - remove LaTeX build artifacts (keeps main.pdf)
 #   make distclean - remove all build artifacts including main.pdf
@@ -31,11 +31,34 @@ BIB       := references.bib
 ARXIV_TAR := arxiv-submission.tar.gz
 
 # Figures
+#
+# Two source classes:
+#   - SCRIPTED_FIG_NAMES : matplotlib generators (.py emits both .svg + .pdf).
+#     Edit the .py and `make figures` re-runs the generator, which is the
+#     only way to refresh these figures. Adding a new scripted figure?
+#     append it here AND ensure the .py writes out fig*.pdf next to itself.
+#   - SVG_FIG_NAMES      : manually drawn .svg files; converted to .pdf at
+#     build time via rsvg-convert / inkscape (rule below).
+#
+# Historical bug (caught 2026-05-03 via claude/check-illustration-pipeline):
+# fig6/fig7 were promoted to scripted-source but left in the SVG list, so
+# `make figures` overwrote the matplotlib PDF with an rsvg conversion of
+# the matplotlib SVG, and edits to fig8..fig16 .py files never propagated
+# at all because they weren't tracked here. Fix: split the lists.
 FIG_DIR    := figures
-FIG_NAMES  := fig1-effort-gap fig2-boredom-barrier fig3-spider-farmer \
-              fig4-ecoflow fig5-methodology fig6-dual-use fig7-threat-models
-FIG_SVGS   := $(addprefix $(FIG_DIR)/,$(addsuffix .svg,$(FIG_NAMES)))
-FIG_PDFS   := $(addprefix $(FIG_DIR)/,$(addsuffix .pdf,$(FIG_NAMES)))
+SCRIPTED_FIG_NAMES := fig1-effort-gap fig6-dual-use fig7-threat-models \
+                      fig8-ecoflow-surfaces fig9-verification-pipeline \
+                      fig10-stage-effort fig11-eight-practices \
+                      fig12-difficulty-taxonomy fig13-pipeline-vulnerabilities \
+                      fig14-malicious-integrator fig15-apk-mass-probing \
+                      fig16-scope-limitations
+SVG_FIG_NAMES      := fig2-boredom-barrier fig3-spider-farmer \
+                      fig4-ecoflow fig5-methodology
+FIG_NAMES  := $(SCRIPTED_FIG_NAMES) $(SVG_FIG_NAMES)
+SCRIPTED_FIG_PDFS := $(addprefix $(FIG_DIR)/,$(addsuffix .pdf,$(SCRIPTED_FIG_NAMES)))
+SVG_FIG_PDFS      := $(addprefix $(FIG_DIR)/,$(addsuffix .pdf,$(SVG_FIG_NAMES)))
+FIG_SVGS   := $(addprefix $(FIG_DIR)/,$(addsuffix .svg,$(SVG_FIG_NAMES)))
+FIG_PDFS   := $(SCRIPTED_FIG_PDFS) $(SVG_FIG_PDFS)
 
 # Files arXiv needs in the tarball. Keep this list explicit so we never
 # accidentally upload .aux/.log/.synctex.gz or local notes.
@@ -64,7 +87,28 @@ figures: $(FIG_PDFS)
 # safe for the simple vector content these figures carry (no PDF-1.6+
 # features used) and is robust without requiring ghostscript / qpdf
 # to be installed in the build environment.
-$(FIG_DIR)/%.pdf: $(FIG_DIR)/%.svg
+# Scripted figures: regenerate .pdf (and sibling .svg) from the .py.
+# Falls back to keeping the committed PDF if matplotlib is unavailable
+# (e.g. minimal arxiv-build environment) — same spirit as the SVG rule.
+define run_scripted_fig
+@if python3 -c "import matplotlib" >/dev/null 2>&1; then \
+  echo "regenerating $@ via $<"; \
+  cd $(FIG_DIR) && python3 $(notdir $<) ; \
+elif [ -f $@ ]; then \
+  echo "WARNING: matplotlib not installed; reusing committed $@"; \
+  touch $@ ; \
+else \
+  echo "ERROR: matplotlib required to build $@ (pip install matplotlib)"; exit 1; \
+fi
+endef
+
+$(SCRIPTED_FIG_PDFS): $(FIG_DIR)/%.pdf: $(FIG_DIR)/%.py $(FIG_DIR)/dlr_style.py
+	$(run_scripted_fig)
+
+# Manually drawn SVG -> PDF. Prefer rsvg-convert (fast, pure C); fall back
+# to inkscape. Only applied to SVG_FIG_NAMES (fig2..fig5); scripted figures
+# have their own rule above.
+$(SVG_FIG_PDFS): $(FIG_DIR)/%.pdf: $(FIG_DIR)/%.svg
 	@if command -v rsvg-convert >/dev/null 2>&1; then \
 	  rsvg-convert -f pdf -o $@ $< ; \
 	elif command -v inkscape >/dev/null 2>&1; then \
