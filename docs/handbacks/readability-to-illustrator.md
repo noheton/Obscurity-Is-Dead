@@ -42,6 +42,15 @@ Spot-checks of `paper/main.md` against `paper/main.tex` (§1.4, §7.6, §10, §9
 
 ---
 
+## RDB-23 (optional secondary path) — §6.8 evidence-asymmetry comparison-table candidate  [NEW 2026-05-02]
+
+**Existing asset.** None.
+**Source span absorbed.** `main.md:407–410` (the §6.8 evidence-asymmetry subsection introduced by writer commit `f3ce051`); `main.tex` mirror at the same subsection.
+**Request.** Optional. The writer-side fix for RDB-23 (split the §6.8 second sentence into 4–5 short sentences keyed on evidence type) is achievable without illustrator action. As an alternative, a small comparison-table figure — proposed **ILL-NN-evidence-asymmetry** — could absorb the enumeration and let the §6.8 prose carry only the *framing* claim. Suggested axes: rows = evidence type (equipment cost-floor; survey datapoint; skill-floor; attack taxonomy; practitioner-handbook bookend; AI-RE supplement); columns = software-side cluster A anchors × hardware-side cluster A.2 anchors. The cells carry the canonical anchor (e.g. cluster A row "skill-floor" = L-RE-3; cluster A.2 row "skill-floor" = L-HW-RE-6 (Becker et al. 2020 SOUPS)). The result visualises the asymmetry that §6.8 names in prose.
+**Coordination.** Writer-side RDB-23 is independent of this figure. The figure is a secondary path — pursue only if the next illustration pass has spare budget. Pair with the §1.4 RDB-22 paragraph split: if the §6.8 figure exists, the §1.4 paragraph can defer to it for the per-anchor enumeration and shrink further.
+
+---
+
 ## Notes on figures already cited but binary-missing
 
 The Stage 2 logbook entry on 2026-05-02 records that two researcher-supplied binary assets are not yet committed: `paper/figures/logo-obscurity-is-dead.png` (front matter / README hero) and `paper/figures/logo-pandora-jar-intact.png` (§10). The intentional broken-image state is consistent with rule 1 (transparency over aesthetics). RDB-18 (writer-side) shortens the §10 caption when those assets land.

@@ -26,7 +26,64 @@ the placeholder annotations with real figure (or table) references in both
 - Existing figure infrastructure: `paper/figures/dlr_style.py`,
   `paper/figures/Makefile` toolchain via `paper/Makefile`, the Rule-14
   template documented in `paper/figures/README.md`.
+- **DLR Design System spec** at `paper/figures/dlr-design-system/`,
+  curated 2026-05-03 from an upstream Claude Design handoff bundle. The
+  authoritative house rules live in
+  `paper/figures/dlr-design-system/project/SKILL.md`; the CSS-token
+  surface in `project/colors_and_type.css`; the upstream `dlr_style.py`
+  in `project/ui_kits/python_plots/` (the actually-imported adapted
+  copy is at `paper/figures/dlr_style.py`); the marp corporate-design
+  rule sheet at `project/ui_kits/marp/framework/rules/corporate-design.md`.
+  See `paper/figures/dlr-design-system/BUNDLE-SOURCE.md` for what was
+  excluded (Frutiger fonts, large brand PDFs/PPTX, background JPGs)
+  and why.
 - Repository rules in `CLAUDE.md` (rules 1, 2, 3, 11, 12, 13, 14).
+
+## Authoritative house rules (DLR design system, 2026-05-03)
+
+Before generating *any* figure, read
+`paper/figures/dlr-design-system/project/SKILL.md` in full. The headline
+constraints, summarised here for orientation, are mandatory and will be
+enforced by the next layout-scrutinizer pass:
+
+1. **One chapter, one accent.** Three brand variants — A=blue
+   (`#00658b`, default), B=green (`#82a043`), C=yellow (`#d2ae3d`).
+   Switch with `data-variant`. **Never mix two accents in one section
+   or chapter.**
+2. **Typography.** Frutiger 45 Light is the Hausschrift for print; *Arial
+   is the mandated face for E-Mail / Web / PowerPoint and for screen-
+   presented PDFs* per CD-Handbuch §10.1. The paper's `dlr_style.py`
+   uses Frutiger → Arial → DejaVu Sans graceful fallback. Bold is reserved
+   for headlines and Wortmarken; body weight is regular.
+3. **Slide H1 in `#666` mid-grey**, not black. Body in black.
+4. **Square corners.** 0–2 px max — the brand reads orthogonal and
+   report-like. No pill buttons, no rounded chart bars beyond a 2 px
+   radius.
+5. **Photography, not illustration.** No emoji, no isometric tech art,
+   no gradient backgrounds. If a figure needs a visual anchor and no
+   licensed photo is available, use a typographic block with the brand
+   palette rather than a clip-art-style illustration.
+6. **German number format** in German-language text: `16,8 %` (note the
+   space before `%`), `638.000`. English-language text follows British
+   conventions: `5 October 2011`. *Exception:* "German Aerospace Center"
+   is the one US-spelling allowance.
+7. **Voice is institutional, not personal.** No "you" / "Du", no
+   marketing verbs, no exclamation marks in captions or labels.
+8. **Logo discipline.** Logo top-right on every slide; slide footer is
+   thin grey, contains topic / date / page; SVG marks under
+   `paper/figures/dlr-design-system/project/assets/`. *Do not use the
+   marks in figures unrelated to DLR-affiliated work without re-confirming
+   the licence terms* (see `BUNDLE-SOURCE.md` pre-publication note).
+9. **Photo credit boilerplate** (when using DLR imagery):
+   *"DLR (CC BY-NC-ND 3.0) sofern nicht anders angegeben."*
+10. **Caveat — substituted icons.** The bundle's preview pages use Lucide
+    as a stand-in for DLR's in-house icon set; *flag any icon
+    substitution explicitly in the figure caption* (rule 1 honesty).
+
+The brand-colour palette exported from `dlr_style.py` is the canonical
+matplotlib surface for charts: prefer `DLR_BLUE` / `DLR_GREEN` /
+`DLR_YELLOW` / `DLR_GRAY` named constants over raw hex codes so a
+future palette revision propagates without per-figure edits.
 
 ## Protocol
 

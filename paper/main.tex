@@ -81,6 +81,96 @@ made explicit and mapped to mitigations that the methodology operationalises.
 \end{abstract}
 
 % =========================================================================
+\section*{Executive Summary}
+\label{sec:executive-summary}
+\addcontentsline{toc}{section}{Executive Summary}
+
+\noindent\emph{This summary re-presents the claims of the full paper for
+readers deciding whether to read further. It introduces no new findings;
+every numerical anchor below is sourced and developed in the body.}
+
+\paragraph{Research question.} Is AI-assisted hacking primarily a means to
+unlock interoperability, or does it instead magnify security risk by making
+obscurity ineffective? The paper answers: both --- but asymmetrically, and
+the asymmetry favours integrators over attackers.
+
+\paragraph{Software-side evidence that the effort gap has collapsed.}
+Peer-reviewed measurements anchor the software-side compression: a 24.4\%
+reduction in cognitive burden when reading AI-augmented decompiler output
+[L-RE-2]; a 31\%~$\rightarrow$~53\% correct-solve-rate uplift on
+reverse-engineering tasks (with the authors' own $p = 0.189$ caveat
+preserved at the body) [L-RE-3]; and a $>$100\% improvement in
+re-executability for AI-assisted code synthesis [L-RE-1]. The two case
+studies developed below report the same compression at workflow level
+(\cref{sec:sf-kpis}, \cref{sec:ef-kpis}).
+
+\paragraph{Hardware-side evidence that the same collapse is underway.}
+The hardware side rests on a structurally different evidence base. An
+exposed UART suffices for firmware extraction in more than 45\% of 24
+commercial IoT devices~\citep{vasile2018breakingallthethings};
+intermediate hardware-reverse-engineering proficiency is reachable in
+roughly 14 weeks of structured training~\citep{becker2020hwreexploratory};
+and the practitioner-handbook bookends move from the Grand / Huang
+2003--2004 baseline (bespoke equipment, expert-only skill floor) to van
+Woudenberg \& O'Flynn (2021/2022, single volume plus a roughly USD~300
+toolchain). The asymmetry between the two evidence bases is itself a
+finding, treated as \cref{sec:synthesis-evidence-asymmetry}.
+
+\paragraph{Asymmetric collapse.} The same compression that benefits
+integrators benefits attackers, but not equally. Recent evaluations report
+that LLMs are far more cooperative than competent at automated exploit
+generation --- no model successfully synthesised exploits for refactored
+security labs [L-VD-1] --- while disclosed-CVE proof-of-concept generation
+reaches 8--34\% on public information alone and 68--72\% with adaptive
+reasoning [L-VD-2]. The cost-asymmetry literature reports that
+LLM-mediated malicious-content production is roughly 125--500$\times$
+cheaper than human effort [L-VD-5]\footnote{The L-VD-1 refactored-labs
+cornerstone and the L-VD-5 cost-asymmetry quantitative anchor are recorded
+at \texttt{[edge-case]} verification status in \texttt{docs/sources.md}
+(load-bearing, first-of-its-kind, awaiting human \texttt{[lit-read]}). They
+are footnoted here per the verification ladder (CLAUDE.md, 2026-05-02
+extension) and not promoted to inline citation.}. The defender-side
+corollary is blunt: a static-token study of 20 production weather apps
+concludes that ``it is not possible to securely hide sensitive information
+within applications'' [L-HC-4].
+
+\paragraph{Two case studies.} Spider Farmer (BLE horticulture controllers)
+was sealed by AES-128-CBC with hardcoded keys and a self-signed-cert MQTT
+broker; AI-assisted reconciliation across four independent
+reverse-engineering attempts elucidated the protocol surface and shipped
+as a working Home Assistant integration in roughly 10.5~h of AI-assisted
+work versus an estimated 60--120~h of manual baseline
+(\cref{sec:case-spider-farmer}). EcoFlow PowerOcean (residential energy
+systems) was sealed by an undocumented legacy REST endpoint and a
+published-but-unused Open API; AI-assisted three-surface reconciliation
+produced a local-control integration and surfaced a previously
+undocumented attack surface that is enumerated under the redaction policy
+(\cref{sec:case-ecoflow}). Both cases illustrate the dual-use signature
+explicitly: the same workflow yields both the local integration and the
+recovered live attack surface.
+
+\paragraph{Eight integrated practices.} The methodological response ---
+see \cref{fig:eight-practices} --- is the integration of eight
+individually unoriginal practices: transcript preservation,
+verification-status labelling, provenance maps, mirror discipline, the
+recursive meta-process case study, base-rate-anchored AI disclosure, legal
+honesty about authorship, and FAIR alignment as a precondition. The
+novelty is the \emph{integration}, not any single row; details are in
+\cref{sec:pandora}.
+
+\paragraph{Headline finding.} Obscurity is dead as a primary defence for
+consumer IoT: the labour-cost moat that protected proprietary protocols
+has been compressed by an order of magnitude on the integration side and
+is being compressed, more unevenly, on the offensive side. The
+interoperability dividend is real; so is the dual-use surface; the eight
+practices reduce the methodological externalities of AI-assisted security
+research without requiring the underlying protocols to remain secret.
+Readers wanting the contributions should turn to \cref{sec:contributions};
+the evidence-asymmetry meta-finding is in
+\cref{sec:synthesis-evidence-asymmetry}; the prescriptive register is
+\cref{sec:pandora}.
+
+% =========================================================================
 \section{Introduction and Motivation}
 \label{sec:introduction}
 
@@ -163,18 +253,78 @@ AI-assisted analysis lowers the barrier separating theory from practice.
   \label{fig:boredom-barrier}
 \end{figure}
 
+The effort-gap collapse documented by this paper is software-side: it
+concerns the analysis of mobile companion apps, cloud APIs, and BLE / MQTT
+protocols where the obscurity barrier is a labour cost imposed on a
+researcher who already has root-equivalent access to the artefacts. A
+parallel, \emph{researcher-hypothesised and AI-assisted-research-confirmed}
+extension of the same thesis applies to the \textbf{hardware-side
+effort gap} --- the cost of physically extracting firmware, locating
+debug interfaces, and mounting side-channel or fault-injection attacks
+on commodity embedded devices. Two peer-reviewed quantitative anchors
+triangulate this hypothesis: the ChipWhisperer platform documents an
+approximately 100$\times$ equipment-cost reduction relative to prior
+commercial side-channel rigs (L-HW-RE-2)\footnote{Cluster A.2 entry
+L-HW-RE-2 (ChipWhisperer 2014) and the L-HW-RE-5 practitioner
+handbook cluster remain catalogued in \texttt{docs/sources.md} at
+grey-literature / pending-confirmation status: the load-bearing
+$\sim$100$\times$ equipment-cost quote could not be verbatim-retrieved
+from the 2014 paper in the Source Analyzer pass (all open-access
+mirrors returned HTTP~403), and the L-HW-RE-5 books are practitioner /
+grey literature rather than peer-reviewed sources; they are therefore
+referenced via this footnote rather than as inline citations, per the
+verification ladder (\texttt{CLAUDE.md}, 2026-05-02
+extension).\label{fn:hwre-cluster}}, and Vasile et al.'s systematic
+survey of 24 commercial IoT devices reports that an exposed UART
+suffices for firmware extraction in more than 45\% of cases
+(L-HW-RE-3)~\citep{vasile2018breakingallthethings}. A SOUPS 2020
+cognitive-process study finds that students reach intermediate
+hardware-reverse-engineering proficiency in 14 weeks of structured
+training, quantifying skill-floor compression
+(L-HW-RE-6)~\citep{becker2020hwreexploratory}. Practitioner handbooks
+bookend the period: the 2003--2004 Grand / Huang baseline (bespoke
+equipment, multi-day soldering, expert-only skill floor) and the
+2021/2022 van Woudenberg \& O'Flynn handbook (single volume + $\sim$USD
+300 toolchain) (L-HW-RE-5)\textsuperscript{\ref{fn:hwre-cluster}}.
+AI-assisted PCB component identification has matured; full netlist
+reconstruction is emerging
+(L-HW-RE-4)~\citep{botero2021hwretutorial}; and JTAGulator-class
+commodity devices, documented in grey literature, automate
+debug-interface discovery on unknown PCBs
+(L-HW-RE-1)~\citep{grand2013jtagulator}. The hardware-side cluster is presented as
+a \emph{triangulated practitioner observation}, not as a benchmarked
+finding equivalent to the software-side anchors; the asymmetry between
+the two evidence bases is itself a finding of this paper and is
+treated explicitly in \cref{sec:synthesis-evidence-asymmetry}.
+
 The paper contributes:
 \begin{enumerate}
   \item A definition of the effort gap and an operationalisation as
-        measurable KPIs (\texttt{docs/methodology.md} \S 10).
+        measurable KPIs (\texttt{docs/methodology.md} \S 10), complementing
+        prior effort-gap exemplars in the reverse-engineering literature
+        (L-RE-2).
   \item Two empirical case studies with complete artifact provenance
         (\texttt{experiments/spider-farmer/},
-        \texttt{experiments/ecoflow-powerocean/}).
+        \texttt{experiments/ecoflow-powerocean/}), against the consumer-IoT
+        base rate of \textgreater{}70\% of 17{,}243 BLE-enabled Android APKs
+        carrying at least one vulnerability (L-BLE-4).
   \item An auditable methodology that treats AI conversation transcripts as
         research artifacts, mapped to git history and vendor code
-        (\texttt{experiments/*/provenance.md}).
+        (\texttt{experiments/*/provenance.md}); this complements --- and
+        operationalises at artifact level --- the publishing-system reforms
+        proposed in the Stockholm Declaration (L-SLOP-7), the
+        practitioner-level ethical-use guidance of Cheng, Calhoun \&
+        Reedy (L-SLOP-10), and the AI-detector / citation /
+        image-verification landscape reviewed by Pellegrina \& Helmy
+        (L-SLOP-12).
   \item A synthesis of interoperability gains versus dual-use risks, grounded
         in the verified evidence of both cases.
+  \item A meta-observation on the \emph{evidence asymmetry} between
+        software-side and hardware-side effort-gap compression, framed
+        as a finding about the maturity of empirical
+        hardware-security-research methodology rather than as a
+        weakness of the cluster A.2 hypothesis
+        (\cref{sec:synthesis-evidence-asymmetry}).
 \end{enumerate}
 
 \subsection{Scope and non-goals}
@@ -451,6 +601,30 @@ Asset        & T7 & Logo addition (empty export; deliverable done) & $<$0.5\,h \
 \textbf{Estimated manual baseline}: prior community implementations each took
 days to weeks independently; conservative estimate \textbf{60--120\,h}.
 \textbf{Effort-gap metric}: $\approx$10.5 / 90 $\approx$ \textbf{12\% of manual effort}.
+
+\textbf{Hedge against the literature.} We are unaware of a peer-reviewed
+study that pairs manual and AI-assisted wall-clock data on an
+embedded-protocol reconstruction task. The closest published anchor is
+Basque et al.\ (NDSS 2026, \emph{Distinguished Paper})~\citep{basque2026synergy},
+which reports \textbf{up to 2.4$\times$ faster triage of known-algorithm
+functions} and {\raise.17ex\hbox{$\scriptstyle\sim$}}98\% novice
+comprehension uplift across 48 participants and 109 hours of instrumented
+software reverse engineering. Generalised greenfield productivity
+proxies---Peng et al.\ 2023 (55.8\% faster Copilot RCT, $n{=}95$)~\citep{peng2023copilot}
+and Cui et al.\ 2025 ($+$26\% tasks completed, $n{=}4{,}867$)~\citep{cui2025genai}---bracket
+the upper end; METR 2025 ($n{=}16$, $\mathbf{-19\%}$ slower for
+experienced developers in mature codebases)~\citep{metr2025productivity} anchors
+the lower end and is the closest literature analog to our brownfield
+integration setting. Our 8.6$\times$ compression (1 / 0.12) sits well
+above Basque's 2.4$\times$ and is in tension with METR's slowdown
+finding; we therefore present 10.5\,h vs 60--120\,h as a
+\emph{single-researcher point estimate}, not a benchmarked comparator,
+and read it as a lower-bound illustration consistent with---but not
+validated by---the existing literature. The asymmetry between
+greenfield gains and brownfield slowdowns documented in cluster~A.3 is
+itself a finding worth flagging in
+\cref{sec:synthesis-evidence-asymmetry} alongside the cluster~A.2
+evidence-asymmetry meta-observation.
 
 Other KPIs: artifact-acquisition completeness 8/8 entries vendored;
 transcript count~7; independent-implementation count 4; residual
@@ -1207,9 +1381,63 @@ residual risk is integrator-side not integration-code-side
 (\cref{sec:synthesis-pipeline-vuln,sec:disc-malicious-integrator}).
 Source: \cref{sec:synthesis-pipeline-vuln} bullet items synthesised
 from the four cases' Weakness Tables and per-case
-\fp{RESEARCH-PROTOCOL.md} gap sections.}
+\texttt{RESEARCH-PROTOCOL.md} gap sections.}
 \label{fig:pipeline-vulnerabilities}
 \end{figure}
+
+\subsection{Evidence asymmetry between software-side and hardware-side effort-gap compression}
+\label{sec:synthesis-evidence-asymmetry}
+The \cref{sec:contributions} thesis is supported on the software side by
+a peer-reviewed quantitative base (cluster A in
+\texttt{docs/sources.md}, entries L-RE-1 through L-RE-8) that includes
+a 24.4\% cognitive-burden reduction in AI-assisted decompilation, a
+31\%\,$\rightarrow$\,53\% correct-solve rate uplift on
+reverse-engineering tasks, and a $>$\,100\% re-executability rate for
+AI-assisted code synthesis. The hardware-side extension introduced in
+\cref{sec:contributions} rests on a structurally different evidence
+base: a single peer-reviewed equipment-cost anchor
+($\sim$\,100$\times$, ChipWhisperer 2014, L-HW-RE-2)\textsuperscript{\ref{fn:hwre-cluster}},
+a single peer-reviewed survey datapoint (Vasile et al.\ 2018,
+$>$\,45\% UART-suffices on 24 commercial IoT devices,
+L-HW-RE-3)~\citep{vasile2018breakingallthethings}, one peer-reviewed
+skill-floor study (Becker et al.\ 2020 SOUPS, 14-week
+intermediate-proficiency pathway,
+L-HW-RE-6)~\citep{becker2020hwreexploratory}, a peer-reviewed
+embedded-systems attack taxonomy (Papp, Ma \& Butty\'an 2015 IEEE PST,
+five-dimension taxonomy applied to a CVE
+subset)~\citep{papp2015embedded}, and a practitioner-handbook bookend
+pair (Grand 2004 / Huang 2003 $\rightarrow$ van Woudenberg \& O'Flynn
+2021/2022, L-HW-RE-5)\textsuperscript{\ref{fn:hwre-cluster}}
+supplemented by grey-literature anchors (JTAGulator,
+L-HW-RE-1)~\citep{grand2013jtagulator} and an emerging AI-assisted
+PCB-RE literature whose strongest published results remain at the
+component-detection layer rather than full netlist reconstruction
+(Botero et al.\ 2021 and follow-ons,
+L-HW-RE-4)~\citep{botero2021hwretutorial}.
+
+We make this asymmetry explicit because honest framing of the evidence
+base is itself part of the contribution (\texttt{CLAUDE.md} rule 1).
+\emph{No peer-reviewed paper publishes a paired ``time-to-extract
+firmware on representative device $X$ in 2010 versus 2024''
+longitudinal benchmark.} The closest quantitative anchors are the
+equipment-cost reduction and the skill-floor pathway; longitudinal
+time-to-extract evidence currently exists only as grey literature
+(vendor blog posts, conference talks, training-course curricula). We
+read this not as a weakness of the hardware-side effort-gap-compression
+hypothesis --- the triangulation across cost-floor, skill-floor, survey
+datapoint, and bookend handbooks is internally consistent --- but as a
+finding about the maturity of empirical hardware-security-research
+methodology. Software-side reverse-engineering research has converged
+on shared benchmarks, controlled-experiment protocols, and
+re-executability metrics; hardware-side reverse-engineering research
+has not yet produced a comparable benchmarking infrastructure, and the
+absence of paired longitudinal measurements is the most visible
+symptom. Closing this gap --- for example by re-running the Vasile et
+al.\ 24-device firmware-extraction protocol against contemporary
+hardware with contemporary commodity tooling --- would be a productive
+direction for future work and would convert the present triangulated
+practitioner observation into a benchmarked finding equivalent to the
+software-side anchors.
 
 % =========================================================================
 \section{Discussion}
@@ -1654,11 +1882,12 @@ is paid for honestly:
   \item \textbf{Trust laundering through a benign-looking artifact.}
         A malicious integrator can publish a Home Assistant custom
         integration that \emph{also} exfiltrates household
-        credentials. The community-trust signal that legitimises
+        credentials. The community-trust signal that legitimises an
+        upstream community integration such as
         \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-1]} or
-        \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-2]} --- a working integration plus a
-        non-empty README --- is exactly what an adversary needs to
-        forge.
+        \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-2]} --- a working
+        integration plus a non-empty README --- is exactly what an
+        adversary needs to forge.
   \item \textbf{Erosion of the governance baseline.} As
         malicious-integrator output enters public corpora (forks,
         gists, model training sets), future researcher-side IoT
@@ -2102,6 +2331,29 @@ human author named on the title page.
         --- AI drafted, researcher verified or flagged.
 \end{itemize}
 
+\subsection{Community-implementer attribution (redaction notice)}
+\label{sec:ai-disclosure-implementer-redaction}
+Several community maintainers and their public repositories underpin
+the Spider Farmer, EcoFlow PowerOcean, and Balboa case studies. Their
+handles and repository paths have been \textbf{redacted} in the
+public-facing surfaces of this paper (replaced with structured markers
+of the form \texttt{[REDACTED:maintainer-handle:\textless ID\textgreater]} /
+\texttt{[REDACTED:repo-path:\textless ID\textgreater]}) because those
+community implementers face the same \S~44b UrhG and vendor-TOS
+exposure surface that the paper author does, and they have not had the
+benefit of qualified legal review. This redaction is a
+\emph{legal-exposure precaution}, not a claim that the implementations
+are secret or that their contributions are unrecognised: bibliography
+keys remain stable internal identifiers, and the cross-implementation
+comparisons in \cref{sec:case-spider-farmer} and \cref{sec:synthesis}
+are unchanged in substance. The full original{\textrightarrow}marker
+mapping is recorded in \texttt{docs/redaction-policy.md}
+(community-implementer anonymisation, IDs \texttt{SF-IMPL-1..3},
+\texttt{EF-IMPL-1}, \texttt{BALBOA-UPSTREAM-1..2}); resolution requires
+repository access at the mapping commit and is governed by the same
+git-history-rewrite protocol that scrubs other rule-12 items before any
+public mirror.
+
 \subsection{What is and is not sourced}
 \label{sec:ai-disclosure-sourcing}
 \begin{itemize}
@@ -2182,6 +2434,55 @@ are the author's own. The repository's \texttt{CITATION.cff},
 \texttt{.zenodo.json}, \texttt{codemeta.json}, and \texttt{docs/fair.md}
 all carry the affiliation \textbf{``Independent researcher (personal
 capacity)''} in line with this statement.
+
+% =========================================================================
+\section{Author's Note}
+\label{sec:authors-note}
+
+A short methodological reflection.
+
+\paragraph{Process, not product.}
+View this work less as the \emph{output} of frontier agentic AI and
+more as a \emph{process} --- a methodology that tries to leverage
+generative AI's analytical lift while warding against its failure
+modes: fabrication, opacity, dual-use amplification, and the
+asymmetric collapse described in \cref{sec:disc-asymmetry} and
+\cref{sec:disc-model-collapse}. The case-study substance is mostly
+prior community work; the contribution is the eight-practice register
+in \cref{sec:pandora} and the discipline that produced it.
+
+\paragraph{Frameworks evolve with capabilities.}
+The eight practices in \cref{sec:pandora} are calibrated to a specific
+snapshot --- Claude Opus 4.7, the Claude Code CLI, the Consensus
+literature front end, and consumer-IoT case studies in mid-2026. As
+capabilities and tooling evolve, the register must evolve with them.
+Some practices will be subsumed by tooling (transcript export becomes a
+click), some will become inadequate (verification-status legends will
+need finer grain), and some I cannot yet name will need to be invented.
+Treat the eight as a starting point, not a final state.
+
+\paragraph{Pandora's jar is open.}
+The shattered-jar logo in the front matter is deliberate. The
+empirical literature on fabricated citations, paper-mill output, and
+model collapse documents what is already out --- and no appeal to
+obscurity, vendor terms of service, or moratoria on capability research
+will put it back. The intact-jar reference in \cref{sec:pandora} is
+the Hesiodic counterpoint: the jar can be closed only if Hope is what
+remains inside, and Hope here is operational --- structured,
+transparent, attributed practice that the next reader can audit,
+replicate, or refute.
+
+\paragraph{Open to constructive criticism.}
+I (Florian Krebs) welcome criticism, replication attempts, and
+challenges to the framework --- to the eight practices, the case-study
+choices, and the legal framing in \cref{sec:ai-disclosure}. The
+transcript-as-artifact discipline (rule~4 in
+\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}) is precisely the affordance
+that makes such critique possible: every claim is backed by an
+exportable conversation log committed in this repository. If you find
+a fabricated citation, an unsourced legal claim, or a
+verification-status entry that cannot survive scrutiny, I want to hear
+about it.
 
 % =========================================================================
 \section{The Pandora moment: this paper as a novel mode of transparent AI-assisted research}
@@ -2295,12 +2596,27 @@ of AI-assisted research:
 None of these practices is individually novel. Conversation logs have
 been shipped with replications before; verification-status labels
 exist in evidence-based-medicine practice; provenance maps exist in
-bioinformatics; FAIR predates LLMs. \textbf{The novelty is the
-integration}: assembling these practices into a single, executable,
-runnable research protocol
-(\texttt{docs/prompts/research-protocol-prompt.md}) that an AI agent can be
-instructed to follow and that a human reviewer can audit by reading
-the artifacts the protocol produces.
+bioinformatics; FAIR predates LLMs. The closest published comparators
+address the same problem at three different layers: at the
+publishing-system layer, Sabel \& Larhammar's \emph{Stockholm
+Declaration} (L-SLOP-7) proposes academia-controlled non-profit
+publishing, quality-not-quantity incentives, and independent fraud
+detection; at the practitioner layer, Cheng, Calhoun \& Reedy
+(L-SLOP-10) articulate four key principles and three categories of
+ethically sound generative-AI use for academic writing; at the
+technical-mitigation layer, Pellegrina \& Helmy (L-SLOP-12) review
+AI detectors and AI-assisted error / citation / image-verification
+tooling and conclude that these ``are not yet sufficiently accurate or
+reliable yet for use in academic assessment''. The differential of the
+present work is to apply these three strands in concert to the
+security-research interoperability context, and to operationalise them
+as an \emph{executable agent prompt}
+(\texttt{docs/prompts/research-protocol-prompt.md}) that an AI agent
+can be instructed to follow and that a human reviewer can audit by
+reading the artifacts the protocol produces. We do not claim to
+subsume the Stockholm Declaration's system-level reforms or
+Cheng~et~al.'s practitioner guidelines; we claim to extend them into a
+runnable protocol whose compliance is checkable per artifact.
 
 \paragraph{A fourth structural claim: democratisation of science production.}
 The effort-gap collapse documented in
