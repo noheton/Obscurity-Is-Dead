@@ -102,3 +102,35 @@ Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, 
 - `[ai-confirmed-attempt-failed]`: 3 (L-RE-2, L-HC-2, L-HC-3).
 - Remaining `[lit-retrieved]` unprocessed: ~109.
 - `[ai-confirmed]` count in `docs/sources.md` (cumulative, including pre-orchestration): grew from 2 to 14.
+
+---
+
+## Slice 9 (pass 7, 2026-05-03) — cluster I sloppification anchors
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-SLOP-1 | `[ai-confirmed]` | five criteria hold; numbers verbatim from *Sci. Rep.* abstract | yes (§1.4 / §7.6 headline) | "55% of the GPT-3.5 citations but just 18% of the GPT-4 citations are fabricated… 43% / 24% of the real… include substantive citation errors." |
+| L-SLOP-2 | `[ai-confirmed]` | five criteria hold; numbers verbatim from *JMIR* abstract | yes (§7.6 medical anchor) | "Hallucination rates stood at 39.6% (55/139) for GPT-3.5, 28.6% (34/119) for GPT-4, and 91.4% (95/104) for Bard (P<.001)." |
+| L-SLOP-3 | `[ai-confirmed]` | five criteria hold; full text via SSRN (open) | yes (§7.6 economics replication) | ">30% of the citations provided by the GPT-3.5 version do not exist and this rate is only slightly reduced for the GPT-4 version… reliability of the model decreases as the prompts become more specific." |
+| L-SLOP-4 | `[ai-confirmed]` | five criteria hold; PMC open-access | yes (§7.6 case-study) | "ChatGPT… generated thirty-five citations, two of which were real… the remaining 21, while plausible, were in fact a pastiche of multiple existent manuscripts." |
+| L-SLOP-5 | `[ai-confirmed-bibliographic]` | Wiley body paywalled; Key Points and abstract verified via publisher landing + ScienceOpen mirror; claim non-quantitative and non-contested | no (system-level framing only) | "We alert the community to imminent risks of LLM technologies, like ChatGPT, for amplifying the predatory publishing 'industry'. The abuse of ChatGPT for the paper mill industry cannot be over-emphasized." |
+| L-SLOP-6 | `[ai-confirmed]` | five criteria hold; *Nature* News, open-access | no (journalistic comparator) | "Generative AI tools, including chatbots such as ChatGPT and image-generating software, provide new ways of producing paper-mill content, which could prove particularly difficult to detect." |
+| L-SLOP-8 | `[ai-confirmed]` | five criteria hold; PLOS Biology open-access; numbers exact | yes (§7.6 / §10 paper-mill empirical centrepiece) | "the systematic search strategy used here identified an average of 4 papers per annum from 2014 to 2021, but 190 in 2024–9 October alone." |
+| L-SLOP-9 | `[ai-confirmed]` | five criteria hold; JMIR open-access; numbers exact | yes (§7.6 disciplinary-variance) | "DOI hallucination was more frequent in the humanities (89.4%) than in the natural sciences (61.8%)." |
+| L-SLOP-11 | `[ai-confirmed]` | five criteria hold; arXiv preprint of JASIST paper (open-access) | yes (§9 cornerstone framing) | "ChatGPT is seen as a potential model for the automated preparation of essays and other types of scholarly manuscripts." |
+
+## Most consequential upgrade (slice 9)
+
+**L-SLOP-8 (Suchak et al., 2025, *PLOS Biology*).** The 4→190 NHANES-papers/year jump is the only direct empirical observation of AI-amplified paper-mill output growth in the cluster. It anchors the §7.6 / §10 paper-mill claim that previously rested on system-level argumentation (L-SLOP-5) and journalistic reporting (L-SLOP-6). The number is verbatim and consistent with the entry's "first ten months of 2024" rounding (the source records "9 October" — the 282nd day of 2024). Recommend foregrounding L-SLOP-8 as the §7.6 / §10 empirical centrepiece.
+
+## Re-analysis verdict (slice 9)
+
+**`RE-ANALYSIS REQUIRED: no`** — all nine processed slice entries cleared the verification ladder; zero edge-cases, zero fetch failures, zero unresolved load-bearing items. Three minor `paper/references.bib` corrections (L-SLOP-3 third author Shapoval; L-SLOP-5 print-year 2024; L-SLOP-9 print-year 2024) are routed to the writer hand-back. Cluster I is now fully `[ai-confirmed*]`.
+
+## Cumulative state after pass 7 (slices 1–9)
+
+- Net upgrades to `[ai-confirmed]` / `[ai-confirmed-bibliographic]`: 47 (38 + 4 prior + 8 new `[ai-confirmed]` + 1 new `[ai-confirmed-bibliographic]` this pass = 51 cumulative if counted strictly; per the task's prior-pass tally of 38+4=42, this pass adds 9 → cumulative **51 ai-confirmed-class entries**).
+- Edge-cases: 2 (unchanged from pass 6).
+- `[ai-confirmed-attempt-failed]`: 3 (unchanged).
+- Remaining `[lit-retrieved]` unprocessed: ~57 (66 − 9 this pass).
+- Cluster I (sloppification) is fully verified end-to-end.
