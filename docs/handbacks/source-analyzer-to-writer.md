@@ -301,3 +301,47 @@ Now usable inline in §6.1 as a **descriptive** companion to L-LAW-1 for *Chambe
 ## Slice 7 readiness summary
 
 Cluster G (§6.1 US-analogue framing) is now writer-actionable for **descriptive** use through four entries (L-LAW-1, L-LAW-3, L-LAW-5, L-LAW-6) under explicit rule-5 doctrinal hedges. The two attempt-failed entries (L-LAW-2, L-LAW-4) do not block the §6.1 framing, since L-LAW-1 / L-LAW-6 jointly carry the *Chamberlain* / *Lexmark* doctrinal-turning-point story and L-LAW-3 carries the policy-direction story. **All four newly available entries remain gated at `[ai-confirmed-bibliographic]`** for any interpretive claim — only `[lit-read]` unlocks doctrinal use. The companion EU/German entries (S-EF-9 § 69e UrhG, S-EF-10 EU 2009/24/EC) remain `[unverified-external]` per existing register and require a separate German-language research pass.
+
+---
+
+# Source Analyzer hand-back to writer — Pass 6 (slice 8) — 2026-05-03
+
+**Agent:** Claude Opus 4.7
+**Slice:** L-COUNTER-1 .. L-COUNTER-6 (cluster H — counter-positions / dual-use risk amplifiers, supports `paper/main.md` §6.4).
+**Scope:** non-legal cluster — standard `[ai-confirmed]` ladder applies (no doctrinal hedge).
+
+## L-COUNTER-1 — Boniface, Fair, Modafferi & Papa, 2020, CEUR-WS Vol. 2900 — `[ai-confirmed]`
+
+Now citable inline in §6.4 as the **most direct counter-citation to interoperability enthusiasm**. Verbatim: "Higher levels of interoperability generally means more links between components, but also means a higher number of potential security threats." **`paper/references.bib` correction**: full author list is Boniface, Fair, Modafferi, Papa (4 authors), not "et al."; venue is CEUR-WS workshop proceedings (Vol. 2900, paper 7), not a peer-reviewed journal — frame accordingly. Suitable as a framing / motivation cite; load-bearing quantitative claims should fall back on L-COUNTER-3 or L-COUNTER-6.
+
+## L-COUNTER-2 — Mitra & Ransbotham, 2015, *Information Systems Research* 26(3):565–584 — `[ai-confirmed]`
+
+Now citable inline in §6.4 / §1 as the **foundational empirical anchor for the "full disclosure is not free" qualifier on the obscurity-is-dead thesis**. Verbatim: "Full disclosure accelerates the diffusion of attacks, increases the penetration of attacks within the target population, and increases the risk of first attack after the vulnerability is reported. However, although the aggregate volume of attacks remains unaffected by full disclosure, attacks occur earlier in the life cycle of the vulnerability." Methodology anchor: 2.4B IDS alerts from 960 firms — large-N, *Information Systems Research* premier venue. **Strong** load-bearing source for the qualifier framing.
+
+## L-COUNTER-3 — Augusto, Belchior, Correia, Vasconcelos, Zhang & Hardjono, 2024, IEEE S&P 2024 — `[ai-confirmed]`
+
+Now citable inline in §6.4 as the **quantitative anchor for interoperability-as-attack-surface**. Verbatim losses: ~$3.1B from cross-chain bridge hacks; SLR over 212 documents; 65.8% of stolen funds traced to "intermediary permissioned networks with unsecured cryptographic key operations". **`paper/references.bib` correction**: full author list is Augusto, Belchior, Correia, Vasconcelos, Zhang, Hardjono (6 authors), not "et al." Domain-distance caveat applies (blockchain bridges, not consumer IoT) — use as analogy with explicit hedging.
+
+## L-COUNTER-4 — Silic, 2013, *Computers & Security* 39(B):386–395 — `[ai-confirmed]`
+
+Now citable inline in §6.4 / §7 as a triangulated organisational-context dual-use anchor. Verbatim: "contributors behind open source security software (OSSS) are hackers, OSSS have important dual-use dimension, information security professionals generally trust OSS, and large organizations will avoid adopting and using OSSs." Useful as the organisational counterpart to L-COUNTER-5's IR-theory framing.
+
+## L-COUNTER-5 — Vaynman & Volpe, 2023, *International Organization* 77(3):599–632 — `[ai-confirmed]`
+
+Now citable inline in §6.4 / §7 as the **theoretical framing of dual-use distinguishability and integration**, applicable to AI-assisted RE. Verbatim: "the duality of technology matters because it shapes the tension between detection and disclosure at the heart of arms control: agreements must provide enough information to detect violations, but not so much that they disclose deeper security vulnerabilities." **`paper/references.bib` correction (load-bearing)**: second author is **Tristan A. Volpe**, *not* "Gartzke" as the entry mis-attributes. This must be fixed before any inline citation. Won IO's 2023 Robert O. Keohane Award (signal of venue endorsement).
+
+## L-COUNTER-6 — Manadhata & Wing, 2011, *IEEE Transactions on Software Engineering* 37(3):371–386 — `[ai-confirmed]`
+
+Now citable inline in §4.6 as the **canonical attack-surface formalisation** — needed to make the "blast radius" claim quantitative rather than rhetorical. Verbatim: defines attack surface along three abstract dimensions — method, data, channel; "agnostic to a software system's implementation language and is applicable to systems of all sizes". 658 citations — high authority. Best-of-class anchor for §4.6.
+
+## `paper/references.bib` corrections to propagate
+
+| Entry | Field | Current | Should be |
+|-------|-------|---------|-----------|
+| L-COUNTER-1 | author | "Boniface et al., 2020" | "Boniface, M., Fair, N., Modafferi, S., & Papa, J., 2020" (4 authors) |
+| L-COUNTER-3 | author | "Augusto et al., 2024" | "Augusto, A., Belchior, R., Correia, M., Vasconcelos, A., Zhang, L., & Hardjono, T., 2024" (6 authors) |
+| L-COUNTER-5 | author | "Vaynman & Gartzke, 2023" | "Vaynman, J., & Volpe, T. A., 2023" — **load-bearing fix; the entry mis-attributes the second author** |
+
+## Slice 8 readiness summary
+
+Cluster H (§6.4 counter-positions) is now fully writer-actionable: six `[ai-confirmed]` upgrades, no edge-cases, no fetch failures. The non-legal cluster ran cleanly under the standard ladder (no rule-5 doctrinal cap). Three `paper/references.bib` corrections to propagate, of which **L-COUNTER-5 is load-bearing** (wrong second author). The §6.4 dual-use qualifier is now anchored on (a) Mitra & Ransbotham 2015 *ISR* large-N empirical (full disclosure dynamics), (b) Augusto et al. 2024 IEEE S&P quantitative ($3.1B in cross-chain losses), (c) Vaynman & Volpe 2023 *IO* theoretical (detection-disclosure tension), with Boniface 2020 (interoperability-as-threat-multiplier) and Silic 2013 (organisational dual-use) as supporting framing, and Manadhata & Wing 2011 (attack-surface metric) as the §4.6 quantitative anchor.
