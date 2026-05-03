@@ -17,6 +17,28 @@ Your goal is to execute a reproducible research protocol for a specified case st
 - The case study path will be provided as input (for example, `experiments/spider-farmer` or `experiments/ecoflow-powerocean`).
 - Use the repository AI instructions, methodology, and logbook as governance.
 
+### Inputs
+Before designing a research pass, the agent must consult the following system features:
+- **Verification-status legend in `docs/sources.md`** — understand the current ladder (`[unverified-external]` → `[needs-research]` → `[lit-retrieved]` → `[ai-confirmed]` → `[lit-read]`) and the existing entries for the case study so new findings are slotted in correctly and duplicates are avoided.
+- **Prior conversation transcripts under `experiments/*/raw_conversations*/`** — first-class research artifacts (rule 4); read those for the target case study to recover decisions, dead-ends, and prompt lineage before re-deriving them.
+- **Prior provenance maps in `experiments/*/provenance.md`** — the canonical artifact-to-evidence linkage for each case study; extend rather than replace.
+- **Logbook (`docs/logbook.md`)** — read at session start to learn what previous passes recorded, what the most recent orchestrator dispatch was, and what the open carry-over verdicts are.
+- **Open hand-backs in `docs/handbacks/`** — particularly `source-analyzer-to-writer.md`, `layout-to-*.md`, `readability-to-*.md`, and any `orchestrator-dispatch.md`; check whether a research-shaped item is already queued elsewhere in the pipeline.
+- **Labelled GitHub issues** with labels `idea`, `critique`, or `provenance-gap` — these are now first-class inputs to the pipeline (see orchestrator dispatch table). Treat the issue body as a seed hypothesis (`idea`), as a critique to address in the protocol (`critique`), or as a targeted provenance gap to close (`provenance-gap`).
+
+### Re-run triggers
+Re-run the research protocol when any of the following occurs:
+1. A vendor artifact under `experiments/*/original/` changes (e.g. a new APK, firmware image, or device manifest is dropped in or replaced).
+2. A transcript under `experiments/*/raw_conversations*/` is added or edited (new chat export, transcript correction, or redaction pass).
+3. A `provenance-gap`-labelled GitHub issue lands against the case study.
+4. The orchestrator (stage 0) explicitly dispatches a re-run via the rule table or in response to a human directive.
+
+### FAIR & transparency check
+Every new finding produced by this protocol must:
+- Produce or update an entry in `docs/sources.md` with an explicit verification-status tag from the ladder above. No finding may be cited inline in `paper/main.{md,tex}` until it reaches at least `[ai-confirmed]` (load-bearing claims still require `[lit-read]`).
+- Be referenced from `docs/logbook.md` in the session entry that records the pass, with enough context (entry IDs, files touched, decisions taken) that a third party can reconstruct the pass.
+- Respect rule 12 redaction — credentials, serial numbers, local IPs, private UIDs, and any exploitation-enabling detail must be replaced with a `[REDACTED:<type>:<source-id>]` marker and recorded in `docs/redaction-policy.md` before any finding leaves the agent's working buffer.
+
 ### Protocol
 1. Read the repository AI instruction files: `.instructions.md`, `copilot-instructions.md`, `CLAUDE_CODE_INSTRUCTIONS.md`.
 2. Read `docs/methodology.md` and `docs/logbook.md` to understand the research process and current status.
