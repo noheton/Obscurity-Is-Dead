@@ -184,4 +184,103 @@ forward-looking framing. Re-scrutiny should follow the next writer pass.
 
 ---
 
+---
+
+## Re-run 2026-05-03 — ROUND 3 (post writer `37ded1f`)
+
+Round-3 sweep performed by Claude Opus 4.7 (Stage 5) on branch
+`claude/review-open-issues-PfNx9`. Full diagnosis:
+`docs/handbacks/readability-scrutiny-2026-05-03-round3.md`.
+
+### Carry-over closures and preservations (round 3)
+
+- **RDB-30 RESOLVED-confirmed** — §7.3 Mythos counter-data-point block
+  split into 3 paragraphs (announcement / capability catalogue /
+  Anthropic response) at `main.md:497`, `:499`, `:501`. Longest
+  sentence ≈ 38w; rubric clean.
+- **RDB-31 RESOLVED-confirmed** — §7.4 band-aid hedge at `main.md:514`
+  reads "*plausibly* converges … horizon whose length we cannot yet
+  quantify — engineering intuition rather than proof, [L-MYTHOS-1/-2]
+  documents qualitatively but does not yet bound numerically."
+  Strengthened ground (modal verb + horizon-uncertainty hedge + inline
+  cites + caveat) supports the downstream "security-by-design"
+  conclusion as a risk-management rather than deductive claim.
+- **RDB-35 RESOLVED-confirmed** — Fig 9 caption now lists 4 stages and
+  names the Source Analyzer agent as `[ai-confirmed]`-stage owner.
+- **RDB-36 RESOLVED-confirmed** — Fig 11 caption trimmed; P / S legend
+  not duplicated.
+- **RDB-21 mirror parity preserved** — spot-checks at §4.2 / §4.3 /
+  §4.6 / §10 redaction-precedent block confirm `paper/main.tex`
+  parity at `:874-887`, `:889-909`, `:984-1004`, `:2957-2978`.
+- **RDB-32 / -33 / -34 DEFERRED-unchanged** at **L** severity. Writer
+  loop 3 explicitly deferred per hand-back.
+- All other carry-overs (RDB-01 / -02 / -03..-11 / -12 / -13 / -14 /
+  -15 / -16 / -17 / -18 / -19 / -20 / -22..-29) preserved without
+  regression.
+
+### New defects — round 3
+
+| ID | Section | Defect class | Severity | Owner | Source span | Evidence | Suggested fix | Status |
+|----|---------|--------------|----------|-------|-------------|----------|---------------|--------|
+| RDB-37 | §4.6 | sentence-length | **M** | writer | `main.md:286`; `main.tex:984-1004` | New OCPP runtime-handover paragraph is a single ~155-word sentence packing ≥ 6 load-bearing items (LOC count, modified files, new endpoints, catalog-vs-runtime framing, `vendorInfoSet` runtime-handover gap, §6 forward-pointer). Crosses 40-word rubric ~3.9×. | Split at "— illustrates a concrete *catalog-vs-runtime* asymmetry inside the same legacy bearer-token API plane:". First sentence carries empirical surface; second sentence carries asymmetry framing + §6 pointer. Net ~80 + ~75 words; no content loss. | **NEW round-3** |
+| RDB-38 | §10 redaction-precedent paragraph | sentence-length | **L** | writer | `main.md:733`; `main.tex:2957-2978` | Middle sentence ~85 words; packs the removed-`doc/`-artifact list, the 80-line `doc/README.md` reference, and the inline "`git rm` does not purge history" quotation in one main clause. | *Optional.* Split at "and replaced it with an 80-line `doc/README.md`". Stage 5 does **not** endorse the split if the writer judges the "during this paper's preparation" temporal anchor more load-bearing than the rubric breach. | **NEW round-3** |
+
+### Novelty audit — round 3
+
+The §10 redaction-precedent paragraph at `main.md:733` is the
+load-bearing rule-12 / rule-13 precedent and was given particular
+novelty-inflation scrutiny:
+
+- "**A** recently-dated, publicly-visible enactment" — indefinite
+  article. Frames the upstream event as *one instance*, not the
+  unique instance.
+- "**The precedent**" on second mention — grammatical anaphora, not a
+  "*the* precedent" priority claim.
+- "**without requiring this paper to claim attribution**" — explicit
+  disclaimer against attribution overclaim.
+- "an independent AI-assisted-integration project, working under
+  separate constraints, **arrived at the same** redaction-and-history-
+  rewrite step" — convergence framed as *independent* triangulation,
+  not as *derivative from* the paper.
+- Grep against `paper/main.md` confirms no occurrence of "first…
+  precedent", "unprecedented", "first-of-its-kind precedent", or
+  equivalent in this span.
+
+**Verdict: ON-POLICY.** §4.2, §4.3 footnote, §4.6 paragraph, §10
+redaction-precedent paragraph all frame the upstream event
+descriptively without novelty inflation.
+
+### Summary by severity (round 3, active actionable)
+
+- **H = 0** (no new H; no regression).
+- **M = 12** — RDB-01 [residual], RDB-03..-11 carry-over, RDB-26
+  parallelism, plus **RDB-37 NEW**. RDB-30 / -31 closed this round;
+  RDB-22 / -23 / -25 remain closed.
+- **L = 14** — RDB-13, -14, -17, -19, -20 carry-over, RDB-32, -33,
+  -34 carry-over, plus **RDB-38 NEW**. RDB-35 / -36 closed this
+  round.
+- **Resolved this round:** 4 (RDB-30, -31, -35, -36).
+- **New this round:** 2 (RDB-37 M, RDB-38 L).
+- **Regressions:** 0.
+
+### Most consequential defect — round 3
+
+**RDB-37** — §4.6 single 155-word sentence on the OCPP runtime-handover
+gap. §4.6 is a load-bearing forward pointer to §6 synthesis; a clean
+two-sentence form serves that pointer better than the current
+single-sentence form. Mechanical fix; no literature-comparison work
+required.
+
+### Re-scrutiny verdict — round 3
+
+`RE-SCRUTINY REQUIRED: yes` — one new **M** (RDB-37 §4.6 OCPP
+sentence-length) and one new **L** (RDB-38 §10 middle sentence
+length) filed at `37ded1f`. No new H. RDB-30 / -31 / -35 / -36
+RESOLVED-confirmed; RDB-32 / -33 / -34 DEFERRED-unchanged at **L**.
+RDB-04 / RDB-02 (§10 list-of-eight vs Figure 11 collapse) still
+DEFERRED pending human-author decision; Stage 5 still endorses
+option (b). Re-scrutiny should follow the next writer pass.
+
+---
+
 ## Re-scrutiny verdict — earlier (2026-05-02)

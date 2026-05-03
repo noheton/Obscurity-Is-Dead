@@ -458,3 +458,108 @@ mitigation roles per the in-figure legend." Let the asset carry the
 P / S definition. Mirror in both files in the same commit.
 **Rule-11 note.** Caption parity is a rule-11 invariant; the writer
 must update both files together.
+
+---
+
+# Round 3 hand-back (2026-05-03; against `37ded1f`)
+
+## Closures verified (no writer action required)
+
+- **RDB-30** §7.3 Mythos paragraph split — RESOLVED-confirmed at
+  `main.md:497`, `:499`, `:501`.
+- **RDB-31** §7.4 band-aid hedge — RESOLVED-confirmed at
+  `main.md:514`. Strengthened ground (modal verb + horizon-uncertainty
+  hedge + L-MYTHOS-1/-2 inline cites + "engineering intuition not
+  proof" caveat) supports the rhetorical conclusion.
+- **RDB-35** Fig 9 caption — RESOLVED-confirmed at `main.md:358`.
+- **RDB-36** Fig 11 caption — RESOLVED-confirmed at `main.md:729`.
+
+## Standing deferrals (still **L**, on-policy to defer)
+
+- **RDB-32** Author's Note paragraph density — DEFERRED-unchanged.
+- **RDB-33** §10 ninth-practice closing-promise cite — DEFERRED-
+  unchanged. Optional: replace "evolve with detection tooling as
+  that tooling matures" with "(cf. L-SLOP-12 on the current accuracy
+  ceiling)" or delete the closing half-sentence.
+- **RDB-34** §10 eight-vs-nine count primed late — DEFERRED-unchanged.
+
+## RDB-37 — §4.6 OCPP runtime-handover paragraph: split the 155-word sentence  *(M, sentence-length)* [NEW round-3]
+
+**Sections.** §4.6 Findings — security implications.
+**Source span.** `paper/main.md:286`; `paper/main.tex:984-1004`.
+**Defect.** The new OCPP runtime-handover paragraph from the
+powerocean resync (writer loop 3, item d.6) is a single ~155-word
+sentence packing six load-bearing items: (a) the upstream code
+surface (~+440 LOC across `api.py`, `__init__.py`, `services.yaml`,
+`const.py`); (b) the modified files; (c) the new endpoints (`GET
+/provider-service/app/ocppPlatformConfig/list`, `POST
+/provider-service/app/ocppPlatformConfig`); (d) the
+*catalog-vs-runtime* asymmetry framing; (e) the runtime-handover gap
+(`vendorInfoSet` proto write not yet shipped); (f) the synthesis-
+relevance pointer to §6. Crosses the 40-word rubric ~3.9×. The §4.6
+paragraph is a load-bearing forward pointer to §6 synthesis on the
+maturity of effort-gap compression; a clean two-sentence form serves
+that pointer better than the current single-sentence form.
+**Required outcome.** Split at "— illustrates a concrete
+*catalog-vs-runtime* asymmetry inside the same legacy bearer-token
+API plane:". Suggested rewrite (writer to refine):
+
+> A subsequent upstream development surface — the OCPP backend-
+> binding work landed on `noheton/powerocean-dev` between 2026-05-01
+> and 2026-05-03 (~+440 LOC across `api.py`, `__init__.py`,
+> `services.yaml`, and `const.py`; new endpoints `GET /provider-
+> service/app/ocppPlatformConfig/list` and `POST /provider-service/
+> app/ocppPlatformConfig`) — illustrates a concrete *catalog-vs-
+> runtime* asymmetry inside the same legacy bearer-token API plane.
+> The integration can now write the EcoFlow-side OCPP catalog, but
+> the upstream `README.md` notes a runtime-handover gap: a
+> `vendorInfoSet` proto write that is *not yet shipped* and that the
+> charger requires before it will redirect to the third-party host
+> at runtime [@noheton2026powerocean5c8b815]. Catalog-level
+> interoperability is therefore reachable while runtime-level
+> interoperability is not — a useful empirical data point for the
+> synthesis on the maturity of effort-gap compression (§6).
+
+Net ~80 + ~75 + ~45 words instead of one 155-word sentence; no
+content loss; the §6 forward pointer is preserved as the closing
+clause.
+**Rule-11 note.** Mirror in `paper/main.tex` paragraph at
+`:984-1004`.
+
+## RDB-38 — §10 redaction-precedent paragraph: middle sentence length  *(L, sentence-length, OPTIONAL)* [NEW round-3]
+
+**Sections.** §10 *A real-world precedent for the redaction
+discipline.*
+**Source span.** `paper/main.md:733`; `paper/main.tex:2957-2978`.
+**Defect.** The middle sentence of the new redaction-precedent
+paragraph runs ~85 words and packs the removed-`doc/`-artifact list,
+the 80-line `doc/README.md` reference, and the inline "`git rm` does
+not purge history" quotation in one main clause.
+**Required outcome — *optional*.** If the writer judges that the
+"during this paper's preparation" temporal anchor is rhetorically
+load-bearing and binds the artifact-list + quotation to a single
+sentence, **leave as-is**. If a split is acceptable, break at "and
+replaced it with an 80-line `doc/README.md`": first sentence carries
+the redaction event + artifact list + temporal anchor; second
+sentence carries the `doc/README.md` content + the inline "`git rm`
+does not purge history" quotation + `git filter-repo` pointer.
+**Stage-5 endorsement.** Stage 5 does not endorse the split if the
+temporal-anchor argument prevails. RDB-38 is filed at **L** for
+completeness, not as a required fix.
+**Rule-11 note.** Mirror in `paper/main.tex` paragraph at
+`:2957-2978` if split is taken.
+
+## Novelty audit — round 3 (no writer action required)
+
+- §4.2 redaction acknowledgement, §4.3 two-track footnote, §4.6 OCPP
+  paragraph: descriptive framing throughout; no novelty inflation.
+- §10 redaction-precedent paragraph: the upstream powerocean event
+  is framed as "**a** recently-dated, publicly-visible enactment"
+  (indefinite article), with explicit "**without requiring this
+  paper to claim attribution**" disclaimer and "**arrived at the
+  same** redaction-and-history-rewrite step" convergence framing
+  (independent triangulation, not derivative). No "first" / "sole"
+  / "first-of-its-kind" / "unprecedented" language anywhere in the
+  span. **Verdict: ON-POLICY.** Stage 5 explicitly endorses the
+  paragraph as load-bearing rule-12 / rule-13 evidence without
+  novelty overclaim.
