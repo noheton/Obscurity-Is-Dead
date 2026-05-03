@@ -191,3 +191,22 @@ Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, 
 - Cumulative across passes 1–9: **60 [ai-confirmed]** + **6 [ai-confirmed-bibliographic]** + **2 [edge-case]** + **3 [ai-confirmed-attempt-failed]**.
 - Remaining `[lit-retrieved]` unprocessed: **~42** (down from ~48).
 - Clusters fully verified end-to-end: J (model collapse, §7.7) and K-CONS (consumer-IoT base rate, §§3-4).
+
+---
+
+## Pass 10 (slice 12) — Cluster K-IND, industrial / IIoT / ICS posture (2026-05-03, Claude Opus 4.7)
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-IND-1 | `[ai-confirmed]` | all five criteria hold; canonical framing source for §3-4 industrial-qualifier paragraph | yes | "securing the Industrial Internet of Things introduces its own challenges but also opportunities, mainly resulting from a longer lifetime of components and a larger scale of networks" (arXiv:2111.11714 abstract) |
+| L-IND-2 | `[ai-confirmed]` | all five criteria hold; **strongest empirical anchor in the cluster** — refutes "industrial-grade therefore safer" intuition | yes | "More than 13000 devices were found, almost all contained at least one vulnerability. European and Northern American countries are by far the most affected ones" (arXiv:2111.13862 abstract) |
+| L-IND-3 | `[ai-confirmed]` | all five criteria hold; structural-critique companion to L-IND-1 | no (supporting) | "ICS was designed to be used in an isolated area… this design does not meet today's business requirements… opens up several cybersecurity challenges" (ScienceDirect abstract; DOI 10.1016/j.comnet.2019.106946) |
+| L-IND-4 | `[ai-confirmed-bibliographic]` | survey paper; venue/authorship/scope verified; rule-5 conservatism — no specific quantitative claim anchored | no | "we classify the IIoT threats in five generic categories: phishing attacks, ransomwares, protocol, supply chain, and system attacks" (MDPI IoT 2021 §3) |
+| L-IND-5 | `[ai-confirmed]` | all five criteria hold; standards-landscape view useful for "regulation/certification raise the floor" hypothesis | no (supporting) | "provides a roadmap for identifying, aligning, mapping, converging, and implementing the right cybersecurity standards… for securing M2M communications in the IIoT" (Sensors 21:3901 abstract) |
+| L-IND-6 | `[ai-confirmed-bibliographic]` | survey paper; venue/authorship/scope verified; rule-5 conservatism — no specific quantitative claim anchored | no | "This article presents an overview of ICS security, covering its components, protocols, industrial applications, and performance aspects" (Sensors 23:8840 abstract) |
+
+**Pass-10 totals:** processed 6, upgraded 4 to `[ai-confirmed]`, upgraded 2 to `[ai-confirmed-bibliographic]` (L-IND-4 and L-IND-6 — surveys, no anchored quantitative claim), 0 edge-cases, 0 fetch failures.
+
+**RE-ANALYSIS REQUIRED: no** — cluster K-IND fully verified end-to-end. The §3-4 industrial-qualifier paragraph is unblocked.
+
+**Cumulative state (passes 1-10):** 64 `[ai-confirmed]` + 8 `[ai-confirmed-bibliographic]` + 2 `[edge-case]` + 3 `[ai-confirmed-attempt-failed]`. Remaining `[lit-retrieved]` unprocessed: ~36. Clusters fully verified end-to-end: J (model collapse, §7.7), K-CONS (consumer-IoT base rate, §§3-4), and K-IND (industrial / IIoT / ICS posture, §§3-4).
