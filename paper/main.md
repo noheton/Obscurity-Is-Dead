@@ -191,6 +191,8 @@ The `original/doc/log.md` community thread documents a self-signed-certificate M
 
 **Effort-gap metric** (AI-assisted hours / estimated manual hours): **~10.5 / 90 ≈ 12% of manual effort** — an order-of-magnitude compression.
 
+**Hedge against the literature.** We are unaware of a peer-reviewed study that pairs manual and AI-assisted wall-clock data on an embedded-protocol reconstruction task. The closest published anchor is Basque et al. (NDSS 2026, *Distinguished Paper*) [L-TS-1], which reports **up to 2.4× faster triage of known-algorithm functions** and ~98% novice comprehension uplift across 48 participants and 109 hours of instrumented software reverse engineering. Generalised greenfield productivity proxies — Peng et al. 2023 (55.8% faster Copilot RCT, n=95) [L-TS-2] and Cui et al. 2025 (+26% tasks completed, n=4,867) [L-TS-3] — bracket the upper end; METR 2025 (n=16, **−19% slower** for experienced developers in mature codebases) [L-TS-4] anchors the lower end and is the closest literature analog to our brownfield integration setting. Our 8.6× compression (1 / 0.12) sits well above Basque's 2.4× and is in tension with METR's slowdown finding; we therefore present 10.5 h vs 60–120 h as a **single-researcher point estimate**, not a benchmarked comparator, and read it as a lower-bound illustration consistent with — but not validated by — the existing literature. The asymmetry between greenfield gains and brownfield slowdowns documented in cluster A.3 is itself a finding worth flagging in §6.8 alongside the cluster A.2 evidence-asymmetry meta-observation.
+
 **Other KPIs:**
 - Artifact-acquisition completeness: 8/8 source-register entries vendored ([repo-vendored]).
 - Transcript count: 7 (T7 has empty export; deliverable confirmed).

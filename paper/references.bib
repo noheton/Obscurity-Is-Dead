@@ -289,3 +289,76 @@
                   \texttt{experiments/*/raw\_conversations (copy\&paste, web)/}
                   and referenced in \texttt{docs/logbook.md}.}
 }
+
+%=== Cluster A.3 — quantitative time-savings evidence (added 2026-05-03) ===
+
+@inproceedings{basque2026synergy,
+  author       = {Basque, Zion Leonahenahe and Doria, Sayane and Soneji, Aakash
+                  and Gibbs, William and Doup{\'e}, Adam and Shoshitaishvili,
+                  Yan and Losiouk, Eleonora and Wang, Ruoyu and Aonzo, Simone},
+  title        = {Decompiling the Synergy: An Empirical Study of Human-LLM
+                  Teaming in Software Reverse Engineering},
+  booktitle    = {Proceedings of the Network and Distributed System Security
+                  Symposium (NDSS)},
+  year         = {2026},
+  note         = {Distinguished Paper, 17.8\% accept rate. 48 participants
+                  (24 novices / 24 experts), 109 hours of instrumented SRE;
+                  up to 2.4$\times$ faster triage of known-algorithm functions;
+                  $\sim$98\% novice comprehension uplift; +66\% artifact
+                  recovery. Cross-referenced as L-TS-1 in
+                  \texttt{docs/sources.md}; status
+                  \texttt{[lit-retrieved]} 2026-05-03. Artefact at
+                  \url{https://github.com/mahaloz/dec-synergy-study}.}
+}
+
+@misc{peng2023copilot,
+  author       = {Peng, Sida and Kalliamvakou, Eirini and Cihon, Peter and
+                  Demirer, Mert},
+  title        = {The Impact of {AI} on Developer Productivity: Evidence from
+                  {GitHub} {Copilot}},
+  year         = {2023},
+  eprint       = {2302.06590},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.SE},
+  howpublished = {\url{https://arxiv.org/abs/2302.06590}},
+  note         = {GitHub / Microsoft Research RCT with $n{=}95$ professional
+                  developers from Upwork; treatment group completed an
+                  HTTP-server-in-JavaScript task 55.8\% faster (95\% CI
+                  21--89\%). Generalised greenfield productivity proxy.
+                  Cross-referenced as L-TS-2 in \texttt{docs/sources.md}.}
+}
+
+@article{cui2025genai,
+  author       = {Cui, Zheng Kelly and Demirer, Mert and Jaffe, Sonia and
+                  Musolff, Leon and Peng, Sida and Salz, Tobias},
+  title        = {The Effects of Generative {AI} on High-Skilled Work: Evidence
+                  from Three Field Experiments with Software Developers},
+  journal      = {Management Science},
+  year         = {2025},
+  doi          = {10.1287/mnsc.2025.00535},
+  note         = {Largest peer-reviewed AI-coding-productivity RCT to date:
+                  pooled $n{=}4{,}867$ developers across three field
+                  experiments at Microsoft, Accenture, and a Fortune~100;
+                  $+$26.08\% completed tasks (SE 10.3\%); larger gains for
+                  less-experienced developers. Cross-referenced as L-TS-3
+                  in \texttt{docs/sources.md}.}
+}
+
+@misc{metr2025productivity,
+  author       = {{METR}},
+  title        = {Measuring the Impact of Early-2025 {AI} on Experienced
+                  Open-Source Developer Productivity},
+  year         = {2025},
+  eprint       = {2507.09089},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.SE},
+  howpublished = {\url{https://arxiv.org/abs/2507.09089}},
+  note         = {Critical counter-evidence to greenfield speedup numbers:
+                  RCT with 16 experienced OSS developers across 246 tasks in
+                  mature projects (mean 5 years prior experience); AI tools
+                  made them 19\% slower (CI $+$2\% to $+$39\%) using
+                  Cursor Pro + Claude 3.5/3.7 Sonnet; self-perceived 20\%
+                  speedup --- opposite sign. Closest literature analog to
+                  brownfield RE/integration. Cross-referenced as L-TS-4
+                  in \texttt{docs/sources.md}.}
+}
