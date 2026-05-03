@@ -51,19 +51,26 @@ asset(s) and rebuild via `make -C paper pdf`; do **not** invoke
   preceding columns proportionally.
 
 ## LAY-12 — Logo placeholders
-- **[DEFERRED — by design]**.
+- **[PARTIALLY RESOLVED 2026-05-03 — intact-jar still deferred].**
 - Per logbook 2026-05-02, the shattered-jar logo
   (`logo-obscurity-is-dead.png`) is now the final Gemini artwork; only
   the intact-jar companion (`logo-pandora-jar-intact.png`) remains an
   AI-authored placeholder pending the second Gemini deliverable. Prose
   at `main.tex:2138–2149` declares this explicitly per rule 1, so the
   placeholder presence is honest, not a defect.
+- **Update 2026-05-03:** the shattered-jar binary has been re-encoded
+  in place (full 1408x768 preserved, no crop, ~1.63 MB) and wired into
+  the top-level `README.md` as a centred hero image with Gemini
+  provenance disclosed in the alt-text (commits `7e1f297`, `062b1d3`).
+  Narrow-scope Stage 4 / Stage 5 scrutiny against that wire-up
+  reported `RE-SCRUTINY REQUIRED: no`. The shattered-jar half of LAY-12
+  is therefore closed. The intact-jar half remains OPEN.
 - Tracking entry only; **do not edit `logo-placeholders.py`.** Replace
   `logo-pandora-jar-intact.png` once the Gemini deliverable arrives,
   and the Layout Scrutinizer will re-run against the final asset.
 - Page: ~38–40 (was 36–38)
 - Source: `main.tex:2138–2145, :2313`
-- Severity: M (informational)
+- Severity: M (informational) — intact-jar half only
 
 ## LAY-13 — PDF version 1.7 vs 1.5 inclusion warnings
 - **[PARTIAL — UNCHANGED → escalating count]**.
