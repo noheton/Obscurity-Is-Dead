@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-05-02T13:49:19.380195</dc:date>
+    <dc:date>2026-05-03T18:39:41.326615</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -40,7 +40,7 @@ Q 231.7485 174.85056 231.7485 184.16448
 L 231.7485 244.18752 
 Q 231.7485 253.50144 240.9555 253.50144 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #00658b; stroke: #ffffff; stroke-width: 1.4; stroke-linejoin: miter"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #00658b; stroke: #ffffff; stroke-width: 1.4; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 248.1165 114.31008 
@@ -53,17 +53,17 @@ Q 243.0015 53.25216 243.0015 58.42656
 L 243.0015 109.13568 
 Q 243.0015 114.31008 248.1165 114.31008 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 314.1 105.782868 
 Q 314.1 138.979257 314.1 170.834005 
-" clip-path="url(#p30b4a402d4)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
     <path d="M 316.5 166.034005 
 L 314.1 170.834005 
 L 311.7 166.034005 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
    </g>
    <g id="patch_5">
     <path d="M 32.832111 179.50752 
@@ -76,17 +76,17 @@ Q 27.717111 118.4496 27.717111 123.624
 L 27.717111 174.33312 
 Q 27.717111 179.50752 32.832111 179.50752 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 119.869042 155.354451 
 Q 196.885991 178.67852 272.618891 201.613723 
-" clip-path="url(#p30b4a402d4)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
     <path d="M 268.72056 197.925497 
 L 272.618891 201.613723 
 L 267.329311 202.519452 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
    </g>
    <g id="patch_7">
     <path d="M 32.832111 309.9024 
@@ -99,17 +99,17 @@ Q 27.717111 248.84448 27.717111 254.01888
 L 27.717111 304.728 
 Q 27.717111 309.9024 32.832111 309.9024 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
     <path d="M 119.869042 272.997549 
 Q 196.885991 249.67348 272.618891 226.738277 
-" clip-path="url(#p30b4a402d4)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
     <path d="M 267.329311 225.832548 
 L 272.618891 226.738277 
 L 268.72056 230.426503 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
    </g>
    <g id="patch_9">
     <path d="M 248.1165 375.09984 
@@ -122,17 +122,17 @@ Q 243.0015 314.04192 243.0015 319.21632
 L 243.0015 369.92544 
 Q 243.0015 375.09984 248.1165 375.09984 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
    </g>
    <g id="patch_10">
     <path d="M 314.1 322.569132 
 Q 314.1 289.372743 314.1 257.517995 
-" clip-path="url(#p30b4a402d4)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
     <path d="M 311.7 262.317995 
 L 314.1 257.517995 
 L 316.5 262.317995 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
    </g>
    <g id="patch_11">
     <path d="M 463.400889 309.9024 
@@ -145,17 +145,17 @@ Q 458.285889 248.84448 458.285889 254.01888
 L 458.285889 304.728 
 Q 458.285889 309.9024 463.400889 309.9024 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
    </g>
    <g id="patch_12">
     <path d="M 508.330958 272.997549 
 Q 431.314009 249.67348 355.581109 226.738277 
-" clip-path="url(#p30b4a402d4)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
     <path d="M 359.47944 230.426503 
 L 355.581109 226.738277 
 L 360.870689 225.832548 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
    </g>
    <g id="patch_13">
     <path d="M 463.400889 179.50752 
@@ -168,17 +168,17 @@ Q 458.285889 118.4496 458.285889 123.624
 L 458.285889 174.33312 
 Q 458.285889 179.50752 463.400889 179.50752 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #f6f6f6; stroke: #cfcfcf; stroke-linejoin: miter"/>
    </g>
    <g id="patch_14">
     <path d="M 508.330958 155.354451 
 Q 431.314009 178.67852 355.581109 201.613723 
-" clip-path="url(#p30b4a402d4)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: none; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
     <path d="M 360.870689 202.519452 
 L 355.581109 201.613723 
 L 359.47944 197.925497 
 z
-" clip-path="url(#p30b4a402d4)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
+" clip-path="url(#pa6ecd665bc)" style="fill: #b1b1b1; opacity: 0.85; stroke: #b1b1b1; stroke-width: 1.2; stroke-linecap: round"/>
    </g>
    <g id="text_1">
     <!-- Vulnerabilities of IoT-integrator pipelines as a system class -->
@@ -1519,7 +1519,7 @@ z
    </g>
    <g id="text_5">
     <!-- (integrator-side, not -->
-    <g style="fill: #e8f3fa" transform="translate(279.489375 236.77337) scale(0.08 -0.08)">
+    <g style="fill: #e8f3fa" transform="translate(275.163047 236.493401) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-Italic-2d" d="M 328 1450 
 L 425 1950 
@@ -1563,7 +1563,7 @@ z
      <use xlink:href="#LiberationSans-Italic-74" transform="translate(837.556641 0)"/>
     </g>
     <!-- integration-code-side) -->
-    <g style="fill: #e8f3fa" transform="translate(275.415625 245.39037) scale(0.08 -0.08)">
+    <g style="fill: #e8f3fa" transform="translate(270.580078 246.187526) scale(0.09 -0.09)">
      <use xlink:href="#LiberationSans-Italic-69"/>
      <use xlink:href="#LiberationSans-Italic-6e" transform="translate(22.216797 0)"/>
      <use xlink:href="#LiberationSans-Italic-74" transform="translate(77.832031 0)"/>
@@ -1633,7 +1633,7 @@ z
    </g>
    <g id="text_7">
     <!-- 3 of 4 cases cloud-bound -->
-    <g style="fill: #333333" transform="translate(268.288906 101.424789) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(263.819531 101.631664) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-33" d="M 3278 1216 
 Q 3278 606 2890 271 
@@ -2078,7 +2078,7 @@ z
    </g>
    <g id="text_9">
     <!-- Ondilo non-expiring; -->
-    <g style="fill: #333333" transform="translate(62.124455 162.206016) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(58.54483 161.982041) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-4f" d="M 4672 2222 
 Q 4672 1531 4408 1012 
@@ -2258,7 +2258,7 @@ z
      <use xlink:href="#LiberationSans-3b" transform="translate(867.1875 0)"/>
     </g>
     <!-- Balboa 30 d -->
-    <g style="fill: #333333" transform="translate(76.931861 171.038441) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(74.796861 171.676166) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-42" d="M 3931 1241 
 Q 3931 653 3503 326 
@@ -2410,7 +2410,7 @@ z
    </g>
    <g id="text_11">
     <!-- BWG ↔ WaterGuru -->
-    <g style="fill: #333333" transform="translate(62.749064 292.600896) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(59.230377 292.376921) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-57" d="M 4722 0 
 L 4009 0 
@@ -2518,7 +2518,7 @@ z
      <use xlink:href="#LiberationSans-75" transform="translate(824.082031 0)"/>
     </g>
     <!-- (W-5) -->
-    <g style="fill: #333333" transform="translate(88.641845 301.433321) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(87.649283 302.071046) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-28" d="M 397 1663 
 Q 397 2566 680 3284 
@@ -2647,7 +2647,7 @@ z
    </g>
    <g id="text_13">
     <!-- Sound auth + -->
-    <g style="fill: #333333" transform="translate(289.593531 357.798336) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(287.202656 357.574361) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-53" d="M 3975 1216 
 Q 3975 606 3498 271 
@@ -2739,7 +2739,7 @@ z
      <use xlink:href="#LiberationSans-2b" transform="translate(539.355469 0)"/>
     </g>
     <!-- weak ops layer -->
-    <g style="fill: #333333" transform="translate(286.754922 366.630761) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(284.087109 367.268486) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-77" d="M 3669 0 
 L 3016 0 
@@ -2855,7 +2855,7 @@ z
    </g>
    <g id="text_15">
     <!-- FCM, Play Install -->
-    <g style="fill: #333333" transform="translate(498.401202 292.600896) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(495.378452 292.376921) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-46" d="M 1122 3916 
 L 1122 2278 
@@ -2974,7 +2974,7 @@ z
      <use xlink:href="#LiberationSans-6c" transform="translate(733.496094 0)"/>
     </g>
     <!-- Referrer, AD_ID -->
-    <g style="fill: #333333" transform="translate(500.446077 301.433321) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(497.622827 302.071046) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-52" d="M 3638 0 
 L 2494 1828 
@@ -3104,7 +3104,7 @@ z
    </g>
    <g id="text_17">
     <!-- Reachability gap; -->
-    <g style="fill: #333333" transform="translate(497.933545 162.206016) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(494.86517 161.982041) scale(0.09 -0.09)">
      <use xlink:href="#LiberationSans-52"/>
      <use xlink:href="#LiberationSans-65" transform="translate(72.216797 0)"/>
      <use xlink:href="#LiberationSans-61" transform="translate(127.832031 0)"/>
@@ -3124,7 +3124,7 @@ z
      <use xlink:href="#LiberationSans-3b" transform="translate(739.355469 0)"/>
     </g>
     <!-- lower-bound only -->
-    <g style="fill: #333333" transform="translate(498.162248 171.038441) scale(0.082 -0.082)">
+    <g style="fill: #333333" transform="translate(495.116186 171.676166) scale(0.09 -0.09)">
      <use xlink:href="#LiberationSans-6c"/>
      <use xlink:href="#LiberationSans-6f" transform="translate(22.216797 0)"/>
      <use xlink:href="#LiberationSans-77" transform="translate(77.832031 0)"/>
@@ -3145,20 +3145,20 @@ z
    </g>
    <g id="text_18">
     <g id="patch_15">
-     <path d="M 141.784219 386.345206 
-L 486.415781 386.345206 
-Q 488.995781 386.345206 488.995781 383.765206 
-L 488.995781 375.748394 
-Q 488.995781 373.168394 486.415781 373.168394 
-L 141.784219 373.168394 
-Q 139.204219 373.168394 139.204219 375.748394 
-L 139.204219 383.765206 
-Q 139.204219 386.345206 141.784219 386.345206 
+     <path d="M 133.769531 386.651644 
+L 494.430469 386.651644 
+Q 497.130469 386.651644 497.130469 383.951644 
+L 497.130469 375.561956 
+Q 497.130469 372.861956 494.430469 372.861956 
+L 133.769531 372.861956 
+Q 131.069531 372.861956 131.069531 375.561956 
+L 131.069531 383.951644 
+Q 131.069531 386.651644 133.769531 386.651644 
 z
 " style="fill: #fff8be; stroke: #cfcfcf; stroke-linejoin: miter"/>
     </g>
     <!-- Mitigation set is structural (governance, redaction, checkpoints) not technical — see §7.13. -->
-    <g style="fill: #666666" transform="translate(141.784219 381.980706) scale(0.086 -0.086)">
+    <g style="fill: #666666" transform="translate(133.769531 382.084144) scale(0.09 -0.09)">
      <defs>
       <path id="LiberationSans-Italic-4d" d="M 3941 0 
 L 4503 2900 
@@ -3352,7 +3352,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p30b4a402d4">
+  <clipPath id="pa6ecd665bc">
    <rect x="7.2" y="7.2" width="613.8" height="388.08"/>
   </clipPath>
  </defs>

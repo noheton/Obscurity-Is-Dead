@@ -10,6 +10,35 @@ This logbook is the operating record for the paper and research process.
 
 ## Log Entries
 
+### 2026-05-03 (Stage 3 illustrator — pipeline-fix audit + FIG-11 closure; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 3 illustration agent), branch `claude/check-illustration-pipeline-Jqst3`.
+- Trigger: author-reported "ich habe nicht das gefühl als ob sich die illustrationen ändern" → orchestrator dispatched a dual mandate. Pipeline was repaired earlier on this branch in commits `80b5608` (Makefile `$(SCRIPTED_FIG_PDFS)` rule wiring `fig1` + `fig6..fig16`) and `e19d04a` (toolchain whitelist expanded to Mermaid / TikZ / Graphviz / D2 / Altair / Inkscape / drawio).
+- Audit:
+  - Forced full regeneration of all 12 scripted figures via `touch paper/figures/dlr_style.py && make -C paper figures`. All scripts ran cleanly.
+  - Compared regenerated outputs against committed assets. Result: SVG diffs are pure non-determinism (timestamps + matplotlib hash-based clip-path / `<path id>` IDs); PDF byte sizes are byte-for-byte stable across all 12 figures.
+  - Verdict: no visual drift between committed PDFs and what the scripts produce. The reworked figures from the prior overhaul (`d2858ac`) are correctly materialised in `paper/main.pdf`. The author's "feels like nothing changed" intuition was historically correct (pre-`80b5608` Makefile gap) but is now resolved.
+- Materialised hand-back items (closes residual FIG-11 from `layout-defect-registry.md`):
+  - **fig8-ecoflow-surfaces** — promoted a pre-existing working-tree edit (CB-safe Tol-bright rose `#ee6677` + `//` hatch on legacy-REST surface; body 9.5/8.0 → 10.0/9.0 pt; integrator-arrow recoloured to `dlr_style.DLR_YELLOW`) and regenerated `.svg`/`.pdf`. The "is the red semantic?" question that previously gated the change is answered by the hatched-rose pattern preserving the do-not-use semantic in CVD + greyscale.
+  - **fig15-apk-mass-probing** — replaced three green `#cad55c` middle stages with a sequential blue ramp so colour monotonically encodes pipeline depth (CB-safe under deuteranopia + greyscale); white text on the two darker stages via a `_DARK_FILLS` membership check; yellow `#fff8be` empirical-rates panel → neutral `dlr_style.DLR_GRAY_SOFT`; sub-floor fonts raised to 9 pt.
+  - **fig16-scope-limitations** — inner-cell font 7.8 → 9.5 pt (FIG-11 carry-forward closed); pink/red `#fadbd8` exclusion ring → `#ee6677` border + `////` hatch on `#fbe0e2` fill (matches fig8 / fig14 pattern); ring-label 8.6 → 9.2 pt; legend 8 → 9 pt; figure widened 11"×9" → 12"×9.5" so larger labels do not overlap.
+- Deferred (no illustrator action this pass):
+  - FIG-04 (Gemini intact-jar deliverable) — gated on human author.
+  - FIG-09 (data-to-ink audit) — viewer-blocked at Stage 4.
+  - FIG-10 (`\Description{}` text-fidelity audit) — pure-audit task; recommend folding into next overhaul pass.
+  - RDB-04 (consolidate §10 enumeration into Fig 11) — Stage 5 verifies Fig 11 already carries the load; writer-side prose decision (a/b/c) is owned by human author.
+  - RDB-05 + RDB-08 (consolidate fig13 + fig14) — structural authorial decision per prior pass; the two figures serve distinct rhetorical positions.
+  - RDB-07 (§7.11 4×3 prompt-injection matrix) — writer-side prose conversion unblocks; figure is enhancement, not blocker.
+- Files updated:
+  - `paper/figures/fig8-ecoflow-surfaces.{py,svg,pdf}`
+  - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}`
+  - `paper/figures/fig16-scope-limitations.{py,svg,pdf}`
+  - `paper/figures/README.md` (inventory note appended)
+  - `docs/handbacks/illustrator-pass-2026-05-03-pipeline-fix.md` (new hand-back)
+  - `docs/logbook.md` (this entry)
+- Rule 1 (honesty): every regenerated docstring carries an explicit "2026-05-03 pipeline-fix pass" change log. Rule 11 (mirror): no `paper/main.{md,tex}` edits — captions / labels unchanged. Rule 13 (distribution): local only; no `make pdf`, no `make arxiv`, no public push. Rule 14 (data + script): all three figures are structural diagrams; scripts committed and registered. Rule 15 (README): `fig11-eight-practices.svg` (top-level README hero) is unchanged this pass; fig8/15/16 are not in the README gallery, so no top-level README update required.
+- Verdict: `RE-ILLUSTRATION REQUIRED: no`. Stage 4 + Stage 5 should re-scrutinise after a `make pdf` rebuild to confirm FIG-11 can be downgraded to RESOLVED.
+- Next steps: hand back to orchestrator. Layout/readability scrutinizers should re-sweep against the new fig8/15/16 PDFs; writer can schedule the §10 list-vs-Figure-11 decision (RDB-04) when the human author picks an option.
+
 ### 2026-05-03 (Stage 2 writer — focused loop 3; Claude Opus 4.7)
 - Session lead: Claude Opus 4.7 (Stage 2 scientific writer), branch `claude/review-open-issues-PfNx9`.
 - Trigger: orchestrator dispatch consuming three input streams against the round-2 paper state — Stage 4 layout hand-back (LAY-26 H, 168.71 pt unbreakable path overflow in §10 AI-disclosure-models), Stage 5 readability hand-back (RDB-30 / RDB-31 M; RDB-35 / RDB-36 L caption tweaks), and the Stage 1 powerocean-dev resync hand-back (load-bearing items d.1, d.2, d.6, d.7).

@@ -7,7 +7,13 @@ cloud SPoF; long-lived refresh tokens; cross-vendor flows; operational
 obscurity; companion-app permission creep; static-only weakness
 coverage) feeding into a central residual-risk node.
 
-Authorship: AI-authored (illustration agent, 2026-05-02).
+Authorship: AI-authored (illustration agent, 2026-05-02; design-
+consistency materialisation pass 2026-05-03 — raised three under-floor
+font sizes to clear the 9 pt body / 9 pt sub-label minimum that fig11
+(the design anchor / hero figure) sets for the figure set: central-node
+italic-sub-label 8.0 → 9.0 pt; outer-node sub-label 8.2 → 9.0 pt;
+footer caption 8.6 → 9.0 pt. Palette unchanged — already CB-safe (DLR
+neutrals + DLR_BLUE accent).
 
 Source: paper/main.md §6.7 — six bullet items synthesised from the four
 device case studies' Weakness Tables (W-rows) and the per-case
@@ -63,7 +69,7 @@ ax.text(cx, cy - 0.12, "residual risk",
         ha="center", va="center", fontsize=11, fontweight="bold", color="white")
 ax.text(cx, cy - 0.48,
         "(integrator-side, not\nintegration-code-side)",
-        ha="center", va="center", fontsize=8, style="italic", color="#e8f3fa")
+        ha="center", va="center", fontsize=9.0, style="italic", color="#e8f3fa")
 
 # Six surrounding nodes arranged in a circle
 n = len(nodes)
@@ -85,7 +91,7 @@ for (label, sub), (nx, ny) in zip(nodes, positions):
             ha="center", va="center", fontsize=9.2, fontweight="bold",
             color=dlr_style.DLR_BLUE)
     ax.text(nx, ny - 0.30, sub,
-            ha="center", va="center", fontsize=8.2, color="#333")
+            ha="center", va="center", fontsize=9.0, color="#333")
 
     # Arrow from node toward central residual-risk node
     arrow = FancyArrowPatch(
@@ -100,7 +106,7 @@ for (label, sub), (nx, ny) in zip(nodes, positions):
 ax.text(6, 0.30,
         "Mitigation set is structural (governance, redaction, "
         "checkpoints) not technical — see §7.13.",
-        ha="center", va="center", fontsize=8.6, style="italic",
+        ha="center", va="center", fontsize=9.0, style="italic",
         color=dlr_style.DLR_GRAY,
         bbox=dict(boxstyle="round,pad=0.3", fc="#fff8be",
                   ec=dlr_style.DLR_HAIRLINE))
