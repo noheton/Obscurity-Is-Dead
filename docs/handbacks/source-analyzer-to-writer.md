@@ -133,3 +133,45 @@ Now citable inline in §6.8 as the **telemetry-grade self-perception anchor**. Q
 ## Cluster A / A.3 readiness summary (post-slice-3)
 
 Cluster A (LLM-assisted RE, §1.4) is now writer-actionable end-to-end **except** L-RE-2 (`[ai-confirmed-attempt-failed]`, awaiting NDSS-network re-fetch). Cluster A.3 (time-savings evidence, §1.4 / §3 / §6.8) is now writer-actionable for the **greenfield + brownfield triangulation** (L-TS-2 / L-TS-3 / L-TS-4 / L-TS-5) and the §6.8 asymmetry meta-finding; the §1.4 / §3 wall-clock peer-reviewed anchor (L-TS-1) remains gated on human `[lit-read]`. The §3 "10.5 h vs 60–120 h" point estimate retains the honest framing recommended in the cluster A.3 preamble.
+
+---
+
+# Source Analyzer → Writer hand-back, slice 4 (2026-05-03, Claude Opus 4.7)
+
+Eight `[lit-retrieved]` entries upgraded to `[ai-confirmed]` in slice 4. None is a load-bearing anchor for a contested or first-of-its-kind quantitative claim in the paper; all are now available for normal inline citation in cluster B (LLM-assisted vulnerability discovery, §6.3 / §6.8), cluster C (hardcoded secrets in mobile apps, §3.6), and cluster D (BLE, §1.1 / §3). No edge-cases or attempt-failures this pass.
+
+## L-VD-4 — Yao et al., 2024, *High-Confidence Computing* — `[ai-confirmed]`
+
+Now citable inline in §6.3 / §7.13 as the **dual-use survey backbone**. Verbatim taxonomy: "categorizes the papers into 'The Good' (beneficial LLM applications), 'The Bad' (offensive applications), and 'The Ugly' (vulnerabilities of LLMs and their defenses)". **Year correction**: published online 2024-03-01 (arXiv preprint 2023-12-04). The previous entry summary "Yao et al., 2023" should be cited as **(Yao et al., 2024)** in `paper/references.bib` and any inline `paper/main.{md,tex}` reference.
+
+## L-VD-6 — Tamberg & Bahşi, 2025, IEEE Access — `[ai-confirmed]`
+
+Now citable inline in §6.3 as the **LLM-vs-traditional-static-analysis benchmarking anchor**. Verbatim: "LLMs can pinpoint more issues than traditional static analysis tools, outperforming traditional tools in terms of recall and F1 scores, however, LLMs are more prone to generate false positive classifications than traditional tools." **Year correction**: IEEE Access publication is **2025** (DOI 10.1109/ACCESS.2025.3541146, vol. 13, pp. 29698–29717), not 2024 as the entry summary stated; arXiv preprint 2024-05-24. Update `paper/references.bib` accordingly. **Author correction**: only two authors (Tamberg & Bahşi), not "Tamberg et al."
+
+## L-VD-7 — Sheng et al., 2025, *ACM Computing Surveys* — `[ai-confirmed]`
+
+Now citable inline in §6.3 as a **secondary survey citation** for the rapid-growth framing. Title correction: full title is "LLMs in Software Security: A Survey of Vulnerability Detection Techniques **and Insights**" — entry summary previously dropped the suffix; preserve the full title in `paper/references.bib`. Not load-bearing for any specific quantitative claim; do not elevate above secondary-citation status without a human `[lit-read]` pass.
+
+## L-VD-8 — Zhou, Cao, Sun & Lo, 2024, *ACM TOSEM* — `[ai-confirmed]`
+
+Now citable inline in §6.3 as the **systematic-literature-review anchor** for cluster B's growth narrative. Verbatim: "collected 58 primary studies over the last 6 years (2018–2024), summarized the LLMs used in these studies … 37 distinct LLMs were identified" and "interest in exploring LLMs for vulnerability detection and repair has steadily increased, peaking in 2024, with 46.6% of the total studied papers." Pair with L-VD-7 (ACM CSUR) for the survey-of-surveys framing.
+
+## L-VD-9 — Manuel et al., 2024, arXiv:2411.04981 (DeBinVul) — `[ai-confirmed]`
+
+Now citable inline in §6.3 as the **binary-side fine-tuning anchor**. The entry's "19–24%" range is verbatim: "performance increase of 19%, 24%, and 21% in the capabilities of CodeLlama, Llama3, and CodeGen2 respectively, in detecting binary code vulnerabilities" — i.e. CodeLlama 19% / Llama3 24% / CodeGen2 21%. Dataset size 150,872 decompiled-binary samples is verbatim. Methodologically pairs with L-RE-1 (LLM4Decompile) and L-RE-8 (BinT5).
+
+## L-HC-5 — Piyumantha et al., 2025, SCSE 2025 — `[ai-confirmed]`
+
+Now citable inline in §3.6 as a **small-N banking-app illustration** alongside L-HC-1 / L-HC-3 / L-HC-6 (the large-N cornerstone studies). **Caveat for the writer**: n=10 banking apps. Do **not** cite this as a base-rate anchor; the entry summary's "widespread hardcoded-key vulnerabilities" framing is verbatim from the source but the small-N qualifier should appear in any sentence that uses this citation. Pairs with L-HC-4 (20 weather apps) as the small-N category-specific evidence layer.
+
+## L-HC-8 — Sihag, Vardhan & Singh, 2021, *Computer Science Review* — `[ai-confirmed]`
+
+Now citable inline in §1.1 / §3.6 as the **obscurity-as-defence baseline survey**. Verbatim on the obfuscation/evasion arms race: "Malware authors employ multiple techniques (e.g. code obfuscation, packaging and encryption) to evade static analysis (signature based) and dynamic analysis (behavior based) detection methods … Driven by economic benefits, quantity and complexity of Android malware are increasing, thus making them difficult to detect." DOI 10.1016/j.cosrev.2020.100365.
+
+## L-BLE-3 — Antonioli, Tippenhauer & Rasmussen, 2020, *ACM TOPS* — `[ai-confirmed]`
+
+Now citable inline in §1.1 / §3 as the **standard-compliant-attack BLE anchor** — strengthens the obscurity-as-security critique because the attack succeeds *without* implementation bugs. Verbatim: "the key negotiation protocols of Bluetooth and BLE are vulnerable to standard-compliant entropy downgrade attacks … downgrade the entropy of any Bluetooth session key to 1 byte, and of any BLE long-term key and session key to 7 bytes … successfully attacked 38 Bluetooth devices (32 unique Bluetooth chips) and 19 BLE devices from different vendors." Entry summary's "19 BLE devices" is verbatim; the additional "38 Bluetooth Classic devices" can be cited if the writer wants to broaden the attack-corpus framing in §1.1.
+
+## Slice 4 readiness summary
+
+Cluster B (LLM-assisted vulnerability discovery, §6.3) gains five new inline-citable entries (L-VD-4, L-VD-6, L-VD-7, L-VD-8, L-VD-9), bringing the cluster's writer-actionable surface to L-VD-2, L-VD-3, L-VD-4, L-VD-6, L-VD-7, L-VD-8, L-VD-9 with L-VD-1 and L-VD-5 still gated on human `[lit-read]` (load-bearing cornerstones flagged in slice 1). Cluster C (hardcoded secrets, §3.6) gains two new inline-citable entries (L-HC-5, L-HC-8) atop the existing L-HC-2/-3/-4/-7 surface; L-HC-1 and L-HC-6 remain edge-cased on load-bearing-cornerstone grounds. Cluster D (BLE, §1.1 / §3) gains L-BLE-3 atop the existing L-BLE-1/-2/-4 surface; L-BLE-5 remains edge-cased.
