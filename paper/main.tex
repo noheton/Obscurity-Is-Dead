@@ -147,6 +147,38 @@ land on a specific line, transcript, or commit rather than on vibes.
 If you find such a claim that cannot survive scrutiny, or if you simply
 have a better way to do any part of this, I genuinely want to hear it.
 
+\paragraph{Not a paper mill --- a shower-thought-to-plausibility loop.}
+This needs saying clearly because the empirical baseline is bad:
+paper-mill output and undisclosed AI-assisted production are the
+dominant failure modes (\texttt{docs/sources.md} L-SLOP-8, L-SLOP-1,
+L-SLOP-2). The methodology described here is designed to do the
+opposite. The agent pipeline (\texttt{docs/prompts/}) takes a
+\emph{hypothesis} --- often a ``shower thought'' provoked by a specific
+device, transcript, or paragraph --- and iterates it through structured
+passes (research $\rightarrow$ source analysis $\rightarrow$ scientific
+writing $\rightarrow$ illustration $\rightarrow$ layout / readability
+scrutiny) whose explicit purpose is to ask, at every stage,
+\emph{does this still look plausible against the evidence we now have?}
+Plausible hypotheses survive into the paper with their verification
+status visible; implausible ones are rejected, recorded in the logbook
+with a reason, and remain auditable. The output volume is therefore
+intentionally bounded by what survives plausibility, not by what an
+LLM can be cajoled into producing. The repository carries roughly as
+many lines of methodological scaffolding as paper prose precisely so
+the volume cannot run away from the verification.
+
+\paragraph{An invitation, in concrete form.}
+GitHub issues on this repository are a first-class channel for new
+ideas, counter-examples, and critique. Issues labelled \texttt{idea}
+(a hypothesis worth investigating), \texttt{critique} (a specific
+challenge to a claim, figure, or framing), or \texttt{provenance-gap}
+(a missing transcript or unverifiable artifact) feed directly into the
+agent pipeline: an idea triggers a research-protocol pass; a critique
+routes to the relevant scrutinizer hand-back; a provenance-gap routes
+to the meta-process case study (\cref{sec:case-meta}). If you have
+read this far, you are already the kind of reader I am writing for ---
+and the issue tracker is the best place to continue the conversation.
+
 % =========================================================================
 \section*{Executive Summary}
 \label{sec:executive-summary}
