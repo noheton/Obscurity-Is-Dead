@@ -104,7 +104,7 @@ source (Python, Mermaid, or TikZ) so they survive Rule 14 spirit, even
 though the data they encode is structural rather than empirical.
 
 **Toolchain choice (added 2026-05-03, claude/check-illustration-pipeline).**
-Three rendering paths are sanctioned; pick the one that fits the figure:
+The following rendering paths are sanctioned; pick the one that fits the figure:
 
 1. **Python + matplotlib** (default, used by fig1 and fig6–fig16). Best
    for charts, scatter plots, and any figure driven by tabular data.
@@ -117,17 +117,48 @@ Three rendering paths are sanctioned; pick the one that fits the figure:
    Source: `fig<N>-<slug>.mmd`. Render to SVG+PDF via `mmdc` (Mermaid
    CLI) — add a Makefile rule mirroring the matplotlib one so edits
    propagate. Stick to the Tol-bright / DLR palette in the theme block.
-3. **TikZ** when the figure benefits from being typeset alongside the
-   paper (matched fonts, math mode, `\ref`-able nodes). Source: a
-   `fig<N>-<slug>.tex` fragment included from `paper/main.tex` via
+3. **TikZ** (incl. `pgfplots`, `circuitikz`, `bytefield`) when the figure
+   benefits from being typeset alongside the paper (matched fonts, math
+   mode, `\ref`-able nodes). Source: a `fig<N>-<slug>.tex` fragment
+   included from `paper/main.tex` via
    `\input{figures/fig<N>-<slug>.tex}` inside a `figure` environment;
    no separate `.pdf` artefact — `latexmk` rebuilds it as part of
    `make pdf`. Keep TikZ libraries declared in `paper/main.tex`
-   preamble, not inside the fragment.
+   preamble, not inside the fragment. Use `circuitikz` for hardware
+   schematics (PowerOcean / EcoFlow internals) and `bytefield` for
+   protocol-frame diagrams in reverse-engineering sections — both are
+   reproducible and Rule-14-clean.
+4. **Graphviz / D2** when the diagram is topology-driven (trust graphs,
+   threat graphs, dependency / call graphs) and the layout should
+   follow the structure rather than be hand-placed. Source:
+   `fig<N>-<slug>.dot` (Graphviz) or `fig<N>-<slug>.d2` (D2). Render to
+   `.svg` + `.pdf` via `dot -Tpdf` / `d2 fmt`; add a Makefile rule
+   mirroring the matplotlib one. Prefer D2 for new diagrams (better
+   defaults), Graphviz where reviewers expect it.
+5. **Altair / Vega-Lite** for declarative statistical charts where the
+   spec-plus-data style is a stronger Rule-14 fit than imperative
+   matplotlib. Source: `fig<N>-<slug>.py` emitting Vega-Lite JSON, or a
+   committed `fig<N>-<slug>.vl.json` rendered via `vl-convert`. Output
+   `.svg` + `.pdf`.
+6. **Inkscape `--export-latex`** when a complex vector composition
+   needs LaTeX-typeset labels (best math / font fidelity). Source:
+   committed `fig<N>-<slug>.svg`; build emits `.pdf` + `.pdf_tex`
+   sidecar that `paper/main.tex` `\input`s. Use sparingly — manual
+   composition costs reproducibility.
+7. **drawio / diagrams.net** as an *exception* path for hand-composed
+   architecture diagrams when none of the above fit. Source: committed
+   `fig<N>-<slug>.drawio` XML rendered via the drawio CLI. Mark such
+   figures with an "AI-authored, manually composed" note in the
+   caption — they are Rule-14-degraded and should be migrated to a
+   reproducible path when the structure stabilises.
 
 Whichever path is chosen, Rule 14 still applies: the source file
-(`.py` / `.mmd` / `.tex`) and any input data must be committed and
-referenced from the figure caption / `paper/figures/README.md`.
+(`.py` / `.mmd` / `.tex` / `.dot` / `.d2` / `.vl.json` / `.svg` /
+`.drawio`) and any input data must be committed and referenced from
+the figure caption / `paper/figures/README.md`. Whenever a new path
+is exercised for the first time, add the corresponding build rule to
+`paper/Makefile` so the figure regenerates on source edits — same
+spirit as the `$(SCRIPTED_FIG_PDFS)` rule for matplotlib.
 
 ### 2. Source the underlying data
 
