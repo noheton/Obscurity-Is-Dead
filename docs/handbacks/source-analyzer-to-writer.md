@@ -500,3 +500,32 @@ Cluster K-CONS (consumer-IoT base rate) is now fully `[ai-confirmed]`: five `[ai
 - **Optional ranking framework** — L-CONS-6 (Allifah 2022 *IEEE Access*).
 
 No `paper/references.bib` corrections required for cluster K-CONS — author lists, years, and venues match the verified records.
+
+---
+
+## Slice 12 (pass 10) — Cluster K-IND, industrial / IIoT / ICS posture (2026-05-03)
+
+Six entries upgraded; the cluster is now writer-actionable for the §3-4 framing that **industrial/IIoT systems are *not* automatically more secure than consumer IoT** (a qualifier the paper uses to defuse the "industrial-grade therefore safer" intuition that some readers will bring to the Spider Farmer / EcoFlow case studies).
+
+### Newly available for inline citation
+
+- **L-IND-1 — Serror et al., 2021, *IEEE TII* 17(5), 2985-2996 — `[ai-confirmed]`.** Citable inline as the canonical framing source: IIoT shares many similarities with consumer IoT but has *different* security goals (safety- and productivity-driven, longer component lifetimes, larger network scale). Authors are Serror/Hack/Henze/Schuba/Wehrle (RWTH Aachen / FH Aachen). DOI on IEEE Xplore; pre-print arXiv:2111.11714.
+- **L-IND-2 — Duque Antón et al., 2021, *IEEE IoT J* 8(24), 17525-17540 — `[ai-confirmed]`.** **Strongest empirical anchor in the cluster.** Citable inline for the **>13,000 OT/ICS devices directly exposed on the public internet, almost all containing at least one vulnerability** claim. Verified verbatim against the arXiv:2111.13862 pre-print. **References-list correction:** authors are **Duque Antón, Fraunholz, Krohmer, Reti, Schneider & Schotten** (six authors; first author "Duque Antón", not "Antón" alone — common citation error).
+- **L-IND-3 — Asghar, Hu & Zeadally, 2019, *Computer Networks* 165, art. 106946 — `[ai-confirmed]`.** Citable inline for the structural critique that ICS were designed for isolated environments and that modern IT/business integration introduces cybersecurity challenges. DOI 10.1016/j.comnet.2019.106946.
+- **L-IND-4 — Tsiknas, Taketzis, Demertzis & Skianis, 2021, MDPI *IoT* 2(1), 163-186 — `[ai-confirmed-bibliographic]`.** Citable inline as a survey reference (taxonomy: phishing / ransomware / protocol / supply-chain / system attacks). DOI 10.3390/iot2010009. No specific quantitative claim anchored.
+- **L-IND-5 — Dhirani, Armstrong & Newe, 2021, *Sensors* 21(11), art. 3901 — `[ai-confirmed]`.** Citable inline for the standards-landscape framing (IEC 62443, OneM2M, ISO 27001, MITRE ATT&CK). Useful for the "regulation and certification raise the floor" hypothesis. DOI 10.3390/s21113901.
+- **L-IND-6 — Nankya, Chataut & Akl, 2023, *Sensors* 23(21), art. 8840 — `[ai-confirmed-bibliographic]`.** Citable inline as a survey reference for ICS components (SCADA / DCS / PLC) and ML-driven defence strategies. DOI 10.3390/s23218840.
+
+### Suggested writer follow-up
+
+The §3-4 industrial-qualifier paragraph can now be tightened to:
+
+1. cite **L-IND-1** for the framing (industrial *differs* from consumer IoT — safety-driven, longer lifetimes, larger scale);
+2. cite **L-IND-2** for the empirical refutation of the "industrial-grade therefore safer" intuition (>13,000 OT/ICS devices internet-exposed, almost all vulnerable);
+3. optionally cite **L-IND-3** as the structural-critique companion (isolated-design assumption violated by IT/OT integration).
+
+The triplet (L-IND-1 framing + L-IND-2 empirics + L-IND-3 structural) gives the paper a peer-reviewed industrial-counterpoint anchor symmetric to the consumer-IoT base-rate anchor (L-CONS-1, Zhao et al., 2022) already verified in slice 11.
+
+### References.bib correction
+
+`paper/references.bib` should record L-IND-2's first author as **Duque Antón, S. D.** (compound surname; common to mis-render as "Antón, S." which would reorder under "A" instead of "D"). All other L-IND author lists, years, and venues match the verified records.
