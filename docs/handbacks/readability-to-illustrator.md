@@ -78,3 +78,31 @@ rhetorical positions and the merge is a structural authorial decision.
 RDB-07 (§7.11 prompt-injection 4 × 3 matrix figure) — DEFERRED per the
 registry; writer-side prose conversion unblocks. Both remain on the
 human-author decision list.
+
+---
+
+## 2026-05-03 round 2 — no new illustrator-owned defects
+
+Stage 5 round-2 sweep against writer commit `370e792` and illustrator
+pass `d2858ac` filed five prose entries (RDB-30..-34) and two caption
+entries (RDB-35, -36) — all owner = writer. No new illustrator-owned
+defect introduced.
+
+**Carry-note on RDB-35 / RDB-36 (writer-side, illustrator-flagged).**
+The two caption tweaks the illustrator flagged in
+`illustrator-pass-2026-05-03-overhaul.md` §E (Fig 9 = 4-stage track;
+Fig 11 = legend-duplication tightening) are *should-do* (rule-11
+caption-fidelity), routed to the writer. The illustrator does not
+need to act unless the writer's caption rewrite reveals a residual
+asset-vs-caption mismatch.
+
+**Standing illustrator-coordination items (unchanged from round 1).**
+RDB-04 (consolidate the §10 eight-row enumeration into Figure 11) is
+now *complicated* by the new ninth practice in §10 prose — Stage 5
+still endorses option (b) (drop the §10 enumeration, lean on Figure
+11 + a one-sentence recap, with the ninth practice surviving as a
+clearly-set-off "*Looking ahead*" addendum). Figure 11 itself stays
+at 8 rows per the explicit `main.md:715` instruction; no illustrator
+action required. RDB-05 + RDB-08 (consolidate fig13 + fig14) and
+RDB-07 (§7.11 4 × 3 prompt-injection matrix) remain DEFERRED on the
+human-author decision list.
