@@ -115,6 +115,21 @@ order and dispatching the first that fires.
 | 8 | Most recent readability-defect-registry has `RE-SCRUTINY REQUIRED: yes` and `paper/main.md` is newer than the registry. | Stage 5 (Readability & Novelty Scrutinizer). |
 | 9 | All scrutinizer registries report `RE-SCRUTINY REQUIRED: no` AND no open writer/illustrator hand-backs remain. | **PIPELINE QUIESCENT** — escalate to the human author for the next directive (publication-track decision, new case study, or repository hygiene). |
 
+### GitHub-issue dispatch table
+
+Open GitHub issues with the following labels are now first-class inputs
+to the pipeline. The orchestrator should poll open issues at the start
+of any pipeline run via the GitHub MCP tools where available
+(`mcp__github__list_issues`, `mcp__github__issue_read`) and otherwise
+ask the human author for a current snapshot. Each label maps to a
+dispatch as follows:
+
+| Label | Dispatch | Notes |
+|-------|----------|-------|
+| `idea` | Stage 1 (Research Protocol) with the issue body as the seed hypothesis. | Treat the issue title/body as the case-study or claim being proposed; cite the issue number in the resulting `docs/sources.md` and `docs/logbook.md` entries (rule 2). |
+| `critique` | Stage 2 (Scientific Writer) with the issue body appended as a writer hand-back, OR Stage 4 (Layout Scrutinizer) / Stage 5 (Readability & Novelty Scrutinizer) if the critique targets layout or readability respectively. | Routing decision belongs to the orchestrator and must be recorded in the dispatch directive's `Decision rule fired` line. |
+| `provenance-gap` | Stage 1 (Research Protocol) targeted at the named experiment, AND a meta-process note in §5 (Termination/escalation) summarising which provenance gap was opened and which artifact class is implicated. | The meta-process note ensures provenance gaps are visible to the human author at quiescence even if the research pass closes them silently. |
+
 Conflict resolution:
 
 - If a writer- and illustrator-owned defect target the same float
