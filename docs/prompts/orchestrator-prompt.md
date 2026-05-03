@@ -118,16 +118,19 @@ order and dispatching the first that fires.
 ### GitHub-issue dispatch table
 
 Open GitHub issues with the following labels are now first-class inputs
-to the pipeline. The orchestrator should poll open issues at the start
-of any pipeline run via the GitHub MCP tools where available
+to the pipeline. The orchestrator **must** poll open issues at the start
+of every pipeline run (mandatory, not conditional on the absence of a
+human directive) via the GitHub MCP tools where available
 (`mcp__github__list_issues`, `mcp__github__issue_read`) and otherwise
-ask the human author for a current snapshot. Each label maps to a
-dispatch as follows:
+ask the human author for a current snapshot. The poll result must be
+recorded in the dispatch directive's preamble (issue numbers, labels,
+and the routing applied to each); a "no open issues" outcome is also
+recorded explicitly. Each label maps to a dispatch as follows:
 
 | Label | Dispatch | Notes |
 |-------|----------|-------|
 | `idea` | Stage 1 (Research Protocol) with the issue body as the seed hypothesis. | Treat the issue title/body as the case-study or claim being proposed; cite the issue number in the resulting `docs/sources.md` and `docs/logbook.md` entries (rule 2). |
-| `critique` | Stage 2 (Scientific Writer) with the issue body appended as a writer hand-back, OR Stage 4 (Layout Scrutinizer) / Stage 5 (Readability & Novelty Scrutinizer) if the critique targets layout or readability respectively. | Routing decision belongs to the orchestrator and must be recorded in the dispatch directive's `Decision rule fired` line. |
+| `critique` | **Default route: Stage 2 (Scientific Writer)** with the issue body appended as a writer hand-back. The orchestrator may override to Stage 4 (Layout Scrutinizer) or Stage 5 (Readability & Novelty Scrutinizer) only if the critique unambiguously targets layout or readability and the writer has nothing to do with it; otherwise Stage 2 owns the response. | Routing decision must be recorded in the dispatch directive's `Decision rule fired` line. Sub-labels (`critique:layout` / `critique:readability` / `critique:prose`) are not required; absent a sub-label, default to Stage 2. |
 | `provenance-gap` | Stage 1 (Research Protocol) targeted at the named experiment, AND a meta-process note in §5 (Termination/escalation) summarising which provenance gap was opened and which artifact class is implicated. | The meta-process note ensures provenance gaps are visible to the human author at quiescence even if the research pass closes them silently. |
 
 Conflict resolution:
