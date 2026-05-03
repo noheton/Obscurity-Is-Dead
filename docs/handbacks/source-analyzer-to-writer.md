@@ -175,3 +175,49 @@ Now citable inline in §1.1 / §3 as the **standard-compliant-attack BLE anchor*
 ## Slice 4 readiness summary
 
 Cluster B (LLM-assisted vulnerability discovery, §6.3) gains five new inline-citable entries (L-VD-4, L-VD-6, L-VD-7, L-VD-8, L-VD-9), bringing the cluster's writer-actionable surface to L-VD-2, L-VD-3, L-VD-4, L-VD-6, L-VD-7, L-VD-8, L-VD-9 with L-VD-1 and L-VD-5 still gated on human `[lit-read]` (load-bearing cornerstones flagged in slice 1). Cluster C (hardcoded secrets, §3.6) gains two new inline-citable entries (L-HC-5, L-HC-8) atop the existing L-HC-2/-3/-4/-7 surface; L-HC-1 and L-HC-6 remain edge-cased on load-bearing-cornerstone grounds. Cluster D (BLE, §1.1 / §3) gains L-BLE-3 atop the existing L-BLE-1/-2/-4 surface; L-BLE-5 remains edge-cased.
+
+---
+
+# Slice 5 hand-back — 2026-05-03 (Claude Opus 4.7)
+
+Pass 3 of the chained Source Analyzer sweep against the `[lit-retrieved]` backlog. Continues in file order from L-TS-6 onward (slice 4 ended at L-BLE-3). Nine entries upgraded to `[ai-confirmed]`; no edge-cases, no attempt-failures introduced this pass.
+
+## L-TS-6 — Fang, Bindu, Gupta & Kang, 2024, arXiv:2404.08144 — `[ai-confirmed]`
+
+Now citable inline in §6.3 / §7 as the **dual-use cost-asymmetry anchor for one-day CVE exploitation**. Verbatim: "When given the CVE description, GPT-4 is capable of exploiting 87% of these vulnerabilities compared to 0% for every other model we test (GPT-3.5, open-source LLMs) and open-source vulnerability scanners (ZAP and Metasploit)." The 87% figure in the entry summary is verbatim. Pairs with L-VD-1 / L-VD-2 / L-VD-5 (already in cluster B) for the asymmetric-collapse argument; **caveat**: the "$8.80 vs $25 per exploit, 2.8× cheaper" sub-claim was not independently verified in this pass — writer should cite the 87% headline conservatively or hold the cost figure for human `[lit-read]`.
+
+## L-BLE-6 — Peker, Bello & Perez, 2022, *Sensors* 22(3):988 — `[ai-confirmed]`
+
+Now citable inline in §1.1 / §3 as a **standard-non-compliance illustration on consumer wearables**. Verbatim: "even though the standards provide security mechanisms, because the Bluetooth Special Interest Group does not require that manufacturers fully comply with the standards, some manufacturers fail to implement proper security mechanisms." **Author-list correction**: full author list is Peker, Bello & Perez (Columbus State University), not "Peker et al." abbreviating to a single author; writer should use the full list on first citation. Devices analysed: Fitbit heart-rate wristband, Polar heart-rate chest strap, BLE keyboard.
+
+## L-BLE-7 — Mantz, Classen, Schulz & Hollick, 2019, *MobiSys '19* — `[ai-confirmed]`
+
+Now citable inline in §1.1 / §3 / §6.3 as the **methodological-precedent anchor** for chip-firmware reverse engineering as a research method. Verbatim: "we reverse engineer multiple Broadcom Bluetooth chipsets that are widespread in off-the-shelf devices … Reverse engineered functions can then be altered with the InternalBlue Python framework — outperforming evaluation kits, which are limited to documented and vendor-defined functions." Also surfaced a load-bearing security finding: "discovers a novel critical security issue affecting a large selection of Broadcom chipsets that allows executing code within the attacked Bluetooth firmware." Pairs with L-BLE-8 (Liu et al., USENIX Security 2025) and L-BLE-9 (ESPwn32, WOOT 2023) as the methodological cluster.
+
+## L-BLE-8 — Liu, Zuo et al., 2025, USENIX Security — `[ai-confirmed]`
+
+Now citable inline in §3 / §6.3 as the **closed-source-protocol-RE-yields-vulnerabilities anchor**. **Venue correction**: USENIX Security 2025, not unspecified 2025 (this should propagate to `paper/references.bib`). Verbatim: "reverse-engineered and verified Apple Find My and Samsung Find My Mobile, revealing seven new vulnerabilities confirmed by related vendors, with four assigned CVE/SVE numbers including three high-severity vulnerabilities." Direct methodological parallel to our case studies: closed-source vendor protocols, AI-assisted-RE-style workflow, real CVE outputs.
+
+## L-BLE-9 — Cayre, Cauquil & Francillon, 2023, WOOT '23 — `[ai-confirmed]`
+
+Now citable inline in §6.3 / §7 (threat model) as the **software-only repurposing anchor**. **Venue correction**: WOOT 2023 (17th IEEE Workshop on Offensive Technologies, co-located with IEEE S&P 2023), not "IEEE SPW" — this should propagate to `paper/references.bib`. Verbatim: "implemented multiple attacks on the repurposed ESP32 targeting various wireless protocols, including ones not natively supported by the chip … link-layer attacks on BLE (fuzzing, jamming) and cross-protocol injections, with only software modifications" and "ESP32 can be repurposed to interact with Zigbee or Thread devices." Strengthens the §7 dual-use point: the same RE pattern that supports legitimate integration also supports cross-protocol attack surfaces on commodity hardware.
+
+## L-RR-1 — Boniface, Urquhart & Terras, 2024, *CLSR* 52:106004 — `[ai-confirmed]`
+
+Now citable inline in §1.3 as the **primary IoT-specific right-to-repair review anchor**. **Caveat (rule-5 legal-interpretation)**: the entry summary tracks the abstract descriptively, but any *normative* legal claim layered on this citation requires human `[lit-read]`. Verbatim: the right "gives consumers the ability and freedom to fix their devices, or to fair access to appropriate services that can carry out repair on their behalf"; the paper "reflects on hardware, software, and data components that pose legal and policy challenges for data protection, security, and sustainability." Ascribed authorship updated to Boniface, Urquhart & Terras (3 authors, not "et al.").
+
+## L-RR-2 — Lebloch & Rafetseder, 2024, *Frontiers in IoT* 3:1321263 — `[ai-confirmed]`
+
+Now citable inline in §1.3 / §6.1 as the **"Right to Improve" motivation anchor**. **Author correction**: Lebloch & Rafetseder (University of Vienna) — entry previously gave "Lebloch et al."; correct to two-author form. Verbatim: "current European Union legislation as well as voluntary manufacturer interoperability initiatives fail to address user desires for adaptability, augmentability, and open-ended repurposing of Internet of Things (IoT) devices." Frames our work as instantiating, in concrete AI-assisted-integration terms, the policy gap the paper identifies. Rule-5 legal caveat: descriptive citation only.
+
+## L-RR-3 — Urquhart, Lechelt, Boniface, Wu, Rezk, Dubey, Terras & Luger, 2024, *NordiCHI '24* — `[ai-confirmed]`
+
+Now citable inline in §1.3 / §6.1 as the **legal-checklist anchor**. **Author correction**: 8 authors; entry previously gave "Urquhart et al." — first-author-only abbreviation is acceptable in narrow inline contexts but `paper/references.bib` should carry the full list. Verbatim: "The R2R cards consolidate analysis of 25 pieces of UK / EU legislation and standards, establishing 90 legal requirements around repair, cybersecurity, environmental design, consumer, and data rights." The "25 pieces … 90 legal requirements" figure in the entry summary is verbatim. DOI 10.1145/3679318.3685341.
+
+## L-RR-4 — van 't Schip, 2024, arXiv:2410.17296 (2025 *Internet of Things*) — `[ai-confirmed]`
+
+Now citable inline in §1.3 / §4.6 as the **manufacturer-cessation anchor for the EcoFlow use case**. **Date / venue correction**: arXiv preprint 2024-10-22, journal publication 2025 in Elsevier *Internet of Things*; entry previously gave "2024" only — `paper/references.bib` should carry both. Verbatim: "current European product legislation … has a blind spot for an increasing problem in the competitive IoT market: manufacturer cessation. Without the manufacturer's cloud servers, many IoT devices cannot perform core functions … consumers of the manufacturer's devices are thus often left with a dysfunctional device and, as the paper shows, hardly any legal remedies." Directly supports the §4 EcoFlow framing. Rule-5 legal caveat: descriptive citation; any policy recommendation layered on this entry requires human `[lit-read]`.
+
+## Slice 5 readiness summary
+
+Cluster B (§6.3 dual-use) gains L-TS-6 as the one-day-CVE quantitative anchor. Cluster D (BLE, §1.1 / §3 / §6.3) gains L-BLE-6 (consumer-wearable standard-non-compliance), L-BLE-7 (Broadcom-chipset RE methodology), L-BLE-8 (closed-source-protocol RE → CVEs), and L-BLE-9 (software-only ESP32 repurposing); all four now writer-actionable. Cluster E (right-to-repair, §1.3 / §4.6 / §6.1) gains L-RR-1, L-RR-2, L-RR-3, L-RR-4 — the §1.3 motivation paragraph is now fully writer-actionable, with rule-5 legal-interpretation caveats applied. **Three `paper/references.bib` corrections** to propagate: L-BLE-8 venue (USENIX Security 2025), L-BLE-9 venue (WOOT 2023, not "IEEE SPW"), and L-RR-4 date/venue (2024 preprint / 2025 *Internet of Things*).
