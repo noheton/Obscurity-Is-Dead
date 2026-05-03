@@ -10,6 +10,21 @@ This logbook is the operating record for the paper and research process.
 
 ## Log Entries
 
+### 2026-05-03 (Stage 1 research-protocol — `noheton/powerocean-dev` upstream resync; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 1, targeted resync), branch `claude/review-open-issues-PfNx9`.
+- Trigger: human-author directive — upstream "significant progress" since the in-repo snapshot; partially closes the medium-priority subpass queued by `docs/handbacks/research-protocol-delta-2026-05-03.md` D-5 (`provenance.md` follow-up #5 OCPP scope now decidable; #4 §69e UrhG sourcing still open; #6 redistribution precedent now available upstream).
+- Probe results: github.com web 200; api.github.com 403 (rate-limit); codeload tarball 200 on `main` (default branch; `master` 404); raw `manifest.json` 200; atom feed 200 (≥30 commits, top SHA `56d4f55c34`, dense activity 2026-05-01 → 2026-05-03). Tarball downloaded to `/tmp/powerocean-dev.tar.gz` (~868 KB), extracted to `/tmp/po-upstream/powerocean-dev-main/`. GitHub MCP and Exa MCP not used (tarball + atom-feed sufficient).
+- Material findings vs in-repo snapshot:
+  - New top-level `DISCLAIMER.md` reframes the integration's method as HTTP-traffic-observation (no decompile of redistributable artifact); commit `1aa96507ef` separately captures OCPP-1.6 schema from APK decompile, indicating a two-track methodology (researcher-side decompile to *understand*; redistributable artifact contains only traffic-observable structures).
+  - `doc/` directory redacted upstream (commit `5c8b815cf9`): APK, `apk.md`, `apk-logs.md`, `equipment.md` (GDPR personal data), `implementation.md`, `geninfo.pdf`, `powerocean.pdf`, `ecoflow-open-demo.zip`, `logs/raw_*.txt` removed. Replaced by 80-line `doc/README.md` with explicit "`git rm` does not purge history" caveat — a citable real-world rule-12 / rule-13 precedent.
+  - OCPP scope: ~+440 LOC across `api.py` (+115; `async_ocpp_list_backends`, `async_ocpp_post_backend`, `async_get_property` with `acquireQuotaAll` fallback), `__init__.py` (+152; four services + `_build_ocpp_bind_req`), `services.yaml` (+174), `const.py` (+4 CONF_OCPP_* keys). New endpoints `/provider-service/app/ocppPlatformConfig{,/list}`, `/iot-devices/device/getDeviceProperty`, `/iot-devices/device/acquireQuotaAll`. Documented runtime-handover gap (`vendorInfoSet` not yet shipped).
+  - Auth / write-surface model unchanged: same EU/US region probe (`api-e` / `api-a`), same bearer-token, same `setDeviceProperty` legacy endpoint. §4.4 paper claims confirmed.
+  - Manifest version unchanged at `2026.05.01` despite substantive code changes (post-tag fixes pushed onto same semver string).
+- Files written: `docs/handbacks/research-protocol-powerocean-resync-2026-05-03.md` (new, ~190 lines: probe results, repo metadata, per-section delta, paper-claim cross-check with 10 writer recommendations d.1–d.10, 6 provenance gaps); `docs/logbook.md` (this entry).
+- No edits to `paper/main.{md,tex}` (rule 11); no push (rule 13); no `make pdf` invoked. No new credentials / SNs / UIDs / IPs reproduced from upstream (rule 12 enforced).
+- Verdict: writer hand-back queued. Load-bearing recommendations d.1 (§4.2 inventory annotation re upstream redaction event), d.2 (§4.3 step 1 method-tension footnote), d.6 (§4.6 OCPP runtime-gap as concrete asymmetry), d.7 (§6/§10 cite upstream `5c8b815cf9` as rule-12 precedent). Discretionary: d.4 (Figure 8 verb-set extension — illustrator), d.8 (decide OCPP as Future Work in §11). Still open / not closed by this resync: d.9 (§69e UrhG sourced legal commentary remains needed); d.10 (paper-repo redistribution decision unchanged).
+- Next step: orchestrator dispatches Stage 2 (writer) to integrate d.1 / d.2 / d.6 / d.7; Stage 1.5 (Source Analyzer) to consider `[lit-retrieved]` entries for upstream commit `5c8b815cf9` and `DISCLAIMER.md`; Stage 3 (illustrator) only if d.4 is taken up.
+
 ### 2026-05-03 (Stage 5 readability — round 2; Claude Opus 4.7)
 - Session lead: Claude Opus 4.7 (Stage 5 readability & novelty scrutinizer), branch `claude/review-open-issues-PfNx9`.
 - Trigger: orchestrator dispatch after writer commit `370e792` (Mythos hook + guardrails-as-band-aid + plagiarism 9th practice) and illustrator pass `d2858ac` (figure overhaul). Re-scrutiny of `paper/main.md` only (Stage 5 scope; Stage 4 owns the PDF).
