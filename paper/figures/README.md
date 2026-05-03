@@ -50,7 +50,7 @@ script and does not require SVG-to-PDF conversion.
 | `fig14-malicious-integrator.svg` | `fig:malicious-integrator` | Researcher-governed vs malicious-integrator branching workflow (ILL-08) | **Generated** — `fig14-malicious-integrator.py` (structural, no data file) |
 | `fig15-apk-mass-probing.svg` | `fig:apk-mass-probing` | Automated mass-probing pipeline for public APK repositories (ILL-09) | **Generated** — `fig15-apk-mass-probing.py` (structural, no data file) |
 | `fig16-scope-limitations.svg` | `fig:scope-limitations` | Scope and limitations of the study — perimeter diagram (ILL-10) | **Generated** — `fig16-scope-limitations.py` (structural, no data file) |
-| `logo-obscurity-is-dead.png` | (front-matter / README hero) | Project logo: shattered-Pandora-jar motif over dark slate; tagline *Proprietary by Design. Open by AI.* | **Externally generated** — Google Gemini, 2026-05-02; researcher-supplied binary, dropped in by the author |
+| `logo-obscurity-is-dead.png` | (front-matter / README hero) | Project logo: shattered-Pandora-jar motif over dark slate; tagline *Proprietary by Design. Open by AI.*; full 1408x768 image including the "CONCEPT:" footer line | **Externally generated** — Google Gemini, 2026-05-02; researcher-supplied binary, dropped in by the author; re-encoded losslessly on 2026-05-03 (PIL, no resize, no crop; ~1.63 MB) and wired into `README.md` as the centred hero (commits `7e1f297`, `062b1d3`) |
 | `logo-pandora-jar-intact.png` | `fig:pandora-jar-intact` | The proverbial jar — intact (companion to the shattered logo, anchors §10) | **Externally generated** — Google Gemini, 2026-05-02; researcher-supplied binary, dropped in by the author |
 
 ## Rule-14 compliance

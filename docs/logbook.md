@@ -1768,3 +1768,16 @@ This logbook is the operating record for the paper and research process.
   - Re-fetch from the upstream URL if the design system has been versioned forward.
 - **Files added/edited**: `paper/figures/dlr-design-system/` (10 new files, 116 KB); `docs/prompts/illustration-prompt.md` (added ~50 lines under new "Authoritative house rules" section); `docs/logbook.md` (this entry). No paper-source edits this pass; the next illustration-agent run will produce updated figure scripts that pull in the new conventions.
 - **Status of all directives from the multi-part user request:** complete. Time-savings data → cluster A.3 + §3 hedge (`e0a1f27`); anonymization → 6 redaction IDs (`a5c29de`); Author's Note → 350 words (`a5c29de`); transcript reconstruction → T2 + missing-placeholders (`a35647f`); consistency consolidation → done (`e0a1f27`); illustration design system → curated + prompt updated (this commit).
+
+## 2026-05-03 — Stage 3: Illustrator (README-hero closure pass)
+
+- Branch: `claude/add-readme-logo-J8nvt`. Narrow-scope illustration agent pass triggered by the Stage 4 / Stage 5 scrutiny reports on commits `7e1f297` (re-encode + wire-up) and `062b1d3` (scrutiny notes), both of which returned `RE-SCRUTINY REQUIRED: no`.
+- Scope discipline. No `fig*.{py,svg,pdf}` regenerated; no edits to `paper/main.{md,tex}`; no edits to the logo binary itself (researcher forbade cropping; the 1408x768 frame including the "CONCEPT:" footer is final). Only handback-registry status flips and inventory drift fixes.
+- Handback closures (shattered-jar half only):
+  - `docs/handbacks/readability-to-illustrator.md` — "Notes on figures already cited but binary-missing" block annotated **[PARTIALLY RESOLVED 2026-05-03]** with reference to commits `7e1f297` / `062b1d3`. Intact-jar half explicitly left OPEN; RDB-18 (writer-side §10 caption shortening) remains gated on the second Gemini deliverable.
+  - `docs/handbacks/layout-to-illustrator.md` — LAY-12 flipped from `[DEFERRED — by design]` to `[PARTIALLY RESOLVED 2026-05-03 — intact-jar still deferred]` with the same commit-hash references. Severity note narrowed to apply to the intact-jar half only.
+  - `docs/handbacks/layout-defect-registry.md` — LAY-12 row disposition cell updated to mirror the partial-resolution language.
+- Inventory drift fixed. The `paper/figures/README.md` row for `logo-obscurity-is-dead.png` now records the full 1408x768 dimensions, the "CONCEPT:" footer, the lossless 2026-05-03 re-encode (~1.63 MB), and the README wire-up commit hashes. The original 2026-05-02 Gemini-generation provenance is preserved.
+- Open work surfaced for the next illustrator pass:
+  - `logo-pandora-jar-intact.png` is still the AI-authored placeholder produced by `paper/figures/logo-placeholders.py`. When the second Gemini deliverable lands, drop it in unchanged, then close the intact-jar half of LAY-12 and the corresponding `RDB-18` writer-side caption-shortening task.
+- Files updated: `docs/handbacks/readability-to-illustrator.md`; `docs/handbacks/layout-to-illustrator.md`; `docs/handbacks/layout-defect-registry.md`; `paper/figures/README.md`; `docs/logbook.md` (this entry). No paper-source, figure-script, or binary-asset changes.
