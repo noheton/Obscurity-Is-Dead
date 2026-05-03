@@ -45,7 +45,7 @@ Source: `paper/main.md` §3.7, §4.7, §5.7, §6.1.
 |---|---|---|
 | **Defence model** | Conventional OAuth2; non-expiring refresh tokens dominate residual risk | Cryptographically sound AWS Cognito us-west-2; weak operational layer (broken intermediate-CA chain, `TrustAllStrategy` symbol, public mobile client secret) |
 | **Primary AI lift** | Manifest-permission audit; existing-solutions enumeration; technique-inventory bootstrap | Static APK analysis; cross-implementation validation against ES-6; identification of endpoints absent from any open-source library |
-| **Phase 3 outcome** | Configuration-only: upstream `ondilo_ico` integration + operational notes + smoke test | Configuration-only: upstream `mikakoivisto/controlmyspa-ha-mqtt` + six-control hardening overlay (C-1..C-6) + smoke test |
+| **Phase 3 outcome** | Configuration-only: upstream `ondilo_ico` integration + operational notes + smoke test | Configuration-only: upstream `[REDACTED:repo-path:BALBOA-UPSTREAM-1]` + six-control hardening overlay (C-1..C-6) + smoke test |
 | **Dual-use blast radius** | Bounded read-only telemetry | Full ControlMySpa control surface + cross-vendor data flow to WaterGuru |
 | **Composite difficulty** (§6.6) | Easy | Medium |
 | **Validation status** | Cross-validation; researcher-side device tests `T-OND-1..T-OND-10` pending | Cross-validation; researcher-side device tests `T-BAL-1..T-BAL-12` pending |
