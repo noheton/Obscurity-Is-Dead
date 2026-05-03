@@ -1969,3 +1969,16 @@ This logbook is the operating record for the paper and research process.
 - **FAIR / rule-12 check:** D-1..D-3 add no credentials, serial numbers, local IPs, or private UIDs (verified by inspecting the commit body of `a35647f`); existing `[REDACTED:...]` markers preserved verbatim. No new redactions required.
 - **Re-run / re-analysis verdict:** no further research-protocol pass triggered by this sweep. The next Stage 1 dispatch should be the optional research subpasses queued under D-4 / D-5, on orchestrator decision.
 - **Commit:** to be created on `claude/review-open-issues-PfNx9` containing `docs/handbacks/research-protocol-delta-2026-05-03.md` and this logbook entry. Not pushed (rule 13).
+
+## 2026-05-03 — Source Analyzer pass 9 (slice 11, cluster K-CONS) — Claude Opus 4.7
+
+- **Stage:** 1.5 (Source Analyzer). Pass 9 retry — the prior pass-9 attempt aborted on a per-account API rate limit and produced no work; this pass executed cleanly.
+- **Scope:** the next 6 unprocessed `[lit-retrieved]` entries in `docs/sources.md` file order. Cluster K-CONS (consumer-IoT base rate; supports §§3-4 framing): L-CONS-1 through L-CONS-6.
+- **Counts (this pass):** processed 6, upgraded **5 to `[ai-confirmed]`** (L-CONS-1, L-CONS-2, L-CONS-3, L-CONS-5, L-CONS-6) and **1 to `[ai-confirmed-bibliographic]`** (L-CONS-4 — survey, no specific quantitative claim depends on it; rule-5 conservatism); 0 edge-cases; 0 fetch failures.
+- **Most consequential upgrade:** L-CONS-1 (Zhao et al., 2022, *IEEE TDSC*) — 1,362,906 deployed IoT devices analysed, 385,060 (28.25%) carry at least one N-day vulnerability. Verified verbatim against the Zhejiang NESA open-access PDF and IEEE Xplore landing. Unlocks the §§3-4 headline base-rate claim ("a lot of customer-market equipment is probably vulnerable") with a peer-reviewed quantitative anchor rather than a database snippet.
+- **Most consequential edge case:** none this pass.
+- **Re-analysis verdict:** **`RE-ANALYSIS REQUIRED: no`** — cluster K-CONS fully verified end-to-end.
+- **Cumulative state (passes 1–9):** 60 `[ai-confirmed]` + 6 `[ai-confirmed-bibliographic]` + 2 `[edge-case]` + 3 `[ai-confirmed-attempt-failed]`. Remaining `[lit-retrieved]` unprocessed: ~42. Clusters fully verified: J (§7.7 model collapse) and K-CONS (§§3-4 consumer-IoT base rate).
+- **Rule-1 / rule-12 check:** every upgrade carries a retrieval URL, retrieval date (2026-05-03), agent identifier (Claude Opus 4.7), and a quoted load-bearing passage from the source's abstract or main-result paragraph. No credentials, serial numbers, local IPs, or private UIDs added. No paper edits (rule 11). No external upload of repository content (rule 13).
+- **Deliverables:** edits to `docs/sources.md` (six entry status lines); appended slice-11 sections to `docs/handbacks/source-analyzer-report.md` and `docs/handbacks/source-analyzer-to-writer.md`; this logbook entry. Commit on `claude/review-open-issues-PfNx9`; not pushed.
+- **Next step (orchestrator):** continue down-file with the next ~6 `[lit-retrieved]` entries (cluster K-IND, industrial / IIoT / ICS posture, L-IND-1..L-IND-6) on the next Stage 1.5 dispatch.

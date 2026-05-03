@@ -165,3 +165,29 @@ Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, 
 - Cumulative across passes 1–8: **55 [ai-confirmed]** + **5 [ai-confirmed-bibliographic]** + **2 [edge-case]** + **3 [ai-confirmed-attempt-failed]**.
 - Remaining `[lit-retrieved]` unprocessed: **~48** (down from ~57).
 - Cluster J is fully verified end-to-end.
+
+## Slice 11 (pass 9, 2026-05-03) — cluster K-CONS consumer-IoT base rate — six upgrades
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-CONS-1 | `[ai-confirmed]` | five criteria hold; IEEE Xplore + Zhejiang NESA open-access PDF; quantitative anchor verified verbatim | yes (§§3-4 base-rate anchor) | "the results show that 385,060 (28.25 percent) devices suffer from at least one N-days vulnerability" |
+| L-CONS-2 | `[ai-confirmed]` | five criteria hold; USENIX Security '19 open-access | yes (most-cited home-IoT measurement) | "the first large-scale empirical analysis of IoT devices in real-world homes by leveraging data collected from user-initiated network scans of 83M devices in 16M households" |
+| L-CONS-3 | `[ai-confirmed]` | five criteria hold; IEEE Xplore + accepted-author-manuscript open-access | yes (lesser-known-vendor qualifier directly supports Spider Farmer / EcoFlow positioning) | "the need for a stronger focus on the security posture of lesser known vendor devices as they are often less regulated and face less scrutiny" |
+| L-CONS-4 | `[ai-confirmed-bibliographic]` | venue/authorship/scope verified; entry summary makes no specific quantitative claim and L-CONS-4 is a survey rather than a measurement anchor | no (survey context) | "describes the common attacks faced by consumer IoT devices and suggests potential mitigation strategies" |
+| L-CONS-5 | `[ai-confirmed]` | five criteria hold; IEEE Xplore + author institutional copy | no (corroborates §3 base rate, not the sole anchor) | "Shodan is used to collect a large testbed of consumer IoT devices which are then passed through Nessus … a significant number of consumer IoT devices are vulnerable to exploits that can compromise user information and privacy" |
+| L-CONS-6 | `[ai-confirmed]` | five criteria hold; IEEE Access open-access | no (framework reference) | "according to the AHP model, network security was the primary driver of smart home device security with a priority of 0.6893 while application security had the least priority of 0.0591" |
+
+### Most consequential upgrade (slice 11)
+
+**L-CONS-1 (Zhao et al., 2022, *IEEE TDSC*).** Provides the headline 28.25% vulnerable-fraction figure across 1,362,906 deployed devices. Verified verbatim against the Zhejiang NESA open-access PDF and IEEE Xplore landing page. With L-CONS-3 also confirmed, the §3-4 case-study positioning ("Spider Farmer / EcoFlow PowerOcean fit the lesser-known-vendor pattern that is systematically less scrutinised") is now anchored on a peer-reviewed *IEEE IoT J* finding rather than a database snippet.
+
+### Re-analysis verdict (slice 11)
+
+**`RE-ANALYSIS REQUIRED: no`** — all six L-CONS entries cleared the verification ladder; zero edge-cases, zero fetch failures. Cluster K-CONS (consumer-IoT base rate; supports §3 / §4 framing) is now fully `[ai-confirmed]` (with L-CONS-4 as `[ai-confirmed-bibliographic]` per rule 5 — survey, no quantitative claim depends on it).
+
+### Cumulative state after pass 9 (slices 1–11)
+
+- Net upgrades this pass: **5 [ai-confirmed]** + **1 [ai-confirmed-bibliographic]**.
+- Cumulative across passes 1–9: **60 [ai-confirmed]** + **6 [ai-confirmed-bibliographic]** + **2 [edge-case]** + **3 [ai-confirmed-attempt-failed]**.
+- Remaining `[lit-retrieved]` unprocessed: **~42** (down from ~48).
+- Clusters fully verified end-to-end: J (model collapse, §7.7) and K-CONS (consumer-IoT base rate, §§3-4).
