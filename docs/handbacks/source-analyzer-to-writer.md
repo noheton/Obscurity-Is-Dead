@@ -221,3 +221,40 @@ Now citable inline in §1.3 / §4.6 as the **manufacturer-cessation anchor for t
 ## Slice 5 readiness summary
 
 Cluster B (§6.3 dual-use) gains L-TS-6 as the one-day-CVE quantitative anchor. Cluster D (BLE, §1.1 / §3 / §6.3) gains L-BLE-6 (consumer-wearable standard-non-compliance), L-BLE-7 (Broadcom-chipset RE methodology), L-BLE-8 (closed-source-protocol RE → CVEs), and L-BLE-9 (software-only ESP32 repurposing); all four now writer-actionable. Cluster E (right-to-repair, §1.3 / §4.6 / §6.1) gains L-RR-1, L-RR-2, L-RR-3, L-RR-4 — the §1.3 motivation paragraph is now fully writer-actionable, with rule-5 legal-interpretation caveats applied. **Three `paper/references.bib` corrections** to propagate: L-BLE-8 venue (USENIX Security 2025), L-BLE-9 venue (WOOT 2023, not "IEEE SPW"), and L-RR-4 date/venue (2024 preprint / 2025 *Internet of Things*).
+
+---
+
+## Pass 6 (slice 6) — 2026-05-03 — L-RR-5..7, L-LF-1, L-LF-2, L-LF-5
+
+## L-RR-5 — Ünver, 2018, *Int. J. Law Inf. Technol.* 26(2):93–118 — `[ai-confirmed]`
+
+Now citable inline in §1.3 / §6.1 as supplementary EU legal-toolbox commentary on IoT vendor lock-in. Verbatim: the IoT depicts "a world of networked smart objects … which all require 'interoperability'"; the paper proposes "enabling IoT (non-personal as well as personal) data portability across different ecosystems … to lessen vendor lock-in and keep the pace of innovation." Rule-5 legal caveat: descriptive citation only; do not layer normative legal opinion on this single source.
+
+## L-RR-6 — Svensson-Hoglund, Richter, Maitre-Ekern, Russell, Pihlajarinne & Dalhammar, 2021, *J. Cleaner Production* 288:125488 — `[ai-confirmed]`
+
+Now citable inline in §1.3 / §6.1 as the comparative EU/US repair-policy anchor. **References-list corrections**: 6 authors (entry previously gave "Svensson-Hoglund et al."); journal volume is 2021, not 2020 (article first available online 2020-12); DOI 10.1016/j.jclepro.2020.125488. Verbatim: the review "outlines legal and market barriers to stakeholder participation in repair activities" across "Intellectual Property, Consumer, Contract, Tax and Chemical laws, along with issues of design and consumer perceptions." Rule-5 legal caveat: descriptive citation only.
+
+## L-RR-7 — Colangelo & Borgogno, 2023 online / 2024 print, *Eur. J. Risk Regul.* 15(1):137–152 — `[ai-confirmed]`
+
+Now citable inline in §6 / §6.4 as a counter-position to one-size-fits-all interoperability mandates. **References-list corrections**: 2 authors (Colangelo, Borgogno); date 2023 online, 2024 print. Verbatim: the paper proposes "workable interoperability in IoT ecosystems aimed at ensuring market contestability without undermining incentives to innovate," drawing on the UK Open Banking experience. Useful as a calibrating cite to qualify our enthusiasm for interoperability mandates.
+
+## L-LF-1 — Khomenko & Babichev, 2025, *IoT* 6(4):69 (MDPI) — `[ai-confirmed]`
+
+Now citable inline in §1.3 / §3 / §4 as the **most directly comparable empirical local-first Home-Assistant deployment**. **References-list correction**: 2 authors (Khomenko, Babichev); entry previously gave "Khomenko et al." Verbatim quantitative anchors: "MQTT throughput exceeding 360,000 messages without packet loss, automatic recovery from simulated failures within three minutes, and energy savings of approximately 28% compared to baseline manual control"; "operates entirely offline, ensuring privacy and continuity without cloud dependency." Strong empirical comparator if the writer wants to pair our integration-pattern claims with a published local-first Home-Assistant baseline.
+
+## L-LF-2 — Zavalyshyn, Legay, Rath & Rivière, 2022, *Proc. PETS* 2022(4):24–43 — `[ai-confirmed]`
+
+Now citable inline in §1.3 / §3 as the **canonical SoK for privacy-enhancing smart-home hubs**. **References-list correction**: 4 authors (Zavalyshyn, Legay, Rath, Rivière); DOI 10.56553/popets-2022-0097. Verbatim: the paper "systematizes existing knowledge … through the analysis and categorization of 10 industrial and community-contributed systems and 37 research proposals from the literature of the past 11 years." Entry's "10 industrial / community smart-hub systems and 37 research proposals" is verbatim-confirmed.
+
+## L-LF-5 — Dallmer-Zerbe et al., 2021, IEEE ISIE — `[ai-confirmed]`
+
+Now citable inline in §3 / §6 as a Privacy-by-Design / offline-first voice-assistant prototype. DOI 10.1109/ISIE45552.2021.9576469. Verbatim: "smart voice assistants … but conversation data is automatically streamed to companies for machine learning. Users perceive this as privacy invasion … making local processing a central design element"; the prototype implements "Privacy by Design" with "complete offline modality."
+
+## Edge cases (no upgrade)
+
+- **L-LF-3** — Hewitt et al., 2024 — title and date in the entry do not match any retrievable paper. The closest match is Hewitt & Cunningham, "Taxonomic Classification of IoT Smart Home Voice Control" (arXiv:2210.15656, October 2022), which differs in title (no "Towards Privacy-Preserving" prefix), author count (2, not "et al."), and year (2022). Awaiting human disambiguation; entry summary is empty so no current paper claim is blocked.
+- **L-LF-4** — Mishra et al., 2025 (Vaani) — Consensus landing page returned HTTP 403 to WebFetch; web searches across IJSRA / IRJMETS / IJRPR and general academic indexes did not surface a paper with this exact title. The "Vaani" name in 2025 maps to a Bengaluru voice-AI startup, not an academic publication. Logged as `[ai-confirmed-attempt-failed]`; researcher should verify the Consensus record is stable before retry.
+
+## Slice 6 readiness summary
+
+Cluster E (right-to-repair, §1.3 / §6.1) gains three more descriptive anchors (L-RR-5, L-RR-6, L-RR-7), completing the EU policy-context register; rule-5 legal caveat applies to all three. Cluster F (local-first / cloud-independence, §1.3 / §3 / §4) gains its strongest empirical anchor (L-LF-1, with 28% energy-saving and 360k-message MQTT throughput verbatim) and its canonical SoK (L-LF-2, 10 industrial + 37 research systems verbatim). L-LF-5 adds a Privacy-by-Design voice-assistant comparator. Five `paper/references.bib` corrections to propagate: author counts for L-RR-6 (6 authors), L-RR-7 (2 authors), L-LF-1 (2 authors), L-LF-2 (4 authors); date/volume for L-RR-6 (2021 vol. 288) and L-RR-7 (2023 online / 2024 print).
