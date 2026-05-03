@@ -594,10 +594,31 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
   \item Concurrent-write safety via \texttt{asyncio.Lock} in
         \texttt{ble\_coordinator.py} line 79.
   \item Migration framework \texttt{async\_migrate\_entry} in
-        \texttt{\_\_init\_\_.py} line 95; the integration is now at
+        \texttt{\_\_init\_\_.py} line~95; the integration is now at
         \texttt{VERSION = 3} past the T4-era \texttt{1\,$\to$\,2}
-        migration (the \texttt{2\,$\to$\,3} step is presently undocumented
-        by any preserved transcript --- recorded as an open issue).
+        migration. The \texttt{2\,$\to$\,3} step is \textbf{not covered
+        by any preserved chat transcript}, but the migration logic
+        itself --- vendored at
+        \texttt{experiments/spider-farmer/original/\_\_init\_\_.py}
+        lines 95--135 --- is self-documenting and reconstructs to:
+        (i)~drop the legacy MQTT-only config-entry fields \texttt{uid}
+        and \texttt{mqtt\_topic}; (ii)~derive \texttt{pid}
+        deterministically from the stored BLE address (failing closed
+        if no BLE address is present); (iii)~idempotently carry forward
+        the \texttt{v1\,$\to$\,v2} CB-key correction; (iv)~bump the
+        entry version and emit \texttt{"Migrated Spider Farmer entry
+        \%s to version 3 (BLE-only)"}. Architecturally this is a
+        transport simplification (BLE-only; MQTT retained only as a
+        security-research dataset surface, \S3.6), not a protocol
+        change. \textbf{Provenance gap that remains:} the upstream
+        commit history of \texttt{noheton/spider\_farmer} was not
+        retrievable from the build environment used for this paper
+        (clone, GitHub API, and codeload tarball all failed);
+        reconstruction worked from the embedded \texttt{original/}
+        snapshot at repo commit \texttt{ffdf60c} only. Date, commit
+        SHA, and any associated PR or issue thread for the
+        v2\,$\to$\,v3 transition are therefore
+        \texttt{[unverified-external]}.
 \end{itemize}
 
 \begin{table}[htbp]
@@ -2312,9 +2333,12 @@ to be designed, not assumed.
   \item Replace \texttt{[unverified-external]} legal sources with sourced
         commentary; address \texttt{[needs-research]} items in
         \texttt{docs/sources.md}.
-  \item Reconstruct the Spider Farmer
-        \texttt{VERSION 2\,$\to$\,3} migration step that no preserved
-        transcript currently documents.
+  \item Recover upstream \texttt{noheton/spider\_farmer}
+        commit-history metadata (date, SHA, PR/issue references) for
+        the \texttt{VERSION 2\,$\to$\,3} migration. The technical
+        content of the migration has been reconstructed from the
+        embedded \texttt{original/\_\_init\_\_.py} (see \S3.4); only
+        the dated commit-history narrative remains outstanding.
   \item Read in full the \texttt{[lit-retrieved]} literature in
         \texttt{docs/sources.md} clusters A--J and upgrade entries to
         \texttt{[lit-read]} before any of them is cited as authority
