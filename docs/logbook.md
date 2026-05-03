@@ -1742,3 +1742,29 @@ This logbook is the operating record for the paper and research process.
   - **Illustration-prompt update with the Claude design system at `https://claude.ai/design/p/019de50b-...`**: the URL is auth-gated (HTTP 403 to WebFetch), so codification awaits either user-pasted content or a switch to publicly-known Anthropic brand principles.
 - **Files updated by this orchestration step**: `docs/sources.md` (cluster A.3 inserted); `paper/main.md` (§3 hedge paragraph); `paper/main.tex` (§3 hedge mirror); `paper/references.bib` (four new entries); `docs/logbook.md` (this entry).
 - **No edits**: scrutinizer registries (Stage 4 / Stage 5 next pass should pick up the new §3 hedge paragraph and the cluster A.3 references); paper figures; transcripts (those landed in `a35647f`).
+
+## 2026-05-03 — DLR Design System bundle curated + illustration prompt updated
+
+- Branch: `claude/start-orchestrator-36qQV`. Closes the last open task from the multi-part directive: the illustration agent now has an authoritative on-disk spec to respect.
+- **Bundle source.** Fetched from `https://api.anthropic.com/v1/design/h/YCsRfEWCmYQvrknj0kuLNg` (after the `https://claude.ai/design/p/...` share URL returned 403 to WebFetch). Upstream is a Claude Design handoff bundle, ~87 MB / 456 files; the `api.anthropic.com` form is a gzipped tarball reachable from this harness without authentication.
+- **Curated subset committed at `paper/figures/dlr-design-system/`** (~116 KB):
+  - `README.md` — upstream "CODING AGENTS: READ THIS FIRST" handoff note.
+  - `project/SKILL.md` — the **authoritative skill manifest** (DLR house rules, token cheat sheet, surface-picking decision table, project-owner identity already populated with Florian Krebs / ORCID / Helmholtz / NFDI4Ing / HMC / Plattform Industrie 4.0 affiliations).
+  - `project/colors_and_type.css` — the CSS-token surface (variants A/B/C, brand colours, typography sizes).
+  - `project/ui_kits/python_plots/{dlr_style.py,README.md,UPSTREAM_README.md}` — upstream matplotlib theme reference copy.
+  - `project/ui_kits/marp/framework/rules/corporate-design.md` — the marp framework's compact corporate-design rule sheet.
+  - `project/assets/{dlr-logo.svg,dlr-logo-white.svg,dlr-logo-stacked.png}` — brand-mark SVGs + small PNG.
+  - `chats/chat1.md` — upstream design-tool conversation transcript (rule 4 artefact).
+  - `BUNDLE-SOURCE.md` — provenance + curation rationale + pre-publication note.
+- **Excluded** (and documented in `BUNDLE-SOURCE.md`):
+  - Frutiger fonts and zips (commercial licence; Arial is the mandated face for digital channels per CD-Handbuch §10.1; `dlr_style.py` does the Frutiger → Arial → DejaVu Sans graceful fallback).
+  - DLR brand documents (`*.pdf`, `*.potx`, ~70 MB) — reference reading, not needed for figure generation.
+  - HTML preview pages with embedded large background JPGs and marp-template binary assets.
+- **`paper/figures/dlr_style.py` divergence preserved.** The actually-imported file (one directory up) is the *adapted* version (intranet URLs removed, Frutiger fallback added, named brand-colour constants added, AI-adapted docstring per rule 1). The upstream copy in `dlr-design-system/project/ui_kits/python_plots/dlr_style.py` is a reference: a future reader can `diff` the two and see exactly what was changed and why.
+- **Illustration prompt updated** at `docs/prompts/illustration-prompt.md`: new `## Authoritative house rules (DLR design system, 2026-05-03)` section enumerating the ten headline constraints (one chapter / one accent; Frutiger → Arial typography; mid-grey slide H1; square corners 0–2 px; photography not illustration; German number format; institutional voice; logo top-right; photo credit boilerplate; flag icon substitutions). Pointer to `SKILL.md` as the authoritative spec; note that `BUNDLE-SOURCE.md` documents what was excluded.
+- **Pre-publication reminders captured in `BUNDLE-SOURCE.md`** (rule 13 alignment):
+  - Re-confirm bundle licence before any public mirror or Zenodo deposit.
+  - Replace SVG logos with placeholder marks if the paper is re-released outside the DLR-affiliation context.
+  - Re-fetch from the upstream URL if the design system has been versioned forward.
+- **Files added/edited**: `paper/figures/dlr-design-system/` (10 new files, 116 KB); `docs/prompts/illustration-prompt.md` (added ~50 lines under new "Authoritative house rules" section); `docs/logbook.md` (this entry). No paper-source edits this pass; the next illustration-agent run will produce updated figure scripts that pull in the new conventions.
+- **Status of all directives from the multi-part user request:** complete. Time-savings data → cluster A.3 + §3 hedge (`e0a1f27`); anonymization → 6 redaction IDs (`a5c29de`); Author's Note → 350 words (`a5c29de`); transcript reconstruction → T2 + missing-placeholders (`a35647f`); consistency consolidation → done (`e0a1f27`); illustration design system → curated + prompt updated (this commit).
