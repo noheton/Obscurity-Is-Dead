@@ -587,3 +587,36 @@ This four-anchor block gives the §7.12 "privacy as a user right" argument a pee
 4. **L-PRIV-10** — author list is **Kounoudes & Kapitsaki** (two authors); current entry uses "Kounoudes et al." which would be correct for the 2023 fitness-tracker follow-up (three authors) but not for the 2020 *Internet of Things* article (two authors). Volume/page: *Internet of Things* **11**:100179.
 5. **L-PRIV-11** — change venue from "ArXiv" to **Internet Policy Review 10(4)** (peer-reviewed venue), doi:10.14763/2021.4.1611. Authors: Kollnig, Binns, Van Kleek, Lyngs, Zhao, Tinsman, Shadbolt.
 6. **L-PRIV-12** — full citation: George, Reutimann & Tamò-Larrieux (2019), *International Data Privacy Law* **9**(4):285-298, doi:10.1093/idpl/ipz017.
+
+---
+
+## Slice 15 (pass 13) — L-AGT cluster M (malicious LLM agents, §7.13), 2026-05-03, Claude Opus 4.7
+
+**Status change:** L-AGT-1 through L-AGT-10 all upgraded `[lit-retrieved]` → `[ai-confirmed]`. Full ten-entry §7.13 cluster now end-to-end `[ai-confirmed]`-grade. No edge cases, no fetch failures.
+
+**Sections affected (paper §7.13 "The malicious IoT-integrator agent"):**
+
+- §7.13 "per-device exploit pipeline" bullet — L-AGT-1 confirmed (15 one-day CVEs, 87% GPT-4 vs 0% baselines, 7% without CVE description).
+- §7.13 "credential-and-token harvesting at integration time" bullet — L-AGT-2 confirmed (autonomous blind SQLi + schema extraction, frontier-model-only).
+- §7.13 enumeration / systematisation reference — L-AGT-3 confirmed (>30 attack techniques, four-domain taxonomy, P2SQL + Toxic Agent Flow examples).
+- §7.13 "trust laundering through a benign-looking artifact" bullet — L-AGT-4 confirmed (94.4% DPI, 83.3% RAG backdoor, **100% inter-agent trust exploitation** across 18 LLMs).
+- §7.13 vendor-side-safety-training-not-sufficient claim — L-AGT-5 confirmed (24.41% → 41.33% ASR against Claude for Computer Use; iterative refinement).
+- §7.13 "self-augmentation of attack capability" / "erosion of governance baseline" bullets — L-AGT-6 confirmed (≥80% ASR, no fine-tuning required, three real-world agent classes).
+- §7.13 "visible-output review is not sufficient" — L-AGT-7 confirmed (Thought-Attack manipulates intermediate reasoning while keeping final output correct; NeurIPS 2024).
+- §7.13 mitigation-discussion systematisation reference — L-AGT-8 confirmed (84.30% avg ASR across 27 attack/defence × 13 LLMs × 10 scenarios; ICLR 2025).
+- §7.13 "non-malicious agent steered into attack-equivalent pattern" — L-AGT-9 confirmed (>80% failure rate via repetitive/irrelevant action injection; EMNLP 2025).
+- §7.13 "structural-side defences required" — L-AGT-10 confirmed (backdoor robust even after fine-tuning on trustworthy data; ACL 2024).
+
+**Recommended writer action (no defects to fix; promotion only):**
+
+1. The §7.13 paragraph is now end-to-end `[ai-confirmed]`-grade. All `[L-AGT-N]` markers may be upgraded from footnote-only `[lit-retrieved]` references to in-text peer-reviewed citations on the next writer pass.
+2. Consider strengthening the venue language for the four entries that have since reached top-tier peer-reviewed venues: L-AGT-7 (NeurIPS 2024), L-AGT-8 (ICLR 2025), L-AGT-9 (EMNLP 2025), L-AGT-10 (ACL 2024). The cluster is no longer ArXiv-only.
+
+### References.bib corrections
+
+1. **L-AGT-3** — venue should be updated from "ArXiv" to **ICT Express 12(2):353-383, April 2026**, doi:10.1016/j.icte.2025.12.001 (now peer-reviewed).
+2. **L-AGT-5** — venue should be updated from "ArXiv" to **Proc. 63rd Annual Meeting of the Association for Computational Linguistics (ACL Industry Track), July 2025, pp. 1050-1071** (Vienna), doi:10.18653/v1/2025.acl-industry.75.
+3. **L-AGT-7** — venue should be updated from "ArXiv" to **Advances in Neural Information Processing Systems 37 (NeurIPS 2024)**, pp. 100938-100964.
+4. **L-AGT-8** — venue should be updated from "ArXiv" to **The Thirteenth International Conference on Learning Representations (ICLR 2025)** (OpenReview V4y0CpX4hK).
+5. **L-AGT-9** — venue should be updated from "ArXiv" to **Proc. 2025 Conference on Empirical Methods in Natural Language Processing (EMNLP 2025), November 2025, pp. 34964-34976** (Suzhou), doi:10.18653/v1/2025.emnlp-main.1771.
+6. **L-AGT-10** — venue should be updated from year-only to **Proc. 62nd Annual Meeting of the Association for Computational Linguistics (ACL 2024), August 2024, pp. 9811-9827** (Bangkok), doi:10.18653/v1/2024.acl-long.530.
