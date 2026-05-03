@@ -10,6 +10,28 @@ This logbook is the operating record for the paper and research process.
 
 ## Log Entries
 
+### 2026-05-03 (Stage 4 layout scrutiny — post writer + illustrator pass; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 4 layout scrutinizer), branch `claude/review-open-issues-PfNx9`.
+- PDF inspected: `paper/main.pdf` SHA-256 `04e818e993e2eea84cf05d5a5bc7045d80270d6a856a398cc04106ca7ac5cf99`, 49 pages, build commit `b5162ee`, build timestamp 2026-05-03T12:54:14Z (newer than `paper/main.tex`). PDF version 1.5 throughout.
+- Method: PDF viewer MCP unavailable (`allowedDirectories: []`); sweep performed via `paper/main.log` (37 overfulls, 61 underfulls, 0 undefined refs/cites, 0 PDF-version-1.7 warnings) cross-checked against `paper/main.tex`. Pixel-level FIG-* dimensions carry a `viewer-blocked` note.
+- Carry-over verifications:
+  - **LAY-13 RESOLVED.** Illustrator's Makefile post-process (PDF 1.7 → 1.5 header rewrite) eliminated all PDF-inclusion version warnings.
+  - **LAY-01 RESOLVED.** Section labels `sec:scope-non-goals` (`:440`), `sec:synthesis-evidence-asymmetry` (`:1521`), `sec:disc-validity` (`:1782`) all present; zero undefined refs.
+  - **LAY-05, LAY-07, LAY-11 RESOLVED.** LAY-19, LAY-17, LAY-10, LAY-22 still open at H/M severity.
+- New defects: LAY-23 (continuation of LAY-14 font-shape fallback), LAY-24 (§3.4 reconciliation prose preface, 32pt + 11pt), LAY-25 (§6.6/§6.7 boundary cluster, 43pt + 5pt + 61pt). FIG-01..FIG-09 filed per the new figure-and-image critique extension to the layout scrutinizer prompt.
+- Defect rollup: open H = 2 (LAY-19 226pt KPI tabular; FIG-01 alt-text-missing across 18 `\includegraphics`); open M = 14; open L = 12. Layout = 19 open, Figure = 9 open.
+- Figure-stock assessment: substantial illustrator work outstanding (FIG-02 colour migration, FIG-03 fig11 fontsize, FIG-04 intact-jar Gemini final, FIG-09 deferred Tufte audit). Endorses the human author's earlier acknowledgement.
+- Files written:
+  - `docs/handbacks/layout-defect-registry.md` (rewritten for this build)
+  - `docs/handbacks/layout-to-writer.md` (rewritten)
+  - `docs/handbacks/layout-to-illustrator.md` (rewritten)
+  - `docs/handbacks/layout-scrutiny-2026-05-03.md` (new)
+  - `docs/logbook.md` (this entry)
+- No edits to `paper/main.{md,tex}` or `paper/figures/` (rule 11; Stage 4 scope).
+- Distribution (rule 13): local only; no `make arxiv`, no push.
+- Verdict: **RE-SCRUTINY REQUIRED: yes.**
+- Next step: orchestrator dispatches Stage 2 (writer) on the LAY-* prose/table items + FIG-01 macro pass + FIG-07/-08 caption mirror, then Stage 3 (illustrator) on FIG-02/-03; rebuild via `make pdf`; re-run Stage 4.
+
 ### 2026-05-03 (peer-review reconstruction — Spider Farmer v2→v3)
 - Session lead: AI agent (Claude opus-4-7), invoked by orchestrator on behalf of human author.
 - Trigger: peer-review comment flagging that `paper/main.md` §3.4 admits an undocumented `VERSION 2 → 3` migration step.
