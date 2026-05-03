@@ -134,3 +134,34 @@ Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, 
 - `[ai-confirmed-attempt-failed]`: 3 (unchanged).
 - Remaining `[lit-retrieved]` unprocessed: ~57 (66 − 9 this pass).
 - Cluster I (sloppification) is fully verified end-to-end.
+
+---
+
+## Slice 10 (pass 8, 2026-05-03) — cluster J model collapse — nine `[ai-confirmed]` upgrades
+
+| Entry | Decision | Reason | Critical-path? | Quote |
+|-------|----------|--------|----------------|-------|
+| L-MC-1 | `[ai-confirmed]` | five criteria hold; *Nature* + Edinburgh open-access PDF | yes (§7.7 canonical anchor) | "indiscriminate use of model-generated content in training causes irreversible defects … tails of the original content distribution disappear … LLMs … VAEs … GMMs." |
+| L-MC-2 | `[ai-confirmed]` | five criteria hold; arXiv open-access | no (mitigation aside) | "the approach can extend the model's fidelity interval before collapse by more than 2.3×." |
+| L-MC-3 | `[ai-confirmed]` | five criteria hold; arXiv + OpenReview (COLM 2024) | yes (theoretical anchor) | "model collapse cannot be avoided when training solely on synthetic data … when mixing both real and synthetic data, we provide an estimate of a maximal amount of synthetic data below which model collapse can eventually be avoided." |
+| L-MC-4 | `[ai-confirmed]` | five criteria hold; arXiv + Stanford SALT Lab landing | yes (constructive counterweight) | "if data accumulates and models train on a mixture of 'real' and synthetic data, model collapse no longer occurs … the test error has a finite upper bound independent of the number of iterations." |
+| L-MC-5 | `[ai-confirmed]` | five criteria hold; arXiv open-access | no (rate-of-collapse refinement) | "we theoretically characterize the rate of collapse in these fundamental settings and complement it with experimental evaluations." |
+| L-MC-6 | `[ai-confirmed]` | five criteria hold; arXiv + NeurIPS 2025 Spotlight project page | no (mechanism reframing) | "the transition is directly driven by the declining entropy of the synthetic training data … entropy-based data selection strategy that effectively alleviates the generalization-to-memorization transition." |
+| L-MC-7 | `[ai-confirmed]` | five criteria hold; arXiv + Cambridge open-access PDF (preprint of L-MC-1) | yes (arXiv-citing community) | "use of model-generated content in training causes irreversible defects … tails of the original content distribution disappear … VAEs, Gaussian Mixture Models and LLMs." |
+| L-MC-8 | `[ai-confirmed]` | five criteria hold; arXiv open-access | yes (qualifier on L-MC-4 optimism) | "results indicate that the outcomes reported are a statistical phenomenon and may be unavoidable … collapse towards univariate Gaussian shapes." |
+| L-MC-9 | `[ai-confirmed]` | five criteria hold; arXiv open-access | no (multi-modal extension) | "model collapse … exhibits distinct characteristics in the multi-modal context … increased decoding budgets, greater model diversity, and relabeling with frozen models can effectively mitigate model collapse." |
+
+### Most consequential upgrade (slice 10)
+
+**L-MC-1 (Shumailov et al., 2024, *Nature*).** The canonical citation for §7.7's model-collapse externality. Verified via the publisher landing and the University of Edinburgh open-access institutional copy; abstract and three-modality scope (LLMs, VAEs, GMMs) confirmed verbatim. With L-MC-7 also confirmed, the writer can cite either the *Nature* paper or the arXiv preprint depending on audience; both are now writer-actionable. The L-MC-3 / L-MC-4 / L-MC-8 triple gives §7.7 its full theoretical scaffolding: collapse is unavoidable on pure synthetic (Seddik), bounded with accumulation (Gerstgrasser), but may still be a general statistical phenomenon (Borji). No load-bearing claim in the entry summaries was weaker than the source.
+
+### Re-analysis verdict (slice 10)
+
+**`RE-ANALYSIS REQUIRED: no`** — all nine cluster-J entries cleared the verification ladder; zero edge-cases, zero fetch failures. Cluster J (§7.7 model collapse / dilution of the scientific commons) is now fully `[ai-confirmed]`.
+
+### Cumulative state after pass 8 (slices 1–10)
+
+- Net upgrades to `[ai-confirmed]` / `[ai-confirmed-bibliographic]` this pass: **9** new `[ai-confirmed]`.
+- Cumulative across passes 1–8: **55 [ai-confirmed]** + **5 [ai-confirmed-bibliographic]** + **2 [edge-case]** + **3 [ai-confirmed-attempt-failed]**.
+- Remaining `[lit-retrieved]` unprocessed: **~48** (down from ~57).
+- Cluster J is fully verified end-to-end.

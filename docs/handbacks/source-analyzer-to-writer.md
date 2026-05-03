@@ -403,3 +403,57 @@ The §1.4 / §7.6 quantitative spine is anchored on three independent samples: W
 | L-SLOP-3 | authors | "Buchanan & Hill, 2023" | "Buchanan, J., Hill, S., & Shapoval, O., 2024" — third author missing; SAGE journal year is 2024 |
 | L-SLOP-5 | year | "2023" | "2024" (Learned Publishing 37(1):55–62, Jan 2024 print issue; online VoR 2023-09-08) |
 | L-SLOP-9 | year | "2023" | "2024" (JMIR 26:e52935, published 2024-04-05) |
+
+---
+
+## Slice 10 (pass 8, 2026-05-03) — cluster J model collapse anchors — nine `[ai-confirmed]` upgrades
+
+Slice 10 closes the §7.7 model-collapse / dilution-of-the-scientific-commons cluster. All nine `[lit-retrieved]` entries in cluster J have been verified. After this pass, cluster J is fully `[ai-confirmed]` with zero residual `[lit-retrieved]` items and zero edge-cases.
+
+### L-MC-1 — Shumailov et al., 2024, *Nature* 631:755–759 — `[ai-confirmed]`
+
+Now citable inline as **the canonical model-collapse anchor for §7.7**. Verified via publisher landing https://www.nature.com/articles/s41586-024-07566-y and Edinburgh open-access copy. Three-modality scope (LLMs, VAEs, GMMs) confirmed verbatim. DOI 10.1038/s41586-024-07566-y; an Author Correction was issued in 2025 (https://www.nature.com/articles/s41586-025-08905-3) — writer should consider citing the corrected version.
+
+### L-MC-2 — Shabgahi et al., 2025, arXiv:2509.08972 — `[ai-confirmed]`
+
+Now citable inline as the **training-layer mitigation aside**: Truncated-Cross-Entropy loss extends the fidelity interval >2.3× before collapse. Use sparingly in §7.7 — this is a single-paper preprint (2025) without peer-review yet; pair with L-MC-4 / L-MC-6 for the broader mitigation framing.
+
+### L-MC-3 — Seddik et al., 2024, COLM 2024, arXiv:2404.05090 — `[ai-confirmed]`
+
+Now citable inline as the **statistical-impossibility anchor**: collapse cannot be avoided on purely synthetic training; mixing real + synthetic admits a threshold below which collapse can be avoided. Pair with L-MC-4 (constructive accumulation result) and L-MC-8 (Borji qualifier) for the §7.7 theoretical triangle.
+
+### L-MC-4 — Gerstgrasser et al., 2024, arXiv:2404.01413 — `[ai-confirmed]`
+
+Now citable inline as the **strongest constructive result for §7.7**: accumulating (rather than replacing) synthetic data alongside real data yields a finite test-error upper bound. This is the empirical/theoretical bridge between L-MC-1's pessimism and the practitioner reality of mixed corpora. **Use with the L-MC-8 qualifier** — Borji's note tempers the optimism.
+
+### L-MC-5 — Suresh, Thangaraj & Khandavally, 2024, arXiv:2412.17646 — `[ai-confirmed]`
+
+Now citable inline as the **rate-of-collapse refinement**: collapse rate for fundamental distributions (discrete, Gaussian) under ML estimation. Useful as a footnote in §7.7 for the claim that collapse can be slow in some regimes, qualifying any "imminent dilution" language.
+
+### L-MC-6 — Shi et al., 2025, NeurIPS 2025 Spotlight, arXiv:2509.16499 — `[ai-confirmed]`
+
+Now citable inline as the **mechanism-reframing anchor**: collapse as a generalisation-to-memorisation transition driven by declining synthetic-data entropy. Useful for §7.7 when discussing *why* collapse occurs rather than *that* it occurs. NeurIPS 2025 Spotlight is a strong venue signal.
+
+### L-MC-7 — Shumailov et al., 2023, arXiv:2305.17493 — `[ai-confirmed]`
+
+Now citable inline as the **arXiv-preprint companion to L-MC-1**. Recommend the writer pick *one* of L-MC-1 / L-MC-7 to cite (typically L-MC-1 for the *Nature* version unless an arXiv-preferring audience needs the preprint). Both are now writer-actionable.
+
+### L-MC-8 — Borji, 2024, arXiv:2410.12954 — `[ai-confirmed]`
+
+Now citable inline as the **statistical-phenomenon qualifier**: collapse may be unavoidable as a general statistical phenomenon (collapse towards univariate Gaussian under repeated KDE sampling/refitting). Use to temper L-MC-4's optimism in the §7.7 narrative arc.
+
+### L-MC-9 — Hu et al., 2025, arXiv:2505.08803 — `[ai-confirmed]`
+
+Now citable inline as the **multi-modal extension**: VLMs and text-to-image diffusion in recursive multi-agent loops; mitigations include increased decoding budgets, model diversity, and frozen-relabelling. Useful if §7.7 discusses image/code/text co-generation as part of the dilution argument.
+
+---
+
+## Slice 10 readiness summary
+
+Cluster J (§7.7 model collapse / dilution of the scientific commons) is now fully `[ai-confirmed]`: nine new upgrades, zero edge-cases, zero fetch failures. The §7.7 narrative spine is now anchored on:
+- **Canonical statement** — L-MC-1 (Shumailov 2024 *Nature*) / L-MC-7 (Shumailov 2023 arXiv preprint).
+- **Theoretical triangle** — L-MC-3 (Seddik: collapse unavoidable on pure synthetic), L-MC-4 (Gerstgrasser: bounded with accumulation), L-MC-8 (Borji: may be unavoidable as a general statistical phenomenon).
+- **Mechanism / mitigation refinements** — L-MC-2 (TCE loss), L-MC-5 (rate of collapse), L-MC-6 (entropy-driven generalisation→memorisation).
+- **Multi-modal extension** — L-MC-9 (VLMs + diffusion).
+
+No `paper/references.bib` corrections required for cluster J — author lists, years, and venues in the entry summaries match the verified records (Shumailov 2024 *Nature* 631:755–759; Borji 2024 arXiv; Gerstgrasser 2024 arXiv; Seddik 2024 COLM/arXiv; Suresh et al. 2024 arXiv; Shi et al. 2025 NeurIPS arXiv; Hu et al. 2025 arXiv; Shabgahi et al. 2025 arXiv). The writer should consider citing the **2025 Author Correction** (https://www.nature.com/articles/s41586-025-08905-3) alongside L-MC-1 if it materially affects the headline numbers — flagged for human review but not load-bearing for the §7.7 prose.
