@@ -491,7 +491,7 @@ The dual-use character of the technology is shown in Figure 6. AI broadens the r
 The meta-process case (§5) is recursive evidence for our central claim. The same pipeline that compresses the Spider Farmer and EcoFlow integrations compresses paper-writing — and exposes the same dual-use surface. Just as recovered MQTT credentials are a side-effect of integration work, fabricated citations and unsourced legal opinions are side-effects of paper work. The discipline that resolves both is the same: pin artifacts, label provenance, treat AI output as evidence to be verified rather than as authority.
 
 ### 7.6 Sloppification: the AI methodological discount
-The most concrete and under-managed risk of AI-assisted research is what we call the *methodological discount* — the unspoken trade-off in which a researcher accepts a degraded standard of evidence in exchange for AI-assisted speed. Empirical work on LLMs in scientific writing now documents this risk concretely:
+The most concrete and under-managed risk of AI-assisted research is what we call the *methodological discount* — the unspoken trade-off in which a researcher accepts a degraded standard of evidence in exchange for AI-assisted speed. Empirical work on LLMs in scientific writing now documents this risk concretely.
 
 The base-rate evidence is established in §5.6: independent samples by Walters & Wilder [@walters2023fabricated], McGowan et al. [@mcgowan2023chatgpt], and Chelli et al. [@chelli2024hallucination] bracket the same effect across multidisciplinary, psychiatric, and systematic-review contexts. Three further empirical layers extend that base-rate picture:
 
