@@ -23,6 +23,11 @@ print legibility; (iv) replace the red sloppification-gate
 annotation colour with the dark-blue accent + bold so the gate
 remains semantically marked without relying on red).
 
+Design-consistency materialisation pass 2026-05-03: bumped the two
+stage-promotion arrow labels from 8.5 → 9.0 pt to clear the 9 pt body
+floor that fig11 (hero / design anchor) sets across the figure set.
+Palette unchanged.
+
 Source: `docs/sources.md` (verification-status legend including the
 2026-05-02 ladder extension), `docs/methodology.md`, §7.6.
 
@@ -117,7 +122,7 @@ for i, lbl in enumerate(labels_lit):
     x_left = centers_lit[i][0][0]
     x_right = centers_lit[i + 1][1][0]
     ax.text((x_left + x_right) / 2, LIT_Y + LIT_H + 0.18, lbl,
-            ha="center", va="bottom", fontsize=8.5,
+            ha="center", va="bottom", fontsize=9.0,
             color=dlr_style.DLR_BLUE, fontweight="bold")
 
 # ── Artifact track ────────────────────────────────────────────────────────
@@ -152,7 +157,7 @@ for i, lbl in enumerate(labels_art):
     x_left = centers_art[i][0][0]
     x_right = centers_art[i + 1][1][0]
     ax.text((x_left + x_right) / 2, ART_Y + ART_H + 0.18, lbl,
-            ha="center", va="bottom", fontsize=8.5,
+            ha="center", va="bottom", fontsize=9.0,
             color=dlr_style.DLR_BLUE, fontweight="bold")
 
 # Sloppification gate annotation — re-coloured to dark blue (CB-safe).
