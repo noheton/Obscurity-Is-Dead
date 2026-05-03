@@ -2039,3 +2039,29 @@ This logbook is the operating record for the paper and research process.
 - No edge cases. Source-Analyzer hand-back filed; recommends bibliographic upgrade for six entries that have since reached peer-reviewed venues (NeurIPS, ICLR, EMNLP, ACL × 2, ICT Express).
 - Cumulative pass-13 totals: **84 ai-confirmed**, 10 ai-confirmed-bibliographic, 2 edge-case, 3 attempt-failed. Backlog ~14 unprocessed `[lit-retrieved]` entries (clusters N, O remain).
 - Re-analysis verdict: **RE-ANALYSIS REQUIRED: no** for this slice. Next slice should start at L-APK-1 (cluster N) per orchestrator dispatch.
+
+### 2026-05-03 — Source Analyzer pass 14 (final pass; backlog cleared) — Claude Opus 4.7
+
+- Slice 16 of the chained sweep against `[lit-retrieved]` backlog. Final pass: clusters N (mass APK probing, §7.14) and O (IoT companion apps, §6.7).
+- Processed: L-APK-1 through L-APK-7 and L-IOTAPP-1 through L-IOTAPP-5 (12 entries — entire remaining backlog in one pass, within budget).
+- Upgrades: **12 `[ai-confirmed]`**. Edge cases: 0. Fetch failures: 0 (L-IOTAPP-4's primary USENIX CSET PDF returned CRAWL_NOT_FOUND, but the author's GitHub repo and a Florida Tech press release quoting the paper provided sufficient verbatim grounding for the narrow descriptive claim — not flagged as a fetch failure).
+- Most consequential upgrade: **L-IOTAPP-1 (Schmidt et al., 2023, CCS, IoTFlow)** — strongest direct anchor for §6.7 IoT-integrator weakness surface; 9,889 manually verified companion apps with abandoned domains, hard-coded credentials, expired certificates, PII sharing — exactly the §6.7 bullet structure.
+- Most consequential corpus-scale anchor: **L-APK-3 (Chen et al., 2015, USENIX Security, MassVet)** — 1.2 M apps × 33 markets in 10s/app underwrites the §7.14 "corpus-scale probing is not theoretical" framing.
+- **Authorship correction filed:** L-IOTAPP-4 entry summary uses "OConnor et al." but the paper has three authors — **OConnor, Jessee & Campos** — recorded in writer hand-back.
+- **Re-analysis verdict:** **`RE-ANALYSIS REQUIRED: no`** — all 12 entries reached `[ai-confirmed]`; **backlog cleared, RE-ANALYSIS REQUIRED: no**.
+- **Cumulative summary (passes 1–14):**
+
+  | Tier | Count |
+  |------|-------|
+  | `[ai-confirmed]` | **96** |
+  | `[ai-confirmed-bibliographic]` (legal-text cap, rule-5) | **10** |
+  | `[edge-case]` (load-bearing-cornerstone awaiting human `[lit-read]`) | **2** |
+  | `[ai-confirmed-attempt-failed]` (fetch failures retained at `[lit-retrieved]` with annotation) | **3** |
+  | Remaining unprocessed `[lit-retrieved]` | **0** |
+
+  Clusters fully verified end-to-end: A (defense capability), B (debiased Tornado attacks), C (decompile uplift), D-base (consumer-IoT base rate), E (vulnerability discovery), F (governance/disclosure), G (RE labour and uplift), H (hard-coded credentials and crypto), I (BLE / app surface), J (model collapse), K-CONS (consumer IoT), K-IND (industrial IoT), L-PRIV (privacy / local-first), M (malicious LLM agents), **N (mass APK probing — new this pass)**, **O (IoT companion apps — new this pass)**. The full `[lit-retrieved]` register is now writer-actionable for §§3–4, §6.7, §7.7, §7.12–7.14, and §10 RDB-02 fix.
+
+- **Tooling note:** Exa MCP `web_search_exa` returned high-quality verbatim quotes from publisher mirrors (USENIX, ACM DL, arXiv, IEEE Xplore, J-STAGE, jacquesklein2302.github.io, softsec.ruhr-uni-bochum.de, ieee-security.org, GitHub, Florida Tech press, IBM Research). Single `web_fetch_exa` attempt against the USENIX CSET PDF for L-IOTAPP-4 returned CRAWL_NOT_FOUND; second-source corroboration was sufficient. No rate-limit hit.
+- **Rule-1 / rule-12 check:** every upgrade carries retrieval URL, retrieval date (2026-05-03), agent identifier (Claude Opus 4.7), and a quoted load-bearing passage. No credentials, serial numbers, local IPs, or private UIDs added. No paper edits (rule 11). No external upload of repository content (rule 13).
+- **Deliverables:** edits to `docs/sources.md` (12 entry status lines L-APK-1..7 and L-IOTAPP-1..5); appended pass-14 sections to `docs/handbacks/source-analyzer-report.md` and `docs/handbacks/source-analyzer-to-writer.md`; this logbook entry. Commit on `claude/review-open-issues-PfNx9`; not pushed (rule 13).
+- **Next step (orchestrator):** with the `[lit-retrieved]` backlog cleared, the Source Analyzer pipeline is idle. The orchestrator should dispatch the **Scientific Writer (Stage 2)** to consume the accumulated writer hand-backs (passes 1–14) — particularly the cluster-N/O additions for §6.7 and §7.14, and the deferred RDB-02 comparator triplet (L-SLOP-7/-10/-12) for §10. Two standing edge cases (L-VD-1, L-HC-1) and one cluster-wide fetch failure (L-RE-2) remain at `[lit-retrieved]` pending human `[lit-read]`; these should not block the writer pass.

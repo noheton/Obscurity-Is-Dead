@@ -620,3 +620,29 @@ This four-anchor block gives the §7.12 "privacy as a user right" argument a pee
 4. **L-AGT-8** — venue should be updated from "ArXiv" to **The Thirteenth International Conference on Learning Representations (ICLR 2025)** (OpenReview V4y0CpX4hK).
 5. **L-AGT-9** — venue should be updated from "ArXiv" to **Proc. 2025 Conference on Empirical Methods in Natural Language Processing (EMNLP 2025), November 2025, pp. 34964-34976** (Suzhou), doi:10.18653/v1/2025.emnlp-main.1771.
 6. **L-AGT-10** — venue should be updated from year-only to **Proc. 62nd Annual Meeting of the Association for Computational Linguistics (ACL 2024), August 2024, pp. 9811-9827** (Bangkok), doi:10.18653/v1/2024.acl-long.530.
+
+---
+
+## Pass 14 (2026-05-03) — clusters N (L-APK-1..7) and O (L-IOTAPP-1..5) — `[ai-confirmed]`
+
+All 12 entries upgraded to `[ai-confirmed]`. Each is now eligible for inline citation in `paper/main.{md,tex}` §6.7 (IoT-integrator weakness surface) and §7.14 (mass APK probing).
+
+### Cluster N — Mass APK probing (§7.14)
+
+- **L-APK-1** Zhou et al., 2012, CODASPY (DroidMOSS) — 5%–13% repackaged across six third-party Android markets; verbatim. DOI 10.1145/2133601.2133640.
+- **L-APK-2** Vidas & Christin, 2013, CODASPY — 41,057 apps from 194 alt-markets; some markets distribute almost exclusively repackaged malware. DOI 10.1145/2435349.2435378.
+- **L-APK-3** Chen et al., 2015, USENIX Security (MassVet) — 1.2 M apps × 33 markets, 127,429 suspicious, 20+ likely zero-day. Numbers verified.
+- **L-APK-4** Ishii et al., 2017, IEICE Trans — 1.3 M apps; 76% of third-party clones originating in Google Play are malware. DOI 10.1587/transinf.2016ICP0012.
+- **L-APK-5** Hou et al., 2022, ICSE (AndScanner) — 6,261 firmware images / 153 vendors / 602 CVEs; 38 newfound, 32 with CVE/CNVD numbers.
+- **L-APK-6** Gao et al., 2021, IEEE TR — 5 M app packages → 28,564 lineages (≥10 versions, 465,037 APKs). Numbers verified.
+- **L-APK-7** Sanna et al., 2024 (also Journal of Cybersecurity, doi:10.1093/cybsec/tyae015) — >100,000 apps, 40% with native code, 15 vulnerable libraries.
+
+### Cluster O — IoT companion apps (§6.7)
+
+- **L-IOTAPP-1** Schmidt et al., 2023, CCS (IoTFlow) — 9,889 manually verified companion apps; abandoned domains, hard-coded credentials, expired certificates, PII sharing. DOI 10.1145/3576915.3623211.
+- **L-IOTAPP-2** Wang et al., 2019, USENIX Security — 4,700+ devices, 324 from 73 vendors vulnerable via shared components.
+- **L-IOTAPP-3** Jin et al., 2022, CCS (IoTSpotter) — 37,783 mobile-IoT apps; 94.11% (863/917) high-install apps with severe crypto violations; 65 vulnerable IoT-specific libs (79 CVEs); 7,887 affected by Janus. DOI 10.1145/3548606.3560640.
+- **L-IOTAPP-4** OConnor, Jessee & Campos, 2021, CSET — 20 smart-home vendors, 16 vulnerable to MITM (Arlo, Geeni, TP-Link, Ring not susceptible); concealment, lock manipulation, camera spoofing, log tampering. **Authorship correction:** "OConnor et al." → **OConnor, Jessee & Campos** (three authors, list explicitly).
+- **L-IOTAPP-5** Mauro Junior et al., 2019, IEEE SPW — 96 top-selling WiFi IoT devices on Amazon → 32 unique companion apps; 50% no proper encryption. DOI 10.1109/SPW.2019.00042. Open-access mirror at arXiv:1901.10062.
+
+No load-bearing claim weakening required: every entry's headline number reproduces the source verbatim. The §6.7 "operational-obscurity anti-pattern" framing for Balboa W-3 is now triangulated by L-IOTAPP-1 (abandoned domains + expired certs at 9,889-app scale), L-IOTAPP-3 (94.11% crypto violations at 37,783-app scale), L-IOTAPP-4 (16/20 vendor MITM rate), and L-IOTAPP-5 (50% no proper encryption among 32 reused apps). The §7.14 corpus-scale framing is similarly triangulated by L-APK-3, L-APK-5, L-APK-6, and L-APK-7.

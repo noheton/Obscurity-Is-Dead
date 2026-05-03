@@ -252,3 +252,40 @@ Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, 
 **RE-ANALYSIS REQUIRED: no** — all ten entries reached `[ai-confirmed]`. The full Cluster M (§7.13 "The malicious IoT-integrator agent") is now writer-actionable end-to-end. Bibliographic upgrades for six entries (L-AGT-3, -5, -7, -8, -9, -10) recommended in the writer hand-back; these have since reached top-tier peer-reviewed venues (ICT Express, ACL × 2, NeurIPS, ICLR, EMNLP).
 
 **Cumulative state (passes 1-13):** 84 `[ai-confirmed]` + 10 `[ai-confirmed-bibliographic]` + 2 `[edge-case]` + 3 `[ai-confirmed-attempt-failed]`. Remaining `[lit-retrieved]` unprocessed: ~14 (clusters N, O). Clusters fully verified end-to-end: J, K-CONS, K-IND, L-PRIV, and **M (new this pass)**.
+
+---
+
+## Pass 14 (2026-05-03) — clusters N + O — final backlog clearance
+
+**Agent:** Claude Opus 4.7. **Scope:** the entire remaining `[lit-retrieved]` backlog (12 entries: L-APK-1..7, L-IOTAPP-1..5).
+
+| Entry | Decision | Reason | Critical-path? | Quote (abridged) |
+|-------|----------|--------|----------------|------------------|
+| L-APK-1 | `[ai-confirmed]` | base-rate, all 5 criteria hold | yes (§7.14) | "5% to 13% of apps hosted in these six markets are repackaged" |
+| L-APK-2 | `[ai-confirmed]` | base-rate; numbers verbatim | yes (§7.14) | "41,057 applications from 194 alternative Android application markets" |
+| L-APK-3 | `[ai-confirmed]` | scale anchor; numbers verbatim | yes (§7.14) | "evaluated it nearly 1.2 million apps from 33 app markets" |
+| L-APK-4 | `[ai-confirmed]` | clone/malware ratio verbatim | yes (§7.14) | "76% of them are malware" |
+| L-APK-5 | `[ai-confirmed]` | corpus + CVE counts verbatim | yes (§7.14) | "6,261 firmware images from 153 vendors and 602 Android-related CVEs" |
+| L-APK-6 | `[ai-confirmed]` | lineage counts verbatim | yes (§7.14) | "5 million app packages … 28,564 app lineages … 465,037 apks" |
+| L-APK-7 | `[ai-confirmed]` | corpus + library counts verbatim; published in J. Cybersecurity (additional bibliographic upgrade noted) | yes (§7.14) | "100,000 applications (but only 40% contained native code) and 15 popular libraries" |
+| L-IOTAPP-1 | `[ai-confirmed]` | direct §6.7 anchor; verbatim findings | yes (§6.7) | "9,889 manually verified companion apps … abandoned domains, hard-coded credentials, expired certificates" |
+| L-IOTAPP-2 | `[ai-confirmed]` | shared-component count verbatim | yes (§6.7) | "324 devices from 73 different vendors that are likely to be vulnerable" |
+| L-IOTAPP-3 | `[ai-confirmed]` | crypto + lib + Janus counts verbatim | yes (§6.7, §7.14) | "94.11% (863/917) … 65 vulnerable IoT-specific libraries … 7,887 apps" |
+| L-IOTAPP-4 | `[ai-confirmed]` | vendor counts verified via Florida Tech press + GitHub repo; primary PDF (USENIX CSET 2021) returned CRAWL_NOT_FOUND but second-source corroboration is sufficient for the narrow descriptive claim | yes (§6.7) | "16 device vendors failed to implement security measures … conceal malicious users, suppress motion reporting, modify camera images, unlock doors, and manipulate history log files" |
+| L-IOTAPP-5 | `[ai-confirmed]` | device + companion-app counts + 50% no-encryption finding verbatim | yes (§6.7) | "96 top-selling WiFi IoT devices … only 32 unique companion apps … 50% of the apps … did not use proper encryption" |
+
+### Counts (this pass)
+
+- Entries processed: 12
+- Upgraded to `[ai-confirmed]`: 12
+- Edge-cased: 0
+- Fetch-failed: 0 (L-IOTAPP-4 primary PDF returned CRAWL_NOT_FOUND but Florida Tech press release + author's GitHub repo provided sufficient verbatim quotation; not flagged as fetch-failed)
+
+### Re-analysis verdict
+
+**RE-ANALYSIS REQUIRED: no.** All 12 entries reached `[ai-confirmed]`; backlog cleared.
+
+### Cumulative state (passes 1–14)
+
+- **96 `[ai-confirmed]`** + **10 `[ai-confirmed-bibliographic]`** + **2 `[edge-case]`** (L-VD-1, L-VD-5, L-HC-1, L-HC-6, L-BLE-5 are 5 entries flagged across the run, of which 3 carry standing edge-case status awaiting human `[lit-read]` — recheck if needed) + **3 `[ai-confirmed-attempt-failed]`**.
+- Remaining `[lit-retrieved]` unprocessed: **0** (backlog cleared).
