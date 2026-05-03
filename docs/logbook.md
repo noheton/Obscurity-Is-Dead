@@ -10,6 +10,25 @@ This logbook is the operating record for the paper and research process.
 
 ## Log Entries
 
+### 2026-05-03 (Stage 2 writer — focused loop 2; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 2 scientific writer), branch `claude/review-open-issues-PfNx9`.
+- Trigger: orchestrator dispatch to clear the two H-severity items left by Stage 4 / Stage 5 against build commit `b5162ee` (LAY-17 + LAY-19 KPI tabular family; FIG-01 alt-text-missing across 17 `\includegraphics` calls), plus the two L-severity readability tightening items (RDB-27 Author's Note paragraph density, RDB-28 §3.4 v2→v3 reconstruction run-on).
+- Actions taken:
+  - **Job 1 (LAY-17 + LAY-19).** Converted the Spider Farmer (`paper/main.tex:752–766`), EcoFlow (`:925–935`) and Meta-process (`:1156–1174`) KPI tabulars from `\begin{tabular}{llll}` to `\begin{tabularx}{\linewidth}{@{}l l >{\raggedright\arraybackslash}X r@{}}` so the wide "Key event" column absorbs the wrap. `tabularx` was already in the preamble.
+  - **Job 2 (FIG-01).** Added a `\providecommand{\Description}[1]{}` no-op shim at `paper/main.tex:29–33` and one ≤25-word `\Description{...}` per `\includegraphics` for all 17 figure includes (16 numbered floats plus the intact-jar logo).
+  - **Job 3 (RDB-27 + RDB-28).** Split the two ~70-word Author's Note sentences (`paper/main.md:31` paper-mill paragraph; `:33` invitation paragraph) into two shorter sentences each; mirrored at `paper/main.tex:194–199` and `:213–217`. Restructured the §3.4 v2→v3 reconstruction sub-bullet (`paper/main.md:181`) from a single ~254-word run-on into a short lead clause + nested 4-step ordered sub-list + provenance-gap coda paragraph; mirrored at `paper/main.tex:644–679` with a nested `enumerate`.
+- Files updated:
+  - `paper/main.tex` (preamble shim + 3 tabularx conversions + 17 `\Description{}` macros + RDB-27/-28 mirror)
+  - `paper/main.md` (RDB-27/-28 prose surgery)
+  - `docs/handbacks/writer-pass-2026-05-03-loop2.md` (new hand-back)
+  - `docs/logbook.md` (this entry)
+- Rule 11 (mirror discipline): Job 3 mirrored line-by-line in both files; Jobs 1 and 2 are TeX-only by construction (Markdown tables wrap natively; no Markdown alt-text macro). Headline numbers, captions, and section counts unchanged.
+- Rule 12 (redaction): no new credential / serial / IP material introduced; existing `[REDACTED:*:S-SF-5-*]` markers untouched.
+- Rule 13 (distribution): local only. No `make pdf` invoked (per task brief); no push; no `make arxiv`.
+- Out of scope this loop: RDB-02 / RDB-04 §10 enumeration vs Figure 11 collapse (pending human-author option a/b/c choice); §69e UrhG sourcing; L-VD/L-HC edge-case footnotes; LAY-10/-22/-25 path-bullet wrap pass; fig13/fig14 illustrator consolidation.
+- Verdict: H-severity scope closed in source; rebuild via `make pdf` then Stage 4 + Stage 5 re-scrutiny required.
+- Next step: orchestrator dispatches `make pdf` (human-gated) → Stage 4 verifies the three KPI tabular overflows are gone and `\Description{}` macros are present; Stage 5 verifies RDB-27 / RDB-28 closure.
+
 ### 2026-05-03 (Stage 4 layout scrutiny — post writer + illustrator pass; Claude Opus 4.7)
 - Session lead: Claude Opus 4.7 (Stage 4 layout scrutinizer), branch `claude/review-open-issues-PfNx9`.
 - PDF inspected: `paper/main.pdf` SHA-256 `04e818e993e2eea84cf05d5a5bc7045d80270d6a856a398cc04106ca7ac5cf99`, 49 pages, build commit `b5162ee`, build timestamp 2026-05-03T12:54:14Z (newer than `paper/main.tex`). PDF version 1.5 throughout.
