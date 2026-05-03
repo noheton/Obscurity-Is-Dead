@@ -345,3 +345,61 @@ Now citable inline in §4.6 as the **canonical attack-surface formalisation** �
 ## Slice 8 readiness summary
 
 Cluster H (§6.4 counter-positions) is now fully writer-actionable: six `[ai-confirmed]` upgrades, no edge-cases, no fetch failures. The non-legal cluster ran cleanly under the standard ladder (no rule-5 doctrinal cap). Three `paper/references.bib` corrections to propagate, of which **L-COUNTER-5 is load-bearing** (wrong second author). The §6.4 dual-use qualifier is now anchored on (a) Mitra & Ransbotham 2015 *ISR* large-N empirical (full disclosure dynamics), (b) Augusto et al. 2024 IEEE S&P quantitative ($3.1B in cross-chain losses), (c) Vaynman & Volpe 2023 *IO* theoretical (detection-disclosure tension), with Boniface 2020 (interoperability-as-threat-multiplier) and Silic 2013 (organisational dual-use) as supporting framing, and Manadhata & Wing 2011 (attack-surface metric) as the §4.6 quantitative anchor.
+
+---
+
+## Slice 9 (pass 7, 2026-05-03) — cluster I sloppification anchors — nine `[ai-confirmed]` upgrades
+
+Slice 9 closes the §1.4 / §7.6 / §10 sloppification cluster. All nine remaining `[lit-retrieved]` entries in cluster I have been verified. After this pass, cluster I is fully `[ai-confirmed*]` with zero residual `[lit-retrieved]` items.
+
+### L-SLOP-1 — Walters & Wilder, 2023, *Scientific Reports* — `[ai-confirmed]`
+
+Now citable inline as **the headline quantitative anchor for the §1.4 / §7.6 fabricated-citation base rate**. Verbatim from the abstract (https://www.nature.com/articles/s41598-023-41032-5): "55% of the GPT-3.5 citations but just 18% of the GPT-4 citations are fabricated. Likewise, 43% of the real (non-fabricated) GPT-3.5 citations but just 24% of the real GPT-4 citations include substantive citation errors." Methodology: 84 short literature reviews on 42 multidisciplinary topics, 636 citations analysed. The entry's number-block matches the source verbatim — no claim weakening required.
+
+### L-SLOP-2 — Chelli et al., 2024, *J. Med. Internet Res.* — `[ai-confirmed]`
+
+Now citable inline as the **medical-systematic-review hallucination anchor** for §7.6. Verbatim hallucination rates **39.6% (GPT-3.5) / 28.6% (GPT-4) / 91.4% (Bard)**; precision **9.4% / 13.4% / 0%**; recall **11.9% / 13.7% / 0%**; methodology 11 systematic reviews × 3 LLMs, 471 references. Exact match to entry summary; cite alongside L-SLOP-1 to bracket the GPT-3.5→4 hallucination delta with two independent samples.
+
+### L-SLOP-3 — Buchanan, Hill & Shapoval, 2024, *American Economist* 69(1):80–87 — `[ai-confirmed]`
+
+Now citable inline as the **discipline-spanning replication of the fabrication base rate** (economics, n=Journal-of-Economic-Literature topics, GPT-3.5 vs. GPT-4). Verbatim: ">30% of GPT-3.5 citations do not exist; only slightly reduced for GPT-4… reliability decreases as prompts become more specific." **`paper/references.bib` correction (bibliographic):** add third author **Olga Shapoval**; SAGE-published 2024 (vol. 69(1):80–87, DOI 10.1177/05694345231218454), not 2023; original SSRN preprint dated November 2023. Useful as a *third* discipline (after biomedicine + multidisciplinary) showing the same effect.
+
+### L-SLOP-4 — McGowan et al., 2023, *Psychiatry Research* 326:115334 — `[ai-confirmed]`
+
+Now citable inline as the **striking case-study anchor for §7.6** (often cited but worth keeping the numbers straight). Verbatim: "ChatGPT… generated thirty-five citations, two of which were real. 12 citations were similar to actual manuscripts… and the remaining 21, while plausible, were in fact a pastiche of multiple existent manuscripts." Entry summary matches. The "pastiche" framing is verbatim from the source and is unique among the cluster — recommend foregrounding it in the §7.6 narrative.
+
+### L-SLOP-5 — Kendall & Teixeira da Silva, 2024, *Learned Publishing* 37(1):55–62 — `[ai-confirmed-bibliographic]`
+
+Bibliographic and key-points confirmation only (full text paywalled at Wiley; ScienceOpen records the article's "Key Points" but not the body). Citable inline for the **system-level claim that LLMs amplify predatory publishing and paper mills**, which is the entry's core summary and matches the published Key Points verbatim. **`paper/references.bib` correction:** journal year is **2024** (vol. 37 issue 1, Jan 2024 print); online-version-of-record 2023-09-08; DOI 10.1002/leap.1578.
+
+### L-SLOP-6 — Liverpool, 2023, *Nature* 618:222–223 — `[ai-confirmed]`
+
+Now citable inline as the **journalistic comparator for §7.6** (Nature News on the May 2023 paper-mill summit). Verbatim: "Generative AI tools, including chatbots such as ChatGPT and image-generating software, provide new ways of producing paper-mill content, which could prove particularly difficult to detect." Use sparingly — this is news-feature, not peer-reviewed research; pair with L-SLOP-5 / L-SLOP-8 for the empirical / argumentative weight.
+
+### L-SLOP-8 — Suchak et al., 2025, *PLOS Biology* 23(5):e3003152 — `[ai-confirmed]`
+
+Now citable inline as **the most consequential upgrade in this slice**: it is the only **direct empirical observation** of AI-amplified paper-mill output growth in the literature. Verbatim numbers verified at https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003152: "the systematic search strategy used here identified an average of **4 papers per annum from 2014 to 2021, but 190 in 2024–9 October alone**", drawn from a corpus of **341 NHANES-derived single-factor papers over a decade**. The entry summary's "190 in the first ten months of 2024" is exact (paper says "9 October", which is the 282nd day of 2024 — consistent with the entry's "first ten months" rounding). Recommend foregrounding this as the §7.6 / §10 *empirical centrepiece* — it is the only post-2024 dataset with concrete pre/post AI-era counts in the cluster.
+
+### L-SLOP-9 — Mugaanyi et al., 2024, *J. Med. Internet Res.* 26:e52935 — `[ai-confirmed]`
+
+Now citable inline as the **disciplinary-variance anchor**: DOI hallucination 89.4% (humanities) vs. 61.8% (natural sciences), citation-existence 76.6% / 72.7%. Useful for §7.6 to caveat that the §1.4 base rates are *averaged* across disciplines and that the humanities tail is materially worse. **`paper/references.bib` correction:** journal year is **2024** (vol. 26, e52935, published 2024-04-05), not 2023; DOI 10.2196/52935.
+
+### L-SLOP-11 — Lund et al., 2023, *JASIST* 74(5):570–581 — `[ai-confirmed]`
+
+Now citable inline as the **library-and-information-science cornerstone** for §7.6 / §9 (AI Disclosure) framing. Open-access preprint at arXiv:2303.13367 used for the read; abstract verbatim. 639 citations in the entry — strong authority signal. Use as a structural / framing reference, not for any specific quantitative claim (the paper is qualitative).
+
+---
+
+## Slice 9 readiness summary
+
+Cluster I (§1.4 / §7.6 / §10 sloppification) is now fully `[ai-confirmed*]`: nine new upgrades (L-SLOP-1, -2, -3, -4, -6, -8, -9, -11 as `[ai-confirmed]`; L-SLOP-5 as `[ai-confirmed-bibliographic]` due to publisher paywall on Wiley body text), zero edge-cases, zero fetch failures. Combined with passes 1–6 confirmations (L-SLOP-7 Stockholm, L-SLOP-10 Cheng, L-SLOP-12 Pellegrina), the entire 12-entry sloppification cluster is now writer-actionable.
+
+The §1.4 / §7.6 quantitative spine is anchored on three independent samples: Walters & Wilder 2023 (multidisciplinary, 55%/18% fabrication), Chelli et al. 2024 (medical, 39.6%/28.6% / 91.4% hallucination), Buchanan, Hill & Shapoval 2024 (economics, >30% / slightly less). The §10 paper-mill claim is anchored on Suchak et al. 2025's 4→190 NHANES-papers/year jump. The §9 framing is anchored on Lund et al. 2023 (cornerstone) + Cheng et al. 2025 (practitioner ethics) + Sabel & Larhammar 2025 (system reform) + Pellegrina & Helmy 2025 (technical mitigation).
+
+### `paper/references.bib` corrections to propagate
+
+| Entry | Field | Current | Should be |
+|-------|-------|---------|-----------|
+| L-SLOP-3 | authors | "Buchanan & Hill, 2023" | "Buchanan, J., Hill, S., & Shapoval, O., 2024" — third author missing; SAGE journal year is 2024 |
+| L-SLOP-5 | year | "2023" | "2024" (Learned Publishing 37(1):55–62, Jan 2024 print issue; online VoR 2023-09-08) |
+| L-SLOP-9 | year | "2023" | "2024" (JMIR 26:e52935, published 2024-04-05) |
