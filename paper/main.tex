@@ -25,6 +25,11 @@
 \usepackage{seqsplit}
 % \fp{...} -- "file path": use \path semantics so TeX may break at `/' or `_'.
 \newcommand{\fp}[1]{\path{#1}}
+% \Description{...} -- accessibility alt-text shim. No-op fallback when the
+% acmart / tagpdf machinery that defines a real \Description is not loaded;
+% the macro is kept in source so a future class change picks up the alt-text
+% automatically (FIG-01, layout-defect-registry 2026-05-03).
+\providecommand{\Description}[1]{}
 \hypersetup{
   colorlinks=true,
   linkcolor=black,
@@ -195,7 +200,7 @@ opposite. The agent pipeline (\texttt{docs/prompts/}) takes a
 device, transcript, or paragraph --- and iterates it through structured
 passes (research $\rightarrow$ source analysis $\rightarrow$ scientific
 writing $\rightarrow$ illustration $\rightarrow$ layout / readability
-scrutiny) whose explicit purpose is to ask, at every stage,
+scrutiny). At each stage the question is the same:
 \emph{does this still look plausible against the evidence we now have?}
 Plausible hypotheses survive into the paper with their verification
 status visible; implausible ones are rejected, recorded in the logbook
@@ -211,9 +216,10 @@ ideas, counter-examples, and critique. Issues labelled \texttt{idea}
 (a hypothesis worth investigating), \texttt{critique} (a specific
 challenge to a claim, figure, or framing), or \texttt{provenance-gap}
 (a missing transcript or unverifiable artifact) feed directly into the
-agent pipeline: an idea triggers a research-protocol pass; a critique
-routes to the relevant scrutinizer hand-back; a provenance-gap routes
-to the meta-process case study (\cref{sec:case-meta}). If you have
+agent pipeline. An \texttt{idea} triggers a research-protocol pass; a
+\texttt{critique} routes to the relevant scrutinizer hand-back; a
+\texttt{provenance-gap} routes to the meta-process case study
+(\cref{sec:case-meta}). If you have
 read this far, you are already the kind of reader I am writing for ---
 and the issue tracker is the best place to continue the conversation.
 
@@ -323,6 +329,7 @@ it has functioned as the de-facto interoperability barrier of the last decade.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig1-effort-gap.pdf}
+  \Description{Two cumulative-effort curves across reverse-engineering phases: a steep manual-baseline curve and a shallow AI-assisted curve, with the vertical gap between them marked.}
   \caption{\textbf{The effort gap.} Cumulative human effort to reach a working local integration across phases of a reverse-engineering project. AI-assisted analysis flattens the curve: the activation energy that historically gated practical interoperability work collapses, leaving a wide effort gap between the two trajectories. Data: \texttt{figures/data/effort-gap.csv}; script: \texttt{figures/fig1-effort-gap.py}.}
   \label{fig:effort-gap}
 \end{figure}
@@ -387,6 +394,7 @@ AI-assisted analysis lowers the barrier separating theory from practice.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig2-boredom-barrier.pdf}
+  \Description{Reaction-coordinate diagram showing two energy curves with identical endpoints; the AI-assisted curve has a lower activation-energy peak than the manual baseline.}
   \caption{\textbf{The boredom barrier.} Reaction-coordinate view of a reverse-engineering project. The thermodynamic endpoint --- a working integration --- is unchanged. AI-assisted analysis lowers the activation energy $E_\mathrm{a}$ by absorbing the rote, low-novelty work where most projects historically stalled.}
   \label{fig:boredom-barrier}
 \end{figure}
@@ -571,6 +579,7 @@ with its feedback loop is shown in Figure~\ref{fig:methodology}.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig5-methodology.pdf}
+  \Description{Four-stage block-diagram pipeline labelled Acquire, Analyse, Audit, Validate, with a feedback arrow from Validate back into Analyse.}
   \caption{\textbf{Methodology.} The four-stage pipeline used in both case studies: Acquire (artifacts \& prompt logs) $\rightarrow$ Analyse (LLM-assisted) $\rightarrow$ Audit (provenance, commit history, transcript review) $\rightarrow$ Validate (reproduce, replay, log failures), with an explicit feedback loop from validation back into analysis.}
   \label{fig:methodology}
 \end{figure}
@@ -609,6 +618,7 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig3-spider-farmer.pdf}
+  \Description{Architecture diagram of the Spider Farmer case: vendor APK and undocumented cloud endpoints feed an LLM-assisted analysis loop that emits a local Home Assistant integration plus archived transcripts.}
   \caption{\textbf{Case study A --- Spider Farmer.} The vendor surface (APK, on-device traffic, undocumented cloud endpoints) is collapsed by an LLM-assisted analysis loop into a working local Home Assistant integration. Prompt logs and transcripts are preserved as auditable research artifacts.}
   \label{fig:case-spider-farmer}
 \end{figure}
@@ -647,24 +657,30 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
         by any preserved chat transcript}, but the migration logic
         itself --- vendored at
         \texttt{experiments/spider-farmer/original/\_\_init\_\_.py}
-        lines 95--135 --- is self-documenting and reconstructs to:
-        (i)~drop the legacy MQTT-only config-entry fields \texttt{uid}
-        and \texttt{mqtt\_topic}; (ii)~derive \texttt{pid}
-        deterministically from the stored BLE address (failing closed
-        if no BLE address is present); (iii)~idempotently carry forward
-        the \texttt{v1\,$\to$\,v2} CB-key correction; (iv)~bump the
-        entry version and emit \texttt{"Migrated Spider Farmer entry
-        \%s to version 3 (BLE-only)"}. Architecturally this is a
-        transport simplification (BLE-only; MQTT retained only as a
-        security-research dataset surface, \S3.6), not a protocol
-        change. \textbf{Provenance gap that remains:} the upstream
-        commit history of \texttt{noheton/spider\_farmer} was not
-        retrievable from the build environment used for this paper
-        (clone, GitHub API, and codeload tarball all failed);
-        reconstruction worked from the embedded \texttt{original/}
-        snapshot at repo commit \texttt{ffdf60c} only. Date, commit
-        SHA, and any associated PR or issue thread for the
-        v2\,$\to$\,v3 transition are therefore
+        lines 95--135 --- is self-documenting and reconstructs to four
+        steps:
+        \begin{enumerate}
+          \item Drop the legacy MQTT-only config-entry fields
+                \texttt{uid} and \texttt{mqtt\_topic}.
+          \item Derive \texttt{pid} deterministically from the stored
+                BLE address (failing closed if no BLE address is
+                present).
+          \item Idempotently carry forward the
+                \texttt{v1\,$\to$\,v2} CB-key correction.
+          \item Bump the entry version and emit
+                \texttt{"Migrated Spider Farmer entry \%s to version 3
+                (BLE-only)"}.
+        \end{enumerate}
+        Architecturally this is a transport simplification (BLE-only;
+        MQTT retained only as a security-research dataset surface,
+        \S3.6), not a protocol change. \textbf{Provenance gap that
+        remains:} the upstream commit history of
+        \texttt{noheton/spider\_farmer} was not retrievable from the
+        build environment used for this paper (clone, GitHub API, and
+        codeload tarball all failed); reconstruction worked from the
+        embedded \texttt{original/} snapshot at repo commit
+        \texttt{ffdf60c} only. Date, commit SHA, and any associated PR
+        or issue thread for the v2\,$\to$\,v3 transition are therefore
         \texttt{[unverified-external]}.
 \end{itemize}
 
@@ -748,7 +764,7 @@ corroboration of the claim that the effort gap has collapsed for
 HA log timestamps anchor T3--T5 to 2026-04-25/26):
 
 \begin{center}
-\begin{tabular}{llll}
+\begin{tabularx}{\linewidth}{@{}l l >{\raggedright\arraybackslash}X r@{}}
 \toprule
 Phase & Transcript & Key event & Est.\ elapsed \\
 \midrule
@@ -762,7 +778,7 @@ Asset        & T7 & Logo addition (empty export; deliverable done) & $<$0.5\,h \
 \midrule
 \textbf{Total AI-assisted} & & & \textbf{$\sim$10.5\,h} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \textbf{Estimated manual baseline}: prior community implementations each took
@@ -840,6 +856,7 @@ the AI-assisted local-control architecture.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig4-ecoflow.pdf}
+  \Description{Two-panel diagram contrasting the EcoFlow vendor default (cloud-routed control) with the AI-assisted local-control architecture (LAN broker, no cloud hop required).}
   \caption{\textbf{Case study B --- EcoFlow PowerOcean.} Left: the vendor default routes home telemetry and user commands through a required cloud hop. Right: AI-assisted reverse engineering yields a protocol map and a local broker on the LAN, making the cloud optional and restoring data ownership.}
   \label{fig:case-ecoflow}
 \end{figure}
@@ -862,6 +879,7 @@ the AI-assisted local-control architecture.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig8-ecoflow-surfaces.pdf}
+  \Description{Diagram of three API surfaces (legacy REST, signed Open API, MQTT broker) terminating at the same EcoFlow device, with arrows showing which surface the consumer app and the integration each use.}
   \caption{\textbf{EcoFlow PowerOcean three API surfaces.} The legacy
     \texttt{setDeviceProperty} REST endpoint, the published Open API
     (HMAC-SHA256 signed), and the MQTT broker each terminate at the same
@@ -921,7 +939,7 @@ documented in-tree, not inferred.
 \texttt{implementation.md} internal cross-references):
 
 \begin{center}
-\begin{tabular}{llll}
+\begin{tabularx}{\linewidth}{@{}l l >{\raggedright\arraybackslash}X r@{}}
 \toprule
 Phase & Transcript & Key event & Est.\ elapsed \\
 \midrule
@@ -931,7 +949,7 @@ Build+debug& T3 & Regex fix; 3-step config flow; \texttt{async\_step\_import}   
 \midrule
 \textbf{Total AI-assisted} & & & \textbf{$\sim$8\,h} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \textbf{Estimated manual baseline}: three API surfaces, no prior independent
@@ -1095,6 +1113,7 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.95\linewidth]{fig9-verification-pipeline.pdf}
+  \Description{Two parallel verification pipelines (literature track and artifact track) with gated stages and arrows showing how each cited source progresses to a final confirmed status.}
   \caption{\textbf{Verification-status pipeline.} Each cited source
     progresses through gated stages on either the literature track
     (\texttt{[needs-research]}\,$\to$\,\texttt{[lit-retrieved]}\,$\to$\,\texttt{[lit-read]})
@@ -1152,7 +1171,7 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
 \textbf{Effort-gap timeline} (commit-anchored; all work 2026-05-01):
 
 \begin{center}
-\begin{tabular}{llll}
+\begin{tabularx}{\linewidth}{@{}l l >{\raggedright\arraybackslash}X r@{}}
 \toprule
 Phase & Commit & Key event & Est.\ elapsed \\
 \midrule
@@ -1170,7 +1189,7 @@ Democratisation \S{}10 & \texttt{dae235f} & Citizen-science / democratisation pa
 \midrule
 \textbf{Total AI-assisted (paper)} & & & \textbf{$\sim$17.5\,h} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \textbf{Estimated manual baseline}: writing a 10-section paper with FAIR
@@ -1455,6 +1474,7 @@ low across the entire spread.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/fig12-difficulty-taxonomy.pdf}
+\Description{Heat-map matrix with four device case-study rows and three difficulty-axis columns (cryptographic barrier, labour to break, blast radius), each cell shaded by qualitative rating.}
 \caption{Test-case difficulty taxonomy. Heat-map of the four
 device-integration case studies along three axes (cryptographic
 barrier; labour to break; blast radius) plus a composite spread
@@ -1543,6 +1563,7 @@ address.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\linewidth]{figures/fig13-pipeline-vulnerabilities.pdf}
+\Description{Hub-and-spoke diagram with six recurring vulnerability patterns from the four device case studies feeding into a central residual-risk node.}
 \caption{Vulnerabilities of IoT-integrator pipelines as a system class.
 Six recurring patterns visible across the four device case studies feed
 into a central residual-risk node. The mitigation set is structural
@@ -1649,6 +1670,7 @@ threat model.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.96\linewidth]{fig10-stage-effort.pdf}
+  \Description{Two-panel chart: left, grouped bars for AI-assisted versus manual-baseline hours per workflow stage with error bars; right, per-stage compression-ratio bars.}
   \caption{\textbf{Stage-by-stage effort gap.} Left: AI-assisted vs
     manual-baseline effort per workflow stage (Discovery, Build, Debug,
     Validation) for the two integration case studies, with manual ranges
@@ -1683,6 +1705,7 @@ access at every hop.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig6-dual-use.pdf}
+  \Description{Scatter plot with interoperability gain on the x-axis and security risk on the y-axis; a dashed envelope shows AI-assisted outcomes spanning a wider distribution than manual-only outcomes.}
   \caption{\textbf{Dual-use map.} Outcomes of AI-assisted reverse engineering plotted by interoperability gain ($x$) versus security risk ($y$). The dashed envelope shows how AI broadens the reachable distribution: legitimate use cases gain reach, but so do high-risk ones --- the policy question is which quadrants to incentivise.}
   \label{fig:dual-use}
 \end{figure}
@@ -1690,6 +1713,7 @@ access at every hop.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig7-threat-models.pdf}
+  \Description{Side-by-side network diagram: left, single perimeter enclosing implicitly trusted devices; right, per-hop authenticated topology where a breach stays local.}
   \caption{\textbf{Two threat models.} Left: a single perimeter protects implicitly trusted devices --- once breached, the whole system is exposed. Right: every hop is authenticated against a published specification; a breach stays local. AI-assisted reverse engineering punctures the left model and rewards systems built on the right.}
   \label{fig:threat-models}
 \end{figure}
@@ -2118,6 +2142,7 @@ offers.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\linewidth]{figures/fig14-malicious-integrator.pdf}
+\Description{Branching workflow diagram: the IoT-Integrator pipeline shares Phases 0 to 2 across researcher and adversarial branches, then diverges at the Phase-2 weakness analysis into two distinct Phase-3 deliverables.}
 \caption{The malicious IoT-integrator agent: same prompt, different
 governance. Phases 0--2 of the IoT-Integrator pipeline are shared
 between researcher-governed and adversarial variants; the divergence
@@ -2240,6 +2265,7 @@ per-vendor vulnerability research today.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.97\linewidth]{figures/fig15-apk-mass-probing.pdf}
+\Description{Five-stage horizontal pipeline: APK repository, fetch and unpack, static probe, DEX-grep with identity-provider discovery, per-vendor weakness inventory and corporate flow graph.}
 \caption{Automated mass probing of public APK repositories. The
 five-stage pipeline (repository $\to$ fetch+unpack $\to$ static probe
 $\to$ DEX-grep + identity-provider discovery $\to$ per-vendor weakness
@@ -2345,6 +2371,7 @@ not of an absolute scale, and a reader should not treat ``Easy'' /
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/fig16-scope-limitations.pdf}
+\Description{Concentric perimeter diagram: an inner ring lists five in-scope dimensions of the study, each paired with its corresponding named exclusion on the outer ring.}
 \caption{Scope and limitations of the study. Concentric perimeter
 diagram: an inner ring labels the five in-scope dimensions (case base;
 unit of analysis; validation completeness; literature read-state;
@@ -2625,6 +2652,7 @@ the rim of the great jar, and did not fly out at the door.''}\\
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.55\linewidth]{figures/logo-pandora-jar-intact.png}
+\Description{Stylised illustration of an intact ceramic jar, the Hesiodic counterpoint to the shattered-jar logo in the front matter.}
 \caption{The proverbial jar --- intact: the Hesiodic counterpoint to
 the shattered-jar front-matter logo. (Asset generated by Google
 Gemini at the author's request, 2026-05-02; rule~1.)}
@@ -2710,6 +2738,7 @@ of AI-assisted research:
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.95\linewidth]{fig11-eight-practices.pdf}
+  \Description{Grid with eight practice rows and three failure-mode-axis columns; each cell carries either a P (principal mitigation) or S (secondary mitigation) marker, demonstrating that every axis is principally addressed.}
   \caption{\textbf{Eight integrated practices $\times$ three failure-mode
     axes.} Each row is one of the eight numbered practices listed above;
     each column is one of the three failure-mode axes the paper organises
