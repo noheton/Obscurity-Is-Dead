@@ -258,3 +258,46 @@ Now citable inline in §3 / §6 as a Privacy-by-Design / offline-first voice-ass
 ## Slice 6 readiness summary
 
 Cluster E (right-to-repair, §1.3 / §6.1) gains three more descriptive anchors (L-RR-5, L-RR-6, L-RR-7), completing the EU policy-context register; rule-5 legal caveat applies to all three. Cluster F (local-first / cloud-independence, §1.3 / §3 / §4) gains its strongest empirical anchor (L-LF-1, with 28% energy-saving and 360k-message MQTT throughput verbatim) and its canonical SoK (L-LF-2, 10 industrial + 37 research systems verbatim). L-LF-5 adds a Privacy-by-Design voice-assistant comparator. Five `paper/references.bib` corrections to propagate: author counts for L-RR-6 (6 authors), L-RR-7 (2 authors), L-LF-1 (2 authors), L-LF-2 (4 authors); date/volume for L-RR-6 (2021 vol. 288) and L-RR-7 (2023 online / 2024 print).
+
+---
+
+# Source Analyzer hand-back to writer — Pass 5 (slice 7) — 2026-05-03
+
+**Agent:** Claude Opus 4.7
+**Slice:** L-LAW-1, L-LAW-2, L-LAW-3, L-LAW-4, L-LAW-5, L-LAW-6 (cluster G — DMCA § 1201(f) and the legal interoperability exemption, US framing for §6.1).
+
+**Critical caveat (CLAUDE.md rule 5; source-analyzer-prompt §Constraints).** Every entry in this slice is a legal-doctrinal text. Per pass-5 scope, the agent caps these at **`[ai-confirmed-bibliographic]`** — i.e. *bibliographic existence, authorship, and venue confirmed*; **doctrinal interpretation is not confirmed**. Inline citation in `paper/main.{md,tex}` is permitted only for descriptive, non-load-bearing framing (e.g. "the US analogue to § 69e UrhG is § 1201(f); see L-LAW-1, L-LAW-3"). Any first-of-its-kind, contested, or load-bearing legal claim — particularly anything that interprets *Chamberlain v. Skylink*, *Lexmark v. Static Control*, *Bnetd*, or the scope of § 1201(f) — must be upgraded to `[lit-read]` by the human author before inline use.
+
+## L-LAW-1 — Band 2011 — `[ai-confirmed-bibliographic]`
+
+Now usable inline in §6.1 as a **descriptive** US-side anchor for the §6.1 European-vs-US legal-framing comparison. Bibliographic record verified: chapter 3 of Band & Katoh, *Interfaces on Trial 2.0*, MIT Press, 2011, DOI 10.7551/mitpress/9780262015004.003.0003. Suggested cite form: "(Band & Katoh, 2011)" — note the entry currently lists Band only; **`paper/references.bib` correction needed**: add Masanobu Katoh as second author. Quote (publisher abstract): "Chamberlain v. Skylink was a major development in DMCA jurisprudence because it prevented the DMCA from being employed to prevent legitimate competition in aftermarkets by requiring a nexus between the circumvention of access controls and infringement." Doctrinal interpretation of *Chamberlain* gates on `[lit-read]`.
+
+## L-LAW-3 — Perzanowski 2008/2009 — `[ai-confirmed-bibliographic]`
+
+Now usable inline in §6.1 / §6.4 as a **descriptive** anchor for "policy direction towards broader interoperability exemption". Bibliographic record verified: *UC Davis Law Review* 42(5):1549–1620 (2009). **`paper/references.bib` correction needed**: year is 2009 (official publication), not 2008 (SSRN posting); the entry currently uses 2008. Standard convention is to cite the official publication year. Quote: "the anticircumvention provisions of the DMCA represent a troubling departure from intellectual property policy ... proposes expanding the DMCA's existing interoperability exemption to create an environment more hospitable to interoperable technologies." Any claim about Perzanowski's specific policy proposal requires `[lit-read]`.
+
+## L-LAW-5 — AllahRakha 2025 — `[ai-confirmed-bibliographic]`
+
+Bibliographic record verified: *Jurisdictie: Jurnal Hukum dan Syariah* 15(2), January 2025, author Naeem AllahRakha. **`paper/references.bib` correction needed**: author surname is "AllahRakha" (one word, capitalised "R"), not "Allahrakha". Comparative weight: Indonesian sharia/legal journal — fine for a "see also" citation but the human author should weigh whether to elevate it above the US/EU-focused L-LAW-1, L-LAW-3, L-LAW-6 anchors in §6.1.
+
+## L-LAW-6 — Torsen 2004 — `[ai-confirmed-bibliographic]`
+
+Now usable inline in §6.1 as a **descriptive** companion to L-LAW-1 for *Chamberlain* / *Lexmark* framing. Bibliographic record verified: *Chicago-Kent Journal of Intellectual Property* 4(1), 2004, author Molly Torsen. Full title: "Lexmark, Watermarks, Skylink and Marketplaces: Misuse and Misperception of the Digital Millennium Copyright Act's Anticircumvention Provision" (the entry truncates "Digital Millennium Copyright Act's" to "DMCA's" — acceptable colloquial form, but the references-list should use the full title). Doctrinal claim about the *Lexmark* holding gates on `[lit-read]`.
+
+## Attempt-failed (no upgrade, no inline-cite gain)
+
+- **L-LAW-2** — Neufeld, 2007, *Review of Litigation* — bibliographic existence not independently verifiable from open sources. Three targeted searches (full title, author + venue, author + *Bnetd*) returned no match; Consensus landing returned 403 to WebFetch. **Recommend** human researcher attempt direct retrieval via HeinOnline or *Texas Review of Litigation* archives; the entry's *Bnetd*-paradigm-case framing is currently anchored on a paper that may be misattributed. If retrieval fails again, recommend dropping L-LAW-2 and using the EFF *Bnetd* case writeup (already widely cited in DMCA scholarship) as a substitute, distinguishing journalism from legal scholarship.
+- **L-LAW-4** — Liu, 2018, "DMCA 101: Introduction to Section 1201" — no unique 2018 article by an author surnamed Liu with this title surfaced. The closest open candidate ("What is Section 1201 Digital Millennium Copyright Act?: A Legislative Primer", IIPSJ) has no Liu attribution. **Recommend** verifying the Consensus record's author/year — possible mis-extraction by the upstream tool. Entry is "primer-level reference" so non-load-bearing; safe to retire if retrieval fails.
+
+## `paper/references.bib` corrections to propagate
+
+| Entry | Field | Current | Should be |
+|-------|-------|---------|-----------|
+| L-LAW-1 | author | "Band, 2011" | "Band, J., & Katoh, M., 2011" (chapter is co-authored) |
+| L-LAW-3 | year | 2008 | 2009 (official *UC Davis Law Review* publication; 2008 = SSRN posting) |
+| L-LAW-5 | author | "Allahrakha" | "AllahRakha" (one word, capital R) |
+| L-LAW-6 | title | "DMCA's Anticircumvention Provision" | "Digital Millennium Copyright Act's Anticircumvention Provision" (full title) |
+
+## Slice 7 readiness summary
+
+Cluster G (§6.1 US-analogue framing) is now writer-actionable for **descriptive** use through four entries (L-LAW-1, L-LAW-3, L-LAW-5, L-LAW-6) under explicit rule-5 doctrinal hedges. The two attempt-failed entries (L-LAW-2, L-LAW-4) do not block the §6.1 framing, since L-LAW-1 / L-LAW-6 jointly carry the *Chamberlain* / *Lexmark* doctrinal-turning-point story and L-LAW-3 carries the policy-direction story. **All four newly available entries remain gated at `[ai-confirmed-bibliographic]`** for any interpretive claim — only `[lit-read]` unlocks doctrinal use. The companion EU/German entries (S-EF-9 § 69e UrhG, S-EF-10 EU 2009/24/EC) remain `[unverified-external]` per existing register and require a separate German-language research pass.
