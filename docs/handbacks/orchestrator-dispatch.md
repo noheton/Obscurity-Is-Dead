@@ -26,3 +26,20 @@ here. See `docs/prompts/orchestrator-prompt.md` for the rule table.
   - Rules 6–8 require a fresh build; deferred until illustrator + writer passes complete.
 - Expected next stage on success: **Stage 5 (Readability) re-evaluation** if RDB-02-relevant entries are upgraded to `[ai-confirmed]`, then **Stage 2 (Writer)** to consume the new RDB-02 / RDB-12 comparator framings, then **Stage 3 (Illustrator)** for the still-open illustrator hand-backs (LAY-05, LAY-06, LAY-12, LAY-13, RDB-04, RDB-05+08, RDB-07), then `make -C paper pdf`, then **Stages 4 + 5 in parallel** for re-scrutiny.
 - Expected next stage on failure / partial: re-dispatch Stage 1.5 with the residual `[lit-retrieved]` worklist; surface `[edge-case]` flags to the human author.
+
+---
+
+## ORCHESTRATOR DISPATCH 2026-05-03T08:00:00Z (Stage 4 — Layout Scrutinizer)
+
+- Trigger: brief from human operator citing the 2026-05-03 07:56 UTC `paper/main.pdf` rebuild (46 pp, 1,151,391 bytes) plus accompanying `paper/main.log`.
+- Decision rule fired: **#6** — fresh PDF available; rule 11 mirror discipline intact; layout-side defect classes named in the brief require triage.
+- Dispatched stage: **Stage 4 — Layout Scrutinizer**
+- Prompt: `docs/prompts/layout-scrutinizer-prompt.md`
+- Inputs: `paper/main.pdf`, `paper/main.log`, `paper/main.blg`, `paper/main.tex`, `paper/references.bib`.
+- Deliverable: `docs/handbacks/layout-scrutiny-2026-05-03-build.md`.
+- Findings (counts):
+  - Class A (undefined `\ref`/`\cref`): **0** in current build (brief named ~30+; spot-checked 10 highest-impact labels — all defined). Reported as resolved upstream of this scrutiny per rule 1.
+  - Class B (undefined citations): **0** `Citation … undefined`; **4** soft `Warning--empty year` (BIB-01..04, M severity).
+  - Class C (overfull/underfull hboxes): **97** raw events (33 Overfull + 64 Underfull), collapsed into **6** action groups (OVF-01..05, UNF-01); 2 H-severity (OVF-01, OVF-03).
+- Verdict: `RE-SCRUTINY REQUIRED: yes`. Two H-severity geometric overflows survive (table at l. 986–1005, path-bullet cluster at l. 2231–2242).
+- Expected next stage: **Stage 2 — Scientific writer** to consume BIB-01..04 + OVF-01..05; then `make -C paper pdf`; then **Stage 4** re-scrutiny.
