@@ -1,129 +1,69 @@
-# Layout Scrutinizer — Hand-back to Illustration Agent
+# Layout Scrutinizer — Hand-back to Illustration Agent (2026-05-03)
 
-Source: `docs/handbacks/layout-defect-registry.md` (PDF SHA-256
-`62e68f6a5208814d47a51a8124bc7c7a836e7c9f3104951bc40a5c8dfda81384`,
-build 2026-05-02T19:44:30Z, 42 pages, rebuilt by writer pass `537fae2`).
+Source: `docs/handbacks/layout-defect-registry.md` — PDF SHA-256 `04e818e993e2eea84cf05d5a5bc7045d80270d6a856a398cc04106ca7ac5cf99`, 49 pages, build commit `b5162ee`, build timestamp 2026-05-03T12:54:14Z.
 
-This is the **second** Layout Scrutinizer pass. Each block below is one
-defect routed to the illustration agent. Re-export the affected figure
-asset(s) and rebuild via `make -C paper pdf`; do **not** invoke
-`make arxiv` (CLAUDE.md rule 13).
+The prior LAY-* illustrator items closed during the 2026-05-03 illustrator pass:
 
----
+- **LAY-05** (Figure 7 textwidth overflow) — RESOLVED.
+- **LAY-06** (figure side) — RESOLVED; `fig12-difficulty-taxonomy.{py,svg,pdf}` regenerated with the Composite column dropped. Writer-side caption mirror flagged separately as **FIG-07**.
+- **LAY-13** (PDF version 1.7 inclusion warnings) — **RESOLVED in this build**: zero `pdfTeX warning: PDF inclusion … version <1.7>` in `paper/main.log` (Makefile post-process worked).
+- **LAY-12** (intact-jar Gemini deliverable) — PARTIAL, gated on human author supplying the second Gemini PNG.
+- **LAY-16** (bibliography rivers) — DEFERRED (advisory; out of illustrator scope).
 
-## Disposition of LAY-01..LAY-18 (illustrator-owned)
+New illustrator-owned items this pass (per the figure-and-image critique extension):
 
-## LAY-05 — Figure 7 (verification-status pipeline) 226.22pt overfull
-- **[RESOLVED]**.
-- Verified: log shows zero `Overfull \hbox` warnings in the figure
-  float environment at `main.tex:814–828`. The 226.22pt overfull that
-  previously dominated the geometric-defect picture for this figure
-  is gone in the rebuilt PDF.
-- A separate 226.22pt overfull now appears at `main.tex:872–891`,
-  but that is the writer-owned KPI tabular (LAY-19), **not** Figure 7.
-  No illustrator action required.
-- Page: 14 (was 14 in the prior pass)
-- Source: `main.tex:814–828` (was `:805–827`)
-- Asset: `paper/figures/fig9-verification-pipeline.pdf` /
-  `paper/figures/fig9-verification-pipeline.py`
-- Severity: H → 0 (closed)
+## FIG-01 — Alt-text macros missing on every `\includegraphics` (joint with writer)
 
-## LAY-06 — Figure 8 / `tab:difficulty-taxonomy` heat-map row split
-- **[PARTIAL → M]**.
-- Verified: the heat-map row split (`Med High` wrapping onto the
-  EcoFlow row in the prior pass) is no longer evidenced by the log
-  warnings, and the figure is included at 0.92\linewidth.
-- Residuals from the log: 8.80pt overfull at lines 1136–1137 (the
-  "Composite" header row of the *table* `tab:difficulty-taxonomy`
-  that precedes the figure include); 2.53pt overfull at 1134–1160
-  (the whole tabular). These are column-width pressure on the
-  Composite header. Owner could be either writer (table re-author)
-  or illustrator (figure caption / panel re-render).
-- Page: 19
-- Source: `main.tex:1132–1184`
-- Asset: `paper/figures/fig12-difficulty-taxonomy.pdf` /
-  `paper/figures/fig12-difficulty-taxonomy.py`
-- Severity: H → M
-- Required action: either re-render the heat-map figure with the
-  Composite column moved to a side sub-panel (reduces table width
-  pressure on the header row), or hand back to the writer to widen
-  the `Composite` `p{1.4cm}` column to `p{1.8cm}` and shorten the
-  preceding columns proportionally.
+- Source: all 18 `\includegraphics` calls (see writer hand-back for the full line list under FIG-01).
+- Illustrator's role: once the writer adds `\Description{...}` macros (or equivalent), confirm the description text correctly matches each asset's visual content. For data-driven figures, the description should name the axes, the chart class (line / bar / heat-map), and the headline finding (≤ 1 sentence each). For structural diagrams, name the entities and the relationship (e.g. "branching workflow with two outcomes").
+- Severity: **H** (accessibility)
 
-## LAY-12 — Logo placeholders
-- **[PARTIALLY RESOLVED 2026-05-03 — intact-jar still deferred].**
-- Per logbook 2026-05-02, the shattered-jar logo
-  (`logo-obscurity-is-dead.png`) is now the final Gemini artwork; only
-  the intact-jar companion (`logo-pandora-jar-intact.png`) remains an
-  AI-authored placeholder pending the second Gemini deliverable. Prose
-  at `main.tex:2138–2149` declares this explicitly per rule 1, so the
-  placeholder presence is honest, not a defect.
-- **Update 2026-05-03:** the shattered-jar binary has been re-encoded
-  in place (full 1408x768 preserved, no crop, ~1.63 MB) and wired into
-  the top-level `README.md` as a centred hero image with Gemini
-  provenance disclosed in the alt-text (commits `7e1f297`, `062b1d3`).
-  Narrow-scope Stage 4 / Stage 5 scrutiny against that wire-up
-  reported `RE-SCRUTINY REQUIRED: no`. The shattered-jar half of LAY-12
-  is therefore closed. The intact-jar half remains OPEN.
-- Tracking entry only; **do not edit `logo-placeholders.py`.** Replace
-  `logo-pandora-jar-intact.png` once the Gemini deliverable arrives,
-  and the Layout Scrutinizer will re-run against the final asset.
-- Page: ~38–40 (was 36–38)
-- Source: `main.tex:2138–2145, :2313`
-- Severity: M (informational) — intact-jar half only
+## FIG-02 — Colour-blind palette migration (DLR style)
 
-## LAY-13 — PDF version 1.7 vs 1.5 inclusion warnings
-- **[PARTIAL — UNCHANGED → escalating count]**.
-- Verified: log still reports `pdfTeX warning: PDF inclusion: found PDF
-  version <1.7>, but at most version <1.5> allowed` for these figures,
-  and the warning count has grown from 2 to 7 (`fig1-effort-gap.pdf`,
-  `fig2-boredom-barrier.pdf`, `fig3-spider-farmer.pdf`,
-  `fig4-ecoflow.pdf`, `fig5-methodology.pdf`,
-  `fig6-dual-use.pdf`, `fig7-threat-models.pdf`).
-- No reader-visible defect today; an arXiv-strict pdfTeX may eventually
-  downgrade or reject these floats.
-- Page: ~7, ~9, ~11, ~13, ~15, ~22, ~23
-- Source: `main.tex:1399`, `:1406` (and the includes for fig1–fig5
-  earlier in the document)
-- Required action: re-export each of the 7 PDFs from the source SVG /
-  matplotlib at PDF compatibility level 1.5
-  (`gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -o out.pdf in.pdf`,
-  or set explicit PDF-1.5 metadata in the `savefig` call where
-  matplotlib supports it).
-- Severity: M (unchanged)
+- Source: `paper/figures/dlr_style.py`; consumed by `fig1-effort-gap.py`, `fig10-stage-effort.py`, `fig12-difficulty-taxonomy.py`, and the structural-diagram scripts that import it.
+- Observed: prior passes flagged the DLR palette as failing deuteranopia simulation; no migration this build. `viewer-blocked` for direct visual confirmation in this pass.
+- Required action: where categorical/sequential semantics permit, migrate to ColorBrewer or Viridis. Add explicit greyscale fallback (line dashing, marker shapes) so the figures survive monochrome printing. Document the swap in `paper/figures/README.md`.
+- Severity: M
 
-## LAY-16 — Bibliography underfull rivers
-- **[PARTIAL — UNCHANGED]**.
-- ~25 Underfull `\hbox` warnings in `main.bbl`. Auto-generated from
-  `references.bib`; same long-URL root cause. New bib entries added by
-  writer pass `537fae2` (`papp2015embedded`,
-  `vasile2018breakingallthethings`, `becker2020hwreexploratory`,
-  `botero2021hwretutorial`, `grand2013jtagulator`) do not appear to have
-  introduced fresh underfulls beyond the baseline.
-- Page: 41–42 (was 39–40)
-- Source: `main.bbl` (auto-generated)
-- Required action: practical fix is to ensure long URLs in
-  `references.bib` are wrapped in `\url{}` (already done partially);
-  add a `BREAK` directive or `\seqsplit` for vendored-archive paths.
-  Advisory-only; defer or batch with the next writer pass.
+## FIG-03 — fig11-eight-practices in-figure font size at print scale
+
+- Source: `paper/figures/fig11-eight-practices.py`.
+- Observed: per illustrator hand-back, cell labels are at fontsize ~8.6. At full `\textwidth` print scale on a letter page that is borderline; once the figure is shrunk for arXiv compilation it may drop below the ~7pt-equivalent legibility threshold. `viewer-blocked` for direct measurement.
+- Required action: verify the rendered point size of the cell labels in `paper/main.pdf`; raise to 9 pt if they are below ~7 pt at the rendered width, or split the eight practices into a two-row figure to relax horizontal pressure.
+- Severity: M
+
+## FIG-04 — `logo-pandora-jar-intact.png` placeholder still in place
+
+- Source: `paper/figures/logo-pandora-jar-intact.png` (950×944 RGBA, ~83 kB, matplotlib typographic placeholder).
+- Observed: included at `width=0.55\linewidth` (`main.tex:2589`); occupies a meaningful share of the §10 anchor page. The matplotlib stand-in noticeably degrades the visual rhetoric next to the Gemini-quality shattered-jar hero.
+- Required action: **gated on human author supplying the second Gemini PNG.** When the binary lands, swap in place (preserve the filename), do not regenerate `logo-placeholders.py`, and re-run a narrow-scope Stage 4/5 pass on §10. No autonomous Gemini calls.
+- Severity: M
+
+## FIG-05 — Manually drawn figures (fig2–fig7) rule-14 exemption confirmed
+
+- Source: `paper/figures/fig{2..7}-*.svg`.
+- Observed: explicitly exempt from rule 14 per `paper/figures/README.md`. Filed as L bookkeeping so the registry shows the exemption was checked, not as a defect.
+- Required action: none. Reconfirm whenever fig2–fig7 are revised.
+- Severity: L
+
+## FIG-06 — Structural-diagram figures (fig8, fig9, fig11, fig13–fig16) rule-14 data-absence
+
+- Source: `paper/figures/fig{8,9,11,13,14,15,16}-*.py`.
+- Observed: generation scripts present, no CSV — these encode structural relationships. README documents the exemption.
+- Required action: none. L bookkeeping.
+- Severity: L
+
+## FIG-09 — Per-figure data-to-ink (Tufte) audit deferred
+
+- Source: every `\includegraphics` in `paper/main.tex`.
+- Observed: `viewer-blocked`. The prompt extension calls for flagging chartjunk shortcomings against the Tufte criteria; pixel-level inspection of each rendered float requires a working PDF viewer MCP, which was unavailable this pass.
+- Required action: no immediate action. When the viewer MCP is restored, perform a one-shot per-figure audit (gridlines, 3D bevels, drop shadows, oversized legends, redundant titles, tick-label precision; under-inked indistinguishable series). File any finding as a follow-up FIG-* entry.
 - Severity: L
 
 ---
 
-## NEW illustrator-owned defects
+## Items needing human-author decision (cross-referenced)
 
-None this pass. All four new defects (LAY-19..LAY-22) are writer-owned
-(KPI tabular column-definition pattern + path-wrapping + citation-pack
-density). The illustration assets did not regress between commits
-`f3ce051` / `537fae2` and the prior PDF.
-
----
-
-## Summary
-
-- **Open illustrator-owned defects:** 3 (LAY-06 [partial → M],
-  LAY-13 [partial → M], LAY-16 [partial → L]).
-- **Closed:** 1 (LAY-05).
-- **Deferred — by design:** 1 (LAY-12; placeholder pending Gemini).
-- **No new defects** introduced by writer commits `f3ce051` / `537fae2`
-  in the figure-asset layer.
+1. **LAY-12 / FIG-04** — second Gemini PNG for `logo-pandora-jar-intact.png`.
+2. **§10 enumeration vs Figure 11 collapse (writer hand-back option a/b/c)** — FIG-08 caption-defer choice depends on this.
+3. **FIG-02 colour migration scope** — full Viridis migration vs targeted palette tweak per figure (illustrator can implement either; the rhetorical choice is authorial).
