@@ -10,6 +10,28 @@ This logbook is the operating record for the paper and research process.
 
 ## Log Entries
 
+### 2026-05-03 (Stage 5 readability — round 2; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 5 readability & novelty scrutinizer), branch `claude/review-open-issues-PfNx9`.
+- Trigger: orchestrator dispatch after writer commit `370e792` (Mythos hook + guardrails-as-band-aid + plagiarism 9th practice) and illustrator pass `d2858ac` (figure overhaul). Re-scrutiny of `paper/main.md` only (Stage 5 scope; Stage 4 owns the PDF).
+- Verifications carried over from round 1:
+  - **RDB-27 RESOLVED-confirmed** — writer loop-2 `4987d9d` split the two ~70-word Author's Note sentences as suggested.
+  - **RDB-28 RESOLVED-confirmed** — writer loop-2 `4987d9d` converted the §3.4 v2→v3 reconstruction run-on into lead clause + 4-step nested ordered list + provenance-gap coda.
+  - **RDB-22 / -23 / -25 / -01-residual / -02 / -12 / -15 / -16 / -18 / -21 mirror parity** preserved (no regression).
+- New entries this round (5 prose, 2 caption): **RDB-30** (M, §7.3 Mythos paragraph: 257w / 6 sentences with two >40w em-dashed sentences — split recommended); **RDB-31** (M, §7.4 band-aid hedge: "collapses to attacker-side capability over a short enough horizon" reads as near-deductive without a quantitative literature anchor — reframe as engineering intuition or footnote the caveat); **RDB-32** (L, Author's Note "What surprised me about the assistant" 213w / 8 sentences with three >40w sentences — optional splits); **RDB-33** (L, §10 ninth-practice closing forward-looking promise uncited — anchor to L-SLOP-12 or delete); **RDB-34** (L, §10 eight-vs-nine count mismatch primed late — recommend lede-sentence half-clause or "*Looking ahead*" sub-heading); **RDB-35** (L, Fig 9 caption rule-11 fidelity: 3 → 4 literature stages); **RDB-36** (L, Fig 11 caption duplicates redrawn in-figure legend — tighten).
+- Novelty audit (round 2): §7.3 Mythos counter-data-point = HONEST-COUNTERPOINT, on-policy — original asymmetry argument **sharpened, not weakened** (now explicitly time-bounded against the L-VD-1 / L-VD-2 calibration era); §7.4 band-aid framing = NEW INCREMENTAL CONTRIBUTION beyond literature (closest comparators do not state the band-aid argument as a security-by-design imperative); §10 ninth practice = NOT NOVELTY-INFLATED modulo the closing forward-looking promise (RDB-33).
+- RDB-04 status: still DEFERRED, now COMPLICATED by the ninth-practice prose (Figure 11 stays at 8 rows; §10 prose now lists 9). Stage 5 still endorses option (b) — drop the §10 prose enumeration, lean on Figure 11 + a one-sentence recap, with the ninth surviving as a clearly-set-off forward-looking addendum.
+- Counts (active actionable, post-round-2): H = 0; M = 13 (incl. RDB-30, RDB-31 new); L = 13 (incl. RDB-32..-36 new). Resolved this round = 2 (RDB-27, RDB-28). New = 7.
+- Most consequential defect: **RDB-31** (§7.4 band-aid hedge tightness).
+- Files updated:
+  - `docs/handbacks/readability-defect-registry.md` (round-2 block appended)
+  - `docs/handbacks/readability-to-writer.md` (RDB-30..-36 entries appended)
+  - `docs/handbacks/readability-to-illustrator.md` (round-2 carry-note appended; no new illustrator-owned defect)
+  - `docs/handbacks/readability-scrutiny-2026-05-03-round2.md` (new full diagnosis)
+  - `docs/logbook.md` (this entry)
+- No edits to `paper/main.{md,tex}` or `paper/figures/` (Stage 5 scope; rule 11 unchanged).
+- Distribution (rule 13): local only; no push, no `make pdf`, no `make arxiv`.
+- Verdict: **`RE-SCRUTINY REQUIRED: yes`** — five prose + two caption entries filed at M / L severity; no new H. Re-scrutiny should follow the next writer pass.
+
 ### 2026-05-03 (Stage 2 writer — focused loop 2; Claude Opus 4.7)
 - Session lead: Claude Opus 4.7 (Stage 2 scientific writer), branch `claude/review-open-issues-PfNx9`.
 - Trigger: orchestrator dispatch to clear the two H-severity items left by Stage 4 / Stage 5 against build commit `b5162ee` (LAY-17 + LAY-19 KPI tabular family; FIG-01 alt-text-missing across 17 `\includegraphics` calls), plus the two L-severity readability tightening items (RDB-27 Author's Note paragraph density, RDB-28 §3.4 v2→v3 reconstruction run-on).

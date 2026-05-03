@@ -120,4 +120,68 @@ Full diagnosis for this run lives in
 
 ---
 
+## Re-run 2026-05-03 — ROUND 2 (post writer `370e792` + illustrator `d2858ac`)
+
+Round-2 sweep performed by Claude Opus 4.7 (Stage 5) on branch
+`claude/review-open-issues-PfNx9`. Full diagnosis:
+`docs/handbacks/readability-scrutiny-2026-05-03-round2.md`.
+
+### Carry-over closures and preservations (round 2)
+
+- **RDB-27 RESOLVED-confirmed** — writer loop-2 `4987d9d` split the two
+  Author's Note ~70-word sentences as suggested.
+- **RDB-28 RESOLVED-confirmed** — writer loop-2 `4987d9d` converted the
+  §3.4 v2→v3 reconstruction run-on into a short lead clause + 4-step
+  ordered sub-list + provenance-gap coda paragraph.
+- **RDB-21 mirror parity preserved** — spot-check at §7.3 / §7.4 /
+  §10-ninth-practice confirms `paper/main.tex:1683`, `:1775`, `:2822`,
+  `:2837` mirror cleanly.
+- **RDB-01 / -02 / -12 / -15 / -16 / -18 / -22 / -23 / -25** preserved
+  (no regression).
+- **RDB-03 / -05..-11 / -13 / -14 / -17 / -19 / -26** deferred-unchanged.
+- **RDB-04 deferred-unchanged + COMPLICATED** by the new ninth-practice
+  prose (Figure 11 stays at 8 rows; §10 prose now lists 9). Stage 5
+  still endorses option (b) — drop the §10 prose enumeration in favour
+  of Figure 11 + a one-sentence recap, with the ninth practice
+  surviving as an explicitly-labelled forward-looking addendum.
+- **RDB-20 PARTIAL-unchanged** — bib has grown again (Mythos / Glasswing
+  / Opus 4.7) without the in-paper note about the dual-channel scheme.
+
+### New defects — round 2
+
+| ID | Section | Defect class | Severity | Owner | Source span | Evidence | Suggested fix | Status |
+|----|---------|--------------|----------|-------|-------------|----------|---------------|--------|
+| RDB-30 | §7.3 | sentence-length / paragraph-density | **M** | writer | `main.md:491`; `main.tex:1684–1722` | New Mythos counter-data-point paragraph = 257 words / 6 sentences. Two sentences cross 40 words: the ~78-word "frontier model" capability catalogue and the ~57-word Mythos / Glasswing / Opus 4.7 sentence. | Split the capability catalogue at "every major web browser" (4 findings become a "Specifically:" sentence). Split the Glasswing sentence at "Project Glasswing". Net: 6 → 8 short-medium sentences; word count unchanged. | **NEW round-2** |
+| RDB-31 | §7.4 | hedging-tightness / overclaim risk | **M** | writer | `main.md:504`; `main.tex:1775–1797` | The "every guardrail is a classifier … collapses to attacker-side capability over a short enough horizon" sentence reads as near-deductive despite the soft hedge. No `[lit-read]` source quantifies the asserted false-negative-rate × proliferation collapse; closest comparators (L-VD-1, L-MYTHOS-2) do not state this as a deductive identity. | Reframe as engineering intuition: "*plausibly* converges to attacker-side capability over a short enough horizon — a claim we present as engineering intuition rather than proof, and one the L-MYTHOS evidence base does not yet quantify." Or move the caveat into a footnote so the body sentence reads cleanly. | **NEW round-2** |
+| RDB-32 | Author's Note *What surprised me about the assistant* | paragraph-density / sentence-length | **L** | writer | `main.md:33`; `main.tex:178–203` | New 213-word / 8-sentence paragraph. Three sentences > 40w: opening "expected — and braced for" (~50w); "durable answer is *security by design*" (~46w); closing "magnitude and frequency" (~52w). Author's Note now 9 paragraphs (was 4 in the first draft) with this paragraph the longest. Security-by-design framing also lands twice in the same Author's Note and triples in §7.4 — rhetorically deliberate (Author's-Note-as-trailer). | Optional: split the opening sentence at "or where the session would be flagged or terminated"; split the closing at "in 2026 than it was in 2024". Triple statement of security-by-design across Author's Note / §7.4 endorsed (on-policy under Author's-Note-as-trailer convention). | **NEW round-2** |
+| RDB-33 | §10 ninth practice | novelty-inflation risk (closing promise) | **L** | writer | `main.md:715–717`; `main.tex:2822–2862` | Closing "evolve with detection tooling as that tooling matures" is uncited and presents as a free-floating promise. The "first cut" framing and the "logged for the next iteration" hedge correctly bound the practice itself; only the closing half-sentence floats. Closest literature anchor is L-SLOP-12 (Pellegrina & Helmy on the current accuracy ceiling for AI detectors), already cited at `main.md:721`. | Replace with "(cf. L-SLOP-12 on the current accuracy ceiling)" or delete the closing half-sentence and let the *first-cut* framing carry the load alone. | **NEW round-2** |
+| RDB-34 | §10 ninth practice + Figure 11 | structural inconsistency (count mismatch) | **L** | writer | `main.md:704–719`; Figure 11 caption / asset | §10 opens with "Eight integrated practices distinguish this paper" before the ninth practice is introduced three paragraphs later. Cold reader hits Figure 11, counts eight, then encounters a ninth. The hedge at `main.md:715` ("logged for the next iteration of the framework rather than added to Figure 11") is correct but arrives late. | Add a half-clause at `main.md:704`: "Eight integrated practices — with a ninth in development, see below — distinguish this paper". Alternatively, set the ninth-practice block off under a "*Looking ahead: a candidate ninth practice*" sub-heading visually separated from the eight-row enumeration. | **NEW round-2** |
+| RDB-35 | Figure 9 caption | rule-11 caption-fidelity (illustrator-flagged) | **L** | writer | Figure 9 caption in `paper/main.tex` and `paper/main.md` | Illustrator pass `d2858ac` extended the literature track in `fig9-verification-pipeline` from 3 to 4 stages (added `[ai-confirmed]` per CLAUDE.md ladder extension). Caption text may still mention only 3 stages. | Update the Fig 9 caption to mention all four stages (`[lit-retrieved]` → `[ai-confirmed]` → `[lit-read]` plus the upstream `[needs-research]`). Mirror in both `main.md` and `main.tex`. | **NEW round-2** |
+| RDB-36 | Figure 11 caption | caption-restates-prose / legend duplication | **L** | writer | Figure 11 caption in `paper/main.tex` and `paper/main.md:719` | Illustrator pass `d2858ac` redrew Figure 11 with an in-figure legend ("P (filled disc) = principal mitigation; S (ring with bar) = secondary mitigation"). The current caption duplicates this legend in prose. | Tighten the caption to "Eight integrated practices × three failure-mode axes; see in-figure legend." and let the asset carry the P/S definition. Mirror in both files. | **NEW round-2** |
+
+### Summary by severity (round 2, active actionable)
+
+- **H = 0** (no new H this round; no regression).
+- **M = 13** — RDB-01 [residual], RDB-03..-11 (carry-over), RDB-26
+  parallelism, plus RDB-30 (§7.3) and RDB-31 (§7.4) NEW.
+- **L = 13** — RDB-13, -14, -17, -19, -20, plus RDB-32, -33, -34, -35,
+  -36 NEW.
+- **Resolved this round:** 2 (RDB-27, RDB-28).
+- **New this round:** 7 (RDB-30..-36); 2 M and 5 L.
+
+### Most consequential defect — round 2
+
+**RDB-31** — the §7.4 band-aid sentence's hedge. Round-2 contribution
+that extends the paper's argument; the load-bearing sentence is the
+one a critical reader will test. Tightening recommended; not blocking.
+
+### Re-scrutiny verdict — round 2
+
+`RE-SCRUTINY REQUIRED: yes` — five prose entries (RDB-30..-34) and two
+caption entries (RDB-35, -36) filed at M / L severity. No new H. Stage 5
+still endorses RDB-04 option (b) with an explicit eight-plus-one
+forward-looking framing. Re-scrutiny should follow the next writer pass.
+
+---
+
 ## Re-scrutiny verdict — earlier (2026-05-02)

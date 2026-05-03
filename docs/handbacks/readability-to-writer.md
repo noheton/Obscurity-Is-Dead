@@ -283,3 +283,178 @@ Caption compressed to one sentence plus attribution at `main.tex:2200–2202` an
 **Author-decision options (per writer hand-back `writer-pass-2026-05-03.md`).** (a) keep enumeration, drop the Concealment / Token-disclosure paraphrase block; (b) drop the enumeration, lean on Figure 11 + a single recapping sentence; (c) keep both but tighten Figure 11 caption so the prose can defer to the figure.
 **Stage 5 recommendation.** **Option (b) preferred.** Rationale: it best matches the writer hand-back's "discipline is the contribution" thesis; lets §10 carry the Concealment / Token-disclosure / artifact-level-disclosure rhetorical arc without competing with the figure for the same content; and the illustrator pass `84c2da0` confirmed Figure 11 row labels are legible (RDB-04 figure-side prerequisite met). **Option (c) acceptable fallback** if the author wants to preserve the enumeration for accessibility (monochrome printer, screen reader). **Option (a) not preferred**: dropping the Concealment / Token-disclosure / artifact-level naming would lose the rhetorical centre of §10.
 **Rule-11 note.** Whichever option the author selects, mirror in `main.tex` in the same commit. The Figure 11 caption is currently 2 sentences in `main.md:699`; option (b) can be implemented without caption surgery if the recap sentence names each of the eight practices in order.
+
+---
+
+## 2026-05-03 round 2 — new entries from post-`370e792` re-scrutiny
+
+The five prose entries below were filed against the new §7.3 Mythos /
+Glasswing paragraph, the new §7.4 *Guardrails as band-aid* sub-paragraph,
+the new Author's Note "What surprised me about the assistant" paragraph,
+and the new §10 ninth practice. Two caption entries follow at the end of
+this block. Full diagnosis in
+`docs/handbacks/readability-scrutiny-2026-05-03-round2.md`.
+
+---
+
+## RDB-30 — §7.3 Mythos paragraph: split two long sentences  *(M, sentence-length / paragraph-density)*  [NEW round-2]
+
+**Sections.** §7.3 *Asymmetry of collapse*.
+**Source span.** `main.md:491`; `main.tex:1684–1722`.
+**Defect.** The Mythos / Glasswing counter-data-point lands as a single
+~257-word paragraph of 6 sentences. Two of those sentences cross 40
+words: (a) the "frontier model that, in the company's own published
+red-team work, autonomously identified zero-day vulnerabilities … to
+root unauthenticated NFS servers" sentence at ~78 words; (b) the
+"Mythos is not yet broadly deployed adversarial capability — Anthropic
+chose *not* to release it generally, instead launching **Project
+Glasswing** … shipping the more cautious Claude Opus 4.7 as the
+safeguarded sibling" sentence at ~57 words.
+**Required outcome.** Split sentence (a) at "every major web browser"
+so the four red-team capability findings become a second sentence
+keyed on "Specifically:". Split sentence (b) at "Project Glasswing"
+so the partner-list and the safeguarded-sibling claim become two
+short sentences. Net: 6 → 8 short-medium sentences; word count
+unchanged.
+**Rule-11 note.** Mirror in `main.tex` (around lines 1697–1716) in the
+same commit.
+
+---
+
+## RDB-31 — §7.4 band-aid sentence: tighten the hedge  *(M, hedging-tightness / overclaim risk)*  [NEW round-2]
+
+**Sections.** §7.4 *Dual-use accountability — Guardrails as band-aid*.
+**Source span.** `main.md:504`; `main.tex:1775–1797`.
+**Defect.** The load-bearing sentence "every guardrail is a classifier,
+every classifier has a false-negative rate, and any false-negative
+rate combined with autonomous offensive capability and global
+proliferation collapses to attacker-side capability over a short
+enough horizon" carries a soft hedge ("over a short enough horizon")
+but reads as a near-deductive claim. No `[lit-read]` or `[lit-retrieved]`
+source in `docs/sources.md` quantifies the asserted false-negative-rate
+× proliferation collapse; closest comparators (L-VD-1, L-VD-2,
+L-MYTHOS-1, L-MYTHOS-2) do not state the band-aid argument as a
+deductive identity.
+**Required outcome.** Reframe as engineering intuition: replace
+"collapses to attacker-side capability over a short enough horizon"
+with "*plausibly* converges to attacker-side capability over a short
+enough horizon — a claim we present as engineering intuition rather
+than proof, and one the L-MYTHOS evidence base does not yet quantify."
+Alternatively, move the caveat into a footnote keyed off "short
+enough horizon" so the body sentence reads cleanly and the caveat is
+auditable.
+**Rule-11 note.** Mirror in `main.tex` in the same commit.
+
+---
+
+## RDB-32 — Author's Note "What surprised me about the assistant": optional sentence splits  *(L, paragraph-density / sentence-length)*  [NEW round-2]
+
+**Sections.** Author's Note paragraph 6 ("*What surprised me about the
+assistant.*").
+**Source span.** `main.md:33`; `main.tex:178–203`.
+**Defect.** New 213-word / 8-sentence paragraph. Three sentences > 40w:
+(a) opening "Working through the case studies, I expected — and braced
+for — moments where the model would refuse to help me reverse-engineer
+a proprietary BLE protocol or pull credentials out of a vendored APK,
+or where the session would be flagged or terminated" (~50w); (b)
+"durable answer is *security by design at the artifact level*" sentence
+(~46w); (c) closing "magnitude and frequency of attempts that any
+given system will face is materially higher in 2026 than it was in
+2024, and the trajectory points further the same way" (~52w). Author's
+Note now 9 paragraphs (was 4 in the first draft) with this paragraph
+the longest.
+**Required outcome.** Optional, not blocking. Split (a) at "or where
+the session would be flagged or terminated"; split (c) at "in 2026
+than it was in 2024". The triple statement of *security by design*
+across Author's Note / §7.4 / Author's Note closing is on-policy
+under the Author's-Note-as-trailer convention; Stage 5 endorses
+retaining it.
+**Rule-11 note.** Mirror in `main.tex` if the splits are applied.
+
+---
+
+## RDB-33 — §10 ninth practice: anchor or delete the closing forward-looking promise  *(L, novelty-inflation risk)*  [NEW round-2]
+
+**Sections.** §10 ninth practice (verbatim-string scanning).
+**Source span.** `main.md:715–717`; `main.tex:2822–2862`.
+**Defect.** Closing line "evolve with detection tooling as that tooling
+matures" is uncited and presents as a free-floating promise. The "first
+cut" framing and the "logged for the next iteration of the framework
+rather than added to Figure 11" hedge correctly bound the practice
+itself; only the closing half-sentence floats. The practice is
+therefore *not* novelty-inflated — but the closing promise should
+either be deleted, or anchored to L-SLOP-12 (Pellegrina & Helmy on
+the current accuracy ceiling for AI detectors), already cited at
+`main.md:721`.
+**Required outcome.** Replace "evolve with detection tooling as that
+tooling matures" with "evolve with detection tooling as that tooling
+matures (cf. L-SLOP-12 on the current accuracy ceiling)" — or delete
+the closing half-sentence and let the *first-cut* framing carry the
+load alone.
+**Rule-11 note.** Mirror in `main.tex` in the same commit.
+
+---
+
+## RDB-34 — §10 eight-vs-nine count mismatch: prime the reader at the lede  *(L, structural inconsistency)*  [NEW round-2]
+
+**Sections.** §10, Figure 11.
+**Source span.** `main.md:704–719`; `main.tex:2790..2862`.
+**Defect.** §10 opens with "Eight integrated practices distinguish this
+paper from the prevailing modes of AI-assisted research" at
+`main.md:704`, before the ninth practice is introduced three
+paragraphs later at `main.md:715`. A cold reader hits the Figure 11
+callout, counts eight rows, then encounters a ninth in prose. The
+"logged here for the next iteration of the framework rather than
+added to Figure 11" hedge handles the mismatch correctly under
+rule 1, but arrives late.
+**Required outcome.** Prime the reader at the lede: replace
+`main.md:704` "Eight integrated practices distinguish this paper" with
+"Eight integrated practices — with a ninth in development, see below
+— distinguish this paper". Alternatively, set the ninth-practice
+block off under a "*Looking ahead: a candidate ninth practice*"
+sub-heading visually + structurally separated from the eight-row
+enumeration.
+**Rule-11 note.** Mirror in `main.tex` in the same commit. Whichever
+option the author selects, the eight-row Figure 11 stays unchanged.
+**Coordination.** Pairs with the long-deferred RDB-04. Stage 5
+**still endorses option (b)** (drop the §10 prose enumeration, lean
+on Figure 11 + a one-sentence recap), now with an explicit "eight + 1
+forward-looking" framing so the figure ↔ text count asymmetry is on
+record.
+
+---
+
+## RDB-35 — Fig 9 caption: 3 stages → 4 stages  *(L, rule-11 caption-fidelity)*  [NEW round-2 — illustrator-flagged in `illustrator-pass-2026-05-03-overhaul.md` §E]
+
+**Sections.** Figure 9 caption.
+**Source span.** Fig 9 caption in `paper/main.md` and `paper/main.tex`
+(the `\includegraphics{fig9-verification-pipeline}` block).
+**Defect.** Illustrator pass `d2858ac` extended the literature track
+in `fig9-verification-pipeline` from 3 to 4 stages by inserting the
+`[ai-confirmed]` stage between `[lit-retrieved]` and `[lit-read]` per
+the CLAUDE.md verification-status-ladder extension (2026-05-02). The
+current caption text may still mention only 3 stages. This is a
+rule-11 honesty defect against the now-4-stage figure.
+**Required outcome.** Update the Fig 9 caption to enumerate all four
+stages of the literature track (`[needs-research]` → `[lit-retrieved]`
+→ `[ai-confirmed]` → `[lit-read]`) and to name the Source Analyzer
+agent that owns the `[ai-confirmed]` upgrade. Mirror in both
+`paper/main.md` and `paper/main.tex`.
+**Rule-11 note.** Both files updated in the same commit.
+
+---
+
+## RDB-36 — Fig 11 caption: tighten to remove legend duplication  *(L, caption-restates-prose)*  [NEW round-2 — illustrator-flagged in `illustrator-pass-2026-05-03-overhaul.md` §E]
+
+**Sections.** Figure 11 caption.
+**Source span.** `main.md:719`; `paper/main.tex` Fig 11 caption block.
+**Defect.** Illustrator pass `d2858ac` redrew Figure 11 with an
+in-figure legend ("P (filled disc) = principal mitigation; S (ring
+with bar) = secondary mitigation"). The current caption duplicates
+this legend in prose, restating what the asset already shows.
+**Required outcome.** Tighten the caption to a one-sentence pointer:
+"Eight integrated practices × three failure-mode axes; P / S
+mitigation roles per the in-figure legend." Let the asset carry the
+P / S definition. Mirror in both files in the same commit.
+**Rule-11 note.** Caption parity is a rule-11 invariant; the writer
+must update both files together.
