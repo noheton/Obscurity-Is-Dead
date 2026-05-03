@@ -1858,11 +1858,12 @@ is paid for honestly:
   \item \textbf{Trust laundering through a benign-looking artifact.}
         A malicious integrator can publish a Home Assistant custom
         integration that \emph{also} exfiltrates household
-        credentials. The community-trust signal that legitimises
+        credentials. The community-trust signal that legitimises an
+        upstream community integration such as
         \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-1]} or
-        \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-2]} --- a working integration plus a
-        non-empty README --- is exactly what an adversary needs to
-        forge.
+        \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-2]} --- a working
+        integration plus a non-empty README --- is exactly what an
+        adversary needs to forge.
   \item \textbf{Erosion of the governance baseline.} As
         malicious-integrator output enters public corpora (forks,
         gists, model training sets), future researcher-side IoT
@@ -2306,6 +2307,29 @@ human author named on the title page.
         --- AI drafted, researcher verified or flagged.
 \end{itemize}
 
+\subsection{Community-implementer attribution (redaction notice)}
+\label{sec:ai-disclosure-implementer-redaction}
+Several community maintainers and their public repositories underpin
+the Spider Farmer, EcoFlow PowerOcean, and Balboa case studies. Their
+handles and repository paths have been \textbf{redacted} in the
+public-facing surfaces of this paper (replaced with structured markers
+of the form \texttt{[REDACTED:maintainer-handle:\textless ID\textgreater]} /
+\texttt{[REDACTED:repo-path:\textless ID\textgreater]}) because those
+community implementers face the same \S~44b UrhG and vendor-TOS
+exposure surface that the paper author does, and they have not had the
+benefit of qualified legal review. This redaction is a
+\emph{legal-exposure precaution}, not a claim that the implementations
+are secret or that their contributions are unrecognised: bibliography
+keys remain stable internal identifiers, and the cross-implementation
+comparisons in \cref{sec:case-spider-farmer} and \cref{sec:synthesis}
+are unchanged in substance. The full original{\textrightarrow}marker
+mapping is recorded in \texttt{docs/redaction-policy.md}
+(community-implementer anonymisation, IDs \texttt{SF-IMPL-1..3},
+\texttt{EF-IMPL-1}, \texttt{BALBOA-UPSTREAM-1..2}); resolution requires
+repository access at the mapping commit and is governed by the same
+git-history-rewrite protocol that scrubs other rule-12 items before any
+public mirror.
+
 \subsection{What is and is not sourced}
 \label{sec:ai-disclosure-sourcing}
 \begin{itemize}
@@ -2386,6 +2410,55 @@ are the author's own. The repository's \texttt{CITATION.cff},
 \texttt{.zenodo.json}, \texttt{codemeta.json}, and \texttt{docs/fair.md}
 all carry the affiliation \textbf{``Independent researcher (personal
 capacity)''} in line with this statement.
+
+% =========================================================================
+\section{Author's Note}
+\label{sec:authors-note}
+
+A short methodological reflection.
+
+\paragraph{Process, not product.}
+View this work less as the \emph{output} of frontier agentic AI and
+more as a \emph{process} --- a methodology that tries to leverage
+generative AI's analytical lift while warding against its failure
+modes: fabrication, opacity, dual-use amplification, and the
+asymmetric collapse described in \cref{sec:disc-asymmetry} and
+\cref{sec:disc-model-collapse}. The case-study substance is mostly
+prior community work; the contribution is the eight-practice register
+in \cref{sec:pandora} and the discipline that produced it.
+
+\paragraph{Frameworks evolve with capabilities.}
+The eight practices in \cref{sec:pandora} are calibrated to a specific
+snapshot --- Claude Opus 4.7, the Claude Code CLI, the Consensus
+literature front end, and consumer-IoT case studies in mid-2026. As
+capabilities and tooling evolve, the register must evolve with them.
+Some practices will be subsumed by tooling (transcript export becomes a
+click), some will become inadequate (verification-status legends will
+need finer grain), and some I cannot yet name will need to be invented.
+Treat the eight as a starting point, not a final state.
+
+\paragraph{Pandora's jar is open.}
+The shattered-jar logo in the front matter is deliberate. The
+empirical literature on fabricated citations, paper-mill output, and
+model collapse documents what is already out --- and no appeal to
+obscurity, vendor terms of service, or moratoria on capability research
+will put it back. The intact-jar reference in \cref{sec:pandora} is
+the Hesiodic counterpoint: the jar can be closed only if Hope is what
+remains inside, and Hope here is operational --- structured,
+transparent, attributed practice that the next reader can audit,
+replicate, or refute.
+
+\paragraph{Open to constructive criticism.}
+I (Florian Krebs) welcome criticism, replication attempts, and
+challenges to the framework --- to the eight practices, the case-study
+choices, and the legal framing in \cref{sec:ai-disclosure}. The
+transcript-as-artifact discipline (rule~4 in
+\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}) is precisely the affordance
+that makes such critique possible: every claim is backed by an
+exportable conversation log committed in this repository. If you find
+a fabricated citation, an unsourced legal claim, or a
+verification-status entry that cannot survive scrutiny, I want to hear
+about it.
 
 % =========================================================================
 \section{The Pandora moment: this paper as a novel mode of transparent AI-assisted research}

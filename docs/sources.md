@@ -29,21 +29,24 @@ Many entries below were upgraded from `[repo-referenced]` (or `[unverified-exter
 
 ## Source register — Spider Farmer case study
 
-### S-SF-1 — `esphome-spiderfarmer_ble-encrypt` (community implementation)
-- Type: community open-source implementation (ESPHome component for Spider Farmer BLE decryption)
-- Path: `experiments/spider-farmer/original/doc/esphome-spiderfarmer_ble-encrypt.zip`
+### S-SF-1 — Spider Farmer ESPHome component (community implementation; SF-IMPL-1)
+- Type: community open-source implementation (ESPHome component for Spider Farmer BLE decryption).
+- Maintainer / repo: redacted — `[REDACTED:maintainer-handle:SF-IMPL-1]` / `[REDACTED:repo-path:SF-IMPL-1]` per `docs/redaction-policy.md` (community-implementer anonymisation).
+- Vendored archive on disk: `experiments/spider-farmer/original/doc/` (filename preserved on disk; not reproduced here to avoid leaking the redacted slug).
 - Status: **[repo-vendored]**.
 - Relation to research: one of four independent reference implementations cross-checked during BLE protocol discovery. Cited in `original/doc/apk_analysis/implementations.md` as Implementation #1.
 
-### S-SF-2 — `[REDACTED:repo-path:SF-IMPL-2]-master` (community implementation)
+### S-SF-2 — Spider Farmer ESP32 BLE-to-MQTT bridge (community implementation; SF-IMPL-2)
 - Type: community open-source implementation (ESP32 → MQTT bridge).
-- Path: `experiments/spider-farmer/original/doc/[REDACTED:repo-path:SF-IMPL-2]-master.zip`
+- Maintainer / repo: redacted — `[REDACTED:maintainer-handle:SF-IMPL-2]` / `[REDACTED:repo-path:SF-IMPL-2]` per `docs/redaction-policy.md`.
+- Vendored archive on disk: `experiments/spider-farmer/original/doc/` (filename preserved on disk; not reproduced here).
 - Status: **[repo-vendored]**.
 - Relation to research: contains `BLEPairingManager.py` cited as ground truth in transcript T3. Cited as Implementation #2 in `implementations.md`.
 
-### S-SF-3 — `[REDACTED:repo-path:SF-IMPL-3]-main` (community implementation)
+### S-SF-3 — Spider Farmer Python BLE+MQTT controller (community implementation; SF-IMPL-3)
 - Type: community open-source implementation (Python + MQTT).
-- Path: `experiments/spider-farmer/original/doc/[REDACTED:repo-path:SF-IMPL-3]-main.zip`
+- Maintainer / repo: redacted — `[REDACTED:repo-path:SF-IMPL-3]` per `docs/redaction-policy.md` (no separate handle; the bare repo name is the identifier).
+- Vendored archive on disk: `experiments/spider-farmer/original/doc/` (filename preserved on disk; not reproduced here).
 - Status: **[repo-vendored]**.
 - Relation to research: third reference implementation in the four-way comparison (Implementation #3 in `implementations.md`).
 
@@ -118,7 +121,7 @@ Many entries below were upgraded from `[repo-referenced]` (or `[unverified-exter
 ### S-EF-6 — EcoFlow PowerOcean integration code (Home Assistant component)
 - Type: community-developed integration code (subject of the case study).
 - Path: `experiments/ecoflow-powerocean/original/`.
-- Upstream parent: `https://github.com/[REDACTED:repo-path:EF-IMPL-1]` (per `original/custom_components/powerocean_dev/const.py` line 13).
+- Upstream parent: `[REDACTED:repo-path:EF-IMPL-1]` (maintained by `[REDACTED:maintainer-handle:EF-IMPL-1]`; declared in `original/custom_components/powerocean_dev/const.py` line 13). Redacted per `docs/redaction-policy.md` (community-implementer anonymisation, EF-IMPL-1).
 - Status: **[repo-vendored]**. Embedded as of repo commit `ffdf60c`.
 - Relation to research: contains the `setDeviceProperty` write path (`api.py` line 306), the `(?<!st)(amp\|current)$` regex fix (`types.py` line 90), the 3-step config flow (`config_flow.py`, 510 lines), the cross-domain migration via `async_step_import`, and version `2026.05.01` in `manifest.json`.
 
