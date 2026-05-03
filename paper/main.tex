@@ -24,6 +24,10 @@
 \usepackage{cleveref}
 \usepackage{seqsplit}
 % \fp{...} -- "file path": use \path semantics so TeX may break at `/' or `_'.
+% NOTE: a Stage-4 round-3 attempt to redefine as \seqsplit{\texttt{#1}} broke the
+% build because tokens like ACTION_W_CFG_BACKUP_REVERSE_SOC enter math mode under
+% \texttt; reverted 2026-05-03. Path-bullet M items in the layout registry
+% remain deferred for a future cprotect/verbatim-aware refactor.
 \newcommand{\fp}[1]{\path{#1}}
 % \Description{...} -- accessibility alt-text shim. No-op fallback when the
 % acmart / tagpdf machinery that defines a real \Description is not loaded;
