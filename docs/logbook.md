@@ -10,6 +10,22 @@ This logbook is the operating record for the paper and research process.
 
 ## Log Entries
 
+### 2026-05-03 (peer-review reconstruction — Spider Farmer v2→v3)
+- Session lead: AI agent (Claude opus-4-7), invoked by orchestrator on behalf of human author.
+- Trigger: peer-review comment flagging that `paper/main.md` §3.4 admits an undocumented `VERSION 2 → 3` migration step.
+- Actions taken:
+  - Attempted to clone `https://github.com/noheton/spider_farmer.git` per task brief. All retrieval channels failed in the current sandbox: anonymous `git clone` (no creds), GitHub MCP (`noheton/spider_farmer` not in allowed-repos list — only `noheton/obscurity-is-dead` permitted), `api.github.com` (rate-limited, unauthenticated), `codeload.github.com` tar.gz on `main` and `master` (404), `HEAD https://github.com/noheton/spider_farmer` (404). Repository is either private, renamed, or otherwise unreachable from this environment.
+  - Fell back to the locally-vendored snapshot `experiments/spider-farmer/original/` (per repo commit `ffdf60c`). Reconstructed the v2→v3 migration *technically* from `original/__init__.py` lines 95–135, whose docstring and code self-document the transition: BLE-only transport, drop legacy MQTT-only fields (`uid`, `mqtt_topic`), derive `pid` from BLE address, idempotently carry forward the v1→v2 CB-key fix, fail-closed when no BLE address is present.
+  - Drafted hand-back `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` containing: (a) the peer-review concern verbatim, (b) failed-retrieval methodology and local fallback, (c) the technical reconstruction with file/line citations and the verbatim docstring quote, (d) drop-in replacement blocks for `paper/main.md` §3.4 line 169 and the corresponding `paper/main.tex` paragraph, (e) explicit provenance-gap statement enumerating what remains `unverified-external` (commit SHA, date, PR/issue refs, AI-assistance status of the original migration work).
+  - Did **not** edit `paper/main.md` or `paper/main.tex` (per task brief — writer agent owns paper edits).
+- Files updated:
+  - `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` (new)
+  - `docs/logbook.md` (this entry)
+- AI vs human contribution (rule 1): hand-back prose, reconstruction, and recommended paper-edit are AI-generated. Human input pending: review of the recommended edit before the writer agent integrates it.
+- Redaction (rule 12): no new credential material; the stale BLE candidate `J4G0M9dX1f1v3fXr` quoted in the addendum is a disproved candidate already documented in T1 and `provenance.md`, not a live key.
+- Distribution (rule 13): no push, no public release.
+- Next step: orchestrator should dispatch the scientific-writer stage to integrate the recommended block into §3.4 and amend the §10 open-issue bullet (line 626).
+
 ### 2026-05-01
 - Session lead: Researcher
 - Actions taken:
