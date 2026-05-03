@@ -175,6 +175,29 @@ Pandora's jar is open. The only way out is through, and ``through''
 looks like this --- disclosed, attributed, auditable, and willing to
 be argued with.
 
+\paragraph{What surprised me about the assistant.}
+Working through the case studies, I expected --- and braced for ---
+moments where the model would refuse to help me reverse-engineer a
+proprietary BLE protocol or pull credentials out of a vendored APK,
+or where the session would be flagged or terminated. That happened
+far less often than I anticipated. The dominant register was
+\emph{cooperative competence}, including for steps that an attacker
+would also want. This is a useful empirical observation, and a
+sobering one: it tells us that current guardrails are real but
+bounded, and that the surface they protect is much smaller than the
+surface they touch. The conclusion I take from this is uncomfortable
+but not pessimistic: guardrails are a band-aid --- necessary, but a
+band-aid (\cref{sec:disc-dual-use} develops this against the Mythos /
+Project Glasswing case). The durable answer is \emph{security by
+design at the artifact level} --- published specifications,
+authenticated and scoped APIs, and threat models that assume the
+existence of capable, willing, AI-augmented adversaries
+(\cref{fig:dual-use} and \cref{fig:threat-models}). Treating AI as
+just another vector under-counts what is changing; the magnitude and
+frequency of attempts that any given system will face is materially
+higher in 2026 than it was in 2024, and the trajectory points further
+the same way. Build for that.
+
 \paragraph{Open to constructive criticism --- actively.}
 I welcome criticism, replication attempts, and challenges to the
 framework --- to the eight practices, the case-study choices, and the
@@ -1666,6 +1689,37 @@ device is cheap, and verifying an exploit against a live target is not. We
 argue this asymmetry is the most under-discussed feature of the post-LLM
 threat model.
 
+A live counter-data-point landed during the writing of this paper. On
+2026-04-07 Anthropic announced \textbf{Claude Mythos
+Preview}~\citep{anthropic2026glasswing,anthropicred2026mythos} ---
+a frontier model that, in the company's own published red-team work,
+autonomously identified zero-day vulnerabilities in \emph{every major
+operating system and every major web browser} (the oldest a
+27-year-old OpenBSD bug), chained four-vulnerability browser exploits
+with JIT heap-spray, autonomously obtained local privilege escalation
+via subtle race conditions and KASLR bypass, and split a multi-gadget
+ROP chain across packets to root unauthenticated NFS servers.
+Crucially for this paper's thesis, Mythos also reverse-engineers
+stripped closed-source binaries to plausible source code at scale ---
+the strongest published acknowledgement to date that the
+offensive-side gap is closing faster than the L-VD-1\,/\,L-VD-2 era of
+evidence (which the \cref{sec:contributions} framing was calibrated
+against) suggested. Mythos is not yet broadly deployed adversarial
+capability --- Anthropic chose \emph{not} to release it generally,
+instead launching \textbf{Project Glasswing}, a coordinated defensive
+deployment to AWS, Apple, Cisco, CrowdStrike, Google,
+JPMorganChase, Linux Foundation, Microsoft, NVIDIA, and Palo Alto
+Networks, and shipping the more cautious Claude Opus
+4.7~\citep{anthropic2026opus47} as the safeguarded sibling. But the
+existence proof is now concrete: capable autonomous offensive AI is on
+hand at a frontier lab, and the lab itself describes it as a
+\emph{``watershed''} demanding industry-coordinated defence. The
+asymmetry-of-collapse argument in this section is not falsified ---
+verifying an integration is still cheaper than verifying an exploit
+--- but the gap is narrower, and the time horizon over which it
+remains a defender-favouring asymmetry is shorter, than this paper's
+first draft assumed.
+
 % Rule 14: data source = figures/data/stage-effort.csv; generation script = figures/fig10-stage-effort.py
 \begin{figure}[t]
   \centering
@@ -1717,6 +1771,36 @@ access at every hop.
   \caption{\textbf{Two threat models.} Left: a single perimeter protects implicitly trusted devices --- once breached, the whole system is exposed. Right: every hop is authenticated against a published specification; a breach stays local. AI-assisted reverse engineering punctures the left model and rewards systems built on the right.}
   \label{fig:threat-models}
 \end{figure}
+
+\paragraph{Guardrails as band-aid: a security-by-design imperative.}
+The Project Glasswing model (\cref{sec:disc-asymmetry}) and the
+safeguarded Claude Opus 4.7
+release~\citep{anthropic2026opus47} are interesting precisely as a
+\emph{concrete public example of guardrails as band-aid}. Anthropic's
+response to demonstrating Mythos's offensive capability was not to
+install guardrails sufficient to release Mythos broadly --- they
+explicitly chose not to release it generally, and the safeguards
+bolted onto Opus 4.7 are described as ``automatically detect and
+block requests that indicate prohibited or high-risk cybersecurity
+uses''. This is necessary work, and Anthropic is being unusually
+transparent about it. But the band-aid is structural: every guardrail
+is a classifier, every classifier has a false-negative rate, and any
+false-negative rate combined with autonomous offensive capability and
+global proliferation collapses to attacker-side capability over a
+short enough horizon. The author's own observation while writing this
+paper (Author's Note: \emph{What surprised me about the assistant})
+corroborates this from the inside: Opus 4.7 --- the safeguarded
+sibling --- was \emph{cooperatively competent} at the steps an
+attacker would also want, and the session was not flagged. The
+durable answer is \emph{security by design at the artifact level}
+--- published specifications, authenticated and scoped APIs, and
+threat models that assume the existence of capable, willing,
+AI-augmented adversaries (\cref{fig:dual-use},
+\cref{fig:threat-models}). The frame to retire is ``AI is just
+another vector''; the frame to adopt is \emph{AI massively increases
+the magnitude and frequency of attempts that any given system will
+face, and only systems that survive that increase by design will
+survive at all}.
 
 \subsection{The paper as evidence for its own thesis}
 \label{sec:disc-recursion}
@@ -2733,6 +2817,41 @@ of AI-assisted research:
         \texttt{codemeta.json}, and \texttt{docs/fair.md} map every
         FAIR principle to the concrete repository feature that
         satisfies it.
+\end{enumerate}
+
+A \emph{ninth} practice has come into focus during this paper's own
+preparation, and is logged here for the next iteration of the
+framework rather than added to \cref{fig:eight-practices}. It
+addresses a meta-question that the eight practices above do not
+directly answer --- \emph{how do we safeguard against unintentional
+plagiarism?} The verification ladder (practice 2) and provenance maps
+(practice 3) make every cited claim auditable, and the
+transcript-as-artifact discipline (practice 1) makes the
+prompt-to-paragraph link explicit; what they do \emph{not} directly
+catch is a generation-time risk: that an LLM might reproduce passages
+from its training data closely enough to constitute plagiarism even
+when neither the human author nor the model intends it.
+
+\begin{enumerate}
+  \setcounter{enumi}{8}
+  \item \textbf{Verbatim-string scanning against the assistant's
+        likely training corpus.} The mitigation operationalised in
+        this paper is mundane and partial: every paper-ready paragraph
+        is searched against the public web (Exa MCP
+        \texttt{web\_search\_exa}) for suspicious verbatim $n$-gram
+        hits before commit; matches above a threshold are either
+        replaced with paraphrase plus citation, or wrapped in an
+        inline quotation with attribution. This is a \emph{first cut}.
+        It does not catch paraphrase-level overlap (which requires
+        similarity tooling beyond exact-string search), and it does
+        not catch overlap with closed corpora the assistant was
+        trained on. The honest framing is that the plagiarism-safeguard
+        problem in the AI-assisted-writing era is not yet solved, and
+        that practice~9 will need to evolve with detection tooling as
+        that tooling matures. It is named here so that the \emph{next}
+        iteration of this framework can argue with it, replace it, or
+        tighten it (Author's Note: \emph{Frameworks evolve with
+        capabilities}).
 \end{enumerate}
 
 \begin{figure}[t]
