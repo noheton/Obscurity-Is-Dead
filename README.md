@@ -152,8 +152,26 @@ Full F1–R1.3 mapping and open compliance issues in [`docs/fair.md`](docs/fair.
 
 ---
 
+## Contribute — open an issue, change the paper
+
+This project is designed to be argued with. The agent pipeline in [`docs/prompts/`](docs/prompts/) treats GitHub issues as **first-class inputs**: an issue you open here is a prompt for the next pass of the pipeline, not a wishlist item that goes to a backlog and dies.
+
+Three labels route issues into specific pipeline stages — pick the one that fits your contribution:
+
+| Label | What it means | Where it goes |
+|-------|---------------|----------------|
+| [`idea`](https://github.com/noheton/Obscurity-Is-Dead/issues/new?labels=idea) | A hypothesis, device, paper, or framing worth investigating. *"What if you tested X?"* / *"Have you seen this 2025 paper that contradicts §6.4?"* | **Stage 1 — Research Protocol.** A research pass is dispatched against the issue body; results land in [`docs/sources.md`](docs/sources.md), [`docs/logbook.md`](docs/logbook.md), and (if material) the paper. The issue number is cited in every artifact the pass produces. |
+| [`critique`](https://github.com/noheton/Obscurity-Is-Dead/issues/new?labels=critique) | A specific challenge to a claim, figure, citation, or framing. *"§7.7 overstates model collapse — here's the counter-evidence."* / *"Figure 11 misreads its own data."* | **Stage 2 — Scientific Writer** (default). The issue body becomes a writer hand-back; the writer revises the paper and replies on the issue with the commit SHA that closes (or contests) the critique. Layout- or readability-only critiques may be re-routed to Stage 4/5. |
+| [`provenance-gap`](https://github.com/noheton/Obscurity-Is-Dead/issues/new?labels=provenance-gap) | A missing transcript, an unreachable artifact, an unverifiable claim. *"The v2→v3 migration has no transcript"* (this is a real example — see §3.4). | **Stage 1 — Research Protocol** targeted at the named experiment, **plus** a meta-process note in §5. Closure means either the gap is filled, or it is explicitly named in the paper as outstanding (rule 1: honesty about what we can't reconstruct). |
+
+Disagreement is the most useful kind of contribution. The transcript-as-artifact discipline ([rule 4 in `CLAUDE.md`](CLAUDE.md)) means every claim in the paper is backed by an exportable conversation log committed in this repository — so an objection can land on a specific line, transcript, or commit rather than on vibes.
+
+> Quick start: open an issue with one of the three labels above. The orchestrator polls open issues at the start of every pipeline run; your input shows up in the next dispatch directive.
+
+---
+
 ## How this README stays honest
 
-This is the flashy front door of [`paper/main.md`](paper/main.md). Per **rule 15** of [`CLAUDE.md`](CLAUDE.md), title, thesis, headline KPIs, and figure inventory must be updated in the same commit that the paper changes any of them. If this page contradicts the paper, the paper wins — please open an issue.
+This is the flashy front door of [`paper/main.md`](paper/main.md). Per **rule 15** of [`CLAUDE.md`](CLAUDE.md), title, thesis, headline KPIs, and figure inventory must be updated in the same commit that the paper changes any of them. If this page contradicts the paper, the paper wins — please open an issue (`critique` label).
 
 *Obscurity is dead. What replaces it has to be designed, not assumed.*

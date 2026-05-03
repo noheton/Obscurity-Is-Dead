@@ -1943,3 +1943,11 @@ This logbook is the operating record for the paper and research process.
 - **Branch:** `claude/review-open-issues-PfNx9`.
 - **Out of scope (untouched):** `paper/`, `experiments/`, `docs/sources.md`, `docs/handbacks/`, `paper/references.bib`, `paper/figures/`. No `make pdf` run. No publish action (rule 13).
 - **RE-SCRUTINY-of-prompts: not applicable.** Prompt updates are governance text and are not subject to the layout/readability scrutinizer pipeline; the next substantive scrutiny happens when the updated prompts are exercised by their respective agents in subsequent pipeline runs.
+
+## 2026-05-03 — clarification: commit 506b927 attribution
+
+- Type: housekeeping note (no agent dispatched).
+- Trigger: commit `506b927` ("orchestrator: mandatory issue poll; critique defaults to Stage 2") inadvertently bundled three unrelated artifacts: the orchestrator-prompt edit (the only change described in the message), `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` (Agent B output), and the Agent B `docs/logbook.md` session entry. Cause: Agent B had run `git add` on its files but had not yet committed when the orchestrator-edit `git commit` ran in the parent session; the staged files were swept in.
+- Action: not amending the published commit (CLAUDE.md / Git Safety Protocol — never rewrite published history without explicit consent). Recording the bundling here so the audit trail is honest (rule 1).
+- Files actually changed in 506b927: `docs/prompts/orchestrator-prompt.md`, `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` (new), `docs/logbook.md` (Agent B entry).
+- Author of the bundled work: orchestrator-edit by parent session (Claude Opus 4.7, human-directed); v2→v3 reconstruction by Agent B (Claude Opus 4.7).
