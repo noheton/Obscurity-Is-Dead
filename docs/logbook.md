@@ -2028,3 +2028,14 @@ This logbook is the operating record for the paper and research process.
 - **Rule-1 / rule-12 check:** every upgrade carries retrieval URL, retrieval date (2026-05-03), agent identifier (Claude Opus 4.7), and a quoted load-bearing passage. No credentials, serial numbers, local IPs, or private UIDs added. No paper edits (rule 11). No external upload of repository content (rule 13).
 - **Deliverables:** edits to `docs/sources.md` (six entry status lines L-PRIV-7..12); appended pass-12 sections to `docs/handbacks/source-analyzer-report.md` and `docs/handbacks/source-analyzer-to-writer.md`; this logbook entry. Commit on `claude/review-open-issues-PfNx9`; not pushed (rule 13).
 - **Next step (orchestrator):** continue down-file with the next ~6 `[lit-retrieved]` entries. The natural next slice begins at **L-AGT-1** (cluster M, malicious LLM agents and adversarial agentic AI, supporting §7.13).
+
+### 2026-05-03 — Source Analyzer pass 13 (Claude Opus 4.7)
+
+- Slice 15 of the chained sweep against `[lit-retrieved]` backlog. Cluster M (malicious LLM agents, §7.13).
+- Processed: L-AGT-1 through L-AGT-10 (10 entries).
+- Upgrades: 10 `[ai-confirmed]`. Edge cases: 0. Fetch failures: 0.
+- Most consequential upgrade: **L-AGT-1** (Fang et al., 2024) — directly anchors the §7.13 governance-not-capability framing. GPT-4 87% / 0% baseline differential on 15 one-day CVEs is the empirical core of the malicious-integrator argument.
+- Most consequential systematisation upgrade: **L-AGT-4** (Lupinacci et al., 2025) — 100% inter-agent trust-exploitation success across 18 LLMs underwrites the §7.13 "trust laundering" failure mode. Particularly strong because it shows the *cross-agent* boundary is the weak point, not any single agent's safety training.
+- No edge cases. Source-Analyzer hand-back filed; recommends bibliographic upgrade for six entries that have since reached peer-reviewed venues (NeurIPS, ICLR, EMNLP, ACL × 2, ICT Express).
+- Cumulative pass-13 totals: **84 ai-confirmed**, 10 ai-confirmed-bibliographic, 2 edge-case, 3 attempt-failed. Backlog ~14 unprocessed `[lit-retrieved]` entries (clusters N, O remain).
+- Re-analysis verdict: **RE-ANALYSIS REQUIRED: no** for this slice. Next slice should start at L-APK-1 (cluster N) per orchestrator dispatch.
