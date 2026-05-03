@@ -106,3 +106,23 @@ at 8 rows per the explicit `main.md:715` instruction; no illustrator
 action required. RDB-05 + RDB-08 (consolidate fig13 + fig14) and
 RDB-07 (§7.11 4 × 3 prompt-injection matrix) remain DEFERRED on the
 human-author decision list.
+
+---
+
+# Round 3 hand-back (2026-05-03; against `37ded1f`)
+
+**No new illustrator action required this round.**
+
+- RDB-35 (Fig 9 caption — 4 stages) and RDB-36 (Fig 11 caption —
+  legend duplication) are **RESOLVED-confirmed** in writer loop 3
+  (`37ded1f`). The illustrator's round-2 caption-fidelity flags
+  (`illustrator-pass-2026-05-03-overhaul.md` §E) are now closed at
+  the caption-text layer.
+- The two new round-3 defects (RDB-37 §4.6 sentence-length M;
+  RDB-38 §10 middle sentence L) are writer-only. No figure or asset
+  change involved.
+- Standing illustrator-coordination items unchanged from round 2:
+  RDB-04 / RDB-02 §10 list-of-eight vs Figure 11 still DEFERRED on
+  human-author option a/b/c decision; RDB-05 + RDB-08 (fig13/fig14
+  consolidation) and RDB-07 (§7.11 prompt-injection matrix) remain
+  DEFERRED.
