@@ -1,147 +1,122 @@
 # Layout Scrutinizer — Hand-back to Illustration Agent
 
 Source: `docs/handbacks/layout-defect-registry.md` (PDF SHA-256
-`ba538ea0d2df9a582889eb16de84d3cd1c6bcf5ae00e647549b7b68bcb2b9e4f`,
-build 2026-05-02T14:53:23Z, 40 pages).
+`62e68f6a5208814d47a51a8124bc7c7a836e7c9f3104951bc40a5c8dfda81384`,
+build 2026-05-02T19:44:30Z, 42 pages, rebuilt by writer pass `537fae2`).
 
-The illustrator is the owner of figure-asset geometry, embedded text
-contrast, palette choices, and aspect ratio. Do not edit `paper/main.tex`
-or `paper/main.md` — those are the writer's responsibility (see
-`layout-to-writer.md`).
-
-After remediation, regenerate the affected `*.pdf` figures from their
-SVG / Python sources, rebuild via `make -C paper pdf`, and request a
-Layout Scrutinizer re-run.
+This is the **second** Layout Scrutinizer pass. Each block below is one
+defect routed to the illustration agent. Re-export the affected figure
+asset(s) and rebuild via `make -C paper pdf`; do **not** invoke
+`make arxiv` (CLAUDE.md rule 13).
 
 ---
 
-## LAY-05 — Figure 7 (verification-status pipeline) overflows `\textwidth` by 226 pt
+## Disposition of LAY-01..LAY-18 (illustrator-owned)
 
-- Page: 14 (full-page float)
-- Source: figure environment at `main.tex:805–827`; asset
-  `paper/figures/fig9-verification-pipeline.pdf`; script
+## LAY-05 — Figure 7 (verification-status pipeline) 226.22pt overfull
+- **[RESOLVED]**.
+- Verified: log shows zero `Overfull \hbox` warnings in the figure
+  float environment at `main.tex:814–828`. The 226.22pt overfull that
+  previously dominated the geometric-defect picture for this figure
+  is gone in the rebuilt PDF.
+- A separate 226.22pt overfull now appears at `main.tex:872–891`,
+  but that is the writer-owned KPI tabular (LAY-19), **not** Figure 7.
+  No illustrator action required.
+- Page: 14 (was 14 in the prior pass)
+- Source: `main.tex:814–828` (was `:805–827`)
+- Asset: `paper/figures/fig9-verification-pipeline.pdf` /
   `paper/figures/fig9-verification-pipeline.py`
-- Observed: log `Overfull \hbox (226.22418pt too wide) in paragraph at
-  lines 808--827`. This is the largest geometric overflow in the
-  document — the figure's bounding box is rendered ~7.97 cm wider than
-  the printable area. `pdftotext` of page 14 confirms the inner
-  two-track legend (literature track / artifact track, with the
-  `[needs-research] → [lit-retrieved] → [lit-read]` and
-  `[unverified-external] → [repo-referenced] → [repo-vendored]` rows)
-  is rendered at a width that exceeds the page text block.
-- Required action: re-render `fig9-verification-pipeline.pdf` from
-  `fig9-verification-pipeline.py` at a tighter aspect ratio. Preferred
-  options, in order:
-  1. Stack the two tracks vertically (literature track on top, artifact
-     track below) inside a square-ish bounding box; this preserves all
-     content and halves the horizontal extent.
-  2. Reduce the typeset size of the stage labels and the `gate`
-     annotations and increase the inter-stage arrow length so the
-     content fits in `\textwidth` (≈430pt) at the natural include size.
-  3. As a last resort, mark the float `\begin{sidewaysfigure}` and
-     re-emit at landscape proportions — coordinate with the writer
-     (cross-ref `layout-to-writer.md`) before doing this.
-  Do **not** paper over the overflow with `\resizebox{\textwidth}{!}`
-  in `main.tex`; the embedded text becomes illegible.
-- Severity: H
+- Severity: H → 0 (closed)
 
----
+## LAY-06 — Figure 8 / `tab:difficulty-taxonomy` heat-map row split
+- **[PARTIAL → M]**.
+- Verified: the heat-map row split (`Med High` wrapping onto the
+  EcoFlow row in the prior pass) is no longer evidenced by the log
+  warnings, and the figure is included at 0.92\linewidth.
+- Residuals from the log: 8.80pt overfull at lines 1136–1137 (the
+  "Composite" header row of the *table* `tab:difficulty-taxonomy`
+  that precedes the figure include); 2.53pt overfull at 1134–1160
+  (the whole tabular). These are column-width pressure on the
+  Composite header. Owner could be either writer (table re-author)
+  or illustrator (figure caption / panel re-render).
+- Page: 19
+- Source: `main.tex:1132–1184`
+- Asset: `paper/figures/fig12-difficulty-taxonomy.pdf` /
+  `paper/figures/fig12-difficulty-taxonomy.py`
+- Severity: H → M
+- Required action: either re-render the heat-map figure with the
+  Composite column moved to a side sub-panel (reduces table width
+  pressure on the header row), or hand back to the writer to widen
+  the `Composite` `p{1.4cm}` column to `p{1.8cm}` and shorten the
+  preceding columns proportionally.
 
-## LAY-06 — Figure 8 (difficulty taxonomy) sub-table overflow on page 19
+## LAY-12 — Logo placeholders
+- **[DEFERRED — by design]**.
+- Per logbook 2026-05-02, the shattered-jar logo
+  (`logo-obscurity-is-dead.png`) is now the final Gemini artwork; only
+  the intact-jar companion (`logo-pandora-jar-intact.png`) remains an
+  AI-authored placeholder pending the second Gemini deliverable. Prose
+  at `main.tex:2138–2149` declares this explicitly per rule 1, so the
+  placeholder presence is honest, not a defect.
+- Tracking entry only; **do not edit `logo-placeholders.py`.** Replace
+  `logo-pandora-jar-intact.png` once the Gemini deliverable arrives,
+  and the Layout Scrutinizer will re-run against the final asset.
+- Page: ~38–40 (was 36–38)
+- Source: `main.tex:2138–2145, :2313`
+- Severity: M (informational)
 
-- Page: 19 (upper-third heat-map, Figure 8 / `fig12-difficulty-taxonomy`)
-- Source: include at `main.tex:1070–1096`; asset
-  `paper/figures/fig12-difficulty-taxonomy.pdf`; script
-  `paper/figures/fig12-difficulty-taxonomy.py`; data
-  `paper/figures/data/difficulty-taxonomy.csv`
-- Observed: log `Overfull \hbox (8.79628pt) at lines 1072–1073`
-  ("Composite") and `(2.52565pt) at lines 1070–1096`. `pdftotext` of
-  page 19 shows the heat-map rows split across what should be a single
-  horizontal stripe per case ("Med High" wraps onto the EcoFlow row),
-  and the "Composite" header overlaps the rightmost rating column.
-- Required action: re-render at the requested 416.7pt × 252.5pt with
-  cell labels in a smaller font and column separation widened by ≥6pt.
-  Alternatively, separate the composite spread column into a stacked
-  sub-panel below the four-axis heat-map. Verify against
-  `paper/figures/data/difficulty-taxonomy.csv`.
-- Severity: H
+## LAY-13 — PDF version 1.7 vs 1.5 inclusion warnings
+- **[PARTIAL — UNCHANGED → escalating count]**.
+- Verified: log still reports `pdfTeX warning: PDF inclusion: found PDF
+  version <1.7>, but at most version <1.5> allowed` for these figures,
+  and the warning count has grown from 2 to 7 (`fig1-effort-gap.pdf`,
+  `fig2-boredom-barrier.pdf`, `fig3-spider-farmer.pdf`,
+  `fig4-ecoflow.pdf`, `fig5-methodology.pdf`,
+  `fig6-dual-use.pdf`, `fig7-threat-models.pdf`).
+- No reader-visible defect today; an arXiv-strict pdfTeX may eventually
+  downgrade or reject these floats.
+- Page: ~7, ~9, ~11, ~13, ~15, ~22, ~23
+- Source: `main.tex:1399`, `:1406` (and the includes for fig1–fig5
+  earlier in the document)
+- Required action: re-export each of the 7 PDFs from the source SVG /
+  matplotlib at PDF compatibility level 1.5
+  (`gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -o out.pdf in.pdf`,
+  or set explicit PDF-1.5 metadata in the `savefig` call where
+  matplotlib supports it).
+- Severity: M (unchanged)
 
----
-
-## LAY-12 — Logo placeholders (pending Gemini final artwork)
-
-- Page: 36 (logo-obscurity-is-dead reference in §10 prose) and 37
-  (logo-pandora-jar-intact image)
-- Source: assets `paper/figures/logo-pandora-jar-intact.png` (included
-  at `main.tex:2191`, log entry `id=1799, 343.28pt × 341.11pt`) and
-  `paper/figures/logo-obscurity-is-dead.png` (referenced in §10 prose
-  at `main.tex:2009–2028`); generation script
-  `paper/figures/logo-placeholders.py`
-- Observed: both logo PNGs are AI-authored placeholders pending the
-  Google-Gemini-generated final artwork commissioned 2026-05-02. The §10
-  prose explicitly labels them as placeholders per CLAUDE.md rule 1.
-  This is **not** a content-quality, contrast, or visibility failure —
-  it is a tracking entry so the illustrator pipeline replaces the PNGs
-  once the Gemini deliverable arrives.
-- Required action:
-  1. When the Gemini-generated assets land, drop them in place at
-     `paper/figures/logo-pandora-jar-intact.png` and
-     `paper/figures/logo-obscurity-is-dead.png`.
-  2. Update `paper/figures/README.md` Rule-14 metadata to mark the
-     assets as final (and note the prompt / model / date used to
-     generate them).
-  3. Leave `paper/figures/logo-placeholders.py` in the tree (as the
-     auditable record of what the placeholder was) — do not delete it.
-  4. Trigger a Layout Scrutinizer re-run against the rebuilt PDF so the
-     final assets are inspected for contrast and aspect-ratio fit.
-- Severity: M (status: PLACEHOLDER-pending; not a defect of execution)
-
----
-
-## LAY-13 — Embedded PDFs at version 1.7 vs. document target 1.5
-
-- Page: 22 (Figure 11 — dual-use map) and 23 (Figure 12 — threat-models)
-- Source: `paper/figures/fig6-dual-use.pdf` (included at `main.tex:1281`)
-  and `paper/figures/fig7-threat-models.pdf` (included at `main.tex:1288`)
-- Observed: `pdfTeX` warning twice: `PDF inclusion: found PDF version
-  <1.7>, but at most version <1.5> allowed`. No reader-visible defect
-  in the current build, but a stricter pdfTeX (or arXiv's build
-  pipeline) may downgrade or reject these floats.
-- Required action: re-export the SVG sources to PDF with
-  `CompatibilityLevel=1.5`. Two equivalent recipes:
-  - `rsvg-convert -f pdf -o fig6-dual-use.pdf fig6-dual-use.svg` then
-    `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -o fig6-dual-use.pdf -- fig6-dual-use.pdf`
-  - Or `inkscape --export-type=pdf --export-pdf-version=1.5
-    fig6-dual-use.svg`.
-- Severity: M
-
----
-
-## LAY-16 (joint, advisory) — Bibliography URL/path overflows
-
-- Page: 39–40
-- Source: `main.bbl` (auto-generated); upstream `references.bib` plus
-  the vendored-archive paths under
-  `experiments/spider-farmer/original/doc/`
-- Observed: ~25 Underfull `\hbox` warnings in the bibliography for
-  community-implementation entries (`p0rigth_spiderblebridge`,
-  `noheton_pythonspider`, …). Cosmetic justification rivers caused by
-  long unbreakable URLs.
-- Required action: this is primarily a writer-owned `references.bib`
-  fix (see `layout-to-writer.md#LAY-16`). The illustrator may be asked
-  to provide a *short alias* for vendored-archive paths if a future
-  bib style cannot wrap them — no current action required.
+## LAY-16 — Bibliography underfull rivers
+- **[PARTIAL — UNCHANGED]**.
+- ~25 Underfull `\hbox` warnings in `main.bbl`. Auto-generated from
+  `references.bib`; same long-URL root cause. New bib entries added by
+  writer pass `537fae2` (`papp2015embedded`,
+  `vasile2018breakingallthethings`, `becker2020hwreexploratory`,
+  `botero2021hwretutorial`, `grand2013jtagulator`) do not appear to have
+  introduced fresh underfulls beyond the baseline.
+- Page: 41–42 (was 39–40)
+- Source: `main.bbl` (auto-generated)
+- Required action: practical fix is to ensure long URLs in
+  `references.bib` are wrapped in `\url{}` (already done partially);
+  add a `BREAK` directive or `\seqsplit` for vendored-archive paths.
+  Advisory-only; defer or batch with the next writer pass.
 - Severity: L
 
 ---
 
-## Summary for the illustrator
+## NEW illustrator-owned defects
 
-- **H:** LAY-05 (fig9-verification-pipeline regenerate at tighter
-  aspect), LAY-06 (fig12-difficulty-taxonomy regenerate with widened
-  columns).
-- **M:** LAY-13 (re-export fig6-dual-use and fig7-threat-models at PDF
-  1.5), LAY-12 (replace logo placeholders when Gemini assets arrive).
-- **L:** LAY-16 (advisory only).
-- All five floats are sourced under `paper/figures/`; no asset outside
-  the figure directory is implicated.
+None this pass. All four new defects (LAY-19..LAY-22) are writer-owned
+(KPI tabular column-definition pattern + path-wrapping + citation-pack
+density). The illustration assets did not regress between commits
+`f3ce051` / `537fae2` and the prior PDF.
+
+---
+
+## Summary
+
+- **Open illustrator-owned defects:** 3 (LAY-06 [partial → M],
+  LAY-13 [partial → M], LAY-16 [partial → L]).
+- **Closed:** 1 (LAY-05).
+- **Deferred — by design:** 1 (LAY-12; placeholder pending Gemini).
+- **No new defects** introduced by writer commits `f3ce051` / `537fae2`
+  in the figure-asset layer.
