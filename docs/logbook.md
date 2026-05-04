@@ -7,584 +7,9 @@ This logbook is the operating record for the paper and research process.
 - Update it after each meaningful action.
 - Capture decisions, changes, and next steps.
 - Record one logbook entry for each meaningful commit or grouped set of related commits.
+- **Order is chronological (oldest first; rule 11). Append new entries at the end of the file, never at the top.** Within the same date, append in the order in which the actions ran. The Aligner agent (`docs/prompts/aligner-prompt.md`) checks this invariant; the re-sorting script is `scripts/sort-logbook.py` (preserves the leading header, sorts `###` entries by date asc with stable tiebreakers).
 
 ## Log Entries
-
-### 2026-05-04 (Stage 2 writer — defect-closure hand-back)
-- Session lead: Claude Opus 4.7 (Stage 2 scientific writer), branch `claude/history-rewrite-daDxQ`. Trigger: orchestrator-issued defect-closure hand-back targeting LAY-31 (M, §5.6 trailing-clause overfull), LAY-10/-29 (M carry-over, §10 path-bullet cluster), RDB-39 (M, §5.6 split — joint with LAY-31), RDB-40 (M, README footnote demotion), and RDB-37 (M carry-over, §4.6 OCPP runtime-handover paragraph). LAY-32 (fig15) explicitly out-of-scope per the dispatch (illustrator handled it in parallel).
-- **RDB-39 + LAY-31 (joint).** Split the §5.6 live-credential bullet's third sentence into two: sentence A captures the executed history-rewrite (catalogue + rewrite-tip tag), sentence B opens with the organising frame "Two residual surfaces remain governed by policy rather than by the rewrite" and absorbs the binary-archive carve-out and the upstream-repos pre-condition as parallel members of one set. Mirrored at `paper/main.md:365` ↔ `paper/main.tex:1253–1274`. Wrapped the two unbreakable upstream-repo literals `\texttt{noheton/spider\_farmer}` / `\texttt{noheton/powerocean-dev}` in `\seqsplit{...}` per the LAY-26 round-3 pattern. Post-rebuild log shows the §5.6 overfull collapsed from **25.75 pt → 0.80 pt** (effectively closed); both defects flip to RESOLVED.
-- **RDB-37.** Split the §4.6 OCPP runtime-handover paragraph from one 155-word em-dash-joined sentence into three: a topic sentence ("a concrete catalog-vs-runtime asymmetry"), the LOC/endpoint enumeration, and the runtime-handover-gap clause. The runtime-handover argument is preserved verbatim at the claim level — only sentence boundaries change. Mirrored at `paper/main.md:288` ↔ `paper/main.tex:1014–1033`.
-- **RDB-40 (README).** Demoted the vendored-zip carve-out row from the public-mirror-readiness table to a `†`-footnote-style caveat directly under the table; row 2 (history rewrite) now carries a one-clause back-reference ("One residual surface, the vendored zip carve-out, is recorded under the table.<sup>†</sup>"). The table is back to four substantive gating-status rows; the visual rhythm against the badges row + hero figure improves; no information lost. `README.md:159–168`.
-- **LAY-10/-29 path-bullet cluster.** Applied `\seqsplit{...}` to the long-`\texttt{}` literals in the §10 eight-practices enumerate (verification-status legend labels; `paper/main.md` / `paper/main.tex` mirror-discipline literals; FAIR file list) and to the §8 future-work bullets (`[unverified-external]`, `[needs-research]`, `noheton/spider_farmer`, `[lit-retrieved]`, `[lit-read]`). The mirror-discipline bullet additionally reframed to load-bear two leading nouns ("the Markdown source X and the LaTeX mirror Y"), pushing the `\seqsplit{}` token earlier in the line so the breakable opportunity precedes the long `CLAUDE_CODE_INSTRUCTIONS.md` literal. Mirrored at `paper/main.md:743` ↔ `paper/main.tex:3043–3050`. Total `Overfull \hbox` count fell **34 → 30** post-rebuild; the §10 path-bullet family lost the 70.91 pt + 32.31 pt + 16.08 pt members.
-- **LAY-33 (full-page float whitespace).** Deferred — the dispatch did not list it as in-scope, the rationale is float-cascade rather than path-density, and a `\FloatBarrier` pass risks regressions in the §7 figure neighbourhood that warrants its own scrutiny round. Recorded as deferred in the P3a row of `docs/todos-for-publication.md`.
-- Rule 11 (mirror): every change to `paper/main.md` mirrored in `paper/main.tex` in this commit; the §5.6 split, the §4.6 split, and the §10 mirror-discipline rephrase are textually parallel between the two surfaces. Markdown wraps natively, so the `\seqsplit{}` insertions are tex-only (no md change required for those literals).
-- Rule 1 (honesty): no new claims introduced. RDB-39 / RDB-37 are pure sentence-boundary edits; RDB-40 is a row-to-footnote demotion; LAY-10/-29 / LAY-31 are line-breaking hints. The `CLAUDE_CODE_INSTRUCTIONS.md` rephrase ("the Markdown source / LaTeX mirror") adds two factual labels but introduces no new claim.
-- Rule 13 (no publication): local PDF only. No `make arxiv`, no public push beyond the `claude/history-rewrite-daDxQ` working branch.
-- Build: `make pdf` clean, 57 pages, 1,250,840 bytes, zero `??` / undefined refs / undefined cites; underfull count unchanged.
-- Next: re-dispatch Stage 4 (layout) and Stage 5 (readability) for re-scrutiny. Open registry items remaining for the writer: the §6.x / §7.x path-bullet M-cluster (LAY-02/-24, LAY-08, LAY-09/-22, LAY-25), the difficulty-taxonomy table residual (LAY-06), and the carry-over readability backlog (RDB-01, RDB-03..-11, RDB-26).
-
-### 2026-05-04 (Stage 3 illustrator — LAY-32 fig15 hand-back)
-- Session lead: Claude Opus 4.7 (Stage 3 illustration agent), branch `claude/history-rewrite-daDxQ`. Trigger: single-defect targeted hand-back from Stage 4 layout sweep `docs/handbacks/layout-scrutiny-2026-05-04-post-rewrite.md` (LAY-32, H, fig-internal label collision, illustrator-owned).
-- Defect: in `paper/figures/fig15-apk-mass-probing.py` the dark-fill stage box (x=9.2) rendered a 3-line header "DEX-grep + / identity-provider / discovery" whose descender overlapped the 2-line body label "T-REST-WRITE-PROBE; / token-endpoint enum". Confirmed at 220 dpi PDF render.
-- Fix: (1) collapsed the header to 2 lines with the break inside "identity-provider" → "DEX-grep + identity-\nprovider discovery"; (2) reduced header font 9.4 → 9.0 pt globally (still meets the 9 pt body floor that fig11 establishes for the figure set); both changes scoped to the `stage()` helper / the dark-fill stage tuple only — no other figure touched, no other style change. Tol-bright sequential blue ramp + DLR_BLUE accent unchanged; CB-safety preserved.
-- Verification: `make -C paper figures` regenerated `fig15-apk-mass-probing.{svg,pdf}`; rendered PDF to PNG at 220 dpi via PyMuPDF; tight crop on the dark-fill stage box confirms header and body label are cleanly separated, both fitting inside the 2.2-unit box width with no overflow at the box edges and no clipping of the inbound / outbound arrows.
-- Out of scope: full Stage-4 re-scrutiny (orchestrator's call after writer also closes LAY-31 and `make pdf` rebuilds); LAY-31 (writer-owned), LAY-33 (writer advisory).
-- Files updated: `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}`; `docs/todos-for-publication.md` (P3a closure note for the illustrator side).
-
-### 2026-05-04 (history rewrite executed; Claude Opus 4.7)
-- Session lead: Claude Opus 4.7, branch `claude/history-rewrite-daDxQ`. Trigger: human author granted explicit consent to execute `docs/git-history-rewrite-plan.md` ("backup of the repo. this is explicit consent"). Rule 13 satisfied for the rewrite step only; public-mirror push and Zenodo deposit remain gated on a separate consent.
-- Action: ran `git filter-repo --replace-text` (git-filter-repo 2.47.0) twice. First pass applied the H-01..H-10 substitutions verbatim from the plan. Second pass added a single literal substitution to catch a truncated PR-style reference of the SF-IMPL-1 repo path in `experiments/spider-farmer/original/doc/discusson.md:317` that the plan's H-01a literal (which targets the `-encrypt` form) and H-01b regex (which excludes `/` lookahead to protect the citekey) did not cover.
-- Verification: `git log --all -S '<raw>' --oneline` returns zero commits for every catalogued raw value across the H-01..H-10 set (community-implementer handles SF-IMPL-1..3 / EF-IMPL-1 / BALBOA-UPSTREAM-1..2, the four EcoFlow serials R-EF-1..4, the DLR PII pair R-AUDIT-08a, and the Spider Farmer credentials and device identifiers R-SF-1..5). Bibliography citekeys (`smurfy_esphome_sf`, `p0rigth_spiderblebridge`, `pythonspidercontroller`, `niltrip_powerocean`) survive in `paper/references.bib`.
-- Carve-outs preserved as policy: vendored zip-archive contents in `experiments/spider-farmer/original/doc/` still match SF-IMPL-1..3 handle / repo strings in their packed entries (binary blobs untouched by `--replace-text`); these remain in scope for either public-mirror exclusion or a documented caveat (redaction-policy.md "Out of scope" note 1).
-- Tagging: `pre-publication-clean` annotated tag placed on the rewritten tip of `claude/history-rewrite-daDxQ`. Working `replacements.txt` files shredded after run (no raw values committed).
-- Next: the post-rewrite documentation pass updates the redaction-policy register (R-SF-1..5 PENDING → EXECUTED, history-rewrite checklist boxes ticked) and the paper integration sweep for the latest `noheton/spider_farmer` and `noheton/powerocean-dev` upstream developments.
-
-### 2026-05-03 (Stage 3 illustrator — pipeline-fix audit + FIG-11 closure; Claude Opus 4.7)
-- Session lead: Claude Opus 4.7 (Stage 3 illustration agent), branch `claude/check-illustration-pipeline-Jqst3`.
-- Trigger: author-reported "ich habe nicht das gefühl als ob sich die illustrationen ändern" → orchestrator dispatched a dual mandate. Pipeline was repaired earlier on this branch in commits `80b5608` (Makefile `$(SCRIPTED_FIG_PDFS)` rule wiring `fig1` + `fig6..fig16`) and `e19d04a` (toolchain whitelist expanded to Mermaid / TikZ / Graphviz / D2 / Altair / Inkscape / drawio).
-- Audit:
-  - Forced full regeneration of all 12 scripted figures via `touch paper/figures/dlr_style.py && make -C paper figures`. All scripts ran cleanly.
-  - Compared regenerated outputs against committed assets. Result: SVG diffs are pure non-determinism (timestamps + matplotlib hash-based clip-path / `<path id>` IDs); PDF byte sizes are byte-for-byte stable across all 12 figures.
-  - Verdict: no visual drift between committed PDFs and what the scripts produce. The reworked figures from the prior overhaul (`d2858ac`) are correctly materialised in `paper/main.pdf`. The author's "feels like nothing changed" intuition was historically correct (pre-`80b5608` Makefile gap) but is now resolved.
-- Materialised hand-back items (closes residual FIG-11 from `layout-defect-registry.md`):
-  - **fig8-ecoflow-surfaces** — promoted a pre-existing working-tree edit (CB-safe Tol-bright rose `#ee6677` + `//` hatch on legacy-REST surface; body 9.5/8.0 → 10.0/9.0 pt; integrator-arrow recoloured to `dlr_style.DLR_YELLOW`) and regenerated `.svg`/`.pdf`. The "is the red semantic?" question that previously gated the change is answered by the hatched-rose pattern preserving the do-not-use semantic in CVD + greyscale.
-  - **fig15-apk-mass-probing** — replaced three green `#cad55c` middle stages with a sequential blue ramp so colour monotonically encodes pipeline depth (CB-safe under deuteranopia + greyscale); white text on the two darker stages via a `_DARK_FILLS` membership check; yellow `#fff8be` empirical-rates panel → neutral `dlr_style.DLR_GRAY_SOFT`; sub-floor fonts raised to 9 pt.
-  - **fig16-scope-limitations** — inner-cell font 7.8 → 9.5 pt (FIG-11 carry-forward closed); pink/red `#fadbd8` exclusion ring → `#ee6677` border + `////` hatch on `#fbe0e2` fill (matches fig8 / fig14 pattern); ring-label 8.6 → 9.2 pt; legend 8 → 9 pt; figure widened 11"×9" → 12"×9.5" so larger labels do not overlap.
-- Deferred (no illustrator action this pass):
-  - FIG-04 (Gemini intact-jar deliverable) — gated on human author.
-  - FIG-09 (data-to-ink audit) — viewer-blocked at Stage 4.
-  - FIG-10 (`\Description{}` text-fidelity audit) — pure-audit task; recommend folding into next overhaul pass.
-  - RDB-04 (consolidate §10 enumeration into Fig 11) — Stage 5 verifies Fig 11 already carries the load; writer-side prose decision (a/b/c) is owned by human author.
-  - RDB-05 + RDB-08 (consolidate fig13 + fig14) — structural authorial decision per prior pass; the two figures serve distinct rhetorical positions.
-  - RDB-07 (§7.11 4×3 prompt-injection matrix) — writer-side prose conversion unblocks; figure is enhancement, not blocker.
-- Files updated:
-  - `paper/figures/fig8-ecoflow-surfaces.{py,svg,pdf}`
-  - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}`
-  - `paper/figures/fig16-scope-limitations.{py,svg,pdf}`
-  - `paper/figures/README.md` (inventory note appended)
-  - `docs/handbacks/illustrator-pass-2026-05-03-pipeline-fix.md` (new hand-back)
-  - `docs/logbook.md` (this entry)
-- Rule 1 (honesty): every regenerated docstring carries an explicit "2026-05-03 pipeline-fix pass" change log. Rule 11 (mirror): no `paper/main.{md,tex}` edits — captions / labels unchanged. Rule 13 (distribution): local only; no `make pdf`, no `make arxiv`, no public push. Rule 14 (data + script): all three figures are structural diagrams; scripts committed and registered. Rule 15 (README): `fig11-eight-practices.svg` (top-level README hero) is unchanged this pass; fig8/15/16 are not in the README gallery, so no top-level README update required.
-- Verdict: `RE-ILLUSTRATION REQUIRED: no`. Stage 4 + Stage 5 should re-scrutinise after a `make pdf` rebuild to confirm FIG-11 can be downgraded to RESOLVED.
-- Next steps: hand back to orchestrator. Layout/readability scrutinizers should re-sweep against the new fig8/15/16 PDFs; writer can schedule the §10 list-vs-Figure-11 decision (RDB-04) when the human author picks an option.
-
-### 2026-05-03 (Stage 2 writer — focused loop 3; Claude Opus 4.7)
-- Session lead: Claude Opus 4.7 (Stage 2 scientific writer), branch `claude/review-open-issues-PfNx9`.
-- Trigger: orchestrator dispatch consuming three input streams against the round-2 paper state — Stage 4 layout hand-back (LAY-26 H, 168.71 pt unbreakable path overflow in §10 AI-disclosure-models), Stage 5 readability hand-back (RDB-30 / RDB-31 M; RDB-35 / RDB-36 L caption tweaks), and the Stage 1 powerocean-dev resync hand-back (load-bearing items d.1, d.2, d.6, d.7).
-- Actions taken:
-  - **Job A (LAY-26 H).** Wrapped the unbreakable `\texttt{experiments/*/raw\_conversations (copy\&paste, web)/}` literal and its longer paper-meta-process sibling at `paper/main.tex:2521-2528` in `\seqsplit{...}` segments split at the `(copy\&paste,~web)/` boundary, matching the existing pattern at `:2772`. The longer sibling refactored into a "the paper-meta-process transcript ... under <path>" parenthetical so its filename and parent directory are two separate `\seqsplit{}` tokens. Markdown wraps natively; no edit needed in `paper/main.md`.
-  - **Job B-1 (RDB-30 M).** §7.3 Mythos counter-data-point paragraph (~340 words, 6 sentences) split into three paragraphs at the natural breaks: announcement → technical capability list → Anthropic's response (Glasswing + Opus 4.7 + watershed framing). Mirrored `paper/main.md:493` and `paper/main.tex:1683-1730`.
-  - **Job B-2 (RDB-31 M, most consequential).** §7.4 *Guardrails as band-aid* hedge tightened: "collapses to attacker-side capability over a short enough horizon" → "*plausibly* converges to attacker-side capability over a horizon whose length we cannot yet quantify — a claim we present as engineering intuition rather than proof, and one the L-MYTHOS evidence base [@anthropic2026glasswing; @anthropicred2026mythos] documents qualitatively but does not yet bound numerically." Horizon explicitly named uncertain; L-MYTHOS-1 / L-MYTHOS-2 inline-cited; the rhetorical conclusion downstream now sits on cited reasoning rather than rhetorical momentum. Mirrored at `paper/main.md:506` and `paper/main.tex:1786-1794`.
-  - **Job C-1 (resync d.1, §4.2 Artifact inventory).** New paragraph appended to §4.2 (`paper/main.md:256`; `paper/main.tex:874-887`) annotating the upstream redaction event (commit `5c8b815cf9`), enumerating the removed artifact classes (APK splits, derivative APK analysis, vendor PDFs, vendor sample-code archive, GDPR-personal-data files, raw extraction logs, `equipment.md`), and pointing readers to the upstream `doc/README.md` "git rm does not purge history" caveat. Snapshot retained for research provenance.
-  - **Job C-2 (resync d.2, §4.3 step 1 footnote).** New `[^ef-twotrack]` footnote attached to §4.3 step 1 (`paper/main.md:263-265`); mirrored as `\footnote{...}` at `paper/main.tex:889-909`. Cites `noheton2026powerocean_disclaimer` and `noheton2026powerocean1aa9650`; states the research-arm vs redistribution-arm framing explicitly.
-  - **Job C-3 (resync d.6, §4.6 OCPP runtime-handover gap).** New paragraph appended to §4.6 (`paper/main.md:286`; `paper/main.tex:984-1004`). Documents ~+440 LOC OCPP backend-binding work, new `/provider-service/app/ocppPlatformConfig{,/list}` endpoints, and the `vendorInfoSet`-not-shipped runtime-handover gap as a concrete *catalog-vs-runtime* interoperability asymmetry. Routes the data-point forward to `\cref{sec:synthesis-evidence-asymmetry}`.
-  - **Job C-4 (resync d.7, §10 redaction-precedent paragraph).** New `\paragraph{A real-world precedent for the redaction discipline.}` block in §10 (`paper/main.md:733`; `paper/main.tex:2957-2978`), positioned between the comparator-triplet "differential" paragraph and the *democratisation of science production* paragraph. Cites `5c8b815cf9` and the upstream `doc/README.md` as a recently-dated, publicly-visible enactment of the rule-12 / rule-13 history-rewrite discipline. Stage 5's recommendation that §10 is the better home (over §6) was honoured.
-  - **Job D-1 (RDB-35 L, Fig 9 caption).** Literature-track stages updated 3 → 4: `[needs-research]` → `[lit-retrieved]` → `[ai-confirmed]` → `[lit-read]`, naming the Source Analyzer agent as the owner of the new `[ai-confirmed]` stage per the `CLAUDE.md` 2026-05-02 ladder extension. Mirrored at `paper/main.tex:1140-1149` and `paper/main.md:352`.
-  - **Job D-2 (RDB-36 L, Fig 11 caption).** In-figure-legend duplication removed; caption now reads "See the in-figure legend for the P / S mitigation roles." Mirrored at `paper/main.tex:2861-2867` and `paper/main.md:721`.
-- Files updated:
-  - `paper/main.tex` (LAY-26 wrap; RDB-30 split; RDB-31 hedge; d.1 / d.2 / d.6 / d.7 prose; Fig 9 / Fig 11 captions)
-  - `paper/main.md` (mirror of every prose edit above; RDB-30 split; RDB-31 hedge; d.1 / d.2 / d.6 / d.7 prose; Fig 9 / Fig 11 captions)
-  - `paper/references.bib` (4 new `@misc` entries — `noheton2026powerocean5c8b815`, `noheton2026powerocean1aa9650`, `noheton2026powerocean_disclaimer`, `noheton2026powerocean_docreadme` — formatted to match the existing `niltrip_powerocean` convention; statuses recorded as `[lit-retrieved]` pending Source Analyzer upgrade)
-  - `docs/handbacks/writer-pass-2026-05-03-loop3.md` (new hand-back)
-  - `docs/logbook.md` (this entry)
-- Rule 11 (mirror discipline): every prose edit mirrored md ↔ tex in this commit. Mythos paragraph split → 3 paragraphs in both files; RDB-31 hedge → same sentence in both files; d.1 / d.6 / d.7 paragraphs → paragraph (md) and paragraph / `\paragraph{...}` block (tex); d.2 footnote → Markdown `[^ef-twotrack]` and tex `\footnote{...}`; captions → identical content modulo markup.
-- Rule 12 (redaction): no new credentials / SNs / UIDs / IPs reproduced. The upstream redaction event is the *subject* of the new prose, not its violator — only the *fact* of the upstream redaction is cited.
-- Rule 13 (distribution): local only. No `make pdf` invoked (per task brief); no push; no `make arxiv`.
-- Out of scope this loop:
-  - RDB-32 (L, Author's Note "What surprised me about the assistant" paragraph density — Stage 5 explicitly marked as optional).
-  - RDB-33 (L, §10 ninth-practice forward-looking promise uncited — defer to next pass; "first cut" framing carries the hedge).
-  - RDB-34 (L, §10 eight-vs-nine count primed late — pairs with deferred RDB-04 author decision).
-  - LAY-02 / -03 / -04 / -08 / -09 / -10 / -22 / -24 / -25 / -27 / -28 path-bullet wrap residuals — belong to next writer-loop `\seqsplit{}` sweep.
-  - §69e UrhG sourced legal commentary; RDB-04 / RDB-02 §10 list-vs-Figure-11 collapse — both pending human-author decision.
-  - Resync items d.4 (Figure 8 verb-set extension — illustrator-discretionary), d.8 (OCPP as §11 Future Work — author-discretionary), d.9 / d.10 — not addressed.
-- Verdict: LAY-26 H closed in source (rebuild pending); RDB-30 / RDB-31 M closed; RDB-35 / RDB-36 L closed; powerocean-resync load-bearing edits integrated; 4 new bib entries added.
-- Next step: orchestrator dispatches `make pdf` (human-gated) → Stage 4 verifies LAY-26 (168.71 pt overflow gone), Fig 9 / Fig 11 captions typeset cleanly, d.1 / d.6 / d.7 new paragraphs do not introduce fresh overfulls; Stage 5 verifies RDB-30 / -31 / -35 / -36 closure and audits the new powerocean-resync paragraphs for novelty / hedge tightness.
-
-### 2026-05-03 (Stage 1 research-protocol — `noheton/powerocean-dev` upstream resync; Claude Opus 4.7)
-- Session lead: Claude Opus 4.7 (Stage 1, targeted resync), branch `claude/review-open-issues-PfNx9`.
-- Trigger: human-author directive — upstream "significant progress" since the in-repo snapshot; partially closes the medium-priority subpass queued by `docs/handbacks/research-protocol-delta-2026-05-03.md` D-5 (`provenance.md` follow-up #5 OCPP scope now decidable; #4 §69e UrhG sourcing still open; #6 redistribution precedent now available upstream).
-- Probe results: github.com web 200; api.github.com 403 (rate-limit); codeload tarball 200 on `main` (default branch; `master` 404); raw `manifest.json` 200; atom feed 200 (≥30 commits, top SHA `56d4f55c34`, dense activity 2026-05-01 → 2026-05-03). Tarball downloaded to `/tmp/powerocean-dev.tar.gz` (~868 KB), extracted to `/tmp/po-upstream/powerocean-dev-main/`. GitHub MCP and Exa MCP not used (tarball + atom-feed sufficient).
-- Material findings vs in-repo snapshot:
-  - New top-level `DISCLAIMER.md` reframes the integration's method as HTTP-traffic-observation (no decompile of redistributable artifact); commit `1aa96507ef` separately captures OCPP-1.6 schema from APK decompile, indicating a two-track methodology (researcher-side decompile to *understand*; redistributable artifact contains only traffic-observable structures).
-  - `doc/` directory redacted upstream (commit `5c8b815cf9`): APK, `apk.md`, `apk-logs.md`, `equipment.md` (GDPR personal data), `implementation.md`, `geninfo.pdf`, `powerocean.pdf`, `ecoflow-open-demo.zip`, `logs/raw_*.txt` removed. Replaced by 80-line `doc/README.md` with explicit "`git rm` does not purge history" caveat — a citable real-world rule-12 / rule-13 precedent.
-  - OCPP scope: ~+440 LOC across `api.py` (+115; `async_ocpp_list_backends`, `async_ocpp_post_backend`, `async_get_property` with `acquireQuotaAll` fallback), `__init__.py` (+152; four services + `_build_ocpp_bind_req`), `services.yaml` (+174), `const.py` (+4 CONF_OCPP_* keys). New endpoints `/provider-service/app/ocppPlatformConfig{,/list}`, `/iot-devices/device/getDeviceProperty`, `/iot-devices/device/acquireQuotaAll`. Documented runtime-handover gap (`vendorInfoSet` not yet shipped).
-  - Auth / write-surface model unchanged: same EU/US region probe (`api-e` / `api-a`), same bearer-token, same `setDeviceProperty` legacy endpoint. §4.4 paper claims confirmed.
-  - Manifest version unchanged at `2026.05.01` despite substantive code changes (post-tag fixes pushed onto same semver string).
-- Files written: `docs/handbacks/research-protocol-powerocean-resync-2026-05-03.md` (new, ~190 lines: probe results, repo metadata, per-section delta, paper-claim cross-check with 10 writer recommendations d.1–d.10, 6 provenance gaps); `docs/logbook.md` (this entry).
-- No edits to `paper/main.{md,tex}` (rule 11); no push (rule 13); no `make pdf` invoked. No new credentials / SNs / UIDs / IPs reproduced from upstream (rule 12 enforced).
-- Verdict: writer hand-back queued. Load-bearing recommendations d.1 (§4.2 inventory annotation re upstream redaction event), d.2 (§4.3 step 1 method-tension footnote), d.6 (§4.6 OCPP runtime-gap as concrete asymmetry), d.7 (§6/§10 cite upstream `5c8b815cf9` as rule-12 precedent). Discretionary: d.4 (Figure 8 verb-set extension — illustrator), d.8 (decide OCPP as Future Work in §11). Still open / not closed by this resync: d.9 (§69e UrhG sourced legal commentary remains needed); d.10 (paper-repo redistribution decision unchanged).
-- Next step: orchestrator dispatches Stage 2 (writer) to integrate d.1 / d.2 / d.6 / d.7; Stage 1.5 (Source Analyzer) to consider `[lit-retrieved]` entries for upstream commit `5c8b815cf9` and `DISCLAIMER.md`; Stage 3 (illustrator) only if d.4 is taken up.
-
-### 2026-05-03 (Stage 5 readability — round 2; Claude Opus 4.7)
-- Session lead: Claude Opus 4.7 (Stage 5 readability & novelty scrutinizer), branch `claude/review-open-issues-PfNx9`.
-- Trigger: orchestrator dispatch after writer commit `370e792` (Mythos hook + guardrails-as-band-aid + plagiarism 9th practice) and illustrator pass `d2858ac` (figure overhaul). Re-scrutiny of `paper/main.md` only (Stage 5 scope; Stage 4 owns the PDF).
-- Verifications carried over from round 1:
-  - **RDB-27 RESOLVED-confirmed** — writer loop-2 `4987d9d` split the two ~70-word Author's Note sentences as suggested.
-  - **RDB-28 RESOLVED-confirmed** — writer loop-2 `4987d9d` converted the §3.4 v2→v3 reconstruction run-on into lead clause + 4-step nested ordered list + provenance-gap coda.
-  - **RDB-22 / -23 / -25 / -01-residual / -02 / -12 / -15 / -16 / -18 / -21 mirror parity** preserved (no regression).
-- New entries this round (5 prose, 2 caption): **RDB-30** (M, §7.3 Mythos paragraph: 257w / 6 sentences with two >40w em-dashed sentences — split recommended); **RDB-31** (M, §7.4 band-aid hedge: "collapses to attacker-side capability over a short enough horizon" reads as near-deductive without a quantitative literature anchor — reframe as engineering intuition or footnote the caveat); **RDB-32** (L, Author's Note "What surprised me about the assistant" 213w / 8 sentences with three >40w sentences — optional splits); **RDB-33** (L, §10 ninth-practice closing forward-looking promise uncited — anchor to L-SLOP-12 or delete); **RDB-34** (L, §10 eight-vs-nine count mismatch primed late — recommend lede-sentence half-clause or "*Looking ahead*" sub-heading); **RDB-35** (L, Fig 9 caption rule-11 fidelity: 3 → 4 literature stages); **RDB-36** (L, Fig 11 caption duplicates redrawn in-figure legend — tighten).
-- Novelty audit (round 2): §7.3 Mythos counter-data-point = HONEST-COUNTERPOINT, on-policy — original asymmetry argument **sharpened, not weakened** (now explicitly time-bounded against the L-VD-1 / L-VD-2 calibration era); §7.4 band-aid framing = NEW INCREMENTAL CONTRIBUTION beyond literature (closest comparators do not state the band-aid argument as a security-by-design imperative); §10 ninth practice = NOT NOVELTY-INFLATED modulo the closing forward-looking promise (RDB-33).
-- RDB-04 status: still DEFERRED, now COMPLICATED by the ninth-practice prose (Figure 11 stays at 8 rows; §10 prose now lists 9). Stage 5 still endorses option (b) — drop the §10 prose enumeration, lean on Figure 11 + a one-sentence recap, with the ninth surviving as a clearly-set-off forward-looking addendum.
-- Counts (active actionable, post-round-2): H = 0; M = 13 (incl. RDB-30, RDB-31 new); L = 13 (incl. RDB-32..-36 new). Resolved this round = 2 (RDB-27, RDB-28). New = 7.
-- Most consequential defect: **RDB-31** (§7.4 band-aid hedge tightness).
-- Files updated:
-  - `docs/handbacks/readability-defect-registry.md` (round-2 block appended)
-  - `docs/handbacks/readability-to-writer.md` (RDB-30..-36 entries appended)
-  - `docs/handbacks/readability-to-illustrator.md` (round-2 carry-note appended; no new illustrator-owned defect)
-  - `docs/handbacks/readability-scrutiny-2026-05-03-round2.md` (new full diagnosis)
-  - `docs/logbook.md` (this entry)
-- No edits to `paper/main.{md,tex}` or `paper/figures/` (Stage 5 scope; rule 11 unchanged).
-- Distribution (rule 13): local only; no push, no `make pdf`, no `make arxiv`.
-- Verdict: **`RE-SCRUTINY REQUIRED: yes`** — five prose + two caption entries filed at M / L severity; no new H. Re-scrutiny should follow the next writer pass.
-
-### 2026-05-03 (Stage 2 writer — focused loop 2; Claude Opus 4.7)
-- Session lead: Claude Opus 4.7 (Stage 2 scientific writer), branch `claude/review-open-issues-PfNx9`.
-- Trigger: orchestrator dispatch to clear the two H-severity items left by Stage 4 / Stage 5 against build commit `b5162ee` (LAY-17 + LAY-19 KPI tabular family; FIG-01 alt-text-missing across 17 `\includegraphics` calls), plus the two L-severity readability tightening items (RDB-27 Author's Note paragraph density, RDB-28 §3.4 v2→v3 reconstruction run-on).
-- Actions taken:
-  - **Job 1 (LAY-17 + LAY-19).** Converted the Spider Farmer (`paper/main.tex:752–766`), EcoFlow (`:925–935`) and Meta-process (`:1156–1174`) KPI tabulars from `\begin{tabular}{llll}` to `\begin{tabularx}{\linewidth}{@{}l l >{\raggedright\arraybackslash}X r@{}}` so the wide "Key event" column absorbs the wrap. `tabularx` was already in the preamble.
-  - **Job 2 (FIG-01).** Added a `\providecommand{\Description}[1]{}` no-op shim at `paper/main.tex:29–33` and one ≤25-word `\Description{...}` per `\includegraphics` for all 17 figure includes (16 numbered floats plus the intact-jar logo).
-  - **Job 3 (RDB-27 + RDB-28).** Split the two ~70-word Author's Note sentences (`paper/main.md:31` paper-mill paragraph; `:33` invitation paragraph) into two shorter sentences each; mirrored at `paper/main.tex:194–199` and `:213–217`. Restructured the §3.4 v2→v3 reconstruction sub-bullet (`paper/main.md:181`) from a single ~254-word run-on into a short lead clause + nested 4-step ordered sub-list + provenance-gap coda paragraph; mirrored at `paper/main.tex:644–679` with a nested `enumerate`.
-- Files updated:
-  - `paper/main.tex` (preamble shim + 3 tabularx conversions + 17 `\Description{}` macros + RDB-27/-28 mirror)
-  - `paper/main.md` (RDB-27/-28 prose surgery)
-  - `docs/handbacks/writer-pass-2026-05-03-loop2.md` (new hand-back)
-  - `docs/logbook.md` (this entry)
-- Rule 11 (mirror discipline): Job 3 mirrored line-by-line in both files; Jobs 1 and 2 are TeX-only by construction (Markdown tables wrap natively; no Markdown alt-text macro). Headline numbers, captions, and section counts unchanged.
-- Rule 12 (redaction): no new credential / serial / IP material introduced; existing `[REDACTED:*:S-SF-5-*]` markers untouched.
-- Rule 13 (distribution): local only. No `make pdf` invoked (per task brief); no push; no `make arxiv`.
-- Out of scope this loop: RDB-02 / RDB-04 §10 enumeration vs Figure 11 collapse (pending human-author option a/b/c choice); §69e UrhG sourcing; L-VD/L-HC edge-case footnotes; LAY-10/-22/-25 path-bullet wrap pass; fig13/fig14 illustrator consolidation.
-- Verdict: H-severity scope closed in source; rebuild via `make pdf` then Stage 4 + Stage 5 re-scrutiny required.
-- Next step: orchestrator dispatches `make pdf` (human-gated) → Stage 4 verifies the three KPI tabular overflows are gone and `\Description{}` macros are present; Stage 5 verifies RDB-27 / RDB-28 closure.
-
-### 2026-05-03 (Stage 4 layout scrutiny — post writer + illustrator pass; Claude Opus 4.7)
-- Session lead: Claude Opus 4.7 (Stage 4 layout scrutinizer), branch `claude/review-open-issues-PfNx9`.
-- PDF inspected: `paper/main.pdf` SHA-256 `04e818e993e2eea84cf05d5a5bc7045d80270d6a856a398cc04106ca7ac5cf99`, 49 pages, build commit `b5162ee`, build timestamp 2026-05-03T12:54:14Z (newer than `paper/main.tex`). PDF version 1.5 throughout.
-- Method: PDF viewer MCP unavailable (`allowedDirectories: []`); sweep performed via `paper/main.log` (37 overfulls, 61 underfulls, 0 undefined refs/cites, 0 PDF-version-1.7 warnings) cross-checked against `paper/main.tex`. Pixel-level FIG-* dimensions carry a `viewer-blocked` note.
-- Carry-over verifications:
-  - **LAY-13 RESOLVED.** Illustrator's Makefile post-process (PDF 1.7 → 1.5 header rewrite) eliminated all PDF-inclusion version warnings.
-  - **LAY-01 RESOLVED.** Section labels `sec:scope-non-goals` (`:440`), `sec:synthesis-evidence-asymmetry` (`:1521`), `sec:disc-validity` (`:1782`) all present; zero undefined refs.
-  - **LAY-05, LAY-07, LAY-11 RESOLVED.** LAY-19, LAY-17, LAY-10, LAY-22 still open at H/M severity.
-- New defects: LAY-23 (continuation of LAY-14 font-shape fallback), LAY-24 (§3.4 reconciliation prose preface, 32pt + 11pt), LAY-25 (§6.6/§6.7 boundary cluster, 43pt + 5pt + 61pt). FIG-01..FIG-09 filed per the new figure-and-image critique extension to the layout scrutinizer prompt.
-- Defect rollup: open H = 2 (LAY-19 226pt KPI tabular; FIG-01 alt-text-missing across 18 `\includegraphics`); open M = 14; open L = 12. Layout = 19 open, Figure = 9 open.
-- Figure-stock assessment: substantial illustrator work outstanding (FIG-02 colour migration, FIG-03 fig11 fontsize, FIG-04 intact-jar Gemini final, FIG-09 deferred Tufte audit). Endorses the human author's earlier acknowledgement.
-- Files written:
-  - `docs/handbacks/layout-defect-registry.md` (rewritten for this build)
-  - `docs/handbacks/layout-to-writer.md` (rewritten)
-  - `docs/handbacks/layout-to-illustrator.md` (rewritten)
-  - `docs/handbacks/layout-scrutiny-2026-05-03.md` (new)
-  - `docs/logbook.md` (this entry)
-- No edits to `paper/main.{md,tex}` or `paper/figures/` (rule 11; Stage 4 scope).
-- Distribution (rule 13): local only; no `make arxiv`, no push.
-- Verdict: **RE-SCRUTINY REQUIRED: yes.**
-- Next step: orchestrator dispatches Stage 2 (writer) on the LAY-* prose/table items + FIG-01 macro pass + FIG-07/-08 caption mirror, then Stage 3 (illustrator) on FIG-02/-03; rebuild via `make pdf`; re-run Stage 4.
-
-### 2026-05-03 (peer-review reconstruction — Spider Farmer v2→v3)
-- Session lead: AI agent (Claude opus-4-7), invoked by orchestrator on behalf of human author.
-- Trigger: peer-review comment flagging that `paper/main.md` §3.4 admits an undocumented `VERSION 2 → 3` migration step.
-- Actions taken:
-  - Attempted to clone `https://github.com/noheton/spider_farmer.git` per task brief. All retrieval channels failed in the current sandbox: anonymous `git clone` (no creds), GitHub MCP (`noheton/spider_farmer` not in allowed-repos list — only `noheton/obscurity-is-dead` permitted), `api.github.com` (rate-limited, unauthenticated), `codeload.github.com` tar.gz on `main` and `master` (404), `HEAD https://github.com/noheton/spider_farmer` (404). Repository is either private, renamed, or otherwise unreachable from this environment.
-  - Fell back to the locally-vendored snapshot `experiments/spider-farmer/original/` (per repo commit `ffdf60c`). Reconstructed the v2→v3 migration *technically* from `original/__init__.py` lines 95–135, whose docstring and code self-document the transition: BLE-only transport, drop legacy MQTT-only fields (`uid`, `mqtt_topic`), derive `pid` from BLE address, idempotently carry forward the v1→v2 CB-key fix, fail-closed when no BLE address is present.
-  - Drafted hand-back `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` containing: (a) the peer-review concern verbatim, (b) failed-retrieval methodology and local fallback, (c) the technical reconstruction with file/line citations and the verbatim docstring quote, (d) drop-in replacement blocks for `paper/main.md` §3.4 line 169 and the corresponding `paper/main.tex` paragraph, (e) explicit provenance-gap statement enumerating what remains `unverified-external` (commit SHA, date, PR/issue refs, AI-assistance status of the original migration work).
-  - Did **not** edit `paper/main.md` or `paper/main.tex` (per task brief — writer agent owns paper edits).
-- Files updated:
-  - `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` (new)
-  - `docs/logbook.md` (this entry)
-- AI vs human contribution (rule 1): hand-back prose, reconstruction, and recommended paper-edit are AI-generated. Human input pending: review of the recommended edit before the writer agent integrates it.
-- Redaction (rule 12): no new credential material; the stale BLE candidate `J4G0M9dX1f1v3fXr` quoted in the addendum is a disproved candidate already documented in T1 and `provenance.md`, not a live key.
-- Distribution (rule 13): no push, no public release.
-- Next step: orchestrator should dispatch the scientific-writer stage to integrate the recommended block into §3.4 and amend the §10 open-issue bullet (line 626).
-
-### 2026-05-01
-- Session lead: Researcher
-- Actions taken:
-  - Defined repository structure for the Obscurity-Is-Dead research publication.
-  - Created paper skeleton and methodology documents.
-  - Added AI policy files with canonical instruction aliases for agents.
-  - Added a sources document and logbook template for scientific rigor.
-  - Added a repository import script for external experiment repos.
-  - Updated the README to reflect the new structure and guidance.
-- Files updated:
-  - `README.md`
-  - `paper/main.md`
-  - `docs/methodology.md`
-  - `docs/ethics.md`
-  - `docs/sources.md`
-  - `docs/logbook.md`
-  - `.instructions.md`
-  - `copilot-instructions.md`
-  - `CLAUDE_CODE_INSTRUCTIONS.md`
-  - `scripts/import-experiments.sh`
-- Key decisions:
-  - Use a GitLab-first research repo structure with AI transparency rules.
-  - Require a literature review and source analysis document.
-  - Require a logbook that is read and updated every session.
-  - Use a dedicated sources document for recorded literature and data analysis.
-- Open issues:
-  - Continue drafting the paper using acquired experiment data.
-  - Populate the literature review with documented sources.
-- Next steps:
-  - Begin drafting the abstract, introduction, and case study sections.
-  - Populate `docs/sources.md` with literature references.
-  - Review the imported repository artifacts and map evidence to paper sections.
-
-### 2026-05-01 (import confirmation)
-- Session lead: Researcher
-- Actions taken:
-  - Verified successful import of experiment data into `experiments/spider-farmer/original` and `experiments/ecoflow-powerocean/original`.
-  - Confirmed repository structure and artifact availability.
-- Files updated:
-  - `docs/logbook.md`
-- Key decisions:
-  - Proceed with drafting paper content using the imported data.
-- Open issues:
-  - Analyse specific artifacts in the imported experiment repos.
-- Next steps:
-  - Map imported evidence to the paper's case study sections.
-  - Collect source citations for the literature review.
-
-### 2026-05-01 (methodology review)
-- Session lead: Researcher
-- Actions taken:
-  - Reviewed the current methodology document for practical viability.
-  - Confirmed that exported conversation logs should be treated as research artifacts and tied to git/provenance evidence.
-  - Noted that conversation tracking will continue in `docs/logbook.md` as requested.
-- Files updated:
-  - `docs/methodology.md`
-  - `paper/main.md`
-  - `docs/logbook.md`
-- Key decisions:
-  - Keep the chat transcript exports as first-class evidence.
-  - Map AI-assisted conversations to code/documentation changes and git history where possible.
-- Commit:
-  - `e6344102aa30dc81f3d5d75720c4e2a4e07b7da4` — feat(methodology): add executable research protocol agent prompt
-- Open issues:
-  - Define concrete provenance mapping templates for transcripts.
-  - Add explicit experiment protocol checklist items to the methodology.
-- Next steps:
-  - Draft a more concrete research protocol in methodology.
-  - Continue tracking conversation and research actions in `docs/logbook.md`.
-
-### 2026-05-01 (commit tracking rule)
-- Session lead: Researcher
-- Actions taken:
-  - Updated logbook usage rules to require one entry per meaningful commit or grouped commit set.
-  - Confirmed that future logbook entries should correspond to commits and reference the related changed files.
-- Files updated:
-  - `docs/logbook.md`
-- Key decisions:
-  - Align logbook practice with version control for reproducibility and auditability.
-- Commit:
-  - `6c43033a07f9e3775b48b0890bb42a0b8831c5b5` — chore(logbook): enforce commit-corresponding logbook entries
-- Open issues:
-  - Create a commit for this logbook update and ensure the entry is matched to that commit.
-- Next steps:
-  - Continue tracking conversation and research actions in `docs/logbook.md` with commit correspondence.
-
-### 2026-05-01 (commit plan)
-- Session lead: Researcher
-- Actions taken:
-  - Prepared a commit plan and helper script to turn the current working tree into a series of meaningful commits.
-  - Added `scripts/commit-logbook.sh` to stage grouped changes and create commit messages matching the logbook entries.
-- Files updated:
-  - `docs/logbook.md`
-  - `scripts/commit-logbook.sh`
-- Key decisions:
-  - Keep logbook entries aligned with individual commit actions.
-  - Use grouped commits for governance, prompt definition, documentation, and raw artifact imports.
-- Commit SHAs created by `scripts/commit-logbook.sh`:
-  - `6c43033a07f9e3775b48b0890bb42a0b8831c5b5` — chore(logbook): enforce commit-corresponding logbook entries
-  - `e6344102aa30dc81f3d5d75720c4e2a4e07b7da4` — feat(methodology): add executable research protocol agent prompt
-  - `feea6c1558c13d364ed0dd702a67b58061100739` — docs(governance): add AI instruction policy and ethics documentation
-  - `d998220e7f53a74635f96063884849a3b974452d` — docs(paper): add paper skeleton and publication metadata
-  - `1f1ebd9c7358c64dcc5431ce82863364b2b81d51` — chore(experiments): add case study readmes and preserved conversation exports
-- Open issues:
-  - None.
-- Next steps:
-  - Continue tracking conversation and research actions in `docs/logbook.md` with commit correspondence.
-
-## Change History
-- [2026-05-01] Initial logbook entry created and the repository research process documented.
-- [2026-05-01] Added methodology review log entry and committed to chat/conversation tracking.
-- [2026-05-01] Added logbook commit-tracking rule entry.
-- [2026-05-01] Added commit plan entry and helper script for creating commit-correlated log entries.
-
-### 2026-05-01 (research audit)
-- Session lead: Researcher
-- Actions taken:
-  - Reviewed repository AI policy and methodology documents.
-  - Catalogued available case study artifacts for `experiments/spider-farmer` and `experiments/ecoflow-powerocean`.
-  - Confirmed that raw AI conversation exports are preserved as first-class artifacts in each experiment directory.
-  - Appended repository provenance tracking to `docs/logbook.md`.
-- Files updated:
-  - `docs/logbook.md`
-- Key decisions:
-  - Treat both imported experiment folders as active case studies for the research protocol.
-  - Use available raw conversation exports and imported original artifacts as the primary provenance evidence.
-- Next steps:
-  - Draft a structured case study audit summary with artifact inventory, provenance mapping, and validation actions.
-  - Continue aligning transcript evidence with the paper and source documentation.
-
-### 2026-05-01 (provenance maps and sources seed)
-- Session lead: Researcher (with AI-assisted drafting)
-- Actions taken:
-  - Executed the research-protocol agent prompt (`docs/research-protocol-prompt.md`) against both case studies.
-  - Surfaced the gap that `experiments/spider-farmer/original/` and `experiments/ecoflow-powerocean/original/` are empty in the working tree, despite both `REPORT.md` files referencing artifacts under those paths.
-  - Added a per-case-study provenance matrix linking each preserved chat transcript to the technical claims and external code references it underpins.
-  - Replaced the empty `docs/sources.md` template with a seeded source register covering the externally-referenced community implementations (Spider Farmer), the EcoFlow Open API materials, the HACS publishing guide, OCPP, and the § 69e UrhG / EU 2009/24/EC legal framing. Each entry carries an explicit verification status: `[repo-verified]`, `[unverified-external]`, or `[needs-research]`.
-  - Recorded that the AI-generated § 69e UrhG opinion captured in the EcoFlow transcripts is not legal advice and must be replaced with sourced legal commentary before any legal framing appears in the paper.
-- Files updated:
-  - `experiments/spider-farmer/provenance.md` (new)
-  - `experiments/ecoflow-powerocean/provenance.md` (new)
-  - `docs/sources.md`
-  - `docs/logbook.md`
-- Key decisions:
-  - Use a verification-status legend (`[repo-verified]` / `[unverified-external]` / `[needs-research]`) so that the source register can be honest about what has and has not been independently checked.
-  - Keep external-repository pins (e.g. PR numbers, short commit SHAs) inside the per-case-study `provenance.md` rather than scattered through `REPORT.md`.
-  - Do not introduce any literature citation that has not been retrieved and read; mark every such gap as `[needs-research]`.
-- Open issues:
-  - Original artifacts referenced by both `REPORT.md` files remain absent from the repo. Decide whether to vendor them, gitignore them with documented hashes, or replace with canonical-URL references.
-  - External integration repositories (Spider Farmer `noheton/spider_farmer` PR #9; EcoFlow `powerocean_dev` branch `claude/refactor-ha-integration-7dnMI`, release `v2026.05.01`) need to be pinned by full commit SHA.
-  - `docs/sources.md` `[needs-research]` items should be filled before drafting paper claims that depend on prior literature.
-- Next steps:
-  - Begin a literature-search session targeting the originality-check and security-risk items in `docs/sources.md`.
-  - Reconcile the two EcoFlow write-API descriptions (`setDeviceProperty` vs `device/quota`) in `REPORT.md` §5.1.
-  - Address the empty `Add logo to integration and repository.txt` transcript in the Spider Farmer case study.
-
-## Change History
-- [2026-05-01] Initial logbook entry created and the repository research process documented.
-- [2026-05-01] Added methodology review log entry and committed to chat/conversation tracking.
-- [2026-05-01] Added logbook commit-tracking rule entry.
-- [2026-05-01] Added commit plan entry and helper script for creating commit-correlated log entries.
-- [2026-05-01] Added KPI framework log entry and measurement guidance.
-- [2026-05-01] Performed an AI-assisted research audit across imported case studies and verified experiment artifact presence.
-- [2026-05-01] Created detailed `REPORT.md` summaries for `experiments/spider-farmer` and `experiments/ecoflow-powerocean` and linked them from each README.
-- [2026-05-01] Added per-case-study `provenance.md` files and seeded `docs/sources.md` with verification-status-tagged source entries.
-- [2026-05-01] Re-ran the audit against the embedded vendor copies (commit `ffdf60c`); upgraded source register entries from `[repo-referenced]`/`[unverified-external]` to `[repo-vendored]` and verified each transcript's technical claims against the actual code.
-
-### 2026-05-01 (audit against embedded vendor code)
-- Session lead: Researcher (with AI-assisted analysis)
-- Actions taken:
-  - Rebased the audit branch onto `origin/main` to pick up `ffdf60c` (*feat(experiments): embed vendor repos as plain files for agent access*), which materialises both case-study `original/` directories as plain files instead of submodule pins.
-  - Verified every transcript-recorded technical claim against the actual code in `original/`:
-    - **Spider Farmer** — confirmed corrected CB key/IV (`const.py` lines 45-47), static-IV-first decrypt path (`ble_protocol.py` 195-204), `asyncio.Lock` for write serialisation (`ble_coordinator.py` 79), `async_migrate_entry` (`__init__.py` 95), bluetooth match rules (`manifest.json`), and the dynamic-IV slice formula. Discovered the integration is now at `VERSION = 3` (`config_flow.py` 87) and `"version": "3.0.0"` (`manifest.json`), past the T4-era `1→2` migration.
-    - **EcoFlow PowerOcean** — confirmed the regex fix `(?<!st)(amp\|current)$` (`types.py` 90), version `2026.05.01` (`manifest.json` 12), domain `powerocean_dev` (`const.py` 10), 3-step config flow (`config_flow.py`, 510 lines), and the legacy `setDeviceProperty` write path (`api.py` 306). The previously-open "two API surfaces" question is resolved by `original/doc/apk.md` line 52, which documents three surfaces and the integration's choice to use the legacy endpoint.
-  - Surfaced new evidence not anticipated by the prior audit: in Spider Farmer, the community discussion in `original/doc/log.md` documents the MQTT-broker MITM and recovered credentials (`[REDACTED:username:S-SF-5-username]` / `[REDACTED:credential:S-SF-5-password]`; see `docs/redaction-policy.md` R-SF-1, R-SF-2) — a strong piece of independent evidence for the security claim. In EcoFlow, the four committed APKs and the six raw extraction logs are now first-class artifacts.
-  - Identified two corrections to the prior audit: (a) the upstream of `powerocean_dev` is `[REDACTED:repo-path:EF-IMPL-1]`, not `noheton/powerocean` (per `const.py` `ISSUE_URL`); (b) the empty Spider Farmer transcript T7 ("Add logo…") was preserved as zero bytes, but the deliverable (`original/logo.png`, `original/brand/icon.png`, `icon@2x.png`) was actually completed.
-  - Rewrote both `provenance.md` files to map each transcript to specific verified files and line numbers in `original/`. Updated `docs/sources.md` to upgrade most entries from `[repo-referenced]` to `[repo-vendored]`, added the four APKs and the user manuals as new source entries, and refined the verification-status legend.
-  - Recorded redaction risks for any public release: device serial `[REDACTED:serial:S-SF-device]`, broker IP `[REDACTED:ip:S-SF-device]`, and the recovered MQTT password (see `docs/redaction-policy.md` R-SF-3, R-SF-4, R-SF-2).
-- Files updated:
-  - `experiments/spider-farmer/provenance.md`
-  - `experiments/ecoflow-powerocean/provenance.md`
-  - `docs/sources.md`
-  - `docs/logbook.md`
-- Key decisions:
-  - Promote `[repo-vendored]` as a stronger verification status than `[repo-referenced]` to reflect that artifacts are now directly cite-able.
-  - Treat the missing HA log files (the `home-assistant_spider_farmer_*.log` series) as the only outstanding artifact gap in the Spider Farmer case study.
-- Open issues:
-  - § 69e UrhG / EU 2009/24/EC remain `[unverified-external]`; AI-generated legal opinions are still flagged as not legal advice.
-  - Vendor APK and PDF redistribution status needs to be checked before any public release.
-  - The `VERSION 2 → 3` migration step in Spider Farmer is not documented by any preserved transcript and should be reconstructed.
-- Next steps:
-  - Begin the literature search for the `[needs-research]` items in `docs/sources.md`.
-  - Decide on a redaction policy for the live credentials and device identifiers in the case-study artifacts before any public release.
-
-### 2026-05-01 (paper structure draft)
-- Session lead: Researcher (with AI-assisted drafting)
-- Actions taken:
-  - Restructured `paper/main.md` to the seven-section outline requested for the paper: Introduction and Motivation, Methodology, Experiment & Analysis 1 (Spider Farmer), Experiment & Analysis 2 (EcoFlow PowerOcean), Synthesis, Discussion, Conclusion.
-  - Wired each section to the verified evidence already in the repo: source register entries (`docs/sources.md`), per-case `provenance.md` files, `REPORT.md` summaries, and the embedded vendor code at commit `ffdf60c`.
-  - Carried forward open issues from the prior audit (legal-source verification, redaction policy, undocumented `VERSION 2 → 3` Spider Farmer migration) into the paper's Threats to Validity and Future Work subsections.
-  - Preserved the abstract from the previous skeleton; replaced the flat case-study sections with structured §3 and §4 that mirror the methodology (artifact inventory → workflow → findings → validation → security implications → KPIs).
-- Files updated:
-  - `paper/main.md`
-  - `docs/logbook.md`
-- Key decisions:
-  - Treat the two case studies as parallel `Experiment & Analysis` sections rather than a single "Case Studies" block, to make the cross-case comparison in §5 (Synthesis) more legible.
-  - Keep KPI tables stubbed rather than fabricated; numbers must come from the existing logbook and provenance evidence in a follow-up pass.
-  - Make the dual-use evaluation part of each case study's findings (§3.6, §4.6) rather than only a Discussion subsection.
-- Open issues:
-  - KPI tables in §3.7 and §4.7 are stubbed and need to be populated from logbook + provenance evidence.
-  - Redaction of S-SF-5 (live MQTT credentials) is required before any public release of the paper.
-  - § 69e UrhG / EU 2009/24/EC sourcing remains `[unverified-external]`.
-- Next steps:
-  - Populate the KPI tables from the logbook and provenance maps.
-  - Begin the literature pass against `docs/sources.md` `[needs-research]` items.
-  - Resolve vendor APK/PDF redistribution status before any public release.
-
-### 2026-05-01 (academic literature pass)
-- Session lead: Researcher (with AI-assisted search via the Consensus academic database)
-- Actions taken:
-  - Ran a structured literature search session against Consensus (Semantic Scholar / PubMed / Scopus / arXiv) targeting the eight `[needs-research]` items previously enumerated in `docs/sources.md`.
-  - Added two new verification statuses to the source-register legend: `[lit-retrieved]` (database-surfaced, not yet read) and `[lit-read]` (read in full and confirmed). The earlier four-status legend remained insufficient to honestly describe the state of citations after a database query.
-  - Populated `docs/sources.md` with eight claim clusters (A–H) covering: LLM-assisted RE, LLM-assisted vulnerability/exploit generation, hardcoded secrets in mobile apps, BLE/IoT security-through-obscurity, IoT right-to-repair, local-first smart home, DMCA § 1201(f) legal exemption, and counter-positions on interoperability. ~50 papers registered with stable handles `L-<cluster>-<n>`.
-  - Surfaced specific papers that **contradict or qualify** the paper's claims and flagged them as such — most importantly L-RE-4 (Pearce et al. 2022, "LLMs are not yet ready for zero-shot RE"), L-VD-2 (Zhao et al. 2025, 8–34% PoC success on disclosed CVEs — qualifies the asymmetry-of-collapse claim in §6.3), L-COUNTER-1 (Boniface et al. 2020, interoperability as security-cost optimisation), and L-COUNTER-2 (Mitra & Ransbotham 2015, full disclosure accelerates attack diffusion).
-  - Added a coverage table mapping each prior `[needs-research]` item to its retrieved anchor citations, leaving two items open: § 69e UrhG / EU 2009/24/EC (needs German-language / EUR-Lex search) and vendor-published positions on community RE (grey-literature problem, not solvable through academic-database search).
-- Files updated:
-  - `docs/sources.md`
-  - `docs/logbook.md`
-- Key decisions:
-  - Mark every newly retrieved citation as `[lit-retrieved]` rather than letting it pass as a usable source. Upgrading to `[lit-read]` requires a researcher reading the full paper, not just the abstract surfaced by the database.
-  - Deliberately retain papers that **contradict** the paper's claims (L-RE-4, L-VD-2, L-COUNTER-1, L-COUNTER-2). The paper's intellectual honesty depends on these being engaged with, not omitted.
-  - Defer the German-language legal search and the grey-literature pass on vendor positions to a separate session — both require different sourcing strategies than the Consensus academic-database approach.
-- Open issues:
-  - All Cluster A–H citations are `[lit-retrieved]`, not `[lit-read]`. No paper claim should cite them directly until the underlying full text has been read.
-  - § 69e UrhG / EU 2009/24/EC sourcing remains unresolved.
-  - Vendor-position grey-literature pass is unstarted.
-- Next steps:
-  - Read the highest-priority full texts and upgrade their status to `[lit-read]`: L-HC-1 (SecretLoc), L-VD-1 (script-kiddies AEG), L-RE-4 (Pop Quiz), L-RR-1 (right-to-repair-IoT), L-COUNTER-1 (security implications of interoperability), L-COUNTER-2 (disclosure & attack diffusion), L-BLE-5 (Living in the Past).
-  - Targeted German-language search for § 69e UrhG and EU 2009/24/EC.
-  - Define the grey-literature sourcing strategy for vendor positions on community reverse engineering.
-
-### 2026-05-01 (meta-process case study, sloppification + model collapse, FAIR / citation metadata)
-- Session lead: Researcher (with AI-assisted drafting)
-- Actions taken (multiple commits to follow):
-  - **Rule 11 compliance.** Merged `origin/main` (`6177233`) which introduced the LaTeX build pipeline (`80e781b`) and rule 11 (`eef8c5b` — keep `paper/main.md` and `paper/main.tex` consistent). Rewrote `paper/main.tex` to mirror the seven-section structure already in `paper/main.md`, then expanded both files together.
-  - **Anthropic citation.** Added `anthropic2026claude` to `paper/references.bib`. Cited inline in the new §9 ("AI usage disclosure and disclaimer").
-  - **Meta-process case study.** Added §5 "Experiment & Analysis 3 — The paper as an AI-assisted artifact" to both `paper/main.md` and `paper/main.tex` with parallel structure to §3 and §4. Renumbered downstream sections (Synthesis → §6, Discussion → §7, Conclusion → §8, AI Disclosure → §9). Extended the §6 cross-case comparison table to three columns (Spider Farmer / EcoFlow / Meta-process). Added §7.5 "The paper as evidence for its own thesis".
-  - **Sloppification literature pass.** Issued two further Consensus queries (fabricated citations in academic writing; paper mills + AI). Added `docs/sources.md` cluster I (L-SLOP-1 .. L-SLOP-12). Anchored §5.6 to specific empirical base rates (Walters & Wilder 2023, McGowan et al. 2023, Chelli et al. 2024). Added §7.6 "Sloppification: the AI methodological discount".
-  - **Model-collapse literature pass.** Issued one Consensus query on model collapse and recursive training. Added `docs/sources.md` cluster J (L-MC-1 .. L-MC-9). Added §7.7 "Model collapse and the dilution of the scientific commons" citing Shumailov et al. (2024, *Nature*), Seddik et al. (2024), Gerstgrasser et al. (2024 — accumulating-data result), Borji (2024 qualifier), and ForTIFAI (2025). Mapped in-repo practices (provenance, transcript preservation, mixed-data principle, FAIR metadata) onto literature-suggested mitigations.
-  - **AI Disclosure section.** Added §9 with subsections 9.1 (models and tooling), 9.2 (division of labour), 9.3 (what is and is not sourced), 9.4 (disclaimers including the empirical fabricated-citation risk), 9.5 (statement of independence and personal capacity).
-  - **ORCID and author identity.** Resolved ORCID `0000-0001-6033-801X` to **Florian Krebs** via two independent indexed sources (DLR elib record for *shepard*; Helmholtz Research Software Directory entry for *shepard*). Recorded the ORCID and the personal-capacity affiliation across `CITATION.cff`, `.zenodo.json`, `codemeta.json`, `docs/fair.md`, `paper/main.md` (title block + §9.5), `paper/main.tex` (`\thanks` block on author + §9.5), and `README.md`.
-  - **DLR independence statement.** Added an explicit "Statement of independence" to all of: title block of `paper/main.md`, footnote on author line in `paper/main.tex`, §9.5 of both paper sources, top of `docs/fair.md`, top of `README.md`, and notes fields in `.zenodo.json` and `codemeta.json`. The disclaimer says this is hobbyist work in personal capacity; not part of, endorsed by, funded by, or representative of the views of any employer including DLR.
-  - **FAIR adherence.** Added `docs/fair.md` mapping each FAIR principle (F1–F4, A1–A2, I1–I3, R1.1–R1.3) to the concrete repository feature that satisfies it. Listed open issues blocking full compliance: persistent identifier (Zenodo DOI to mint at first release), top-level `LICENSE` file, sensitive-content redaction, vendor-artifact redistribution status.
-  - **Citation / housekeeping metadata.** Added `CITATION.cff` (Citation File Format 1.2.0), `.zenodo.json` (Zenodo metadata schema), `codemeta.json` (CodeMeta 3.0 / schema.org JSON-LD).
-  - **Conversation transcripts as experiment data.** Created `experiments/paper-meta-process/` (parallel to the Spider Farmer and EcoFlow case-study directories). Wrote `README.md`, `REPORT.md`, and `provenance.md`. Added a `[curated-reconstruction]` of the 2026-05-01 session as `raw_conversations (copy&paste, web)/T1-paper-structure-and-literature.md`. Documented a three-level transcript verification status (`[verbatim-export]` / `[curated-reconstruction]` / `[redacted]`).
-  - **README integration.** Added the citation pointer, FAIR pointer, and DLR disclaimer to the top of `README.md`. Added the new case study and metadata files to the repository structure list.
-- Files updated:
-  - `paper/main.md`, `paper/main.tex`, `paper/references.bib`
-  - `docs/sources.md`, `docs/logbook.md`, `docs/fair.md` (new)
-  - `CITATION.cff` (new), `.zenodo.json` (new), `codemeta.json` (new)
-  - `experiments/paper-meta-process/README.md` (new)
-  - `experiments/paper-meta-process/REPORT.md` (new)
-  - `experiments/paper-meta-process/provenance.md` (new)
-  - `experiments/paper-meta-process/raw_conversations (copy&paste, web)/T1-paper-structure-and-literature.md` (new)
-  - `README.md`
-- Key decisions:
-  - Default the case-3 transcript verification status to `[curated-reconstruction]` pending a verbatim export from Claude Code session storage. This is honest about the source: I (the AI) reconstructed the conversation from working memory plus public git history; it is not a transport-verbatim export.
-  - Default the metadata license to CC-BY-4.0 in `.zenodo.json` and `codemeta.json` pending researcher confirmation; flag the missing top-level `LICENSE` as an open FAIR-compliance issue rather than committing a license unilaterally.
-  - Add `\cref` cross-references in `paper/main.tex` matching `paper/main.md` §-references so the two stay aligned under future edits.
-  - Keep DLR named only in the negative ("not part of, not endorsed by, …") so the affiliation cannot be mistaken for institutional endorsement.
-  - Never upgrade a `[lit-retrieved]` entry to `[lit-read]` without the researcher reading the full text.
-- Open issues:
-  - **Top-level `LICENSE` file** missing; default declared as CC-BY-4.0 for paper text.
-  - **Verbatim export of session transcripts** still required to upgrade the meta-process T1 transcript from `[curated-reconstruction]` to `[verbatim-export]`.
-  - **All Cluster A–J literature entries are `[lit-retrieved]`** and must be read before being cited as authority.
-  - **Live-credential redaction** for `docs/sources.md` S-SF-5 still required before any public release.
-  - **Vendor APK / PDF redistribution status** still pending.
-  - **§ 69e UrhG / EU 2009/24/EC** primary legal sources still `[unverified-external]`.
-- Next steps:
-  - Mint a Zenodo DOI at first release (`F1`, `R1.1`).
-  - Add the top-level `LICENSE`.
-  - Produce a verbatim Claude Code session export and add it as a companion file to the meta-process T1 transcript.
-  - Begin reading the highest-priority `[lit-retrieved]` entries (L-SLOP-1, L-SLOP-4, L-SLOP-2, L-MC-1, L-MC-4, L-HC-1, L-VD-1, L-RR-1, L-COUNTER-1, L-COUNTER-2) and upgrade to `[lit-read]`.
-  - Targeted German-language / EUR-Lex search for § 69e UrhG and EU 2009/24/EC.
-
-### 2026-05-01 (LICENSE resolved + UrhG/KI footnote)
-- Session lead: Researcher (CC-BY-4.0 confirmed) with AI-assisted drafting of the footnote and license boilerplate.
-- Actions taken:
-  - Added top-level `LICENSE` (CC-BY-4.0) covering the human-authored and human-curated portions of the work, with explicit exclusions for vendored third-party artifacts (`experiments/*/original/`) and items flagged for redaction (`docs/sources.md` S-SF-5).
-  - Added a substantive footnote on *Urheberrecht und Künstliche Intelligenz* in Germany to `paper/main.md` § 9.1 and to `paper/main.tex` `sec:ai-disclosure-models` (mirrored per rule 11). Footnote covers (i) authorship and copyrightability under § 2 UrhG, (ii) text-and-data-mining and AI training under § 44b UrhG, EU DSM Directive 2019/790 Art. 4, *LG München I, Kneschke v LAION* (Az. 42 O 14139/23, October 2024), and EU AI Act Art. 53, and (iii) why this means the AI is acknowledged but not a co-author and how CC-BY-4.0 attaches.
-  - Updated `CITATION.cff` to declare `license: "CC-BY-4.0"` and `license-url`. Updated `.zenodo.json` notes to reflect the resolved license and add the AI-authorship explanation. Updated `docs/fair.md` R1.1 row to mark the license as resolved and added a fifth open issue (pre-publication legal review).
-  - Recorded explicitly that the AI assistant (Claude, Anthropic) is **not** a co-author under § 2 UrhG: AI cannot hold copyright, cannot consent to publication, and cannot be held accountable. Acknowledgement remains in §9.1 and across the FAIR / citation metadata files.
-- Files updated:
-  - `LICENSE` (new)
-  - `paper/main.md`, `paper/main.tex`
-  - `CITATION.cff`, `.zenodo.json`, `docs/fair.md`
-  - `docs/logbook.md`
-- Key decisions:
-  - Confirm CC-BY-4.0 for the whole repository's human-authored content (paper, methodology, scripts, metadata).
-  - Decline AI co-authorship per § 2 UrhG and ICMJE/DFG-style accountability principles. The AI's contribution is fully credited in §9.1 and in the metadata, but copyright and editorial responsibility rest with the human author.
-  - Treat the *Urheberrecht und KI* footnote as `[unverified-external]` until a German-language / EUR-Lex search reads each primary source. The footnote restates the prevailing reading and explicitly says it is not legal advice.
-- Open issues:
-  - Targeted German-language / EUR-Lex search for the primary texts cited in the footnote (§ 2 UrhG; § 44b UrhG; EU DSM Directive 2019/790 Art. 4; *Kneschke v LAION*; EU AI Act Art. 53). Each is currently `[unverified-external]`.
-  - Pre-publication legal review (`docs/fair.md` open issue 5) before any journal/Zenodo mirror.
-- Next steps:
-  - Targeted German-language search to upgrade the UrhG sources from `[unverified-external]` to `[lit-read]` (or to retrieve their canonical URLs).
-  - Mint the Zenodo DOI now that the license is resolved.
-
-### 2026-05-01 (consumer vs industrial qualifier; §10 Pandora-moment novelty section)
-- Session lead: Researcher (with AI-assisted literature retrieval and drafting)
-- Actions taken:
-  - **§6.4 expansion ("Limits of the comparison").** Added an anchored two-part qualifier addressing the user's hypothesis that industrial / more expensive hardware might solve the obscurity problem while consumer-market equipment is probably vulnerable. Sourced both halves: (a) consumer-IoT base rate is empirically high and not anomalous (Zhao et al. 2022 — 28.25% N-days vulnerability across 1,362,906 devices, 88% MQTT no-password; Kumar et al. 2019 — 83M devices in 16M households; Davis et al. 2020 — well-known vs lesser-known vendors; Sivakumaran et al. 2023 — >70% of 17,243 BLE APKs vulnerable); (b) industrial / IIoT / ICS is *not* automatically immune (Antón et al. 2021 — >13,000 OT devices on public internet, almost all with at least one vulnerability; Serror et al. 2020 — IIoT shares concerns with consumer IoT; Asghar et al. 2019 — ICS legacy designs broken by enterprise integration).
-  - **`docs/sources.md` Cluster K** added: "Consumer-IoT base rate of vulnerability vs. industrial / IIoT / ICS posture". 12 citations split into a consumer sub-cluster (L-CONS-1..L-CONS-6) and an industrial sub-cluster (L-IND-1..L-IND-6). All `[lit-retrieved]`. Coverage table updated.
-  - **§10 "The Pandora moment: this paper as a novel mode of transparent AI-assisted research"** added to both `paper/main.md` and `paper/main.tex` per rule 11. Opens with a Hesiod *Works and Days* (ll. 96–98, Evelyn-White 1914 trans.) epigraph anchoring the Pandora's-box framing on the canonical historical source. Argues that the paper's novelty is *artifact-level disclosure* (transcripts, verification-status legend, provenance maps, mirror discipline, recursive case study, AI disclosure with empirical base rates, legal-honesty footnote on UrhG, FAIR alignment) integrated into a single executable research protocol. Contrasts with the two prevailing failure modes (concealment; token disclosure) documented quantitatively in cluster I. Closes: "Pandora's box is open. The Hope that remains is the kind that does work."
-- Files updated:
-  - `docs/sources.md`, `docs/logbook.md`
-  - `paper/main.md`, `paper/main.tex`
-- Key decisions:
-  - Place the Pandora-moment section as a new §10 *after* §9 (AI usage disclosure) so the disclosure sits inside the methodology it formalises and the meta-argument follows. Keeps prior §-numbering stable.
-  - Use a Hesiod epigraph rather than a more modern quote (Curie, Wiener, Heisenberg were considered): the Pandora myth is the user's chosen frame, and the canonical Hesiodic detail that *Hope* alone remained inside the jar is the point of the section.
-  - Frame the novelty claim as *integration*, not invention: each individual practice (transcripts, verification statuses, provenance maps, FAIR) has prior art; the integration into a single executable protocol is what we claim is new.
-- Open issues:
-  - Cluster K entries are `[lit-retrieved]` only; upgrade to `[lit-read]` before any are cited as authority.
-  - The Hesiod attribution (Evelyn-White, Loeb 1914) should itself be cross-checked against a reliable edition before submission.
-  - The "roughly as many lines of methodological scaffolding as paper prose" claim in §10 should be verified with a concrete cloc-style measurement before submission.
-- Next steps:
-  - Verify the Hesiod translation attribution against the public-domain Loeb text.
-  - Compute the actual lines-of-scaffolding-vs-prose ratio and update §10 with the real number (or remove the claim if it does not survive measurement).
-  - Continue the German-language / EUR-Lex literature pass on §69e UrhG, §44b UrhG, *Kneschke v LAION*, and EU AI Act Art. 53.
-
-### 2026-05-01 (session 2 — redaction, new rules, discussion expansion, KPI timelines, figures, README)
-- Session lead: Researcher with AI-assisted drafting (Claude, claude-sonnet-4-6)
-- Actions taken:
-
-  **Merge resolution** — merged origin/main (commits 9aaca73 "Add figures" and d59bb3d "fix figure formats SVG") into `claude/develop-paper-structure-7lG2s`. Merge conflicts in `paper/main.md`, `paper/main.tex`, and `paper/references.bib` were resolved by keeping the full expanded 10-section paper (HEAD) and incorporating the seven SVG figures and updated Makefile from main. All seven figures (fig1–fig7) placed at semantically appropriate locations in both files per rule 11.
-
-  **Rules 12–14 added** to `CLAUDE_CODE_INSTRUCTIONS.md` and all three alias files:
-  - Rule 12: Redact all security-sensitive and legally questionable information; use `[REDACTED:<type>:<source-id>]` markers; record in `docs/redaction-policy.md`.
-  - Rule 13: NEVER publish, push to a public remote, create a Zenodo deposit, submit to arXiv, or otherwise distribute without explicit written consent from the author.
-  - Rule 14: If a paper figure is data-derived, commit both the data file and the generation script; reference both in main.md and main.tex.
-
-  **`docs/redaction-policy.md` created** — canonical sensitive-item register with marker format table, 5 items (R-SF-1..R-SF-5 covering MQTT username, password, device serial, local IP, and vendor UID), and a pre-publication history-rewrite checklist.
-
-  **Redaction pass applied** to 5 researcher-authored files:
-  - `docs/sources.md` S-SF-5 — raw credentials replaced with `[REDACTED:username:S-SF-5-username]` / `[REDACTED:credential:S-SF-5-password]`.
-  - `docs/logbook.md` (this file) — prior audit entry updated.
-  - `paper/main.md` §3.6 — username redacted.
-  - `paper/main.tex` §3.6 mirror — username redacted.
-  - `experiments/spider-farmer/provenance.md` — credentials and device info redacted.
-  - `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan and ventilator control in Home Assistant` — device serial, IP, and UID replaced via sed.
-  - Vendor `original/` tree NOT modified (excluded per redaction policy).
-
-  **Makefile publication-consent warning** — prominent multi-line warning block added at top of `paper/Makefile` referencing rule 13 and the three pre-publication checklist items.
-
-  **§7.10 "Proliferation of hacking"** added to both `paper/main.md` and `paper/main.tex` — covers: volume risk (growing actor pool, static vulnerable-device stock), asymmetric uplift (attacker pays same cost for more damage), normalisation effect (cultural friction disappears), tooling acceleration (compounding marginal cost reduction). Argues the structural response is open APIs + zero-trust, not suppression.
-
-  **§7.11 "Prompt injection in obfuscated software as a countermeasure?"** added to both files — examines the speculative defence of embedding adversarial strings in vendor APKs to mislead LLM analysis. Concludes feasibility is low (models increasingly resistant; custom agents filter), ethics are contested (§69e UrhG / EU 2001/29/EC TPM question), and systemic cost is negative (training-corpus contamination). Not a viable primary defence.
-
-  **KPI effort-gap timelines** added to §3.7 (Spider Farmer) and §4.7 (EcoFlow) in both files:
-  - Spider Farmer: 7 phases, ~10.5 h AI-assisted vs ~90 h estimated manual → 12% of manual effort.
-  - EcoFlow: 3 phases, ~8 h AI-assisted vs ~120 h estimated manual → 7% of manual effort.
-  - Both timelines include table-form phase breakdowns and effort-gap metrics.
-
-- Files updated:
-  - `CLAUDE_CODE_INSTRUCTIONS.md`, `.instructions.md`, `copilot-instructions.md`, `CLAUDE.md`
-  - `docs/redaction-policy.md` (new)
-  - `docs/sources.md`, `docs/logbook.md`
-  - `experiments/spider-farmer/provenance.md`
-  - `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan and ventilator control in Home Assistant`
-  - `paper/Makefile`, `paper/main.md`, `paper/main.tex`
-
-- Key decisions:
-  - Keep vendor `original/` tree untouched — its credentials are present in the source file and are the point of evidence for §3.6. The redaction policy documents this and flags the need for exclusion from any public mirror.
-  - §7.10 and §7.11 are positioned *after* §7.9 (Threats to validity) to maintain the paper's analytical → societal risk → speculative countermeasure progression.
-  - KPI effort-gap estimates are clearly labelled as *estimates* (manual baseline is a conservative reconstruction); they are not claimed to be empirically measured.
-  - The commit-timeline tables note that exact timestamps are not available for all phases; ordering is reconstructed from cross-references, not from wall-clock evidence.
-
-- Open issues:
-  - Git history rewrite (BFG / git-filter-repo) still required before any public mirror — raw credentials are in prior commits on this branch. See `docs/redaction-policy.md`.
-  - Vendor redistribution caveats (S-SF-4, S-EF-2..4) unresolved.
-  - `[lit-retrieved]` to `[lit-read]` upgrades still pending for all clusters.
-  - Zenodo DOI still not minted.
-  - README prettification (openvla-style) deferred to next sub-session.
-  - Figures fig1–fig7 are currently manually drawn SVGs. Per Rule 14 they are exempt from the data-source+script requirement but should be noted as such in the figures directory.
-
-- Next steps:
-  - Update and prettify README (openvla-style layout with badges, figure gallery, quick-start, and citation block).
-  - Note figures as manually drawn in `paper/figures/` README.
-  - Push the development branch.
-
----
 
 ### Session 3 — 2026-05-01 (DLR design bundle + data-driven fig1)
 
@@ -826,6 +251,398 @@ This logbook is the operating record for the paper and research process.
   - Verify the next CI run on this branch produces a `paper-pdf` artifact that
     renders the new banner correctly on page 1.
   - Continue tracking §5.7 KPI each session until submission.
+
+---
+
+### 2026-05-01 (consumer vs industrial qualifier; §10 Pandora-moment novelty section)
+- Session lead: Researcher (with AI-assisted literature retrieval and drafting)
+- Actions taken:
+  - **§6.4 expansion ("Limits of the comparison").** Added an anchored two-part qualifier addressing the user's hypothesis that industrial / more expensive hardware might solve the obscurity problem while consumer-market equipment is probably vulnerable. Sourced both halves: (a) consumer-IoT base rate is empirically high and not anomalous (Zhao et al. 2022 — 28.25% N-days vulnerability across 1,362,906 devices, 88% MQTT no-password; Kumar et al. 2019 — 83M devices in 16M households; Davis et al. 2020 — well-known vs lesser-known vendors; Sivakumaran et al. 2023 — >70% of 17,243 BLE APKs vulnerable); (b) industrial / IIoT / ICS is *not* automatically immune (Antón et al. 2021 — >13,000 OT devices on public internet, almost all with at least one vulnerability; Serror et al. 2020 — IIoT shares concerns with consumer IoT; Asghar et al. 2019 — ICS legacy designs broken by enterprise integration).
+  - **`docs/sources.md` Cluster K** added: "Consumer-IoT base rate of vulnerability vs. industrial / IIoT / ICS posture". 12 citations split into a consumer sub-cluster (L-CONS-1..L-CONS-6) and an industrial sub-cluster (L-IND-1..L-IND-6). All `[lit-retrieved]`. Coverage table updated.
+  - **§10 "The Pandora moment: this paper as a novel mode of transparent AI-assisted research"** added to both `paper/main.md` and `paper/main.tex` per rule 11. Opens with a Hesiod *Works and Days* (ll. 96–98, Evelyn-White 1914 trans.) epigraph anchoring the Pandora's-box framing on the canonical historical source. Argues that the paper's novelty is *artifact-level disclosure* (transcripts, verification-status legend, provenance maps, mirror discipline, recursive case study, AI disclosure with empirical base rates, legal-honesty footnote on UrhG, FAIR alignment) integrated into a single executable research protocol. Contrasts with the two prevailing failure modes (concealment; token disclosure) documented quantitatively in cluster I. Closes: "Pandora's box is open. The Hope that remains is the kind that does work."
+- Files updated:
+  - `docs/sources.md`, `docs/logbook.md`
+  - `paper/main.md`, `paper/main.tex`
+- Key decisions:
+  - Place the Pandora-moment section as a new §10 *after* §9 (AI usage disclosure) so the disclosure sits inside the methodology it formalises and the meta-argument follows. Keeps prior §-numbering stable.
+  - Use a Hesiod epigraph rather than a more modern quote (Curie, Wiener, Heisenberg were considered): the Pandora myth is the user's chosen frame, and the canonical Hesiodic detail that *Hope* alone remained inside the jar is the point of the section.
+  - Frame the novelty claim as *integration*, not invention: each individual practice (transcripts, verification statuses, provenance maps, FAIR) has prior art; the integration into a single executable protocol is what we claim is new.
+- Open issues:
+  - Cluster K entries are `[lit-retrieved]` only; upgrade to `[lit-read]` before any are cited as authority.
+  - The Hesiod attribution (Evelyn-White, Loeb 1914) should itself be cross-checked against a reliable edition before submission.
+  - The "roughly as many lines of methodological scaffolding as paper prose" claim in §10 should be verified with a concrete cloc-style measurement before submission.
+- Next steps:
+  - Verify the Hesiod translation attribution against the public-domain Loeb text.
+  - Compute the actual lines-of-scaffolding-vs-prose ratio and update §10 with the real number (or remove the claim if it does not survive measurement).
+  - Continue the German-language / EUR-Lex literature pass on §69e UrhG, §44b UrhG, *Kneschke v LAION*, and EU AI Act Art. 53.
+
+### 2026-05-01 (LICENSE resolved + UrhG/KI footnote)
+- Session lead: Researcher (CC-BY-4.0 confirmed) with AI-assisted drafting of the footnote and license boilerplate.
+- Actions taken:
+  - Added top-level `LICENSE` (CC-BY-4.0) covering the human-authored and human-curated portions of the work, with explicit exclusions for vendored third-party artifacts (`experiments/*/original/`) and items flagged for redaction (`docs/sources.md` S-SF-5).
+  - Added a substantive footnote on *Urheberrecht und Künstliche Intelligenz* in Germany to `paper/main.md` § 9.1 and to `paper/main.tex` `sec:ai-disclosure-models` (mirrored per rule 11). Footnote covers (i) authorship and copyrightability under § 2 UrhG, (ii) text-and-data-mining and AI training under § 44b UrhG, EU DSM Directive 2019/790 Art. 4, *LG München I, Kneschke v LAION* (Az. 42 O 14139/23, October 2024), and EU AI Act Art. 53, and (iii) why this means the AI is acknowledged but not a co-author and how CC-BY-4.0 attaches.
+  - Updated `CITATION.cff` to declare `license: "CC-BY-4.0"` and `license-url`. Updated `.zenodo.json` notes to reflect the resolved license and add the AI-authorship explanation. Updated `docs/fair.md` R1.1 row to mark the license as resolved and added a fifth open issue (pre-publication legal review).
+  - Recorded explicitly that the AI assistant (Claude, Anthropic) is **not** a co-author under § 2 UrhG: AI cannot hold copyright, cannot consent to publication, and cannot be held accountable. Acknowledgement remains in §9.1 and across the FAIR / citation metadata files.
+- Files updated:
+  - `LICENSE` (new)
+  - `paper/main.md`, `paper/main.tex`
+  - `CITATION.cff`, `.zenodo.json`, `docs/fair.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Confirm CC-BY-4.0 for the whole repository's human-authored content (paper, methodology, scripts, metadata).
+  - Decline AI co-authorship per § 2 UrhG and ICMJE/DFG-style accountability principles. The AI's contribution is fully credited in §9.1 and in the metadata, but copyright and editorial responsibility rest with the human author.
+  - Treat the *Urheberrecht und KI* footnote as `[unverified-external]` until a German-language / EUR-Lex search reads each primary source. The footnote restates the prevailing reading and explicitly says it is not legal advice.
+- Open issues:
+  - Targeted German-language / EUR-Lex search for the primary texts cited in the footnote (§ 2 UrhG; § 44b UrhG; EU DSM Directive 2019/790 Art. 4; *Kneschke v LAION*; EU AI Act Art. 53). Each is currently `[unverified-external]`.
+  - Pre-publication legal review (`docs/fair.md` open issue 5) before any journal/Zenodo mirror.
+- Next steps:
+  - Targeted German-language search to upgrade the UrhG sources from `[unverified-external]` to `[lit-read]` (or to retrieve their canonical URLs).
+  - Mint the Zenodo DOI now that the license is resolved.
+
+### 2026-05-01 (meta-process case study, sloppification + model collapse, FAIR / citation metadata)
+- Session lead: Researcher (with AI-assisted drafting)
+- Actions taken (multiple commits to follow):
+  - **Rule 11 compliance.** Merged `origin/main` (`6177233`) which introduced the LaTeX build pipeline (`80e781b`) and rule 11 (`eef8c5b` — keep `paper/main.md` and `paper/main.tex` consistent). Rewrote `paper/main.tex` to mirror the seven-section structure already in `paper/main.md`, then expanded both files together.
+  - **Anthropic citation.** Added `anthropic2026claude` to `paper/references.bib`. Cited inline in the new §9 ("AI usage disclosure and disclaimer").
+  - **Meta-process case study.** Added §5 "Experiment & Analysis 3 — The paper as an AI-assisted artifact" to both `paper/main.md` and `paper/main.tex` with parallel structure to §3 and §4. Renumbered downstream sections (Synthesis → §6, Discussion → §7, Conclusion → §8, AI Disclosure → §9). Extended the §6 cross-case comparison table to three columns (Spider Farmer / EcoFlow / Meta-process). Added §7.5 "The paper as evidence for its own thesis".
+  - **Sloppification literature pass.** Issued two further Consensus queries (fabricated citations in academic writing; paper mills + AI). Added `docs/sources.md` cluster I (L-SLOP-1 .. L-SLOP-12). Anchored §5.6 to specific empirical base rates (Walters & Wilder 2023, McGowan et al. 2023, Chelli et al. 2024). Added §7.6 "Sloppification: the AI methodological discount".
+  - **Model-collapse literature pass.** Issued one Consensus query on model collapse and recursive training. Added `docs/sources.md` cluster J (L-MC-1 .. L-MC-9). Added §7.7 "Model collapse and the dilution of the scientific commons" citing Shumailov et al. (2024, *Nature*), Seddik et al. (2024), Gerstgrasser et al. (2024 — accumulating-data result), Borji (2024 qualifier), and ForTIFAI (2025). Mapped in-repo practices (provenance, transcript preservation, mixed-data principle, FAIR metadata) onto literature-suggested mitigations.
+  - **AI Disclosure section.** Added §9 with subsections 9.1 (models and tooling), 9.2 (division of labour), 9.3 (what is and is not sourced), 9.4 (disclaimers including the empirical fabricated-citation risk), 9.5 (statement of independence and personal capacity).
+  - **ORCID and author identity.** Resolved ORCID `0000-0001-6033-801X` to **Florian Krebs** via two independent indexed sources (DLR elib record for *shepard*; Helmholtz Research Software Directory entry for *shepard*). Recorded the ORCID and the personal-capacity affiliation across `CITATION.cff`, `.zenodo.json`, `codemeta.json`, `docs/fair.md`, `paper/main.md` (title block + §9.5), `paper/main.tex` (`\thanks` block on author + §9.5), and `README.md`.
+  - **DLR independence statement.** Added an explicit "Statement of independence" to all of: title block of `paper/main.md`, footnote on author line in `paper/main.tex`, §9.5 of both paper sources, top of `docs/fair.md`, top of `README.md`, and notes fields in `.zenodo.json` and `codemeta.json`. The disclaimer says this is hobbyist work in personal capacity; not part of, endorsed by, funded by, or representative of the views of any employer including DLR.
+  - **FAIR adherence.** Added `docs/fair.md` mapping each FAIR principle (F1–F4, A1–A2, I1–I3, R1.1–R1.3) to the concrete repository feature that satisfies it. Listed open issues blocking full compliance: persistent identifier (Zenodo DOI to mint at first release), top-level `LICENSE` file, sensitive-content redaction, vendor-artifact redistribution status.
+  - **Citation / housekeeping metadata.** Added `CITATION.cff` (Citation File Format 1.2.0), `.zenodo.json` (Zenodo metadata schema), `codemeta.json` (CodeMeta 3.0 / schema.org JSON-LD).
+  - **Conversation transcripts as experiment data.** Created `experiments/paper-meta-process/` (parallel to the Spider Farmer and EcoFlow case-study directories). Wrote `README.md`, `REPORT.md`, and `provenance.md`. Added a `[curated-reconstruction]` of the 2026-05-01 session as `raw_conversations (copy&paste, web)/T1-paper-structure-and-literature.md`. Documented a three-level transcript verification status (`[verbatim-export]` / `[curated-reconstruction]` / `[redacted]`).
+  - **README integration.** Added the citation pointer, FAIR pointer, and DLR disclaimer to the top of `README.md`. Added the new case study and metadata files to the repository structure list.
+- Files updated:
+  - `paper/main.md`, `paper/main.tex`, `paper/references.bib`
+  - `docs/sources.md`, `docs/logbook.md`, `docs/fair.md` (new)
+  - `CITATION.cff` (new), `.zenodo.json` (new), `codemeta.json` (new)
+  - `experiments/paper-meta-process/README.md` (new)
+  - `experiments/paper-meta-process/REPORT.md` (new)
+  - `experiments/paper-meta-process/provenance.md` (new)
+  - `experiments/paper-meta-process/raw_conversations (copy&paste, web)/T1-paper-structure-and-literature.md` (new)
+  - `README.md`
+- Key decisions:
+  - Default the case-3 transcript verification status to `[curated-reconstruction]` pending a verbatim export from Claude Code session storage. This is honest about the source: I (the AI) reconstructed the conversation from working memory plus public git history; it is not a transport-verbatim export.
+  - Default the metadata license to CC-BY-4.0 in `.zenodo.json` and `codemeta.json` pending researcher confirmation; flag the missing top-level `LICENSE` as an open FAIR-compliance issue rather than committing a license unilaterally.
+  - Add `\cref` cross-references in `paper/main.tex` matching `paper/main.md` §-references so the two stay aligned under future edits.
+  - Keep DLR named only in the negative ("not part of, not endorsed by, …") so the affiliation cannot be mistaken for institutional endorsement.
+  - Never upgrade a `[lit-retrieved]` entry to `[lit-read]` without the researcher reading the full text.
+- Open issues:
+  - **Top-level `LICENSE` file** missing; default declared as CC-BY-4.0 for paper text.
+  - **Verbatim export of session transcripts** still required to upgrade the meta-process T1 transcript from `[curated-reconstruction]` to `[verbatim-export]`.
+  - **All Cluster A–J literature entries are `[lit-retrieved]`** and must be read before being cited as authority.
+  - **Live-credential redaction** for `docs/sources.md` S-SF-5 still required before any public release.
+  - **Vendor APK / PDF redistribution status** still pending.
+  - **§ 69e UrhG / EU 2009/24/EC** primary legal sources still `[unverified-external]`.
+- Next steps:
+  - Mint a Zenodo DOI at first release (`F1`, `R1.1`).
+  - Add the top-level `LICENSE`.
+  - Produce a verbatim Claude Code session export and add it as a companion file to the meta-process T1 transcript.
+  - Begin reading the highest-priority `[lit-retrieved]` entries (L-SLOP-1, L-SLOP-4, L-SLOP-2, L-MC-1, L-MC-4, L-HC-1, L-VD-1, L-RR-1, L-COUNTER-1, L-COUNTER-2) and upgrade to `[lit-read]`.
+  - Targeted German-language / EUR-Lex search for § 69e UrhG and EU 2009/24/EC.
+
+### 2026-05-01 (academic literature pass)
+- Session lead: Researcher (with AI-assisted search via the Consensus academic database)
+- Actions taken:
+  - Ran a structured literature search session against Consensus (Semantic Scholar / PubMed / Scopus / arXiv) targeting the eight `[needs-research]` items previously enumerated in `docs/sources.md`.
+  - Added two new verification statuses to the source-register legend: `[lit-retrieved]` (database-surfaced, not yet read) and `[lit-read]` (read in full and confirmed). The earlier four-status legend remained insufficient to honestly describe the state of citations after a database query.
+  - Populated `docs/sources.md` with eight claim clusters (A–H) covering: LLM-assisted RE, LLM-assisted vulnerability/exploit generation, hardcoded secrets in mobile apps, BLE/IoT security-through-obscurity, IoT right-to-repair, local-first smart home, DMCA § 1201(f) legal exemption, and counter-positions on interoperability. ~50 papers registered with stable handles `L-<cluster>-<n>`.
+  - Surfaced specific papers that **contradict or qualify** the paper's claims and flagged them as such — most importantly L-RE-4 (Pearce et al. 2022, "LLMs are not yet ready for zero-shot RE"), L-VD-2 (Zhao et al. 2025, 8–34% PoC success on disclosed CVEs — qualifies the asymmetry-of-collapse claim in §6.3), L-COUNTER-1 (Boniface et al. 2020, interoperability as security-cost optimisation), and L-COUNTER-2 (Mitra & Ransbotham 2015, full disclosure accelerates attack diffusion).
+  - Added a coverage table mapping each prior `[needs-research]` item to its retrieved anchor citations, leaving two items open: § 69e UrhG / EU 2009/24/EC (needs German-language / EUR-Lex search) and vendor-published positions on community RE (grey-literature problem, not solvable through academic-database search).
+- Files updated:
+  - `docs/sources.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Mark every newly retrieved citation as `[lit-retrieved]` rather than letting it pass as a usable source. Upgrading to `[lit-read]` requires a researcher reading the full paper, not just the abstract surfaced by the database.
+  - Deliberately retain papers that **contradict** the paper's claims (L-RE-4, L-VD-2, L-COUNTER-1, L-COUNTER-2). The paper's intellectual honesty depends on these being engaged with, not omitted.
+  - Defer the German-language legal search and the grey-literature pass on vendor positions to a separate session — both require different sourcing strategies than the Consensus academic-database approach.
+- Open issues:
+  - All Cluster A–H citations are `[lit-retrieved]`, not `[lit-read]`. No paper claim should cite them directly until the underlying full text has been read.
+  - § 69e UrhG / EU 2009/24/EC sourcing remains unresolved.
+  - Vendor-position grey-literature pass is unstarted.
+- Next steps:
+  - Read the highest-priority full texts and upgrade their status to `[lit-read]`: L-HC-1 (SecretLoc), L-VD-1 (script-kiddies AEG), L-RE-4 (Pop Quiz), L-RR-1 (right-to-repair-IoT), L-COUNTER-1 (security implications of interoperability), L-COUNTER-2 (disclosure & attack diffusion), L-BLE-5 (Living in the Past).
+  - Targeted German-language search for § 69e UrhG and EU 2009/24/EC.
+  - Define the grey-literature sourcing strategy for vendor positions on community reverse engineering.
+
+### 2026-05-01 (paper structure draft)
+- Session lead: Researcher (with AI-assisted drafting)
+- Actions taken:
+  - Restructured `paper/main.md` to the seven-section outline requested for the paper: Introduction and Motivation, Methodology, Experiment & Analysis 1 (Spider Farmer), Experiment & Analysis 2 (EcoFlow PowerOcean), Synthesis, Discussion, Conclusion.
+  - Wired each section to the verified evidence already in the repo: source register entries (`docs/sources.md`), per-case `provenance.md` files, `REPORT.md` summaries, and the embedded vendor code at commit `ffdf60c`.
+  - Carried forward open issues from the prior audit (legal-source verification, redaction policy, undocumented `VERSION 2 → 3` Spider Farmer migration) into the paper's Threats to Validity and Future Work subsections.
+  - Preserved the abstract from the previous skeleton; replaced the flat case-study sections with structured §3 and §4 that mirror the methodology (artifact inventory → workflow → findings → validation → security implications → KPIs).
+- Files updated:
+  - `paper/main.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Treat the two case studies as parallel `Experiment & Analysis` sections rather than a single "Case Studies" block, to make the cross-case comparison in §5 (Synthesis) more legible.
+  - Keep KPI tables stubbed rather than fabricated; numbers must come from the existing logbook and provenance evidence in a follow-up pass.
+  - Make the dual-use evaluation part of each case study's findings (§3.6, §4.6) rather than only a Discussion subsection.
+- Open issues:
+  - KPI tables in §3.7 and §4.7 are stubbed and need to be populated from logbook + provenance evidence.
+  - Redaction of S-SF-5 (live MQTT credentials) is required before any public release of the paper.
+  - § 69e UrhG / EU 2009/24/EC sourcing remains `[unverified-external]`.
+- Next steps:
+  - Populate the KPI tables from the logbook and provenance maps.
+  - Begin the literature pass against `docs/sources.md` `[needs-research]` items.
+  - Resolve vendor APK/PDF redistribution status before any public release.
+
+### 2026-05-01 (audit against embedded vendor code)
+- Session lead: Researcher (with AI-assisted analysis)
+- Actions taken:
+  - Rebased the audit branch onto `origin/main` to pick up `ffdf60c` (*feat(experiments): embed vendor repos as plain files for agent access*), which materialises both case-study `original/` directories as plain files instead of submodule pins.
+  - Verified every transcript-recorded technical claim against the actual code in `original/`:
+    - **Spider Farmer** — confirmed corrected CB key/IV (`const.py` lines 45-47), static-IV-first decrypt path (`ble_protocol.py` 195-204), `asyncio.Lock` for write serialisation (`ble_coordinator.py` 79), `async_migrate_entry` (`__init__.py` 95), bluetooth match rules (`manifest.json`), and the dynamic-IV slice formula. Discovered the integration is now at `VERSION = 3` (`config_flow.py` 87) and `"version": "3.0.0"` (`manifest.json`), past the T4-era `1→2` migration.
+    - **EcoFlow PowerOcean** — confirmed the regex fix `(?<!st)(amp\|current)$` (`types.py` 90), version `2026.05.01` (`manifest.json` 12), domain `powerocean_dev` (`const.py` 10), 3-step config flow (`config_flow.py`, 510 lines), and the legacy `setDeviceProperty` write path (`api.py` 306). The previously-open "two API surfaces" question is resolved by `original/doc/apk.md` line 52, which documents three surfaces and the integration's choice to use the legacy endpoint.
+  - Surfaced new evidence not anticipated by the prior audit: in Spider Farmer, the community discussion in `original/doc/log.md` documents the MQTT-broker MITM and recovered credentials (`[REDACTED:username:S-SF-5-username]` / `[REDACTED:credential:S-SF-5-password]`; see `docs/redaction-policy.md` R-SF-1, R-SF-2) — a strong piece of independent evidence for the security claim. In EcoFlow, the four committed APKs and the six raw extraction logs are now first-class artifacts.
+  - Identified two corrections to the prior audit: (a) the upstream of `powerocean_dev` is `[REDACTED:repo-path:EF-IMPL-1]`, not `noheton/powerocean` (per `const.py` `ISSUE_URL`); (b) the empty Spider Farmer transcript T7 ("Add logo…") was preserved as zero bytes, but the deliverable (`original/logo.png`, `original/brand/icon.png`, `icon@2x.png`) was actually completed.
+  - Rewrote both `provenance.md` files to map each transcript to specific verified files and line numbers in `original/`. Updated `docs/sources.md` to upgrade most entries from `[repo-referenced]` to `[repo-vendored]`, added the four APKs and the user manuals as new source entries, and refined the verification-status legend.
+  - Recorded redaction risks for any public release: device serial `[REDACTED:serial:S-SF-device]`, broker IP `[REDACTED:ip:S-SF-device]`, and the recovered MQTT password (see `docs/redaction-policy.md` R-SF-3, R-SF-4, R-SF-2).
+- Files updated:
+  - `experiments/spider-farmer/provenance.md`
+  - `experiments/ecoflow-powerocean/provenance.md`
+  - `docs/sources.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Promote `[repo-vendored]` as a stronger verification status than `[repo-referenced]` to reflect that artifacts are now directly cite-able.
+  - Treat the missing HA log files (the `home-assistant_spider_farmer_*.log` series) as the only outstanding artifact gap in the Spider Farmer case study.
+- Open issues:
+  - § 69e UrhG / EU 2009/24/EC remain `[unverified-external]`; AI-generated legal opinions are still flagged as not legal advice.
+  - Vendor APK and PDF redistribution status needs to be checked before any public release.
+  - The `VERSION 2 → 3` migration step in Spider Farmer is not documented by any preserved transcript and should be reconstructed.
+- Next steps:
+  - Begin the literature search for the `[needs-research]` items in `docs/sources.md`.
+  - Decide on a redaction policy for the live credentials and device identifiers in the case-study artifacts before any public release.
+
+### 2026-05-01 (provenance maps and sources seed)
+- Session lead: Researcher (with AI-assisted drafting)
+- Actions taken:
+  - Executed the research-protocol agent prompt (`docs/research-protocol-prompt.md`) against both case studies.
+  - Surfaced the gap that `experiments/spider-farmer/original/` and `experiments/ecoflow-powerocean/original/` are empty in the working tree, despite both `REPORT.md` files referencing artifacts under those paths.
+  - Added a per-case-study provenance matrix linking each preserved chat transcript to the technical claims and external code references it underpins.
+  - Replaced the empty `docs/sources.md` template with a seeded source register covering the externally-referenced community implementations (Spider Farmer), the EcoFlow Open API materials, the HACS publishing guide, OCPP, and the § 69e UrhG / EU 2009/24/EC legal framing. Each entry carries an explicit verification status: `[repo-verified]`, `[unverified-external]`, or `[needs-research]`.
+  - Recorded that the AI-generated § 69e UrhG opinion captured in the EcoFlow transcripts is not legal advice and must be replaced with sourced legal commentary before any legal framing appears in the paper.
+- Files updated:
+  - `experiments/spider-farmer/provenance.md` (new)
+  - `experiments/ecoflow-powerocean/provenance.md` (new)
+  - `docs/sources.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Use a verification-status legend (`[repo-verified]` / `[unverified-external]` / `[needs-research]`) so that the source register can be honest about what has and has not been independently checked.
+  - Keep external-repository pins (e.g. PR numbers, short commit SHAs) inside the per-case-study `provenance.md` rather than scattered through `REPORT.md`.
+  - Do not introduce any literature citation that has not been retrieved and read; mark every such gap as `[needs-research]`.
+- Open issues:
+  - Original artifacts referenced by both `REPORT.md` files remain absent from the repo. Decide whether to vendor them, gitignore them with documented hashes, or replace with canonical-URL references.
+  - External integration repositories (Spider Farmer `noheton/spider_farmer` PR #9; EcoFlow `powerocean_dev` branch `claude/refactor-ha-integration-7dnMI`, release `v2026.05.01`) need to be pinned by full commit SHA.
+  - `docs/sources.md` `[needs-research]` items should be filled before drafting paper claims that depend on prior literature.
+- Next steps:
+  - Begin a literature-search session targeting the originality-check and security-risk items in `docs/sources.md`.
+  - Reconcile the two EcoFlow write-API descriptions (`setDeviceProperty` vs `device/quota`) in `REPORT.md` §5.1.
+  - Address the empty `Add logo to integration and repository.txt` transcript in the Spider Farmer case study.
+
+## Change History
+- [2026-05-01] Initial logbook entry created and the repository research process documented.
+- [2026-05-01] Added methodology review log entry and committed to chat/conversation tracking.
+- [2026-05-01] Added logbook commit-tracking rule entry.
+- [2026-05-01] Added commit plan entry and helper script for creating commit-correlated log entries.
+- [2026-05-01] Added KPI framework log entry and measurement guidance.
+- [2026-05-01] Performed an AI-assisted research audit across imported case studies and verified experiment artifact presence.
+- [2026-05-01] Created detailed `REPORT.md` summaries for `experiments/spider-farmer` and `experiments/ecoflow-powerocean` and linked them from each README.
+- [2026-05-01] Added per-case-study `provenance.md` files and seeded `docs/sources.md` with verification-status-tagged source entries.
+- [2026-05-01] Re-ran the audit against the embedded vendor copies (commit `ffdf60c`); upgraded source register entries from `[repo-referenced]`/`[unverified-external]` to `[repo-vendored]` and verified each transcript's technical claims against the actual code.
+
+### 2026-05-01 (research audit)
+- Session lead: Researcher
+- Actions taken:
+  - Reviewed repository AI policy and methodology documents.
+  - Catalogued available case study artifacts for `experiments/spider-farmer` and `experiments/ecoflow-powerocean`.
+  - Confirmed that raw AI conversation exports are preserved as first-class artifacts in each experiment directory.
+  - Appended repository provenance tracking to `docs/logbook.md`.
+- Files updated:
+  - `docs/logbook.md`
+- Key decisions:
+  - Treat both imported experiment folders as active case studies for the research protocol.
+  - Use available raw conversation exports and imported original artifacts as the primary provenance evidence.
+- Next steps:
+  - Draft a structured case study audit summary with artifact inventory, provenance mapping, and validation actions.
+  - Continue aligning transcript evidence with the paper and source documentation.
+
+### 2026-05-01 (commit plan)
+- Session lead: Researcher
+- Actions taken:
+  - Prepared a commit plan and helper script to turn the current working tree into a series of meaningful commits.
+  - Added `scripts/commit-logbook.sh` to stage grouped changes and create commit messages matching the logbook entries.
+- Files updated:
+  - `docs/logbook.md`
+  - `scripts/commit-logbook.sh`
+- Key decisions:
+  - Keep logbook entries aligned with individual commit actions.
+  - Use grouped commits for governance, prompt definition, documentation, and raw artifact imports.
+- Commit SHAs created by `scripts/commit-logbook.sh`:
+  - `6c43033a07f9e3775b48b0890bb42a0b8831c5b5` — chore(logbook): enforce commit-corresponding logbook entries
+  - `e6344102aa30dc81f3d5d75720c4e2a4e07b7da4` — feat(methodology): add executable research protocol agent prompt
+  - `feea6c1558c13d364ed0dd702a67b58061100739` — docs(governance): add AI instruction policy and ethics documentation
+  - `d998220e7f53a74635f96063884849a3b974452d` — docs(paper): add paper skeleton and publication metadata
+  - `1f1ebd9c7358c64dcc5431ce82863364b2b81d51` — chore(experiments): add case study readmes and preserved conversation exports
+- Open issues:
+  - None.
+- Next steps:
+  - Continue tracking conversation and research actions in `docs/logbook.md` with commit correspondence.
+
+## Change History
+- [2026-05-01] Initial logbook entry created and the repository research process documented.
+- [2026-05-01] Added methodology review log entry and committed to chat/conversation tracking.
+- [2026-05-01] Added logbook commit-tracking rule entry.
+- [2026-05-01] Added commit plan entry and helper script for creating commit-correlated log entries.
+
+### 2026-05-01 (commit tracking rule)
+- Session lead: Researcher
+- Actions taken:
+  - Updated logbook usage rules to require one entry per meaningful commit or grouped commit set.
+  - Confirmed that future logbook entries should correspond to commits and reference the related changed files.
+- Files updated:
+  - `docs/logbook.md`
+- Key decisions:
+  - Align logbook practice with version control for reproducibility and auditability.
+- Commit:
+  - `6c43033a07f9e3775b48b0890bb42a0b8831c5b5` — chore(logbook): enforce commit-corresponding logbook entries
+- Open issues:
+  - Create a commit for this logbook update and ensure the entry is matched to that commit.
+- Next steps:
+  - Continue tracking conversation and research actions in `docs/logbook.md` with commit correspondence.
+
+### 2026-05-01 (methodology review)
+- Session lead: Researcher
+- Actions taken:
+  - Reviewed the current methodology document for practical viability.
+  - Confirmed that exported conversation logs should be treated as research artifacts and tied to git/provenance evidence.
+  - Noted that conversation tracking will continue in `docs/logbook.md` as requested.
+- Files updated:
+  - `docs/methodology.md`
+  - `paper/main.md`
+  - `docs/logbook.md`
+- Key decisions:
+  - Keep the chat transcript exports as first-class evidence.
+  - Map AI-assisted conversations to code/documentation changes and git history where possible.
+- Commit:
+  - `e6344102aa30dc81f3d5d75720c4e2a4e07b7da4` — feat(methodology): add executable research protocol agent prompt
+- Open issues:
+  - Define concrete provenance mapping templates for transcripts.
+  - Add explicit experiment protocol checklist items to the methodology.
+- Next steps:
+  - Draft a more concrete research protocol in methodology.
+  - Continue tracking conversation and research actions in `docs/logbook.md`.
+
+### 2026-05-01 (import confirmation)
+- Session lead: Researcher
+- Actions taken:
+  - Verified successful import of experiment data into `experiments/spider-farmer/original` and `experiments/ecoflow-powerocean/original`.
+  - Confirmed repository structure and artifact availability.
+- Files updated:
+  - `docs/logbook.md`
+- Key decisions:
+  - Proceed with drafting paper content using the imported data.
+- Open issues:
+  - Analyse specific artifacts in the imported experiment repos.
+- Next steps:
+  - Map imported evidence to the paper's case study sections.
+  - Collect source citations for the literature review.
+
+### 2026-05-01
+- Session lead: Researcher
+- Actions taken:
+  - Defined repository structure for the Obscurity-Is-Dead research publication.
+  - Created paper skeleton and methodology documents.
+  - Added AI policy files with canonical instruction aliases for agents.
+  - Added a sources document and logbook template for scientific rigor.
+  - Added a repository import script for external experiment repos.
+  - Updated the README to reflect the new structure and guidance.
+- Files updated:
+  - `README.md`
+  - `paper/main.md`
+  - `docs/methodology.md`
+  - `docs/ethics.md`
+  - `docs/sources.md`
+  - `docs/logbook.md`
+  - `.instructions.md`
+  - `copilot-instructions.md`
+  - `CLAUDE_CODE_INSTRUCTIONS.md`
+  - `scripts/import-experiments.sh`
+- Key decisions:
+  - Use a GitLab-first research repo structure with AI transparency rules.
+  - Require a literature review and source analysis document.
+  - Require a logbook that is read and updated every session.
+  - Use a dedicated sources document for recorded literature and data analysis.
+- Open issues:
+  - Continue drafting the paper using acquired experiment data.
+  - Populate the literature review with documented sources.
+- Next steps:
+  - Begin drafting the abstract, introduction, and case study sections.
+  - Populate `docs/sources.md` with literature references.
+  - Review the imported repository artifacts and map evidence to paper sections.
+
+### 2026-05-01 (session 2 — redaction, new rules, discussion expansion, KPI timelines, figures, README)
+- Session lead: Researcher with AI-assisted drafting (Claude, claude-sonnet-4-6)
+- Actions taken:
+
+  **Merge resolution** — merged origin/main (commits 9aaca73 "Add figures" and d59bb3d "fix figure formats SVG") into `claude/develop-paper-structure-7lG2s`. Merge conflicts in `paper/main.md`, `paper/main.tex`, and `paper/references.bib` were resolved by keeping the full expanded 10-section paper (HEAD) and incorporating the seven SVG figures and updated Makefile from main. All seven figures (fig1–fig7) placed at semantically appropriate locations in both files per rule 11.
+
+  **Rules 12–14 added** to `CLAUDE_CODE_INSTRUCTIONS.md` and all three alias files:
+  - Rule 12: Redact all security-sensitive and legally questionable information; use `[REDACTED:<type>:<source-id>]` markers; record in `docs/redaction-policy.md`.
+  - Rule 13: NEVER publish, push to a public remote, create a Zenodo deposit, submit to arXiv, or otherwise distribute without explicit written consent from the author.
+  - Rule 14: If a paper figure is data-derived, commit both the data file and the generation script; reference both in main.md and main.tex.
+
+  **`docs/redaction-policy.md` created** — canonical sensitive-item register with marker format table, 5 items (R-SF-1..R-SF-5 covering MQTT username, password, device serial, local IP, and vendor UID), and a pre-publication history-rewrite checklist.
+
+  **Redaction pass applied** to 5 researcher-authored files:
+  - `docs/sources.md` S-SF-5 — raw credentials replaced with `[REDACTED:username:S-SF-5-username]` / `[REDACTED:credential:S-SF-5-password]`.
+  - `docs/logbook.md` (this file) — prior audit entry updated.
+  - `paper/main.md` §3.6 — username redacted.
+  - `paper/main.tex` §3.6 mirror — username redacted.
+  - `experiments/spider-farmer/provenance.md` — credentials and device info redacted.
+  - `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan and ventilator control in Home Assistant` — device serial, IP, and UID replaced via sed.
+  - Vendor `original/` tree NOT modified (excluded per redaction policy).
+
+  **Makefile publication-consent warning** — prominent multi-line warning block added at top of `paper/Makefile` referencing rule 13 and the three pre-publication checklist items.
+
+  **§7.10 "Proliferation of hacking"** added to both `paper/main.md` and `paper/main.tex` — covers: volume risk (growing actor pool, static vulnerable-device stock), asymmetric uplift (attacker pays same cost for more damage), normalisation effect (cultural friction disappears), tooling acceleration (compounding marginal cost reduction). Argues the structural response is open APIs + zero-trust, not suppression.
+
+  **§7.11 "Prompt injection in obfuscated software as a countermeasure?"** added to both files — examines the speculative defence of embedding adversarial strings in vendor APKs to mislead LLM analysis. Concludes feasibility is low (models increasingly resistant; custom agents filter), ethics are contested (§69e UrhG / EU 2001/29/EC TPM question), and systemic cost is negative (training-corpus contamination). Not a viable primary defence.
+
+  **KPI effort-gap timelines** added to §3.7 (Spider Farmer) and §4.7 (EcoFlow) in both files:
+  - Spider Farmer: 7 phases, ~10.5 h AI-assisted vs ~90 h estimated manual → 12% of manual effort.
+  - EcoFlow: 3 phases, ~8 h AI-assisted vs ~120 h estimated manual → 7% of manual effort.
+  - Both timelines include table-form phase breakdowns and effort-gap metrics.
+
+- Files updated:
+  - `CLAUDE_CODE_INSTRUCTIONS.md`, `.instructions.md`, `copilot-instructions.md`, `CLAUDE.md`
+  - `docs/redaction-policy.md` (new)
+  - `docs/sources.md`, `docs/logbook.md`
+  - `experiments/spider-farmer/provenance.md`
+  - `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan and ventilator control in Home Assistant`
+  - `paper/Makefile`, `paper/main.md`, `paper/main.tex`
+
+- Key decisions:
+  - Keep vendor `original/` tree untouched — its credentials are present in the source file and are the point of evidence for §3.6. The redaction policy documents this and flags the need for exclusion from any public mirror.
+  - §7.10 and §7.11 are positioned *after* §7.9 (Threats to validity) to maintain the paper's analytical → societal risk → speculative countermeasure progression.
+  - KPI effort-gap estimates are clearly labelled as *estimates* (manual baseline is a conservative reconstruction); they are not claimed to be empirically measured.
+  - The commit-timeline tables note that exact timestamps are not available for all phases; ordering is reconstructed from cross-references, not from wall-clock evidence.
+
+- Open issues:
+  - Git history rewrite (BFG / git-filter-repo) still required before any public mirror — raw credentials are in prior commits on this branch. See `docs/redaction-policy.md`.
+  - Vendor redistribution caveats (S-SF-4, S-EF-2..4) unresolved.
+  - `[lit-retrieved]` to `[lit-read]` upgrades still pending for all clusters.
+  - Zenodo DOI still not minted.
+  - README prettification (openvla-style) deferred to next sub-session.
+  - Figures fig1–fig7 are currently manually drawn SVGs. Per Rule 14 they are exempt from the data-source+script requirement but should be noted as such in the figures directory.
+
+- Next steps:
+  - Update and prettify README (openvla-style layout with badges, figure gallery, quick-start, and citation block).
+  - Note figures as manually drawn in `paper/figures/` README.
+  - Push the development branch.
 
 ---
 
@@ -1111,6 +928,46 @@ This logbook is the operating record for the paper and research process.
   - Resume `[lit-retrieved]` → `[lit-read]` upgrades.
   - Continue tracking §5.7 KPI; this session adds ~2 h AI-assisted work and produces one new data file, four new generation scripts, eight new figure assets, one new table, and one promoted prompt.
 
+### Session 12 — 2026-05-02 (README ↔ paper mirror discipline; rule 15)
+
+- Branch: `claude/enhance-readme-illustrations-hcKqw`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: explicit request to "add a rule to keep README always consistent with main.md but in a flashier way" and to integrate illustrations.
+
+- Actions:
+  1. Added **rule 15** to the canonical AI policy and propagated it to all four mirror files (`CLAUDE.md`, `.instructions.md`, `copilot-instructions.md`, `CLAUDE_CODE_INSTRUCTIONS.md`). The rule requires `README.md` to mirror `paper/main.md` in title, central thesis, headline KPIs, and structural summary, while explicitly licensing a flashier, illustration-forward register (badges, hero visual, grouped galleries, pull-quotes). It binds README updates to the same commit as any figure change under `paper/figures/` or any headline-number revision in the paper.
+  2. Refactored `README.md`:
+     - Promoted `fig11-eight-practices.svg` to a hero **visual abstract** at the top of the page, matching ILL-05's role in §10.
+     - Inlined `fig1-effort-gap.svg` and `fig2-boredom-barrier.svg` next to the central-thesis blockquote.
+     - Added `fig10-stage-effort.svg` directly under the headline KPI table to visualise the per-stage compression numbers.
+     - Reorganised the figure gallery into thematic groups (Case studies / Methodology / Synthesis), pulling in `fig8-ecoflow-surfaces.svg` and `fig9-verification-pipeline.svg` that were missing from the previous gallery.
+     - Added "How this README stays honest" footer naming rule 15 explicitly so readers know the consistency invariant.
+     - Added two new shields-io badges (figure count, case-study count) and a cross-reference to `docs/prompts/` in the repo-structure tree.
+  3. Updated `docs/prompts/illustration-prompt.md` Constraints section with a **Rule 15 — README mirror** entry, so future illustration runs update the README in the same commit they touch `paper/figures/`.
+
+- Files updated:
+  - `CLAUDE.md`
+  - `.instructions.md`
+  - `copilot-instructions.md`
+  - `CLAUDE_CODE_INSTRUCTIONS.md`
+  - `README.md`
+  - `docs/prompts/illustration-prompt.md`
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The flashy register is *additive*, not contradictory: the README may use callouts, pull-quotes, and badges that the paper would not, but every claim it makes must already be in the paper. This is the rule-1 honesty constraint extended to the front-matter.
+  - Visual abstract chosen as `fig11` (ILL-05) because it is the single figure that summarises the eight integrated practices the paper asks the field to adopt.
+  - No new figures were generated in this session; the work was structural reuse of existing assets in `paper/figures/`.
+
+- Open issues:
+  - All Session 7 issues (G1–G7) remain open.
+  - History rewrite for redacted credentials still pending before any public archive (CLAUDE.md rule 12).
+  - Rule 15 is not yet enforced by CI; a lightweight check that flags figure-set drift between `README.md` and `paper/figures/` would harden the invariant.
+
+- Next steps:
+  - Researcher reviews the new README layout and the rule-15 wording in `CLAUDE.md`.
+  - Consider adding a CI step that lists `paper/figures/fig*.svg` and greps `README.md` for each filename, failing if any figure is unreferenced.
+
 ### Session 13 — 2026-05-02 (IoT Integrator agent — Phase 0 bootstrap, Ondilo ICO Spa V2)
 
 - Branch: `claude/iot-water-analyzer-integration-mIbFv`.
@@ -1279,344 +1136,6 @@ This logbook is the operating record for the paper and research process.
 - Next steps:
   - Researcher reviews the generalised prompt and confirms the runtime-enumeration approach is what was meant.
   - Optional: a small CI / pre-commit check that fails if the prompt re-introduces a hard-coded case-study path (regex `experiments/(ecoflow-powerocean|spider-farmer|paper-meta-process)/REPORT\.md` outside an example block).
-
-### Session 12 — 2026-05-02 (README ↔ paper mirror discipline; rule 15)
-
-- Branch: `claude/enhance-readme-illustrations-hcKqw`.
-- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
-- Trigger: explicit request to "add a rule to keep README always consistent with main.md but in a flashier way" and to integrate illustrations.
-
-- Actions:
-  1. Added **rule 15** to the canonical AI policy and propagated it to all four mirror files (`CLAUDE.md`, `.instructions.md`, `copilot-instructions.md`, `CLAUDE_CODE_INSTRUCTIONS.md`). The rule requires `README.md` to mirror `paper/main.md` in title, central thesis, headline KPIs, and structural summary, while explicitly licensing a flashier, illustration-forward register (badges, hero visual, grouped galleries, pull-quotes). It binds README updates to the same commit as any figure change under `paper/figures/` or any headline-number revision in the paper.
-  2. Refactored `README.md`:
-     - Promoted `fig11-eight-practices.svg` to a hero **visual abstract** at the top of the page, matching ILL-05's role in §10.
-     - Inlined `fig1-effort-gap.svg` and `fig2-boredom-barrier.svg` next to the central-thesis blockquote.
-     - Added `fig10-stage-effort.svg` directly under the headline KPI table to visualise the per-stage compression numbers.
-     - Reorganised the figure gallery into thematic groups (Case studies / Methodology / Synthesis), pulling in `fig8-ecoflow-surfaces.svg` and `fig9-verification-pipeline.svg` that were missing from the previous gallery.
-     - Added "How this README stays honest" footer naming rule 15 explicitly so readers know the consistency invariant.
-     - Added two new shields-io badges (figure count, case-study count) and a cross-reference to `docs/prompts/` in the repo-structure tree.
-  3. Updated `docs/prompts/illustration-prompt.md` Constraints section with a **Rule 15 — README mirror** entry, so future illustration runs update the README in the same commit they touch `paper/figures/`.
-
-- Files updated:
-  - `CLAUDE.md`
-  - `.instructions.md`
-  - `copilot-instructions.md`
-  - `CLAUDE_CODE_INSTRUCTIONS.md`
-  - `README.md`
-  - `docs/prompts/illustration-prompt.md`
-  - `docs/logbook.md` (this entry)
-
-- Key decisions:
-  - The flashy register is *additive*, not contradictory: the README may use callouts, pull-quotes, and badges that the paper would not, but every claim it makes must already be in the paper. This is the rule-1 honesty constraint extended to the front-matter.
-  - Visual abstract chosen as `fig11` (ILL-05) because it is the single figure that summarises the eight integrated practices the paper asks the field to adopt.
-  - No new figures were generated in this session; the work was structural reuse of existing assets in `paper/figures/`.
-
-- Open issues:
-  - All Session 7 issues (G1–G7) remain open.
-  - History rewrite for redacted credentials still pending before any public archive (CLAUDE.md rule 12).
-  - Rule 15 is not yet enforced by CI; a lightweight check that flags figure-set drift between `README.md` and `paper/figures/` would harden the invariant.
-
-- Next steps:
-  - Researcher reviews the new README layout and the rule-15 wording in `CLAUDE.md`.
-  - Consider adding a CI step that lists `paper/figures/fig*.svg` and greps `README.md` for each filename, failing if any figure is unreferenced.
-
-### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 0 bootstrap)
-- Session lead: AI agent (Claude Opus 4.7), executing `docs/prompts/iot-integrator-prompt.md` on branch `claude/iot-pool-spa-integration-tkpaD`.
-- Phase: 0 (self-augmentation + target intake).
-- Actions taken:
-  - Enumerated input set with `ls experiments/*/REPORT.md` (4 reports: ecoflow-powerocean, iot-integrator-ondilo-ico-spa-v2, paper-meta-process, spider-farmer). Recorded verbatim in `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md §0.1.a`.
-  - Read each `REPORT.md` in full and distilled an 18-row Technique Inventory, every row anchored to a specific section citation, no fabricated entries. Three gaps recorded as Open Questions, not invented techniques.
-  - Treated the prior `iot-integrator-ondilo-ico-spa-v2` run with equal weight to the original three case studies (prompt §0.1.e).
-  - Created experiment subfolder layout `experiments/iot-integrator-balboa-gateway-ultra/{process,original,captures,integration,raw_conversations (copy&paste, web)}/`.
-  - Surfaced an apparent target/artifact conflict (Balboa Gateway Ultra Wi-Fi module vs Ondilo ICO APK link) at intake per CLAUDE.md rule 7. Three candidate resolutions presented; provisional default = Balboa-only run; agent did not guess. Phase 1 will not start until the researcher answers.
-  - Pre-allocated redaction marker block `S-BAL-1..S-BAL-8` in the bootstrap report. None activated yet, so `docs/redaction-policy.md` is unchanged.
-- Files updated:
-  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md` (new)
-  - `docs/logbook.md` (this entry)
-- Open issues:
-  - Researcher must resolve the Balboa-vs-ICO target conflict before Phase 1.
-  - Researcher must declare the desired control surface and privacy boundary, and confirm which artifacts they can legally / ethically supply.
-  - Three Technique Inventory Open Questions (Wi-Fi module RE; captive-portal / setup-AP; vendor white-label identification) may need new technique IDs created during this run and back-fed at close-out.
-- Next steps:
-  - Present the Phase 0 user-facing summary (technique count, target, privacy boundary, artifact list) at the Phase 0→1 checkpoint and wait for explicit "go".
-
-### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 0 conflict resolved)
-- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
-- Phase: 0 (target intake conflict resolution).
-- Actions taken:
-  - Researcher confirmed at the Phase 0→1 checkpoint that the original "target artifact" link (Ondilo ICO Manager APK) was a copy-paste mistake. Correct artifact: ControlMySpa Android app (`com.controlmyspa.ownerappnew`, https://apkpure.com/controlmyspa/com.controlmyspa.ownerappnew). This is the Balboa BWA companion app and is coherent with the Balboa Gateway Ultra target.
-  - Updated `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md §0.2.1` (resolution recorded; original conflict text retained for audit) and §0.2.2 (artifact (a) confirmed as ControlMySpa).
-  - Option 1 (Balboa-only run) confirmed; experiment slug `iot-integrator-balboa-gateway-ultra` is final.
-- Files updated:
-  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md`
-  - `docs/logbook.md` (this entry)
-- Open issues:
-  - Researcher still owes: declared control surface (read-only vs read+write), confirmation of provisional privacy boundary, and which of artifacts (b) LAN captures / (c) setup-AP capture / (d) redacted DSN they can supply.
-- Next steps:
-  - Wait for the remaining Phase 0→1 inputs, then begin Phase 1 (desk-research only, no device contact).
-
-### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 1 desk research)
-- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
-- Phase: 1 (research; desk-only; no device, no LAN, no vendor cloud contact).
-- Actions taken:
-  - Catalogued nine existing solutions (ES-1..ES-9) in two families: local-protocol integrations targeting the older BWA Wi-Fi Module 50350 (ES-1..ES-5, all incompatible with the researcher's 59303) and cloud integrations targeting `iot.controlmyspa.com` (ES-6..ES-9, all requiring a vendor account).
-  - Recorded the headline gap: no open-source project documents a LAN-only path that talks to the Gateway Ultra (59303). The researcher's "as local as possible" privacy boundary therefore collides with the device's intended architecture; Phase 2 must determine whether *any* LAN surface exists at all.
-  - Mapped vendor and ecosystem: BWG / Costa Mesa CA / parent Helios Technologies; EU reseller Perfect Spa GmbH; ControlMySpa cloud at `iot.controlmyspa.com` with a documented TLS-chain breakage since June 2023 — recorded as a paper-relevant vendor signal.
-  - Catalogued candidate interfaces CI-1..CI-6; none selected. CI-2 (legacy local TCP) and CI-5/CI-6 (mDNS / BLE) are the Phase-2 questions.
-  - Recorded five Open Questions to carry into Phase 2.
-  - Three vendor URLs returned 403 to the agent (perfect-spa.eu product page, home-assistant.io balboa docs, manuals.plus 59303 manual). Affected claims annotated; researcher must re-verify with direct fetch before any paper citation.
-- Files updated:
-  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-1-research.md` (new)
-  - `docs/logbook.md` (this entry)
-- Open issues:
-  - All five Phase-1 Open Questions (§1.5) carried into Phase 2.
-  - `docs/sources.md` cluster K (Balboa / ControlMySpa) to be populated at close-out.
-  - Researcher promotion of `[lit-retrieved]` → `[lit-read]` required before any Phase 1 claim is asserted as authority in `paper/main.md`.
-- Next steps:
-  - Present the Phase 1 user-facing summary at the Phase 1→2 checkpoint (existing-solutions count, gap, top three candidate interfaces, vendor privacy posture). Wait for explicit "go" before Phase 2.
-
-### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 2 weakness analysis)
-- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
-- Phase: 2 (weakness analysis; static-only; no device, no LAN, no vendor cloud contact).
-- Actions taken:
-  - Researcher uploaded `ControlMySpa_4.1.9_APKPure.xapk` to the experiment folder root via direct push to the branch. AI agent moved it under `original/`, extracted the XAPK bundle into `original/extracted/` (1 base APK + 2 split APKs + manifest.json + icon), and recorded SHA-256 anchors for all four binary artifacts.
-  - Ran static analysis without an APK decompiler (sandbox lacks apktool/jadx): `unzip` + `strings` + `grep` over `classes{,2,3,4}.dex`, plus the verbatim XAPK manifest.json for the permission inventory.
-  - Cross-validated cloud REST endpoints between APK 4.1.9 and ES-6 (`[REDACTED:repo-path:BALBOA-UPSTREAM-2]`); APK exposes endpoints not in ES-6 (chromozone color/power/speed; filter-cycles schedule; toggle-filter2-state; time; c8zone; spas claim/unlink/set-default; temperature scale).
-  - Identified identity provider as AWS Cognito us-west-2 (resolves Phase 1 OQ-4: 1 h access / 30 d refresh by default).
-  - Identified third-party hosts: WaterGuru API (Helios sister brand — cross-vendor data flow), Firebase Analytics + Crashlytics 18.5.0 + Performance 20.5.0 + Sessions 1.1.0 + Remote Config + FCM, Google Sign-in, Google Mobile Ads SDK strings, ML Kit Barcode (QR pairing). No AppsFlyer/Adjust/Mixpanel/Branch/Sentry/OneSignal/Datadog/Bugsnag/Kochava/Tealium/mParticle/Braze/Leanplum/Amplitude/Segment.
-  - Recorded TLS posture: OkHttp `CertificatePinner` imported but no concrete sha256/ pin observed in DEX strings; Apache `TrustAllStrategy` symbol present (W-3) — combined with the documented June-2023 chain breakage at iot.controlmyspa.com (Phase 1 §1.2.3) this is the canonical "obscurity-as-security" anti-pattern for `T-OBSCURITY-VS-AUTH`.
-  - Compiled an 8-row Weakness Table (W-1..W-8) with explicit dual-use mirrors per `T-DUAL-USE-MIRROR`.
-  - Wrote four researcher-runnable follow-up protocols (§A DEX deep-dive, §B LAN probe, §C live cloud capture with mitmproxy, §D GDPR SAR) — mirrors the Ondilo §A.5 pattern.
-  - Surfaced rule-12 `legal-grey` consideration on whether to keep the XAPK binary in git history vs SHA-256-only at the Zenodo/arXiv stage.
-- Files updated:
-  - `experiments/iot-integrator-balboa-gateway-ultra/original/ControlMySpa_4.1.9_APKPure.xapk` (moved from experiment root after pull from origin)
-  - `experiments/iot-integrator-balboa-gateway-ultra/original/extracted/{base APK, 2 split APKs, manifest.json, icon.png}` (new — extracted)
-  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-2-weakness.md` (new)
-  - `docs/logbook.md` (this entry)
-- Open issues:
-  - OQ-1 (LAN-only service on the 59303): refined; final answer requires researcher §B LAN probe.
-  - OQ-2 (signed firmware OTA): open; requires live capture or vendor disclosure.
-  - OQ-3 (BWG vs Perfect Spa GDPR controller): open; researcher §D SAR is the canonical resolution path.
-  - W-3 reachability of `TrustAllStrategy` requires researcher §A jadx run.
-  - Rule-12 decision: retain XAPK in git or SHA-256-only at publication time. Recommendation logged in §2.4.5; final decision is researcher's at close-out.
-- Next steps:
-  - Present the Phase 2 user-facing summary at the Phase 2→3 checkpoint with the three Phase 3 options (do-not-integrate / cloud-only configuration-only / defer until §A/§B). Wait for explicit choice + cloud authorisation if option 2 is selected.
-
-### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 3 implementation + close-out)
-- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
-- Phase: 3 (configuration-only outcome) and close-out.
-- Researcher Phase 2→3 decision: option 2 (cloud-only configuration-only); cloud-touching authorisation explicitly granted, scoped to the household account; XAPK retention plan confirmed (keep on working branch, `git rm` before any Zenodo/arXiv publication).
-- Actions taken:
-  - Wrote `integration/{README.md, smoke-test.py, operational-notes.md, validation-checklist.md, dual-use.md}` — five-file deliverable set mirroring the Ondilo §5.5 pattern (`T-CONFIG-ONLY-OUTCOME`). The Python smoke test is a read-only auth+state validator that uses `controlmyspa==4.0.0` and reads credentials from `CONTROLMYSPA_USER`/`CONTROLMYSPA_PASS` env vars.
-  - Defined the six-control hardening overlay C-1..C-6 (secondary onboarding device, network-edge sinkhole for WaterGuru + Google ad hosts, spa nickname alias, dedicated email alias, 90 d password rotation, encrypted backups). Documented five explicitly-not-done controls for audit.
-  - Wrote `process/phase-3-implementation.md` (design / build / validation / operational notes / dual-use reflection), `process/summary.md` (consolidated narrative for paper citation), `REPORT.md` (top-level case-study report mirroring prior cases), `README.md` (folder reader's-guide), `provenance.md` (per-artifact + per-claim AI/researcher attribution).
-  - Recorded two new technique tags proposed for the next-run inventory: `T-CROSS-VENDOR-CORPORATE-FLOW` (BWG ↔ WaterGuru inside Helios) and `T-OPERATIONAL-OBSCURITY` (sound auth scheme, weak operational layer).
-  - No `S-BAL-*` redaction markers activated by the agent (no live capture). First activation expected during researcher-side validation-checklist.md run.
-- Files updated:
-  - `experiments/iot-integrator-balboa-gateway-ultra/integration/{README.md, smoke-test.py, operational-notes.md, validation-checklist.md, dual-use.md}` (new)
-  - `experiments/iot-integrator-balboa-gateway-ultra/process/{phase-3-implementation.md, summary.md}` (new)
-  - `experiments/iot-integrator-balboa-gateway-ultra/{REPORT.md, README.md, provenance.md}` (new)
-  - `docs/logbook.md` (this entry)
-- Open issues:
-  - Researcher to execute `integration/validation-checklist.md` end-to-end and lodge `captures/phase-3-validation.log.redacted`.
-  - Researcher §A jadx run resolves W-3 (TrustAllStrategy reachability) and W-5 (WaterGuru conditionality).
-  - Researcher §D SAR resolves OQ-3 (BWG vs Perfect Spa GDPR controller).
-  - Pre-publication: `git rm` the XAPK and the derivative APK assets per the rule-12 retention plan.
-  - Researcher to populate `raw_conversations (copy&paste, web)/`.
-- Next steps:
-  - Present the close-out summary to the researcher and wait for explicit acceptance.
-  - On acceptance: case study is feature-complete on this branch; no further AI-driven work expected without a new prompt.
-
-### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, researcher acceptance and close-out)
-- Session lead: Researcher.
-- Action: explicit acceptance of the close-out summary ("accepted", 2026-05-02). Case study `experiments/iot-integrator-balboa-gateway-ultra/` is feature-complete on branch `claude/iot-pool-spa-integration-tkpaD`.
-- Pointer for citation: `experiments/iot-integrator-balboa-gateway-ultra/process/summary.md` (consolidated narrative); `experiments/iot-integrator-balboa-gateway-ultra/REPORT.md` (top-level case-study report).
-- Outstanding researcher-side work, recorded so it does not get lost:
-  - Run `integration/validation-checklist.md` end-to-end and lodge `captures/phase-3-validation.log.redacted`.
-  - Activate `S-BAL-*` markers in `docs/redaction-policy.md` as they appear during the validation run.
-  - Optional: §A jadx deep-dive (W-3 reachability, W-5 conditionality), §B LAN probe, §C mitmproxy capture, §D GDPR SAR with BWG and WaterGuru.
-  - Populate `experiments/iot-integrator-balboa-gateway-ultra/raw_conversations (copy&paste, web)/` with the exported transcripts of this session.
-  - Pre-publication: `git rm` the XAPK and the derivative APK assets per the confirmed rule-12 retention plan; SHA-256 anchors in `phase-2-weakness.md §2.0` remain the permanent evidence.
-- No further AI-driven work is expected on this case study without a new prompt. Rule 13 publication posture: no public push beyond the working branch, no Zenodo deposit, no arXiv submission, no upstream PR.
-
-### 2026-05-02 (research protocol + scientific writer + illustration on two new IoT-Integrator cases)
-
-- Branch: `claude/research-protocol-experiments-lBeVa`.
-- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
-- Trigger: researcher request to (i) run the research protocol over the two new IoT-Integrator experiments (Ondilo ICO Spa V2 and Balboa Gateway Ultra), (ii) summarise through the scientific writer, (iii) run the illustrator. Researcher-side validation of both integrations is still pending; per the request, the agent assumes successful integration and produces a per-case test checklist instead. Three additional themes were specified for the writer pass: dangers from a malicious IoT-integrator agent, automated mass probing of public APK repositories, and a synthesis section on the system-class vulnerabilities of these pipelines plus a difficulty rating across the test cases (excluding the meta-process case).
-
-- Stage 1 — Research Protocol agent (`docs/prompts/research-protocol-prompt.md`):
-  - Produced `experiments/iot-integrator-ondilo-ico-spa-v2/RESEARCH-PROTOCOL.md` with Summary, Artifact inventory, Transcript provenance mapping (T1 placeholders for the close-out export), Evaluation matrix (interoperability / security / provenance / documentation / literature), Validation needs as a 10-row test checklist `T-OND-1..T-OND-10`, Recommended actions, Gaps and risks, and References.
-  - Produced `experiments/iot-integrator-balboa-gateway-ultra/RESEARCH-PROTOCOL.md` with the same shape and a 12-row test checklist `T-BAL-1..T-BAL-12` covering Cognito login, smoke test, MQTT bridge end-to-end, endpoint-inventory cross-check, TLS chain verification, hardening overlay C-1..C-6, refresh-token rotation, `AdminUserGlobalSignOut` runbook, §A DEX deep-dive, §B LAN probe, §C mitmproxy capture, and §D GDPR SAR.
-  - Both files explicitly recommend the minimum-validation set (`T-OND-1, T-OND-2, T-OND-4` for Ondilo; `T-BAL-1..T-BAL-3` for Balboa) and hand off the deeper protocols to researcher follow-up.
-
-- Stage 2 — Scientific writer pass (`docs/prompts/scientific-writer-prompt.md`):
-  - `paper/main.md` and `paper/main.tex` updated in lockstep (rule 11):
-    - **§6.5 Cross-validation from the IoT-Integrator runs.** New subsection plus a two-column table comparing Ondilo and Balboa across the same dimensions as the §6.1 cross-case table; states explicitly that both runs are *cross-validation* of the methodology, not independent confirmation of the central thesis.
-    - **§6.6 Test-case difficulty taxonomy.** New subsection with a four-row × four-column table rating Spider Farmer / Ondilo / Balboa / EcoFlow along three axes (cryptographic barrier, labour to break, blast radius) plus a composite spread column. Composite ratings: Spider Farmer Easy, Ondilo Easy, Balboa Medium, EcoFlow Medium. Meta-process case excluded per request.
-    - **§6.7 Vulnerabilities of IoT-integrator pipelines as a system class.** New subsection synthesising six recurring patterns from the four cases: vendor-cloud SPoF, long-lived refresh tokens, cross-vendor data-flow opacity, operational-obscurity anti-pattern, companion-app permission creep, static-only weakness coverage.
-    - **§7.13 The malicious IoT-integrator agent.** New subsection enumerating the dual-use surface of the IoT-Integrator prompt itself: per-device exploit pipeline, credential/token harvesting at integration time, suppression of the dual-use mirror, self-augmentation of attack capability, trust-laundered distribution, and erosion of the governance baseline through corpus contamination.
-    - **§7.14 Automated mass probing of public APK repositories.** New subsection describing the corpus-scale extension of the per-APK pipeline: sweep at corpus scale, identity-provider enumeration, cross-vendor data-flow harvest, defensive/offensive symmetry, repository operator as gatekeeper, and the unsettled legal posture of mass enumeration vs. per-device interoperability.
-  - Inserted four ILL-xx annotations during the writer pass (ILL-06 through ILL-09); these were promoted to real figure references during Stage 3.
-  - No new claims were introduced beyond what is already documented in the four `experiments/*/REPORT.md` files and `RESEARCH-PROTOCOL.md` audits; all references are repo-internal except the existing `[L-BLE-4]` and `[L-PRIV-5]` literature anchors used in §7.14.
-
-- Stage 3 — Illustration agent (`docs/prompts/illustration-prompt.md`):
-  - Produced four new figures, each with a Python generation script and (for fig12) a CSV data file:
-    - `paper/figures/fig12-difficulty-taxonomy.{py,svg,pdf}` + `paper/figures/data/difficulty-taxonomy.csv` — Rule-14-compliant heat-map (ILL-06).
-    - `paper/figures/fig13-pipeline-vulnerabilities.{py,svg,pdf}` — six-node conceptual diagram with central residual-risk node (ILL-07).
-    - `paper/figures/fig14-malicious-integrator.{py,svg,pdf}` — branching workflow contrasting researcher-governed and adversarial variants of the IoT-Integrator pipeline (ILL-08).
-    - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}` — five-stage corpus-probing pipeline with per-stage cost annotations and human-led base-rate panel (ILL-09).
-  - All four scripts use `dlr_style.py` for consistent corporate-design styling and are labelled AI-authored in their docstrings (rule 1).
-  - Updated `paper/figures/README.md` inventory table with rows for fig12–fig15 and a new "Figure 12 — compliant (data-driven)" Rule-14 subsection.
-  - Updated the top-level `README.md` per rule 15: figure-count badge from 11 → 15; repo-structure tree updated `fig1–fig11` → `fig1–fig15`; Synthesis gallery extended with the four new figures and their captions.
-  - Replaced all four `[ILLUSTRATION OPPORTUNITY] ILL-xx` annotations in `paper/main.md` and `paper/main.tex` with proper figure references (`![Figure N — ...](...)` in markdown; `\begin{figure}...\end{figure}` with `\caption{}` and `\label{fig:...}` in LaTeX).
-
-- Files updated:
-  - `experiments/iot-integrator-ondilo-ico-spa-v2/RESEARCH-PROTOCOL.md` (new)
-  - `experiments/iot-integrator-balboa-gateway-ultra/RESEARCH-PROTOCOL.md` (new)
-  - `paper/main.md` (§6.5–§6.7 added; §7.13–§7.14 added; four new figures referenced)
-  - `paper/main.tex` (mirror of the above per rule 11)
-  - `paper/figures/data/difficulty-taxonomy.csv` (new)
-  - `paper/figures/fig12-difficulty-taxonomy.{py,svg,pdf}` (new)
-  - `paper/figures/fig13-pipeline-vulnerabilities.{py,svg,pdf}` (new)
-  - `paper/figures/fig14-malicious-integrator.{py,svg,pdf}` (new)
-  - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}` (new)
-  - `paper/figures/README.md` (inventory + Rule-14 compliance subsection for fig12)
-  - `README.md` (figure-count badge; structure-tree fig range; Synthesis gallery)
-  - `docs/logbook.md` (this entry)
-
-- Key decisions:
-  - The two new IoT-Integrator cases were *not* added as full top-level case-study sections (§6, §7, ...) to avoid renumbering every cross-reference, label, and figure caption that already depends on the 3 → 10 numbering. Instead they enter the paper through §6.5 as cross-validation evidence, which preserves all existing labels and is consistent with the per-case `REPORT.md` files being the citable artifacts.
-  - The difficulty taxonomy is qualitative by design; the CSV stores the numeric mapping (Low=1, Medium=2, Med-High=2.5, High=3) so the heat-map is reproducible, but the prose explicitly states that the composite is informative of *spread* not of an absolute scale (consistent with rule 1).
-  - The malicious-integrator and APK-mass-probing sections were placed in §7 (Discussion) rather than in §6 (Synthesis) because they are *prospective* threats inferred from the case-study evidence rather than findings synthesised across the cases.
-  - The §7.13 mitigation framing is structural rather than technical, mirroring the §7.4 dual-use accountability and §7.6 sloppification arguments: governance (checkpoints, redaction, dual-use mirror) rather than capability denial. This keeps the paper's structural-answer thesis consistent across all of §7.
-
-- Open issues:
-  - Researcher validation of both new IoT-Integrator cases is still pending; the test checklists in `RESEARCH-PROTOCOL.md` are the formal hand-off artifact.
-  - Both new cases need their `raw_conversations (copy&paste, web)/` exports populated before rule 4 is fully satisfied (transcripts as first-class artifacts).
-  - `[lit-retrieved]` literature for §6.7 / §7.13 / §7.14 is currently anchored only to the existing `[L-BLE-4]` and `[L-PRIV-5]` entries; a future literature pass should cover the malicious-LLM-agent and APK-corpus-probing literature explicitly (e.g. Sivakumaran et al. 2023 is already in the register but adversarial-LLM-tooling and APK-mirror-abuse literature is not).
-  - All Session 7 / 12 issues remain open.
-  - Pre-publication history-rewrite for the Balboa XAPK + derivative APKs is still owed (rule 12).
-
-- Next steps:
-  - Researcher reviews this session's additions against the per-case `REPORT.md` and `RESEARCH-PROTOCOL.md` files and either accepts or flags the writer-pass framing of the new themes.
-  - Researcher executes the `T-OND-*` and `T-BAL-*` checklists and lodges the redacted validation logs.
-  - On acceptance, the four new figures join the visual abstract gallery and the §7.13 / §7.14 framings are eligible to be cited from a future submission draft.
-
-### 2026-05-02 (literature pass M/N/O + §7.15 Scope and limitations + tagline + Gemini logo credit)
-
-- Branch: `claude/research-protocol-experiments-lBeVa`.
-- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
-- Trigger: researcher follow-ups to the prior session — (i) literature pass for §6.7 / §7.13 / §7.14 (adversarial-LLM-tooling and APK-mirror-abuse), (ii) writer pass to add a §7.X "Scope and limitations of the study" subsection, (iii) illustrator pass for the new section, plus (iv) move from the long question-form title to the new tagline "Proprietary by Design. Open by AI." with the project visual identity from a Google Gemini logo and (v) reference the *intact* proverbial jar later in the paper as a Hesiodic counterpoint to the shattered-jar logo.
-
-- Stage 1 — Literature pass:
-  - Three new `docs/sources.md` claim clusters appended:
-    - **Cluster M — Malicious LLM agents and adversarial agentic AI.** L-AGT-1..L-AGT-10 (Fang et al. 2024 ×2 — 87% one-day CVE exploitation by GPT-4 and autonomous website hacking; Lupinacci et al. 2025 — 94.4%/83.3%/100% prompt-injection / RAG / inter-agent trust attack rates; Chen et al. 2024 AgentPoison; Yang et al. 2024 backdoor; Zhang et al. 2024 ASB at 84.30% avg; Lee et al. 2025 SUDO Detox2Tox jailbreak of Claude for Computer Use; Ferrag et al. 2025 protocol-exploit survey; Wang et al. 2024 BadAgent; Zhang et al. 2024 Breaking Agents). Anchors §7.13 explicitly.
-    - **Cluster N — Mass probing of public APK repositories and Android-marketplace ecosystem.** L-APK-1..L-APK-7 (Zhou et al. 2012 DroidMOSS; Vidas & Christin 2013 alt-marketplaces; Chen et al. 2015 MassVet at Google-Play scale; Ishii et al. 2017 APPraiser; Hou et al. 2022 ANDSCANNER; Gao et al. 2021 lineage; Sanna et al. 2024 native-code corpus). Anchors §7.14 explicitly.
-    - **Cluster O — IoT companion apps as the integrator-side weakness surface.** L-IOTAPP-1..L-IOTAPP-5 (Schmidt et al. 2023 IoTFlow on 9,889 apps with abandoned-domains / hard-coded creds / expired certs findings — closest published prior art to the IoT-Integrator Phase-2 weakness analysis; Wang et al. 2019 component-reuse on >4,700 devices; Jin et al. 2022 IoTSpotter at market scale with 94.11% high-install crypto-violation rate; OConnor et al. 2021 companion-app MITM on 16/20 vendors; Mauro Junior et al. 2019 96-device study). Anchors §6.7 explicitly.
-  - Threaded the citation handles into the three subsections of `paper/main.md` and `paper/main.tex` (rule 11 mirror) in a single paragraph per subsection so the new clusters carry concrete numerical claims; all entries remain `[lit-retrieved]` and the existing rule that no claim depends on an unread citation is preserved.
-
-- Stage 2 — Scientific writer pass:
-  - Added **§7.15 Scope and limitations of the study** (label `sec:disc-scope-limits`) consolidating §1.5 / §6.4 / §7.9 with the new constraints introduced by the cross-validation cases and the §7.13 / §7.14 themes. Five numbered dimensions plus two interpretive constraints (recursive meta-process is methodological evidence, not independent thesis confirmation; difficulty taxonomy is qualitative spread, not absolute scale). Mirrored exactly into `paper/main.tex`. Three `\cref{}` labels in the new tex section that initially pointed at non-existent anchors were corrected (`sec:scope-non-goals` → `sec:scope`; `sec:disc-validity` → `sec:disc-threats`; `sec:disc-disclaimers` → `sec:ai-disclosure-disclaimers`).
-  - Title/tagline change applied across the canonical content surface: `paper/main.md` H1, `paper/main.tex` `\title{}` and `pdftitle`, `README.md` H1+H3, `CITATION.cff` (top-level title and preferred-citation title and a new `subtitle` field), `.zenodo.json` title and description, `codemeta.json` description and referencePublication name. New title: **"Obscurity Is Dead"** with **"Proprietary by Design. Open by AI."** as the subtitle and *"A study of AI-assisted reverse engineering as a means to interoperability — and the security nightmare that comes with it."* as the long-form description.
-  - Acknowledged **Google Gemini** as the generator of the project's visual identity in `paper/main.md` §9.1 (and the matching `paper/main.tex` §9.1), in `paper/figures/README.md`, and as a `references` entry in `CITATION.cff`. Per CLAUDE.md rule 1, Gemini's contribution is visibly labelled and confined to the visual assets; per the §9.1 *Urheberrecht und KI* footnote, Gemini is not an author.
-  - Inserted the proverbial-jar-intact image reference at §10 in both `main.md` and `main.tex` immediately after the Hesiod quote, as the Hesiodic counterpoint to the shattered-jar logo at the front matter.
-  - Two binary assets are *not* yet committed (researcher-supplied): `paper/figures/logo-obscurity-is-dead.png` (front-matter / README hero) and `paper/figures/logo-pandora-jar-intact.png` (§10 / fig:pandora-jar-intact). Until these are dropped in by the author, the README hero image and the §10 figure render as broken-image placeholders; the broken state is intentional (rule 1 transparency over rule 15 aesthetics) and documented in `paper/figures/README.md`.
-
-- Stage 3 — Illustration agent:
-  - Produced **fig16-scope-limitations** (ILL-10) — a concentric perimeter diagram with five in-scope dimensions on an inner ring and the named exclusions on the outside; `paper/figures/fig16-scope-limitations.{py,svg,pdf}`, AI-authored docstring (rule 1), uses `dlr_style.py` for consistency.
-  - The `[ILLUSTRATION OPPORTUNITY] ILL-10` placeholder was replaced with a real figure reference in both `paper/main.md` and `paper/main.tex`.
-
-- Files updated:
-  - `docs/sources.md` (clusters M, N, O appended)
-  - `paper/main.md` (clusters threaded into §6.7 / §7.13 / §7.14; new §7.15; new title block; §9.1 Gemini credit; §10 intact-jar image; ILL-10 placeholder replaced)
-  - `paper/main.tex` (mirror of all of the above; broken `\cref` labels in the new section corrected)
-  - `README.md` (new title/tagline; logo at hero; figure-count badge 15 → 16; structure-tree updated; Synthesis gallery extended with fig16 + intact-jar)
-  - `CITATION.cff` (top-level title; preferred-citation title + subtitle; Gemini reference)
-  - `.zenodo.json` (title + description)
-  - `codemeta.json` (description + referencePublication.name)
-  - `paper/figures/README.md` (fig16 row; logo rows; AI-authored programmatic-diagram list extended)
-  - `paper/figures/fig16-scope-limitations.{py,svg,pdf}` (new)
-  - `docs/logbook.md` (this entry)
-
-- Key decisions:
-  - The new clusters are deliberately threaded as *one paragraph per subsection* rather than as bibliography expansion: each subsection now has a numerical anchor pointing at the literature, but no individual claim depends on a single citation having been read in full (consistent with the §9.3 discipline).
-  - The §7.15 section consolidates limitations rather than introducing new ones; this was a writer-pass move (per `docs/prompts/scientific-writer-prompt.md`: "do not add, remove, or modify research claims") that surfaces existing constraints from §1.5, §6.4, §7.9, §6.7, §7.13, §7.14 in a single readable place.
-  - Title change fires rule 11 (md ↔ tex), rule 15 (README), and the FAIR-metadata mirror set (CITATION.cff, .zenodo.json, codemeta.json) — all updated in this commit.
-  - The two Gemini-generated logo binaries are intentionally not stubbed with placeholder PNGs; a broken image is more honest than a fake one (rule 1).
-
-- Open issues:
-  - **Researcher to drop in `paper/figures/logo-obscurity-is-dead.png` and `paper/figures/logo-pandora-jar-intact.png`** (Gemini-generated assets); the README hero and §10 figure render as broken images until then.
-  - The Gemini iteration history / generation prompts referenced in §9.1 are not yet committed; researcher to append them to this logbook entry once available.
-  - All Session 7 / 12 issues remain open.
-  - All entries in clusters M/N/O are `[lit-retrieved]` only; no claim in the paper depends on an unread citation.
-
-- Next steps:
-  - Researcher reviews the new title/tagline rollout across the canonical-content surface and either accepts or asks for further revision.
-  - Researcher commits the two Gemini logo binaries and updates §9.1 with the iteration history.
-  - On acceptance, the README's Visual abstract and front matter render with the new identity.
-
-## 2026-05-02 — Stage 5: Readability, Novelty & Conciseness scrutinizer (first run)
-
-- Inputs read in full: `paper/main.md` (650 lines), section-structure of `paper/main.tex` (2,383 lines), `docs/sources.md` clusters A–O, `paper/references.bib`, prior logbook session.
-- Deliverables produced:
-  - `docs/handbacks/readability-defect-registry.md` — 21-row registry (RDB-01..RDB-21) ending with the re-scrutiny verdict.
-  - `docs/handbacks/readability-to-writer.md` — 20 per-entry hand-back blocks.
-  - `docs/handbacks/readability-to-illustrator.md` — 4 per-entry hand-back blocks (RDB-04, RDB-05+RDB-08 consolidation candidate, RDB-07, RDB-21 informational).
-
-- Counts.
-  - **By severity:** H = 2 (RDB-01, RDB-02); M = 10 (RDB-03..RDB-12); L = 8 (RDB-13..RDB-20); RDB-21 informational.
-  - **By class:** claim-repetition 4; list-of-lists 6; unsupported-novelty 1; claim-framing 1; jargon-dump / undefined-acronym 2; sentence-length / nested-clauses / caption 4; prose-doing-table's-job 1; bib-completeness 1; mirror-drift 0 (RDB-21 positive trace).
-  - **By owner:** writer-only 16; writer + illustrator 4 (RDB-04, RDB-05, RDB-07, RDB-08); illustrator-only 0; informational 1.
-
-- Novelty verdicts (per claimed contribution).
-  - §1.4 contribution 1 (effort-gap definition + KPIs) — **incremental** vs L-RE-2 (Hu et al., 2024); framing defect, addressed via RDB-12.
-  - §1.4 contribution 2 (two case studies with full provenance) — **novel**; no comparable source found in clusters A, D, O.
-  - §1.4 contribution 3 (transcript-as-artifact methodology) — **incremental, framing defect** vs L-SLOP-7 / L-SLOP-10 / L-MC-3 / L-MC-4; addressed via RDB-02 + RDB-12.
-  - §1.4 contribution 4 (interoperability vs dual-use synthesis) — **incremental** vs L-VD-4 / L-VD-5 / L-COUNTER-1..6.
-  - §10 "the novelty is the integration" — **unsupported-novelty as currently framed**; addressed via RDB-02.
-  - §10 fourth structural claim (democratisation of science production via AI assistance) — **novel framing, no comparable source found**; the most defensible novelty in the paper.
-
-- Most consequential defect: **RDB-01** — quadruple recap of the L-SLOP-1/2/4 fabricated-citation statistics across §5.6, §7.6, §9.4, §10. Mechanical to remediate; removes the strongest *recap* impression in the paper and frees §10 to do conclusion work.
-
-- Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — two H-severity entries filed (RDB-01, RDB-02). RDB-02 in particular requires a literature-contrast paragraph that the next scrutinizer pass should re-read against the updated `docs/sources.md`.
-
-- Files written: `docs/handbacks/readability-defect-registry.md`, `docs/handbacks/readability-to-writer.md`, `docs/handbacks/readability-to-illustrator.md`, `docs/logbook.md` (this entry).
-- Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, `paper/references.bib`, `paper/figures/*`, `docs/sources.md`. Working tree dirty by design — no commit.
-
-- Next steps: writer pass remediates RDB-01..RDB-12 (H + M); illustrator pass addresses RDB-04 / RDB-05+RDB-08 / RDB-07; second scrutinizer pass after writer remediation to clear the H entries.
-
-## 2026-05-02 — Stage 4: Layout Scrutinizer (first run)
-
-- PDF under inspection: `paper/main.pdf`
-  - SHA-256: `ba538ea0d2df9a582889eb16de84d3cd1c6bcf5ae00e647549b7b68bcb2b9e4f`
-  - Size: 1,043,497 bytes; 40 pages
-  - Build timestamp: 2026-05-02T14:53:23Z (rebuilt this session via `make -C paper pdf`; the SessionStart-installed TeX Live toolchain produced a clean build from `main.tex` 2,391 lines and `main.bbl`).
-- Tooling note: the `mcp__…__display_pdf` viewer rejected the local artifact (no allowed-directories entry). Visual sweep performed entirely locally with `poppler-utils` (`pdftotext -layout`, `pdfinfo`); no upload to any external service (CLAUDE.md rule 13). Pages requiring pixel-level inspection (figure-internal contrast, kerning) are flagged `viewer-blocked` in the registry and queued for a pixel-level re-sweep on the next Layout Scrutinizer run.
-- Inputs read in full: `paper/main.log` (full overfull/underfull/warning extraction, 1,375+ lines), `paper/main.tex` label index (cross-checked all `\label{sec:…}` and `\cref{...}` calls), `paper/main.md` section structure (mirror discipline per rule 11), prior logbook session, `paper/figures/README.md`.
-
-- Deliverables produced.
-  - `docs/handbacks/layout-defect-registry.md` — 18-row registry (LAY-01..LAY-18) with single-line `RE-SCRUTINY REQUIRED: yes` verdict.
-  - `docs/handbacks/layout-to-writer.md` — 13 per-entry hand-back blocks (LAY-01, LAY-02, LAY-03, LAY-04, LAY-07, LAY-08, LAY-09, LAY-10, LAY-11, LAY-14, LAY-15, LAY-17, LAY-18, plus shared LAY-16).
-  - `docs/handbacks/layout-to-illustrator.md` — 5 per-entry hand-back blocks (LAY-05, LAY-06, LAY-12, LAY-13, plus shared LAY-16). LAY-12 is the PLACEHOLDER-pending tracking entry for `paper/figures/logo-{obscurity-is-dead,pandora-jar-intact}.png`.
-
-- Counts.
-  - **By severity:** H = 6 (LAY-01..LAY-06); M = 7 (LAY-07..LAY-13); L = 5 (LAY-14..LAY-18).
-  - **By owner:** writer = 11 (incl. shared LAY-16); illustrator = 5 (LAY-05, LAY-06, LAY-12, LAY-13, shared LAY-16); joint advisory = 1 (LAY-16); informational placeholder = 1 (LAY-12).
-  - **By class:** broken-cref 1 (`??` rendered); margin-overflow / `\hbox` past `\textwidth` 8; table-overflow / cell mis-alignment 3; figure-asset overflow 2; pdf-version-incompatibility 1; placeholder-pending 1; cosmetic font / float / underfull 4 (incl. bib).
-
-- Most consequential defect: **LAY-01** — `\cref{sec:scope-non-goals,sec:synthesis-limits,sec:disc-validity}` on `main.tex:1853` references two undefined labels (`sec:scope-non-goals`, `sec:disc-validity`) and renders as literal `????` in the §7.15 paragraph on page 31. The reader cannot find the cited limitations sections; remediation requires either adding the missing labels (preferred) or rewriting the `\cref` to the labels that already exist (`sec:scope`, `sec:synthesis-limits`, `sec:disc-threats`).
-
-- Cross-check against prior stages: the readability scrutinizer (RDB registry) and the layout scrutinizer find no overlapping defects — RDB entries concern claim repetition, list-of-lists, jargon, and citation hygiene, none of which surface in the rendered geometry. The two registries are independent and additive.
-
-- Mirror discipline (rule 11) check: every writer-owned entry cites both `main.tex` and `main.md` line ranges; no structural drift detected during the scrutiny. Redaction discipline (rule 12) check: the page-7 `[REDACTED:username:S-SF-5-username]` and `[REDACTED:credential:S-SF-5-password]` markers are intact in the rendered PDF; no live credential leaked through the build.
-
-- Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — six H-severity defects (LAY-01 broken `\cref`, LAY-02 reconciliation table cell mis-alignment, LAY-03 / LAY-04 right-margin overruns, LAY-05 figure 7 textwidth overflow, LAY-06 figure 8 sub-table overflow) prevent a clean reading of headline evidence. After the writer and illustrator passes consume their hand-back files and `make -C paper pdf` rebuilds, a second Layout Scrutinizer run is required.
-
-- Files written: `docs/handbacks/layout-defect-registry.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/layout-to-illustrator.md`, `docs/logbook.md` (this entry).
-- Files left untouched (per scope discipline): `paper/main.tex`, `paper/main.md`, `paper/figures/*`, `paper/references.bib`, `docs/sources.md`, `docs/redaction-policy.md`. Working tree dirty by design — no commit, no push (CLAUDE.md rule 13).
-
-- Next steps: writer remediates LAY-01..LAY-04 + LAY-07..LAY-11 (H+M); illustrator remediates LAY-05, LAY-06 (H), LAY-13 (M), and LAY-12 when the Gemini logo assets land. Re-run Stage 4 against the rebuilt PDF to clear the H entries.
 
 ### 2026-05-02 (scientific-writer remediation pass on layout + readability hand-backs)
 - Session lead: Scientific Writer agent (Claude Opus 4.7), branch `claude/add-layout-scrutinizer-agent-Ur5vX`.
@@ -1886,6 +1405,304 @@ This logbook is the operating record for the paper and research process.
 - Rationale (rule-4 transparency about reconstruction-vs-export). The web harness in use during the 2026-05-02 sessions does not persist the live conversation buffer to a file the assistant or the human can read back post-hoc. The next-best research artifact is the contemporaneously-written project logbook plus the commit-message corpus, both of which are reviewed and accepted by the human at commit time. Should a verbatim export become recoverable later (e.g. from harness storage), it should be added as a `[verbatim-export]` companion file with any divergence from the reconstruction recorded in `experiments/paper-meta-process/provenance.md`.
 - Rule 12 compliance: the reconstructed T2 transcript introduces no community-implementer GitHub handle or repository path that the parallel anonymization sweep is removing from the paper; redacted markers (`[REDACTED:username:S-SF-5-username]`, `[REDACTED:credential:S-SF-5-password]`) are preserved in marker form and not expanded.
 - Files: three new files (T2 reconstruction + two `[MISSING-TRANSCRIPT]` placeholders); this logbook entry. No edits to `paper/main.{md,tex}`, `references.bib`, `docs/sources.md`, `docs/redaction-policy.md`, or any scrutinizer registry — scope discipline (transcripts directory + this logbook entry only) per the dispatch directive.
+
+### 2026-05-02 (literature pass M/N/O + §7.15 Scope and limitations + tagline + Gemini logo credit)
+
+- Branch: `claude/research-protocol-experiments-lBeVa`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher follow-ups to the prior session — (i) literature pass for §6.7 / §7.13 / §7.14 (adversarial-LLM-tooling and APK-mirror-abuse), (ii) writer pass to add a §7.X "Scope and limitations of the study" subsection, (iii) illustrator pass for the new section, plus (iv) move from the long question-form title to the new tagline "Proprietary by Design. Open by AI." with the project visual identity from a Google Gemini logo and (v) reference the *intact* proverbial jar later in the paper as a Hesiodic counterpoint to the shattered-jar logo.
+
+- Stage 1 — Literature pass:
+  - Three new `docs/sources.md` claim clusters appended:
+    - **Cluster M — Malicious LLM agents and adversarial agentic AI.** L-AGT-1..L-AGT-10 (Fang et al. 2024 ×2 — 87% one-day CVE exploitation by GPT-4 and autonomous website hacking; Lupinacci et al. 2025 — 94.4%/83.3%/100% prompt-injection / RAG / inter-agent trust attack rates; Chen et al. 2024 AgentPoison; Yang et al. 2024 backdoor; Zhang et al. 2024 ASB at 84.30% avg; Lee et al. 2025 SUDO Detox2Tox jailbreak of Claude for Computer Use; Ferrag et al. 2025 protocol-exploit survey; Wang et al. 2024 BadAgent; Zhang et al. 2024 Breaking Agents). Anchors §7.13 explicitly.
+    - **Cluster N — Mass probing of public APK repositories and Android-marketplace ecosystem.** L-APK-1..L-APK-7 (Zhou et al. 2012 DroidMOSS; Vidas & Christin 2013 alt-marketplaces; Chen et al. 2015 MassVet at Google-Play scale; Ishii et al. 2017 APPraiser; Hou et al. 2022 ANDSCANNER; Gao et al. 2021 lineage; Sanna et al. 2024 native-code corpus). Anchors §7.14 explicitly.
+    - **Cluster O — IoT companion apps as the integrator-side weakness surface.** L-IOTAPP-1..L-IOTAPP-5 (Schmidt et al. 2023 IoTFlow on 9,889 apps with abandoned-domains / hard-coded creds / expired certs findings — closest published prior art to the IoT-Integrator Phase-2 weakness analysis; Wang et al. 2019 component-reuse on >4,700 devices; Jin et al. 2022 IoTSpotter at market scale with 94.11% high-install crypto-violation rate; OConnor et al. 2021 companion-app MITM on 16/20 vendors; Mauro Junior et al. 2019 96-device study). Anchors §6.7 explicitly.
+  - Threaded the citation handles into the three subsections of `paper/main.md` and `paper/main.tex` (rule 11 mirror) in a single paragraph per subsection so the new clusters carry concrete numerical claims; all entries remain `[lit-retrieved]` and the existing rule that no claim depends on an unread citation is preserved.
+
+- Stage 2 — Scientific writer pass:
+  - Added **§7.15 Scope and limitations of the study** (label `sec:disc-scope-limits`) consolidating §1.5 / §6.4 / §7.9 with the new constraints introduced by the cross-validation cases and the §7.13 / §7.14 themes. Five numbered dimensions plus two interpretive constraints (recursive meta-process is methodological evidence, not independent thesis confirmation; difficulty taxonomy is qualitative spread, not absolute scale). Mirrored exactly into `paper/main.tex`. Three `\cref{}` labels in the new tex section that initially pointed at non-existent anchors were corrected (`sec:scope-non-goals` → `sec:scope`; `sec:disc-validity` → `sec:disc-threats`; `sec:disc-disclaimers` → `sec:ai-disclosure-disclaimers`).
+  - Title/tagline change applied across the canonical content surface: `paper/main.md` H1, `paper/main.tex` `\title{}` and `pdftitle`, `README.md` H1+H3, `CITATION.cff` (top-level title and preferred-citation title and a new `subtitle` field), `.zenodo.json` title and description, `codemeta.json` description and referencePublication name. New title: **"Obscurity Is Dead"** with **"Proprietary by Design. Open by AI."** as the subtitle and *"A study of AI-assisted reverse engineering as a means to interoperability — and the security nightmare that comes with it."* as the long-form description.
+  - Acknowledged **Google Gemini** as the generator of the project's visual identity in `paper/main.md` §9.1 (and the matching `paper/main.tex` §9.1), in `paper/figures/README.md`, and as a `references` entry in `CITATION.cff`. Per CLAUDE.md rule 1, Gemini's contribution is visibly labelled and confined to the visual assets; per the §9.1 *Urheberrecht und KI* footnote, Gemini is not an author.
+  - Inserted the proverbial-jar-intact image reference at §10 in both `main.md` and `main.tex` immediately after the Hesiod quote, as the Hesiodic counterpoint to the shattered-jar logo at the front matter.
+  - Two binary assets are *not* yet committed (researcher-supplied): `paper/figures/logo-obscurity-is-dead.png` (front-matter / README hero) and `paper/figures/logo-pandora-jar-intact.png` (§10 / fig:pandora-jar-intact). Until these are dropped in by the author, the README hero image and the §10 figure render as broken-image placeholders; the broken state is intentional (rule 1 transparency over rule 15 aesthetics) and documented in `paper/figures/README.md`.
+
+- Stage 3 — Illustration agent:
+  - Produced **fig16-scope-limitations** (ILL-10) — a concentric perimeter diagram with five in-scope dimensions on an inner ring and the named exclusions on the outside; `paper/figures/fig16-scope-limitations.{py,svg,pdf}`, AI-authored docstring (rule 1), uses `dlr_style.py` for consistency.
+  - The `[ILLUSTRATION OPPORTUNITY] ILL-10` placeholder was replaced with a real figure reference in both `paper/main.md` and `paper/main.tex`.
+
+- Files updated:
+  - `docs/sources.md` (clusters M, N, O appended)
+  - `paper/main.md` (clusters threaded into §6.7 / §7.13 / §7.14; new §7.15; new title block; §9.1 Gemini credit; §10 intact-jar image; ILL-10 placeholder replaced)
+  - `paper/main.tex` (mirror of all of the above; broken `\cref` labels in the new section corrected)
+  - `README.md` (new title/tagline; logo at hero; figure-count badge 15 → 16; structure-tree updated; Synthesis gallery extended with fig16 + intact-jar)
+  - `CITATION.cff` (top-level title; preferred-citation title + subtitle; Gemini reference)
+  - `.zenodo.json` (title + description)
+  - `codemeta.json` (description + referencePublication.name)
+  - `paper/figures/README.md` (fig16 row; logo rows; AI-authored programmatic-diagram list extended)
+  - `paper/figures/fig16-scope-limitations.{py,svg,pdf}` (new)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The new clusters are deliberately threaded as *one paragraph per subsection* rather than as bibliography expansion: each subsection now has a numerical anchor pointing at the literature, but no individual claim depends on a single citation having been read in full (consistent with the §9.3 discipline).
+  - The §7.15 section consolidates limitations rather than introducing new ones; this was a writer-pass move (per `docs/prompts/scientific-writer-prompt.md`: "do not add, remove, or modify research claims") that surfaces existing constraints from §1.5, §6.4, §7.9, §6.7, §7.13, §7.14 in a single readable place.
+  - Title change fires rule 11 (md ↔ tex), rule 15 (README), and the FAIR-metadata mirror set (CITATION.cff, .zenodo.json, codemeta.json) — all updated in this commit.
+  - The two Gemini-generated logo binaries are intentionally not stubbed with placeholder PNGs; a broken image is more honest than a fake one (rule 1).
+
+- Open issues:
+  - **Researcher to drop in `paper/figures/logo-obscurity-is-dead.png` and `paper/figures/logo-pandora-jar-intact.png`** (Gemini-generated assets); the README hero and §10 figure render as broken images until then.
+  - The Gemini iteration history / generation prompts referenced in §9.1 are not yet committed; researcher to append them to this logbook entry once available.
+  - All Session 7 / 12 issues remain open.
+  - All entries in clusters M/N/O are `[lit-retrieved]` only; no claim in the paper depends on an unread citation.
+
+- Next steps:
+  - Researcher reviews the new title/tagline rollout across the canonical-content surface and either accepts or asks for further revision.
+  - Researcher commits the two Gemini logo binaries and updates §9.1 with the iteration history.
+  - On acceptance, the README's Visual abstract and front matter render with the new identity.
+
+## 2026-05-02 — Stage 5: Readability, Novelty & Conciseness scrutinizer (first run)
+
+- Inputs read in full: `paper/main.md` (650 lines), section-structure of `paper/main.tex` (2,383 lines), `docs/sources.md` clusters A–O, `paper/references.bib`, prior logbook session.
+- Deliverables produced:
+  - `docs/handbacks/readability-defect-registry.md` — 21-row registry (RDB-01..RDB-21) ending with the re-scrutiny verdict.
+  - `docs/handbacks/readability-to-writer.md` — 20 per-entry hand-back blocks.
+  - `docs/handbacks/readability-to-illustrator.md` — 4 per-entry hand-back blocks (RDB-04, RDB-05+RDB-08 consolidation candidate, RDB-07, RDB-21 informational).
+
+- Counts.
+  - **By severity:** H = 2 (RDB-01, RDB-02); M = 10 (RDB-03..RDB-12); L = 8 (RDB-13..RDB-20); RDB-21 informational.
+  - **By class:** claim-repetition 4; list-of-lists 6; unsupported-novelty 1; claim-framing 1; jargon-dump / undefined-acronym 2; sentence-length / nested-clauses / caption 4; prose-doing-table's-job 1; bib-completeness 1; mirror-drift 0 (RDB-21 positive trace).
+  - **By owner:** writer-only 16; writer + illustrator 4 (RDB-04, RDB-05, RDB-07, RDB-08); illustrator-only 0; informational 1.
+
+- Novelty verdicts (per claimed contribution).
+  - §1.4 contribution 1 (effort-gap definition + KPIs) — **incremental** vs L-RE-2 (Hu et al., 2024); framing defect, addressed via RDB-12.
+  - §1.4 contribution 2 (two case studies with full provenance) — **novel**; no comparable source found in clusters A, D, O.
+  - §1.4 contribution 3 (transcript-as-artifact methodology) — **incremental, framing defect** vs L-SLOP-7 / L-SLOP-10 / L-MC-3 / L-MC-4; addressed via RDB-02 + RDB-12.
+  - §1.4 contribution 4 (interoperability vs dual-use synthesis) — **incremental** vs L-VD-4 / L-VD-5 / L-COUNTER-1..6.
+  - §10 "the novelty is the integration" — **unsupported-novelty as currently framed**; addressed via RDB-02.
+  - §10 fourth structural claim (democratisation of science production via AI assistance) — **novel framing, no comparable source found**; the most defensible novelty in the paper.
+
+- Most consequential defect: **RDB-01** — quadruple recap of the L-SLOP-1/2/4 fabricated-citation statistics across §5.6, §7.6, §9.4, §10. Mechanical to remediate; removes the strongest *recap* impression in the paper and frees §10 to do conclusion work.
+
+- Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — two H-severity entries filed (RDB-01, RDB-02). RDB-02 in particular requires a literature-contrast paragraph that the next scrutinizer pass should re-read against the updated `docs/sources.md`.
+
+- Files written: `docs/handbacks/readability-defect-registry.md`, `docs/handbacks/readability-to-writer.md`, `docs/handbacks/readability-to-illustrator.md`, `docs/logbook.md` (this entry).
+- Files left untouched (per scope discipline): `paper/main.md`, `paper/main.tex`, `paper/references.bib`, `paper/figures/*`, `docs/sources.md`. Working tree dirty by design — no commit.
+
+- Next steps: writer pass remediates RDB-01..RDB-12 (H + M); illustrator pass addresses RDB-04 / RDB-05+RDB-08 / RDB-07; second scrutinizer pass after writer remediation to clear the H entries.
+
+## 2026-05-02 — Stage 4: Layout Scrutinizer (first run)
+
+- PDF under inspection: `paper/main.pdf`
+  - SHA-256: `ba538ea0d2df9a582889eb16de84d3cd1c6bcf5ae00e647549b7b68bcb2b9e4f`
+  - Size: 1,043,497 bytes; 40 pages
+  - Build timestamp: 2026-05-02T14:53:23Z (rebuilt this session via `make -C paper pdf`; the SessionStart-installed TeX Live toolchain produced a clean build from `main.tex` 2,391 lines and `main.bbl`).
+- Tooling note: the `mcp__…__display_pdf` viewer rejected the local artifact (no allowed-directories entry). Visual sweep performed entirely locally with `poppler-utils` (`pdftotext -layout`, `pdfinfo`); no upload to any external service (CLAUDE.md rule 13). Pages requiring pixel-level inspection (figure-internal contrast, kerning) are flagged `viewer-blocked` in the registry and queued for a pixel-level re-sweep on the next Layout Scrutinizer run.
+- Inputs read in full: `paper/main.log` (full overfull/underfull/warning extraction, 1,375+ lines), `paper/main.tex` label index (cross-checked all `\label{sec:…}` and `\cref{...}` calls), `paper/main.md` section structure (mirror discipline per rule 11), prior logbook session, `paper/figures/README.md`.
+
+- Deliverables produced.
+  - `docs/handbacks/layout-defect-registry.md` — 18-row registry (LAY-01..LAY-18) with single-line `RE-SCRUTINY REQUIRED: yes` verdict.
+  - `docs/handbacks/layout-to-writer.md` — 13 per-entry hand-back blocks (LAY-01, LAY-02, LAY-03, LAY-04, LAY-07, LAY-08, LAY-09, LAY-10, LAY-11, LAY-14, LAY-15, LAY-17, LAY-18, plus shared LAY-16).
+  - `docs/handbacks/layout-to-illustrator.md` — 5 per-entry hand-back blocks (LAY-05, LAY-06, LAY-12, LAY-13, plus shared LAY-16). LAY-12 is the PLACEHOLDER-pending tracking entry for `paper/figures/logo-{obscurity-is-dead,pandora-jar-intact}.png`.
+
+- Counts.
+  - **By severity:** H = 6 (LAY-01..LAY-06); M = 7 (LAY-07..LAY-13); L = 5 (LAY-14..LAY-18).
+  - **By owner:** writer = 11 (incl. shared LAY-16); illustrator = 5 (LAY-05, LAY-06, LAY-12, LAY-13, shared LAY-16); joint advisory = 1 (LAY-16); informational placeholder = 1 (LAY-12).
+  - **By class:** broken-cref 1 (`??` rendered); margin-overflow / `\hbox` past `\textwidth` 8; table-overflow / cell mis-alignment 3; figure-asset overflow 2; pdf-version-incompatibility 1; placeholder-pending 1; cosmetic font / float / underfull 4 (incl. bib).
+
+- Most consequential defect: **LAY-01** — `\cref{sec:scope-non-goals,sec:synthesis-limits,sec:disc-validity}` on `main.tex:1853` references two undefined labels (`sec:scope-non-goals`, `sec:disc-validity`) and renders as literal `????` in the §7.15 paragraph on page 31. The reader cannot find the cited limitations sections; remediation requires either adding the missing labels (preferred) or rewriting the `\cref` to the labels that already exist (`sec:scope`, `sec:synthesis-limits`, `sec:disc-threats`).
+
+- Cross-check against prior stages: the readability scrutinizer (RDB registry) and the layout scrutinizer find no overlapping defects — RDB entries concern claim repetition, list-of-lists, jargon, and citation hygiene, none of which surface in the rendered geometry. The two registries are independent and additive.
+
+- Mirror discipline (rule 11) check: every writer-owned entry cites both `main.tex` and `main.md` line ranges; no structural drift detected during the scrutiny. Redaction discipline (rule 12) check: the page-7 `[REDACTED:username:S-SF-5-username]` and `[REDACTED:credential:S-SF-5-password]` markers are intact in the rendered PDF; no live credential leaked through the build.
+
+- Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — six H-severity defects (LAY-01 broken `\cref`, LAY-02 reconciliation table cell mis-alignment, LAY-03 / LAY-04 right-margin overruns, LAY-05 figure 7 textwidth overflow, LAY-06 figure 8 sub-table overflow) prevent a clean reading of headline evidence. After the writer and illustrator passes consume their hand-back files and `make -C paper pdf` rebuilds, a second Layout Scrutinizer run is required.
+
+- Files written: `docs/handbacks/layout-defect-registry.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/layout-to-illustrator.md`, `docs/logbook.md` (this entry).
+- Files left untouched (per scope discipline): `paper/main.tex`, `paper/main.md`, `paper/figures/*`, `paper/references.bib`, `docs/sources.md`, `docs/redaction-policy.md`. Working tree dirty by design — no commit, no push (CLAUDE.md rule 13).
+
+- Next steps: writer remediates LAY-01..LAY-04 + LAY-07..LAY-11 (H+M); illustrator remediates LAY-05, LAY-06 (H), LAY-13 (M), and LAY-12 when the Gemini logo assets land. Re-run Stage 4 against the rebuilt PDF to clear the H entries.
+
+### 2026-05-02 (research protocol + scientific writer + illustration on two new IoT-Integrator cases)
+
+- Branch: `claude/research-protocol-experiments-lBeVa`.
+- Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
+- Trigger: researcher request to (i) run the research protocol over the two new IoT-Integrator experiments (Ondilo ICO Spa V2 and Balboa Gateway Ultra), (ii) summarise through the scientific writer, (iii) run the illustrator. Researcher-side validation of both integrations is still pending; per the request, the agent assumes successful integration and produces a per-case test checklist instead. Three additional themes were specified for the writer pass: dangers from a malicious IoT-integrator agent, automated mass probing of public APK repositories, and a synthesis section on the system-class vulnerabilities of these pipelines plus a difficulty rating across the test cases (excluding the meta-process case).
+
+- Stage 1 — Research Protocol agent (`docs/prompts/research-protocol-prompt.md`):
+  - Produced `experiments/iot-integrator-ondilo-ico-spa-v2/RESEARCH-PROTOCOL.md` with Summary, Artifact inventory, Transcript provenance mapping (T1 placeholders for the close-out export), Evaluation matrix (interoperability / security / provenance / documentation / literature), Validation needs as a 10-row test checklist `T-OND-1..T-OND-10`, Recommended actions, Gaps and risks, and References.
+  - Produced `experiments/iot-integrator-balboa-gateway-ultra/RESEARCH-PROTOCOL.md` with the same shape and a 12-row test checklist `T-BAL-1..T-BAL-12` covering Cognito login, smoke test, MQTT bridge end-to-end, endpoint-inventory cross-check, TLS chain verification, hardening overlay C-1..C-6, refresh-token rotation, `AdminUserGlobalSignOut` runbook, §A DEX deep-dive, §B LAN probe, §C mitmproxy capture, and §D GDPR SAR.
+  - Both files explicitly recommend the minimum-validation set (`T-OND-1, T-OND-2, T-OND-4` for Ondilo; `T-BAL-1..T-BAL-3` for Balboa) and hand off the deeper protocols to researcher follow-up.
+
+- Stage 2 — Scientific writer pass (`docs/prompts/scientific-writer-prompt.md`):
+  - `paper/main.md` and `paper/main.tex` updated in lockstep (rule 11):
+    - **§6.5 Cross-validation from the IoT-Integrator runs.** New subsection plus a two-column table comparing Ondilo and Balboa across the same dimensions as the §6.1 cross-case table; states explicitly that both runs are *cross-validation* of the methodology, not independent confirmation of the central thesis.
+    - **§6.6 Test-case difficulty taxonomy.** New subsection with a four-row × four-column table rating Spider Farmer / Ondilo / Balboa / EcoFlow along three axes (cryptographic barrier, labour to break, blast radius) plus a composite spread column. Composite ratings: Spider Farmer Easy, Ondilo Easy, Balboa Medium, EcoFlow Medium. Meta-process case excluded per request.
+    - **§6.7 Vulnerabilities of IoT-integrator pipelines as a system class.** New subsection synthesising six recurring patterns from the four cases: vendor-cloud SPoF, long-lived refresh tokens, cross-vendor data-flow opacity, operational-obscurity anti-pattern, companion-app permission creep, static-only weakness coverage.
+    - **§7.13 The malicious IoT-integrator agent.** New subsection enumerating the dual-use surface of the IoT-Integrator prompt itself: per-device exploit pipeline, credential/token harvesting at integration time, suppression of the dual-use mirror, self-augmentation of attack capability, trust-laundered distribution, and erosion of the governance baseline through corpus contamination.
+    - **§7.14 Automated mass probing of public APK repositories.** New subsection describing the corpus-scale extension of the per-APK pipeline: sweep at corpus scale, identity-provider enumeration, cross-vendor data-flow harvest, defensive/offensive symmetry, repository operator as gatekeeper, and the unsettled legal posture of mass enumeration vs. per-device interoperability.
+  - Inserted four ILL-xx annotations during the writer pass (ILL-06 through ILL-09); these were promoted to real figure references during Stage 3.
+  - No new claims were introduced beyond what is already documented in the four `experiments/*/REPORT.md` files and `RESEARCH-PROTOCOL.md` audits; all references are repo-internal except the existing `[L-BLE-4]` and `[L-PRIV-5]` literature anchors used in §7.14.
+
+- Stage 3 — Illustration agent (`docs/prompts/illustration-prompt.md`):
+  - Produced four new figures, each with a Python generation script and (for fig12) a CSV data file:
+    - `paper/figures/fig12-difficulty-taxonomy.{py,svg,pdf}` + `paper/figures/data/difficulty-taxonomy.csv` — Rule-14-compliant heat-map (ILL-06).
+    - `paper/figures/fig13-pipeline-vulnerabilities.{py,svg,pdf}` — six-node conceptual diagram with central residual-risk node (ILL-07).
+    - `paper/figures/fig14-malicious-integrator.{py,svg,pdf}` — branching workflow contrasting researcher-governed and adversarial variants of the IoT-Integrator pipeline (ILL-08).
+    - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}` — five-stage corpus-probing pipeline with per-stage cost annotations and human-led base-rate panel (ILL-09).
+  - All four scripts use `dlr_style.py` for consistent corporate-design styling and are labelled AI-authored in their docstrings (rule 1).
+  - Updated `paper/figures/README.md` inventory table with rows for fig12–fig15 and a new "Figure 12 — compliant (data-driven)" Rule-14 subsection.
+  - Updated the top-level `README.md` per rule 15: figure-count badge from 11 → 15; repo-structure tree updated `fig1–fig11` → `fig1–fig15`; Synthesis gallery extended with the four new figures and their captions.
+  - Replaced all four `[ILLUSTRATION OPPORTUNITY] ILL-xx` annotations in `paper/main.md` and `paper/main.tex` with proper figure references (`![Figure N — ...](...)` in markdown; `\begin{figure}...\end{figure}` with `\caption{}` and `\label{fig:...}` in LaTeX).
+
+- Files updated:
+  - `experiments/iot-integrator-ondilo-ico-spa-v2/RESEARCH-PROTOCOL.md` (new)
+  - `experiments/iot-integrator-balboa-gateway-ultra/RESEARCH-PROTOCOL.md` (new)
+  - `paper/main.md` (§6.5–§6.7 added; §7.13–§7.14 added; four new figures referenced)
+  - `paper/main.tex` (mirror of the above per rule 11)
+  - `paper/figures/data/difficulty-taxonomy.csv` (new)
+  - `paper/figures/fig12-difficulty-taxonomy.{py,svg,pdf}` (new)
+  - `paper/figures/fig13-pipeline-vulnerabilities.{py,svg,pdf}` (new)
+  - `paper/figures/fig14-malicious-integrator.{py,svg,pdf}` (new)
+  - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}` (new)
+  - `paper/figures/README.md` (inventory + Rule-14 compliance subsection for fig12)
+  - `README.md` (figure-count badge; structure-tree fig range; Synthesis gallery)
+  - `docs/logbook.md` (this entry)
+
+- Key decisions:
+  - The two new IoT-Integrator cases were *not* added as full top-level case-study sections (§6, §7, ...) to avoid renumbering every cross-reference, label, and figure caption that already depends on the 3 → 10 numbering. Instead they enter the paper through §6.5 as cross-validation evidence, which preserves all existing labels and is consistent with the per-case `REPORT.md` files being the citable artifacts.
+  - The difficulty taxonomy is qualitative by design; the CSV stores the numeric mapping (Low=1, Medium=2, Med-High=2.5, High=3) so the heat-map is reproducible, but the prose explicitly states that the composite is informative of *spread* not of an absolute scale (consistent with rule 1).
+  - The malicious-integrator and APK-mass-probing sections were placed in §7 (Discussion) rather than in §6 (Synthesis) because they are *prospective* threats inferred from the case-study evidence rather than findings synthesised across the cases.
+  - The §7.13 mitigation framing is structural rather than technical, mirroring the §7.4 dual-use accountability and §7.6 sloppification arguments: governance (checkpoints, redaction, dual-use mirror) rather than capability denial. This keeps the paper's structural-answer thesis consistent across all of §7.
+
+- Open issues:
+  - Researcher validation of both new IoT-Integrator cases is still pending; the test checklists in `RESEARCH-PROTOCOL.md` are the formal hand-off artifact.
+  - Both new cases need their `raw_conversations (copy&paste, web)/` exports populated before rule 4 is fully satisfied (transcripts as first-class artifacts).
+  - `[lit-retrieved]` literature for §6.7 / §7.13 / §7.14 is currently anchored only to the existing `[L-BLE-4]` and `[L-PRIV-5]` entries; a future literature pass should cover the malicious-LLM-agent and APK-corpus-probing literature explicitly (e.g. Sivakumaran et al. 2023 is already in the register but adversarial-LLM-tooling and APK-mirror-abuse literature is not).
+  - All Session 7 / 12 issues remain open.
+  - Pre-publication history-rewrite for the Balboa XAPK + derivative APKs is still owed (rule 12).
+
+- Next steps:
+  - Researcher reviews this session's additions against the per-case `REPORT.md` and `RESEARCH-PROTOCOL.md` files and either accepts or flags the writer-pass framing of the new themes.
+  - Researcher executes the `T-OND-*` and `T-BAL-*` checklists and lodges the redacted validation logs.
+  - On acceptance, the four new figures join the visual abstract gallery and the §7.13 / §7.14 framings are eligible to be cited from a future submission draft.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, researcher acceptance and close-out)
+- Session lead: Researcher.
+- Action: explicit acceptance of the close-out summary ("accepted", 2026-05-02). Case study `experiments/iot-integrator-balboa-gateway-ultra/` is feature-complete on branch `claude/iot-pool-spa-integration-tkpaD`.
+- Pointer for citation: `experiments/iot-integrator-balboa-gateway-ultra/process/summary.md` (consolidated narrative); `experiments/iot-integrator-balboa-gateway-ultra/REPORT.md` (top-level case-study report).
+- Outstanding researcher-side work, recorded so it does not get lost:
+  - Run `integration/validation-checklist.md` end-to-end and lodge `captures/phase-3-validation.log.redacted`.
+  - Activate `S-BAL-*` markers in `docs/redaction-policy.md` as they appear during the validation run.
+  - Optional: §A jadx deep-dive (W-3 reachability, W-5 conditionality), §B LAN probe, §C mitmproxy capture, §D GDPR SAR with BWG and WaterGuru.
+  - Populate `experiments/iot-integrator-balboa-gateway-ultra/raw_conversations (copy&paste, web)/` with the exported transcripts of this session.
+  - Pre-publication: `git rm` the XAPK and the derivative APK assets per the confirmed rule-12 retention plan; SHA-256 anchors in `phase-2-weakness.md §2.0` remain the permanent evidence.
+- No further AI-driven work is expected on this case study without a new prompt. Rule 13 publication posture: no public push beyond the working branch, no Zenodo deposit, no arXiv submission, no upstream PR.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 0 bootstrap)
+- Session lead: AI agent (Claude Opus 4.7), executing `docs/prompts/iot-integrator-prompt.md` on branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 0 (self-augmentation + target intake).
+- Actions taken:
+  - Enumerated input set with `ls experiments/*/REPORT.md` (4 reports: ecoflow-powerocean, iot-integrator-ondilo-ico-spa-v2, paper-meta-process, spider-farmer). Recorded verbatim in `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md §0.1.a`.
+  - Read each `REPORT.md` in full and distilled an 18-row Technique Inventory, every row anchored to a specific section citation, no fabricated entries. Three gaps recorded as Open Questions, not invented techniques.
+  - Treated the prior `iot-integrator-ondilo-ico-spa-v2` run with equal weight to the original three case studies (prompt §0.1.e).
+  - Created experiment subfolder layout `experiments/iot-integrator-balboa-gateway-ultra/{process,original,captures,integration,raw_conversations (copy&paste, web)}/`.
+  - Surfaced an apparent target/artifact conflict (Balboa Gateway Ultra Wi-Fi module vs Ondilo ICO APK link) at intake per CLAUDE.md rule 7. Three candidate resolutions presented; provisional default = Balboa-only run; agent did not guess. Phase 1 will not start until the researcher answers.
+  - Pre-allocated redaction marker block `S-BAL-1..S-BAL-8` in the bootstrap report. None activated yet, so `docs/redaction-policy.md` is unchanged.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - Researcher must resolve the Balboa-vs-ICO target conflict before Phase 1.
+  - Researcher must declare the desired control surface and privacy boundary, and confirm which artifacts they can legally / ethically supply.
+  - Three Technique Inventory Open Questions (Wi-Fi module RE; captive-portal / setup-AP; vendor white-label identification) may need new technique IDs created during this run and back-fed at close-out.
+- Next steps:
+  - Present the Phase 0 user-facing summary (technique count, target, privacy boundary, artifact list) at the Phase 0→1 checkpoint and wait for explicit "go".
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 0 conflict resolved)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 0 (target intake conflict resolution).
+- Actions taken:
+  - Researcher confirmed at the Phase 0→1 checkpoint that the original "target artifact" link (Ondilo ICO Manager APK) was a copy-paste mistake. Correct artifact: ControlMySpa Android app (`com.controlmyspa.ownerappnew`, https://apkpure.com/controlmyspa/com.controlmyspa.ownerappnew). This is the Balboa BWA companion app and is coherent with the Balboa Gateway Ultra target.
+  - Updated `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md §0.2.1` (resolution recorded; original conflict text retained for audit) and §0.2.2 (artifact (a) confirmed as ControlMySpa).
+  - Option 1 (Balboa-only run) confirmed; experiment slug `iot-integrator-balboa-gateway-ultra` is final.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-0-bootstrap.md`
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - Researcher still owes: declared control surface (read-only vs read+write), confirmation of provisional privacy boundary, and which of artifacts (b) LAN captures / (c) setup-AP capture / (d) redacted DSN they can supply.
+- Next steps:
+  - Wait for the remaining Phase 0→1 inputs, then begin Phase 1 (desk-research only, no device contact).
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 1 desk research)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 1 (research; desk-only; no device, no LAN, no vendor cloud contact).
+- Actions taken:
+  - Catalogued nine existing solutions (ES-1..ES-9) in two families: local-protocol integrations targeting the older BWA Wi-Fi Module 50350 (ES-1..ES-5, all incompatible with the researcher's 59303) and cloud integrations targeting `iot.controlmyspa.com` (ES-6..ES-9, all requiring a vendor account).
+  - Recorded the headline gap: no open-source project documents a LAN-only path that talks to the Gateway Ultra (59303). The researcher's "as local as possible" privacy boundary therefore collides with the device's intended architecture; Phase 2 must determine whether *any* LAN surface exists at all.
+  - Mapped vendor and ecosystem: BWG / Costa Mesa CA / parent Helios Technologies; EU reseller Perfect Spa GmbH; ControlMySpa cloud at `iot.controlmyspa.com` with a documented TLS-chain breakage since June 2023 — recorded as a paper-relevant vendor signal.
+  - Catalogued candidate interfaces CI-1..CI-6; none selected. CI-2 (legacy local TCP) and CI-5/CI-6 (mDNS / BLE) are the Phase-2 questions.
+  - Recorded five Open Questions to carry into Phase 2.
+  - Three vendor URLs returned 403 to the agent (perfect-spa.eu product page, home-assistant.io balboa docs, manuals.plus 59303 manual). Affected claims annotated; researcher must re-verify with direct fetch before any paper citation.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-1-research.md` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - All five Phase-1 Open Questions (§1.5) carried into Phase 2.
+  - `docs/sources.md` cluster K (Balboa / ControlMySpa) to be populated at close-out.
+  - Researcher promotion of `[lit-retrieved]` → `[lit-read]` required before any Phase 1 claim is asserted as authority in `paper/main.md`.
+- Next steps:
+  - Present the Phase 1 user-facing summary at the Phase 1→2 checkpoint (existing-solutions count, gap, top three candidate interfaces, vendor privacy posture). Wait for explicit "go" before Phase 2.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 2 weakness analysis)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 2 (weakness analysis; static-only; no device, no LAN, no vendor cloud contact).
+- Actions taken:
+  - Researcher uploaded `ControlMySpa_4.1.9_APKPure.xapk` to the experiment folder root via direct push to the branch. AI agent moved it under `original/`, extracted the XAPK bundle into `original/extracted/` (1 base APK + 2 split APKs + manifest.json + icon), and recorded SHA-256 anchors for all four binary artifacts.
+  - Ran static analysis without an APK decompiler (sandbox lacks apktool/jadx): `unzip` + `strings` + `grep` over `classes{,2,3,4}.dex`, plus the verbatim XAPK manifest.json for the permission inventory.
+  - Cross-validated cloud REST endpoints between APK 4.1.9 and ES-6 (`[REDACTED:repo-path:BALBOA-UPSTREAM-2]`); APK exposes endpoints not in ES-6 (chromozone color/power/speed; filter-cycles schedule; toggle-filter2-state; time; c8zone; spas claim/unlink/set-default; temperature scale).
+  - Identified identity provider as AWS Cognito us-west-2 (resolves Phase 1 OQ-4: 1 h access / 30 d refresh by default).
+  - Identified third-party hosts: WaterGuru API (Helios sister brand — cross-vendor data flow), Firebase Analytics + Crashlytics 18.5.0 + Performance 20.5.0 + Sessions 1.1.0 + Remote Config + FCM, Google Sign-in, Google Mobile Ads SDK strings, ML Kit Barcode (QR pairing). No AppsFlyer/Adjust/Mixpanel/Branch/Sentry/OneSignal/Datadog/Bugsnag/Kochava/Tealium/mParticle/Braze/Leanplum/Amplitude/Segment.
+  - Recorded TLS posture: OkHttp `CertificatePinner` imported but no concrete sha256/ pin observed in DEX strings; Apache `TrustAllStrategy` symbol present (W-3) — combined with the documented June-2023 chain breakage at iot.controlmyspa.com (Phase 1 §1.2.3) this is the canonical "obscurity-as-security" anti-pattern for `T-OBSCURITY-VS-AUTH`.
+  - Compiled an 8-row Weakness Table (W-1..W-8) with explicit dual-use mirrors per `T-DUAL-USE-MIRROR`.
+  - Wrote four researcher-runnable follow-up protocols (§A DEX deep-dive, §B LAN probe, §C live cloud capture with mitmproxy, §D GDPR SAR) — mirrors the Ondilo §A.5 pattern.
+  - Surfaced rule-12 `legal-grey` consideration on whether to keep the XAPK binary in git history vs SHA-256-only at the Zenodo/arXiv stage.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/original/ControlMySpa_4.1.9_APKPure.xapk` (moved from experiment root after pull from origin)
+  - `experiments/iot-integrator-balboa-gateway-ultra/original/extracted/{base APK, 2 split APKs, manifest.json, icon.png}` (new — extracted)
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/phase-2-weakness.md` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - OQ-1 (LAN-only service on the 59303): refined; final answer requires researcher §B LAN probe.
+  - OQ-2 (signed firmware OTA): open; requires live capture or vendor disclosure.
+  - OQ-3 (BWG vs Perfect Spa GDPR controller): open; researcher §D SAR is the canonical resolution path.
+  - W-3 reachability of `TrustAllStrategy` requires researcher §A jadx run.
+  - Rule-12 decision: retain XAPK in git or SHA-256-only at publication time. Recommendation logged in §2.4.5; final decision is researcher's at close-out.
+- Next steps:
+  - Present the Phase 2 user-facing summary at the Phase 2→3 checkpoint with the three Phase 3 options (do-not-integrate / cloud-only configuration-only / defer until §A/§B). Wait for explicit choice + cloud authorisation if option 2 is selected.
+
+### 2026-05-02 (IoT Integrator — Balboa Gateway Ultra, Phase 3 implementation + close-out)
+- Session lead: AI agent (Claude Opus 4.7), branch `claude/iot-pool-spa-integration-tkpaD`.
+- Phase: 3 (configuration-only outcome) and close-out.
+- Researcher Phase 2→3 decision: option 2 (cloud-only configuration-only); cloud-touching authorisation explicitly granted, scoped to the household account; XAPK retention plan confirmed (keep on working branch, `git rm` before any Zenodo/arXiv publication).
+- Actions taken:
+  - Wrote `integration/{README.md, smoke-test.py, operational-notes.md, validation-checklist.md, dual-use.md}` — five-file deliverable set mirroring the Ondilo §5.5 pattern (`T-CONFIG-ONLY-OUTCOME`). The Python smoke test is a read-only auth+state validator that uses `controlmyspa==4.0.0` and reads credentials from `CONTROLMYSPA_USER`/`CONTROLMYSPA_PASS` env vars.
+  - Defined the six-control hardening overlay C-1..C-6 (secondary onboarding device, network-edge sinkhole for WaterGuru + Google ad hosts, spa nickname alias, dedicated email alias, 90 d password rotation, encrypted backups). Documented five explicitly-not-done controls for audit.
+  - Wrote `process/phase-3-implementation.md` (design / build / validation / operational notes / dual-use reflection), `process/summary.md` (consolidated narrative for paper citation), `REPORT.md` (top-level case-study report mirroring prior cases), `README.md` (folder reader's-guide), `provenance.md` (per-artifact + per-claim AI/researcher attribution).
+  - Recorded two new technique tags proposed for the next-run inventory: `T-CROSS-VENDOR-CORPORATE-FLOW` (BWG ↔ WaterGuru inside Helios) and `T-OPERATIONAL-OBSCURITY` (sound auth scheme, weak operational layer).
+  - No `S-BAL-*` redaction markers activated by the agent (no live capture). First activation expected during researcher-side validation-checklist.md run.
+- Files updated:
+  - `experiments/iot-integrator-balboa-gateway-ultra/integration/{README.md, smoke-test.py, operational-notes.md, validation-checklist.md, dual-use.md}` (new)
+  - `experiments/iot-integrator-balboa-gateway-ultra/process/{phase-3-implementation.md, summary.md}` (new)
+  - `experiments/iot-integrator-balboa-gateway-ultra/{REPORT.md, README.md, provenance.md}` (new)
+  - `docs/logbook.md` (this entry)
+- Open issues:
+  - Researcher to execute `integration/validation-checklist.md` end-to-end and lodge `captures/phase-3-validation.log.redacted`.
+  - Researcher §A jadx run resolves W-3 (TrustAllStrategy reachability) and W-5 (WaterGuru conditionality).
+  - Researcher §D SAR resolves OQ-3 (BWG vs Perfect Spa GDPR controller).
+  - Pre-publication: `git rm` the XAPK and the derivative APK assets per the rule-12 retention plan.
+  - Researcher to populate `raw_conversations (copy&paste, web)/`.
+- Next steps:
+  - Present the close-out summary to the researcher and wait for explicit acceptance.
+  - On acceptance: case study is feature-complete on this branch; no further AI-driven work expected without a new prompt.
 
 ### 2026-05-03 (writer: community-implementer anonymisation + Author's Note)
 - Session lead: AI assistant (Claude Opus 4.7) acting as Stage 2 Scientific Writer under orchestrator dispatch on branch `claude/start-orchestrator-36qQV`. Combined two writer tasks into a single pass to avoid file races.
@@ -2197,6 +2014,161 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables:** edits to `docs/sources.md` (six entry status lines L-PRIV-7..12); appended pass-12 sections to `docs/handbacks/source-analyzer-report.md` and `docs/handbacks/source-analyzer-to-writer.md`; this logbook entry. Commit on `claude/review-open-issues-PfNx9`; not pushed (rule 13).
 - **Next step (orchestrator):** continue down-file with the next ~6 `[lit-retrieved]` entries. The natural next slice begins at **L-AGT-1** (cluster M, malicious LLM agents and adversarial agentic AI, supporting §7.13).
 
+### 2026-05-03 (peer-review reconstruction — Spider Farmer v2→v3)
+- Session lead: AI agent (Claude opus-4-7), invoked by orchestrator on behalf of human author.
+- Trigger: peer-review comment flagging that `paper/main.md` §3.4 admits an undocumented `VERSION 2 → 3` migration step.
+- Actions taken:
+  - Attempted to clone `https://github.com/noheton/spider_farmer.git` per task brief. All retrieval channels failed in the current sandbox: anonymous `git clone` (no creds), GitHub MCP (`noheton/spider_farmer` not in allowed-repos list — only `noheton/obscurity-is-dead` permitted), `api.github.com` (rate-limited, unauthenticated), `codeload.github.com` tar.gz on `main` and `master` (404), `HEAD https://github.com/noheton/spider_farmer` (404). Repository is either private, renamed, or otherwise unreachable from this environment.
+  - Fell back to the locally-vendored snapshot `experiments/spider-farmer/original/` (per repo commit `ffdf60c`). Reconstructed the v2→v3 migration *technically* from `original/__init__.py` lines 95–135, whose docstring and code self-document the transition: BLE-only transport, drop legacy MQTT-only fields (`uid`, `mqtt_topic`), derive `pid` from BLE address, idempotently carry forward the v1→v2 CB-key fix, fail-closed when no BLE address is present.
+  - Drafted hand-back `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` containing: (a) the peer-review concern verbatim, (b) failed-retrieval methodology and local fallback, (c) the technical reconstruction with file/line citations and the verbatim docstring quote, (d) drop-in replacement blocks for `paper/main.md` §3.4 line 169 and the corresponding `paper/main.tex` paragraph, (e) explicit provenance-gap statement enumerating what remains `unverified-external` (commit SHA, date, PR/issue refs, AI-assistance status of the original migration work).
+  - Did **not** edit `paper/main.md` or `paper/main.tex` (per task brief — writer agent owns paper edits).
+- Files updated:
+  - `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` (new)
+  - `docs/logbook.md` (this entry)
+- AI vs human contribution (rule 1): hand-back prose, reconstruction, and recommended paper-edit are AI-generated. Human input pending: review of the recommended edit before the writer agent integrates it.
+- Redaction (rule 12): no new credential material; the stale BLE candidate `J4G0M9dX1f1v3fXr` quoted in the addendum is a disproved candidate already documented in T1 and `provenance.md`, not a live key.
+- Distribution (rule 13): no push, no public release.
+- Next step: orchestrator should dispatch the scientific-writer stage to integrate the recommended block into §3.4 and amend the §10 open-issue bullet (line 626).
+
+### 2026-05-03 (Stage 4 layout scrutiny — post writer + illustrator pass; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 4 layout scrutinizer), branch `claude/review-open-issues-PfNx9`.
+- PDF inspected: `paper/main.pdf` SHA-256 `04e818e993e2eea84cf05d5a5bc7045d80270d6a856a398cc04106ca7ac5cf99`, 49 pages, build commit `b5162ee`, build timestamp 2026-05-03T12:54:14Z (newer than `paper/main.tex`). PDF version 1.5 throughout.
+- Method: PDF viewer MCP unavailable (`allowedDirectories: []`); sweep performed via `paper/main.log` (37 overfulls, 61 underfulls, 0 undefined refs/cites, 0 PDF-version-1.7 warnings) cross-checked against `paper/main.tex`. Pixel-level FIG-* dimensions carry a `viewer-blocked` note.
+- Carry-over verifications:
+  - **LAY-13 RESOLVED.** Illustrator's Makefile post-process (PDF 1.7 → 1.5 header rewrite) eliminated all PDF-inclusion version warnings.
+  - **LAY-01 RESOLVED.** Section labels `sec:scope-non-goals` (`:440`), `sec:synthesis-evidence-asymmetry` (`:1521`), `sec:disc-validity` (`:1782`) all present; zero undefined refs.
+  - **LAY-05, LAY-07, LAY-11 RESOLVED.** LAY-19, LAY-17, LAY-10, LAY-22 still open at H/M severity.
+- New defects: LAY-23 (continuation of LAY-14 font-shape fallback), LAY-24 (§3.4 reconciliation prose preface, 32pt + 11pt), LAY-25 (§6.6/§6.7 boundary cluster, 43pt + 5pt + 61pt). FIG-01..FIG-09 filed per the new figure-and-image critique extension to the layout scrutinizer prompt.
+- Defect rollup: open H = 2 (LAY-19 226pt KPI tabular; FIG-01 alt-text-missing across 18 `\includegraphics`); open M = 14; open L = 12. Layout = 19 open, Figure = 9 open.
+- Figure-stock assessment: substantial illustrator work outstanding (FIG-02 colour migration, FIG-03 fig11 fontsize, FIG-04 intact-jar Gemini final, FIG-09 deferred Tufte audit). Endorses the human author's earlier acknowledgement.
+- Files written:
+  - `docs/handbacks/layout-defect-registry.md` (rewritten for this build)
+  - `docs/handbacks/layout-to-writer.md` (rewritten)
+  - `docs/handbacks/layout-to-illustrator.md` (rewritten)
+  - `docs/handbacks/layout-scrutiny-2026-05-03.md` (new)
+  - `docs/logbook.md` (this entry)
+- No edits to `paper/main.{md,tex}` or `paper/figures/` (rule 11; Stage 4 scope).
+- Distribution (rule 13): local only; no `make arxiv`, no push.
+- Verdict: **RE-SCRUTINY REQUIRED: yes.**
+- Next step: orchestrator dispatches Stage 2 (writer) on the LAY-* prose/table items + FIG-01 macro pass + FIG-07/-08 caption mirror, then Stage 3 (illustrator) on FIG-02/-03; rebuild via `make pdf`; re-run Stage 4.
+
+### 2026-05-03 (Stage 1 research-protocol — `noheton/powerocean-dev` upstream resync; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 1, targeted resync), branch `claude/review-open-issues-PfNx9`.
+- Trigger: human-author directive — upstream "significant progress" since the in-repo snapshot; partially closes the medium-priority subpass queued by `docs/handbacks/research-protocol-delta-2026-05-03.md` D-5 (`provenance.md` follow-up #5 OCPP scope now decidable; #4 §69e UrhG sourcing still open; #6 redistribution precedent now available upstream).
+- Probe results: github.com web 200; api.github.com 403 (rate-limit); codeload tarball 200 on `main` (default branch; `master` 404); raw `manifest.json` 200; atom feed 200 (≥30 commits, top SHA `56d4f55c34`, dense activity 2026-05-01 → 2026-05-03). Tarball downloaded to `/tmp/powerocean-dev.tar.gz` (~868 KB), extracted to `/tmp/po-upstream/powerocean-dev-main/`. GitHub MCP and Exa MCP not used (tarball + atom-feed sufficient).
+- Material findings vs in-repo snapshot:
+  - New top-level `DISCLAIMER.md` reframes the integration's method as HTTP-traffic-observation (no decompile of redistributable artifact); commit `1aa96507ef` separately captures OCPP-1.6 schema from APK decompile, indicating a two-track methodology (researcher-side decompile to *understand*; redistributable artifact contains only traffic-observable structures).
+  - `doc/` directory redacted upstream (commit `5c8b815cf9`): APK, `apk.md`, `apk-logs.md`, `equipment.md` (GDPR personal data), `implementation.md`, `geninfo.pdf`, `powerocean.pdf`, `ecoflow-open-demo.zip`, `logs/raw_*.txt` removed. Replaced by 80-line `doc/README.md` with explicit "`git rm` does not purge history" caveat — a citable real-world rule-12 / rule-13 precedent.
+  - OCPP scope: ~+440 LOC across `api.py` (+115; `async_ocpp_list_backends`, `async_ocpp_post_backend`, `async_get_property` with `acquireQuotaAll` fallback), `__init__.py` (+152; four services + `_build_ocpp_bind_req`), `services.yaml` (+174), `const.py` (+4 CONF_OCPP_* keys). New endpoints `/provider-service/app/ocppPlatformConfig{,/list}`, `/iot-devices/device/getDeviceProperty`, `/iot-devices/device/acquireQuotaAll`. Documented runtime-handover gap (`vendorInfoSet` not yet shipped).
+  - Auth / write-surface model unchanged: same EU/US region probe (`api-e` / `api-a`), same bearer-token, same `setDeviceProperty` legacy endpoint. §4.4 paper claims confirmed.
+  - Manifest version unchanged at `2026.05.01` despite substantive code changes (post-tag fixes pushed onto same semver string).
+- Files written: `docs/handbacks/research-protocol-powerocean-resync-2026-05-03.md` (new, ~190 lines: probe results, repo metadata, per-section delta, paper-claim cross-check with 10 writer recommendations d.1–d.10, 6 provenance gaps); `docs/logbook.md` (this entry).
+- No edits to `paper/main.{md,tex}` (rule 11); no push (rule 13); no `make pdf` invoked. No new credentials / SNs / UIDs / IPs reproduced from upstream (rule 12 enforced).
+- Verdict: writer hand-back queued. Load-bearing recommendations d.1 (§4.2 inventory annotation re upstream redaction event), d.2 (§4.3 step 1 method-tension footnote), d.6 (§4.6 OCPP runtime-gap as concrete asymmetry), d.7 (§6/§10 cite upstream `5c8b815cf9` as rule-12 precedent). Discretionary: d.4 (Figure 8 verb-set extension — illustrator), d.8 (decide OCPP as Future Work in §11). Still open / not closed by this resync: d.9 (§69e UrhG sourced legal commentary remains needed); d.10 (paper-repo redistribution decision unchanged).
+- Next step: orchestrator dispatches Stage 2 (writer) to integrate d.1 / d.2 / d.6 / d.7; Stage 1.5 (Source Analyzer) to consider `[lit-retrieved]` entries for upstream commit `5c8b815cf9` and `DISCLAIMER.md`; Stage 3 (illustrator) only if d.4 is taken up.
+
+### 2026-05-03 (Stage 3 illustrator — pipeline-fix audit + FIG-11 closure; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 3 illustration agent), branch `claude/check-illustration-pipeline-Jqst3`.
+- Trigger: author-reported "ich habe nicht das gefühl als ob sich die illustrationen ändern" → orchestrator dispatched a dual mandate. Pipeline was repaired earlier on this branch in commits `80b5608` (Makefile `$(SCRIPTED_FIG_PDFS)` rule wiring `fig1` + `fig6..fig16`) and `e19d04a` (toolchain whitelist expanded to Mermaid / TikZ / Graphviz / D2 / Altair / Inkscape / drawio).
+- Audit:
+  - Forced full regeneration of all 12 scripted figures via `touch paper/figures/dlr_style.py && make -C paper figures`. All scripts ran cleanly.
+  - Compared regenerated outputs against committed assets. Result: SVG diffs are pure non-determinism (timestamps + matplotlib hash-based clip-path / `<path id>` IDs); PDF byte sizes are byte-for-byte stable across all 12 figures.
+  - Verdict: no visual drift between committed PDFs and what the scripts produce. The reworked figures from the prior overhaul (`d2858ac`) are correctly materialised in `paper/main.pdf`. The author's "feels like nothing changed" intuition was historically correct (pre-`80b5608` Makefile gap) but is now resolved.
+- Materialised hand-back items (closes residual FIG-11 from `layout-defect-registry.md`):
+  - **fig8-ecoflow-surfaces** — promoted a pre-existing working-tree edit (CB-safe Tol-bright rose `#ee6677` + `//` hatch on legacy-REST surface; body 9.5/8.0 → 10.0/9.0 pt; integrator-arrow recoloured to `dlr_style.DLR_YELLOW`) and regenerated `.svg`/`.pdf`. The "is the red semantic?" question that previously gated the change is answered by the hatched-rose pattern preserving the do-not-use semantic in CVD + greyscale.
+  - **fig15-apk-mass-probing** — replaced three green `#cad55c` middle stages with a sequential blue ramp so colour monotonically encodes pipeline depth (CB-safe under deuteranopia + greyscale); white text on the two darker stages via a `_DARK_FILLS` membership check; yellow `#fff8be` empirical-rates panel → neutral `dlr_style.DLR_GRAY_SOFT`; sub-floor fonts raised to 9 pt.
+  - **fig16-scope-limitations** — inner-cell font 7.8 → 9.5 pt (FIG-11 carry-forward closed); pink/red `#fadbd8` exclusion ring → `#ee6677` border + `////` hatch on `#fbe0e2` fill (matches fig8 / fig14 pattern); ring-label 8.6 → 9.2 pt; legend 8 → 9 pt; figure widened 11"×9" → 12"×9.5" so larger labels do not overlap.
+- Deferred (no illustrator action this pass):
+  - FIG-04 (Gemini intact-jar deliverable) — gated on human author.
+  - FIG-09 (data-to-ink audit) — viewer-blocked at Stage 4.
+  - FIG-10 (`\Description{}` text-fidelity audit) — pure-audit task; recommend folding into next overhaul pass.
+  - RDB-04 (consolidate §10 enumeration into Fig 11) — Stage 5 verifies Fig 11 already carries the load; writer-side prose decision (a/b/c) is owned by human author.
+  - RDB-05 + RDB-08 (consolidate fig13 + fig14) — structural authorial decision per prior pass; the two figures serve distinct rhetorical positions.
+  - RDB-07 (§7.11 4×3 prompt-injection matrix) — writer-side prose conversion unblocks; figure is enhancement, not blocker.
+- Files updated:
+  - `paper/figures/fig8-ecoflow-surfaces.{py,svg,pdf}`
+  - `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}`
+  - `paper/figures/fig16-scope-limitations.{py,svg,pdf}`
+  - `paper/figures/README.md` (inventory note appended)
+  - `docs/handbacks/illustrator-pass-2026-05-03-pipeline-fix.md` (new hand-back)
+  - `docs/logbook.md` (this entry)
+- Rule 1 (honesty): every regenerated docstring carries an explicit "2026-05-03 pipeline-fix pass" change log. Rule 11 (mirror): no `paper/main.{md,tex}` edits — captions / labels unchanged. Rule 13 (distribution): local only; no `make pdf`, no `make arxiv`, no public push. Rule 14 (data + script): all three figures are structural diagrams; scripts committed and registered. Rule 15 (README): `fig11-eight-practices.svg` (top-level README hero) is unchanged this pass; fig8/15/16 are not in the README gallery, so no top-level README update required.
+- Verdict: `RE-ILLUSTRATION REQUIRED: no`. Stage 4 + Stage 5 should re-scrutinise after a `make pdf` rebuild to confirm FIG-11 can be downgraded to RESOLVED.
+- Next steps: hand back to orchestrator. Layout/readability scrutinizers should re-sweep against the new fig8/15/16 PDFs; writer can schedule the §10 list-vs-Figure-11 decision (RDB-04) when the human author picks an option.
+
+### 2026-05-03 (Stage 5 readability — round 2; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 5 readability & novelty scrutinizer), branch `claude/review-open-issues-PfNx9`.
+- Trigger: orchestrator dispatch after writer commit `370e792` (Mythos hook + guardrails-as-band-aid + plagiarism 9th practice) and illustrator pass `d2858ac` (figure overhaul). Re-scrutiny of `paper/main.md` only (Stage 5 scope; Stage 4 owns the PDF).
+- Verifications carried over from round 1:
+  - **RDB-27 RESOLVED-confirmed** — writer loop-2 `4987d9d` split the two ~70-word Author's Note sentences as suggested.
+  - **RDB-28 RESOLVED-confirmed** — writer loop-2 `4987d9d` converted the §3.4 v2→v3 reconstruction run-on into lead clause + 4-step nested ordered list + provenance-gap coda.
+  - **RDB-22 / -23 / -25 / -01-residual / -02 / -12 / -15 / -16 / -18 / -21 mirror parity** preserved (no regression).
+- New entries this round (5 prose, 2 caption): **RDB-30** (M, §7.3 Mythos paragraph: 257w / 6 sentences with two >40w em-dashed sentences — split recommended); **RDB-31** (M, §7.4 band-aid hedge: "collapses to attacker-side capability over a short enough horizon" reads as near-deductive without a quantitative literature anchor — reframe as engineering intuition or footnote the caveat); **RDB-32** (L, Author's Note "What surprised me about the assistant" 213w / 8 sentences with three >40w sentences — optional splits); **RDB-33** (L, §10 ninth-practice closing forward-looking promise uncited — anchor to L-SLOP-12 or delete); **RDB-34** (L, §10 eight-vs-nine count mismatch primed late — recommend lede-sentence half-clause or "*Looking ahead*" sub-heading); **RDB-35** (L, Fig 9 caption rule-11 fidelity: 3 → 4 literature stages); **RDB-36** (L, Fig 11 caption duplicates redrawn in-figure legend — tighten).
+- Novelty audit (round 2): §7.3 Mythos counter-data-point = HONEST-COUNTERPOINT, on-policy — original asymmetry argument **sharpened, not weakened** (now explicitly time-bounded against the L-VD-1 / L-VD-2 calibration era); §7.4 band-aid framing = NEW INCREMENTAL CONTRIBUTION beyond literature (closest comparators do not state the band-aid argument as a security-by-design imperative); §10 ninth practice = NOT NOVELTY-INFLATED modulo the closing forward-looking promise (RDB-33).
+- RDB-04 status: still DEFERRED, now COMPLICATED by the ninth-practice prose (Figure 11 stays at 8 rows; §10 prose now lists 9). Stage 5 still endorses option (b) — drop the §10 prose enumeration, lean on Figure 11 + a one-sentence recap, with the ninth surviving as a clearly-set-off forward-looking addendum.
+- Counts (active actionable, post-round-2): H = 0; M = 13 (incl. RDB-30, RDB-31 new); L = 13 (incl. RDB-32..-36 new). Resolved this round = 2 (RDB-27, RDB-28). New = 7.
+- Most consequential defect: **RDB-31** (§7.4 band-aid hedge tightness).
+- Files updated:
+  - `docs/handbacks/readability-defect-registry.md` (round-2 block appended)
+  - `docs/handbacks/readability-to-writer.md` (RDB-30..-36 entries appended)
+  - `docs/handbacks/readability-to-illustrator.md` (round-2 carry-note appended; no new illustrator-owned defect)
+  - `docs/handbacks/readability-scrutiny-2026-05-03-round2.md` (new full diagnosis)
+  - `docs/logbook.md` (this entry)
+- No edits to `paper/main.{md,tex}` or `paper/figures/` (Stage 5 scope; rule 11 unchanged).
+- Distribution (rule 13): local only; no push, no `make pdf`, no `make arxiv`.
+- Verdict: **`RE-SCRUTINY REQUIRED: yes`** — five prose + two caption entries filed at M / L severity; no new H. Re-scrutiny should follow the next writer pass.
+
+### 2026-05-03 (Stage 2 writer — focused loop 2; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 2 scientific writer), branch `claude/review-open-issues-PfNx9`.
+- Trigger: orchestrator dispatch to clear the two H-severity items left by Stage 4 / Stage 5 against build commit `b5162ee` (LAY-17 + LAY-19 KPI tabular family; FIG-01 alt-text-missing across 17 `\includegraphics` calls), plus the two L-severity readability tightening items (RDB-27 Author's Note paragraph density, RDB-28 §3.4 v2→v3 reconstruction run-on).
+- Actions taken:
+  - **Job 1 (LAY-17 + LAY-19).** Converted the Spider Farmer (`paper/main.tex:752–766`), EcoFlow (`:925–935`) and Meta-process (`:1156–1174`) KPI tabulars from `\begin{tabular}{llll}` to `\begin{tabularx}{\linewidth}{@{}l l >{\raggedright\arraybackslash}X r@{}}` so the wide "Key event" column absorbs the wrap. `tabularx` was already in the preamble.
+  - **Job 2 (FIG-01).** Added a `\providecommand{\Description}[1]{}` no-op shim at `paper/main.tex:29–33` and one ≤25-word `\Description{...}` per `\includegraphics` for all 17 figure includes (16 numbered floats plus the intact-jar logo).
+  - **Job 3 (RDB-27 + RDB-28).** Split the two ~70-word Author's Note sentences (`paper/main.md:31` paper-mill paragraph; `:33` invitation paragraph) into two shorter sentences each; mirrored at `paper/main.tex:194–199` and `:213–217`. Restructured the §3.4 v2→v3 reconstruction sub-bullet (`paper/main.md:181`) from a single ~254-word run-on into a short lead clause + nested 4-step ordered sub-list + provenance-gap coda paragraph; mirrored at `paper/main.tex:644–679` with a nested `enumerate`.
+- Files updated:
+  - `paper/main.tex` (preamble shim + 3 tabularx conversions + 17 `\Description{}` macros + RDB-27/-28 mirror)
+  - `paper/main.md` (RDB-27/-28 prose surgery)
+  - `docs/handbacks/writer-pass-2026-05-03-loop2.md` (new hand-back)
+  - `docs/logbook.md` (this entry)
+- Rule 11 (mirror discipline): Job 3 mirrored line-by-line in both files; Jobs 1 and 2 are TeX-only by construction (Markdown tables wrap natively; no Markdown alt-text macro). Headline numbers, captions, and section counts unchanged.
+- Rule 12 (redaction): no new credential / serial / IP material introduced; existing `[REDACTED:*:S-SF-5-*]` markers untouched.
+- Rule 13 (distribution): local only. No `make pdf` invoked (per task brief); no push; no `make arxiv`.
+- Out of scope this loop: RDB-02 / RDB-04 §10 enumeration vs Figure 11 collapse (pending human-author option a/b/c choice); §69e UrhG sourcing; L-VD/L-HC edge-case footnotes; LAY-10/-22/-25 path-bullet wrap pass; fig13/fig14 illustrator consolidation.
+- Verdict: H-severity scope closed in source; rebuild via `make pdf` then Stage 4 + Stage 5 re-scrutiny required.
+- Next step: orchestrator dispatches `make pdf` (human-gated) → Stage 4 verifies the three KPI tabular overflows are gone and `\Description{}` macros are present; Stage 5 verifies RDB-27 / RDB-28 closure.
+
+### 2026-05-03 (Stage 2 writer — focused loop 3; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7 (Stage 2 scientific writer), branch `claude/review-open-issues-PfNx9`.
+- Trigger: orchestrator dispatch consuming three input streams against the round-2 paper state — Stage 4 layout hand-back (LAY-26 H, 168.71 pt unbreakable path overflow in §10 AI-disclosure-models), Stage 5 readability hand-back (RDB-30 / RDB-31 M; RDB-35 / RDB-36 L caption tweaks), and the Stage 1 powerocean-dev resync hand-back (load-bearing items d.1, d.2, d.6, d.7).
+- Actions taken:
+  - **Job A (LAY-26 H).** Wrapped the unbreakable `\texttt{experiments/*/raw\_conversations (copy\&paste, web)/}` literal and its longer paper-meta-process sibling at `paper/main.tex:2521-2528` in `\seqsplit{...}` segments split at the `(copy\&paste,~web)/` boundary, matching the existing pattern at `:2772`. The longer sibling refactored into a "the paper-meta-process transcript ... under <path>" parenthetical so its filename and parent directory are two separate `\seqsplit{}` tokens. Markdown wraps natively; no edit needed in `paper/main.md`.
+  - **Job B-1 (RDB-30 M).** §7.3 Mythos counter-data-point paragraph (~340 words, 6 sentences) split into three paragraphs at the natural breaks: announcement → technical capability list → Anthropic's response (Glasswing + Opus 4.7 + watershed framing). Mirrored `paper/main.md:493` and `paper/main.tex:1683-1730`.
+  - **Job B-2 (RDB-31 M, most consequential).** §7.4 *Guardrails as band-aid* hedge tightened: "collapses to attacker-side capability over a short enough horizon" → "*plausibly* converges to attacker-side capability over a horizon whose length we cannot yet quantify — a claim we present as engineering intuition rather than proof, and one the L-MYTHOS evidence base [@anthropic2026glasswing; @anthropicred2026mythos] documents qualitatively but does not yet bound numerically." Horizon explicitly named uncertain; L-MYTHOS-1 / L-MYTHOS-2 inline-cited; the rhetorical conclusion downstream now sits on cited reasoning rather than rhetorical momentum. Mirrored at `paper/main.md:506` and `paper/main.tex:1786-1794`.
+  - **Job C-1 (resync d.1, §4.2 Artifact inventory).** New paragraph appended to §4.2 (`paper/main.md:256`; `paper/main.tex:874-887`) annotating the upstream redaction event (commit `5c8b815cf9`), enumerating the removed artifact classes (APK splits, derivative APK analysis, vendor PDFs, vendor sample-code archive, GDPR-personal-data files, raw extraction logs, `equipment.md`), and pointing readers to the upstream `doc/README.md` "git rm does not purge history" caveat. Snapshot retained for research provenance.
+  - **Job C-2 (resync d.2, §4.3 step 1 footnote).** New `[^ef-twotrack]` footnote attached to §4.3 step 1 (`paper/main.md:263-265`); mirrored as `\footnote{...}` at `paper/main.tex:889-909`. Cites `noheton2026powerocean_disclaimer` and `noheton2026powerocean1aa9650`; states the research-arm vs redistribution-arm framing explicitly.
+  - **Job C-3 (resync d.6, §4.6 OCPP runtime-handover gap).** New paragraph appended to §4.6 (`paper/main.md:286`; `paper/main.tex:984-1004`). Documents ~+440 LOC OCPP backend-binding work, new `/provider-service/app/ocppPlatformConfig{,/list}` endpoints, and the `vendorInfoSet`-not-shipped runtime-handover gap as a concrete *catalog-vs-runtime* interoperability asymmetry. Routes the data-point forward to `\cref{sec:synthesis-evidence-asymmetry}`.
+  - **Job C-4 (resync d.7, §10 redaction-precedent paragraph).** New `\paragraph{A real-world precedent for the redaction discipline.}` block in §10 (`paper/main.md:733`; `paper/main.tex:2957-2978`), positioned between the comparator-triplet "differential" paragraph and the *democratisation of science production* paragraph. Cites `5c8b815cf9` and the upstream `doc/README.md` as a recently-dated, publicly-visible enactment of the rule-12 / rule-13 history-rewrite discipline. Stage 5's recommendation that §10 is the better home (over §6) was honoured.
+  - **Job D-1 (RDB-35 L, Fig 9 caption).** Literature-track stages updated 3 → 4: `[needs-research]` → `[lit-retrieved]` → `[ai-confirmed]` → `[lit-read]`, naming the Source Analyzer agent as the owner of the new `[ai-confirmed]` stage per the `CLAUDE.md` 2026-05-02 ladder extension. Mirrored at `paper/main.tex:1140-1149` and `paper/main.md:352`.
+  - **Job D-2 (RDB-36 L, Fig 11 caption).** In-figure-legend duplication removed; caption now reads "See the in-figure legend for the P / S mitigation roles." Mirrored at `paper/main.tex:2861-2867` and `paper/main.md:721`.
+- Files updated:
+  - `paper/main.tex` (LAY-26 wrap; RDB-30 split; RDB-31 hedge; d.1 / d.2 / d.6 / d.7 prose; Fig 9 / Fig 11 captions)
+  - `paper/main.md` (mirror of every prose edit above; RDB-30 split; RDB-31 hedge; d.1 / d.2 / d.6 / d.7 prose; Fig 9 / Fig 11 captions)
+  - `paper/references.bib` (4 new `@misc` entries — `noheton2026powerocean5c8b815`, `noheton2026powerocean1aa9650`, `noheton2026powerocean_disclaimer`, `noheton2026powerocean_docreadme` — formatted to match the existing `niltrip_powerocean` convention; statuses recorded as `[lit-retrieved]` pending Source Analyzer upgrade)
+  - `docs/handbacks/writer-pass-2026-05-03-loop3.md` (new hand-back)
+  - `docs/logbook.md` (this entry)
+- Rule 11 (mirror discipline): every prose edit mirrored md ↔ tex in this commit. Mythos paragraph split → 3 paragraphs in both files; RDB-31 hedge → same sentence in both files; d.1 / d.6 / d.7 paragraphs → paragraph (md) and paragraph / `\paragraph{...}` block (tex); d.2 footnote → Markdown `[^ef-twotrack]` and tex `\footnote{...}`; captions → identical content modulo markup.
+- Rule 12 (redaction): no new credentials / SNs / UIDs / IPs reproduced. The upstream redaction event is the *subject* of the new prose, not its violator — only the *fact* of the upstream redaction is cited.
+- Rule 13 (distribution): local only. No `make pdf` invoked (per task brief); no push; no `make arxiv`.
+- Out of scope this loop:
+  - RDB-32 (L, Author's Note "What surprised me about the assistant" paragraph density — Stage 5 explicitly marked as optional).
+  - RDB-33 (L, §10 ninth-practice forward-looking promise uncited — defer to next pass; "first cut" framing carries the hedge).
+  - RDB-34 (L, §10 eight-vs-nine count primed late — pairs with deferred RDB-04 author decision).
+  - LAY-02 / -03 / -04 / -08 / -09 / -10 / -22 / -24 / -25 / -27 / -28 path-bullet wrap residuals — belong to next writer-loop `\seqsplit{}` sweep.
+  - §69e UrhG sourced legal commentary; RDB-04 / RDB-02 §10 list-vs-Figure-11 collapse — both pending human-author decision.
+  - Resync items d.4 (Figure 8 verb-set extension — illustrator-discretionary), d.8 (OCPP as §11 Future Work — author-discretionary), d.9 / d.10 — not addressed.
+- Verdict: LAY-26 H closed in source (rebuild pending); RDB-30 / RDB-31 M closed; RDB-35 / RDB-36 L closed; powerocean-resync load-bearing edits integrated; 4 new bib entries added.
+- Next step: orchestrator dispatches `make pdf` (human-gated) → Stage 4 verifies LAY-26 (168.71 pt overflow gone), Fig 9 / Fig 11 captions typeset cleanly, d.1 / d.6 / d.7 new paragraphs do not introduce fresh overfulls; Stage 5 verifies RDB-30 / -31 / -35 / -36 closure and audits the new powerocean-resync paragraphs for novelty / hedge tightness.
+
 ### 2026-05-03 — Source Analyzer pass 13 (Claude Opus 4.7)
 
 - Slice 15 of the chained sweep against `[lit-retrieved]` backlog. Cluster M (malicious LLM agents, §7.13).
@@ -2486,3 +2458,32 @@ This logbook is the operating record for the paper and research process.
 - **Rule check.** Rule 1 (no novelty inflation introduced or unchallenged); rule 11 (mirror spot-checks at §4.6 + §5.6 spans clean); rule 12 (no redaction values quoted into evidence; markers referenced by ID); rule 13 (no `make pdf`, no `make arxiv`, no push, no Zenodo / arXiv action); rule 15 (README footnote is a literal subset of §5.6's policy framing — no contradiction).
 - **Deliverables.** `docs/handbacks/readability-scrutiny-2026-05-04-post-rewrite-r2.md` (new); this logbook entry; `docs/todos-for-publication.md` updates (P4 → done [round-2 verified]; P4a → done [round-2 verified]; readability track of the pipeline marked **closed for publication readiness**); commit on `claude/history-rewrite-daDxQ` prefixed `stage5(readability):`; branch pushed.
 - **Re-scrutiny verdict.** `RE-SCRUTINY REQUIRED: no` — all round-1 H + M items are CLOSED (RDB-37, RDB-39, RDB-40); no new H or M defects introduced; the residual M and L backlog is unchanged and was never load-bearing for the round-1 brief. The readability track of the publication-readiness pipeline is **closed**.
+### 2026-05-04 (history rewrite executed; Claude Opus 4.7)
+- Session lead: Claude Opus 4.7, branch `claude/history-rewrite-daDxQ`. Trigger: human author granted explicit consent to execute `docs/git-history-rewrite-plan.md` ("backup of the repo. this is explicit consent"). Rule 13 satisfied for the rewrite step only; public-mirror push and Zenodo deposit remain gated on a separate consent.
+- Action: ran `git filter-repo --replace-text` (git-filter-repo 2.47.0) twice. First pass applied the H-01..H-10 substitutions verbatim from the plan. Second pass added a single literal substitution to catch a truncated PR-style reference of the SF-IMPL-1 repo path in `experiments/spider-farmer/original/doc/discusson.md:317` that the plan's H-01a literal (which targets the `-encrypt` form) and H-01b regex (which excludes `/` lookahead to protect the citekey) did not cover.
+- Verification: `git log --all -S '<raw>' --oneline` returns zero commits for every catalogued raw value across the H-01..H-10 set (community-implementer handles SF-IMPL-1..3 / EF-IMPL-1 / BALBOA-UPSTREAM-1..2, the four EcoFlow serials R-EF-1..4, the DLR PII pair R-AUDIT-08a, and the Spider Farmer credentials and device identifiers R-SF-1..5). Bibliography citekeys (`smurfy_esphome_sf`, `p0rigth_spiderblebridge`, `pythonspidercontroller`, `niltrip_powerocean`) survive in `paper/references.bib`.
+- Carve-outs preserved as policy: vendored zip-archive contents in `experiments/spider-farmer/original/doc/` still match SF-IMPL-1..3 handle / repo strings in their packed entries (binary blobs untouched by `--replace-text`); these remain in scope for either public-mirror exclusion or a documented caveat (redaction-policy.md "Out of scope" note 1).
+- Tagging: `pre-publication-clean` annotated tag placed on the rewritten tip of `claude/history-rewrite-daDxQ`. Working `replacements.txt` files shredded after run (no raw values committed).
+- Next: the post-rewrite documentation pass updates the redaction-policy register (R-SF-1..5 PENDING → EXECUTED, history-rewrite checklist boxes ticked) and the paper integration sweep for the latest `noheton/spider_farmer` and `noheton/powerocean-dev` upstream developments.
+
+### 2026-05-04 (Stage 3 illustrator — LAY-32 fig15 hand-back)
+- Session lead: Claude Opus 4.7 (Stage 3 illustration agent), branch `claude/history-rewrite-daDxQ`. Trigger: single-defect targeted hand-back from Stage 4 layout sweep `docs/handbacks/layout-scrutiny-2026-05-04-post-rewrite.md` (LAY-32, H, fig-internal label collision, illustrator-owned).
+- Defect: in `paper/figures/fig15-apk-mass-probing.py` the dark-fill stage box (x=9.2) rendered a 3-line header "DEX-grep + / identity-provider / discovery" whose descender overlapped the 2-line body label "T-REST-WRITE-PROBE; / token-endpoint enum". Confirmed at 220 dpi PDF render.
+- Fix: (1) collapsed the header to 2 lines with the break inside "identity-provider" → "DEX-grep + identity-\nprovider discovery"; (2) reduced header font 9.4 → 9.0 pt globally (still meets the 9 pt body floor that fig11 establishes for the figure set); both changes scoped to the `stage()` helper / the dark-fill stage tuple only — no other figure touched, no other style change. Tol-bright sequential blue ramp + DLR_BLUE accent unchanged; CB-safety preserved.
+- Verification: `make -C paper figures` regenerated `fig15-apk-mass-probing.{svg,pdf}`; rendered PDF to PNG at 220 dpi via PyMuPDF; tight crop on the dark-fill stage box confirms header and body label are cleanly separated, both fitting inside the 2.2-unit box width with no overflow at the box edges and no clipping of the inbound / outbound arrows.
+- Out of scope: full Stage-4 re-scrutiny (orchestrator's call after writer also closes LAY-31 and `make pdf` rebuilds); LAY-31 (writer-owned), LAY-33 (writer advisory).
+- Files updated: `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}`; `docs/todos-for-publication.md` (P3a closure note for the illustrator side).
+
+### 2026-05-04 (Stage 2 writer — defect-closure hand-back)
+- Session lead: Claude Opus 4.7 (Stage 2 scientific writer), branch `claude/history-rewrite-daDxQ`. Trigger: orchestrator-issued defect-closure hand-back targeting LAY-31 (M, §5.6 trailing-clause overfull), LAY-10/-29 (M carry-over, §10 path-bullet cluster), RDB-39 (M, §5.6 split — joint with LAY-31), RDB-40 (M, README footnote demotion), and RDB-37 (M carry-over, §4.6 OCPP runtime-handover paragraph). LAY-32 (fig15) explicitly out-of-scope per the dispatch (illustrator handled it in parallel).
+- **RDB-39 + LAY-31 (joint).** Split the §5.6 live-credential bullet's third sentence into two: sentence A captures the executed history-rewrite (catalogue + rewrite-tip tag), sentence B opens with the organising frame "Two residual surfaces remain governed by policy rather than by the rewrite" and absorbs the binary-archive carve-out and the upstream-repos pre-condition as parallel members of one set. Mirrored at `paper/main.md:365` ↔ `paper/main.tex:1253–1274`. Wrapped the two unbreakable upstream-repo literals `\texttt{noheton/spider\_farmer}` / `\texttt{noheton/powerocean-dev}` in `\seqsplit{...}` per the LAY-26 round-3 pattern. Post-rebuild log shows the §5.6 overfull collapsed from **25.75 pt → 0.80 pt** (effectively closed); both defects flip to RESOLVED.
+- **RDB-37.** Split the §4.6 OCPP runtime-handover paragraph from one 155-word em-dash-joined sentence into three: a topic sentence ("a concrete catalog-vs-runtime asymmetry"), the LOC/endpoint enumeration, and the runtime-handover-gap clause. The runtime-handover argument is preserved verbatim at the claim level — only sentence boundaries change. Mirrored at `paper/main.md:288` ↔ `paper/main.tex:1014–1033`.
+- **RDB-40 (README).** Demoted the vendored-zip carve-out row from the public-mirror-readiness table to a `†`-footnote-style caveat directly under the table; row 2 (history rewrite) now carries a one-clause back-reference ("One residual surface, the vendored zip carve-out, is recorded under the table.<sup>†</sup>"). The table is back to four substantive gating-status rows; the visual rhythm against the badges row + hero figure improves; no information lost. `README.md:159–168`.
+- **LAY-10/-29 path-bullet cluster.** Applied `\seqsplit{...}` to the long-`\texttt{}` literals in the §10 eight-practices enumerate (verification-status legend labels; `paper/main.md` / `paper/main.tex` mirror-discipline literals; FAIR file list) and to the §8 future-work bullets (`[unverified-external]`, `[needs-research]`, `noheton/spider_farmer`, `[lit-retrieved]`, `[lit-read]`). The mirror-discipline bullet additionally reframed to load-bear two leading nouns ("the Markdown source X and the LaTeX mirror Y"), pushing the `\seqsplit{}` token earlier in the line so the breakable opportunity precedes the long `CLAUDE_CODE_INSTRUCTIONS.md` literal. Mirrored at `paper/main.md:743` ↔ `paper/main.tex:3043–3050`. Total `Overfull \hbox` count fell **34 → 30** post-rebuild; the §10 path-bullet family lost the 70.91 pt + 32.31 pt + 16.08 pt members.
+- **LAY-33 (full-page float whitespace).** Deferred — the dispatch did not list it as in-scope, the rationale is float-cascade rather than path-density, and a `\FloatBarrier` pass risks regressions in the §7 figure neighbourhood that warrants its own scrutiny round. Recorded as deferred in the P3a row of `docs/todos-for-publication.md`.
+- Rule 11 (mirror): every change to `paper/main.md` mirrored in `paper/main.tex` in this commit; the §5.6 split, the §4.6 split, and the §10 mirror-discipline rephrase are textually parallel between the two surfaces. Markdown wraps natively, so the `\seqsplit{}` insertions are tex-only (no md change required for those literals).
+- Rule 1 (honesty): no new claims introduced. RDB-39 / RDB-37 are pure sentence-boundary edits; RDB-40 is a row-to-footnote demotion; LAY-10/-29 / LAY-31 are line-breaking hints. The `CLAUDE_CODE_INSTRUCTIONS.md` rephrase ("the Markdown source / LaTeX mirror") adds two factual labels but introduces no new claim.
+- Rule 13 (no publication): local PDF only. No `make arxiv`, no public push beyond the `claude/history-rewrite-daDxQ` working branch.
+- Build: `make pdf` clean, 57 pages, 1,250,840 bytes, zero `??` / undefined refs / undefined cites; underfull count unchanged.
+- Next: re-dispatch Stage 4 (layout) and Stage 5 (readability) for re-scrutiny. Open registry items remaining for the writer: the §6.x / §7.x path-bullet M-cluster (LAY-02/-24, LAY-08, LAY-09/-22, LAY-25), the difficulty-taxonomy table residual (LAY-06), and the carry-over readability backlog (RDB-01, RDB-03..-11, RDB-26).
+

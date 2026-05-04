@@ -61,13 +61,19 @@
 \maketitle
 
 \begin{center}
-\fcolorbox{red}{red!8}{\parbox{0.92\linewidth}{\centering
-  \textcolor{red}{\textbf{Condensed venue artifact --- DRAFT.}}\\
-  Derivative of the long-form \texttt{paper/main.md} and \texttt{paper/main.tex}
-  in the companion repository. Where it omits, it points back to a specific
-  section of the long form. It does not introduce new claims. Do not
-  redistribute, cite, or upload to a public archive without explicit written
-  consent from the author (rule~13, \texttt{CLAUDE.md}).
+\fcolorbox{black!40}{black!4}{\parbox{0.92\linewidth}{\centering
+  \textbf{Core submission.}\\
+  This is the canonical paper of the project (rule~17, \texttt{CLAUDE.md}):
+  self-contained, complete on its own, and intended to be read, reviewed, and
+  cited without consulting any other artifact. A long-form companion
+  (\texttt{paper/main.md} / \texttt{paper/main.tex}) and an open research
+  repository extend the evidentiary record --- additional case-study detail,
+  complete transcript registries, the redaction policy, the agent-pipeline
+  prompts, and the FAIR / FAIR4AI metadata --- and are referenced where a
+  reader may want to \emph{go deeper}. They are never preconditions for
+  understanding the claims, KPIs, methodology, or limitations of this paper.
+  Distribution remains gated on explicit written consent from the author
+  (rule~14, \texttt{CLAUDE.md}).
 }}
 \end{center}
 
@@ -302,12 +308,34 @@ The eight practices that organise this paper's methodological contribution
 are individually unoriginal --- conversation logs have been shipped with
 replications before, verification-status labels exist in
 evidence-based-medicine practice, provenance maps exist in bioinformatics,
-FAIR predates LLMs --- and the contribution is the integration. Read as a
-single discipline, the eight cover three failure-mode axes that the
-literature makes load-bearing. \emph{Sloppification} is the proximate
-corruption of the scientific record by undisclosed AI-assisted output;
-the verification-status ladder, transcript-as-artifact discipline, and
-base-rate-anchored disclosure address it head-on. \emph{Model collapse}
+FAIR predates LLMs --- and the contribution is the integration. They are:
+(1) \textbf{transcript preservation} --- every AI conversation that
+contributed to a claim is archived verbatim alongside the prose;
+(2) \textbf{verification-status labelling} --- every cited source carries a
+ladder stage (\texttt{[needs-research]} $\rightarrow$
+\texttt{[lit-retrieved]} $\rightarrow$ \texttt{[ai-confirmed]} $\rightarrow$
+\texttt{[lit-read]}) and a paper claim may only invoke a source at its
+current stage; (3) \textbf{provenance maps} --- every technical claim is
+tied to a transcript, an embedded vendor file/line, and a pinned commit
+SHA; (4) \textbf{mirror discipline} --- Markdown prose source and LaTeX
+submission source are kept in lock-step so neither can drift unilaterally;
+(5) \textbf{a recursive meta-process case study} --- the paper documents
+its own AI-assisted production as evidence for the methodology;
+(6) \textbf{base-rate-anchored AI disclosure} --- quantitative
+fabricated-citation and sloppification base rates are cited inline so the
+AI-use disclosure is calibrated rather than rhetorical; (7) \textbf{legal
+honesty about authorship} --- AI-generated prose is marked as such;
+AI-generated legal opinion is excluded from the paper unless paired with a
+sourced primary text; (8) \textbf{FAIR alignment as a precondition} ---
+Citation File Format, Zenodo, and CodeMeta metadata are present from day
+one rather than retrofitted, with the proposed \emph{FAIR4AI} extension
+below as an explicit forward direction.
+
+Read as a single discipline, the eight practices cover three failure-mode
+axes that the literature makes load-bearing. \emph{Sloppification} is the
+proximate corruption of the scientific record by undisclosed AI-assisted
+output; the verification-status ladder, transcript-as-artifact discipline,
+and base-rate-anchored disclosure address it head-on. \emph{Model collapse}
 --- the longer-horizon dilution of the corpus on which future foundation
 models are trained, formally argued by Shumailov et
 al.~\citep{shumailov2024modelcollapse} --- is the same problem at a
@@ -315,10 +343,12 @@ different timescale; provenance maps, mirror discipline, and FAIR
 alignment preserve the human-verified ground-truth signal that
 mixing-rather-than-replacing strategies require. \emph{Dual use} is the
 asymmetry developed below; the recursive meta-process case study, the
-redaction discipline, and legal honesty about authorship operationalise
-the discipline that pays for the methodology's openness honestly.
-\emph{Full eight-practice enumeration with worked examples --- see
-\texttt{paper/main.md} \S 10.}
+redaction discipline (a precondition rather than a practice in its own
+right), and legal honesty about authorship operationalise the discipline
+that pays for the methodology's openness honestly. \cref{fig:eight-practices}
+maps the eight practices against these three axes; worked examples and an
+axis-by-axis defence of each cell are in the long-form companion
+(\S 10).
 
 The dual-use asymmetry is the most under-discussed feature of the
 post-LLM threat model. The same workflow that yields a Home Assistant
@@ -470,7 +500,7 @@ the community.
 
 Obscurity is dead. What replaces it has to be designed, not assumed.
 
-\section*{Statement of independence and personal capacity (verbatim from \texttt{paper/main.md} \S 9.5)}
+\section*{Statement of independence and personal capacity}
 \label{sec:independence}
 
 This work is a hobbyist research project carried out by the author
@@ -496,28 +526,45 @@ may reach for clarification, is a \emph{contact channel}, not an
 \emph{institutional endorsement} --- the personal-capacity framing in
 this section governs.
 
-\section*{Pointers into the long-form companion repository}
+\section*{Companion / extended evidentiary record}
 \label{sec:pointers}
 
-The condensed paper deliberately omits, in favour of the long form, the
-full eight-practice enumeration with worked examples
-(\texttt{paper/main.md} \S 10), the transcript registry and provenance
-matrices (\texttt{paper/main.md} \S 3.2 and \S 5.1;
-\texttt{experiments/*/provenance.md}), the verification-status ladder
-definition and the \texttt{[ai-confirmed]} / \texttt{[lit-read]}
-carve-outs (\texttt{paper/main.md} \S 5 and \S 6.4), the IoT-Integrator
-pipeline-vulnerabilities discussion (\texttt{paper/main.md} \S 6.5,
-\S 7.7, fig 13/14), the full sloppification, model-collapse, and
-fabricated-citation evidence base (\texttt{paper/main.md} \S 7), the
-redaction-policy register and history-rewrite plan
-(\texttt{paper/main.md} \S 5.6; \texttt{docs/redaction-policy.md};
-\texttt{docs/git-history-rewrite-plan.md}), the Author's Note
-front-matter, the hardware-side effort-gap-compression cluster
-(\texttt{paper/main.md} \S 1.4 and \S 6.8), and the
-malicious-IoT-integrator and APK-mass-probing scenarios
-(\texttt{paper/main.md} \S 7.13 and \S 7.14). A reviewer who needs the
-full evidentiary chain should read the long-form companion; this
-condensed artifact exists to send them there with informed consent.
+This paper is self-contained --- every claim invoked above is supported
+by a citation, a Table~\ref{tab:headline-kpi} row, or one of
+Figures~1--3. A reader who wants to \emph{go deeper} into a specific
+strand will find the following extensions in the long-form companion
+(\texttt{paper/main.md} / \texttt{paper/main.tex}) and the open
+repository:
+\begin{itemize}\setlength{\itemsep}{0pt}
+  \item \textbf{Worked examples and an axis-by-axis defence of each of
+    the eight practices} --- long-form \S 10.
+  \item \textbf{Transcript registry and provenance matrices} ---
+    long-form \S 3.2, \S 5.1; \texttt{experiments/*/provenance.md}.
+  \item \textbf{Verification-status ladder} with the
+    \texttt{[ai-confirmed]} / \texttt{[lit-read]} carve-outs and
+    Source-Analyzer criteria --- long-form \S 5 and \S 6.4; agent
+    prompts under \texttt{docs/prompts/}.
+  \item \textbf{Pipeline-vulnerabilities discussion for the
+    IoT-Integrator agent} (the ``malicious integrator'' scenario)
+    --- long-form \S 6.5, \S 7.7, figs~13/14.
+  \item \textbf{Full sloppification, model-collapse, and
+    fabricated-citation evidence base} with all literature-cluster
+    anchors --- long-form \S 7.
+  \item \textbf{Redaction policy, history-rewrite plan, and the executed
+    \texttt{git-filter-repo} pass} --- long-form \S 5.6;
+    \texttt{docs/redaction-policy.md};
+    \texttt{docs/git-history-rewrite-plan.md}.
+  \item \textbf{Hardware-side effort-gap-compression cluster}
+    (silicon, firmware, side-channel) --- long-form \S 1.4 and \S 6.8.
+  \item \textbf{APK-mass-probing scenario at corpus scale} --- long-form
+    \S 7.14.
+  \item \textbf{FAIR4AI mapping} with concrete
+    Findability~/~Accessibility~/~Interoperability~/~Reusability cells
+    for AI-mediated research processes ---
+    \texttt{docs/fair.md}~\S FAIR4AI.
+\end{itemize}
+These extensions enrich the record but are not preconditions for
+understanding the central claims of this paper.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

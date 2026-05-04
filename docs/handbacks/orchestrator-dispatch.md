@@ -43,3 +43,32 @@ here. See `docs/prompts/orchestrator-prompt.md` for the rule table.
   - Class C (overfull/underfull hboxes): **97** raw events (33 Overfull + 64 Underfull), collapsed into **6** action groups (OVF-01..05, UNF-01); 2 H-severity (OVF-01, OVF-03).
 - Verdict: `RE-SCRUTINY REQUIRED: yes`. Two H-severity geometric overflows survive (table at l. 986–1005, path-bullet cluster at l. 2231–2242).
 - Expected next stage: **Stage 2 — Scientific writer** to consume BIB-01..04 + OVF-01..05; then `make -C paper pdf`; then **Stage 4** re-scrutiny.
+
+---
+
+## ORCHESTRATOR DISPATCH 2026-05-04T??:??:??Z (artifact-pipeline rework + final-pass dispatch)
+
+- Trigger: human-author directive — "rework the pipeline to actually build the artifacts (no publication yet); after rebuilding, send agent pipeline to a final pass for publication; close addressed issues with comment; extend `fair.md` with FAIR4AI; sort logbook chronologically; consider an Aligner agent; the condensed paper should be a complete paper by itself."
+- Decision rules fired (in order):
+  - **Pre-rules (rule changes).** Rule 17 (condensed paper as core submission) and rule 18 (traceability is paramount) added to `CLAUDE.md`. Rule numbering normalised (the duplicate "6" pre-rule-7 collapsed). Rule 11 augmented with chronological-order discipline for `docs/logbook.md`; rule 12 augmented to apply to the condensed pair as well.
+  - **New stage.** Stage 6 (Aligner) added to the agent table; prompt at `docs/prompts/aligner-prompt.md`. Rule 18 made the Aligner authoritative for end-to-end traceability across paper sources, sources.md, registries, README, logbook, and redaction.
+  - **Rule #6** — `paper/main.pdf` and `paper/main-condensed.pdf` rebuilt from clean state (`make -C paper distclean && make -C paper all`). matplotlib + pandas + seaborn installed in the build environment to satisfy the scripted-figure pipeline. Long-form: 57 pp, 1,250,832 bytes; condensed: 8 pp, 563,136 bytes (under the 10-page ceiling). Zero `??`, zero undefined refs / cites.
+  - **Rule #4 / #5 implicit** — writer-side changes consumed: condensed paper made self-contained per rule 17 (eight practices enumerated inline; `Figure 2 → Table 1` + `Figure 3 → Figure 2` + `Figure 4 → Figure 3` renumber to match the rendered order; "DRAFT — derivative" red-box demoted to "Core submission" black-frame; *"Pointers"* section reframed as *"Companion / extended evidentiary record"*). Long-form FAIR4AI paragraph augmented with a back-reference to `docs/fair.md` §FAIR4AI and `docs/human-ai-collaboration-process.md`.
+- GitHub-issue poll:
+  - Open issues: #25 (peer review, accept with major revisions); #24 (Gödelian framing proposal).
+  - **#25 — Status comment posted.** 5 of 10 review items confirmed resolved (LAY-17/-19 KPI overflows; history rewrite; Spider Farmer v2→v3 reconstruction; Stage-4 re-scrutiny post-Executive-Summary; figure PDF-version compatibility). 4 still open (Ondilo / Balboa device validation; EcoFlow coordinated disclosure; §69e UrhG legal sourcing; Zenodo DOI pending first release). Issue left **open** because the headline "Accept with Major Revisions" recommendation has unresolved blockers.
+  - **#24 — Triage comment posted.** Disposition: research-direction note; not adopted at the framing level. Issue left open for human-author decision.
+- Logbook (rule 11): re-sorted chronologically (oldest first) via `scripts/sort-logbook.py`. Sorted 51 entries; new sessions append at the bottom.
+- Files written / modified by this dispatch:
+  - `CLAUDE.md` (rules 11, 12, 17, 18; agent table extended to stage 6).
+  - `paper/main-condensed.md` and `paper/main-condensed.tex` (rule-17 reframing; figure renumber; eight-practice enumeration).
+  - `paper/main.md` and `paper/main.tex` (FAIR4AI cross-reference to `docs/fair.md` and `docs/human-ai-collaboration-process.md`).
+  - `docs/fair.md` (FAIR4AI section + open issues + references).
+  - `docs/human-ai-collaboration-process.md` (new — process spec).
+  - `docs/prompts/aligner-prompt.md` (new — stage 6 prompt).
+  - `docs/logbook.md` (chronological re-sort + usage-note update).
+  - `scripts/sort-logbook.py` (new — re-sort tool).
+  - `docs/handbacks/orchestrator-dispatch.md` (this entry).
+- Expected next stage: **Stage 6 (Aligner)** sweep over the post-rebuild state — verify rule-17 self-containment of the condensed paper, mirror parity for both pairs, FAIR4AI cross-references, README KPI parity, logbook chronological order. Then **Stages 4 + 5** in parallel against the rebuilt PDFs / Markdown sources to confirm `RE-SCRUTINY REQUIRED: no` survives the rule-17 reframe of the condensed paper.
+- Expected next stage on failure / partial: re-dispatch the writer (stage 2) for any rule-17 / rule-18 violations the Aligner files.
+- Rule 14 (no publication): local artifacts only. No `make arxiv`. No public push beyond the working branch.

@@ -56,8 +56,104 @@ These open issues are also tracked in `docs/logbook.md` for accountable resoluti
 
 ---
 
+## FAIR4AI — proposed extension for AI-mediated research processes
+
+The FAIR Guiding Principles were drafted for *data*. The community has
+since extended them to research software (FAIR4RS,
+[@chuehong2022fair4rs]) and machine-learning models (FAIR4ML, RDA Working
+Group on FAIR for Machine Learning [@rda2024fair4ml]). Neither yet covers
+the *research processes* that LLM-assisted scientific work has produced
+as new artifact classes: exportable conversation transcripts, versioned
+prompts, tool-and-model version manifests, verification-status ladders,
+structured redaction policies, and per-claim provenance maps.
+
+This project proposes — as a target for community refinement, not as a
+finished standard — a **FAIR for AI-Assisted Research** extension under
+the working name **FAIR4AI**, mapping the eight integrated practices of
+the Obscurity-Is-Dead methodology onto the four FAIR axes. The repository
+already practises de-facto versions of every cell. Naming what we are
+already doing is the first step toward surrendering it to peer scrutiny.
+
+### F — Findable (AI-assisted artifacts)
+
+| Principle | FAIR4AI realisation |
+|---|---|
+| **F-AI-1.** AI-mediated research artifacts are assigned a globally unique and persistent identifier. | Every preserved AI conversation under `experiments/<case>/raw_conversations*/` is identified by (a) a stable filename embedding its sequence number `T<n>-<short-slug>`, (b) the SHA-256 of its content, and (c) the commit SHA at which the transcript was preserved. Where an external chat platform issues a permalink, that URL is also recorded in the file header. **Open**: a Zenodo deposit at first release will mint a DOI for the transcript bundle. |
+| **F-AI-2.** AI-mediated artifacts are described with rich metadata. | Each transcript carries an inline header recording the date, the model and its version (e.g. `claude-opus-4-7`), the operating harness (e.g. *Claude Code*, *web*), the prompt source (e.g. `docs/prompts/scientific-writer-prompt.md`), and the principal output classes (e.g. *§4 prose; references.bib entries E-1..E-3*). The repository-level metadata in `CITATION.cff`, `.zenodo.json`, and `codemeta.json` lists the agent prompts under `docs/prompts/` as part of the cited software. |
+| **F-AI-3.** Metadata explicitly includes the identifier of the AI artifact it describes. | Per-case `provenance.md` files cite each transcript by filename and content-SHA when a claim is traced to a transcript. The verification-status ladder (`docs/sources.md`) cross-references transcripts where they were the proposing source. |
+| **F-AI-4.** AI-mediated artifacts are registered or indexed in a searchable resource. | GitHub indexes the full directory tree by default; Zenodo will index the transcript bundle on archive. The agent prompts under `docs/prompts/` are independently discoverable via the `CodeMeta` `softwareSuggestions` field. |
+
+### A — Accessible (AI-assisted artifacts)
+
+| Principle | FAIR4AI realisation |
+|---|---|
+| **A-AI-1.** AI-mediated artifacts are retrievable by their identifier using a standardised communications protocol. | HTTPS + Git as for the rest of the repository. The transcript files are plain text; no proprietary export format. |
+| **A-AI-1.2.** The protocol allows for an authentication and authorisation procedure where necessary. | The structured **redaction policy** (`docs/redaction-policy.md`) is the access-control layer for AI artifacts: live credentials, device serial numbers, local IP addresses, and identifying community handles are redacted from the working tree as `[REDACTED:<type>:<id>]` markers. A history rewrite is required before any public mirror or Zenodo deposit (rule 13). |
+| **A-AI-2.** Metadata are accessible even when the AI artifact is no longer available. | Per-claim provenance entries record the transcript filename, the content-SHA, and the relevant excerpt; if a transcript is lost, the metadata + excerpt remain. |
+
+### I — Interoperable (AI-assisted artifacts)
+
+| Principle | FAIR4AI realisation |
+|---|---|
+| **I-AI-1.** AI-mediated artifacts use a formal, accessible, shared, and broadly applicable language for knowledge representation. | Conversation transcripts are exported as plain UTF-8 Markdown / text. Agent prompts are Markdown with a stable section taxonomy (Purpose / Inputs / Protocol / Constraints / Deliverables) so they can be ingested by other agent harnesses with minimal adaptation. The **verification-status ladder** is documented as a finite-state machine. |
+| **I-AI-2.** AI-mediated artifacts use vocabularies that follow FAIR principles. | Where a community vocabulary exists, this project uses it: ORCID for authorship, schema.org / CodeMeta for software metadata, BibTeX for citations. The verification-status ladder borrows the spirit of evidence-based-medicine evidence-grading (e.g. GRADE) but does not yet adopt its vocabulary verbatim. **Open**: align FAIR4AI ladder labels with the closest equivalent in an existing evidence-grading vocabulary. |
+| **I-AI-3.** AI-mediated artifacts include qualified references to other AI-mediated artifacts. | Transcripts reference each other when one is the predecessor of another (e.g. `T4` referenced from `T5` for context inheritance). Agent prompts cite each other in the *Inputs* / *Hand-back routing* sections of `docs/prompts/`. The orchestrator's dispatch log records the *predecessor commit* and the *expected next stage* so the chain of AI-mediated work is reconstructible from any point. |
+
+### R — Reusable (AI-assisted artifacts)
+
+| Principle | FAIR4AI realisation |
+|---|---|
+| **R-AI-1.** AI-mediated artifacts are richly described with a plurality of accurate and relevant attributes. | Transcripts: model, version, harness, date, prompt source, principal output, content-SHA. Agent prompts: status, scope, inputs, protocol, deliverables, constraints. Each is sufficient for an independent reviewer to reconstruct what was asked of the AI, what the AI returned, and how the human author audited the return. |
+| **R-AI-1.1.** AI-mediated artifacts are released with a clear and accessible data usage license. | CC-BY-4.0 covers the human-authored and human-curated portions, including the transcript files (which are AI conversations *preserved by* the human author). Vendor / community implementations under `experiments/<case>/original/` carry their own licenses. |
+| **R-AI-1.2.** AI-mediated artifacts are associated with detailed provenance. | Per-case `provenance.md` files map every claim to (a) the transcript that proposed it, (b) the file/line that confirmed it, (c) the commit SHA at which the verification ran. The Aligner agent (stage 6, `docs/prompts/aligner-prompt.md`) audits this end-to-end (rule 18). |
+| **R-AI-1.3.** AI-mediated artifacts meet domain-relevant community standards. | DFG Guidelines for Safeguarding Good Research Practice (2023) for the research-conduct layer; FAIR4RS for the agent-prompt code; FAIR4ML for the embedded model-evaluation evidence. **Open**: a FAIR4AI specification document, drafted from this section + the *Transparent Human–AI Collaboration Process* spec (`docs/human-ai-collaboration-process.md`), submitted to RDA or a comparable body. |
+
+### Mapping back to the eight integrated practices
+
+| Practice | FAIR4AI axis (primary → secondary) |
+|---|---|
+| (1) Transcript preservation | F-AI-1, F-AI-3 → I-AI-1 |
+| (2) Verification-status labelling | I-AI-1, R-AI-1.2 → I-AI-2 |
+| (3) Provenance maps | R-AI-1.2 → F-AI-3, A-AI-2 |
+| (4) Mirror discipline | I-AI-1, R-AI-1 |
+| (5) Recursive meta-process case study | R-AI-1, R-AI-1.2 |
+| (6) Base-rate-anchored AI disclosure | R-AI-1.3 |
+| (7) Legal honesty about authorship | A-AI-1.2 (access-control), R-AI-1.1 |
+| (8) FAIR alignment as a precondition | F-AI-2, F-AI-4, A-AI-1, I-AI-2, R-AI-1.3 |
+
+### Open issues (FAIR4AI)
+
+1. **Vocabulary alignment.** The verification-status ladder
+   (`[unverified-external]` → `[needs-research]` → `[lit-retrieved]` →
+   `[ai-confirmed]` → `[lit-read]`) needs a crosswalk to the closest
+   equivalent in an existing evidence-grading vocabulary (GRADE; CASP;
+   Cochrane levels of evidence).
+2. **Persistent transcript identifier scheme.** Content-SHA is robust
+   but not human-friendly. A mintable identifier (DOI per transcript via
+   Zenodo, or a derived fingerprint) is a candidate for I-AI-1.
+3. **Tooling.** A reference *Aligner* agent that audits FAIR4AI compliance
+   per repository ships with this project (`docs/prompts/aligner-prompt.md`).
+   A reusable FAIR4AI conformance checker (independent of this codebase)
+   is left to community work.
+4. **RFC.** The above is an in-tree proposal. Submission to RDA,
+   FORCE11, or an analogous body is gated on (a) human-author consent
+   (rule 14) and (b) at least one external case study adopting the same
+   mapping.
+
+### Cross-references in the paper
+
+The FAIR4AI proposal is referenced in the long-form paper (`paper/main.md`
+§10 / `paper/main.tex` `sec:eight-practices`) and in the condensed paper
+(`paper/main-condensed.md` §4 / `paper/main-condensed.tex` `sec:discussion`).
+Pull updates to those sections through the writer agent (stage 2) so
+mirror discipline (rule 12) is preserved.
+
+---
+
 ## References (FAIR principles)
 - Wilkinson, M.D., Dumontier, M., Aalbersberg, I.J. *et al.* "The FAIR Guiding Principles for scientific data management and stewardship." *Scientific Data* 3, 160018 (2016). https://doi.org/10.1038/sdata.2016.18
 - GO FAIR Initiative — https://www.go-fair.org/fair-principles/
 - Citation File Format 1.2.0 — https://citation-file-format.github.io/
 - CodeMeta 3.0 — https://codemeta.github.io/
+- Chue Hong, N. P. *et al.* "FAIR Principles for Research Software (FAIR4RS Principles)" — RDA, 2022.
+- RDA FAIR for Machine Learning (FAIR4ML) Interest Group Charter — RDA, 2024. https://www.rd-alliance.org/wp-content/uploads/2024/05/FAIR4ML-RDA-IG-Charter.pdf
