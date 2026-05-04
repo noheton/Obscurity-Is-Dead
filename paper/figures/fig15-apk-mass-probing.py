@@ -67,8 +67,13 @@ def stage(x, y, w, h, label, sub, fc):
     on_dark = fc in _DARK_FILLS
     label_col = "white" if on_dark else "#222"
     sub_col   = "#f4f4f4" if on_dark else "#333"
+    # Header font 9.0 pt (was 9.4 pt prior to 2026-05-04 LAY-32 hand-back).
+    # The 0.4 pt drop closes the dark-fill stage-box header/body collision
+    # without breaking the 9 pt body floor that fig11 (hero) establishes
+    # for the figure set. Two-line header for the DEX-grep stage now fits
+    # entirely within the box width.
     ax.text(x, y + 0.18, label,
-            ha="center", va="center", fontsize=9.4, fontweight="bold",
+            ha="center", va="center", fontsize=9.0, fontweight="bold",
             color=label_col)
     ax.text(x, y - 0.22, sub,
             ha="center", va="center", fontsize=9.0, color=sub_col)
@@ -90,7 +95,14 @@ stages = [
     (1.4, "Public APK\nrepository", "APKPure / APKMirror\nMillions of APKs", "#d1e8fa"),
     (4.0, "Fetch + unpack", "unzip; manifest;\nDEX extraction", "#a7d3ec"),
     (6.6, "Static probe", "strings + grep;\npermission audit", "#6cb9dc"),
-    (9.2, "DEX-grep +\nidentity-provider\ndiscovery", "T-REST-WRITE-PROBE;\ntoken-endpoint enum", "#3b98cb"),
+    # Header collapsed from 3 lines → 2 lines to clear the LAY-32
+    # collision (2026-05-04): the previous "DEX-grep +\nidentity-provider
+    # \ndiscovery" header descender overlapped the 2-line body label
+    # "T-REST-WRITE-PROBE;\ntoken-endpoint enum" inside the dark-fill box.
+    # Two-line header now matches the line count of every other stage;
+    # the line break is placed inside "identity-provider" so neither
+    # line exceeds the 2.2-unit box width at 9 pt.
+    (9.2, "DEX-grep + identity-\nprovider discovery", "T-REST-WRITE-PROBE;\ntoken-endpoint enum", "#3b98cb"),
     (11.8, "Per-vendor weakness\ninventory + flow graph", "Identity providers;\ncross-vendor edges", dlr_style.DLR_BLUE),
 ]
 for x, label, sub, fc in stages:

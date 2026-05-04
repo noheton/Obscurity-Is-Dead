@@ -10,6 +10,14 @@ This logbook is the operating record for the paper and research process.
 
 ## Log Entries
 
+### 2026-05-04 (Stage 3 illustrator — LAY-32 fig15 hand-back)
+- Session lead: Claude Opus 4.7 (Stage 3 illustration agent), branch `claude/history-rewrite-daDxQ`. Trigger: single-defect targeted hand-back from Stage 4 layout sweep `docs/handbacks/layout-scrutiny-2026-05-04-post-rewrite.md` (LAY-32, H, fig-internal label collision, illustrator-owned).
+- Defect: in `paper/figures/fig15-apk-mass-probing.py` the dark-fill stage box (x=9.2) rendered a 3-line header "DEX-grep + / identity-provider / discovery" whose descender overlapped the 2-line body label "T-REST-WRITE-PROBE; / token-endpoint enum". Confirmed at 220 dpi PDF render.
+- Fix: (1) collapsed the header to 2 lines with the break inside "identity-provider" → "DEX-grep + identity-\nprovider discovery"; (2) reduced header font 9.4 → 9.0 pt globally (still meets the 9 pt body floor that fig11 establishes for the figure set); both changes scoped to the `stage()` helper / the dark-fill stage tuple only — no other figure touched, no other style change. Tol-bright sequential blue ramp + DLR_BLUE accent unchanged; CB-safety preserved.
+- Verification: `make -C paper figures` regenerated `fig15-apk-mass-probing.{svg,pdf}`; rendered PDF to PNG at 220 dpi via PyMuPDF; tight crop on the dark-fill stage box confirms header and body label are cleanly separated, both fitting inside the 2.2-unit box width with no overflow at the box edges and no clipping of the inbound / outbound arrows.
+- Out of scope: full Stage-4 re-scrutiny (orchestrator's call after writer also closes LAY-31 and `make pdf` rebuilds); LAY-31 (writer-owned), LAY-33 (writer advisory).
+- Files updated: `paper/figures/fig15-apk-mass-probing.{py,svg,pdf}`; `docs/todos-for-publication.md` (P3a closure note for the illustrator side).
+
 ### 2026-05-04 (history rewrite executed; Claude Opus 4.7)
 - Session lead: Claude Opus 4.7, branch `claude/history-rewrite-daDxQ`. Trigger: human author granted explicit consent to execute `docs/git-history-rewrite-plan.md` ("backup of the repo. this is explicit consent"). Rule 13 satisfied for the rewrite step only; public-mirror push and Zenodo deposit remain gated on a separate consent.
 - Action: ran `git filter-repo --replace-text` (git-filter-repo 2.47.0) twice. First pass applied the H-01..H-10 substitutions verbatim from the plan. Second pass added `literal:[REDACTED:repo-path:SF-IMPL-1]==>[REDACTED:repo-path:SF-IMPL-1]` to catch a truncated PR-style reference in `experiments/spider-farmer/original/doc/discusson.md:317` that the plan's H-01a literal (which targets the `-encrypt` form) and H-01b regex (which excludes `/` lookahead to protect the citekey) did not cover.
