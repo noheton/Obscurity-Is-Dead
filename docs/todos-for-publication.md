@@ -27,6 +27,7 @@ or scrutinizers raise a defect that requires them.
 | P3 | Stage 4 — Layout scrutinizer | open | Reads the build artifact only. Re-scrutinise after the writer pass. |
 | P4 | Stage 5 — Readability & novelty | open | Reads `paper/main.md` only. Runs in parallel with P3. |
 | P5 | Hand-back loop | open | If any defect registry has H/M items, re-dispatch writer or illustrator. Iterate until both scrutinizers report no re-scrutiny required. |
+| P6 | Condensed paper (≤ 10 pp) | open | New artifact pair `paper/main-condensed.{md,tex}` for venue submission, derivative of the long-form. Operating prompt: `docs/prompts/condensed-paper-prompt.md`. The long-form remains the canonical evidence-bearing artifact. |
 
 ## Carried-forward items (not pipeline-blocking)
 
