@@ -16,10 +16,10 @@ can be released.
 
 | | |
 |---|---|
-| Working tree | clean on `claude/prepare-for-publish-fERq5` after Q11 + Q1 + Q2 close + Aligner round-2 close (Gemini intact-jar swapped in; §5.7 *Other KPIs* refreshed; §8.5 + §9.3 cluster-range A–J → A–Q + ladder-status rewrite; ALN-14..ALN-22 + ALN-24 closed by writer pass; pending round-3 Aligner re-audit) |
+| Working tree | clean on `claude/prepare-for-publish-fERq5` after the publication-readiness pipeline closed end-to-end (Q1, Q2, Q9, Q10, Q11 all `done`); long-form `paper/main.pdf` 59 pp (3,069,752 B), condensed `paper/main-condensed.pdf` 9 pp (580,151 B); both within page-count ceilings; Aligner round 3 reported `RE-ALIGNMENT REQUIRED: no` |
 | Layout scrutinizer (Stage 4) | `RE-SCRUTINY REQUIRED: no` against tip `644d2e2` (long-form + condensed) |
 | Readability scrutinizer (Stage 5) | `RE-SCRUTINY REQUIRED: no` against tip `644d2e2` (long-form + condensed) |
-| Aligner (Stage 6) | round 1 closed (`ALN-01..ALN-13`, commit `668fa8d`); round 2 dispatched 2026-05-04 (`a543917`), filed `ALN-14..ALN-24` (1 H + 7 M + 2 L + 1 informational); writer pass closed all 10 routed entries; round 3 pending dispatch on this branch |
+| Aligner (Stage 6) | round 1 closed (`ALN-01..ALN-13`, commit `668fa8d`); round 2 dispatched + writer-pass closure (`a543917` + `8398ae0`); **round 3 verified all closures and reported `RE-ALIGNMENT REQUIRED: no`** (commit `c4a1fdf`). Pipeline fully quiescent on the Aligner axis. |
 | History rewrite | executed; tag `pre-publication-clean` |
 | Public-mirror push, Zenodo, arXiv | gated on rule-13 + rule-14 explicit consent |
 
@@ -40,8 +40,8 @@ which they should be tackled.
 | Q6 | Upstream `noheton/powerocean-dev` redaction pass | human + agent | open | Same as Q5. The upstream `DISCLAIMER.md` and `doc/README.md` (2026-05-03) reduce but do not eliminate the pre-rewrite history exposure. |
 | Q7 | R-AUDIT-12 client-secret literal grep | human | open | Confirm against the actual Cognito secret string fragment that the redaction marker substitution is exhaustive. |
 | Q8 | Logbook readability re-check after in-place redaction | scrutinizer (Stage 5) | open | High marker density was introduced by the redaction-execution pass; surface in the next readability pass. |
-| Q9 | Final aligner sweep | aligner (Stage 6) | in-progress | Round 2 dispatched 2026-05-04 (`a543917`); filed `ALN-14..ALN-24` with verdict `RE-ALIGNMENT REQUIRED: yes` (1 H + 7 M + 2 L). Writer pass on this branch closed all 10 writer-routed entries. **Round 3 still required** — the round-2 verdict cannot be re-flipped to `no` by the writer; only by an Aligner re-audit. Dispatch a round-3 Aligner sweep before flipping `Q9` to `done`. |
-| Q10 | `make all` clean rebuild + page-count snapshot | build | open | Confirm `paper/main.pdf` (target ≤60 pp post-rewrite) and `paper/main-condensed.pdf` (≤10 pp ceiling) after Q1–Q9 close, and after the Gemini intact-jar swap (Q11). Record the PDF SHAs in the rule-14 gate handoff. |
+| Q9 | Final aligner sweep | aligner (Stage 6) | done | Round 2 (`a543917`) filed `ALN-14..ALN-24` (1 H + 7 M + 2 L + 1 informational); writer pass (`8398ae0`) closed all 10 routed entries (ALN-14, -15, -16, -17, -18, -19, -20, -21, -22, -24). **Round 3 (`c4a1fdf`) verified every closure and reported `RE-ALIGNMENT REQUIRED: no` with zero new defects.** Pipeline fully quiescent on the Aligner axis. |
+| Q10 | `make all` clean rebuild + page-count snapshot | build | done | Clean rebuild executed 2026-05-04 from `claude/prepare-for-publish-fERq5` tip after Q1–Q9 + Q11 closure. **`paper/main.pdf`: 59 pages, 3,069,752 bytes**, SHA-256 `39878cf8e77c3c39e0238e70cb0046471511ae682f6b1ff155064e08df0e8f2c` (≤60 pp target met). **`paper/main-condensed.pdf`: 9 pages, 580,151 bytes**, SHA-256 `565de09dad73d4af7e4d170a69479e8f9e4f57be804ab4e23e7b11dde9b17237` (≤10 pp rule-17 ceiling met). One in-flight LaTeX fix during the build: the ALN-18 carve-out aside in `paper/main-condensed.tex:370–375` originally used `\seqsplit{\texttt{[edge-case]}}` and `\seqsplit{\texttt{[lit-read]}}`, but the `seqsplit` package is not loaded in the condensed preamble — substituted to plain `\texttt{...}` (the literals are short enough that no overflow occurs); the prose and rule-17 disclosure remain intact. All 12 programmatic figure scripts also re-executed during `make figures` and committed with the build (matplotlib gen-ID + timestamp drift only; no content change). |
 | Q11 | Pandora-jar-intact final asset (Gemini) | human | done | Gemini deliverable landed on `main` 2026-05-04 (commit `302bf96`, 1408x768 RGBA, ~2.0 MB); placeholder swapped out. Inventory in `paper/figures/README.md`, §9.1 prose in `paper/main.{md,tex}`, §10 figure caption (date), `logo-placeholders.py` docstring (no longer authoritative), and `docs/handbacks/layout-defect-registry.md` (LAY-12 + FIG-04 closed) updated in the follow-up commit on branch `claude/prepare-for-publish-fERq5`. |
 
 ## Rule-13 + rule-14 gate (separate explicit consent required)
@@ -176,3 +176,30 @@ rather than for blocking publication.
   readability re-check), `Q9` (round-3 Aligner re-audit pending),
   `Q10` (`make all` clean rebuild). Rule-13 / rule-14 gates
   unchanged.
+- 2026-05-04 (sixth pass, branch `claude/prepare-for-publish-fERq5`) —
+  `Q9` and `Q10` both flipped to `done`. Aligner round 3 (`c4a1fdf`)
+  verified all ten round-2 closures (ALN-14, -15, -16, -17, -18,
+  -19, -20, -21, -22, -24) and reported
+  `RE-ALIGNMENT REQUIRED: no` with zero new defects. `Q10` then
+  ran a `make distclean` + `make all` clean rebuild from the
+  branch tip: long-form `paper/main.pdf` built clean at **59 pp,
+  3,069,752 bytes**, SHA-256
+  `39878cf8e77c3c39e0238e70cb0046471511ae682f6b1ff155064e08df0e8f2c`;
+  condensed `paper/main-condensed.pdf` built clean at **9 pp,
+  580,151 bytes**, SHA-256
+  `565de09dad73d4af7e4d170a69479e8f9e4f57be804ab4e23e7b11dde9b17237`.
+  Both within page-count ceilings (long-form ≤60 pp; condensed
+  ≤10 pp per rule 17). One in-flight LaTeX fix during the
+  condensed-paper build: the ALN-18 carve-out aside originally
+  used `\seqsplit{}` around the `[edge-case]` / `[lit-read]`
+  literals, but the `seqsplit` package is not loaded in the
+  condensed preamble — substituted to plain `\texttt{...}`
+  (literals are short enough that no overflow occurs; the
+  prose and rule-17 disclosure remain intact). All 12
+  programmatic figure scripts re-executed during `make figures`;
+  drift is matplotlib gen-IDs + timestamps only, no content
+  change. Open todos remaining: `Q3` (deferred fig17), `Q4`–`Q7`
+  (human-owned redaction items), `Q8` (logbook readability
+  re-check). The publication-readiness pipeline is now closed
+  end-to-end; the only remaining gate is the rule-13 / rule-14
+  explicit-consent decision by the human author (Florian Krebs).
