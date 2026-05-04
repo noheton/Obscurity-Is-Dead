@@ -1,0 +1,2669 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#stage-illustrator",
+        "short": "oid:stage-illustrator",
+        "label": "Illustration (Stage 3)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Illustration (Stage 3)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/illustration-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#commit-c4a1fdf",
+        "short": "oid:commit-c4a1fdf",
+        "label": "c4a1fdf",
+        "cls": "Commit",
+        "comment": "Aligner round 3 verification: RE-ALIGNMENT REQUIRED: no.",
+        "verification": "",
+        "types": [
+          "oid:Commit"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Commit",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "c4a1fdf",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "Aligner round 3 verification: RE-ALIGNMENT REQUIRED: no.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "short": "oid:claude-opus-4-7",
+        "label": "Claude Opus 4.7 (1M context)",
+        "cls": "AIAgent",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "prov:Agent",
+          "oid:AIAgent"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "http://www.w3.org/ns/prov#Agent",
+            "is_uri": true
+          },
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#AIAgent",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Claude Opus 4.7 (1M context)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:modelId",
+            "o": "claude-opus-4-7",
+            "is_uri": false
+          },
+          {
+            "p": "oid:harness",
+            "o": "claude-code-cli",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#Transcript",
+        "short": "oid:Transcript",
+        "label": "oid:Transcript",
+        "cls": "Entity",
+        "comment": "An exported AI conversation, archived in experiments/*/raw_conversations*/.",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "An exported AI conversation, archived in experiments/*/raw_conversations*/.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#stage-aligner",
+        "short": "oid:stage-aligner",
+        "label": "Aligner (Stage 6)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Aligner (Stage 6)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/aligner-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#pdf-main-Q12",
+        "short": "oid:pdf-main-Q12",
+        "label": "paper/main.pdf (Q12 build)",
+        "cls": "Entity",
+        "comment": "60 pages exactly --- at the rule-17-companion ceiling of 60 pp. Author's Note paragraph plus §2.3 second paragraph added 1 page over the Q10 baseline of 59 pp.",
+        "verification": "",
+        "types": [
+          "prov:Entity"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "paper/main.pdf (Q12 build)",
+            "is_uri": false
+          },
+          {
+            "p": "dct:format",
+            "o": "application/pdf",
+            "is_uri": false
+          },
+          {
+            "p": "oid:pageCount",
+            "o": "60",
+            "is_uri": false
+          },
+          {
+            "p": "oid:byteSize",
+            "o": "3073523",
+            "is_uri": false
+          },
+          {
+            "p": "oid:sha256",
+            "o": "dea0963c6642efa0b688dcd0c4c0f098f0a4676c8f7ded232b69dae33f3fa5f5",
+            "is_uri": false
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "60 pages exactly --- at the rule-17-companion ceiling of 60 pp. Author's Note paragraph plus §2.3 second paragraph added 1 page over the Q10 baseline of 59 pp.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#aligner-round-3-2026-05-04",
+        "short": "oid:aligner-round-3-2026-05-04",
+        "label": "Aligner round 3: RE-ALIGNMENT REQUIRED: no (commit c4a1fdf)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:label",
+            "o": "Aligner round 3: RE-ALIGNMENT REQUIRED: no (commit c4a1fdf)",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasAssociatedWith",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAssociatedWith",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:startedAtTime",
+            "o": "2026-05-04T00:00:00+00:00",
+            "is_uri": false
+          },
+          {
+            "p": "prov:used",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#commit-a543917",
+            "is_uri": true
+          },
+          {
+            "p": "prov:used",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#commit-8398ae0",
+            "is_uri": true
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/aligner-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#pdf-main-Q10",
+        "short": "oid:pdf-main-Q10",
+        "label": "paper/main.pdf (Q10 build)",
+        "cls": "Entity",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "prov:Entity"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "paper/main.pdf (Q10 build)",
+            "is_uri": false
+          },
+          {
+            "p": "dct:format",
+            "o": "application/pdf",
+            "is_uri": false
+          },
+          {
+            "p": "oid:pageCount",
+            "o": "59",
+            "is_uri": false
+          },
+          {
+            "p": "oid:byteSize",
+            "o": "3069752",
+            "is_uri": false
+          },
+          {
+            "p": "oid:sha256",
+            "o": "39878cf8e77c3c39e0238e70cb0046471511ae682f6b1ff155064e08df0e8f2c",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2",
+        "short": "oid:source-L-RE-2",
+        "label": "DeGPT: Optimizing Decompiler Output with LLM (Hu et al., NDSS 2024)",
+        "cls": "Source",
+        "comment": "",
+        "verification": "oid:ai-confirmed",
+        "types": [
+          "oid:Source"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Source",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "L-RE-2",
+            "is_uri": false
+          },
+          {
+            "p": "dct:title",
+            "o": "DeGPT: Optimizing Decompiler Output with LLM (Hu et al., NDSS 2024)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:hasVerificationStatus",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#lit-read",
+        "short": "oid:lit-read",
+        "label": "[lit-read]",
+        "cls": "VerificationStatus",
+        "comment": "Full text read by a human; required for contested or first-of-its-kind claims.",
+        "verification": "",
+        "types": [
+          "oid:VerificationStatus"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#VerificationStatus",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "[lit-read]",
+            "is_uri": false
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "Full text read by a human; required for contested or first-of-its-kind claims.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#commit-668fa8d",
+        "short": "oid:commit-668fa8d",
+        "label": "668fa8d",
+        "cls": "Commit",
+        "comment": "Aligner round 1 closure (ALN-01..ALN-13).",
+        "verification": "",
+        "types": [
+          "oid:Commit"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Commit",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "668fa8d",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "Aligner round 1 closure (ALN-01..ALN-13).",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#lit-retrieved",
+        "short": "oid:lit-retrieved",
+        "label": "[lit-retrieved]",
+        "cls": "VerificationStatus",
+        "comment": "Title, authors, abstract, venue, citation count, DOI/URL recorded; full text unread.",
+        "verification": "",
+        "types": [
+          "oid:VerificationStatus"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#VerificationStatus",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "[lit-retrieved]",
+            "is_uri": false
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "Title, authors, abstract, venue, citation count, DOI/URL recorded; full text unread.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#VerificationStatus",
+        "short": "oid:VerificationStatus",
+        "label": "oid:VerificationStatus",
+        "cls": "Entity",
+        "comment": "A rung on the docs/sources.md verification ladder.",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "A rung on the docs/sources.md verification ladder.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#Build",
+        "short": "oid:Build",
+        "label": "oid:Build",
+        "cls": "Entity",
+        "comment": "A make all invocation, including SHAs of generated PDFs.",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Activity",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "A make all invocation, including SHAs of generated PDFs.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#Figure",
+        "short": "oid:Figure",
+        "label": "oid:Figure",
+        "cls": "Entity",
+        "comment": "A figure in paper/figures/, paired with data + script under rule 15.",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "A figure in paper/figures/, paired with data + script under rule 15.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#commit-302bf96",
+        "short": "oid:commit-302bf96",
+        "label": "302bf96",
+        "cls": "Commit",
+        "comment": "Pandora-jar-intact final asset (Q11 closure).",
+        "verification": "",
+        "types": [
+          "oid:Commit"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Commit",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "302bf96",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "Pandora-jar-intact final asset (Q11 closure).",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig9-verification-pipeline",
+        "short": "oid:figure-fig9-verification-pipeline",
+        "label": "oid:figure-fig9-verification-pipeline",
+        "cls": "Figure",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:Figure"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Figure",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/figures/fig9-verification-pipeline.svg",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasGeneratedBy",
+            "o": "file:///home/user/Obscurity-Is-Dead/docs/paper/figures/fig9-verification-pipeline.py",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#needs-research",
+        "short": "oid:needs-research",
+        "label": "[needs-research]",
+        "cls": "VerificationStatus",
+        "comment": "Gap or open question requiring literature search.",
+        "verification": "",
+        "types": [
+          "oid:VerificationStatus"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#VerificationStatus",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "[needs-research]",
+            "is_uri": false
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "Gap or open question requiring literature search.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-12-effort-gap-software",
+        "short": "oid:claim-12-effort-gap-software",
+        "label": "oid:claim-12-effort-gap-software",
+        "cls": "Claim",
+        "comment": "Software-side effort-gap collapse: 24.4 % cognitive-burden reduction (DeGPT).",
+        "verification": "",
+        "types": [
+          "oid:Claim"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Claim",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/main.md#sec-introduction-effort-gap",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "Software-side effort-gap collapse: 24.4 % cognitive-burden reduction (DeGPT).",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasDerivedFrom",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "oid:invocationFloor",
+            "o": "[ai-confirmed]",
+            "is_uri": false
+          },
+          {
+            "p": "oid:condensedOnly",
+            "o": "false",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig5-methodology",
+        "short": "oid:figure-fig5-methodology",
+        "label": "oid:figure-fig5-methodology",
+        "cls": "Figure",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:Figure"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Figure",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/figures/fig5-methodology.svg",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasGeneratedBy",
+            "o": "file:///home/user/Obscurity-Is-Dead/docs/paper/figures/fig5-methodology.py",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-authors-note-tokens-out-tokens-in",
+        "short": "oid:claim-authors-note-tokens-out-tokens-in",
+        "label": "oid:claim-authors-note-tokens-out-tokens-in",
+        "cls": "Claim",
+        "comment": "The strange shape of scientific debate: papers as transient token checkpoints between AI agents; provenance graph as structural answer.",
+        "verification": "",
+        "types": [
+          "oid:Claim"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Claim",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/main.md#authors-note-tokens-out-tokens-in",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "The strange shape of scientific debate: papers as transient token checkpoints between AI agents; provenance graph as structural answer.",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasGeneratedBy",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "oid:invocationFloor",
+            "o": "first-person-reflection",
+            "is_uri": false
+          },
+          {
+            "p": "oid:condensedOnly",
+            "o": "false",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-logo-pandora-shattered",
+        "short": "oid:figure-logo-pandora-shattered",
+        "label": "oid:figure-logo-pandora-shattered",
+        "cls": "Figure",
+        "comment": "Externally generated by Google Gemini per docs/prompts/illustration-prompt.md (rule 15 exempt; noted in paper/figures/README.md).",
+        "verification": "",
+        "types": [
+          "oid:Figure"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Figure",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/figures/logo-pandora-jar-shattered.png",
+            "is_uri": false
+          },
+          {
+            "p": "oid:externallyGenerated",
+            "o": "true",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://gemini.google.com/",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "Externally generated by Google Gemini per docs/prompts/illustration-prompt.md (rule 15 exempt; noted in paper/figures/README.md).",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#HumanResearcher",
+        "short": "oid:HumanResearcher",
+        "label": "oid:HumanResearcher",
+        "cls": "Entity",
+        "comment": "",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Agent",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig11-eight-practices",
+        "short": "oid:figure-fig11-eight-practices",
+        "label": "oid:figure-fig11-eight-practices",
+        "cls": "Figure",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:Figure"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Figure",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/figures/fig11-eight-practices.svg",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasGeneratedBy",
+            "o": "file:///home/user/Obscurity-Is-Dead/docs/paper/figures/fig11-eight-practices.py",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12",
+        "short": "oid:build-2026-05-04-Q12",
+        "label": "Q12 build (post-Author's-Note + Modeler agent + bootstrap PROV-O graph)",
+        "cls": "Build",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:Build"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Build",
+            "is_uri": true
+          },
+          {
+            "p": "dct:date",
+            "o": "2026-05-04",
+            "is_uri": false
+          },
+          {
+            "p": "rdfs:label",
+            "o": "Q12 build (post-Author's-Note + Modeler agent + bootstrap PROV-O graph)",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasAssociatedWith",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAssociatedWith",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasInformedBy",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+            "is_uri": true
+          },
+          {
+            "p": "prov:generated",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#pdf-main-Q12",
+            "is_uri": true
+          },
+          {
+            "p": "prov:generated",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#pdf-condensed-Q12",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+        "short": "oid:ai-confirmed",
+        "label": "[ai-confirmed]",
+        "cls": "VerificationStatus",
+        "comment": "Source Analyzer agent has retrieved + read full text + confirmed entry summary.",
+        "verification": "",
+        "types": [
+          "oid:VerificationStatus"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#VerificationStatus",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "[ai-confirmed]",
+            "is_uri": false
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "Source Analyzer agent has retrieved + read full text + confirmed entry summary.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-model-collapse",
+        "short": "oid:claim-77-model-collapse",
+        "label": "oid:claim-77-model-collapse",
+        "cls": "Claim",
+        "comment": "Recursive AI-on-AI training collapses the tail of the distribution; mitigation is mixing rather than replacing.",
+        "verification": "",
+        "types": [
+          "oid:Claim"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Claim",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/main.md#sec-model-collapse",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "Recursive AI-on-AI training collapses the tail of the distribution; mitigation is mixing rather than replacing.",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasDerivedFrom",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "oid:invocationFloor",
+            "o": "[lit-read]",
+            "is_uri": false
+          },
+          {
+            "p": "oid:condensedOnly",
+            "o": "false",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1",
+        "short": "oid:source-L-MC-1",
+        "label": "Shumailov et al. — Model collapse (Nature 2024)",
+        "cls": "Source",
+        "comment": "",
+        "verification": "oid:lit-read",
+        "types": [
+          "oid:Source"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Source",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "L-MC-1",
+            "is_uri": false
+          },
+          {
+            "p": "dct:title",
+            "o": "Shumailov et al. — Model collapse (Nature 2024)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:hasVerificationStatus",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#lit-read",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#stage-layout-scrutinizer",
+        "short": "oid:stage-layout-scrutinizer",
+        "label": "Layout Scrutinizer (Stage 4)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Layout Scrutinizer (Stage 4)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/layout-scrutinizer-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#pdf-condensed-Q12",
+        "short": "oid:pdf-condensed-Q12",
+        "label": "paper/main-condensed.pdf (Q12 build)",
+        "cls": "Entity",
+        "comment": "9 pages --- unchanged from Q10. The Q12 writer pass intentionally did not touch the condensed pair (rule 17 self-containment is unaffected). Two-byte size drift attributable to figure regeneration timestamps.",
+        "verification": "",
+        "types": [
+          "prov:Entity"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "paper/main-condensed.pdf (Q12 build)",
+            "is_uri": false
+          },
+          {
+            "p": "dct:format",
+            "o": "application/pdf",
+            "is_uri": false
+          },
+          {
+            "p": "oid:pageCount",
+            "o": "9",
+            "is_uri": false
+          },
+          {
+            "p": "oid:byteSize",
+            "o": "580153",
+            "is_uri": false
+          },
+          {
+            "p": "oid:sha256",
+            "o": "c0598eb1aafbe2b0cba9eb7799e3aba6f01a6c8b90cee9ae83f653257168c9ea",
+            "is_uri": false
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "9 pages --- unchanged from Q10. The Q12 writer pass intentionally did not touch the condensed pair (rule 17 self-containment is unaffected). Two-byte size drift attributable to figure regeneration timestamps.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#unverified-external",
+        "short": "oid:unverified-external",
+        "label": "[unverified-external]",
+        "cls": "VerificationStatus",
+        "comment": "URL or formal citation surfaced in a transcript; not yet retrieved.",
+        "verification": "",
+        "types": [
+          "oid:VerificationStatus"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#VerificationStatus",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "[unverified-external]",
+            "is_uri": false
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "URL or formal citation surfaced in a transcript; not yet retrieved.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q10",
+        "short": "oid:build-2026-05-04-Q10",
+        "label": "Q10 build (post-Aligner-round-3, pre-Q12)",
+        "cls": "Build",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:Build"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Build",
+            "is_uri": true
+          },
+          {
+            "p": "dct:date",
+            "o": "2026-05-04",
+            "is_uri": false
+          },
+          {
+            "p": "rdfs:label",
+            "o": "Q10 build (post-Aligner-round-3, pre-Q12)",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasAssociatedWith",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:used",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#commit-c4a1fdf",
+            "is_uri": true
+          },
+          {
+            "p": "prov:generated",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#pdf-main-Q10",
+            "is_uri": true
+          },
+          {
+            "p": "prov:generated",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#pdf-condensed-Q10",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate",
+        "short": "oid:claim-77-sloppification-base-rate",
+        "label": "oid:claim-77-sloppification-base-rate",
+        "cls": "Claim",
+        "comment": "Empirical fabricated-citation base rates: 18 %–55 % raw-LLM, plus paper-mill flood at NHANES scale.",
+        "verification": "",
+        "types": [
+          "oid:Claim"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Claim",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/main.md#sec-sloppification",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "Empirical fabricated-citation base rates: 18 %–55 % raw-LLM, plus paper-mill flood at NHANES scale.",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasDerivedFrom",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasDerivedFrom",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasDerivedFrom",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "oid:invocationFloor",
+            "o": "[ai-confirmed]",
+            "is_uri": false
+          },
+          {
+            "p": "oid:condensedOnly",
+            "o": "false",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#Source",
+        "short": "oid:Source",
+        "label": "oid:Source",
+        "cls": "Entity",
+        "comment": "A literature-register (L-XX-N) or code-side (S-XX-N) source.",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "A literature-register (L-XX-N) or code-side (S-XX-N) source.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#Commit",
+        "short": "oid:Commit",
+        "label": "oid:Commit",
+        "cls": "Entity",
+        "comment": "A git commit, identified by oid:commit-<sha7>.",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "A git commit, identified by oid:commit-<sha7>.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#Claim",
+        "short": "oid:Claim",
+        "label": "oid:Claim",
+        "cls": "Entity",
+        "comment": "A load-bearing assertion in the paper, addressable by section anchor.",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "A load-bearing assertion in the paper, addressable by section anchor.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8",
+        "short": "oid:source-L-SLOP-8",
+        "label": "Suchak et al. — NHANES paper-mill flooding",
+        "cls": "Source",
+        "comment": "",
+        "verification": "oid:ai-confirmed",
+        "types": [
+          "oid:Source"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Source",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "L-SLOP-8",
+            "is_uri": false
+          },
+          {
+            "p": "dct:title",
+            "o": "Suchak et al. — NHANES paper-mill flooding",
+            "is_uri": false
+          },
+          {
+            "p": "oid:hasVerificationStatus",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-23-provenance-modeler",
+        "short": "oid:claim-23-provenance-modeler",
+        "label": "oid:claim-23-provenance-modeler",
+        "cls": "Claim",
+        "comment": "Provenance information is rendered as a machine-readable W3C PROV-O graph by the Modeler agent (stage 7).",
+        "verification": "",
+        "types": [
+          "oid:Claim"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Claim",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/main.md#sec-provenance-mapping",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "Provenance information is rendered as a machine-readable W3C PROV-O graph by the Modeler agent (stage 7).",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasGeneratedBy",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "oid:invocationFloor",
+            "o": "first-person-methodology",
+            "is_uri": false
+          },
+          {
+            "p": "oid:condensedOnly",
+            "o": "false",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#stage-research",
+        "short": "oid:stage-research",
+        "label": "Research Protocol (Stage 1)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Research Protocol (Stage 1)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/research-protocol-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#commit-a543917",
+        "short": "oid:commit-a543917",
+        "label": "a543917",
+        "cls": "Commit",
+        "comment": "Aligner round 2 dispatch (ALN-14..ALN-24).",
+        "verification": "",
+        "types": [
+          "oid:Commit"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Commit",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "a543917",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "Aligner round 2 dispatch (ALN-14..ALN-24).",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-logo-pandora-intact",
+        "short": "oid:figure-logo-pandora-intact",
+        "label": "oid:figure-logo-pandora-intact",
+        "cls": "Figure",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:Figure"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Figure",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/figures/logo-pandora-jar-intact.png",
+            "is_uri": false
+          },
+          {
+            "p": "oid:externallyGenerated",
+            "o": "true",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasGeneratedBy",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#commit-302bf96",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://gemini.google.com/",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+        "short": "oid:PipelineStage",
+        "label": "oid:PipelineStage",
+        "cls": "Entity",
+        "comment": "One of the eight pipeline stages defined in CLAUDE.md.",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Activity",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "One of the eight pipeline stages defined in CLAUDE.md.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "short": "oid:florian-krebs",
+        "label": "Florian Krebs",
+        "cls": "HumanResearcher",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "foaf:Person",
+          "oid:HumanResearcher",
+          "prov:Agent"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "http://www.w3.org/ns/prov#Agent",
+            "is_uri": true
+          },
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#HumanResearcher",
+            "is_uri": true
+          },
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "http://xmlns.com/foaf/0.1/Person",
+            "is_uri": true
+          },
+          {
+            "p": "foaf:name",
+            "o": "Florian Krebs",
+            "is_uri": false
+          },
+          {
+            "p": "oid:orcid",
+            "o": "0000-0001-6033-801X",
+            "is_uri": false
+          },
+          {
+            "p": "oid:capacity",
+            "o": "Independent researcher (personal capacity)",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-analyzer-2026-05-02",
+        "short": "oid:source-analyzer-2026-05-02",
+        "label": "Source Analyzer pass: 114 entries upgraded to [ai-confirmed]",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:label",
+            "o": "Source Analyzer pass: 114 entries upgraded to [ai-confirmed]",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasAssociatedWith",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAssociatedWith",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:startedAtTime",
+            "o": "2026-05-02T00:00:00+00:00",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/source-analyzer-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2",
+        "short": "oid:source-L-SLOP-2",
+        "label": "McGowan et al. — ChatGPT psychiatry citation hallucinations",
+        "cls": "Source",
+        "comment": "",
+        "verification": "oid:ai-confirmed",
+        "types": [
+          "oid:Source"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Source",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "L-SLOP-2",
+            "is_uri": false
+          },
+          {
+            "p": "dct:title",
+            "o": "McGowan et al. — ChatGPT psychiatry citation hallucinations",
+            "is_uri": false
+          },
+          {
+            "p": "oid:hasVerificationStatus",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#pdf-condensed-Q10",
+        "short": "oid:pdf-condensed-Q10",
+        "label": "paper/main-condensed.pdf (Q10 build)",
+        "cls": "Entity",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "prov:Entity"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "http://www.w3.org/ns/prov#Entity",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "paper/main-condensed.pdf (Q10 build)",
+            "is_uri": false
+          },
+          {
+            "p": "dct:format",
+            "o": "application/pdf",
+            "is_uri": false
+          },
+          {
+            "p": "oid:pageCount",
+            "o": "9",
+            "is_uri": false
+          },
+          {
+            "p": "oid:byteSize",
+            "o": "580151",
+            "is_uri": false
+          },
+          {
+            "p": "oid:sha256",
+            "o": "565de09dad73d4af7e4d170a69479e8f9e4f57be804ab4e23e7b11dde9b17237",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1",
+        "short": "oid:source-L-SLOP-1",
+        "label": "Walters & Wilder — Fabricated citations in ChatGPT outputs",
+        "cls": "Source",
+        "comment": "",
+        "verification": "oid:ai-confirmed",
+        "types": [
+          "oid:Source"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Source",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "L-SLOP-1",
+            "is_uri": false
+          },
+          {
+            "p": "dct:title",
+            "o": "Walters & Wilder — Fabricated citations in ChatGPT outputs",
+            "is_uri": false
+          },
+          {
+            "p": "oid:hasVerificationStatus",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#stage-modeler",
+        "short": "oid:stage-modeler",
+        "label": "Modeler (Stage 7)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Modeler (Stage 7)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/modeler-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+        "short": "oid:writer-pass-2026-05-04-papermill",
+        "label": "Writer pass: papermill commentary + PROV-O modeler agent (2026-05-04)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:label",
+            "o": "Writer pass: papermill commentary + PROV-O modeler agent (2026-05-04)",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasAssociatedWith",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAssociatedWith",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:startedAtTime",
+            "o": "2026-05-04T00:00:00+00:00",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/scientific-writer-prompt.md",
+            "is_uri": false
+          },
+          {
+            "p": "oid:branch",
+            "o": "claude/add-papermill-commentary-ufAr0",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#stage-writer",
+        "short": "oid:stage-writer",
+        "label": "Scientific Writer (Stage 2)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Scientific Writer (Stage 2)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/scientific-writer-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#commit-ffdf60c",
+        "short": "oid:commit-ffdf60c",
+        "label": "ffdf60c",
+        "cls": "Commit",
+        "comment": "feat(experiments): embed vendor repos as plain files for agent access.",
+        "verification": "",
+        "types": [
+          "oid:Commit"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Commit",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "ffdf60c",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "feat(experiments): embed vendor repos as plain files for agent access.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#stage-readability-scrutinizer",
+        "short": "oid:stage-readability-scrutinizer",
+        "label": "Readability & Novelty Scrutinizer (Stage 5)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Readability & Novelty Scrutinizer (Stage 5)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/readability-novelty-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#stage-orchestrator",
+        "short": "oid:stage-orchestrator",
+        "label": "Orchestrator (Stage 0)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Orchestrator (Stage 0)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/orchestrator-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#AIAgent",
+        "short": "oid:AIAgent",
+        "label": "oid:AIAgent",
+        "cls": "Entity",
+        "comment": "A model + harness combination, e.g. Claude Opus 4.7 + Claude Code CLI.",
+        "verification": "",
+        "types": [],
+        "triples": [
+          {
+            "p": "rdfs:subClassOf",
+            "o": "http://www.w3.org/ns/prov#Agent",
+            "is_uri": true
+          },
+          {
+            "p": "rdfs:comment",
+            "o": "A model + harness combination, e.g. Claude Opus 4.7 + Claude Code CLI.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#commit-8398ae0",
+        "short": "oid:commit-8398ae0",
+        "label": "8398ae0",
+        "cls": "Commit",
+        "comment": "Writer pass closing all ten round-2 routed entries.",
+        "verification": "",
+        "types": [
+          "oid:Commit"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Commit",
+            "is_uri": true
+          },
+          {
+            "p": "dct:identifier",
+            "o": "8398ae0",
+            "is_uri": false
+          },
+          {
+            "p": "dct:description",
+            "o": "Writer pass closing all ten round-2 routed entries.",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#stage-source-analyzer",
+        "short": "oid:stage-source-analyzer",
+        "label": "Source Analyzer (Stage 1.5)",
+        "cls": "PipelineStage",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:PipelineStage"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#PipelineStage",
+            "is_uri": true
+          },
+          {
+            "p": "dct:title",
+            "o": "Source Analyzer (Stage 1.5)",
+            "is_uri": false
+          },
+          {
+            "p": "oid:promptFile",
+            "o": "docs/prompts/source-analyzer-prompt.md",
+            "is_uri": false
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig1-effort-gap",
+        "short": "oid:figure-fig1-effort-gap",
+        "label": "oid:figure-fig1-effort-gap",
+        "cls": "Figure",
+        "comment": "",
+        "verification": "",
+        "types": [
+          "oid:Figure"
+        ],
+        "triples": [
+          {
+            "p": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#Figure",
+            "is_uri": true
+          },
+          {
+            "p": "dct:source",
+            "o": "paper/figures/fig1-effort-gap.svg",
+            "is_uri": false
+          },
+          {
+            "p": "prov:wasDerivedFrom",
+            "o": "file:///home/user/Obscurity-Is-Dead/docs/paper/figures/data/effort-gap.csv",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasGeneratedBy",
+            "o": "file:///home/user/Obscurity-Is-Dead/docs/paper/figures/fig1-effort-gap.py",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+            "is_uri": true
+          },
+          {
+            "p": "prov:wasAttributedTo",
+            "o": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+            "is_uri": true
+          }
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-23-provenance-modeler--wasGeneratedBy--https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-23-provenance-modeler",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+        "label": "generated by",
+        "predicate": "wasGeneratedBy"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#aligner-round-3-2026-05-04--wasAssociatedWith--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#aligner-round-3-2026-05-04",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "associated with",
+        "predicate": "wasAssociatedWith"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2--hasVerificationStatus--https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+        "label": "verification",
+        "predicate": "hasVerificationStatus"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-12-effort-gap-software--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-12-effort-gap-software",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-23-provenance-modeler--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-23-provenance-modeler",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#aligner-round-3-2026-05-04--used--https://github.com/noheton/obscurity-is-dead/ns#commit-a543917",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#aligner-round-3-2026-05-04",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#commit-a543917",
+        "label": "used",
+        "predicate": "used"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-model-collapse--wasDerivedFrom--https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-model-collapse",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1",
+        "label": "derived from",
+        "predicate": "wasDerivedFrom"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill--wasAssociatedWith--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "associated with",
+        "predicate": "wasAssociatedWith"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8--hasVerificationStatus--https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+        "label": "verification",
+        "predicate": "hasVerificationStatus"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-logo-pandora-intact--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-logo-pandora-intact",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q10--wasAssociatedWith--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q10",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "associated with",
+        "predicate": "wasAssociatedWith"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-analyzer-2026-05-02--wasAssociatedWith--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-analyzer-2026-05-02",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "associated with",
+        "predicate": "wasAssociatedWith"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q10--generated--https://github.com/noheton/obscurity-is-dead/ns#pdf-condensed-Q10",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q10",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#pdf-condensed-Q10",
+        "label": "generated",
+        "predicate": "generated"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate--wasDerivedFrom--https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1",
+        "label": "derived from",
+        "predicate": "wasDerivedFrom"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-logo-pandora-intact--wasGeneratedBy--https://github.com/noheton/obscurity-is-dead/ns#commit-302bf96",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-logo-pandora-intact",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#commit-302bf96",
+        "label": "generated by",
+        "predicate": "wasGeneratedBy"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12--generated--https://github.com/noheton/obscurity-is-dead/ns#pdf-main-Q12",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#pdf-main-Q12",
+        "label": "generated",
+        "predicate": "generated"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate--wasDerivedFrom--https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2",
+        "label": "derived from",
+        "predicate": "wasDerivedFrom"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill--wasAssociatedWith--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "associated with",
+        "predicate": "wasAssociatedWith"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig5-methodology--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig5-methodology",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-analyzer-2026-05-02--wasAssociatedWith--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-analyzer-2026-05-02",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "associated with",
+        "predicate": "wasAssociatedWith"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig1-effort-gap--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig1-effort-gap",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig11-eight-practices--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig11-eight-practices",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-authors-note-tokens-out-tokens-in--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-authors-note-tokens-out-tokens-in",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12--generated--https://github.com/noheton/obscurity-is-dead/ns#pdf-condensed-Q12",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#pdf-condensed-Q12",
+        "label": "generated",
+        "predicate": "generated"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig9-verification-pipeline--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig9-verification-pipeline",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#aligner-round-3-2026-05-04--used--https://github.com/noheton/obscurity-is-dead/ns#commit-8398ae0",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#aligner-round-3-2026-05-04",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#commit-8398ae0",
+        "label": "used",
+        "predicate": "used"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-model-collapse--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-model-collapse",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig5-methodology--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig5-methodology",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1--hasVerificationStatus--https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-1",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+        "label": "verification",
+        "predicate": "hasVerificationStatus"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-logo-pandora-shattered--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-logo-pandora-shattered",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q10--used--https://github.com/noheton/obscurity-is-dead/ns#commit-c4a1fdf",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q10",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#commit-c4a1fdf",
+        "label": "used",
+        "predicate": "used"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12--wasAssociatedWith--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "associated with",
+        "predicate": "wasAssociatedWith"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12--wasInformedBy--https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+        "label": "informed by",
+        "predicate": "wasInformedBy"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-12-effort-gap-software--wasDerivedFrom--https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-12-effort-gap-software",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2",
+        "label": "derived from",
+        "predicate": "wasDerivedFrom"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig1-effort-gap--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig1-effort-gap",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig11-eight-practices--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig11-eight-practices",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1--hasVerificationStatus--https://github.com/noheton/obscurity-is-dead/ns#lit-read",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-MC-1",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#lit-read",
+        "label": "verification",
+        "predicate": "hasVerificationStatus"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-authors-note-tokens-out-tokens-in--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-authors-note-tokens-out-tokens-in",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q10--generated--https://github.com/noheton/obscurity-is-dead/ns#pdf-main-Q10",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q10",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#pdf-main-Q10",
+        "label": "generated",
+        "predicate": "generated"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-authors-note-tokens-out-tokens-in--wasGeneratedBy--https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-authors-note-tokens-out-tokens-in",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#writer-pass-2026-05-04-papermill",
+        "label": "generated by",
+        "predicate": "wasGeneratedBy"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig9-verification-pipeline--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#figure-fig9-verification-pipeline",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2--hasVerificationStatus--https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#ai-confirmed",
+        "label": "verification",
+        "predicate": "hasVerificationStatus"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-model-collapse--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-model-collapse",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate--wasDerivedFrom--https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-77-sloppification-base-rate",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-8",
+        "label": "derived from",
+        "predicate": "wasDerivedFrom"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12--wasAssociatedWith--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#build-2026-05-04-Q12",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "associated with",
+        "predicate": "wasAssociatedWith"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#aligner-round-3-2026-05-04--wasAssociatedWith--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#aligner-round-3-2026-05-04",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "associated with",
+        "predicate": "wasAssociatedWith"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-RE-2",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-12-effort-gap-software--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-12-effort-gap-software",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#source-L-SLOP-2",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#claude-opus-4-7",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    },
+    {
+      "data": {
+        "id": "https://github.com/noheton/obscurity-is-dead/ns#claim-23-provenance-modeler--wasAttributedTo--https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "source": "https://github.com/noheton/obscurity-is-dead/ns#claim-23-provenance-modeler",
+        "target": "https://github.com/noheton/obscurity-is-dead/ns#florian-krebs",
+        "label": "attributed to",
+        "predicate": "wasAttributedTo"
+      }
+    }
+  ]
+}

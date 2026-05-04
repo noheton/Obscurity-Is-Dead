@@ -92,6 +92,25 @@ python3 -c "import rdflib; g = rdflib.Graph(); g.parse('docs/provenance.ttl', fo
 # OK: 234 triples
 ```
 
+## Browser-viewable rendering
+
+A companion static-site rendering is produced by
+`scripts/build_provenance_site.py` and lives at `docs/site/`. The build
+script consumes the same `docs/provenance.ttl` artifact this report
+describes, projects it to Cytoscape.js elements (57 nodes / 60 edges
+in this bootstrap), and writes `docs/site/index.html` + `graph.json` +
+`style.css`. The site is class-coloured (Claim / Source / Activity /
+Agent / Figure / Build / Commit / VerificationStatus), filterable by
+class chip, verification-rung chip, and free-text search, and exposes
+the full triple list for any clicked node.
+
+Rule 14 governs the same way it governs `paper/main.pdf`: the site is
+a local artifact and must not be deployed to GitHub Pages or any other
+public surface without explicit written consent from the human author.
+The build script refuses to write the site if any graph literal
+matches a known live-credential pattern (rule 13 enforced
+independently of the Modeler prompt).
+
 ## Re-modelling verdict
 
 `RE-MODELLING REQUIRED: yes` — the bootstrap pass intentionally covers
