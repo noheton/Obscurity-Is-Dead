@@ -71,7 +71,7 @@
   \textcolor{red}{\textbf{DRAFT --- not for distribution.}}\\
   Working draft pending author review prior to submission. Do not cite,
   redistribute, or upload to public archives without explicit written consent
-  from the author (rule~13, \texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}).
+  from the author (rule~14, \texttt{CLAUDE.md}).
 }}
 \end{center}
 
@@ -1131,8 +1131,8 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
         \fp{paper/Makefile},
         \fp{.github/workflows/build-paper.yml}).
   \item The mirroring rule between \fp{paper/main.md} and
-        \fp{paper/main.tex} (rule 11 in
-        \fp{CLAUDE_CODE_INSTRUCTIONS.md}).
+        \fp{paper/main.tex} (rule 12 in
+        \fp{CLAUDE.md}).
   \item FAIR / citation metadata at the repository root:
         \fp{CITATION.cff}, \fp{.zenodo.json},
         \fp{codemeta.json}, plus the FAIR-mapping document
@@ -1505,7 +1505,7 @@ Independent corroboration
   & 9 catalogued solutions (5 local-protocol for the older 50350 module, 4 cloud-routed); ES-6 source quoted verbatim \\
 Live credential recovery
   & No (read-only intake; OAuth2 only)
-  & No (no live capture executed by the agent); rule-12 retention plan committed for the XAPK \\
+  & No (no live capture executed by the agent); rule-13 retention plan committed for the XAPK \\
 Dual-use blast radius
   & Bounded read-only telemetry; refresh-token rotation discipline
   & Full ControlMySpa control surface (climate, jets, blowers, lights, chromozone, filter cycles, c8zone) + cross-vendor data flow to WaterGuru \\
@@ -2529,9 +2529,9 @@ needs (\cref{sec:disc-malicious-integrator}). Likewise, the
 corpus-scale extension (\cref{sec:disc-apk-mass-probing}) is feasible
 \emph{because} the per-APK cost has collapsed. We accept this
 asymmetry as the price of methodological openness; the structural
-mitigations (rule-12 redaction policy, dual-use mirror per Weakness
+mitigations (rule-13 redaction policy, dual-use mirror per Weakness
 Table row, configuration-only Phase 3 outcomes, no public push or
-Zenodo deposit without explicit researcher consent per rule 13) raise
+Zenodo deposit without explicit researcher consent per rule 14) raise
 the cost of laundering the methodology as an exploit pipeline but do
 not eliminate it. The paper does not claim to have solved this
 problem; it claims to have \emph{made it visible} in a form that can
@@ -2701,7 +2701,7 @@ be developed into a \textbf{FAIR for AI-Assisted Research} extension
 conversation sessions, alongside the existing data and software
 identifiers (DOIs, Software Heritage IDs); \textbf{Accessibility} --- a
 standardised redaction policy under which credentials, personal data,
-device serial numbers, and other rule-12 categories can be removed from
+device serial numbers, and other rule-13 categories can be removed from
 public-facing artefacts without breaking the audit trail (cf.\
 \texttt{docs/redaction-policy.md}); \textbf{Interoperability} --- a
 transcript-export format, prompt-version manifest, and
@@ -2722,7 +2722,11 @@ peer scrutiny before they harden into convention. As of 2026-05-04 we
 have not located an existing community working group convened under
 this name (\texttt{docs/sources.md} L-FAIR-3, status
 \texttt{[needs-research]}); if one is formed, or already exists under
-an adjacent name, the proposal here defers to it.
+an adjacent name, the proposal here defers to it. The
+fully-instrumented per-axis mapping, with the cells filled out against
+the eight integrated practices and against the agent pipeline, lives at
+\texttt{docs/fair.md}~\S FAIR4AI; the prose specification of the same
+process lives at \texttt{docs/human-ai-collaboration-process.md}.
 
 \subsection{Future work}
 \label{sec:future-work}
@@ -2882,7 +2886,7 @@ mapping is recorded in \texttt{docs/redaction-policy.md}
 (community-implementer anonymisation, IDs \texttt{SF-IMPL-1..3},
 \texttt{EF-IMPL-1}, \texttt{BALBOA-UPSTREAM-1..2}); resolution requires
 repository access at the mapping commit and is governed by the same
-git-history-rewrite protocol that scrubs other rule-12 items before any
+git-history-rewrite protocol that scrubs other rule-13 items before any
 public mirror.
 
 \subsection{What is and is not sourced}
@@ -3043,8 +3047,8 @@ of AI-assisted research:
   \item \textbf{Mirror discipline between prose and submission source.}
         The Markdown source \seqsplit{\texttt{paper/main.md}} and the
         \LaTeX{} mirror \seqsplit{\texttt{paper/main.tex}} are kept
-        consistent at every commit under rule~11 of
-        \seqsplit{\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}}; CI rebuilds
+        consistent at every commit under rule~12 of
+        \seqsplit{\texttt{CLAUDE.md}}; CI rebuilds
         the PDF on every paper-touching commit and surfaces
         regressions.
   \item \textbf{A recursive case study of the paper itself
@@ -3150,8 +3154,8 @@ runnable protocol whose compliance is checkable per artifact.
 \paragraph{A real-world precedent for the redaction discipline.}
 Two of the eight practices --- provenance maps (practice~3) and FAIR
 alignment (practice~8) --- sit alongside an unlisted hygiene step
-that this paper enforces under \texttt{CLAUDE.md} rules 12 and 13:
-secrets, personal data, and other rule-12 material must be redacted
+that this paper enforces under \texttt{CLAUDE.md} rules 13 and 14:
+secrets, personal data, and other rule-13 material must be redacted
 \emph{and} purged from git history before any public-facing release,
 because \texttt{git rm} alone leaves the deleted blobs reachable from
 prior commits. A recently-dated, publicly-visible enactment of
@@ -3169,7 +3173,7 @@ The precedent strengthens the methodological argument made here
 without requiring this paper to claim attribution: an independent
 AI-assisted-integration project, working under separate constraints,
 arrived at the same redaction-and-history-rewrite step that the
-paper's rule-12 / rule-13 framing demands.
+paper's rule-13 / rule-14 framing demands.
 
 \paragraph{A fourth structural claim: democratisation of science production.}
 The effort-gap collapse documented in
