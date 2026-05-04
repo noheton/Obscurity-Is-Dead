@@ -1,0 +1,230 @@
+# Git history rewrite plan (pre-publication)
+
+> **NOTE — DO NOT EXECUTE.** This file is the *plan*. Running it
+> requires explicit written consent from the human author (Florian
+> Krebs) per CLAUDE.md rule 13. The redaction-execution agent that
+> drafted this file is **not** authorised to run any of the commands
+> below. The plan is committed for review and so that the eventual
+> execution is reproducible.
+
+This plan operationalises the "History rewrite checklist" in
+`docs/redaction-policy.md`. It uses
+[`git-filter-repo`](https://github.com/newren/git-filter-repo) (preferred
+over BFG because it supports literal-string `--replace-text`
+substitution with byte-for-byte fidelity).
+
+---
+
+## 1. Scope
+
+The rewrite covers patterns **H-01..H-10** from the redaction policy.
+Each pattern maps to a per-line entry in `replacements.txt`. The
+`literal:` prefix instructs `git-filter-repo` to do an exact-byte
+substring match (no regex), which is what we want for handles, repo
+paths, serials, and contact info.
+
+| ID | Pattern (raw → marker) |
+|----|-------------------------|
+| H-01a | `smurfy/esphome-spiderfarmer_ble-encrypt` → `[REDACTED:repo-path:SF-IMPL-1]` |
+| H-01b | `smurfy` → `[REDACTED:maintainer-handle:SF-IMPL-1]` *(applied AFTER H-01a; see §2)* |
+| H-02a | `p0rigth-dev/SpiderBLEBridge` → `[REDACTED:repo-path:SF-IMPL-2]` |
+| H-02b | `p0rigth-dev` → `[REDACTED:maintainer-handle:SF-IMPL-2]` |
+| H-02c | `SpiderBLEBridge` → `[REDACTED:repo-path:SF-IMPL-2]` |
+| H-03a | `PythonSpiderController` → `[REDACTED:repo-path:SF-IMPL-3]` |
+| H-03b | `pythonspidercontroller` → *(see §2 — bib-citekey carve-out, leave as-is)* |
+| H-04a | `niltrip/powerocean` → `[REDACTED:repo-path:EF-IMPL-1]` |
+| H-04b | `niltrip` → `[REDACTED:maintainer-handle:EF-IMPL-1]` |
+| H-05a | `mikakoivisto/controlmyspa-ha-mqtt` → `[REDACTED:repo-path:BALBOA-UPSTREAM-1]` |
+| H-05b | `mikakoivisto` → `[REDACTED:maintainer-handle:BALBOA-UPSTREAM-1]` |
+| H-06a | `arska/controlmyspa` → `[REDACTED:repo-path:BALBOA-UPSTREAM-2]` |
+| H-06b | `arska` → `[REDACTED:maintainer-handle:BALBOA-UPSTREAM-2]` |
+| H-07a | *(Spider Farmer raw MQTT username — value redacted from this plan; pull from policy R-SF-1 at execution time)* |
+| H-07b | *(Spider Farmer raw MQTT password — value redacted from this plan; pull from policy R-SF-2)* |
+| H-08a | *(Spider Farmer device serial — value redacted from this plan; pull from policy R-SF-3)* |
+| H-08b | *(Spider Farmer broker / device IP — value redacted from this plan; pull from policy R-SF-4)* |
+| H-08c | *(Spider Farmer vendor UID — value redacted from this plan; pull from policy R-SF-5)* |
+| H-09a | `HJ37ZDH5ZG5W0109` → `[REDACTED:serial:R-EF-1]` |
+| H-09b | `HJ3AZDH5ZG3G0384` → `[REDACTED:serial:R-EF-2]` |
+| H-09c | `HJ3AZDH5ZG3G0490` → `[REDACTED:serial:R-EF-3]` |
+| H-09d | `AC31ZEH4AG130052` → `[REDACTED:serial:R-EF-4]` |
+| H-10a | `jan.wagner@dlr.de` → *(strip — replace with empty string)* |
+| H-10b | `+49 551 7093106` → *(strip — replace with empty string)* |
+
+The R-SF-1..R-SF-5 raw values are intentionally **not** included
+inline here so that this plan file itself can ship in the public
+mirror after the rewrite. The author must paste the raw values into
+the local working copy of `replacements.txt` immediately before running
+the filter, then `shred(1)` that working copy after the rewrite.
+
+## 2. Substring-collision warnings
+
+`git-filter-repo --replace-text` is byte-substring; it does not respect
+word boundaries. The following collisions must be guarded against by
+ordering the replacement file correctly (longest pattern first) and by
+the manual carve-outs noted below.
+
+- **`smurfy_esphome_sf`** (bib citekey) contains `smurfy`. Run H-01a
+  before H-01b; verify post-rewrite that the citekey survived.
+  `smurfy` standalone after H-01a should only match the maintainer
+  handle.
+- **`p0rigth_spiderblebridge`** (bib citekey) contains `p0rigth` (note:
+  no `-dev`). H-02b only fires on `p0rigth-dev`, so the citekey is safe
+  by construction. Verify post-rewrite.
+- **`niltrip_powerocean`** (bib citekey) contains `niltrip`. Run H-04a
+  before H-04b. Post-rewrite, the citekey will read
+  `niltrip_powerocean` only if H-04b is applied with a word-boundary
+  guard. **`git-filter-repo --replace-text` cannot enforce word
+  boundaries**; therefore H-04b must be implemented as a *regex*
+  replacement instead, e.g. `regex:(?<![A-Za-z0-9_])niltrip(?![A-Za-z0-9_/-])==>[REDACTED:maintainer-handle:EF-IMPL-1]`.
+  The same applies to H-01b (`smurfy`) and H-05b (`mikakoivisto`).
+  H-02b (`p0rigth-dev`) is safe as-is because the hyphen prevents
+  citekey collision.
+- **`pythonspidercontroller`** (bib citekey) is identical to the
+  display form. The redaction-execution pass deliberately preserved
+  the bare lowercase form as a citekey (see policy line discussing
+  H-03 carve-out). Therefore **do not include H-03b in the
+  replacement file**: only H-03a (CamelCase `PythonSpiderController`)
+  needs rewriting in history. Verify post-rewrite that the citekey
+  references in `paper/references.bib` and `paper/main.{md,tex}`
+  Pandoc/`\citep{}` calls (`@pythonspidercontroller`,
+  `\citep{pythonspidercontroller}`) still resolve.
+- **`arska`** is short and risks collisions in URLs / bib metadata.
+  Pre-flight grep before running H-06b: `git grep -n 'arska' | grep -v
+  'arska/controlmyspa'` to confirm no other contexts. As of 2026-05-04
+  no such collision exists, but re-verify before running.
+
+## 3. `replacements.txt` template
+
+```text
+# git-filter-repo --replace-text replacements.txt
+# Order matters: longer / more-specific patterns first.
+
+# H-01 SF-IMPL-1
+literal:smurfy/esphome-spiderfarmer_ble-encrypt==>[REDACTED:repo-path:SF-IMPL-1]
+regex:(?<![A-Za-z0-9_])smurfy(?![A-Za-z0-9_/-])==>[REDACTED:maintainer-handle:SF-IMPL-1]
+
+# H-02 SF-IMPL-2
+literal:p0rigth-dev/SpiderBLEBridge==>[REDACTED:repo-path:SF-IMPL-2]
+literal:p0rigth-dev==>[REDACTED:maintainer-handle:SF-IMPL-2]
+literal:SpiderBLEBridge==>[REDACTED:repo-path:SF-IMPL-2]
+
+# H-03 SF-IMPL-3 (CamelCase only; lowercase form preserved as bib citekey)
+literal:PythonSpiderController==>[REDACTED:repo-path:SF-IMPL-3]
+
+# H-04 EF-IMPL-1
+literal:niltrip/powerocean==>[REDACTED:repo-path:EF-IMPL-1]
+regex:(?<![A-Za-z0-9_])niltrip(?![A-Za-z0-9_/-])==>[REDACTED:maintainer-handle:EF-IMPL-1]
+
+# H-05 BALBOA-UPSTREAM-1
+literal:mikakoivisto/controlmyspa-ha-mqtt==>[REDACTED:repo-path:BALBOA-UPSTREAM-1]
+regex:(?<![A-Za-z0-9_])mikakoivisto(?![A-Za-z0-9_/-])==>[REDACTED:maintainer-handle:BALBOA-UPSTREAM-1]
+
+# H-06 BALBOA-UPSTREAM-2
+literal:arska/controlmyspa==>[REDACTED:repo-path:BALBOA-UPSTREAM-2]
+regex:(?<![A-Za-z0-9_])arska(?![A-Za-z0-9_/-])==>[REDACTED:maintainer-handle:BALBOA-UPSTREAM-2]
+
+# H-07 Spider Farmer credentials  (paste from policy R-SF-1, R-SF-2 at run time)
+# literal:<RAW-USERNAME>==>[REDACTED:username:S-SF-5-username]
+# literal:<RAW-PASSWORD>==>[REDACTED:credential:S-SF-5-password]
+
+# H-08 Spider Farmer device identifiers (paste from policy R-SF-3, R-SF-4, R-SF-5)
+# literal:<RAW-SERIAL>==>[REDACTED:serial:S-SF-device]
+# literal:<RAW-IP>==>[REDACTED:ip:S-SF-device]
+# literal:<RAW-UID>==>[REDACTED:uid:S-SF-device]
+
+# H-09 EcoFlow serials
+literal:HJ37ZDH5ZG5W0109==>[REDACTED:serial:R-EF-1]
+literal:HJ3AZDH5ZG3G0384==>[REDACTED:serial:R-EF-2]
+literal:HJ3AZDH5ZG3G0490==>[REDACTED:serial:R-EF-3]
+literal:AC31ZEH4AG130052==>[REDACTED:serial:R-EF-4]
+
+# H-10 third-party DLR PII (strip entirely)
+literal:jan.wagner@dlr.de==>
+literal:+49 551 7093106==>
+```
+
+## 4. Pre-flight checklist (mandatory before invocation)
+
+1. **Author consent recorded.** A short signed note in
+   `docs/handbacks/` from Florian Krebs authorising the rewrite,
+   referencing this plan file by SHA-256.
+2. **Clone a fresh mirror** of the source repository to a scratch
+   directory:
+   ```bash
+   git clone --mirror git@github.com:noheton/Obscurity-Is-Dead.git \
+       /tmp/oid-mirror.git
+   cd /tmp/oid-mirror.git
+   ```
+3. **Paste raw values** for H-07 / H-08 into the local
+   `replacements.txt` (these are NOT in this committed plan file). The
+   raw values live in the human author's local notes, not in any
+   committed file (the redaction-policy register references them by
+   marker only).
+4. **Dry-run on a tag-bounded subset:**
+   ```bash
+   git filter-repo --replace-text replacements.txt --dry-run
+   ```
+5. **Run the rewrite:**
+   ```bash
+   git filter-repo --replace-text replacements.txt
+   ```
+6. **Verify every raw value is gone:**
+   ```bash
+   for s in 'smurfy' 'p0rigth-dev' 'PythonSpiderController' \
+            'niltrip' 'mikakoivisto' 'arska' \
+            'HJ37ZDH5ZG5W0109' 'HJ3AZDH5ZG3G0384' \
+            'HJ3AZDH5ZG3G0490' 'AC31ZEH4AG130052' \
+            'jan.wagner@dlr.de' '+49 551 7093106'; do
+       echo "==> $s"
+       git log --all -S "$s" --oneline | head -5
+   done
+   # All should print only the header line; no commits.
+   ```
+   Repeat with the H-07/H-08 raw values from the local-only
+   `replacements.txt`.
+7. **Verify bib citekeys survived:**
+   ```bash
+   for k in smurfy_esphome_sf p0rigth_spiderblebridge \
+            pythonspidercontroller niltrip_powerocean; do
+       git grep -n "$k" -- 'paper/references.bib' || echo "MISSING: $k"
+   done
+   ```
+8. **Tag the cleaned commit:**
+   ```bash
+   git tag -a pre-publication-clean -m "History rewrite per docs/git-history-rewrite-plan.md"
+   ```
+9. **Force-push to a *fresh* public repository** (NOT the existing
+   `noheton/Obscurity-Is-Dead`, to avoid invalidating outstanding
+   clones held by collaborators or automated systems):
+   ```bash
+   git remote add public-clean git@github.com:<NEW-REPO>.git
+   git push --mirror public-clean
+   ```
+10. **Shred the local `replacements.txt` working copy** (it contains
+    raw H-07/H-08 values):
+    ```bash
+    shred -u replacements.txt
+    ```
+11. **Then and only then** proceed to Zenodo deposit / arXiv submission
+    per the rule-13 consent gate.
+
+## 5. Rollback / safety notes
+
+- Keep the **un-rewritten** mirror clone untouched and offline until
+  the public push is verified. If the rewrite produces an unexpected
+  diff (e.g. a citekey collision), the un-rewritten mirror is the
+  recovery source.
+- Do **not** rewrite the human author's working repository in place;
+  always rewrite a fresh `--mirror` clone. This protects collaborators
+  and CI systems that hold pulls of the un-rewritten history.
+- Do **not** push the rewritten history back to
+  `noheton/Obscurity-Is-Dead` — push to the new public-clean repo
+  instead, then mark the original as private (or archive it) once the
+  public mirror is verified.
+
+---
+
+*Plan drafted 2026-05-04 by the redaction-execution agent (Claude Opus
+4.7) under orchestrator dispatch on branch
+`claude/check-illustration-pipeline-Jqst3`. Execution requires
+explicit human consent per CLAUDE.md rule 13.*
