@@ -58,7 +58,7 @@ Types used in this repository:
 | **Type** | `username` |
 | **Marker** | `[REDACTED:username:S-SF-5-username]` |
 | **Raw value (DO NOT EXPOSE)** | value redacted from this policy file itself |
-| **Status** | PENDING — present in researcher-authored files; history rewrite required |
+| **Status** | EXECUTED in working tree and history (rewrite 2026-05-04, tag `pre-publication-clean`) |
 | **Files containing raw value** | `docs/sources.md` (S-SF-5 entry), `docs/logbook.md` (2026-05-01 audit entry), `paper/main.md` (§3.6), `paper/main.tex` (§3.6 mirror), `experiments/spider-farmer/provenance.md` |
 | **Files excluded (vendor)** | `experiments/spider-farmer/original/README.md`, `experiments/spider-farmer/original/doc/log.md` |
 | **Transcript files** | `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan...` |
@@ -70,7 +70,7 @@ Types used in this repository:
 | **Source** | `docs/sources.md` S-SF-5 |
 | **Type** | `credential` |
 | **Marker** | `[REDACTED:credential:S-SF-5-password]` |
-| **Status** | PENDING — same files as R-SF-1 |
+| **Status** | EXECUTED in working tree and history (rewrite 2026-05-04, tag `pre-publication-clean`) |
 | **Files containing raw value** | Same as R-SF-1 |
 
 ### R-SF-3 — Spider Farmer device serial
@@ -80,7 +80,7 @@ Types used in this repository:
 | **Source** | `experiments/spider-farmer/` |
 | **Type** | `serial` |
 | **Marker** | `[REDACTED:serial:S-SF-device]` |
-| **Status** | PENDING |
+| **Status** | EXECUTED in working tree and history (rewrite 2026-05-04) |
 | **Files containing raw value** | `docs/logbook.md`, `experiments/spider-farmer/provenance.md`, `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan...` |
 
 ### R-SF-4 — Spider Farmer device local IP
@@ -90,7 +90,7 @@ Types used in this repository:
 | **Source** | `experiments/spider-farmer/` |
 | **Type** | `ip` |
 | **Marker** | `[REDACTED:ip:S-SF-device]` |
-| **Status** | PENDING |
+| **Status** | EXECUTED in working tree and history (rewrite 2026-05-04) |
 | **Files containing raw value** | `docs/logbook.md`, `experiments/spider-farmer/provenance.md`, `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan...` |
 
 ### R-SF-5 — Spider Farmer vendor UID
@@ -100,7 +100,7 @@ Types used in this repository:
 | **Source** | `experiments/spider-farmer/` |
 | **Type** | `uid` |
 | **Marker** | `[REDACTED:uid:S-SF-device]` |
-| **Status** | PENDING |
+| **Status** | EXECUTED in working tree and history (rewrite 2026-05-04) |
 | **Files containing raw value** | `experiments/spider-farmer/raw_conversations (copy&paste, web)/Fix light fan...` |
 
 ### R-EF-1 — EcoFlow PowerOcean inverter serial
@@ -111,7 +111,7 @@ Types used in this repository:
 | **Type** | `serial` |
 | **Marker** | `[REDACTED:serial:R-EF-1]` |
 | **Raw value (DO NOT EXPOSE)** | `[REDACTED:serial:R-EF-1]` (recorded here only so the history-rewrite filter list can pick it up; this file itself ships with the marker, not the raw value, after the pre-publication scrub — see "History rewrite checklist" below) |
-| **Status** | EXECUTED in working tree (commit on branch `claude/check-illustration-pipeline-Jqst3`); history rewrite still PENDING |
+| **Status** | EXECUTED in working tree and history (rewrite 2026-05-04, tag `pre-publication-clean`) |
 | **Files containing raw value (pre-redaction)** | `experiments/ecoflow-powerocean/original/doc/equipment.md`, `…/doc/implementation.md`, `…/custom_components/powerocean_dev/switch.py` |
 | **Notes** | Householder name `Florian Krebs` co-located with the serial is intentionally preserved with a parenthetical clarification (`paper author / device owner-of-record`). The serial-marker pairing breaks the exploitable artifact; the clarification preserves provenance honesty (rule 1). |
 
@@ -123,7 +123,7 @@ Types used in this repository:
 | **Type** | `serial` |
 | **Marker** | `[REDACTED:serial:R-EF-2]` |
 | **Raw value (DO NOT EXPOSE)** | `[REDACTED:serial:R-EF-2]` |
-| **Status** | EXECUTED in working tree; history rewrite PENDING |
+| **Status** | EXECUTED in working tree and history (rewrite 2026-05-04, tag `pre-publication-clean`) |
 | **Files containing raw value (pre-redaction)** | `experiments/ecoflow-powerocean/original/doc/equipment.md`, `…/doc/implementation.md` |
 
 ### R-EF-3 — EcoFlow PowerOcean battery 2 serial
@@ -134,7 +134,7 @@ Types used in this repository:
 | **Type** | `serial` |
 | **Marker** | `[REDACTED:serial:R-EF-3]` |
 | **Raw value (DO NOT EXPOSE)** | `[REDACTED:serial:R-EF-3]` |
-| **Status** | EXECUTED in working tree; history rewrite PENDING |
+| **Status** | EXECUTED in working tree and history (rewrite 2026-05-04, tag `pre-publication-clean`) |
 | **Files containing raw value (pre-redaction)** | as R-EF-2 |
 
 ### R-EF-4 — EcoFlow PowerPulse serial
@@ -145,7 +145,7 @@ Types used in this repository:
 | **Type** | `serial` |
 | **Marker** | `[REDACTED:serial:R-EF-4]` |
 | **Raw value (DO NOT EXPOSE)** | `[REDACTED:serial:R-EF-4]` |
-| **Status** | EXECUTED in working tree; history rewrite PENDING |
+| **Status** | EXECUTED in working tree and history (rewrite 2026-05-04, tag `pre-publication-clean`) |
 | **Files containing raw value (pre-redaction)** | `experiments/ecoflow-powerocean/original/doc/equipment.md`, `…/doc/implementation.md`, `…/custom_components/powerocean_dev/switch.py` |
 
 ---
@@ -299,31 +299,36 @@ written consent on top):
 ## History rewrite checklist (pre-publication)
 
 The authoritative `git-filter-repo` replacements list is consolidated
-in `docs/git-history-rewrite-plan.md`. The patterns that **must** be
-on that list:
+in `docs/git-history-rewrite-plan.md`. The plan was **executed on
+2026-05-04** under explicit human consent; the rewrite tip carries the
+annotated tag `pre-publication-clean`. Note that lines below display
+markers in place of raw patterns because this very file was rewritten
+by the same pass.
 
-- [ ] **H-01** `[REDACTED:maintainer-handle:SF-IMPL-1]` / `[REDACTED:repo-path:SF-IMPL-1]` (SF-IMPL-1)
-- [ ] **H-02** `[REDACTED:maintainer-handle:SF-IMPL-2]` / `[REDACTED:repo-path:SF-IMPL-2]` / `[REDACTED:repo-path:SF-IMPL-2]` (SF-IMPL-2)
-- [ ] **H-03** `pythonspidercontroller` *display form* / `[REDACTED:repo-path:SF-IMPL-3]` (SF-IMPL-3) — bib citekey form is preserved
-- [ ] **H-04** `[REDACTED:maintainer-handle:EF-IMPL-1]` / `[REDACTED:repo-path:EF-IMPL-1]` (EF-IMPL-1)
-- [ ] **H-05** `[REDACTED:maintainer-handle:BALBOA-UPSTREAM-1]` / `[REDACTED:repo-path:BALBOA-UPSTREAM-1]` (BALBOA-UPSTREAM-1)
-- [ ] **H-06** `[REDACTED:maintainer-handle:BALBOA-UPSTREAM-2]` / `[REDACTED:repo-path:BALBOA-UPSTREAM-2]` (BALBOA-UPSTREAM-2)
-- [ ] **H-07** Spider Farmer raw MQTT username + password (R-SF-1, R-SF-2)
-- [ ] **H-08** Spider Farmer device serial / IP / UID (R-SF-3, R-SF-4, R-SF-5)
-- [ ] **H-09** EcoFlow real serials `[REDACTED:serial:R-EF-1]`, `[REDACTED:serial:R-EF-2]`, `[REDACTED:serial:R-EF-3]`, `[REDACTED:serial:R-EF-4]` (R-EF-1..R-EF-4) — added 2026-05-04
-- [ ] **H-10** `` and `` (R-AUDIT-08a) — added 2026-05-04
+- [x] **H-01** SF-IMPL-1 (full + truncated PR-style form `[REDACTED:repo-path:SF-IMPL-1]`)
+- [x] **H-02** SF-IMPL-2 (handle, repo, bare project name)
+- [x] **H-03** SF-IMPL-3 (CamelCase only; lowercase form preserved as bib citekey)
+- [x] **H-04** EF-IMPL-1
+- [x] **H-05** BALBOA-UPSTREAM-1
+- [x] **H-06** BALBOA-UPSTREAM-2
+- [x] **H-07** Spider Farmer MQTT credentials (R-SF-1, R-SF-2)
+- [x] **H-08** Spider Farmer device identifiers (R-SF-3, R-SF-4, R-SF-5)
+- [x] **H-09** EcoFlow inverter / battery / PowerPulse serials (R-EF-1..R-EF-4)
+- [x] **H-10** Third-party DLR PII (R-AUDIT-08a)
 
-Operational steps (verbatim from the previous policy, retained):
+Operational steps:
 
-- [ ] Install `git-filter-repo` (preferred) or BFG Repo Cleaner
-- [ ] Confirm all raw values are identified in this register
-- [ ] Run filter on all branches that will be made public
-- [ ] Force-push to a *new* clean repository (do not rewrite the main dev repo
-      in place if collaborators have pulled)
-- [ ] Verify: `git log --all -S "<raw-value>" -- ` returns nothing
-- [ ] Tag the cleaned commit as `pre-publication-clean`
-- [ ] Proceed only then with Zenodo deposit / arXiv submission
+- [x] Install `git-filter-repo` (2.47.0)
+- [x] Confirm all raw values identified (one gap-fill in pass 2: truncated `[REDACTED:repo-path:SF-IMPL-1]` PR reference)
+- [x] Run filter on all branches that will be made public
+- [ ] Force-push to a *new* clean repository (DEFERRED — current pass rewrote the dev repo in place under explicit human consent + backup; the new-clean-repo step still gates the public-mirror push)
+- [x] Verify `git log --all -S "<raw-value>"` returns nothing for every catalogued raw value
+- [x] Tag the cleaned commit as `pre-publication-clean`
+- [ ] Proceed only then with Zenodo deposit / arXiv submission (rule 13 — separate explicit consent required)
+
+Residual carve-outs (intentional, not leaks):
+- The vendored zip archives in `experiments/spider-farmer/original/doc/` retain maintainer/repo strings inside their packed entries; `git-filter-repo --replace-text` does not enter binary blobs. Public-mirror gating must therefore either exclude these archives or document them as caveat (already prescribed by the `R-SF-*` "Files excluded (vendor)" rows).
 
 ---
 
-*Last updated: 2026-05-04 (redaction-execution pass: R-EF-1..4 register entries, logbook handling decision, policy carve-outs for R-AUDIT-04/09/10/12, four new marker types, history-rewrite list extended for H-09 and H-10).*
+*Last updated: 2026-05-04 (history rewrite executed; status flags for R-SF-1..5 and R-EF-1..4 flipped to EXECUTED; checklist boxes ticked; carve-out for vendored zip archives recorded).*

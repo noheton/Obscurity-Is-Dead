@@ -1,11 +1,14 @@
 # Git history rewrite plan (pre-publication)
 
-> **NOTE — DO NOT EXECUTE.** This file is the *plan*. Running it
-> requires explicit written consent from the human author (Florian
-> Krebs) per CLAUDE.md rule 13. The redaction-execution agent that
-> drafted this file is **not** authorised to run any of the commands
-> below. The plan is committed for review and so that the eventual
-> execution is reproducible.
+> **STATUS — EXECUTED 2026-05-04.** Florian Krebs granted explicit
+> consent on the `claude/history-rewrite-daDxQ` branch ("backup of
+> the repo. this is explicit consent"). The plan below is preserved
+> verbatim as the executed specification; post-execution deviations
+> and gap-fills are recorded in the new "Execution record" section
+> at the bottom of this file. The rewrite tip carries the annotated
+> tag `pre-publication-clean`. The public-mirror push and the
+> Zenodo / arXiv submission steps remain gated on a separate explicit
+> consent per CLAUDE.md rule 13.
 
 This plan operationalises the "History rewrite checklist" in
 `docs/redaction-policy.md`. It uses
@@ -228,3 +231,78 @@ literal:==>
 4.7) under orchestrator dispatch on branch
 `claude/check-illustration-pipeline-Jqst3`. Execution requires
 explicit human consent per CLAUDE.md rule 13.*
+
+---
+
+## 6. Execution record (2026-05-04)
+
+### Deviations from §4
+
+- The plan (§4.5) prescribed rewriting a fresh `--mirror` clone in
+  `/tmp`. Execution rewrote the dev repo in place on
+  `claude/history-rewrite-daDxQ`, under explicit consent and with the
+  human author's standing backup. The §5 collaborator-protection
+  rationale still applies to any future `noheton/Obscurity-Is-Dead`
+  push: do not force-push the rewritten branch to a shared collaborator
+  remote until public-mirror cut-over is approved.
+- The plan (§4.3) stored R-SF-1..5 raw values in the human author's
+  local notes only. Execution discovered the same raw values still
+  present in working-tree blobs of `experiments/spider-farmer/original/`
+  (vendor carve-out files) and the T6 transcript, so the substitution
+  list could be assembled directly inside the run sandbox without
+  pasting from external notes.
+
+### Pass-2 gap-fill
+
+The H-01b regex `(?<![A-Za-z0-9_])[REDACTED:maintainer-handle:SF-IMPL-1](?![A-Za-z0-9_/-])` correctly
+preserves the bib citekey form (`smurfy_esphome_sf`) but excludes the
+`/` lookahead, which means a *truncated* PR-style reference of the
+shape `[REDACTED:repo-path:SF-IMPL-1]` (no `-encrypt`) is not matched
+by H-01a (which requires the full `-encrypt` suffix) nor by H-01b. One
+such occurrence was found in
+`experiments/spider-farmer/original/doc/discusson.md:317`. A second
+filter-repo pass was run with the single literal substitution
+`[REDACTED:repo-path:SF-IMPL-1]==>[REDACTED:repo-path:SF-IMPL-1]`,
+which subsumed the truncated form without disturbing the (now-marker)
+output of pass 1.
+
+### Verification snapshot
+
+Per §4.6, `git log --all -S "<raw>" --oneline` returned **zero
+commits** for every raw value in the catalogue:
+
+`[REDACTED:maintainer-handle:SF-IMPL-2]`, `[REDACTED:maintainer-handle:BALBOA-UPSTREAM-1]`, `[REDACTED:repo-path:BALBOA-UPSTREAM-2]`, the four EcoFlow
+serials, the DLR PII pair, `[REDACTED:username:S-SF-5-username]`, `[REDACTED:credential:S-SF-5-password][-]?`,
+`[REDACTED:serial:S-SF-device]`, `[REDACTED:ip:S-SF-device]`, `[REDACTED:uid:S-SF-device]`. Substring tests for
+`[REDACTED:maintainer-handle:SF-IMPL-1][^_]` and `[REDACTED:maintainer-handle:EF-IMPL-1][^_]` (i.e. handle uses *outside* citekey
+form) returned only matches inside the policy/plan documents that
+discuss the redaction itself, plus the binary zip carve-out below.
+
+Citekey verification (§4.7): `smurfy_esphome_sf`,
+`p0rigth_spiderblebridge`, `pythonspidercontroller`, and
+`niltrip_powerocean` all still resolve in `paper/references.bib`.
+
+### Carve-out: vendored zip archives
+
+Three vendored archives in `experiments/spider-farmer/original/doc/`
+(`esphome-spiderfarmer_ble-encrypt.zip`, `[REDACTED:repo-path:SF-IMPL-2]-master.zip`,
+`[REDACTED:repo-path:SF-IMPL-3]-main.zip`) retain maintainer/repo strings
+inside their packed entries. `git-filter-repo --replace-text` does not
+descend into binary blobs. The pre-existing redaction-policy "Out of
+scope" note (vendored archive *filenames*) extends to the *contents*
+on the same rationale: rewriting the archive would defeat the
+diff/audit chain those files exist to preserve. Public-mirror cut-over
+must therefore either (a) drop these three files from the public tree
+or (b) ship them with a documented caveat. Either approach satisfies
+the redaction policy; the choice is left to the human author.
+
+### Tag and clean-up
+
+```text
+$ git tag -a pre-publication-clean -m "History rewrite per docs/git-history-rewrite-plan.md (executed 2026-05-04)"
+$ shred -u /tmp/replacements.txt /tmp/replacements2.txt
+```
+
+The `replacements.txt` working copy was shredded immediately after the
+verification pass, per §4.10. No raw H-07 / H-08 values were committed
+to any tracked file at any point.
