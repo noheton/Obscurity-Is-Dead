@@ -152,24 +152,49 @@ oid:commit-302bf96 a oid:Commit ;
 
 oid:build-2026-05-04-Q10 a oid:Build ;
   dct:date "2026-05-04"^^xsd:date ;
+  rdfs:label "Q10 build (post-Aligner-round-3, pre-Q12)" ;
   prov:wasAssociatedWith oid:florian-krebs ;
   prov:used oid:commit-c4a1fdf ;
-  prov:generated oid:pdf-main-2026-05-04 ,
-                  oid:pdf-condensed-2026-05-04 .
+  prov:generated oid:pdf-main-Q10 ,
+                  oid:pdf-condensed-Q10 .
 
-oid:pdf-main-2026-05-04 a prov:Entity ;
+oid:pdf-main-Q10 a prov:Entity ;
   dct:title "paper/main.pdf (Q10 build)" ;
   dct:format "application/pdf" ;
   oid:pageCount "59"^^xsd:integer ;
   oid:byteSize "3069752"^^xsd:integer ;
   oid:sha256 "39878cf8e77c3c39e0238e70cb0046471511ae682f6b1ff155064e08df0e8f2c" .
 
-oid:pdf-condensed-2026-05-04 a prov:Entity ;
+oid:pdf-condensed-Q10 a prov:Entity ;
   dct:title "paper/main-condensed.pdf (Q10 build)" ;
   dct:format "application/pdf" ;
   oid:pageCount "9"^^xsd:integer ;
   oid:byteSize "580151"^^xsd:integer ;
   oid:sha256 "565de09dad73d4af7e4d170a69479e8f9e4f57be804ab4e23e7b11dde9b17237" .
+
+oid:build-2026-05-04-Q12 a oid:Build ;
+  dct:date "2026-05-04"^^xsd:date ;
+  rdfs:label "Q12 build (post-Author's-Note + Modeler agent + bootstrap PROV-O graph)" ;
+  prov:wasAssociatedWith oid:florian-krebs , oid:claude-opus-4-7 ;
+  prov:wasInformedBy oid:writer-pass-2026-05-04-papermill ;
+  prov:generated oid:pdf-main-Q12 ,
+                  oid:pdf-condensed-Q12 .
+
+oid:pdf-main-Q12 a prov:Entity ;
+  dct:title "paper/main.pdf (Q12 build)" ;
+  dct:format "application/pdf" ;
+  oid:pageCount "60"^^xsd:integer ;
+  oid:byteSize "3073523"^^xsd:integer ;
+  oid:sha256 "dea0963c6642efa0b688dcd0c4c0f098f0a4676c8f7ded232b69dae33f3fa5f5" ;
+  rdfs:comment "60 pages exactly --- at the rule-17-companion ceiling of 60 pp. Author's Note paragraph plus §2.3 second paragraph added 1 page over the Q10 baseline of 59 pp." .
+
+oid:pdf-condensed-Q12 a prov:Entity ;
+  dct:title "paper/main-condensed.pdf (Q12 build)" ;
+  dct:format "application/pdf" ;
+  oid:pageCount "9"^^xsd:integer ;
+  oid:byteSize "580153"^^xsd:integer ;
+  oid:sha256 "c0598eb1aafbe2b0cba9eb7799e3aba6f01a6c8b90cee9ae83f653257168c9ea" ;
+  rdfs:comment "9 pages --- unchanged from Q10. The Q12 writer pass intentionally did not touch the condensed pair (rule 17 self-containment is unaffected). Two-byte size drift attributable to figure regeneration timestamps." .
 
 # =====================================================================
 # Selected sources (bootstrap — full register at docs/sources.md)
