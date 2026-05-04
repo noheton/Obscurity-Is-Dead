@@ -1254,9 +1254,18 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
         carried the recovered MQTT credentials for the Spider Farmer
         broker. These have been replaced with \texttt{[REDACTED]} markers
         in all researcher-authored files per
-        \texttt{docs/redaction-policy.md} R-SF-1..R-SF-2. Raw credentials
-        remain in prior git history; a history rewrite
-        (BFG/git-filter-repo) is required before any public archive.
+        \texttt{docs/redaction-policy.md} R-SF-1..R-SF-2, and the raw
+        values were excised from git history on 2026-05-04 by a
+        \texttt{git filter-repo --replace-text} pass against the
+        catalogue in \texttt{docs/git-history-rewrite-plan.md}; the
+        rewrite tip carries the annotated tag
+        \texttt{pre-publication-clean}. Vendored binary archives in
+        \texttt{experiments/spider-farmer/original/doc/} retain the
+        strings inside their packed entries because
+        \texttt{--replace-text} does not descend into binary blobs; the
+        policy treats them as a public-mirror cut-over decision (drop
+        the archives or ship them with a caveat) rather than a residual
+        leak.
   \item \textbf{Prompt injection from imported artifacts.} Vendor APK
         strings, PDF contents, and community-thread excerpts under
         \texttt{experiments/*/original/} are read by the AI agent. The

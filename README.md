@@ -159,9 +159,10 @@ Full F1–R1.3 mapping and open compliance issues in [`docs/fair.md`](docs/fair.
 | | |
 |---|---|
 | Working-tree redaction (rule 12) | **done** — paper text, handbacks, vendored design bundle, EcoFlow serials, logbook handles all redacted in-place; full register in [`docs/redaction-policy.md`](docs/redaction-policy.md); audit trail in [`docs/redaction-audit-2026-05-03.md`](docs/redaction-audit-2026-05-03.md). |
-| Git history rewrite (rule 12 / 13) | **plan filed, awaiting human consent** — see [`docs/git-history-rewrite-plan.md`](docs/git-history-rewrite-plan.md). `git rm` alone leaves deleted blobs reachable from prior commits; `git filter-repo` execution is gated on explicit author authorisation. |
-| Upstream-repo redaction follow-up | **pending** — the `experiments/*/raw_conversations` and other rule-4 carve-outs were intentionally out of scope for the working-tree pass; the public-mirror policy decides whether they ship redacted or whether the history rewrite covers them byte-for-byte. |
-| Public-mirror push / Zenodo / arXiv | **blocked** until both items above are resolved and the human author gives explicit written consent (rule 13). The CI Build-paper workflow produces draft artifacts only. |
+| Git history rewrite (rule 12 / 13) | **executed** (2026-05-04) — `git filter-repo` pass under explicit human consent against the catalogue in [`docs/git-history-rewrite-plan.md`](docs/git-history-rewrite-plan.md); rewrite tip carries the annotated tag `pre-publication-clean`. Verification: `git log --all -S "<raw>"` returns zero commits for every catalogued raw value. |
+| Vendored zip carve-out | **acknowledged** — `experiments/spider-farmer/original/doc/{esphome-spiderfarmer_ble-encrypt,[REDACTED:repo-path:SF-IMPL-2]-master,[REDACTED:repo-path:SF-IMPL-3]-main}.zip` retain maintainer / repo strings inside packed entries (binary blobs untouched by `--replace-text`). Public-mirror cut-over decides: drop the three archives, or ship them with a documented caveat. |
+| Upstream `noheton/spider_farmer` and `noheton/powerocean-dev` | **redaction pass not yet run on the upstreams** — `scripts/import-experiments.sh` clones them into `experiments/*/original/`, but the upstreams themselves still hold their pre-redaction history. Each needs its own `git-filter-repo` pass against the same catalogue before being made public. |
+| Public-mirror push / Zenodo / arXiv | **blocked** on the upstream-redaction pass and on a separate explicit consent (rule 13). The CI Build-paper workflow produces draft artifacts only. |
 
 ---
 
