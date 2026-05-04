@@ -107,8 +107,8 @@ ax_main.legend(fontsize=8.5, frameon=False, loc="upper left")
 # Panel B — Effort-gap summary across all three cases
 # ════════════════════════════════════════════════════════════════════════════
 labels   = ["Spider\nFarmer", "EcoFlow\nPowerOcean", "Meta-\nprocess"]
-ai_pct   = [12, 7, 5]
-ai_h     = [10.5, 8.0, 15.5]
+ai_pct   = [12, 7, 6]
+ai_h     = [10.5, 8.0, 17.5]
 man_mid  = [90, 120, 300]
 
 xpos = np.arange(len(labels))
@@ -141,6 +141,12 @@ fig.suptitle(
     "Figure 1 — The effort gap",
     x=0.5, y=1.01, fontsize=10, color=dlr_style.DLR_GRAY, ha="center",
 )
+
+# Ensure white background survives rsvg-convert / pdflatex (matches the
+# convention used by fig7, fig9, fig10, fig11, fig14).
+fig.patch.set_facecolor("white")
+ax_main.set_facecolor("white")
+ax_bar.set_facecolor("white")
 
 # ── Save ──────────────────────────────────────────────────────────────────────
 out_svg = os.path.join(HERE, "fig1-effort-gap.svg")
