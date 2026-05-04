@@ -16,8 +16,10 @@
 *.run.xml
 *.bcf
 
-# Built outputs - track main.pdf only when explicitly committed
+# Built outputs - main.pdf and main-condensed.pdf are local-only
+# until rule-13 consent is granted for distribution.
 main.pdf
+main-condensed.pdf
 arxiv-submission.tar.gz
 
 # Legacy figure SVG -> PDF conversions for fig2..fig5 are produced at
