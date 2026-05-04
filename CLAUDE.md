@@ -2,7 +2,7 @@
 
 This file contains the canonical AI policy for this repository. Any AI assistant, agent, or code generation tool should read and follow these instructions before making edits, generating text, or producing code.
 
-If your tool supports a standard instruction filename such as `.instructions.md` or `copilot-instructions.md`, this policy is also mirrored here.
+If your tool reads instructions by filename — `.instructions.md`, `copilot-instructions.md`, `CLAUDE_CODE_INSTRUCTIONS.md` — those files are stubs that point at this canonical document. The Aligner agent (Stage 6) checks the stub invariant on every pass; the rules below are the only place AI policy is maintained.
 
 When generating content or code in this repo, follow these rules:
 

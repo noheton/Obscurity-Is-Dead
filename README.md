@@ -79,7 +79,7 @@ A research paper **and** its full evidence trail — case studies, AI conversati
 | Long-form (canonical) | [`paper/main.md`](paper/main.md) | [`paper/main.tex`](paper/main.tex) | Full paper; arXiv-ready; CI-built PDF via [Build paper workflow](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml) |
 | Condensed (venue submission) | [`paper/main-condensed.md`](paper/main-condensed.md) | [`paper/main-condensed.tex`](paper/main-condensed.tex) | ≤ 10 pages; derivative of long-form; headline-KPI table as Fig 1 |
 
-Both artifacts are labelled *draft* until the author authorises submission (rule 13).
+Both artifacts are labelled *draft* until the author authorises submission (rule 14). The condensed paper is the **core submission** under rule 17; the long-form pair is the *companion / extended evidentiary record*.
 
 ---
 
@@ -108,7 +108,7 @@ The full inventory (Figs 7, 8, 12, 15, 16, plus the Pandora bookend) lives in [`
 ## Repository layout
 
 ```
-paper/         # main.md, main.tex (rule-11 mirror), references.bib, Makefile, figures/
+paper/         # main.md, main.tex, main-condensed.{md,tex} (rule-12 mirror, rule-17 core), references.bib, Makefile, figures/
 experiments/   # spider-farmer/, ecoflow-powerocean/,
                # iot-integrator-ondilo-ico-spa-v2/, iot-integrator-balboa-gateway-ultra/,
                # paper-meta-process/
@@ -130,7 +130,7 @@ make -C paper condensed # build main-condensed.pdf (venue submission, ≤10pp)
 make -C paper all       # build both artifacts in sequence
 ```
 
-> **Publication warning (rule 13).** `make arxiv` packages a submission tarball *for local review only*. Never upload, push to a public mirror, or submit without explicit written consent from the author.
+> **Publication warning (rule 14).** `make arxiv` packages a submission tarball *for local review only*. Never upload, push to a public mirror, or submit without explicit written consent from the author.
 
 ---
 
@@ -168,10 +168,10 @@ Full F1–R1.3 mapping and open compliance issues in [`docs/fair.md`](docs/fair.
 
 | | |
 |---|---|
-| Working-tree redaction (rule 12) | **done** — paper text, handbacks, vendored design bundle, EcoFlow serials, logbook handles all redacted in-place; full register in [`docs/redaction-policy.md`](docs/redaction-policy.md); audit trail in [`docs/redaction-audit-2026-05-03.md`](docs/redaction-audit-2026-05-03.md). |
-| Git history rewrite (rule 12 / 13) | **executed** (2026-05-04) — see `paper/main.md` §5.6 for the canonical narrative; catalogue at [`docs/git-history-rewrite-plan.md`](docs/git-history-rewrite-plan.md); rewrite tip tagged `pre-publication-clean`; `git log --all -S "<raw>"` returns zero commits for every catalogued raw value. One residual surface, the vendored zip carve-out, is recorded under the table.<sup>†</sup> |
+| Working-tree redaction (rule 13) | **done** — paper text, handbacks, vendored design bundle, EcoFlow serials, logbook handles all redacted in-place; full register in [`docs/redaction-policy.md`](docs/redaction-policy.md); audit trail in [`docs/redaction-audit-2026-05-03.md`](docs/redaction-audit-2026-05-03.md). |
+| Git history rewrite (rule 13 / 14) | **executed** (2026-05-04) — see `paper/main.md` §5.6 for the canonical narrative; catalogue at [`docs/git-history-rewrite-plan.md`](docs/git-history-rewrite-plan.md); rewrite tip tagged `pre-publication-clean`; `git log --all -S "<raw>"` returns zero commits for every catalogued raw value. One residual surface, the vendored zip carve-out, is recorded under the table.<sup>†</sup> |
 | Upstream `noheton/spider_farmer` and `noheton/powerocean-dev` | **redaction pass not yet run on the upstreams** — `scripts/import-experiments.sh` clones them into `experiments/*/original/`, but the upstreams themselves still hold their pre-redaction history (see `paper/main.md` §5.6). Each needs its own `git-filter-repo` pass against the same catalogue before being made public. |
-| Public-mirror push / Zenodo / arXiv | **blocked** on the upstream-redaction pass and on a separate explicit consent (rule 13). The CI Build-paper workflow produces draft artifacts only. |
+| Public-mirror push / Zenodo / arXiv | **blocked** on the upstream-redaction pass and on a separate explicit consent (rule 14). The CI Build-paper workflow produces draft artifacts only. |
 
 <sup>†</sup> *Vendored zip carve-out (acknowledged, not a gating step):* the three Spider Farmer archives `experiments/spider-farmer/original/doc/{esphome-spiderfarmer_ble-encrypt,[REDACTED:repo-path:SF-IMPL-2]-master,[REDACTED:repo-path:SF-IMPL-3]-main}.zip` retain maintainer / repo strings inside packed entries (`--replace-text` does not descend into binary blobs); the public-mirror cut-over decides whether to drop the archives or ship them with a documented caveat.
 
@@ -197,6 +197,6 @@ Disagreement is the most useful kind of contribution. The transcript-as-artifact
 
 ## How this README stays honest
 
-This is the flashy front door of [`paper/main.md`](paper/main.md). Per **rule 15** of [`CLAUDE.md`](CLAUDE.md), title, thesis, headline KPIs, and figure inventory must be updated in the same commit that the paper changes any of them. If this page contradicts the paper, the paper wins — please open an issue (`critique` label).
+This is the flashy front door of [`paper/main.md`](paper/main.md) and [`paper/main-condensed.md`](paper/main-condensed.md) (the **core submission** under rule 17). Per **rule 16** of [`CLAUDE.md`](CLAUDE.md), title, thesis, headline KPIs, and figure inventory must be updated in the same commit that the paper changes any of them. If this page contradicts the paper, the paper wins — please open an issue (`critique` label).
 
 *Obscurity is dead. What replaces it has to be designed, not assumed.*

@@ -1163,7 +1163,7 @@ This logbook is the operating record for the paper and research process.
 - Files updated: `paper/main.tex`, `paper/main.md`, `docs/handbacks/layout-to-writer.md`, `docs/handbacks/readability-to-writer.md`, `docs/logbook.md`.
 - Commit: created on branch `claude/add-layout-scrutinizer-agent-Ur5vX`; SHA recorded in commit body.
 
-## 2026-05-02 — Stage 0: Orchestrator (first run)
+### 2026-05-02 — Stage 0: Orchestrator (first run)
 
 - Branch: `claude/start-orchestrator-36qQV`. Predecessor commit: `f342d1c` (merge of PR #20).
 - Inputs read: `docs/handbacks/{layout,readability}-defect-registry.md`; `docs/handbacks/{layout,readability}-to-{writer,illustrator}.md`; last ten logbook entries; `git status` / `git log -5`; `paper/main.{tex,md}` mtime; `paper/main.pdf` (missing); ladder counts in `docs/sources.md`.
@@ -1181,7 +1181,7 @@ This logbook is the operating record for the paper and research process.
 - Files written by the orchestrator: `docs/handbacks/orchestrator-dispatch.md` (new, append-only dispatch log; first entry); this logbook entry. No edits to `paper/main.{md,tex}`, `docs/sources.md`, or any scrutinizer registry (orchestrator scope discipline per orchestrator-prompt §Constraints).
 - Sub-agent invocation: not auto-launched by this harness invocation — the dispatch directive in `docs/handbacks/orchestrator-dispatch.md` is the human-actionable hand-off; the human (or a follow-up session) launches the Source Analyzer with `docs/prompts/source-analyzer-prompt.md` against `docs/sources.md`.
 
-## 2026-05-02 — Stage 1.5: Source Analyzer (parallel run, slice 1)
+### 2026-05-02 — Stage 1.5: Source Analyzer (parallel run, slice 1)
 
 - Branch: `claude/start-orchestrator-36qQV`. Launched by Stage 0 (Orchestrator) per `docs/handbacks/orchestrator-dispatch.md` 2026-05-02T19:00:00Z.
 - Dispatch pattern: **five parallel sub-agents (Claude Opus 4.7), two entries each**, with explicit instructions not to edit `docs/sources.md` directly. Each sub-agent returned proposed status-line annotations, report-table rows, and writer hand-back blocks; the orchestrator merged centrally to avoid file-write races. This is the first parallel-dispatch Source Analyzer run in the project; the dispatch pattern itself is a research artifact (rule 4) and worth recording: it kept context per-agent small, surfaced fetch-failure as a harness-level rather than a per-paper signal, and produced a single coherent merged report.
@@ -1207,7 +1207,7 @@ This logbook is the operating record for the paper and research process.
 - Re-analysis verdict: **`RE-ANALYSIS REQUIRED: yes`** — five `[edge-case]` entries plus one `[ai-confirmed-attempt-failed]` await human `[lit-read]` confirmation or re-fetch; 119 unprocessed `[lit-retrieved]` entries remain in scope for subsequent passes.
 - Next anticipated stage (orchestrator's pre-dispatch projection per the 2026-05-02T19:00:00Z directive): Stage 5 (Readability) re-eval is now permissible — RDB-02 has comparator citations available; Stage 2 (Writer) is the natural next dispatch to consume the writer hand-back and clear the deferred RDB-02 / RDB-12 / abstract-novelty cluster. The orchestrator should be re-invoked to make the formal next-stage decision.
 
-## 2026-05-02 — Stage 2: Scientific Writer (RDB-02 / RDB-12 clearance)
+### 2026-05-02 — Stage 2: Scientific Writer (RDB-02 / RDB-12 clearance)
 
 - Branch: `claude/start-orchestrator-36qQV`. Triggered by orchestrator dispatch consuming the Source Analyzer hand-back at `docs/handbacks/source-analyzer-to-writer.md`.
 - Inputs read: `docs/prompts/scientific-writer-prompt.md`; `docs/handbacks/source-analyzer-to-writer.md`; `docs/handbacks/readability-to-writer.md` (RDB-02 + RDB-12 in full); `docs/sources.md` L-BLE-4 / L-SLOP-7 / L-SLOP-10 / L-SLOP-12 status lines (all `[ai-confirmed]`); `paper/main.md` §1.4 + §10; `paper/main.tex` mirror locations; `paper/references.bib`.
@@ -1227,7 +1227,7 @@ This logbook is the operating record for the paper and research process.
 - Constraint compliance: rule 1 (the new prose is AI-drafted from sources read by the Source Analyzer; this entry labels the contribution); rule 8 (comparators at `[ai-confirmed]`, framing modesty preserved); rule 11 (md ↔ tex mirrored in the same commit); rule 13 (no PR, no `make arxiv`, push restricted to the named branch).
 - Re-scrutiny recommendation for next Stage 5 (Readability) pass: **`RE-SCRUTINY REQUIRED: yes`** focused on (a) verifying that the §10 rewrite did not regress RDB-01 (the quadruple-recap of L-SLOP-1/-2/-4 statistics is unchanged here but the §10 paragraph now sits adjacent to it); (b) confirming the new §1.4 comparator half-clauses do not lengthen contribution items past the readability threshold; (c) checking that the "complement / extend / apply in concert" hedging on the §10 comparator triplet is not weakened to overclaim by Stage-4 layout iteration.
 
-## 2026-05-02 — Stage 1.5: Source Analyzer (parallel run, slice 2)
+### 2026-05-02 — Stage 1.5: Source Analyzer (parallel run, slice 2)
 
 - Branch: `claude/start-orchestrator-36qQV`. Launched in parallel with the Stage 2 Writer pass that consumed slice 1 (commit `79d7958`). No file conflict — analyzers edited only `docs/sources.md`; writer edited `paper/main.{md,tex}` and `references.bib`.
 - Same dispatch pattern as slice 1: five parallel sub-agents (Claude Opus 4.7), two entries each, return-only protocol; orchestrator merged centrally.
@@ -1240,7 +1240,7 @@ This logbook is the operating record for the paper and research process.
 - Re-analysis verdict: **`RE-ANALYSIS REQUIRED: yes`** — 2 attempt-failed entries plus ~109 unprocessed `[lit-retrieved]` entries.
 - Next anticipated stage: a follow-up Stage 2 Writer pass that promotes the eight slice-2 inline citations from footnote to in-text. After that, `make -C paper pdf` and Stages 4 + 5 re-scrutiny.
 
-## 2026-05-02 — Researcher hypothesis: hardware-side effort gap
+### 2026-05-02 — Researcher hypothesis: hardware-side effort gap
 
 - Researcher (Florian Krebs) raised an extension to the §1.4 effort-gap thesis during the orchestrator-coordinated session: AI-assisted reverse engineering compresses not only the *software* path (decompilers + LLMs reading binaries) but also the *hardware-access* path — soldering JTAG/UART/SPI test pads, glitching, chip-off, AI-assisted PCB photo analysis. Predicts the "sealed device → readable firmware" chain has compressed in parallel with the "binary → readable code" chain.
 - Action taken: lodged six placeholder entries (L-HW-RE-1..6) in `docs/sources.md` under a new **Claim cluster A.2 — Hardware-side effort-gap reduction**, all marked `[needs-research]`. Identified anchor candidates (JTAGulator, ChipWhisperer, *Hardware Hacker's Handbook*, automated firmware-extraction literature, AI-assisted PCB analysis literature) and an explicit open question about software-side ↔ hardware-side evidence asymmetry (peer-reviewed benchmarks vs grey literature).
@@ -1248,7 +1248,7 @@ This logbook is the operating record for the paper and research process.
 - Files: `docs/sources.md` (cluster A.2 inserted between cluster A and cluster B); `docs/logbook.md` (this entry).
 - Recommended next stage: **Stage 1 (Research)** dispatched against the L-HW-RE-1..6 placeholders to retrieve canonical citations (academic + grey-literature with explicit labels). The orchestrator should run this before the next writer pass that touches §1.4.
 
-## 2026-05-02 — Stage 1: Research pass on cluster A.2 (hardware-side effort gap)
+### 2026-05-02 — Stage 1: Research pass on cluster A.2 (hardware-side effort gap)
 
 - Branch: `claude/start-orchestrator-36qQV`. Three parallel sub-agents (Claude Opus 4.7), two L-HW-RE-* placeholders each, return-only protocol; orchestrator merged centrally. Same parallel-dispatch pattern as the Source Analyzer slices, applied for the first time to a Stage 1 literature pass.
 - Outcome: all six L-HW-RE-1..6 placeholders concretised with citations. Net upgrades from `[needs-research]`: five `[lit-retrieved]` entries (L-HW-RE-2..6) plus one `[lit-retrieved][grey-literature]` entry (L-HW-RE-1, no peer-reviewed primary located).
@@ -1265,7 +1265,7 @@ This logbook is the operating record for the paper and research process.
 - Re-research verdict: `RE-RESEARCH REQUIRED: optional`. Cluster A.2 is now usable; a follow-up pass could (a) populate exact Scholar/Semantic-Scholar citation counts, (b) attempt to surface a longitudinal time-to-extract benchmark via grey-literature search (Riscure / NewAE / Trail of Bits / Quarkslab; DEF CON / Hardwear.io / TROOPERS bench measurements), and (c) confirm the Wiesen et al. 2023 *ReverSim* author list.
 - Next anticipated stage: a Stage 1.5 (Source Analyzer) pass over the six L-HW-RE-* entries to retrieve and confirm full text, followed by a Stage 2 (Writer) pass to insert the cluster into §1.4 with the asymmetric-evidence framing made explicit.
 
-## 2026-05-02 — Stage 2: Writer pass inserting cluster A.2 into §1.4 + new §6.8
+### 2026-05-02 — Stage 2: Writer pass inserting cluster A.2 into §1.4 + new §6.8
 
 - Branch: `claude/start-orchestrator-36qQV`. Researcher-driven writer pass following the Stage 1 cluster A.2 research pass; Source Analyzer slice for cluster A.2 has not yet run, so all six L-HW-RE-* entries remain `[lit-retrieved]` and are cited as footnoted markers per the verification ladder (CLAUDE.md, 2026-05-02 extension), not inline.
 - §1.4 paragraphs extended:
@@ -1279,7 +1279,7 @@ This logbook is the operating record for the paper and research process.
 - Constraint compliance: rule 1 (researcher-hypothesis + AI-assisted-research-confirmed origin labelled in-prose); rule 8 (cluster A.2 anchored in six concrete entries); rule 11 (md ↔ tex mirrored in the same commit); rule 13 (branch-only push, no PR, no `make arxiv`).
 - Re-scrutiny recommendation: **`RE-SCRUTINY REQUIRED: yes`** for the next Stage 4 (Layout) and Stage 5 (Readability) passes. Stage 4 should verify `\cref{sec:synthesis-evidence-asymmetry}` resolves and that the named-footnote `\textsuperscript{\ref{fn:hwre-cluster}}` reuse renders correctly under the journal's footnote class. Stage 5 should check the §1.4 paragraph length (the new triangulation paragraph is dense — eight L-HW-RE-* references in one paragraph) and the §6.8 framing for any unintentional overclaim past "triangulated practitioner observation". Once Source Analyzer upgrades cluster A.2 to `[ai-confirmed]`, a follow-up writer pass should promote the footnoted markers to inline `\cite{}` calls using the bib keys lodged in this commit.
 
-## 2026-05-02 — Stage 1.5: Source Analyzer (parallel run, slice 3 — cluster A.2)
+### 2026-05-02 — Stage 1.5: Source Analyzer (parallel run, slice 3 — cluster A.2)
 
 - Branch: `claude/start-orchestrator-36qQV`. Three parallel sub-agents (Claude Opus 4.7), two L-HW-RE-* entries each, return-only protocol; orchestrator merged centrally. Run in parallel with the Stage 2 Writer pass that inserted cluster A.2 into §1.4 + new §6.8 (commit `f3ce051`); no file conflict — analyzers touched only `docs/sources.md` while writer touched `paper/main.{md,tex}` + `references.bib`.
 - Counts.
@@ -1300,7 +1300,7 @@ This logbook is the operating record for the paper and research process.
 - Re-analysis verdict: **`RE-ANALYSIS REQUIRED: yes`** — L-HW-RE-2 attempt-failed (load-bearing for §1.4 ~100× claim) and L-HW-RE-6 sub-claim ("two participants matched expert solution times") need a human `[lit-read]` pass. ~109 unprocessed `[lit-retrieved]` entries also remain (cluster A.2 is now substantively cleared).
 - Next anticipated stage (orchestrator's pre-merge projection): a follow-up Stage 2 Writer pass to (a) promote L-HW-RE-1, L-HW-RE-3, L-HW-RE-4 (narrowed), L-HW-RE-6 from §1.4 footnote to inline citation; (b) hold L-HW-RE-2 footnoted pending human `[lit-read]`; (c) apply the year correction (van Woudenberg & O'Flynn 2021 → 2022); (d) propagate the ReverSim author-order correction. After that, `make -C paper pdf` and Stages 4 + 5 re-scrutiny on the new §6.8.
 
-## 2026-05-02 — Stage 2: Scientific Writer (cluster A.2 inline-citation promotion)
+### 2026-05-02 — Stage 2: Scientific Writer (cluster A.2 inline-citation promotion)
 
 - Branch: `claude/start-orchestrator-36qQV`. Follow-up writer pass triggered by Source Analyzer slice 3 (`a12da72`). Scope: promote `[ai-confirmed]` cluster A.2 entries from footnoted markers to inline `\citep{}` calls; apply the two SA-surfaced bibliographic corrections; rebuild PDF; logbook + commit.
 - **Inline-citation promotions** (footnoted `[L-HW-RE-X]` → inline `\citep{}` / pandoc `[@key]`):
@@ -1327,7 +1327,7 @@ This logbook is the operating record for the paper and research process.
   - **Stage 4 (Layout)**: re-scrutinise the rebuilt 42-page `paper/main.pdf`. Specifically verify (a) the four new inline `\citep{}` calls render correctly in §1.4 and §6.8; (b) the narrowed `fn:hwre-cluster` footnote text fits the bottom of page 3 without overflow; (c) the bibliography list now contains `papp2015embedded` and shows van Woudenberg & O'Flynn as 2022. **`RE-SCRUTINY REQUIRED: yes`**.
   - **Stage 5 (Readability & novelty)**: re-scrutinise `paper/main.md`. The §1.4 paragraph density is slightly reduced (fewer footnote markers) but adds a "Vasile, Oswald & Chothia" author triplet — verify this does not push the paragraph past the readability threshold flagged in prior Stage 5 hand-backs. Verify the §6.8 Papp et al. addition does not overclaim taxonomy-based mitigation evidence. **`RE-SCRUTINY REQUIRED: yes`**.
 
-## 2026-05-02 — Stage 5: Readability & Novelty Scrutinizer (re-run after cluster A.2 + §6.8)
+### 2026-05-02 — Stage 5: Readability & Novelty Scrutinizer (re-run after cluster A.2 + §6.8)
 
 - Branch: `claude/start-orchestrator-36qQV`. Re-scrutiny pass triggered by writer commits `f3ce051` (cluster A.2 inserted into §1.4 + new §6.8) and `537fae2` (inline-citation promotion of L-HW-RE-1/-3/-4/-6 + Papp 2015 + van Woudenberg year correction). Targets `paper/main.md` against the post-`537fae2` head; `paper/main.tex` consulted only for rule-11 parity spot-checks.
 - **Carryover annotations (RDB-01..RDB-21).** No reopen-as-new-ID; statuses applied in-place per task constraints.
@@ -1356,7 +1356,7 @@ This logbook is the operating record for the paper and research process.
 - Files left untouched: `paper/main.{md,tex}`, `paper/references.bib`, all figure assets, `docs/sources.md` — scope discipline per task constraints (Stage 5 files registries only).
 - Re-scrutiny verdict: **`RE-SCRUTINY REQUIRED: yes`** — two new M-severity entries (RDB-22, RDB-23) plus the H-severity carryover RDB-01 and unchanged M / L carryovers. No new H introduced by cluster A.2 / §6.8; the §6.8 novelty claim is supported. Re-scrutinise after the next writer pass that touches §1.4 and §6.8 to address RDB-22 / RDB-23.
 
-## 2026-05-02 — Stage 2: Scientific Writer (Executive Summary insertion)
+### 2026-05-02 — Stage 2: Scientific Writer (Executive Summary insertion)
 
 - Branch: `claude/start-orchestrator-36qQV`. Researcher-driven writer pass adding a 2-page Executive Summary to the front matter so readers can absorb the paper's claims in roughly 90 seconds before deciding whether to read further.
 - AI authorship: AI-drafted from existing body content (rule 1). The summary re-presents claims; it does not add, remove, or modify any research claim. Every numerical anchor in the summary appears in the body and is sourced via the same source-register entry the body cites.
@@ -1372,7 +1372,7 @@ This logbook is the operating record for the paper and research process.
 - Out of scope (deferred): RDB-01 quadruple-recap fix; SA slice-2 hand-back (8 inline-citation upgrades); promotion of any current `[edge-case]` entry to inline citation.
 - Re-scrutiny recommendation: **`RE-SCRUTINY REQUIRED: yes`** for the next Stage 4 (Layout) and Stage 5 (Readability) passes. Stage 4 should verify that (a) the unnumbered Executive Summary appears correctly in the ToC; (b) the page-1 layout (abstract + DRAFT banner + start of Executive Summary) does not clip; (c) all `\cref{}` calls in the new section resolve. Stage 5 should check for any unintentional overclaim in the compressed re-presentation versus the body, and verify that the `\paragraph{}` heading rhythm is not too dense for a 90-second read.
 
-## 2026-05-02 — Stage 4: Layout Scrutinizer (re-run after cluster A.2 + §6.8)
+### 2026-05-02 — Stage 4: Layout Scrutinizer (re-run after cluster A.2 + §6.8)
 
 - Branch: `claude/start-orchestrator-36qQV`. Re-run triggered by writer commits `f3ce051` (cluster A.2 + §6.8 insertion) and `537fae2` (cluster A.2 inline-citation promotion + bib corrections + Figure 13 caption macro fix). Stage 5 (Readability & Novelty) ran in parallel; this entry only edits `docs/handbacks/layout-*.md` and `docs/logbook.md`.
 - **PDF under inspection:** SHA-256 `62e68f6a5208814d47a51a8124bc7c7a836e7c9f3104951bc40a5c8dfda81384`; **42 pages** (was 40 in the prior pass); 1,211,008 bytes; rebuilt 2026-05-02T19:44:30Z; newer than both `paper/main.tex` and `paper/main.md`.
@@ -1394,7 +1394,7 @@ This logbook is the operating record for the paper and research process.
 - **RE-SCRUTINY REQUIRED: yes** — one H-severity entry (LAY-19) plus the same-family LAY-17 KPI tables and the §10 path-bullet cluster (LAY-10, 168.71pt) prevent a clean reading of headline KPIs. A single `tabularx` conversion closes LAY-17 + LAY-19; a path-wrapping pass closes LAY-03/-09/-10/-22. Rebuild and re-sweep required after the next writer pass.
 - **Next anticipated stage:** Stage 2 (Scientific Writer) consumes `docs/handbacks/layout-to-writer.md`, runs the suggested remediation order (LAY-19 + LAY-17 family first; LAY-10 + LAY-22 path-wrapping second; LAY-03 + LAY-09 third; LAY-20 + LAY-21 fourth), rebuilds via `make -C paper pdf`, and re-dispatches Stage 4.
 
-## 2026-05-03 — Transcript reconstruction pass (T2 + missing-transcript placeholders)
+### 2026-05-03 — Transcript reconstruction pass (T2 + missing-transcript placeholders)
 
 - Branch: `claude/start-orchestrator-36qQV`. Researcher-driven artifact-recovery pass per CLAUDE.md rule 4 (AI conversation transcripts are first-class research artifacts).
 - **Reconstructed (one new transcript file).** `experiments/paper-meta-process/raw_conversations (copy&paste, web)/T2-orchestrator-pipeline-2026-05-02.md` — covers the orchestrator-coordinated session that produced commits `316f58e..6ce1a99` (12 commits). Frontmatter labels the file `[reconstructed-from-logbook]`; the canonical source is `docs/logbook.md` (2026-05-02 entries, lines 1463–1691) plus the commit-message corpus. Records the commit timeline, sub-agent inventory (~15 sub-agents across Stages 0/1/1.5/2/4/5; parallel-dispatch tactic for the Source Analyzer slices and the cluster-A.2 research pass; serial single-agent dispatch for the writer / scrutinizer passes), the cluster A.2 §1.4 + §6.8 insertion, the 14 `[ai-confirmed]` upgrades, the 6 cluster A.2 anchors, the Executive Summary insertion, and the new defect IDs (RDB-22..RDB-26 readability; LAY-19..LAY-22 layout). Honesty disclosures: the file is a faithful summary of the agent-loop exchanges, NOT a verbatim export, because the Claude Code CLI web harness does not expose a transcript-export endpoint.
@@ -1459,7 +1459,7 @@ This logbook is the operating record for the paper and research process.
   - Researcher commits the two Gemini logo binaries and updates §9.1 with the iteration history.
   - On acceptance, the README's Visual abstract and front matter render with the new identity.
 
-## 2026-05-02 — Stage 5: Readability, Novelty & Conciseness scrutinizer (first run)
+### 2026-05-02 — Stage 5: Readability, Novelty & Conciseness scrutinizer (first run)
 
 - Inputs read in full: `paper/main.md` (650 lines), section-structure of `paper/main.tex` (2,383 lines), `docs/sources.md` clusters A–O, `paper/references.bib`, prior logbook session.
 - Deliverables produced:
@@ -1489,7 +1489,7 @@ This logbook is the operating record for the paper and research process.
 
 - Next steps: writer pass remediates RDB-01..RDB-12 (H + M); illustrator pass addresses RDB-04 / RDB-05+RDB-08 / RDB-07; second scrutinizer pass after writer remediation to clear the H entries.
 
-## 2026-05-02 — Stage 4: Layout Scrutinizer (first run)
+### 2026-05-02 — Stage 4: Layout Scrutinizer (first run)
 
 - PDF under inspection: `paper/main.pdf`
   - SHA-256: `ba538ea0d2df9a582889eb16de84d3cd1c6bcf5ae00e647549b7b68bcb2b9e4f`
@@ -1727,7 +1727,7 @@ This logbook is the operating record for the paper and research process.
 - **Pre-publication reminder.** Per rule 13 and the existing redaction-policy history-rewrite checklist: the original handles and repo paths are still present in earlier commits of this branch (and in the unredacted transcripts under `experiments/*/raw_conversations/`). A `git-filter-repo` pass against all six markers (and the SHA-256 of the original `[REDACTED:repo-path:BALBOA-UPSTREAM-1]` etc. strings) is required before any public mirror, Zenodo deposit, or arXiv submission. No publish action taken in this session.
 - **Commit hygiene.** Single commit on `claude/start-orchestrator-36qQV`, message "paper: anonymize community implementers + add Author's Note". `git pull --rebase` confirmed local up to date with `origin/claude/start-orchestrator-36qQV` before the commit.
 
-## 2026-05-03 — Orchestrator: cluster A.3 integration + §3 hedge + consistency consolidation
+### 2026-05-03 — Orchestrator: cluster A.3 integration + §3 hedge + consistency consolidation
 
 - Branch: `claude/start-orchestrator-36qQV`. Combined three orchestration steps into a single commit:
   1. **Cluster A.3 lodged in `docs/sources.md`** (between cluster A.2 and cluster B). Seven entries L-TS-1..L-TS-7 covering quantitative time-savings evidence: Basque NDSS 2026 (2.4× SRE triage); Peng 2023 Copilot RCT (55.8% greenfield); Cui 2025 *Mgmt Sci* (+26.08%, n=4,867); METR 2025 (−19% brownfield slowdown, n=16); Ziegler CACM 2024 (telemetry-grade); Fang 2024 (87% one-day CVE exploitation); Stack Overflow 2024 (industry self-report). Honest gap finding included: no peer-reviewed paired manual-vs-AI study exists for protocol-reconstruction / IoT-integration tasks.
@@ -1744,7 +1744,7 @@ This logbook is the operating record for the paper and research process.
 - **Files updated by this orchestration step**: `docs/sources.md` (cluster A.3 inserted); `paper/main.md` (§3 hedge paragraph); `paper/main.tex` (§3 hedge mirror); `paper/references.bib` (four new entries); `docs/logbook.md` (this entry).
 - **No edits**: scrutinizer registries (Stage 4 / Stage 5 next pass should pick up the new §3 hedge paragraph and the cluster A.3 references); paper figures; transcripts (those landed in `a35647f`).
 
-## 2026-05-03 — DLR Design System bundle curated + illustration prompt updated
+### 2026-05-03 — DLR Design System bundle curated + illustration prompt updated
 
 - Branch: `claude/start-orchestrator-36qQV`. Closes the last open task from the multi-part directive: the illustration agent now has an authoritative on-disk spec to respect.
 - **Bundle source.** Fetched from `https://api.anthropic.com/v1/design/h/YCsRfEWCmYQvrknj0kuLNg` (after the `https://claude.ai/design/p/...` share URL returned 403 to WebFetch). Upstream is a Claude Design handoff bundle, ~87 MB / 456 files; the `api.anthropic.com` form is a gzipped tarball reachable from this harness without authentication.
@@ -1770,7 +1770,7 @@ This logbook is the operating record for the paper and research process.
 - **Files added/edited**: `paper/figures/dlr-design-system/` (10 new files, 116 KB); `docs/prompts/illustration-prompt.md` (added ~50 lines under new "Authoritative house rules" section); `docs/logbook.md` (this entry). No paper-source edits this pass; the next illustration-agent run will produce updated figure scripts that pull in the new conventions.
 - **Status of all directives from the multi-part user request:** complete. Time-savings data → cluster A.3 + §3 hedge (`e0a1f27`); anonymization → 6 redaction IDs (`a5c29de`); Author's Note → 350 words (`a5c29de`); transcript reconstruction → T2 + missing-placeholders (`a35647f`); consistency consolidation → done (`e0a1f27`); illustration design system → curated + prompt updated (this commit).
 
-## 2026-05-03 — Stage 3: Illustrator (README-hero closure pass)
+### 2026-05-03 — Stage 3: Illustrator (README-hero closure pass)
 
 - Branch: `claude/add-readme-logo-J8nvt`. Narrow-scope illustration agent pass triggered by the Stage 4 / Stage 5 scrutiny reports on commits `7e1f297` (re-encode + wire-up) and `062b1d3` (scrutiny notes), both of which returned `RE-SCRUTINY REQUIRED: no`.
 - Scope discipline. No `fig*.{py,svg,pdf}` regenerated; no edits to `paper/main.{md,tex}`; no edits to the logo binary itself (researcher forbade cropping; the 1408x768 frame including the "CONCEPT:" footer is final). Only handback-registry status flips and inventory drift fixes.
@@ -1783,7 +1783,7 @@ This logbook is the operating record for the paper and research process.
   - `logo-pandora-jar-intact.png` is still the AI-authored placeholder produced by `paper/figures/logo-placeholders.py`. When the second Gemini deliverable lands, drop it in unchanged, then close the intact-jar half of LAY-12 and the corresponding `RDB-18` writer-side caption-shortening task.
 - Files updated: `docs/handbacks/readability-to-illustrator.md`; `docs/handbacks/layout-to-illustrator.md`; `docs/handbacks/layout-defect-registry.md`; `paper/figures/README.md`; `docs/logbook.md` (this entry). No paper-source, figure-script, or binary-asset changes.
 
-## 2026-05-03 — Stage 1.5: Source Analyzer (slice 3 — cluster A / A.3)
+### 2026-05-03 — Stage 1.5: Source Analyzer (slice 3 — cluster A / A.3)
 
 - Branch: `claude/review-open-issues-PfNx9`. Agent: Claude Opus 4.7 under orchestrator dispatch. Scope: next slice of 5–10 unprocessed `[lit-retrieved]` entries in `docs/sources.md`, taken in file order from the top.
 - **Slice processed (10 entries):** L-RE-4, L-RE-5, L-RE-6, L-RE-7, L-RE-8 (cluster A — LLM-assisted RE) and L-TS-1, L-TS-2, L-TS-3, L-TS-4, L-TS-5 (cluster A.3 — quantitative time-savings evidence for AI-assisted code work).
@@ -1800,7 +1800,7 @@ This logbook is the operating record for the paper and research process.
 - **Hand-back filed:** `docs/handbacks/source-analyzer-to-writer.md` — slice 3 block lists the nine new `[ai-confirmed]` entries available for inline-citation upgrade, names the two metadata corrections (L-RE-6 arXiv ID, L-RE-7 first author), and records the L-TS-1 edge-case for the writer's awareness.
 - **Files edited this pass:** `docs/sources.md` (10 entries annotated in place); `docs/handbacks/source-analyzer-to-writer.md` (slice 3 block appended); `docs/logbook.md` (this entry). **No edits** to `paper/main.{md,tex}`, `paper/references.bib`, scrutinizer registries, figures, or transcripts (rule 11 / scope discipline). No publish action (rule 13).
 
-## 2026-05-03 — Stage 1.5: Source Analyzer (slice 4 — clusters B / C / D)
+### 2026-05-03 — Stage 1.5: Source Analyzer (slice 4 — clusters B / C / D)
 
 - Branch: `claude/review-open-issues-PfNx9`. Agent: Claude Opus 4.7 under orchestrator dispatch. Pass 2 of the chained Source Analyzer sweep (after slice 3, commit `a4b5fdf`). Scope: next slice of 5–10 unprocessed `[lit-retrieved]` entries in `docs/sources.md`, taken in file order from the first entry without an `[ai-confirmed*]` / `[edge-case]` annotation after the slice-3 cluster.
 - **Slice processed (8 entries):** L-VD-4, L-VD-6, L-VD-7, L-VD-8, L-VD-9 (cluster B — LLM-assisted vulnerability discovery), L-HC-5, L-HC-8 (cluster C — hardcoded secrets in mobile apps), L-BLE-3 (cluster D — BLE).
@@ -1817,7 +1817,7 @@ This logbook is the operating record for the paper and research process.
 - **Hand-back filed:** `docs/handbacks/source-analyzer-to-writer.md` — slice 4 block lists the eight new `[ai-confirmed]` entries available for inline-citation upgrade, names the two year corrections (L-VD-4, L-VD-6), the L-VD-6 author correction, and the L-VD-7 title-suffix correction.
 - **Files edited this pass:** `docs/sources.md` (8 entries annotated in place); `docs/handbacks/source-analyzer-to-writer.md` (slice 4 block appended); `docs/logbook.md` (this entry). **No edits** to `paper/main.{md,tex}`, `paper/references.bib`, scrutinizer registries, figures, or transcripts (rule 11 / scope discipline). No publish action (rule 13).
 
-## 2026-05-03 — Stage 1.5: Source Analyzer (slice 5 — clusters B / D / E)
+### 2026-05-03 — Stage 1.5: Source Analyzer (slice 5 — clusters B / D / E)
 
 - Branch: `claude/review-open-issues-PfNx9`. Agent: Claude Opus 4.7 under orchestrator dispatch. Pass 3 of the chained Source Analyzer sweep (after slice 3 commit `a4b5fdf` and slice 4 commit `10f0d9b`). Scope: next slice of 5–10 unprocessed `[lit-retrieved]` entries in `docs/sources.md`, in file order, starting at the first entry without an `[ai-confirmed*]` / `[edge-case]` annotation after the slice-4 cluster.
 - **Slice processed (9 entries):** L-TS-6 (cluster B — LLM-assisted offensive cost asymmetry), L-BLE-6, L-BLE-7, L-BLE-8, L-BLE-9 (cluster D — BLE), L-RR-1, L-RR-2, L-RR-3, L-RR-4 (cluster E — right-to-repair / legal motivation).
@@ -1834,7 +1834,7 @@ This logbook is the operating record for the paper and research process.
 - **Hand-back filed:** `docs/handbacks/source-analyzer-to-writer.md` — slice 5 block lists the nine new `[ai-confirmed]` entries available for inline-citation upgrade, names the three `references.bib`-propagating venue/date corrections, and the three author-list corrections.
 - **Files edited this pass:** `docs/sources.md` (9 entries annotated in place); `docs/handbacks/source-analyzer-to-writer.md` (slice 5 block appended); `docs/logbook.md` (this entry). **No edits** to `paper/main.{md,tex}`, `paper/references.bib`, scrutinizer registries, figures, or transcripts (rule 11 / scope discipline). No publish action (rule 13).
 
-## 2026-05-03 — Stage 1.5: Source Analyzer (slice 6 — clusters E / F)
+### 2026-05-03 — Stage 1.5: Source Analyzer (slice 6 — clusters E / F)
 
 - Branch: `claude/review-open-issues-PfNx9`. Agent: Claude Opus 4.7 under orchestrator dispatch. Pass 4 of the chained Source Analyzer sweep (after slice 5 commit `f83b955`). Scope: next slice of 5–10 unprocessed `[lit-retrieved]` entries in `docs/sources.md`, in file order, starting at L-RR-5 per the slice-5 hand-back.
 - **Slice processed (8 entries):** L-RR-5, L-RR-6, L-RR-7 (cluster E — right-to-repair / IoT EU policy); L-LF-1, L-LF-2, L-LF-3, L-LF-4, L-LF-5 (cluster F — local-first / cloud-independence).
@@ -1854,7 +1854,7 @@ This logbook is the operating record for the paper and research process.
 
 ---
 
-## 2026-05-03 — Source Analyzer pass 5 (slice 7) — Claude Opus 4.7
+### 2026-05-03 — Source Analyzer pass 5 (slice 7) — Claude Opus 4.7
 
 - **Slice:** L-LAW-1 .. L-LAW-6 (cluster G — DMCA § 1201(f) / US legal-interoperability exemption — six entries).
 - **Scope-rule applied:** legal-text entries are capped at `[ai-confirmed-bibliographic]` per CLAUDE.md rule 5 and the source-analyzer-prompt §Constraints (legal interpretation requires human `[lit-read]`). No entry promoted to full `[ai-confirmed]`.
@@ -1871,7 +1871,7 @@ This logbook is the operating record for the paper and research process.
 - **Hand-back filed:** `docs/handbacks/source-analyzer-to-writer.md` — pass 5 / slice 7 block appended; lists the four `[ai-confirmed-bibliographic]` entries, the two attempt-failures, and the four `references.bib`-propagating metadata corrections.
 - **Files edited this pass:** `docs/sources.md` (six entries annotated in place); `docs/handbacks/source-analyzer-to-writer.md` (slice 7 block appended); `docs/logbook.md` (this entry). **No edits** to `paper/main.{md,tex}`, `paper/references.bib`, scrutinizer registries, figures, or transcripts (rule 11 / scope discipline). No publish action (rule 13).
 
-## 2026-05-03 — Source Analyzer pass 6 (slice 8) — Claude Opus 4.7
+### 2026-05-03 — Source Analyzer pass 6 (slice 8) — Claude Opus 4.7
 
 - **Slice:** L-COUNTER-1 .. L-COUNTER-6 (cluster H — counter-positions / dual-use risk amplifiers — six entries, supports `paper/main.md` §6.4). Branch `claude/review-open-issues-PfNx9`. Pass 6 of the chained Source Analyzer sweep (after slice 7 commit `72b70ae`). Non-legal cluster — standard `[ai-confirmed]` ladder applies per slice-7 hand-back.
 - **Counts (slice 8):**
@@ -1886,7 +1886,7 @@ This logbook is the operating record for the paper and research process.
 - **Hand-back filed:** `docs/handbacks/source-analyzer-to-writer.md` — pass 6 / slice 8 block appended; lists the six new `[ai-confirmed]` entries available for inline-citation upgrade and the three `references.bib`-propagating metadata corrections (one load-bearing).
 - **Files edited this pass:** `docs/sources.md` (six entries annotated in place); `docs/handbacks/source-analyzer-to-writer.md` (slice 8 block appended); `docs/logbook.md` (this entry). **No edits** to `paper/main.{md,tex}`, `paper/references.bib`, scrutinizer registries, figures, or transcripts (rule 11 / scope discipline). No publish action (rule 13).
 
-## 2026-05-03 — Source Analyzer pass 7 (slice 9) — Claude Opus 4.7
+### 2026-05-03 — Source Analyzer pass 7 (slice 9) — Claude Opus 4.7
 
 - **Slice:** L-SLOP-1, -2, -3, -4, -5, -6, -8, -9, -11 (cluster I — sloppification of science by generative AI — nine entries, supports `paper/main.md` §1.4 / §7.6 / §10). Skipped L-SLOP-7, -10, -12 (already `[ai-confirmed]` from passes 1–2). Branch `claude/review-open-issues-PfNx9`. Pass 7 of the chained Source Analyzer sweep (after slice 8 commit `689ea87`). Non-legal cluster — standard `[ai-confirmed]` ladder applies.
 - **Counts (slice 9):**
@@ -1901,7 +1901,7 @@ This logbook is the operating record for the paper and research process.
 - **Hand-back filed:** `docs/handbacks/source-analyzer-to-writer.md` — pass 7 / slice 9 block appended; lists the nine new `[ai-confirmed*]` entries available for inline-citation upgrade and the three `references.bib`-propagating metadata corrections.
 - **Files edited this pass:** `docs/sources.md` (nine entries annotated in place); `docs/handbacks/source-analyzer-to-writer.md` (slice 9 block appended); `docs/handbacks/source-analyzer-report.md` (slice 9 decision table + cumulative state appended); `docs/logbook.md` (this entry). **No edits** to `paper/main.{md,tex}`, `paper/references.bib`, scrutinizer registries, figures, or transcripts (rule 11 / scope discipline). No publish action (rule 13).
 
-## 2026-05-03 — Source Analyzer pass 8 / slice 10 (cluster J — model collapse, L-MC-1..L-MC-9) — Claude Opus 4.7
+### 2026-05-03 — Source Analyzer pass 8 / slice 10 (cluster J — model collapse, L-MC-1..L-MC-9) — Claude Opus 4.7
 
 - **Stage:** 1.5 Source Analyzer.
 - **Scope:** next 9 unprocessed `[lit-retrieved]` entries in file order after pass-7 stop (L-SLOP-11). Cluster J — model collapse and the dilution of the scientific commons (`paper/main.md` §7.7).
@@ -1918,7 +1918,7 @@ This logbook is the operating record for the paper and research process.
 - **Hand-back filed:** `docs/handbacks/source-analyzer-to-writer.md` — pass 8 / slice 10 block appended; lists the nine new `[ai-confirmed]` entries available for inline citation upgrade in §7.7. No `references.bib` corrections required.
 - **Files edited this pass:** `docs/sources.md` (nine entries annotated in place); `docs/handbacks/source-analyzer-to-writer.md` (slice 10 block appended); `docs/handbacks/source-analyzer-report.md` (slice 10 decision table + cumulative state appended); `docs/logbook.md` (this entry). **No edits** to `paper/main.{md,tex}`, `paper/references.bib`, scrutinizer registries, figures, or transcripts (rule 11 / scope discipline). No publish action (rule 13).
 
-## 2026-05-03 — Prompt-only update: extend research / layout / orchestrator prompts — Claude Opus 4.7
+### 2026-05-03 — Prompt-only update: extend research / layout / orchestrator prompts — Claude Opus 4.7
 
 - **Stage:** none dispatched. Prompt-only update to `docs/prompts/`; no agent run, no paper edits, no figure regeneration, no source-status changes.
 - **Files edited:**
@@ -1929,7 +1929,7 @@ This logbook is the operating record for the paper and research process.
 - **Out of scope (untouched):** `paper/`, `experiments/`, `docs/sources.md`, `docs/handbacks/`, `paper/references.bib`, `paper/figures/`. No `make pdf` run. No publish action (rule 13).
 - **RE-SCRUTINY-of-prompts: not applicable.** Prompt updates are governance text and are not subject to the layout/readability scrutinizer pipeline; the next substantive scrutiny happens when the updated prompts are exercised by their respective agents in subsequent pipeline runs.
 
-## 2026-05-03 — clarification: commit 506b927 attribution
+### 2026-05-03 — clarification: commit 506b927 attribution
 
 - Type: housekeeping note (no agent dispatched).
 - Trigger: commit `506b927` ("orchestrator: mandatory issue poll; critique defaults to Stage 2") inadvertently bundled three unrelated artifacts: the orchestrator-prompt edit (the only change described in the message), `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` (Agent B output), and the Agent B `docs/logbook.md` session entry. Cause: Agent B had run `git add` on its files but had not yet committed when the orchestrator-edit `git commit` ran in the parent session; the staged files were swept in.
@@ -1937,7 +1937,7 @@ This logbook is the operating record for the paper and research process.
 - Files actually changed in 506b927: `docs/prompts/orchestrator-prompt.md`, `docs/handbacks/peer-review-v2-to-v3-reconstruction.md` (new), `docs/logbook.md` (Agent B entry).
 - Author of the bundled work: orchestrator-edit by parent session (Claude Opus 4.7, human-directed); v2→v3 reconstruction by Agent B (Claude Opus 4.7).
 
-## 2026-05-03 — Stage 1: Research Protocol delta sweep against `experiments/*` — Claude Opus 4.7
+### 2026-05-03 — Stage 1: Research Protocol delta sweep against `experiments/*` — Claude Opus 4.7
 
 - **Agent / role:** Claude Opus 4.7, Stage 1 (research protocol), *delta sweep* mode per the freshly updated `docs/prompts/research-protocol-prompt.md` (INPUTS / RE-RUN TRIGGERS / FAIR-CHECK subsections, added 2026-05-03).
 - **Branch:** `claude/review-open-issues-PfNx9`. No edits to `paper/main.{md,tex}`; no `make pdf`. Rules 1, 11, 12, 13 honoured.
@@ -1955,7 +1955,7 @@ This logbook is the operating record for the paper and research process.
 - **Re-run / re-analysis verdict:** no further research-protocol pass triggered by this sweep. The next Stage 1 dispatch should be the optional research subpasses queued under D-4 / D-5, on orchestrator decision.
 - **Commit:** to be created on `claude/review-open-issues-PfNx9` containing `docs/handbacks/research-protocol-delta-2026-05-03.md` and this logbook entry. Not pushed (rule 13).
 
-## 2026-05-03 — Source Analyzer pass 9 (slice 11, cluster K-CONS) — Claude Opus 4.7
+### 2026-05-03 — Source Analyzer pass 9 (slice 11, cluster K-CONS) — Claude Opus 4.7
 
 - **Stage:** 1.5 (Source Analyzer). Pass 9 retry — the prior pass-9 attempt aborted on a per-account API rate limit and produced no work; this pass executed cleanly.
 - **Scope:** the next 6 unprocessed `[lit-retrieved]` entries in `docs/sources.md` file order. Cluster K-CONS (consumer-IoT base rate; supports §§3-4 framing): L-CONS-1 through L-CONS-6.
@@ -1968,7 +1968,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables:** edits to `docs/sources.md` (six entry status lines); appended slice-11 sections to `docs/handbacks/source-analyzer-report.md` and `docs/handbacks/source-analyzer-to-writer.md`; this logbook entry. Commit on `claude/review-open-issues-PfNx9`; not pushed.
 - **Next step (orchestrator):** continue down-file with the next ~6 `[lit-retrieved]` entries (cluster K-IND, industrial / IIoT / ICS posture, L-IND-1..L-IND-6) on the next Stage 1.5 dispatch.
 
-## 2026-05-03 — Source Analyzer pass 10 (slice 12, cluster K-IND) — Claude Opus 4.7
+### 2026-05-03 — Source Analyzer pass 10 (slice 12, cluster K-IND) — Claude Opus 4.7
 
 - **Stage:** 1.5 (Source Analyzer). Pass 10 of the chained sweep against `[lit-retrieved]` backlog in `docs/sources.md`.
 - **Scope:** the next 6 unprocessed `[lit-retrieved]` entries in file order. Cluster K-IND (industrial / IIoT / ICS posture; supports §§3-4 industrial-qualifier framing): **L-IND-1 through L-IND-6**.
@@ -1983,7 +1983,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables:** edits to `docs/sources.md` (six entry status lines L-IND-1..6); appended pass-10 sections to `docs/handbacks/source-analyzer-report.md` and `docs/handbacks/source-analyzer-to-writer.md`; this logbook entry. Commit on `claude/review-open-issues-PfNx9`; not pushed (rule 13).
 - **Next step (orchestrator):** continue down-file with the next ~6 `[lit-retrieved]` entries (cluster L privacy / local-first, L-PRIV-1..L-PRIV-6 area) on the next Stage 1.5 dispatch.
 
-## 2026-05-03 — Source Analyzer pass 11 (slice 13, cluster L-PRIV partial) — Claude Opus 4.7
+### 2026-05-03 — Source Analyzer pass 11 (slice 13, cluster L-PRIV partial) — Claude Opus 4.7
 
 - **Stage:** 1.5 (Source Analyzer). Pass 11 of the chained sweep against `[lit-retrieved]` backlog in `docs/sources.md`.
 - **Scope:** the next 6 unprocessed `[lit-retrieved]` entries in file order. Cluster L-PRIV partial (privacy-baseline + companion-app surface + first companion-app-multi-dimensional anchor; supports §1.3 motivation and §7.12 "privacy as a user right"): **L-PRIV-1 through L-PRIV-6**.
@@ -1999,7 +1999,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables:** edits to `docs/sources.md` (six entry status lines L-PRIV-1..6); appended slice-13 section to `docs/handbacks/source-analyzer-to-writer.md`; this logbook entry. Commit on `claude/review-open-issues-PfNx9`; not pushed (rule 13).
 - **Next step (orchestrator):** continue down-file with the next ~6 `[lit-retrieved]` entries (cluster L-PRIV remainder, L-PRIV-7..L-PRIV-12) on the next Stage 1.5 dispatch.
 
-## 2026-05-03 — Source Analyzer pass 12 (slice 14, cluster L-PRIV remainder) — Claude Opus 4.7
+### 2026-05-03 — Source Analyzer pass 12 (slice 14, cluster L-PRIV remainder) — Claude Opus 4.7
 
 - **Stage:** 1.5 (Source Analyzer). Pass 12 of the chained sweep against `[lit-retrieved]` backlog in `docs/sources.md`.
 - **Scope:** the next 6 unprocessed `[lit-retrieved]` entries in file order. Cluster L-PRIV remainder (companion-app subcluster + local-first existence proof + GDPR-qualifier subcluster; supports §1.3 motivation and §7.12 "privacy as a user right"): **L-PRIV-7 through L-PRIV-12**.
@@ -2206,7 +2206,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables:** edits to `docs/sources.md` (12 entry status lines L-APK-1..7 and L-IOTAPP-1..5); appended pass-14 sections to `docs/handbacks/source-analyzer-report.md` and `docs/handbacks/source-analyzer-to-writer.md`; this logbook entry. Commit on `claude/review-open-issues-PfNx9`; not pushed (rule 13).
 - **Next step (orchestrator):** with the `[lit-retrieved]` backlog cleared, the Source Analyzer pipeline is idle. The orchestrator should dispatch the **Scientific Writer (Stage 2)** to consume the accumulated writer hand-backs (passes 1–14) — particularly the cluster-N/O additions for §6.7 and §7.14, and the deferred RDB-02 comparator triplet (L-SLOP-7/-10/-12) for §10. Two standing edge cases (L-VD-1, L-HC-1) and one cluster-wide fetch failure (L-RE-2) remain at `[lit-retrieved]` pending human `[lit-read]`; these should not block the writer pass.
 
-## 2026-05-03 — scientific writer (Stage 2) consumes accumulated source-analyzer hand-backs (Claude Opus 4.7)
+### 2026-05-03 — scientific writer (Stage 2) consumes accumulated source-analyzer hand-backs (Claude Opus 4.7)
 
 - **Branch / commits:** `claude/review-open-issues-PfNx9`; one writer commit (this entry).
 - **Scope (bounded per Stage 2 dispatch brief):** consume the accumulated source-analyzer hand-backs (passes 1–14, 141 entries cleared) plus the high-severity readability defects RDB-01, RDB-22, RDB-23, RDB-25 and the bibliographic corrections flagged across the source-analyzer slices. Layout-side items deferred to Stage 4 (PDF rebuild not invoked this pass).
@@ -2226,7 +2226,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables:** `paper/main.md`, `paper/main.tex`, `paper/references.bib` edits; `docs/handbacks/writer-pass-2026-05-03.md`; this logbook entry.
 - **Next step (orchestrator):** dispatch Stage 4 (layout) to rebuild `paper/main.pdf` and re-sweep against the substantially-reflowed §1.4 and §6.8 spans plus the new `\citep{}` calls; dispatch Stage 5 (readability) to confirm RDB-01 PARTIAL fix and RDB-22 / RDB-23 / RDB-25 resolutions; route the §10 list-vs-figure collapse decision to the human author.
 
-## 2026-05-03 — Illustrator (Stage 3) clears multi-cycle-deferred LAY/RDB items (Claude Opus 4.7)
+### 2026-05-03 — Illustrator (Stage 3) clears multi-cycle-deferred LAY/RDB items (Claude Opus 4.7)
 
 - **Branch / commit:** `claude/review-open-issues-PfNx9`; one illustrator commit (this entry).
 - **Scope (per Stage 3 dispatch brief):** work the multi-cycle-deferred illustrator-owned items LAY-05, LAY-06, LAY-12 (intact-jar half), LAY-13, RDB-04, RDB-05+RDB-08, RDB-07. Out of scope: prose edits to `paper/main.{md,tex}`; new Gemini-quality artwork (human-author gate); `make pdf` (Stage 4); push (rule 13).
@@ -2248,7 +2248,7 @@ This logbook is the operating record for the paper and research process.
 - **Tooling note:** `python3` + `matplotlib` + `pandas` + `seaborn` installed via `pip3 install --user` to regenerate fig12; `rsvg-convert` available; `ghostscript`, `qpdf`, `pikepdf`, `PyPDF2` are *not* available in this environment (motivates the header-byte-rewrite approach for LAY-13).
 - **Next step (orchestrator):** dispatch Stage 4 (layout) to rebuild `paper/main.pdf` and re-sweep against the LAY-13 (zero PDF-1.7 warnings expected) and LAY-06 (narrower fig12) changes; dispatch Stage 5 (readability) to confirm RDB-04 closure on the rebuilt PDF; route the four human-author decisions above.
 
-## 2026-05-03 — Stage 5 (Readability/Novelty/Conciseness) re-scrutiny against `329bc28` + `b5162ee` — Claude Opus 4.7
+### 2026-05-03 — Stage 5 (Readability/Novelty/Conciseness) re-scrutiny against `329bc28` + `b5162ee` — Claude Opus 4.7
 
 - **Stage:** 5 (Readability, Novelty & Conciseness scrutinizer). Third sweep.
 - **Branch:** `claude/review-open-issues-PfNx9`. No edits to `paper/main.{md,tex}`. Rule 13 honoured (no `make pdf`, no push).
@@ -2270,7 +2270,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables:** `docs/handbacks/readability-defect-registry.md` (status update); `docs/handbacks/readability-to-writer.md` (RDB-27, RDB-28, RDB-01 optional tightening, RDB-02 / RDB-04 recommendation appended); `docs/handbacks/readability-to-illustrator.md` (carry-note appended); `docs/handbacks/readability-scrutiny-2026-05-03.md` (full diagnosis); this logbook entry.
 - **Next step (orchestrator).** Re-scrutiny should follow either the next writer pass that touches the Author's Note / §3.4 (to verify RDB-27 / RDB-28 closure and the optional RDB-01 final tightening) or the human-author resolution of the §10 list-of-eight vs Figure 11 collapse. Stage 4 (layout) should rebuild `paper/main.pdf` against the substantially-reflowed §1.4 / §6.8 / §7.6 spans.
 
-## 2026-05-03 — paper: Mythos hook + plagiarism safeguard + guardrails-as-band-aid integration
+### 2026-05-03 — paper: Mythos hook + plagiarism safeguard + guardrails-as-band-aid integration
 
 - Type: writer-side integration pass (parent session, not a sub-agent dispatch).
 - Trigger: human-author directives during the same session: (a) add Mythos as a new hook to the story, (b) add a paper-mill / plagiarism meta-question to the methodology, (c) add a personal observation about LLM willingness and the guardrails-as-band-aid framing.
@@ -2284,7 +2284,7 @@ This logbook is the operating record for the paper and research process.
 - Rule check: rule 1 (AI vs human contribution clearly labelled in the new prose), rule 11 (md/tex parity at every touched span), rule 12 (no new credentials introduced), rule 13 (no public push beyond the working branch).
 - Session lead: AI-assisted (Claude, claude-opus-4-7); researcher review pending.
 
-## 2026-05-03 — illustrator: comprehensive figure-overhaul pass (Stage 3)
+### 2026-05-03 — illustrator: comprehensive figure-overhaul pass (Stage 3)
 
 - **Agent:** Claude Opus 4.7 (`claude-opus-4-7`).
 - **Branch:** `claude/review-open-issues-PfNx9`.
@@ -2305,7 +2305,7 @@ This logbook is the operating record for the paper and research process.
 - **Rule check:** rule 1 (every regenerated docstring records what changed and why; ordinal positions in fig6 flagged as author-assigned, not measured); rule 11 (no `paper/main.{md,tex}` edits — labels preserved so all `\cref` resolve); rule 13 (no `make pdf`, no `make arxiv`, no push); rule 14 (fig6 + fig7 promoted to compliant); rule 15 (visual abstract reworked but filename/label preserved — top-level README hero unchanged).
 - **Hand-back to other agents:** Stage 4 must rebuild `paper/main.pdf` and re-sweep — expected deltas: 6 figures now CB-safe, fig11 row labels legible at print scale, fig9 caption may need writer update for 4-stage track, fig11 caption may have legend redundancy. **FIG-01 (alt-text-missing across all 18 floats)** is unchanged this pass — owned by writer (`\Description{...}` macro insertion).
 
-## 2026-05-03 — Stage 4 (Layout) round-2 re-scrutiny against `d2858ac` — Claude Opus 4.7
+### 2026-05-03 — Stage 4 (Layout) round-2 re-scrutiny against `d2858ac` — Claude Opus 4.7
 
 - **Stage:** 4 (Layout Scrutinizer), round 2 of the iterative loop.
 - **Branch:** `claude/review-open-issues-PfNx9`. No edits to `paper/main.{md,tex}` or `paper/figures/`. Rule 13 honoured (no `make pdf`, no `make arxiv`, no push).
@@ -2323,7 +2323,7 @@ This logbook is the operating record for the paper and research process.
 - **Re-scrutiny verdict:** `RE-SCRUTINY REQUIRED: yes` — one new H (LAY-26) plus the persistent path-bullet M family. Single `\seqsplit{}` / `\path{}` writer sweep over `\texttt{}` paths in §1.6, §3.6 (intra-cell), §5.2, §6.6, §6.7, §10 future-work, and §10 AI-disclosure-models would close LAY-02/-03/-08/-09/-10/-22/-24/-25/-26/-27 in one atomic edit (ten registry rows including the only H). Stage 4 round 3 should re-sweep after the next `make pdf`.
 - **Next step (orchestrator):** dispatch Stage 2 (writer) for the path-bullet sweep; gate fig8/fig15/fig16 illustrator pass on the human-author "is the red semantic?" decision.
 
-## 2026-05-03 — Stage 5 (Readability & Novelty Scrutinizer) round 3 (Claude Opus 4.7)
+### 2026-05-03 — Stage 5 (Readability & Novelty Scrutinizer) round 3 (Claude Opus 4.7)
 - **Target:** writer loop-3 commit `37ded1f` on branch `claude/review-open-issues-PfNx9`. Inputs: `CLAUDE.md`, `docs/prompts/readability-novelty-prompt.md`, round-2 registry, writer-pass loop-3 hand-back, powerocean-resync research hand-back, this logbook.
 - **Carry-overs verified:** RDB-30 (§7.3 Mythos 1→3 paragraph split), RDB-31 (§7.4 band-aid hedge tightness — strengthened ground supports the rhetorical "security-by-design" conclusion via risk-management rather than deductive identity), RDB-35 (Fig 9 caption 3→4 stages), RDB-36 (Fig 11 caption legend-duplication trim) — all **RESOLVED-confirmed**. RDB-32 / -33 / -34 **DEFERRED-unchanged** at L. RDB-21 mirror parity preserved at all four new spans (`tex:874-887`, `:889-909`, `:984-1004`, `:2957-2978`).
 - **Powerocean-integration spot-check:** §4.2 redaction acknowledgement, §4.3 two-track-methodology footnote, §4.6 OCPP runtime-handover paragraph, §10 redaction-precedent paragraph all read for paragraph density, sentence length, hedging, citation density, novelty inflation. §4.6 single 155-word sentence flagged as **RDB-37 (M)**; §10 middle-sentence ~85-word flagged as **RDB-38 (L, optional)**.
@@ -2333,7 +2333,7 @@ This logbook is the operating record for the paper and research process.
 - **Re-scrutiny verdict:** `RE-SCRUTINY REQUIRED: yes` — one new M, one new L; no new H; no regressions. Re-scrutiny should follow the next writer pass (RDB-37 closure required; RDB-38 optional; RDB-32 / -33 / -34 final-tightening optional).
 - **Next step (orchestrator):** dispatch Stage 2 (writer) for the §4.6 sentence split (RDB-37) on the next loop, optionally combined with the path-bullet sweep flagged by Stage 4 round 2 (LAY-02 / -03 / -08 / -09 / -10 / -22 / -24 / -25 / -27 family).
 
-## 2026-05-03 — Stage 4 (Layout) round-3 re-scrutiny against `37ded1f` — Claude Opus 4.7
+### 2026-05-03 — Stage 4 (Layout) round-3 re-scrutiny against `37ded1f` — Claude Opus 4.7
 
 - **Stage:** 4 (Layout Scrutinizer), round 3 of the iterative loop.
 - **Branch:** `claude/review-open-issues-PfNx9`. No edits to `paper/main.{md,tex}`, `paper/figures/`, or `paper/references.bib`. Rule 13 honoured (no `make pdf`, no `make arxiv`, no push).
@@ -2350,7 +2350,7 @@ This logbook is the operating record for the paper and research process.
 - **Re-scrutiny verdict:** `RE-SCRUTINY REQUIRED: no` — zero H-severity entries open. Layout is non-blocking for the pipeline. Another sweep is justified only after the next writer pass closes the LAY-09 / LAY-22 / LAY-25 / LAY-29 path-bullet cluster.
 - **Next step (orchestrator):** Stage 5 (readability) is the natural next dispatch given LAY-26 closure, or dispatch Stage 2 (writer) for the bundled `\fp{}` / `\seqsplit{}` sweep.
 
-## 2026-05-03 — illustrator: design-consistency materialisation pass (Stage 3)
+### 2026-05-03 — illustrator: design-consistency materialisation pass (Stage 3)
 
 - **Agent:** Claude Opus 4.7 (`claude-opus-4-7`).
 - **Branch:** `claude/review-open-issues-PfNx9` (parent-session edit; no orchestrator dispatch — operator brief mid-run: *"achte aber auf Konsistenz im Design"*).
@@ -2365,7 +2365,7 @@ This logbook is the operating record for the paper and research process.
 - **Re-scrutiny verdict:** `RE-SCRUTINY REQUIRED: yes` (Stage 4) — narrow scope: verify the regenerated figures rebuild cleanly via `make pdf` and that FIG-11 carry-forward in `docs/handbacks/layout-to-illustrator.md` can be marked RESOLVED for fig15 / fig16. No new H-severity defects expected. `RE-SCRUTINY REQUIRED: no` (Stage 5) — caption-text-neutral pass.
 - **Next step (orchestrator):** Stage 4 narrow-scope re-sweep against the next `make pdf` rebuild; or Stage 2 writer pass for the standing path-bullet cluster (LAY-09 / LAY-22 / LAY-25 / LAY-29) — independent of this pass.
 
-## 2026-05-04 — Pipeline fix + illustrator rounds 5/6 + layout round 4 + writer §8 strands + redaction audit & execution — Claude Opus 4.7
+### 2026-05-04 — Pipeline fix + illustrator rounds 5/6 + layout round 4 + writer §8 strands + redaction audit & execution — Claude Opus 4.7
 
 - **Session lead:** Claude Opus 4.7 across multiple sub-agent dispatches on branch `claude/check-illustration-pipeline-Jqst3`. Documentation-consistency sweep at session close (this entry).
 - **Pipeline diagnosis & fix (commits `80b5608`, `e19d04a`).** Author reported "ich habe nicht das gefühl als ob sich die illustrationen ändern". Root cause: a Makefile gap meant `.py` source edits never propagated to `main.pdf` for fig8–fig16 after their matplotlib promotion — only fig1's bespoke rule existed. Fixed by splitting `SCRIPTED_FIG_NAMES` from `SVG_FIG_NAMES` and adding a generic `.py → .pdf` rule that covers fig1 + fig6..fig16. The illustration-prompt toolchain whitelist was simultaneously expanded (Mermaid, TikZ + circuitikz/bytefield/pgfplots, Graphviz, D2, Altair/Vega-Lite, Inkscape `--export-latex`, drawio as exception) so future illustrator passes inherit a documented multi-toolchain palette/typography contract rather than reinventing one.
@@ -2380,7 +2380,7 @@ This logbook is the operating record for the paper and research process.
 - **Public-mirror readiness checklist snapshot:** redaction execution in working tree → **done**; history-rewrite plan → **filed, awaiting human consent**; upstream-repo redaction (the `experiments/*/raw_conversations` and other rule-4 carve-outs) → **pending**; `client_secret` history grep → **no literal value found, flag closed**.
 - **Next step (orchestrator):** await human author consent for (a) the git history rewrite per `docs/git-history-rewrite-plan.md` and (b) the upstream-repo redaction follow-up before any public-mirror push. Independently, Stage 2 writer can pick up the standing path-bullet cluster (LAY-09 / LAY-22 / LAY-25 / LAY-29) and the carry-over readability defects (RDB-37 §4.6 sentence split + optional RDB-38).
 
-## 2026-05-04 (Stage 2 writer — post-rewrite consolidation; Claude Opus 4.7)
+### 2026-05-04 (Stage 2 writer — post-rewrite consolidation; Claude Opus 4.7)
 
 - **Trigger:** orchestrator dispatch under `docs/handbacks/integration-pass-2026-05-04-post-rewrite.md` after the 2026-05-04 history rewrite. P1 in `docs/todos-for-publication.md`.
 - **Scope:** consolidation only — collapse near-verbatim restatements of "history rewrite executed 2026-05-04" across the four locations called out in the hand-back (§5.6, §7.6, §8/§9, README status block); add a one-clause acknowledgement that upstream `noheton/spider_farmer` and `noheton/powerocean-dev` still need their own redaction passes; resist new bulleted lists (the hand-back's explicit anti-pattern).
@@ -2391,7 +2391,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables.** Edits to `paper/main.md`, `paper/main.tex`, `README.md`. Commit on `claude/history-rewrite-daDxQ` with `paper(writer):` prefix. P1 in `docs/todos-for-publication.md` flipped from `open` to `done`. Branch pushed.
 - **Re-scrutiny verdict.** N/A (writer pass). Next dispatches: P2 `make pdf`, then P3 (layout) + P4 (readability) in parallel.
 
-## 2026-05-04 (Stage 5 readability scrutinizer — post-rewrite text; Claude Opus 4.7)
+### 2026-05-04 (Stage 5 readability scrutinizer — post-rewrite text; Claude Opus 4.7)
 
 - **Trigger.** Orchestrator dispatch under `docs/handbacks/integration-pass-2026-05-04-post-rewrite.md` after the Stage 2 consolidation pass `ce265e0`. P4 in `docs/todos-for-publication.md`.
 - **Scope.** Stage 5 read-only against `paper/main.md` (full 772-line read) and `README.md` (full read). No edits to source files. Two anchor items from the integration brief: (1) the §5.6 live-credential bullet's "history rewrite + binary-archive carve-out" sentence — one thought or two; (2) the README's now-five-row public-mirror-readiness table — visual rhythm against the hero figure + badges.
@@ -2405,7 +2405,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables.** `docs/handbacks/readability-scrutiny-2026-05-04-post-rewrite.md` (new); this logbook entry; `docs/todos-for-publication.md` updates (P4 → done; new P4a row for the hand-back); commit on `claude/history-rewrite-daDxQ` prefixed `stage5(readability):`; branch pushed.
 - **Re-scrutiny verdict.** `RE-SCRUTINY REQUIRED: yes` — two new **M** defects routed to writer. No new **H**. Re-scrutiny should follow the next writer pass that addresses RDB-39 and RDB-40, verifying that the §5.6 anchor is preserved, the README four-substantive-row form lands cleanly, and rule-15 mirror-spirit holds.
 
-## 2026-05-04 (Stage 4 layout scrutinizer — post-rewrite build; Claude Opus 4.7)
+### 2026-05-04 (Stage 4 layout scrutinizer — post-rewrite build; Claude Opus 4.7)
 
 - **Trigger.** Orchestrator dispatch under `docs/handbacks/integration-pass-2026-05-04-post-rewrite.md` after writer commit `ce265e0` and a `make pdf` rebuild. P3 in `docs/todos-for-publication.md`.
 - **Build under inspection.** `paper/main.pdf` SHA-256 `bd01b411de160a65cfd95a08ec9de62c062737790a409ec59567ce7c209dbb31`, 1,251,038 bytes, **57 pages** (round-4 baseline 54 / 1,236,060). PDF mtime 2026-05-04T06:11. LaTeX log: 34 `Overfull \hbox` (was 33), 67 `Underfull \hbox` (unchanged), 0 undefined refs / cites, 0 `??`, no `Float too large`, no `Missing` macros.
@@ -2419,7 +2419,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables.** `docs/handbacks/layout-scrutiny-2026-05-04-post-rewrite.md` (new); this logbook entry; `docs/todos-for-publication.md` updates (P3 → done; new P3a row for the writer + illustrator hand-back); commit on `claude/history-rewrite-daDxQ` prefixed `layout(stage-4):`; branch pushed.
 - **Re-scrutiny verdict.** `RE-SCRUTINY REQUIRED: yes` — one new **H** (LAY-32, illustrator), one new **M** (LAY-31, writer; jointly closable with Stage-5 RDB-39), one new **L** (LAY-33, advisory). Re-scrutiny should follow (a) illustrator regeneration of `fig15-apk-mass-probing.pdf` and (b) the next writer pass that addresses LAY-31 + LAY-09 / -10 / -22 / -29 family + RDB-39 / -40, plus a `make pdf` rebuild.
 
-## 2026-05-04 (Stage 2 condensed-writer pass — venue submission artifact; Claude Opus 4.7)
+### 2026-05-04 (Stage 2 condensed-writer pass — venue submission artifact; Claude Opus 4.7)
 
 - **Trigger.** Orchestrator dispatch under the condensed-paper prompt (`docs/prompts/condensed-paper-prompt.md`); P6 in `docs/todos-for-publication.md`.
 - **Scope.** Produce a new derivative artifact pair `paper/main-condensed.{md,tex}` plus a `make condensed` build target, against a hard 10-page ceiling. Long-form `paper/main.{md,tex}` is out of scope for editing in this pass.
@@ -2431,7 +2431,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables.** `paper/main-condensed.md`, `paper/main-condensed.tex`, `paper/Makefile` (condensed target). Logbook entry (this one). `docs/todos-for-publication.md` P6 flipped from `open` to `done`. Commit on `claude/history-rewrite-daDxQ` prefixed `paper(condensed):`. Branch pushed.
 - **Re-scrutiny verdict.** N/A (writer pass on a new artifact). The long-form re-scrutiny verdicts (layout / readability) are unchanged.
 
-## 2026-05-04 (Stage 4 layout scrutinizer — round-2 re-scrutiny; Claude Opus 4.7)
+### 2026-05-04 (Stage 4 layout scrutinizer — round-2 re-scrutiny; Claude Opus 4.7)
 
 - **Trigger.** Orchestrator re-dispatch under `docs/handbacks/layout-scrutiny-2026-05-04-post-rewrite.md` after the round-1 hand-backs were consumed by illustrator commit `fed50ab` (LAY-32 fig15 dark-fill stage-box rebreak) and writer commit `644d2e2` (RDB-39/RDB-40/RDB-37 + LAY-31 + LAY-10/-29 anchor closures). P3 / P3a in `docs/todos-for-publication.md`.
 - **Build under inspection.** `paper/main.pdf` SHA-256 `986377388e810c8baa47481956f57099bfc11c3b33caa4a53ac3553f08e7de8a`, 1,250,840 bytes, **57 pages** (round-1 baseline 1,251,038 / 57 — page count unchanged; bytes −198). PDF mtime 2026-05-04T06:29 (fresh; not stale). LaTeX log: **30 `Overfull \hbox`** (round-1: 34, **−4** as the writer self-reported), 67 `Underfull \hbox` (unchanged), 0 undefined refs / cites, 0 `??`, no `Float too large`, no `Missing` macros.
@@ -2443,7 +2443,7 @@ This logbook is the operating record for the paper and research process.
 - **Deliverables.** `docs/handbacks/layout-scrutiny-2026-05-04-post-rewrite-r2.md` (new); this logbook entry; `docs/todos-for-publication.md` updates (P3 / P3a flipped; layout track of the pipeline marked **closed for publication readiness**); commit on `claude/history-rewrite-daDxQ` prefixed `layout(stage-4):`; branch pushed.
 - **Re-scrutiny verdict.** `RE-SCRUTINY REQUIRED: no` — the long-form paper (`paper/main.{md,tex,pdf}`) is layout-clean for publication readiness on `claude/history-rewrite-daDxQ`, subject only to the rule-13 explicit-consent gate (Stage 4 does not adjudicate or relax this gate). The standing carry-over M-cluster (LAY-02/-24, LAY-06, LAY-08, LAY-09/-25, LAY-22) predates the post-rewrite loop, consists of preexisting low-magnitude path-literal residuals of an already-acknowledged class, and is non-blocking for the post-rewrite verdict.
 
-## 2026-05-04 (Stage 5 readability — round-2 re-scrutiny; Claude Opus 4.7)
+### 2026-05-04 (Stage 5 readability — round-2 re-scrutiny; Claude Opus 4.7)
 
 - **Trigger.** Orchestrator dispatch after writer commit `644d2e2` (RDB-37 / RDB-39 / RDB-40 closure pass jointly with LAY-31 / LAY-10 / -29). P4 / P4a in `docs/todos-for-publication.md` re-opened for round-2 verification.
 - **Scope.** Stage 5 read-only against `paper/main.md` (post-handback spans plus regression sweep over §4.6 / §5.6 / §8 / §9 / §10), `paper/main.tex` mirror at the same spans, and `README.md`. Verify closure of round-1 RDB-37 / RDB-39 / RDB-40; surface any new readability or repetition defects introduced by the writer commit; hold the human-author anti-pattern flag (*avoid repetitions and excessive lists*).
@@ -2486,4 +2486,21 @@ This logbook is the operating record for the paper and research process.
 - Rule 13 (no publication): local PDF only. No `make arxiv`, no public push beyond the `claude/history-rewrite-daDxQ` working branch.
 - Build: `make pdf` clean, 57 pages, 1,250,840 bytes, zero `??` / undefined refs / undefined cites; underfull count unchanged.
 - Next: re-dispatch Stage 4 (layout) and Stage 5 (readability) for re-scrutiny. Open registry items remaining for the writer: the §6.x / §7.x path-bullet M-cluster (LAY-02/-24, LAY-08, LAY-09/-22, LAY-25), the difficulty-taxonomy table residual (LAY-06), and the carry-over readability backlog (RDB-01, RDB-03..-11, RDB-26).
+
+### 2026-05-04 (Stage 6 Aligner — round 1; first pass post-rule-17/18 rework)
+- Session lead: Claude Opus 4.7 (Stage 6 Aligner agent), 1M-context build. Trigger: orchestrator dispatch for the first-ever Aligner pass following the major rework that promoted `paper/main-condensed.{md,tex}` to *core submission* status (CLAUDE.md rule 17, new), introduced rule 18 (end-to-end traceability), reordered the logbook chronologically (rule 11 augmented), and extended `docs/fair.md` with a FAIR4AI section. Both PDFs rebuilt zero-error from clean state: `paper/main.pdf` 57 pp, `paper/main-condensed.pdf` 9 pp (under the 10-page ceiling). Pass scope: file defects only; no source edits (rule 12 mirror discipline; the writer owns those edits).
+- Categories covered (per `docs/prompts/aligner-prompt.md` §2): A (mirror discipline, both pairs), B (condensed-as-core; B3 page-ceiling spot-check), C (citekey ↔ `docs/sources.md` ↔ `paper/references.bib` for the ten condensed-paper inline citations), D (figure-numbering parity at the source-text level — D4), E (README ↔ paper KPI parity — E1), F (logbook chronology — F1), G (redaction spot-check only).
+- Key checks executed and findings.
+  - **A1 / A2.** Long-form pair (`paper/main.md` ↔ `paper/main.tex`) and condensed pair sample-checked at the title block, the abstract, the table-1 caption, and the §2 / §4 / §5 / §6 section heads. Structural alignment holds. Two L-severity micro-divergences filed (ALN-01: condensed Table 1 caption wording; ALN-02: condensed §4 model-collapse paragraph cites L-MC-3 in md but not in tex).
+  - **B1 / B2 / B3.** Condensed paper carries thesis (§1), KPIs (Table 1, §2), four-stage method (§3), eight integrated practices named-and-characterised (§4), dual-use treatment (§4 second half), limitations (§5), and conclusion (§6) all as primary text; cross-references to the long-form companion are *enrichment*. Page count 9 / 10. **No B-category defects.**
+  - **C2.** All ten inline citation keys in `paper/main-condensed.{md,tex}` (`sivakumaran2023bleguuide`, `nan2023iotapp`, `zhao2022iotbaseline`, `walters2023fabricated`, `mcgowan2023chatgpt`, `chelli2024hallucination`, `shumailov2024modelcollapse`, `chuehong2022fair4rs`, `rda2024fair4ml`, `anthropic2026claude`) resolve to a `paper/references.bib` entry AND to a `docs/sources.md` L-* entry at `[ai-confirmed]` or higher. **No C-category defects.**
+  - **D4.** Source-text figure / table renumbering verified: condensed paper carries Figure 1 (effort gap), Table 1 (headline KPI), Figure 2 (methodology), Figure 3 (eight practices). md ↔ tex agree on every label. Rendered-PDF text-extraction spot-check deferred (no `pdftotext` in the build environment); the page-count check (9 pp) and the per-figure caption parity check confirm the renumbering at the source-text level.
+  - **E1.** README headline-KPI table (`README.md:36–43`) reads ~12 % / ~7 % / ~6 % effort-gap compression — **exact match** to `paper/main-condensed.md:42` / `paper/main-condensed.tex:180` and to long-form §3.7 / §4.7 / §5.7. Defence model, AI-assisted-effort, and dual-use-blast-radius rows also exact-match. **No E-category KPI defects.**
+  - **F1.** `docs/logbook.md` `### YYYY-MM-DD` heading run is **non-decreasing top-to-bottom** (14× 2026-05-01 → 9× 2026-05-02 → 10× 2026-05-03 → 3× 2026-05-04 prior to this entry). Append-only invariant holds. **No F1 defect.** One L-severity heading-style inconsistency filed (ALN-07: six pre-2026-05-02 entries use `## YYYY-MM-DD` rather than `### YYYY-MM-DD`).
+  - **Cross-artifact rule-number consistency (rule 18).** A new defect category surfaced this round, not anticipated by A–G. The recent CLAUDE.md rework added rules 17 and 18 and renumbered the rule list; the *condensed* paper consistently references the new numbering (rule 17 for self-containment, rule 14 for distribution-consent), but the *long-form* pair `paper/main.{md,tex}` and the README still cite the **old** numbering and point at `CLAUDE_CODE_INSTRUCTIONS.md` rather than `CLAUDE.md`. `CLAUDE_CODE_INSTRUCTIONS.md` is itself a stale snapshot (rules 1–15 only; describes the pipeline as "three-stage"). Six rule-number sites file as defects (ALN-08 through ALN-13, see registry).
+- Defect counts (this round). H = 1 (ALN-08: long-form `paper/main.md:12` / `paper/main.tex:74` *DRAFT — not for distribution* notice cites "rule 13" for distribution-consent in `CLAUDE_CODE_INSTRUCTIONS.md`; canonical `CLAUDE.md` makes this rule 14; the most legally-load-bearing sentence in the artifact resolves to the *redaction* rule rather than the *no-publication* rule). M = 7 (ALN-06 README-parity-rule-number; ALN-09 long-form mirror-rule-number; ALN-10 long-form §7.15 redaction-and-consent rule-numbers; ALN-11 condensed §5 limitations rule-numbers; ALN-12 README rule-numbers, six sites; ALN-13 `CLAUDE_CODE_INSTRUCTIONS.md` canonicality / staleness). L = 6 (ALN-01 Table 1 caption; ALN-02 model-collapse citation; ALN-03 fig1 informational; ALN-04 fig5 manual-drawing exemption; ALN-05 figure-renumbering source-level pass; ALN-07 logbook heading style).
+- Hand-back routing. **Writer (stage 2)**: ALN-01, ALN-02, ALN-06, ALN-07, ALN-08, ALN-09, ALN-10, ALN-11, ALN-12. **Illustrator (stage 3)**: none. **Source Analyzer (stage 1.5)**: none. **Human author**: ALN-13 (canonicality decision — `CLAUDE.md` vs `CLAUDE_CODE_INSTRUCTIONS.md`; simplest resolution is to make CCI a stub pointer to `CLAUDE.md` or to delete CCI and update the paper sources to point at `CLAUDE.md`).
+- Rule 1 (honesty): registry filed without softening — the H-severity defect is recorded as such, including the legal-load-bearing framing of the *DRAFT — not for distribution* sentence. Rule 12 (mirror): no edits to `paper/main.{md,tex}` or `paper/main-condensed.{md,tex}` (the writer owns those). Rule 14 (no publication): no build / push / deposit invoked by this pass. Rule 18 (traceability): every ALN-* entry cites `<file>:<line>` and the rule it violates.
+- Deliverables. `docs/handbacks/alignment-defect-registry.md` (new file; round-1 block appended); this logbook entry; per-stage hand-back files (`alignment-to-writer.md`, `alignment-to-human-author.md`) deferred to a follow-up commit if the orchestrator chooses to dispatch them as discrete artifacts — round-1 routing is recorded in the registry's *Hand-back routing summary* block, which the writer / human author can read directly.
+- Re-alignment verdict: **`RE-ALIGNMENT REQUIRED: yes`** — one H and seven M defects open. Pipeline is not fully quiescent. Minimum to reach `RE-ALIGNMENT REQUIRED: no` on the next round: a writer pass closing ALN-08 through ALN-12 (rule-number normalisation across long-form, condensed, and README — folding ALN-06 into the same pass), plus a human-author canonicality decision on ALN-13. The L-severity carry-over backlog (ALN-01, ALN-02, ALN-03, ALN-04, ALN-05, ALN-07) is permitted under the verdict scheme.
 

@@ -17,17 +17,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Convert SVG figures to PDF
-        run: |
-          sudo apt-get install -y librsvg2-bin
-          for svg in paper/figures/*.svg; do
-            pdf="${svg%.svg}.pdf"
-            if [ ! -f "$pdf" ]; then
-              rsvg-convert -f pdf -o "$pdf" "$svg"
-            fi
-          done
+      - name: Set up Python (for scripted figures)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-      - name: Compile LaTeX document
+      - name: Install Python figure deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install matplotlib pandas seaborn numpy
+
+      - name: Install SVG → PDF converter
+        run: sudo apt-get install -y librsvg2-bin
+
+      - name: Build figures (scripted + SVG)
+        working-directory: paper
+        run: make figures
+
+      - name: Compile long-form paper (main.pdf)
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
@@ -36,7 +43,16 @@ jobs:
           latexmk_shell_escape: false
           args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
 
-      - name: Build arXiv submission tarball
+      - name: Compile condensed paper (main-condensed.pdf — core submission, rule 17)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main-condensed.tex
+          working_directory: paper
+          latexmk_use_xelatex: false
+          latexmk_shell_escape: false
+          args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
+
+      - name: Build arXiv submission tarball (long-form, local-review only — rule 14)
         working-directory: paper
         run: |
           # Re-run latexmk to ensure .bbl is fresh, then package.
@@ -45,11 +61,27 @@ jobs:
               main.tex main.bbl references.bib
           tar -tzf arxiv-submission.tar.gz
 
-      - name: Upload PDF
+      - name: Upload long-form PDF
         uses: actions/upload-artifact@v4
         with:
-          name: paper-pdf
+          name: paper-pdf-long-form
           path: paper/main.pdf
+          if-no-files-found: error
+
+      - name: Upload condensed PDF (core submission)
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-pdf-condensed
+          path: paper/main-condensed.pdf
+          if-no-files-found: error
+
+      - name: Upload combined PDF bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-pdfs
+          path: |
+            paper/main.pdf
+            paper/main-condensed.pdf
           if-no-files-found: error
 
       - name: Upload arXiv submission tarball
