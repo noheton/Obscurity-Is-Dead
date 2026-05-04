@@ -130,3 +130,27 @@ followed by a round-3 Aligner sweep.
 
 After the writer pass, request orchestrator dispatch of round-3
 Aligner sweep.
+
+---
+
+### Closure record (writer pass, 2026-05-04, branch `claude/prepare-for-publish-fERq5`)
+
+All ten round-2 entries (ALN-14, ALN-15, ALN-16, ALN-17, ALN-18,
+ALN-19, ALN-20, ALN-21, ALN-22, ALN-24) are now marked **CLOSED**
+in `docs/handbacks/alignment-defect-registry.md` under the
+*Stage 6 — Aligner round 2 closure* section. Per-entry closure
+annotations cite the specific lines edited in `paper/main.md`,
+`paper/main.tex`, `paper/main-condensed.md`,
+`paper/main-condensed.tex`, and `paper/figures/README.md`.
+
+Two extension sites were surfaced and closed under the same
+ALN-22 defect class during the writer pass (rule-1 honesty — the
+same wrong canonical pointer asserted in two further sites that
+the round-2 audit had not enumerated): the §2.4 AI-transparency
+paragraph and the *Ethics and reproducibility statement*. Both
+are recorded in the registry closure block.
+
+Routing: the orchestrator should now dispatch a round-3 Aligner
+sweep to verify the closures end-to-end. Expected verdict:
+`RE-ALIGNMENT REQUIRED: no` (no open H or M; ALN-23 informational
+permitted; L-severity round-1 carry-over backlog permitted).

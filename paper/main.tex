@@ -231,7 +231,7 @@ synthesis; surface a counter-example; flag a fabricated citation, an
 unsourced legal claim, or a verification-status entry that cannot
 survive scrutiny --- all of these are useful, and all of them are
 welcome. The transcript-as-artifact discipline (rule~4 in
-\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}) is what makes serious critique
+\texttt{CLAUDE.md}) is what makes serious critique
 tractable: every claim in this paper is backed by an exportable
 conversation log committed in this repository, so an objection can
 land on a specific line, transcript, or commit rather than on vibes.
@@ -373,7 +373,7 @@ the activation energy of integration high enough that a casual researcher
 gives up. We name this implicit defence the \emph{effort gap} and argue that
 it has functioned as the de-facto interoperability barrier of the last decade.
 
-% Rule 14: data source = figures/data/effort-gap.csv; generation script = figures/fig1-effort-gap.py
+% Rule 15: data source = figures/data/effort-gap.csv; generation script = figures/fig1-effort-gap.py
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig1-effort-gap.pdf}
@@ -590,8 +590,10 @@ Practice~\citep{dfg2023}, every section discloses where AI assistance was
 used and where it was rejected, corrected, or contradicted by the underlying
 code. AI-generated legal analysis is never used as legal advice. The
 repository's AI policy is canonicalised in
-\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md} and aliased in
-\texttt{.instructions.md} and \texttt{copilot-instructions.md}.
+\texttt{CLAUDE.md} and aliased via stub pointers at
+\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md},
+\texttt{.instructions.md}, and \texttt{copilot-instructions.md}
+(each of which redirects to \texttt{CLAUDE.md}).
 
 \subsection{KPIs (effort-gap operationalisation)}
 \label{sec:kpis}
@@ -1115,9 +1117,11 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
         per-transcript provenance map
         \fp{experiments/paper-meta-process/provenance.md} (parallel
         to the Spider Farmer and EcoFlow \fp{provenance.md} files).
-  \item The repository AI policy: \fp{CLAUDE_CODE_INSTRUCTIONS.md},
+  \item The canonical repository AI policy at \fp{CLAUDE.md}
+        (alongside the historical stub pointers
         \fp{.instructions.md}, \fp{copilot-instructions.md},
-        \fp{CLAUDE.md}.
+        \fp{CLAUDE_CODE_INSTRUCTIONS.md}, all of which now redirect
+        to \fp{CLAUDE.md}).
   \item The executable research-protocol agent prompt
         (\fp{docs/prompts/research-protocol-prompt.md}).
   \item The methodology document (\fp{docs/methodology.md}) and its KPI
@@ -1145,7 +1149,7 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
 \label{sec:meta-workflow}
 \begin{enumerate}
   \item \textbf{Repo-context loading.} The agent reads
-        \texttt{CLAUDE\_CODE\_INSTRUCTIONS.md},
+        \texttt{CLAUDE.md},
         \texttt{docs/methodology.md},
         \texttt{docs/logbook.md}, and the per-case
         \texttt{provenance.md} files at session start.
@@ -1294,13 +1298,13 @@ Phase & Commit & Key event & Est.\ elapsed \\
 Skeleton             & \texttt{31dba8a} & 7-section paper structure from scratch & $\sim$1\,h \\
 Literature           & \texttt{3010ee9} & $\sim$70 academic entries across 10 clusters & $\sim$2\,h \\
 LaTeX build          & \texttt{80e781b} & arXiv-ready pipeline; mirrors \texttt{main.md} & $\sim$1.5\,h \\
-Rule 11 compliance   & \texttt{eef8c5b} & Consistency rule; sync verified & $\sim$0.5\,h \\
+Rule 11 compliance (md $\leftrightarrow$ tex consistency rule; rule 12 in current \texttt{CLAUDE.md})   & \texttt{eef8c5b} & Consistency rule; sync verified & $\sim$0.5\,h \\
 AI disclosure + FAIR & \texttt{ebe008d} & §5, §9, CITATION.cff, Zenodo, CodeMeta & $\sim$3\,h \\
 License + UrhG/KI   & \texttt{ad46a7e} & CC-BY-4.0 LICENSE; legal footnote & $\sim$1\,h \\
 §6.4 + §10           & \texttt{3b85606} & Consumer vs industrial qualifier; Pandora & $\sim$1.5\,h \\
 Redaction + Rules    & \texttt{e5762a0} & Redaction pass; redaction-policy.md & $\sim$2\,h \\
 Discussion + timelines & \texttt{8f92658} & \S{}7.10, \S{}7.11, KPI tables, README & $\sim$3\,h \\
-DLR design + fig1 data & \texttt{456f7ef} & \texttt{dlr\_style.py}, \texttt{data/effort-gap.csv}, \texttt{fig1-effort-gap.py}; Rule-14 compliance & $\sim$1.5\,h \\
+DLR design + fig1 data & \texttt{456f7ef} & \texttt{dlr\_style.py}, \texttt{data/effort-gap.csv}, \texttt{fig1-effort-gap.py}; Rule-15 compliance (Rule-14 in the rule numbering at the time of \texttt{456f7ef}) & $\sim$1.5\,h \\
 Democratisation \S{}10 & \texttt{dae235f} & Citizen-science / democratisation paragraph; \S{}5.7 updated & $\sim$0.5\,h \\
 \midrule
 \textbf{Total AI-assisted (paper)} & & & \textbf{$\sim$17.5\,h} \\
@@ -1308,10 +1312,11 @@ Democratisation \S{}10 & \texttt{dae235f} & Citizen-science / democratisation pa
 \end{tabularx}
 \end{center}
 
-\textbf{Estimated manual baseline}: writing a 10-section paper with FAIR
-metadata, 70-entry literature register, provenance maps, LaTeX build
-pipeline, and redaction policy from scratch: \textbf{200--400\,h}.
-\textbf{Effort-gap metric}: $\approx$17.5 / 300 $\approx$ \textbf{6\% of manual effort} (updated each session; see table above).
+\textbf{Estimated manual baseline} as of the 2026-05-01 manuscript
+snapshot: writing a 10-section paper with FAIR metadata, 70-entry
+literature register, provenance maps, LaTeX build pipeline, and
+redaction policy from scratch: \textbf{200--400\,h}.
+\textbf{Effort-gap metric}: $\approx$17.5 / 300 $\approx$ \textbf{6\% of manual effort} (updated each session; see table above). The 200--400\,h envelope is the anchor against which the 6\,\% KPI is computed; the artifact has since grown (see the 2026-05-04 snapshot below: 144-entry literature register, 89 logbook sessions) but the manual-baseline envelope is \emph{not} re-estimated here, on the rule-1 principle that revising the denominator alongside the numerator without an independent re-estimate would inflate the effort-gap claim.
 
 Other KPIs (as of 2026-05-01): development-branch commits ahead of
 \texttt{main}: 21; logbook named sessions: 14; \texttt{main.md} lines:
@@ -1849,7 +1854,7 @@ cheaper than verifying an exploit --- but the gap is narrower, and
 the time horizon over which it remains a defender-favouring
 asymmetry is shorter, than this paper's first draft assumed.
 
-% Rule 14: data source = figures/data/stage-effort.csv; generation script = figures/fig10-stage-effort.py
+% Rule 15: data source = figures/data/stage-effort.csv; generation script = figures/fig10-stage-effort.py
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.96\linewidth]{fig10-stage-effort.pdf}
@@ -3246,9 +3251,12 @@ confined to device integration. The meta-process
 the \emph{production of empirical research itself}: a single
 independent researcher, without institutional infrastructure,
 produced a publication-quality paper---provenance maps, FAIR
-metadata, dual-format submission source, 70-entry literature
-register---in approximately 17 hours of AI-assisted work, estimated
-at 6\% of the manual-equivalent effort
+metadata, dual-format submission source, and a literature register
+that grew from 70 entries on 2026-05-01 to 144 entries across 19
+clusters by 2026-05-04 (the verification-status ladder distribution
+is recorded in \cref{sec:meta-kpis})---in approximately
+\textbf{17.5\,hours} cumulative AI-assisted meta-process effort,
+estimated at \textbf{6\,\% of the manual-equivalent effort}
 (\cref{sec:meta-kpis}). This is citizen science, but in a mode that
 has no direct precedent in the citizen-science tradition.
 
@@ -3312,7 +3320,7 @@ work.
 \section*{Ethics and reproducibility statement}
 \label{sec:ethics-statement}
 This work follows the AI-assistance disclosure policy in
-\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md} and the ethics notes in
+\texttt{CLAUDE.md} and the ethics notes in
 \texttt{docs/ethics.md}. Prompt logs and intermediate artifacts are
 committed alongside the source. Recovered live credentials and device
 identifiers are flagged for redaction prior to any public release.

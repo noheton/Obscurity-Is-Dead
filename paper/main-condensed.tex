@@ -216,8 +216,10 @@ citations, silent memorisation, prompt injection, AI-generated legal
 opinion mistaken for sourced commentary) and the same artifact-inventory
 and provenance-map shape as the device cases. Approximately seventeen and
 a half hours of AI-assisted work produced the publication-quality
-dual-format manuscript, the seventy-entry literature register, the FAIR
-metadata, and the redaction policy that govern this paper. \emph{Full
+dual-format manuscript, a literature register that grew from seventy
+entries on 2026-05-01 to one hundred and forty-four entries across
+nineteen clusters by 2026-05-04, the FAIR metadata, and the
+redaction policy that govern this paper. \emph{Full
 recursive treatment, transcript register, and dual-use evaluation --- see
 \texttt{paper/main.md} \S 5.}
 
@@ -248,7 +250,7 @@ artifacts are acquired and embedded under
 analysis produces a protocol map or surface enumeration whose every claim
 is then audited against the embedded code at the pinned commit; validation
 re-runs the smoke test against the live device or, in the meta-process
-case, against the rebuilt PDF and the rule-11 mirror parity check. A
+case, against the rebuilt PDF and the rule-12 mirror parity check. A
 feedback loop from validation back into analysis is treated as a
 first-class transition rather than as an exception path, because tooling
 drift means that an identical prompt at a later date will not produce an
@@ -256,8 +258,9 @@ identical output, and the workflow --- not the model's tokens --- is the
 reproducible unit.
 
 Underneath the pipeline sits a verification-status ladder applied to every
-cited source: an entry progresses from \texttt{[needs-research]} through
-\texttt{[lit-retrieved]} to \texttt{[ai-confirmed]} and finally to
+cited source: an entry progresses from \texttt{[unverified-external]}
+through \texttt{[needs-research]}, \texttt{[lit-retrieved]},
+\texttt{[ai-confirmed]}, and finally to
 \texttt{[lit-read]}, and a paper claim may only invoke a source at the
 stage that source has reached. The ladder operationalises the most
 concrete and under-managed risk of AI-assisted research, which we name the
@@ -312,7 +315,8 @@ FAIR predates LLMs --- and the contribution is the integration. They are:
 (1) \textbf{transcript preservation} --- every AI conversation that
 contributed to a claim is archived verbatim alongside the prose;
 (2) \textbf{verification-status labelling} --- every cited source carries a
-ladder stage (\texttt{[needs-research]} $\rightarrow$
+ladder stage (\texttt{[unverified-external]} $\rightarrow$
+\texttt{[needs-research]} $\rightarrow$
 \texttt{[lit-retrieved]} $\rightarrow$ \texttt{[ai-confirmed]} $\rightarrow$
 \texttt{[lit-read]}) and a paper claim may only invoke a source at its
 current stage; (3) \textbf{provenance maps} --- every technical claim is
@@ -363,7 +367,13 @@ proof-of-concept generation already reaches 8--34\,\% on public
 information alone and 68--72\,\% with adaptive reasoning (L-VD-2), and
 the cost-asymmetry literature reports LLM-mediated malicious-content
 production at roughly 125--500$\times$ cheaper than human effort
-(L-VD-5). On 7 April 2026 Anthropic disclosed Claude Mythos Preview, a
+(L-VD-5). \emph{(L-VD-1 and L-VD-5 are recorded at
+\seqsplit{\texttt{[edge-case]}} verification status in
+\texttt{docs/sources.md} --- load-bearing, first-of-its-kind,
+awaiting human \seqsplit{\texttt{[lit-read]}} --- and are invoked
+here under the verification ladder's edge-case carve-out per
+\texttt{CLAUDE.md}, 2026-05-02 extension.)} On 7 April 2026
+Anthropic disclosed Claude Mythos Preview, a
 frontier model that in their own published red-team work autonomously
 identified zero-day vulnerabilities in every major operating system and
 every major web browser; the company chose not to release it generally,

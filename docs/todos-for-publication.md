@@ -16,10 +16,10 @@ can be released.
 
 | | |
 |---|---|
-| Working tree | clean on `claude/prepare-for-publish-fERq5` after Q11 + Q1 + Q2 close (Gemini intact-jar swapped in; §5.7 *Other KPIs* refreshed with 2026-05-04 snapshot; §8.5 + §9.3 cluster-range A–J → A–Q + ladder-status claim rewritten to reflect 2026-05-02 `[ai-confirmed]` policy extension) |
+| Working tree | clean on `claude/prepare-for-publish-fERq5` after Q11 + Q1 + Q2 close + Aligner round-2 close (Gemini intact-jar swapped in; §5.7 *Other KPIs* refreshed; §8.5 + §9.3 cluster-range A–J → A–Q + ladder-status rewrite; ALN-14..ALN-22 + ALN-24 closed by writer pass; pending round-3 Aligner re-audit) |
 | Layout scrutinizer (Stage 4) | `RE-SCRUTINY REQUIRED: no` against tip `644d2e2` (long-form + condensed) |
 | Readability scrutinizer (Stage 5) | `RE-SCRUTINY REQUIRED: no` against tip `644d2e2` (long-form + condensed) |
-| Aligner (Stage 6) | `ALN-01..ALN-13` closed (commit `668fa8d`); next pass triggered by any further writer / illustrator change |
+| Aligner (Stage 6) | round 1 closed (`ALN-01..ALN-13`, commit `668fa8d`); round 2 dispatched 2026-05-04 (`a543917`), filed `ALN-14..ALN-24` (1 H + 7 M + 2 L + 1 informational); writer pass closed all 10 routed entries; round 3 pending dispatch on this branch |
 | History rewrite | executed; tag `pre-publication-clean` |
 | Public-mirror push, Zenodo, arXiv | gated on rule-13 + rule-14 explicit consent |
 
@@ -40,7 +40,7 @@ which they should be tackled.
 | Q6 | Upstream `noheton/powerocean-dev` redaction pass | human + agent | open | Same as Q5. The upstream `DISCLAIMER.md` and `doc/README.md` (2026-05-03) reduce but do not eliminate the pre-rewrite history exposure. |
 | Q7 | R-AUDIT-12 client-secret literal grep | human | open | Confirm against the actual Cognito secret string fragment that the redaction marker substitution is exhaustive. |
 | Q8 | Logbook readability re-check after in-place redaction | scrutinizer (Stage 5) | open | High marker density was introduced by the redaction-execution pass; surface in the next readability pass. |
-| Q9 | Final aligner sweep | aligner (Stage 6) | open | Trigger after Q1 + Q2 land. Audit md ↔ tex parity for both the long-form and the condensed pair (rule 12 / rule 17), the verification-status updates, and the figure-data sync committed by this pass. |
+| Q9 | Final aligner sweep | aligner (Stage 6) | in-progress | Round 2 dispatched 2026-05-04 (`a543917`); filed `ALN-14..ALN-24` with verdict `RE-ALIGNMENT REQUIRED: yes` (1 H + 7 M + 2 L). Writer pass on this branch closed all 10 writer-routed entries. **Round 3 still required** — the round-2 verdict cannot be re-flipped to `no` by the writer; only by an Aligner re-audit. Dispatch a round-3 Aligner sweep before flipping `Q9` to `done`. |
 | Q10 | `make all` clean rebuild + page-count snapshot | build | open | Confirm `paper/main.pdf` (target ≤60 pp post-rewrite) and `paper/main-condensed.pdf` (≤10 pp ceiling) after Q1–Q9 close, and after the Gemini intact-jar swap (Q11). Record the PDF SHAs in the rule-14 gate handoff. |
 | Q11 | Pandora-jar-intact final asset (Gemini) | human | done | Gemini deliverable landed on `main` 2026-05-04 (commit `302bf96`, 1408x768 RGBA, ~2.0 MB); placeholder swapped out. Inventory in `paper/figures/README.md`, §9.1 prose in `paper/main.{md,tex}`, §10 figure caption (date), `logo-placeholders.py` docstring (no longer authoritative), and `docs/handbacks/layout-defect-registry.md` (LAY-12 + FIG-04 closed) updated in the follow-up commit on branch `claude/prepare-for-publish-fERq5`. |
 
@@ -146,3 +146,33 @@ rather than for blocking publication.
   (human-owned), `Q8` (logbook readability re-check), `Q9` (final
   aligner sweep, now triggerable), `Q10` (`make all` clean rebuild
   + page-count snapshot). Rule-13 / rule-14 gates unchanged.
+- 2026-05-04 (fifth pass, branch `claude/prepare-for-publish-fERq5`) —
+  `Q9` round-2 dispatch + writer-pass closure. The Aligner sub-agent
+  ran round 2 and filed `ALN-14..ALN-24` (1 H, 7 M, 2 L, 1
+  informational; commit `a543917`). All ten writer-routed entries
+  were then closed in a follow-up writer pass on the same branch:
+  `ALN-18` (H — condensed-paper §4 dual-use carve-out footnote
+  imported as inline aside per the prompt's no-footnote-machinery
+  constraint); `ALN-14`/`ALN-15` (long-form §5.7 / §5.5 70-entry
+  temporal-anchor rewrites with rule-1 paragraph explaining why
+  the 200–400 h denominator is not re-estimated alongside the
+  numerator); `ALN-16` (condensed §2 spelt-out parallel rewrite);
+  `ALN-17` (condensed §3 rule-11 → rule-12 substitution);
+  `ALN-19` (`paper/figures/README.md` rule-14 → rule-15 at 10
+  sites + CCI pointer retarget on line 5); `ALN-20` (long-form
+  comments rule-14 → rule-15 + historical-row labels annotated
+  parenthetically rather than overwritten, preserving
+  contemporaneous rule numbering at the referenced commit hashes);
+  `ALN-21`/`ALN-22` (CCI pointer retargets at five sites including
+  two sites surfaced during the writer pass — §2.4 AI-transparency
+  paragraph and the *Ethics and reproducibility statement* — closed
+  under the same defect class for rule-1 honesty); `ALN-24`
+  (condensed §3 ladder rendering gains the `[unverified-external]`
+  rung at all four ladder sites). `ALN-23` is informational and
+  needs no fix. **Round 3 must re-audit before `Q9` can flip to
+  `done`** — the round-2 verdict cannot be flipped by the writer
+  alone (only by an Aligner re-audit). Open todos remaining: `Q3`
+  (deferred fig17), `Q4`–`Q7` (human-owned), `Q8` (logbook
+  readability re-check), `Q9` (round-3 Aligner re-audit pending),
+  `Q10` (`make all` clean rebuild). Rule-13 / rule-14 gates
+  unchanged.
