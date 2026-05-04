@@ -231,7 +231,7 @@ synthesis; surface a counter-example; flag a fabricated citation, an
 unsourced legal claim, or a verification-status entry that cannot
 survive scrutiny --- all of these are useful, and all of them are
 welcome. The transcript-as-artifact discipline (rule~4 in
-\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}) is what makes serious critique
+\texttt{CLAUDE.md}) is what makes serious critique
 tractable: every claim in this paper is backed by an exportable
 conversation log committed in this repository, so an objection can
 land on a specific line, transcript, or commit rather than on vibes.
@@ -373,7 +373,7 @@ the activation energy of integration high enough that a casual researcher
 gives up. We name this implicit defence the \emph{effort gap} and argue that
 it has functioned as the de-facto interoperability barrier of the last decade.
 
-% Rule 14: data source = figures/data/effort-gap.csv; generation script = figures/fig1-effort-gap.py
+% Rule 15: data source = figures/data/effort-gap.csv; generation script = figures/fig1-effort-gap.py
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig1-effort-gap.pdf}
@@ -590,8 +590,10 @@ Practice~\citep{dfg2023}, every section discloses where AI assistance was
 used and where it was rejected, corrected, or contradicted by the underlying
 code. AI-generated legal analysis is never used as legal advice. The
 repository's AI policy is canonicalised in
-\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md} and aliased in
-\texttt{.instructions.md} and \texttt{copilot-instructions.md}.
+\texttt{CLAUDE.md} and aliased via stub pointers at
+\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md},
+\texttt{.instructions.md}, and \texttt{copilot-instructions.md}
+(each of which redirects to \texttt{CLAUDE.md}).
 
 \subsection{KPIs (effort-gap operationalisation)}
 \label{sec:kpis}
@@ -1115,9 +1117,11 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
         per-transcript provenance map
         \fp{experiments/paper-meta-process/provenance.md} (parallel
         to the Spider Farmer and EcoFlow \fp{provenance.md} files).
-  \item The repository AI policy: \fp{CLAUDE_CODE_INSTRUCTIONS.md},
+  \item The canonical repository AI policy at \fp{CLAUDE.md}
+        (alongside the historical stub pointers
         \fp{.instructions.md}, \fp{copilot-instructions.md},
-        \fp{CLAUDE.md}.
+        \fp{CLAUDE_CODE_INSTRUCTIONS.md}, all of which now redirect
+        to \fp{CLAUDE.md}).
   \item The executable research-protocol agent prompt
         (\fp{docs/prompts/research-protocol-prompt.md}).
   \item The methodology document (\fp{docs/methodology.md}) and its KPI
@@ -1145,7 +1149,7 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
 \label{sec:meta-workflow}
 \begin{enumerate}
   \item \textbf{Repo-context loading.} The agent reads
-        \texttt{CLAUDE\_CODE\_INSTRUCTIONS.md},
+        \texttt{CLAUDE.md},
         \texttt{docs/methodology.md},
         \texttt{docs/logbook.md}, and the per-case
         \texttt{provenance.md} files at session start.
@@ -1294,13 +1298,13 @@ Phase & Commit & Key event & Est.\ elapsed \\
 Skeleton             & \texttt{31dba8a} & 7-section paper structure from scratch & $\sim$1\,h \\
 Literature           & \texttt{3010ee9} & $\sim$70 academic entries across 10 clusters & $\sim$2\,h \\
 LaTeX build          & \texttt{80e781b} & arXiv-ready pipeline; mirrors \texttt{main.md} & $\sim$1.5\,h \\
-Rule 11 compliance   & \texttt{eef8c5b} & Consistency rule; sync verified & $\sim$0.5\,h \\
+Rule 11 compliance (md $\leftrightarrow$ tex consistency rule; rule 12 in current \texttt{CLAUDE.md})   & \texttt{eef8c5b} & Consistency rule; sync verified & $\sim$0.5\,h \\
 AI disclosure + FAIR & \texttt{ebe008d} & §5, §9, CITATION.cff, Zenodo, CodeMeta & $\sim$3\,h \\
 License + UrhG/KI   & \texttt{ad46a7e} & CC-BY-4.0 LICENSE; legal footnote & $\sim$1\,h \\
 §6.4 + §10           & \texttt{3b85606} & Consumer vs industrial qualifier; Pandora & $\sim$1.5\,h \\
 Redaction + Rules    & \texttt{e5762a0} & Redaction pass; redaction-policy.md & $\sim$2\,h \\
 Discussion + timelines & \texttt{8f92658} & \S{}7.10, \S{}7.11, KPI tables, README & $\sim$3\,h \\
-DLR design + fig1 data & \texttt{456f7ef} & \texttt{dlr\_style.py}, \texttt{data/effort-gap.csv}, \texttt{fig1-effort-gap.py}; Rule-14 compliance & $\sim$1.5\,h \\
+DLR design + fig1 data & \texttt{456f7ef} & \texttt{dlr\_style.py}, \texttt{data/effort-gap.csv}, \texttt{fig1-effort-gap.py}; Rule-15 compliance (Rule-14 in the rule numbering at the time of \texttt{456f7ef}) & $\sim$1.5\,h \\
 Democratisation \S{}10 & \texttt{dae235f} & Citizen-science / democratisation paragraph; \S{}5.7 updated & $\sim$0.5\,h \\
 \midrule
 \textbf{Total AI-assisted (paper)} & & & \textbf{$\sim$17.5\,h} \\
@@ -1308,10 +1312,11 @@ Democratisation \S{}10 & \texttt{dae235f} & Citizen-science / democratisation pa
 \end{tabularx}
 \end{center}
 
-\textbf{Estimated manual baseline}: writing a 10-section paper with FAIR
-metadata, 70-entry literature register, provenance maps, LaTeX build
-pipeline, and redaction policy from scratch: \textbf{200--400\,h}.
-\textbf{Effort-gap metric}: $\approx$17.5 / 300 $\approx$ \textbf{6\% of manual effort} (updated each session; see table above).
+\textbf{Estimated manual baseline} as of the 2026-05-01 manuscript
+snapshot: writing a 10-section paper with FAIR metadata, 70-entry
+literature register, provenance maps, LaTeX build pipeline, and
+redaction policy from scratch: \textbf{200--400\,h}.
+\textbf{Effort-gap metric}: $\approx$17.5 / 300 $\approx$ \textbf{6\% of manual effort} (updated each session; see table above). The 200--400\,h envelope is the anchor against which the 6\,\% KPI is computed; the artifact has since grown (see the 2026-05-04 snapshot below: 144-entry literature register, 89 logbook sessions) but the manual-baseline envelope is \emph{not} re-estimated here, on the rule-1 principle that revising the denominator alongside the numerator without an independent re-estimate would inflate the effort-gap claim.
 
 Other KPIs (as of 2026-05-01): development-branch commits ahead of
 \texttt{main}: 21; logbook named sessions: 14; \texttt{main.md} lines:
@@ -1322,6 +1327,39 @@ claim in \cref{sec:pandora}). \texttt{[lit-retrieved]} entries: $\sim$70;
 Time-to-first-publishable-draft (skeleton $\rightarrow$ rule-11-compliant
 dual-format paper): $\approx$6\,h of AI-assisted work within one
 calendar day.
+
+Other KPIs (as of 2026-05-04, pre-publication snapshot --- the
+2026-05-01 row above is preserved unchanged for rule-1 historical
+honesty): logbook named sessions: \textbf{89} (was 14);
+\texttt{main.md} lines: \textbf{772} (was 472); scaffolding
+(methodology + sources + logbook): \textbf{$\sim$3\,226 lines}
+(was 885) --- ratio widened from $\sim$2:1 to $\sim$4:1, driven by
+the recursive eight-practice and eight-week case-study expansion.
+Literature-verification register: \textbf{144 \texttt{L-} entries}
+across \textbf{19 clusters} (A, A.2, A.3, B through Q). Ladder
+distribution along the verification-status ladder defined in
+\texttt{CLAUDE.md} (\texttt{[unverified-external]} $\rightarrow$
+\texttt{[needs-research]} $\rightarrow$ \texttt{[lit-retrieved]}
+$\rightarrow$ \texttt{[ai-confirmed]} $\rightarrow$
+\texttt{[lit-read]}): \textbf{12 at \texttt{[lit-read]}};
+\textbf{114 at \texttt{[ai-confirmed]}} (not yet \texttt{[lit-read]});
+\textbf{6 at \texttt{[ai-confirmed-attempt-failed]}} (effectively
+still \texttt{[lit-retrieved]}; agent retrieval blocked by paywall,
+HTTP 403, or upstream venue-PDF unavailability); \textbf{12 at bare
+\texttt{[lit-retrieved]}}. \textbf{126 of 144 entries
+($\sim$88\,\%)} are verified at \texttt{[ai-confirmed]} or higher;
+\textbf{12 of 144 ($\sim$8\,\%)} at full \texttt{[lit-read]}. The
+\texttt{[ai-confirmed]} rung was introduced into the ladder on
+2026-05-02 by the Source Analyzer agent (Stage 1.5; see
+\emph{Verification status ladder (extended 2026-05-02)} in
+\texttt{CLAUDE.md}). AI-generated claims subsequently flagged or
+removed: at least 1 (carried forward from 2026-05-01). Cumulative
+time-to-rule-13/14-distribution-ready (skeleton $\rightarrow$
+publication-readiness scrutinizer-quiet state):
+\textbf{$\approx$17.5\,h} of AI-assisted work, matching the \S{}5.7
+table headline; the single-calendar-day 6\,h figure from the
+2026-05-01 row is time-to-first-publishable-draft and is \emph{not}
+superseded.
 
 % =========================================================================
 \section{Synthesis}
@@ -1816,7 +1854,7 @@ cheaper than verifying an exploit --- but the gap is narrower, and
 the time horizon over which it remains a defender-favouring
 asymmetry is shorter, than this paper's first draft assumed.
 
-% Rule 14: data source = figures/data/stage-effort.csv; generation script = figures/fig10-stage-effort.py
+% Rule 15: data source = figures/data/stage-effort.csv; generation script = figures/fig10-stage-effort.py
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.96\linewidth]{fig10-stage-effort.pdf}
@@ -2750,11 +2788,21 @@ process lives at \texttt{docs/human-ai-collaboration-process.md}.
         content of the migration has been reconstructed from the
         embedded \texttt{original/\_\_init\_\_.py} (see \S3.4); only
         the dated commit-history narrative remains outstanding.
-  \item Read in full the \seqsplit{\texttt{[lit-retrieved]}}
-        literature in \texttt{docs/sources.md} clusters A--J and
-        upgrade entries to \seqsplit{\texttt{[lit-read]}} before any
-        of them is cited as authority rather than as a database
-        pointer.
+  \item Continue advancing entries in \texttt{docs/sources.md}
+        clusters A--Q along the verification-status ladder
+        (\seqsplit{\texttt{[lit-retrieved]}} $\rightarrow$
+        \seqsplit{\texttt{[ai-confirmed]}} $\rightarrow$
+        \seqsplit{\texttt{[lit-read]}}). As of 2026-05-04,
+        \textbf{126 of 144 entries ($\sim$88\,\%)} are at
+        \seqsplit{\texttt{[ai-confirmed]}} or higher; the remaining
+        \textbf{18} (12 bare \seqsplit{\texttt{[lit-retrieved]}} +
+        6 \seqsplit{\texttt{[ai-confirmed-attempt-failed]}} blocked
+        on paywall / 403 / venue-PDF unavailability) need either
+        re-attempt under a paywall-accessible network or human
+        verification. Load-bearing or contested claims should be
+        promoted to \seqsplit{\texttt{[lit-read]}} (12 such entries
+        today) before they are cited as authority rather than as a
+        database pointer.
 \end{itemize}
 
 % =========================================================================
@@ -2782,23 +2830,20 @@ produce the project's visual identity --- the ``Obscurity Is Dead ---
 Proprietary by Design. Open by AI.'' logo built around the shattered
 Pandora-jar motif, and the companion \emph{intact-jar} visual
 referenced later in \cref{sec:pandora} (``the Pandora moment'') ---
-at the author's request on 2026-05-02. Gemini is acknowledged as a
-contributor to the visual assets only; consistent with the
-\cref{sec:ai-disclosure-models} footnote on \emph{Urheberrecht und
-K\"unstliche Intelligenz}, it is not an author of the paper. The
-two logo files live under
+at the author's request on 2026-05-02 and 2026-05-04 respectively.
+Gemini is acknowledged as a contributor to the visual assets only;
+consistent with the \cref{sec:ai-disclosure-models} footnote on
+\emph{Urheberrecht und K\"unstliche Intelligenz}, it is not an
+author of the paper. The two logo files live under
 \texttt{paper/figures/logo-obscurity-is-dead.png} and
-\texttt{paper/figures/logo-pandora-jar-intact.png}. As of the current
-commit, the shattered-jar front-matter logo
-(\texttt{logo-obscurity-is-dead.png}) is the final
-Google-Gemini-generated artwork delivered by the author on 2026-05-02;
-the intact-jar companion (\texttt{logo-pandora-jar-intact.png}) is
-still an AI-authored \emph{placeholder} rendered by
-\texttt{paper/figures/logo-placeholders.py} pending its Gemini final.
-Both assets are committed (Rule~14: when the placeholder script and
-its outputs are both in the tree, regeneration is reproducible);
-generation prompts and iteration history for the Gemini run are
-appended to the project's logbook entry for 2026-05-02.
+\texttt{paper/figures/logo-pandora-jar-intact.png} and are both
+final Google-Gemini-generated artwork as delivered by the author.
+The matplotlib typographic fallback in
+\texttt{paper/figures/logo-placeholders.py} is retained for
+reproducibility but is no longer authoritative for either binary.
+Generation prompts and iteration history for the Gemini runs are
+appended to the project's logbook entries for 2026-05-02 and
+2026-05-04.
 
 The AI assistant is acknowledged as a contributor but is \emph{not} a
 co-author of this work.\footnote{\textbf{Footnote on Urheberrecht und
@@ -2900,18 +2945,39 @@ public mirror.
         verifiable by re-running the audit described in
         \texttt{docs/logbook.md} (entry ``audit against embedded vendor
         code'').
-  \item All literature in \texttt{docs/sources.md} clusters A--J
-        (covering LLM-assisted RE, vulnerability/exploit generation,
-        hardcoded secrets, BLE/IoT obscurity, right-to-repair,
-        local-first smart home, DMCA \S 1201(f), counter-positions,
-        sloppification of science, and model collapse) is currently
-        \texttt{[lit-retrieved]} --- the entries were surfaced from a
-        structured database query but the full texts have not been read
-        by the researcher. \textbf{No claim in this paper depends on a
-        literature citation that has not been read in full.} Where the
-        literature is invoked, it is invoked through the source-register
-        handles \texttt{[L-XX-N]} so the reader can independently
-        verify what was retrieved versus what was read.
+  \item Literature in \texttt{docs/sources.md} covers 19 clusters
+        (A, A.2, A.3, B through Q --- LLM-assisted RE, hardware-side
+        effort-gap reduction, quantitative time-savings evidence,
+        vulnerability/exploit generation, hardcoded secrets,
+        BLE/IoT obscurity, right-to-repair, local-first smart home,
+        DMCA \S 1201(f), counter-positions, sloppification of
+        science, model collapse, consumer-vs-industrial base rates,
+        privacy as a user right, malicious LLM agents, mass APK
+        probing, IoT companion-app surfaces, frontier-model exhibit,
+        and FAIR extensions to ML / research software / AI-assisted
+        research processes), totalling \textbf{144 \texttt{L-}
+        entries} as of 2026-05-04. The verification ladder defined
+        in \texttt{CLAUDE.md} runs \seqsplit{\texttt{[unverified-external]}}
+        $\rightarrow$ \seqsplit{\texttt{[needs-research]}} $\rightarrow$
+        \seqsplit{\texttt{[lit-retrieved]}} $\rightarrow$
+        \seqsplit{\texttt{[ai-confirmed]}} $\rightarrow$
+        \seqsplit{\texttt{[lit-read]}}; per the 2026-05-02 policy
+        extension, \textbf{inline citation in this paper is permitted
+        from \seqsplit{\texttt{[ai-confirmed]}} onward}, while
+        load-bearing or contested claims still require
+        \seqsplit{\texttt{[lit-read]}}. Current ladder distribution
+        (refreshed in \S5.7 \emph{Other KPIs} 2026-05-04 row):
+        \textbf{12} at \seqsplit{\texttt{[lit-read]}}, \textbf{114}
+        at \seqsplit{\texttt{[ai-confirmed]}}, \textbf{6} at
+        \seqsplit{\texttt{[ai-confirmed-attempt-failed]}} (effectively
+        still \seqsplit{\texttt{[lit-retrieved]}}), \textbf{12} at
+        bare \seqsplit{\texttt{[lit-retrieved]}}. Where the literature
+        is invoked, it is invoked through the source-register handles
+        \texttt{[L-XX-N]} so the reader can independently verify
+        what was retrieved, what was \seqsplit{\texttt{[ai-confirmed]}}
+        (agent re-retrieved the source and quoted the relevant
+        passage), and what was \seqsplit{\texttt{[lit-read]}}
+        (the paper itself was read by the agent or human).
   \item Legal framing (\S{} 69e UrhG / EU 2009/24/EC) remains unsourced
         and is flagged as \texttt{[unverified-external]} in
         \texttt{docs/sources.md}.
@@ -2994,7 +3060,7 @@ the rim of the great jar, and did not fly out at the door.''}\\
 \Description{Stylised illustration of an intact ceramic jar, the Hesiodic counterpoint to the shattered-jar logo in the front matter.}
 \caption{The proverbial jar --- intact: the Hesiodic counterpoint to
 the shattered-jar front-matter logo. (Asset generated by Google
-Gemini at the author's request, 2026-05-02; rule~1.)}
+Gemini at the author's request, 2026-05-04; rule~1.)}
 \label{fig:pandora-jar-intact}
 \end{figure}
 
@@ -3185,9 +3251,12 @@ confined to device integration. The meta-process
 the \emph{production of empirical research itself}: a single
 independent researcher, without institutional infrastructure,
 produced a publication-quality paper---provenance maps, FAIR
-metadata, dual-format submission source, 70-entry literature
-register---in approximately 17 hours of AI-assisted work, estimated
-at 6\% of the manual-equivalent effort
+metadata, dual-format submission source, and a literature register
+that grew from 70 entries on 2026-05-01 to 144 entries across 19
+clusters by 2026-05-04 (the verification-status ladder distribution
+is recorded in \cref{sec:meta-kpis})---in approximately
+\textbf{17.5\,hours} cumulative AI-assisted meta-process effort,
+estimated at \textbf{6\,\% of the manual-equivalent effort}
 (\cref{sec:meta-kpis}). This is citizen science, but in a mode that
 has no direct precedent in the citizen-science tradition.
 
@@ -3251,7 +3320,7 @@ work.
 \section*{Ethics and reproducibility statement}
 \label{sec:ethics-statement}
 This work follows the AI-assistance disclosure policy in
-\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md} and the ethics notes in
+\texttt{CLAUDE.md} and the ethics notes in
 \texttt{docs/ethics.md}. Prompt logs and intermediate artifacts are
 committed alongside the source. Recovered live credentials and device
 identifiers are flagged for redaction prior to any public release.

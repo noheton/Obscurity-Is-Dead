@@ -331,3 +331,903 @@ Long-form and condensed-pair structural alignment, citation alignment
 KPI parity (E1), and logbook chronology (F1) all pass.
 
 ---
+
+## Stage 6 — Aligner, round 2, 2026-05-04
+
+**Pass scope.** Second Aligner round, executed against branch
+`claude/prepare-for-publish-fERq5` at tip `a432859` after three
+upstream commits since round 1: `668fa8d` (round-1 close —
+ALN-01..ALN-13), `451dd37` (Q11 — Gemini intact-jar deliverable),
+and `a432859` (Q1 + Q2 — §5.7 *Other KPIs* refresh + §8.5 / §9.3
+cluster-range A–J → A–Q + ladder-status rewrite). Prior-round
+closure of ALN-01 through ALN-13 verified by inspection of the
+`668fa8d` commit diff plus current-tip greps; this round files
+new findings on top of that closed baseline.
+
+**Round-1 closure verification.**
+- ALN-01 (Table 1 caption mirror) — closed; condensed md and tex
+  caption now read identically modulo markup.
+- ALN-02 (model-collapse `[L-MC-3]` → `@seddik2024collapse`) —
+  closed; condensed md and tex both `\citep{seddik2024collapse}`.
+- ALN-03..ALN-05 — informational, no action; carried forward as
+  resolved.
+- ALN-06 (README footer "rule 15" → "rule 16") — closed at
+  `README.md:200`.
+- ALN-07 (logbook level-2 → level-3 headings) — closed; six
+  pre-2026-05-02 entries now `### `.
+- ALN-08 (`paper/main.md:12` / `paper/main.tex:74` "rule 13" →
+  "rule 14") — closed; both DRAFT-notice lines now read
+  "rule 14, `CLAUDE.md`".
+- ALN-09 (long-form mirror "rule 11" → "rule 12") — closed at
+  `paper/main.md:337,345,750` and `paper/main.tex:1136,3113`.
+- ALN-10 (long-form §7.15 redaction-and-consent rule numbers) —
+  closed at `paper/main.md:653` ("rule-13 redaction policy ...
+  rule 14") and `paper/main.tex:2567`.
+- ALN-11 (condensed §5 limitations rule-12/13 → 13/14) — closed
+  at `paper/main-condensed.md:90` and
+  `paper/main-condensed.tex:448–450`.
+- ALN-12 (six README rule-number sites) — closed.
+- ALN-13 (canonicality of `CLAUDE_CODE_INSTRUCTIONS.md`) — closed
+  by the human-author / orchestrator decision recorded in `CLAUDE.md`
+  line 5 ("those files are stubs"); `CLAUDE_CODE_INSTRUCTIONS.md`,
+  `.instructions.md`, and `copilot-instructions.md` are now thin
+  pointers at `CLAUDE.md`.
+
+The closure baseline is therefore clean. Round 2 looks at the
+state created by the Q1 + Q2 + Q11 commits plus a deeper sweep of
+sites that round 1 spot-checked rather than enumerated.
+
+**Categories covered.** A (mirror discipline, both pairs — second
+pass with attention to sites round 1 sampled), B (condensed-as-core,
+self-containment of the dual-use citation set), C (citekey ↔
+sources.md ↔ references.bib for the *additional* non-`@`-style
+identifier invocations like `[L-VD-1]` / `L-VD-1` — round 1 only
+covered `@`-keyed citations), D (figure / data / script
+provenance — figures `README.md` rule-number audit), E (README ↔
+paper KPI parity — recheck of cluster-range claim raised in the
+Q1+Q2 commit-message brief), F (logbook chronology — re-verified),
+G (redaction — spot-check only).
+
+**Inputs read.**
+- `docs/prompts/aligner-prompt.md` (full).
+- `CLAUDE.md` (full, rules 1–18).
+- `paper/main.md`, `paper/main.tex` — full; with attention to
+  the §5.5 democratisation paragraph, §5.7 KPI snapshots, §8.5
+  / §9.3 cluster-range, §10 eight-practices wording, the §1
+  asymmetric-collapse paragraph (`[L-VD-1]` / `[L-VD-5]`
+  invocation pattern), and the prefatory "rule 4" / DRAFT
+  notice surfaces.
+- `paper/main-condensed.md`, `paper/main-condensed.tex` — full
+  end-to-end re-read.
+- `paper/figures/README.md` — full re-read with rule-number
+  cross-check.
+- `docs/sources.md` — verification-status legend plus targeted
+  re-check of `L-VD-1`, `L-VD-2`, `L-VD-5`, `L-FAIR-3`.
+- `docs/logbook.md` — last 15 entries; chronology re-verified.
+- `README.md` — full; cluster-range and rule-number re-check.
+- `paper/references.bib` — entry count (51) cross-checked with
+  the condensed paper "~50-entry" framing on line 132 (separate
+  metric from the 144 `L-` entries in `docs/sources.md`).
+- Round-1 registry block (read in full).
+- Q1 + Q2 commit message and the round-1 logbook entry.
+
+### Findings
+
+#### Category A — Mirror discipline (rule 12)
+
+- *No new A-category defects this round.* The §5.7 2026-05-04
+  snapshot row (`paper/main.md:400–405` ↔ `paper/main.tex:1326–1357`)
+  mirrors cleanly: same five bullets, same numbers, same
+  ladder-rung literals, same temporal-honesty framing of the
+  2026-05-01 row preservation. The §8.5 / §9.3 cluster-range
+  rewrite (`paper/main.md:695,720` ↔ `paper/main.tex:2786,2943`)
+  also mirrors cleanly. Long-form ↔ condensed pair-equivalence
+  continues to hold at the structural level.
+
+#### Category B — Condensed-as-core (rule 17)
+
+- **ALN-18 (H)** — `paper/main-condensed.md:76` (and
+  `paper/main-condensed.tex:357–366`). The condensed paper §4
+  invokes three `L-VD-*` identifiers as load-bearing dual-use
+  asymmetry evidence:
+  - "no model successfully synthesised exploits for refactored
+    security labs in the **L-VD-1** evaluation" — `L-VD-1`
+    status in `docs/sources.md:229` is **`[lit-retrieved]`** plus
+    `[edge-case 2026-05-02]` (load-bearing cornerstone *awaiting
+    human `[lit-read]`*; "first-of-its-kind" qualifier; full text
+    not retrieved, HTTP 403).
+  - "(**L-VD-2**)" — `L-VD-2` is `[ai-confirmed 2026-05-02]`,
+    above the inline-citation floor; not at issue.
+  - "(**L-VD-5**)" — `L-VD-5` status in `docs/sources.md:233` is
+    **`[lit-retrieved]`** plus `[edge-case 2026-05-02]`
+    ("load-bearing for §6.3 cost-asymmetry / asymmetric-collapse
+    claim ... criterion 3 requires `[lit-read]` human
+    verification"); the specific `$125–500×` figure is the
+    "first-of-its-kind quantitative anchor".
+  In the long-form paper, the same three citations appear at
+  `paper/main.md:55` and the rationale + ladder carve-out is
+  disclosed in a paragraph-attached footnote (`paper/main.md:63`,
+  `[^exec-edge]`): *"The L-VD-1 refactored-labs cornerstone and
+  the L-VD-5 cost-asymmetry quantitative anchor are recorded at
+  `[edge-case]` verification status in `docs/sources.md`
+  (load-bearing, first-of-its-kind, awaiting human
+  `[lit-read]`)."* The condensed paper carries the **claim**
+  inline but **drops the carve-out disclosure**. This violates
+  rule 17 (the condensed paper must be self-contained — a reader
+  must understand the evidence shape without consulting the long
+  form) and rule 18 (the invocation level is below the
+  `[ai-confirmed]` ladder floor; the disclosure is what the
+  long-form footnote uses to license the otherwise-blocked
+  invocation, and the condensed paper has imported the claim
+  without importing the licensing prose).
+  **Severity H** because (a) the dual-use asymmetry argument is
+  the most legally- and reputationally-sensitive prose in the
+  condensed paper, (b) it is the section a hostile reviewer is
+  most likely to scrutinise for evidentiary discipline, and (c)
+  the `L-VD-1` "no model successfully synthesised exploits"
+  framing is the strongest single asymmetry claim and rests on a
+  single `[edge-case]` source whose qualifier the condensed paper
+  has elided. Suggested fix: import the `[^exec-edge]` footnote
+  (or an equivalent inline aside) into the condensed paper §4
+  immediately after the `(L-VD-5)` parenthetical, naming the
+  `[edge-case]` ladder rung and the "awaiting `[lit-read]`"
+  qualifier in the same prose. Routes to **writer (stage 2)**.
+
+- **ALN-24 (L)** — `paper/main-condensed.md:62` and
+  `paper/main-condensed.tex:298–303`. The §3 ladder description
+  shows four rungs: *"`[needs-research]` through `[lit-retrieved]`
+  to `[ai-confirmed]` and finally to `[lit-read]`"*. The canonical
+  ladder in `CLAUDE.md` *Verification status ladder (extended
+  2026-05-02)* is five rungs:
+  `[unverified-external]` → `[needs-research]` → `[lit-retrieved]`
+  → `[ai-confirmed]` → `[lit-read]`. The condensed paper drops the
+  lowest rung. **Severity L**: the omission is acceptable
+  shorthand (the lowest rung is the rare "external assertion not
+  yet recorded" placeholder, never invoked as evidence), but it
+  is a divergence from the canonical specification that a
+  rule-17-self-contained condensed paper should resolve. Suggested
+  fix: either prefix the rung list with "`[unverified-external]`
+  →" or add a short qualifier ("the four invocation-eligible
+  rungs of the ladder defined in `CLAUDE.md`"). Routes to
+  **writer (stage 2)**.
+
+#### Category C — Source / verification / claim alignment (rule 18)
+
+- **ALN-14 (M)** — `paper/main.md:388` and
+  `paper/main.tex:1311–1313`. The §5.7 *Estimated manual baseline*
+  paragraph reads *"writing a research paper of this scope — 10
+  sections, FAIR metadata, **70-entry literature register**,
+  provenance maps, LaTeX build pipeline, redaction policy —
+  without AI assistance: **200–400 h**"*. The 70-entry register is
+  the 2026-05-01 anchor. The current artifact has **144 `L-`
+  entries** (recorded explicitly in the 2026-05-04 row immediately
+  beneath, `paper/main.md:403` / `paper/main.tex:1333`). The
+  manual-baseline figure (200–400 h) is computed against the
+  *2026-05-01* artifact, so the 70-entry anchor is **temporally
+  honest in isolation** (rule 1 history-preservation). The defect
+  is that the prose does *not* explicitly flag the 2026-05-01
+  temporal anchor for this paragraph: a reader skimming §5.7
+  encounters two "literature register" numbers (70 in the
+  baseline paragraph; 144 in the 2026-05-04 KPI row) without
+  prose linking them. The Q1 + Q2 commit message explicitly
+  surfaced this and deferred the call to the Aligner. Decision:
+  **this is a defect, severity M, against rule 18 (traceability)
+  rather than rule 1 (honesty)**. Rule 1 is satisfied because both
+  numbers are correct at their respective dates; rule 18 is
+  violated because the temporal anchor is implicit and the
+  reader has to infer it. Suggested fix: insert a short inline
+  qualifier — e.g. *"writing a research paper of this scope (as
+  of the 2026-05-01 manuscript snapshot — see the 2026-05-01 row
+  below) — 10 sections, FAIR metadata, 70-entry literature
+  register, ..."* — or restate as *"a paper of this 2026-05-01-era
+  scope"*. Routes to **writer (stage 2)**.
+
+- **ALN-15 (M)** — `paper/main.md:766` and
+  `paper/main.tex:3247–3252`. The §5.5 *democratisation*
+  paragraph reads: *"a single independent researcher ... produced
+  a publication-quality paper — provenance maps, FAIR metadata,
+  dual-format submission source, **70-entry literature register**
+  — in approximately **17 hours** of AI-assisted work, estimated
+  at **6 %** of the manual-equivalent effort (§5.7)"*. The
+  17-hour figure and the 6 % effort-gap match the *current*
+  17.5 h cumulative figure (§5.7 table headline). The 70-entry
+  register count anchors to **2026-05-01**. The result is a
+  temporal-anchor inconsistency *within the same sentence*:
+  current numbers and a stale number both invoked as evidence
+  for one democratisation claim. **Severity M** because (a) the
+  democratisation claim is one of the four structural claims of
+  §10 and the §5.5 paragraph is the long-form's primary defence
+  of it; (b) unlike ALN-14, the temporal anchor cannot be salvaged
+  by an in-paragraph qualifier alone — the sentence either reads
+  as *"17 h of work to produce a 70-entry register"* (which is
+  the false claim, since the 17 h figure is *cumulative* across
+  the meta-process and *includes* the work that brought the
+  register up to 144 entries) or as *"17 h to produce the 2026-05-01
+  state of a paper that has since grown"* (which requires a
+  rewrite, not a qualifier). Suggested fix: rewrite to *"17 hours
+  of AI-assisted work cumulative across the meta-process (§5.7),
+  estimated at 6 % of the manual-equivalent effort, producing a
+  publication-quality paper whose literature register has grown
+  from 70 entries on 2026-05-01 to 144 entries on 2026-05-04
+  along the verification-status ladder defined in `CLAUDE.md`"*
+  — or equivalent. Routes to **writer (stage 2)**.
+
+- **ALN-16 (L)** — `paper/main-condensed.md:50` and
+  `paper/main-condensed.tex:218–219`. The condensed paper §2
+  recursive-meta-process paragraph reads: *"Approximately
+  seventeen and a half hours of AI-assisted work produced the
+  publication-quality dual-format manuscript, the **seventy-entry
+  literature register**, the FAIR metadata, and the redaction
+  policy that govern this paper."* Same temporal-anchor defect as
+  ALN-15, condensed-paper mirror. **Severity L** rather than M
+  because the condensed paper does not anchor a separate
+  *democratisation* claim on this sentence — it is reportage of
+  the meta-process — but it is still an inaccurate snapshot.
+  Closing ALN-15 in the long-form pair will require a parallel
+  fix here under rule 12 (mirror) and rule 17 (condensed
+  self-containment). Suggested fix: parallel to ALN-15
+  ("seventy-entry" → "144-entry as of 2026-05-04" or temporal
+  qualifier). Routes to **writer (stage 2)**.
+
+#### Category C — Cross-artifact rule-number consistency (rule 18; round-2 sites missed by round-1 sweep)
+
+The round-1 normalisation pass (`668fa8d`) closed the rule-number
+defects ALN-08..ALN-12 it had filed, but the sweep was not
+exhaustive. The following rule-number sites survived round 1 and
+are filed here.
+
+- **ALN-19 (M)** — `paper/figures/README.md:4, 12, 16, 30, 68,
+  119, 124, 131, 143, 187`. The figures-directory README invokes
+  *"Rule 14"* and *"Rule-14"* repeatedly to mean the
+  figure-data + generation-script rule. Under the current
+  `CLAUDE.md`, rule 14 is **no-publication** and the
+  figure-data + generation-script rule is **rule 15**. Ten
+  occurrences across the file. Same fault as ALN-12 round-1,
+  scoped to a different file. Per rule 18, a reader following the
+  rule pointer from any of these sites lands on the wrong rule.
+  Severity M (multiple sites; high reader-traffic file referenced
+  by the paper's figure provenance discipline). Additionally,
+  line 5 invokes *"`CLAUDE_CODE_INSTRUCTIONS.md`"* as the rule
+  source — same fault pattern as ALN-13 round-1, now closed at
+  the policy level (the file is a stub) but not closed at the
+  pointer site. Suggested fix: replace every "Rule 14" /
+  "Rule-14" / "rule 14" occurrence with "Rule 15" / "Rule-15" /
+  "rule 15" *where the meaning is the figure-data rule*, and
+  retarget the line-5 pointer at `CLAUDE.md`. Routes to **writer
+  (stage 2)**.
+
+- **ALN-20 (M)** — Long-form md ↔ tex pair, four sites:
+  - `paper/main.md:74` — *"Rule-14 compliance: data source
+    `figures/data/effort-gap.csv`; generation script
+    `figures/fig1-effort-gap.py`"* — should be **Rule-15**.
+  - `paper/main.tex:376` and `paper/main.tex:1852` — both LaTeX
+    comments read *"% Rule 14: data source = ..."* — should be
+    **Rule 15**.
+  - `paper/main.md:384` table row "DLR design + data-driven fig1
+    | ... | Rule-14 compliance for fig1 | ..." and the
+    `paper/main.tex:1303` mirror — should be **Rule-15**.
+  - `paper/main.md:378` table row "Rule 11 compliance | ...
+    Consistency rule added" and the `paper/main.tex:1297` mirror.
+    The "rule 11 compliance" historical-row label refers to the
+    *mirror discipline* rule (now rule 12); rule 11 is now the
+    *logbook* rule. The historical-row interpretation is mildly
+    awkward — the row is labelled by the rule the commit
+    introduced, which at the time of `eef8c5b` was indeed numbered
+    11, so this is *historically* honest under rule 1 but
+    *currently* misleading under rule 18. Severity M.
+  Same fault pattern as ALN-12 round-1. Round-1 caught the
+  rule-13/14 (publication / redaction) sites in the same files
+  but missed the rule-14/15 (figure-data) and rule-11/12 (mirror,
+  in the historical-table labelling) sites. Suggested fix:
+  rule-14 → rule-15 at the four prose / comment sites; for the
+  historical table row at `paper/main.md:378` / `paper/main.tex:1297`,
+  either keep the label "Rule 11 compliance" with an explicit
+  parenthetical "(rule 12 in current `CLAUDE.md`)" or switch to
+  "Mirror-discipline rule" wording that does not depend on the
+  rule number. Routes to **writer (stage 2)**.
+
+- **ALN-21 (M)** — `paper/main.md:37` and `paper/main.tex:233–234`.
+  The "*Open to constructive criticism*" front-matter paragraph
+  reads: *"The transcript-as-artifact discipline (**rule 4 in
+  `CLAUDE_CODE_INSTRUCTIONS.md`**) is what makes serious critique
+  tractable ..."*. The transcript-as-artifact rule is rule 4 in
+  the current `CLAUDE.md` (rule numbering unchanged), so the
+  *number* is correct, but the **canonical-file pointer is stale**:
+  `CLAUDE_CODE_INSTRUCTIONS.md` was demoted to a stub by round 1
+  (ALN-13 close); the canonical file is `CLAUDE.md`. Same fault
+  pattern as ALN-08 round-1, missed because round-1's sweep
+  targeted the rule-number sites and this site has the right
+  rule number but the wrong file pointer. **Severity M**: the
+  fault is rule-18 traceability (a reader following the pointer
+  lands on the stub, which now redirects to `CLAUDE.md`, so the
+  link is functional but indirect). Suggested fix:
+  `CLAUDE_CODE_INSTRUCTIONS.md` → `CLAUDE.md`. Routes to **writer
+  (stage 2)**.
+
+- **ALN-22 (M)** — `paper/main.md:331, 341` and
+  `paper/main.tex:1118–1120, 1148`.
+  - `paper/main.md:331` (§5.2 *Artifacts inventoried*, the
+    repository-AI-policy bullet) reads: *"The repository AI
+    policy: `CLAUDE_CODE_INSTRUCTIONS.md`, `.instructions.md`,
+    `copilot-instructions.md`, `CLAUDE.md`."* All four files
+    listed; the canonical is `CLAUDE.md` (per round-1 ALN-13
+    resolution) and the other three are stubs. The current
+    listing implies parity, which is no longer accurate.
+  - `paper/main.tex:1118–1120` mirrors the same listing.
+  - `paper/main.md:341` (§5.3 step 1) reads: *"Repo-context
+    loading. The agent reads **`CLAUDE_CODE_INSTRUCTIONS.md`**,
+    `docs/methodology.md`, `docs/logbook.md`, ..."* — names CCI
+    rather than CLAUDE.md as the agent's session-start input.
+  - `paper/main.tex:1148` mirrors the same.
+  **Severity M** for both sites: the §5.2 listing is mildly
+  misleading (parity-implication); the §5.3 step-1 is more
+  important because it makes a *claim about agent behaviour*
+  ("the agent reads CCI") that is no longer correct under the
+  round-1 stub demotion (an agent reading CCI gets a thin pointer
+  back to CLAUDE.md, not the policy itself). Suggested fix: at
+  §5.2, demote the three stubs to "and the historical stub
+  pointers `.instructions.md` / `copilot-instructions.md` /
+  `CLAUDE_CODE_INSTRUCTIONS.md`"; at §5.3, replace
+  `CLAUDE_CODE_INSTRUCTIONS.md` with `CLAUDE.md`. Routes to
+  **writer (stage 2)**.
+
+- **ALN-17 (M)** — `paper/main-condensed.md:60` and
+  `paper/main-condensed.tex:251`. Condensed §3 reads: *"validation
+  re-runs the smoke test against the live device or, in the
+  meta-process case, against the rebuilt PDF and the **rule-11
+  mirror parity check**."* In the current `CLAUDE.md`, rule 11
+  is **logbook chronology**; the mirror-parity rule is **rule 12**.
+  Same fault pattern as ALN-09 round-1, in a condensed-paper site
+  round-1 did not enumerate. **Severity M** because the mirror
+  parity check is an explicit methodological claim of §3 ("the
+  workflow … is the reproducible unit"), so the rule pointer is
+  load-bearing. Suggested fix: "rule-11 mirror parity check" →
+  "rule-12 mirror parity check". Routes to **writer (stage 2)**.
+
+#### Category D — Figure / data / script provenance (rule 15)
+
+- *No new D-category defects.* The Q11 commit (`451dd37`)
+  introduced one new figure-inventory row
+  (`logo-pandora-jar-intact.png`, Gemini-final, 2026-05-04) and
+  the inventory matches the §10 caption (`paper/main.md:741`)
+  and the §9.1 disclosure paragraph (`paper/main.md:697`). The
+  rule-14 → rule-15 cleanup in the figures README (ALN-19) is
+  the only outstanding rule-15-domain item, but it is filed
+  under Category C as a rule-number defect rather than as a
+  figure-provenance defect because every actual data file +
+  generation script is committed and traceable.
+
+#### Category E — README ↔ paper KPI parity (rule 16)
+
+- **ALN-23 (L; informational, no fix required)** — The Q1 + Q2
+  commit message and the round-1 logbook entry both stated that
+  the README "says clusters A–O at three sites" and asked the
+  Aligner to reconcile this against the paper's current `A–Q`.
+  Round-2 audit: `grep -nE 'A.O|A.K|A.J|A.Q|A.P|cluster' README.md`
+  returns **zero** cluster-range references. `git log --all -S
+  'A–O' README.md` and `git log --all -S 'clusters' README.md`
+  both return empty. **The README has never contained
+  cluster-range text**; the upstream brief was inherited from a
+  factual error in the Q1 + Q2 logbook entry (line 2590), which
+  itself appears to have inferred the README state from an older
+  artifact rather than from a direct grep. **Severity L
+  (informational)**: no defect to fix in `README.md`; recording
+  this entry so the trace shows the audit was performed and the
+  upstream brief was inaccurate. Rule 1 (honesty) compliance: the
+  registry records the fact rather than papering over the
+  upstream error. **Routes nowhere** (no fix required); the
+  finding is for the next round's closure-tracking only and as a
+  note to the human author / Q1+Q2 writer that the brief was
+  wrong.
+- The other E-category checks (E1 KPI parity; E2 retired-figure
+  cleanup; E3 redaction parity) re-pass against the round-1
+  baseline.
+
+#### Category F — Logbook / commit traceability (rule 11)
+
+- *No defects.* `grep -nE '^### 20[0-9]{2}-[0-9]{2}-[0-9]{2}'
+  docs/logbook.md` returns 41 dated headings (was 36 at round 1),
+  in non-decreasing order top to bottom (14× 2026-05-01 → 9×
+  2026-05-02 → 10× 2026-05-03 → 8× 2026-05-04 prior to this
+  entry). Append-only invariant holds. F1 satisfied. The five
+  new 2026-05-04 entries since round 1 (`Aligner round 1`,
+  `final-doc-update`, `figure + table layout fix-up`, `Q11
+  closed`, `Q1 + Q2 closed`) all reference hand-back files that
+  exist on disk; F2 / F3 satisfied.
+
+#### Category G — Redaction (rule 13)
+
+- *Spot-check only.* Confirmed: no new
+  `[REDACTED:credential:...]` / `[REDACTED:repo-path:...]` /
+  `[REDACTED:device-serial:...]` markers introduced by the three
+  upstream commits since round 1. The §10 caption update
+  (`paper/main.md:741`) and the §9.1 disclosure paragraph
+  (`paper/main.md:697`) — both touched by Q11 — do not introduce
+  redaction surfaces. G1 / G2 carry over from round 1 unchanged.
+
+### Hand-back routing summary (round 2)
+
+- To **writer (stage 2)**: ALN-14, ALN-15, ALN-16, ALN-17, ALN-18,
+  ALN-19, ALN-20, ALN-21, ALN-22, ALN-24.
+- To **illustrator (stage 3)**: none this round.
+- To **source analyzer (stage 1.5)**: none this round (ALN-18 is
+  about the *invocation* of `L-VD-1` / `L-VD-5` in the condensed
+  paper, not about the ladder status of the entries themselves;
+  the Source Analyzer's `[edge-case]` tagging of L-VD-1 / L-VD-5
+  is the correct status and does not need re-evaluation. The fix
+  is at the writer level — disclose the carve-out in the
+  condensed paper).
+- To **human author**: implicit notice on **ALN-23**: the upstream
+  Q1 + Q2 brief about README cluster-ranges was inherited from a
+  factually-wrong logbook claim. No action required, but the
+  human author may want to be aware that the brief reused a
+  misobservation. Filed as `alignment-to-human-author.md`
+  round-2 note.
+
+### Verdict
+
+**RE-ALIGNMENT REQUIRED: yes** — one H-severity defect (ALN-18:
+condensed paper §4 dual-use citation set invokes
+`[edge-case]`-status `L-VD-1` and `L-VD-5` without the long-form
+footnote disclosure, violating rule 17 self-containment + rule 18
+traceability) and seven M-severity defects (ALN-14, ALN-15,
+ALN-17, ALN-19, ALN-20, ALN-21, ALN-22) are open. Two L-severity
+defects open (ALN-16 condensed-paper 70-entry mirror; ALN-24
+condensed-paper ladder-rung omission). One L-informational entry
+(ALN-23 README-cluster-range non-defect) recorded for transparency.
+
+The pipeline is *not* fully quiescent. Minimum to reach
+`RE-ALIGNMENT REQUIRED: no` on the next round: a writer pass
+closing ALN-18 (condensed paper carve-out import); ALN-14 +
+ALN-15 + ALN-16 (the 70-entry temporal anchor across long-form
+§5.7, §5.5, and condensed §2); ALN-17 (condensed rule-11 → 12);
+ALN-19 (figures README rule 14 → 15 + CCI pointer retarget);
+ALN-20 (long-form rule-14 → 15 at four sites, rule-11 → 12 in
+the historical-row label or restated as wording-not-number);
+ALN-21 + ALN-22 (CCI pointer retargeting at three remaining
+long-form sites); ALN-24 (condensed ladder-rung addition).
+ALN-23 is informational and requires no writer action.
+
+Mirror discipline (A) for the §5.7 / §8.5 / §9.3 Q1+Q2 rewrite,
+condensed-as-core (B) for the §1 thesis / §2 KPIs / §3 method
+load-bearing claims (the dual-use carve-out in §4 being the H
+defect), README KPI parity (E), logbook chronology (F), and
+redaction (G) all pass.
+
+---
+
+## Stage 6 — Aligner round 2 closure (writer-pass response, 2026-05-04)
+
+The writer pass on branch `claude/prepare-for-publish-fERq5`
+following round-2 dispatch closes **all ten writer-routed entries**
+from the round-2 block above. Closure annotations:
+
+- **ALN-18 (H)** → **CLOSED**. Inline aside imported into
+  `paper/main-condensed.md:76` and mirrored in
+  `paper/main-condensed.tex:368–374` immediately after the
+  `(L-VD-5)` parenthetical: *"L-VD-1 and L-VD-5 are recorded at
+  `[edge-case]` verification status in `docs/sources.md` …
+  invoked here under the verification ladder's edge-case
+  carve-out per `CLAUDE.md`, 2026-05-02 extension."* Footnote
+  machinery intentionally not introduced (no footnotes in
+  condensed paper today; page-count discipline preserved).
+  Rule 17 self-containment restored; rule 18 invocation-floor
+  disclosure restored.
+- **ALN-14 (M)** → **CLOSED**. `paper/main.md:388` and
+  `paper/main.tex:1315–1318`: temporal-anchor qualifier added
+  (*"as of the 2026-05-01 manuscript snapshot"*) plus an
+  explicit rule-1 paragraph explaining why the 200–400 h
+  denominator is not re-estimated alongside the numerator
+  (would inflate the effort-gap KPI without an independent
+  re-estimate).
+- **ALN-15 (M)** → **CLOSED**. `paper/main.md:766` and
+  `paper/main.tex:3253–3258`: rewritten so the 17.5 h figure
+  is cumulative-meta-process (matches §5.7) and the
+  literature register is temporally spanned (70 → 144 between
+  2026-05-01 and 2026-05-04), with explicit cross-reference
+  to §5.7 for the verification-status ladder distribution.
+- **ALN-16 (L)** → **CLOSED**. `paper/main-condensed.md:50`
+  and `paper/main-condensed.tex:217–221`: spelt-out parallel
+  rewrite (*"a literature register that grew from seventy
+  entries on 2026-05-01 to one hundred and forty-four entries
+  across nineteen clusters by 2026-05-04"*); rule-12 mirror
+  parity preserved with ALN-15 close.
+- **ALN-17 (M)** → **CLOSED**. `paper/main-condensed.md:60`
+  and `paper/main-condensed.tex:251`: literal substitution
+  *"rule-11 mirror parity check"* → *"rule-12 mirror parity
+  check"*.
+- **ALN-19 (M)** → **CLOSED**. `paper/figures/README.md`:
+  ten rule-14 → rule-15 substitutions across lines 4, 12, 16,
+  30, 68 (heading), 119, 124, 131, 143, 187. Pointer retarget
+  on line 5: `CLAUDE_CODE_INSTRUCTIONS.md` → `CLAUDE.md`. All
+  Aligner-flagged sites verified clean by post-edit grep.
+- **ALN-20 (M)** → **CLOSED**. Long-form md ↔ tex four
+  prose / comment sites: `paper/main.md:74` (already rule-15
+  from prior commit), `paper/main.tex:376`, `:1852` (LaTeX
+  comments) rule-14 → rule-15. Two historical-row labels
+  annotated parenthetically rather than overwritten
+  (preserves the contemporaneous rule numbering at the
+  referenced commit hash; rule-1 honesty): `paper/main.md:378`
+  and `paper/main.tex:1297` *"Rule 11 compliance"* gain
+  *"(md ↔ tex consistency rule; rule 12 in current
+  `CLAUDE.md`)"*; `paper/main.md:384` and
+  `paper/main.tex:1303` *"Rule-14 compliance for fig1"* gain
+  *"(Rule-14 in the rule numbering at the time of `456f7ef`)"*.
+- **ALN-21 (M)** → **CLOSED**. `paper/main.md:37` and
+  `paper/main.tex:233–234`: pointer retarget
+  `CLAUDE_CODE_INSTRUCTIONS.md` → `CLAUDE.md`. Rule number (4)
+  unchanged (still correct in current `CLAUDE.md`).
+- **ALN-22 (M)** → **CLOSED**. Long-form §5.2
+  (`paper/main.md:331`, `paper/main.tex:1118–1120`): listing
+  rewritten so `CLAUDE.md` is named first as the canonical
+  policy file with the three stubs
+  (`CLAUDE_CODE_INSTRUCTIONS.md`, `.instructions.md`,
+  `copilot-instructions.md`) flagged as redirecting historical
+  pointers. Long-form §5.3 (`paper/main.md:341`,
+  `paper/main.tex:1149–1153`): `CLAUDE_CODE_INSTRUCTIONS.md`
+  → `CLAUDE.md`. Two further sites surfaced during the writer
+  pass and closed under the same defect class (rule-1 honesty
+  extension): §2.4 AI-transparency paragraph
+  (`paper/main.md:136`, `paper/main.tex:592–594`) — *"the
+  repository's AI policy is canonicalised in `CLAUDE.md` and
+  aliased via stub pointers at …"*; and the trailing
+  *Ethics and reproducibility statement*
+  (`paper/main.tex:3318–3319`) — *"This work follows the
+  AI-assistance disclosure policy in `CLAUDE.md`"*.
+- **ALN-24 (L)** → **CLOSED**. `paper/main-condensed.md:62, 72`
+  (two ladder-stage descriptions) and
+  `paper/main-condensed.tex:260–264, 318–320`:
+  `[unverified-external]` rung prepended to the ladder
+  rendering at all four sites.
+
+Round-2 verdict updated to **`RE-ALIGNMENT REQUIRED: no` after
+writer-pass closure**, pending round-3 Aligner re-check.
+ALN-23 remains informational (non-defect, not actionable). The
+L-severity carry-over backlog from round 1 (ALN-01..ALN-07
+recorded) remains permitted under the verdict scheme.
+
+---
+
+## Stage 6 — Aligner, round 3, 2026-05-04
+
+**Pass scope.** Third Aligner round, executed against branch
+`claude/prepare-for-publish-fERq5` at tip `8398ae0` (writer pass
+closing the ten round-2 writer-routed entries plus two extension
+sites under ALN-22). The primary purpose of round 3 is to verify
+the closures asserted by the writer pass and either flip the
+round-2 verdict to `RE-ALIGNMENT REQUIRED: no` or file new defects
+where a closure is partial or introduces a regression. Secondary
+purpose is a fresh A–G sweep against the small surface that the
+writer pass touched (six paragraphs across `paper/main.{md,tex}`,
+four paragraphs across `paper/main-condensed.{md,tex}`, ten
+substitutions in `paper/figures/README.md`).
+
+**Inputs read.**
+- `docs/prompts/aligner-prompt.md` (full).
+- `CLAUDE.md` (rules 1–18; verification-status ladder section).
+- The writer-pass commit `8398ae0` (full diff stat + commit message
+  + per-file diff at every cited line range).
+- Round-2 registry block (full) and the round-2 closure block
+  appended at end-of-file by the writer pass.
+- `paper/main.md`, `paper/main.tex` — targeted read of every
+  cited closure site (lines 37, 74, 136, 233–234, 376, 384, 388,
+  592–596, 766, 1297, 1303, 1315–1319, 1857, 3253–3258, 3318–3324)
+  plus surrounding context.
+- `paper/main-condensed.md`, `paper/main-condensed.tex` — full
+  re-read of §2 (recursive meta-process), §3 (methodology +
+  ladder), §4 (eight practices + dual-use carve-out aside).
+- `paper/figures/README.md` — full re-read with rule-15 / CCI
+  pattern grep.
+- `docs/sources.md` — entry-count and cluster-count grep
+  (verification of the new "144-entry / 19-cluster" claim);
+  targeted re-check of `L-VD-1`, `L-VD-5` `[edge-case]` status.
+- `docs/logbook.md` — last 12 entries; chronology re-verified.
+- `README.md` — KPI parity spot-check (~17.5 h / ~6 % effort
+  gap).
+- `docs/handbacks/alignment-to-writer.md` — closure record at
+  end-of-file.
+
+### Round-2 closure verification
+
+Each of the ten round-2 writer-routed entries was verified by
+reading the cited file and line range and confirming both that
+the closure annotation matches what is on disk and that the rule
+the entry was supposed to close is in fact restored.
+
+- **ALN-14 (M, long-form §5.7 manual-baseline 70-entry temporal
+  anchor)** — **VERIFIED CLOSED**. `paper/main.md:388` carries
+  the qualifier *"as of the 2026-05-01 manuscript snapshot"* and
+  the rule-1 paragraph *"the 200–400 h envelope is the anchor
+  against which the 6 % effort-gap KPI is computed; the artifact
+  has since grown … the manual-baseline envelope is not
+  re-estimated here, on the rule-1 principle that revising the
+  denominator alongside the numerator without an independent
+  re-estimate would inflate the effort-gap claim."*
+  `paper/main.tex:1315–1319` carries the same prose with parallel
+  wording and the same rule-1 paragraph appended at line 1319.
+  Rule 18 (traceability) restored: temporal anchor now explicit;
+  rule 1 (honesty) actively defended in-prose.
+- **ALN-15 (M, long-form §5.5 democratisation 17 h / 70-entry
+  temporal inconsistency)** — **VERIFIED CLOSED**.
+  `paper/main.md:766` reads *"a literature register that grew
+  from 70 entries on 2026-05-01 to 144 entries across 19 clusters
+  by 2026-05-04 (the verification-status ladder distribution is
+  recorded in §5.7) — in approximately 17.5 hours cumulative
+  AI-assisted meta-process effort"*. `paper/main.tex:3253–3258`
+  mirrors the same temporally-spanned phrasing with explicit
+  cross-reference to §5.7 (`\cref{sec:meta-kpis}`). The 17.5 h
+  figure is correctly framed as cumulative-meta-process; the
+  literature register is correctly described as a temporally
+  spanned figure rather than a single-date count. Rule-1 honesty
+  + rule-18 traceability both restored.
+- **ALN-16 (L, condensed §2 seventy-entry parallel)** —
+  **VERIFIED CLOSED**. `paper/main-condensed.md:50` reads
+  *"a literature register that grew from seventy entries on
+  2026-05-01 to one hundred and forty-four entries across
+  nineteen clusters by 2026-05-04"*; `paper/main-condensed.tex:217–221`
+  mirrors with the same spelt-out parallel rewrite. Rule-12 mirror
+  parity preserved with ALN-15 (same temporal-anchoring strategy
+  in long-form numerals and condensed spelt-out form).
+- **ALN-17 (M, condensed §3 rule-11 → rule-12)** —
+  **VERIFIED CLOSED**. `paper/main-condensed.md:60` reads
+  *"the rule-12 mirror parity check"*; `paper/main-condensed.tex:253`
+  reads *"the rule-12 mirror parity check"*. Single-literal
+  substitution applied at both sites; closure annotation cited
+  `:251` for tex, current location `:253` (two-line drift from
+  the writer-pass-introduced ALN-24 ladder rung addition just
+  above; content correct).
+- **ALN-18 (H, condensed §4 dual-use carve-out import)** —
+  **VERIFIED CLOSED**. `paper/main-condensed.md:76` carries the
+  inline italicised parenthetical aside *"L-VD-1 and L-VD-5 are
+  recorded at `[edge-case]` verification status in
+  `docs/sources.md` — load-bearing, first-of-its-kind, awaiting
+  human `[lit-read]` — and are invoked here under the
+  verification ladder's edge-case carve-out per `CLAUDE.md`,
+  2026-05-02 extension."* immediately after the `(L-VD-5)`
+  parenthetical. `paper/main-condensed.tex:370–375` mirrors with
+  `\seqsplit{\texttt{[edge-case]}}` / `\seqsplit{\texttt{[lit-read]}}`
+  for hyphenation discipline. Cross-checked against
+  `docs/sources.md`: L-VD-1 and L-VD-5 are at `[lit-retrieved]
+  [edge-case 2026-05-02]` status, matching the disclosure prose.
+  Rule 17 self-containment + rule 18 invocation-floor disclosure
+  both restored. Footnote machinery correctly *not* introduced
+  (preserves the condensed paper's no-footnotes typographic
+  discipline; page-count restraint preserved).
+- **ALN-19 (M, figures README rule-14 → rule-15 + CCI retarget)**
+  — **VERIFIED CLOSED**. `grep -i 'rule.14\|rule.15\|CLAUDE_CODE_INSTRUCTIONS'
+  paper/figures/README.md` returns ten "rule-15" hits (lines 4,
+  12, 16, 30, 68 heading, 119, 124, 131, 143, 187), zero "rule-14"
+  hits in the figure-data-rule sense, and zero
+  `CLAUDE_CODE_INSTRUCTIONS.md` hits. The line-5 pointer reads
+  *"data-source + generation-script requirement per `CLAUDE.md`"*.
+  Closure clean.
+- **ALN-20 (M, long-form rule-14 → rule-15 + historical rows)**
+  — **VERIFIED CLOSED**. LaTeX comments at `paper/main.tex:376`
+  (*"% Rule 15: data source = figures/data/effort-gap.csv …"*)
+  and `paper/main.tex:1857` (*"% Rule 15: data source =
+  figures/data/stage-effort.csv …"*) both correct (closure
+  annotation cited `:1852`; the comment moved to `:1857` after
+  the writer-pass-introduced rule-1 paragraph at §5.7 lengthened
+  the file by five lines — content correct, line drift
+  accounted-for). Two historical-row labels in the §5.7 KPI table
+  (`paper/main.md:378` *"Rule 11 compliance (md ↔ tex consistency
+  rule; rule 12 in current `CLAUDE.md`)"* and `paper/main.md:384`
+  *"Rule-15 compliance for fig1 (Rule-14 in the rule numbering at
+  the time of `456f7ef`)"*) are annotated parenthetically rather
+  than overwritten — rule-1 honesty preserved (the row labels
+  match the rule numbers as they stood at the referenced commit
+  hashes; the parenthetical clarifies the current numbering).
+  `paper/main.tex:1297, 1303` mirror the same.
+- **ALN-21 (M, front-matter rule-4 pointer)** — **VERIFIED
+  CLOSED**. `paper/main.md:37` and `paper/main.tex:233–234` both
+  read *"the transcript-as-artifact discipline (rule 4 in
+  `CLAUDE.md`)"*. CCI pointer retargeted; rule number (4)
+  unchanged (still correct).
+- **ALN-22 (M, §5.2 + §5.3 CCI pointer + extension sites)** —
+  **VERIFIED CLOSED**. (a) §5.2 listing rewritten:
+  `paper/main.md:331` reads *"The canonical repository AI policy
+  at `CLAUDE.md` (alongside the historical stub pointers
+  `.instructions.md`, `copilot-instructions.md`,
+  `CLAUDE_CODE_INSTRUCTIONS.md`, all of which now redirect to
+  `CLAUDE.md`)"*; `paper/main.tex:1120–1124` mirrors. (b) §5.3
+  step 1: `paper/main.md:341` reads *"The agent reads
+  `CLAUDE.md`, `docs/methodology.md`, `docs/logbook.md`, …"*;
+  `paper/main.tex:1151–1152` mirrors. (c) Extension site §2.4:
+  `paper/main.md:136` reads *"the repository's AI policy is
+  canonicalised in `CLAUDE.md` and aliased via stub pointers at
+  `CLAUDE_CODE_INSTRUCTIONS.md`, `.instructions.md`, and
+  `copilot-instructions.md` (each of which redirects to
+  `CLAUDE.md`)"*; `paper/main.tex:592–596` mirrors. (d) Extension
+  site *Ethics and reproducibility statement*:
+  `paper/main.tex:3322–3323` reads *"This work follows the
+  AI-assistance disclosure policy in `CLAUDE.md` …"* (tex-only
+  section; no md mirror). All four named CCI sites in the
+  long-form paper now reference CCI only as a redirecting
+  historical stub, never as the canonical policy. Rule 18
+  traceability restored.
+- **ALN-24 (L, condensed ladder-rung addition)** — **VERIFIED
+  CLOSED**. `grep -E 'unverified-external|needs-research|lit-retrieved|ai-confirmed|lit-read'
+  paper/main-condensed.{md,tex}` returns the full five-rung
+  ladder at every ladder-rendering site:
+  `paper/main-condensed.md:62` (§3 prose ladder),
+  `paper/main-condensed.md:72` (§4 practice 2 verification-status-labelling),
+  `paper/main-condensed.tex:261–264` (§3 prose ladder),
+  `paper/main-condensed.tex:318–321` (§4 practice 2). All four
+  sites lead with `[unverified-external]` and continue through
+  `[needs-research] → [lit-retrieved] → [ai-confirmed] →
+  [lit-read]`. The condensed paper's ladder description now
+  matches the canonical five-rung ladder defined in `CLAUDE.md`
+  *Verification status ladder (extended 2026-05-02)*.
+
+**All ten round-2 writer-routed ALN entries VERIFIED CLOSED.**
+Two minor line-number drifts noted (ALN-17 tex `:251` → `:253`,
+ALN-20 tex `:1852` → `:1857`) — both attributable to additive
+edits earlier in the same files (the ALN-24 ladder-rung addition
+above ALN-17, and the ALN-14 rule-1 paragraph above ALN-20). Both
+are content-correct; line drift is recorded for audit transparency
+but is not a defect.
+
+### Round-3 fresh findings
+
+A full A–G sweep was run against the writer-pass-touched surface.
+The findings are recorded below.
+
+#### Category A — Mirror discipline (rule 12)
+
+- **No new A-category defects.** Six long-form md ↔ tex paragraph
+  pairs (§1.6 rule-4 pointer, §2.4 AI-transparency, §5.2 listing,
+  §5.3 step-1, §5.5 democratisation, §5.7 manual-baseline) verified
+  pair-equivalent. Four condensed md ↔ tex paragraph pairs (§2
+  recursive meta-process, §3 ladder-rung + rule-12 substitution,
+  §4 practice-2 ladder-rung, §4 dual-use carve-out aside) verified
+  pair-equivalent. The two LaTeX-only sites (% Rule 15 comments at
+  fig1 / fig10; *Ethics and reproducibility statement*) have no md
+  counterpart by design and are accounted-for in the writer-pass
+  closure record.
+
+#### Category B — Condensed-as-core (rule 17)
+
+- **No new B-category defects.** B1 / B2: the dual-use evidence in
+  §4 is now self-contained — a reader of the condensed paper alone
+  encounters the L-VD-1 / L-VD-5 claims *and* the verification-floor
+  disclosure that licenses them under the edge-case carve-out, with
+  no obligation to consult the long-form companion to understand
+  the evidence shape. The §3 ladder description matches the
+  five-rung canonical ladder in `CLAUDE.md`. B3 (10-page ceiling):
+  no PDF rebuild this pass (rule-14 constraint). Source-text
+  estimate: condensed md is 132 lines (was ~128 pre-writer-pass);
+  condensed tex is 583 lines (was ~559 pre-writer-pass). The
+  writer-pass additions are (i) a four-line italicised parenthetical
+  aside in §4, (ii) a single rung name (`[unverified-external] →`)
+  prepended at four ladder-rendering sites, (iii) a four-word
+  literal substitution at §3 (rule-11 → rule-12), and (iv) the §2
+  spelt-out parallel "70 → 144 across 19 clusters" rewrite. The
+  cumulative additive surface is small enough that the round-1
+  9-page measurement carries forward modulo a sub-page expansion;
+  no source-text-level reason to expect the page count to exceed
+  10. Page-count re-verification deferred to `Q10` (`make all`
+  clean rebuild) per the orchestrator's plan; the writer pass has
+  not introduced source-text expansion that would invalidate the
+  9-page baseline.
+
+#### Category C — Source / verification / claim alignment (rule 18)
+
+- **No new C-category defects.** The writer pass introduced or
+  modified the following claims; each is traceable.
+  - "144-entry / 19-cluster" literature-register claim
+    (`paper/main.md:403`, `paper/main.tex:1333`,
+    `paper/main-condensed.md:50`, `paper/main-condensed.tex:217–221`,
+    `paper/main.md:766`, `paper/main.tex:3253–3258`). Verified
+    against `docs/sources.md`: `grep -c '^- \*\*L-' docs/sources.md`
+    = 144; `grep -c '^### Claim cluster' docs/sources.md` = 19.
+    Trace clean.
+  - "70 entries on 2026-05-01" historical anchor
+    (`paper/main.md:388, 396, 766`; condensed §2). Anchored to
+    the §5.7 2026-05-01 row, which the registry preserves under
+    rule-1 historical honesty.
+  - "200–400 h envelope is the anchor against which the 6 %
+    effort-gap KPI is computed … not re-estimated here"
+    (`paper/main.md:388`, `paper/main.tex:1319`). Rule-1 explicit
+    in-prose; cross-references the same §5.7 KPI snapshot row.
+  - "L-VD-1 and L-VD-5 are recorded at `[edge-case]` verification
+    status … invoked here under the verification ladder's edge-case
+    carve-out per `CLAUDE.md`, 2026-05-02 extension"
+    (`paper/main-condensed.md:76`, `paper/main-condensed.tex:370–375`).
+    Verified against `docs/sources.md`: L-VD-1 carries
+    *"`[lit-retrieved]` `[edge-case 2026-05-02 by Claude Opus 4.7:
+    load-bearing cornerstone for §6.3 asymmetric-collapse claim
+    … awaiting human [lit-read]]`"*; L-VD-5 carries
+    *"`[lit-retrieved]` `[edge-case 2026-05-02 by Claude Opus 4.7:
+    load-bearing for §6.3 cost-asymmetry / asymmetric-collapse
+    claim … criterion 3 requires [lit-read] human verification]`"*.
+    The disclosure prose accurately characterises the
+    `docs/sources.md` ladder status. Verification floor /
+    invocation level alignment restored.
+  - "[unverified-external] rung" added to condensed-paper ladder
+    at four sites. Verified against `CLAUDE.md` *Verification
+    status ladder (extended 2026-05-02)* section: the canonical
+    ladder is five rungs (`[unverified-external]` →
+    `[needs-research]` → `[lit-retrieved]` → `[ai-confirmed]` →
+    `[lit-read]`). The condensed paper now matches.
+
+#### Category D — Figure / data / script provenance (rule 15)
+
+- **No new D-category defects.** The writer pass did not touch
+  any figure or data-driven artefact. The figures-README rule-15
+  audit (ALN-19) verified clean above. Round-2 D-category was
+  already clean and remains so.
+
+#### Category E — README ↔ paper KPI parity (rule 16)
+
+- **No new E-category defects.** The writer pass did not modify
+  README KPIs. Spot-check: README line 39 *"~17.5 h (running)"*
+  and line 41 *"~6 % of manual"* match the §5.7 cumulative
+  meta-process figure (`paper/main.md:386, 405` and
+  `paper/main.tex:1311, 1319`). README cluster-range non-defect
+  (ALN-23) carries forward as informational.
+
+#### Category F — Logbook / commit traceability (rule 11)
+
+- **No new F-category defects.** `grep -nE '^### 20[0-9]{2}-[0-9]{2}-[0-9]{2}'
+  docs/logbook.md` returns 43 dated headings (was 41 at round 2),
+  in non-decreasing order top-to-bottom. The two new 2026-05-04
+  entries (Aligner round 2; writer pass closing ALN-14..ALN-22 +
+  ALN-24) both reference hand-back files that exist on disk
+  (`alignment-defect-registry.md`, `alignment-to-writer.md`,
+  `alignment-to-human-author.md`) and commit SHAs that exist in
+  `git log` (`a543917`, `8398ae0`). F1 / F2 / F3 satisfied.
+
+#### Category G — Redaction (rule 13)
+
+- **No new G-category defects.** Spot-check: no new
+  `[REDACTED:credential:...]` / `[REDACTED:repo-path:...]` /
+  `[REDACTED:device-serial:...]` markers introduced by the
+  writer-pass commit `8398ae0`. The condensed paper §4 dual-use
+  aside imports a *verification-status* disclosure, not a
+  *redacted-content* marker; G1 / G2 unaffected.
+
+### Hand-back routing summary (round 3)
+
+- To **writer (stage 2)**: none.
+- To **illustrator (stage 3)**: none.
+- To **source analyzer (stage 1.5)**: none.
+- To **human author**: none. (ALN-23 informational note carried
+  in `alignment-to-human-author.md` round-2 block; no round-3
+  addendum needed.)
+
+No new hand-back files written this round.
+
+### Verdict
+
+**RE-ALIGNMENT REQUIRED: no.**
+
+All ten round-2 writer-routed ALN entries (ALN-14 M, ALN-15 M,
+ALN-16 L, ALN-17 M, ALN-18 H, ALN-19 M, ALN-20 M, ALN-21 M,
+ALN-22 M, ALN-24 L) are **VERIFIED CLOSED** by reading the cited
+file/line ranges and confirming the closure annotation matches
+on disk and that the rule the entry was supposed to close is in
+fact restored. ALN-23 remains informational (non-defect, not
+actionable). The L-severity carry-over backlog from round 1
+(ALN-01..ALN-07) is permitted under the verdict scheme.
+
+A full A–G fresh sweep against the writer-pass-touched surface
+(six long-form paragraphs, four condensed paragraphs, ten
+figures-README substitutions, two LaTeX-only comments) returned
+zero new H or M defects and zero new L defects. The pipeline is
+fully quiescent on the Aligner axis: stage 6 reports
+`RE-ALIGNMENT REQUIRED: no`, complementing the stage-4 / stage-5
+/ source-analyzer no-go signals required for full quiescence
+under the orchestrator rule.
+
+Two minor audit-transparency notes recorded above (ALN-17 tex
+line drift `:251` → `:253`; ALN-20 tex line drift `:1852` →
+`:1857`); both are content-correct and attributable to additive
+edits earlier in the same files. Neither is a defect.
+
+`Q9` (final Aligner sweep) is now eligible to flip to `done` in
+`docs/todos-for-publication.md`. `Q10` (`make all` clean rebuild
++ page-count snapshot) remains the last writer-side todo before
+the rule-14 explicit-consent gate. The rule-13 / rule-14
+distribution gates remain closed pending explicit human consent.
+
+---
