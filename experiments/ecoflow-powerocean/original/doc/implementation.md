@@ -4,10 +4,10 @@
 **Branch**: `claude/refactor-ha-integration-7dnMI`
 **Target architecture**: Home Assistant 2026.x
 **Equipment** (from `doc/equipment.md`):
-- Inverter: `HJ37ZDH5ZG5W0109` — 12 kW PowerOcean (model code `83`)
-- Battery 1: `HJ3AZDH5ZG3G0384` — 5 kWh
-- Battery 2: `HJ3AZDH5ZG3G0490` — 5 kWh
-- PowerPulse: `AC31ZEH4AG130052` — 11 kW (JT303 / S1)
+- Inverter: `[REDACTED:serial:R-EF-1]` — 12 kW PowerOcean (model code `83`)
+- Battery 1: `[REDACTED:serial:R-EF-2]` — 5 kWh
+- Battery 2: `[REDACTED:serial:R-EF-3]` — 5 kWh
+- PowerPulse: `[REDACTED:serial:R-EF-4]` — 11 kW (JT303 / S1)
 
 ---
 
@@ -142,14 +142,14 @@ The following EMS_HEARTBEAT / DEFAULT data-points were previously created as reg
 
 APK Pass 2 confirmed PowerPulse = JT303 = S1.  The existing integration already
 handles the PowerPulse report via `WALLBOX_SYS` / `EDEV_PARAM_REPORT` parsers and
-correctly identifies `AC31ZEH4AG130052` as a sub-device.
+correctly identifies `[REDACTED:serial:R-EF-4]` as a sub-device.
 
 This refactor adds:
 - `switch.charger_enable` — `cfgSpChargerChgOpen` (PowerPulse on/off)
 - `select.charger_mode` — `cfgSpChargerChgMode` (auto / fast / eco)
 - `number.charger_power_limit` — `cfgSpChargerChgPowLimit` (max 11 000 W)
 
-These entities attach to the main inverter device (`HJ37ZDH5ZG5W0109`) because
+These entities attach to the main inverter device (`[REDACTED:serial:R-EF-1]`) because
 they write through the inverter API, not directly to the PowerPulse sub-device.
 
 ### 3.5 Dropped / Out-of-Scope Items
@@ -188,7 +188,7 @@ Energy Dashboard auto-discovers the following sensors:
 device name (set at device-registry level in `__init__.py`) with the entity's
 `translation_key`-resolved name.  Example:
 
-> Device name: **Florian Krebs**
+> Device name: **Florian Krebs (paper author / device owner-of-record)**
 > Entity translation: **Battery State of Charge**
 > Result in UI: **Florian Krebs Battery State of Charge**
 
@@ -209,7 +209,7 @@ German Voice Assist will resolve to **Ladezustand der Batterie** via `de.json`.
 
 3. **PowerPulse direct sub-device write** — the `set_quota` path via the main inverter
    SN may route commands to the PowerPulse.  If not, the PowerPulse SN
-   (`AC31ZEH4AG130052`) should be used in `async_set_property` for SP charger commands.
+   (`[REDACTED:serial:R-EF-4]`) should be used in `async_set_property` for SP charger commands.
 
 4. **Region detection for write** — `_detect_region` only probes EU/US; Asia/CN hosts
    (`api-a`, `api-cn`) are not tried.  Add them if deployments outside EU/US report
@@ -230,7 +230,7 @@ surfaces not covered in pass 1:
 | `charger_auto_chg` | `switch` | `ACTION_W_CFG_SP_CHARGER_AUTO_CHG_OPEN` | `cfgSpChargerAutoChgOpen` | Enables PowerPulse smart TOU / solar-priority auto-charging |
 | `charger_amp_limit` | `number` | `ACTION_W_CFG_SP_CHARGER_DEV_BATT_CHG_AMP_LIMIT` | `cfgSpChargerDevBattChgAmpLimit` | IEC 61851 AC charging current cap (6–32 A) for 11 kW PowerPulse |
 
-All three entities attach to the main inverter device (`HJ37ZDH5ZG5W0109`) because
+All three entities attach to the main inverter device (`[REDACTED:serial:R-EF-1]`) because
 write commands route through the inverter API, not directly to the sub-device.
 
 ### 7.2 services.yaml Domain Fix

@@ -7,7 +7,7 @@ APK sources (CFG_*_FIELD_NUMBER → camelCase write key):
   CFG_SYS_PAUSE_FIELD_NUMBER / CFG_SYS_RESUME_FIELD_NUMBER → cfgSysPause / cfgSysResume
 
 Equipment (doc/equipment.md):
-  12 kW PowerOcean, 2 x 5 kWh batteries, 11 kW PowerPulse (AC31ZEH4AG130052)
+  12 kW PowerOcean, 2 x 5 kWh batteries, 11 kW PowerPulse ([REDACTED:serial:R-EF-4])
 """
 
 from dataclasses import dataclass, field
