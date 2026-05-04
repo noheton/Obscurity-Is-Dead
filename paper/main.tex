@@ -748,8 +748,10 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
   \scriptsize
   \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
     \toprule
-    \textbf{Element} & \textbf{ESPHome} & \textbf{[REDACTED:repo-path:SF-IMPL-2]} &
-    \textbf{[REDACTED:repo-path:SF-IMPL-3]} & \textbf{HA \texttt{const.py}} &
+    \textbf{Element} & \textbf{ESPHome} &
+    \textbf{\seqsplit{[REDACTED:repo-path:SF-IMPL-2]}} &
+    \textbf{\seqsplit{[REDACTED:repo-path:SF-IMPL-3]}} &
+    \textbf{HA \texttt{const.py}} &
     \textbf{Outcome} \\
     \midrule
     Cipher & AES-128-CBC & AES-128-CBC & AES-128-CBC & AES-128-CBC &
@@ -1499,9 +1501,9 @@ Defence model
   & Cryptographically sound AWS Cognito us-west-2; weak operational layer (broken intermediate-CA chain since June 2023; \texttt{TrustAllStrategy} symbol on classpath; public mobile client secret; no in-app revocation UI) \\
 Primary AI lift
   & Manifest-permission audit; existing-solutions enumeration; technique-inventory bootstrap from prior reports
-  & Static APK analysis (\texttt{unzip} + \texttt{strings} + \texttt{grep}); cross-implementation validation against ES-6 (\texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-2]}); identification of endpoints not in any open-source library \\
+  & Static APK analysis (\texttt{unzip} + \texttt{strings} + \texttt{grep}); cross-implementation validation against ES-6 (\seqsplit{\texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-2]}}); identification of endpoints not in any open-source library \\
 Independent corroboration
-  & HA core \texttt{ondilo\_ico/\{const,api,coordinator,sensor\}.py}; PyPI \texttt{ondilo}; vendor Customer-API docs
+  & HA core \seqsplit{\texttt{ondilo\_ico/\{const,api,coordinator,sensor\}.py}}; PyPI \texttt{ondilo}; vendor Customer-API docs
   & 9 catalogued solutions (5 local-protocol for the older 50350 module, 4 cloud-routed); ES-6 source quoted verbatim \\
 Live credential recovery
   & No (read-only intake; OAuth2 only)
@@ -1514,7 +1516,7 @@ Status of vendor public docs
   & Undocumented cloud REST; identity provider documented only by ES-6 community reverse \\
 Phase 3 outcome
   & Configuration-only: upstream \texttt{ondilo\_ico} integration + operational notes + smoke test
-  & Configuration-only: upstream \texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-1]} + six-control hardening overlay (C-1..C-6) + smoke test \\
+  & Configuration-only: upstream \seqsplit{\texttt{[REDACTED:repo-path:BALBOA-UPSTREAM-1]}} + six-control hardening overlay (C-1..C-6) + smoke test \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-  
+  <defs>
+    <style type="text/css"><![CDATA[
+      .lbl-title { font: 600 13px sans-serif; fill: #000; }
+      .lbl-bold  { font: 600 11px sans-serif; fill: #000; }
+      .lbl       { font: 11px sans-serif; fill: #000; }
+      .lbl-sm    { font: 9px sans-serif; fill: #333; }
+      .hairline  { stroke: #999; stroke-width: 0.6; fill: none; }
+      .rule      { stroke: #000; stroke-width: 0.7; fill: none; }
+      .accent-stroke { stroke: #00658b; stroke-width: 1.2; fill: none; }
+    ]]></style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+
         <text x="32" y="40" class="lbl-title">Auditing AI-assisted research: a four-stage pipeline</text>
 
         
@@ -57,7 +69,7 @@
         <polygon points="356,160 350,157 350,163" fill="#000"></polygon>
 
         
-        <path d="M 402 240 C 402 280, 194 280, 194 240" class="rule" stroke-dasharray="3 3"></path>
+        <path d="M 402 240 C 402 280, 194 280, 194 240" class="rule" stroke-dasharray="3 3" fill="none"></path>
         <polygon points="194,240 191,247 197,247" fill="#000"></polygon>
         <text x="298" y="278" class="lbl-sm" text-anchor="middle">iterate · refine prompts · re-audit</text>
       </svg>

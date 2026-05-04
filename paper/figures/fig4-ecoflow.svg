@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-  
+  <defs>
+    <style type="text/css"><![CDATA[
+      .lbl-title { font: 600 13px sans-serif; fill: #000; }
+      .lbl-bold  { font: 600 11px sans-serif; fill: #000; }
+      .lbl       { font: 11px sans-serif; fill: #000; }
+      .lbl-sm    { font: 9px sans-serif; fill: #333; }
+      .hairline  { stroke: #999; stroke-width: 0.6; fill: none; }
+      .rule      { stroke: #000; stroke-width: 0.7; fill: none; }
+      .accent-stroke { stroke: #00658b; stroke-width: 1.2; fill: none; }
+    ]]></style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+
         <text x="32" y="40" class="lbl-title">Cloud-bound default vs. local control</text>
 
         
@@ -25,8 +37,8 @@
         <text x="138" y="138" class="lbl-sm" text-anchor="middle">required hop</text>
 
         
-        <path d="M 90 226 C 90 180, 110 160, 138 150" class="hairline" stroke="#000" stroke-width="1"></path>
-        <path d="M 186 226 C 186 180, 166 160, 138 150" class="hairline" stroke="#000" stroke-width="1"></path>
+        <path d="M 90 226 C 90 180, 110 160, 138 150" class="hairline" stroke="#000" stroke-width="1" fill="none"></path>
+        <path d="M 186 226 C 186 180, 166 160, 138 150" class="hairline" stroke="#000" stroke-width="1" fill="none"></path>
         <polygon points="138,150 134,156 142,156" fill="#000"></polygon>
 
         <text x="60" y="194" class="lbl-sm">telemetry</text>
