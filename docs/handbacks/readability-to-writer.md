@@ -197,7 +197,7 @@ Caption compressed to one sentence plus attribution at `main.tex:2200–2202` an
 
 **Source span.** `main.md:360–372`, `main.md:393`, `main.md:395`, `main.md:522`; `main.tex:987–1049`, `main.tex:1130–1190`, `main.tex:1614–1717`.
 **Defect.** Cold reader meets these terms without expansion.
-**Required outcome.** Define each on first appearance. ES-6 = "the sixth catalogued external-solution entry, `arska/controlmyspa`"; DEX = "Dalvik Executable"; FCM = "Firebase Cloud Messaging"; AD\_ID = "Android advertising identifier"; ML Kit Barcode = "Google ML Kit Barcode-scanning SDK". Single in-line parenthetical per term.
+**Required outcome.** Define each on first appearance. ES-6 = "the sixth catalogued external-solution entry, `[REDACTED:repo-path:BALBOA-UPSTREAM-2]`"; DEX = "Dalvik Executable"; FCM = "Firebase Cloud Messaging"; AD\_ID = "Android advertising identifier"; ML Kit Barcode = "Google ML Kit Barcode-scanning SDK". Single in-line parenthetical per term.
 **Rule-11 note.** Mirror in `main.tex` in the same commit.
 
 ---
