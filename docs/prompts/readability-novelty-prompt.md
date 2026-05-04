@@ -31,31 +31,43 @@ contribution attributable.
 
 ## Inputs
 
+**Long-form artifact (primary)**
 - `paper/main.md` — the canonical prose source. Read in full.
 - `paper/main.tex` — read for cross-reference; rule-11 mirror checks
   remain the writer's responsibility, but the scrutinizer flags
   divergence as a defect.
+
+**Condensed artifact (secondary — same pass, separate registry)**
+- `paper/main-condensed.md` — the condensed canonical prose source.
+  Read in full after completing the long-form pass.
+- `paper/main-condensed.tex` — read for rule-11 parity check within
+  the condensed pair.
+
+**Shared**
 - `docs/sources.md` — the literature ledger. Used to evaluate novelty:
   a claim is novel only if it is not already established by an entry
   marked `[lit-read]` or `[lit-retrieved]`.
 - `paper/references.bib` — for completeness checks against
   `docs/sources.md`.
 - `docs/logbook.md` — read at session start; appended at session end.
-- Optional: prior **Readability & Novelty Defect Registry** runs under
-  `docs/handbacks/readability-defect-registry.md` to detect regressions
-  and unresolved entries.
+- Optional: prior registries under `docs/handbacks/readability-defect-registry.md`
+  and `docs/handbacks/condensed-readability-defect-registry.md` to detect
+  regressions and unresolved entries.
 
 ## Protocol
 
 ### 1. Orientation
 
-1. Read `docs/logbook.md`, `docs/sources.md`, and any prior registry.
+1. Read `docs/logbook.md`, `docs/sources.md`, and any prior registries
+   (both long-form and condensed).
 2. Read `paper/main.md` in full, in one sitting, before opening any
    tooling. Note the abstract's promised contributions; carry that
    list into every subsequent step.
 3. Read the section structure of `paper/main.tex` only to confirm
    parity. Divergences feed into the registry as **mirror-drift**
    defects routed to the writer.
+4. After completing the long-form pass (§§2–5 below), read
+   `paper/main-condensed.md` in full for the condensed pass (§5b).
 
 ### 2. Readability sweep
 
@@ -173,10 +185,55 @@ link to the relevant `docs/sources.md` row.
 - Flag footnotes that duplicate information present in the main text
   or in another footnote.
 
-### 6. Build the Readability & Novelty Defect Registry
+### 5b. Condensed-artifact readability sweep
 
-Produce a Markdown table written to
-`docs/handbacks/readability-defect-registry.md`:
+After completing §§2–5 against `paper/main.md`, run a parallel pass
+against `paper/main-condensed.md`. Use the prefix `COND-RDB-` for all
+defect IDs in this pass. Apply the same defect classes, severity
+rubric, and ownership rules.
+
+Additional checks specific to the condensed artifact:
+
+1. **Scope-cut integrity.** The condensed paper is derived by dropping
+   sections from the long-form. For each omitted section, confirm that
+   the condensed paper does not silently orphan a load-bearing claim
+   that was introduced in the omitted section and relied upon later.
+   Flag any such orphan as severity **H** (readers cannot follow the
+   reasoning without the missing setup).
+2. **Venue-reader orientation.** A condensed submission will be read
+   cold by conference reviewers who have not seen the long-form. Flag
+   any undefined acronym, forward reference, or unexplained prerequisite
+   that a first-time reader would encounter — even if the long-form
+   pass cleared it (the condensed paper must stand alone).
+3. **Claim-to-page-ceiling balance.** With a 10-page ceiling, every
+   section must earn its space. Flag sections whose contribution to the
+   total claim set (as declared in the condensed abstract) is
+   disproportionately low relative to page count. Suggest either
+   compression or promotion to appendix / supplementary material.
+4. **Consistency with long-form.** The condensed paper must not
+   contradict the long-form on any empirical claim or headline KPI.
+   Flag any divergence as severity **H** with a reference to the
+   conflicting long-form source span.
+5. **Mirror-drift (condensed pair).** Confirm that
+   `paper/main-condensed.tex` and `paper/main-condensed.md` are
+   structurally consistent (rule-11 applies within the condensed pair).
+   File mirror-drift defects as `COND-RDB-` entries routed to the
+   writer.
+
+The condensed pass writes its own separate registry and hand-back files
+(see §6 / Deliverables below) — do not mix `COND-RDB-` and `RDB-`
+entries in the same table.
+
+### 6. Build the Readability & Novelty Defect Registries
+
+**Long-form registry** — produce a Markdown table written to
+`docs/handbacks/readability-defect-registry.md`.
+
+**Condensed registry** — produce a separate Markdown table written to
+`docs/handbacks/condensed-readability-defect-registry.md`. Same column
+schema; `COND-RDB-` prefix IDs.
+
+Long-form registry format:
 
 | ID | Section | Defect class | Severity | Owner | Source span | Evidence | Suggested fix |
 |----|---------|--------------|----------|-------|-------------|----------|---------------|
@@ -193,27 +250,35 @@ Severity rubric:
 
 ### 7. Route defects back to upstream agents
 
-Append routed entries to:
+**Long-form hand-backs:**
+- `docs/handbacks/readability-to-writer.md` — for `RDB-` prose,
+  structure, repetition, and novelty-framing fixes. Same per-entry
+  block format as the layout scrutinizer hand-back files.
+- `docs/handbacks/readability-to-illustrator.md` — for `RDB-` entries
+  whose remedy is a figure or table. Reference source spans and propose
+  an `ILL-xx` ID for the illustrator.
 
-- `docs/handbacks/readability-to-writer.md` — for prose, structure,
-  repetition, and novelty-framing fixes. Use the same per-entry block
-  format as the layout scrutinizer's hand-back files.
-- `docs/handbacks/readability-to-illustrator.md` — for entries whose
-  remedy is "absorb this list-of-lists into a figure or table" or
-  "consolidate duplicate `ILL-xx` annotations". Reference the source
-  spans the figure must cover and propose an `ILL-xx` ID (or a
-  consolidation of existing IDs) for the illustrator to claim.
+**Condensed hand-backs:**
+- `docs/handbacks/condensed-readability-to-writer.md` — for `COND-RDB-`
+  entries. Cite `main-condensed.md` and `main-condensed.tex` source
+  spans. Include an explicit flag for any entry that also requires a
+  parallel fix in the long-form paper (scope-cut integrity violations
+  often implicate both).
+- `docs/handbacks/condensed-readability-to-illustrator.md` — for
+  `COND-RDB-` entries routed to the illustrator.
 
 ### 8. Logbook entry and exit
 
 Append a session entry to `docs/logbook.md` summarising:
 
-- Counts of defects by class, severity, and owner.
-- Novelty verdicts per contribution (novel / incremental / redundant
-  / unsupported).
-- The single most consequential defect (named).
-- Whether a re-scrutiny pass is required (yes if any **H** entries
-  were filed).
+- Counts of defects by class, severity, and owner — reported
+  separately for long-form (`RDB-`) and condensed (`COND-RDB-`).
+- Novelty verdicts per contribution (long-form only; condensed paper
+  inherits long-form novelty assessment unless it introduces new
+  framing).
+- The single most consequential defect in each artifact (named).
+- Whether a re-scrutiny pass is required for each artifact (see
+  Deliverables §5 for the dual verdict format).
 
 ## Constraints
 
@@ -239,15 +304,29 @@ Append a session entry to `docs/logbook.md` summarising:
 
 ## Deliverables
 
+**Long-form artifact:**
 1. **Readability & Novelty Defect Registry** — Markdown table at
    `docs/handbacks/readability-defect-registry.md`.
-2. **Hand-back to writer** —
-   `docs/handbacks/readability-to-writer.md`.
+2. **Hand-back to writer** — `docs/handbacks/readability-to-writer.md`.
 3. **Hand-back to illustrator** —
    `docs/handbacks/readability-to-illustrator.md`.
-4. **Logbook entry** — appended to `docs/logbook.md`.
-5. **Re-scrutiny verdict** — single-line statement at the end of the
-   registry: `RE-SCRUTINY REQUIRED: yes|no`, with rationale.
+
+**Condensed artifact:**
+4. **Condensed Readability & Novelty Defect Registry** — Markdown
+   table at `docs/handbacks/condensed-readability-defect-registry.md`.
+5. **Hand-back to writer (condensed)** —
+   `docs/handbacks/condensed-readability-to-writer.md`.
+6. **Hand-back to illustrator (condensed)** —
+   `docs/handbacks/condensed-readability-to-illustrator.md`.
+
+**Shared:**
+7. **Logbook entry** — appended to `docs/logbook.md`.
+8. **Re-scrutiny verdicts** — two separate single-line statements,
+   one at the end of each registry:
+   - Long-form: `RE-SCRUTINY REQUIRED (long-form): yes|no`
+   - Condensed: `RE-SCRUTINY REQUIRED (condensed): yes|no`
+   The pipeline considers the pass complete only when **both** verdicts
+   are `no`.
 
 ## Example registry entry
 

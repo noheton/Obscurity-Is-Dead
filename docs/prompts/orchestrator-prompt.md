@@ -69,33 +69,38 @@ progress without the human re-deriving the dependency graph each time.
                     ┌─────────────────────────┐
                     │  Stage 2 — Sci Writer   │◀──── triggered by
                     └──────────┬──────────────┘      writer hand-backs
-                               │ produces ILL-xx registry,
-                               │           prose + .tex/.md
+                               │ edits main.{md,tex} AND
+                               │       main-condensed.{md,tex}
                                ▼
                     ┌─────────────────────────┐
                     │  Stage 3 — Illustrator  │◀──── triggered by
                     └──────────┬──────────────┘      illustrator hand-backs
-                               │ produces figures + asset replacements
+                               │ produces figures (shared by both artifacts)
                                ▼
-                    ┌─────────────────────────┐
-                    │  make pdf               │
-                    └──────────┬──────────────┘
-                               │
-                ┌──────────────┴──────────────┐
-                ▼                             ▼
-   ┌───────────────────────┐     ┌───────────────────────┐
-   │ Stage 4 — Layout      │     │ Stage 5 — Readability │
-   │   Scrutinizer (PDF)   │     │   & Novelty (md)      │
-   └──────────┬────────────┘     └──────────┬────────────┘
-              │                             │
-              └────────────┬────────────────┘
-                           │ produces hand-backs to stages 2 & 3
-                           ▼
-              ┌──────────────────────────┐
-              │  loop until both         │
-              │  scrutinizers report     │
-              │  RE-SCRUTINY REQUIRED:no │
-              └──────────────────────────┘
+              ┌────────────────────────────────┐
+              │  make all  (pdf + condensed)   │
+              └──────┬─────────────────┬───────┘
+                     │                 │
+           main.pdf  │   main-condensed.pdf
+                     │                 │
+      ┌──────────────┴──────────────────┴─────────────────┐
+      │          Stage 4 — Layout Scrutinizer              │
+      │  (audits BOTH PDFs; LAY-* and COND-LAY-* IDs)     │
+      └──────────────────────────┬─────────────────────────┘
+                                 │  (parallel)
+      ┌──────────────────────────┴─────────────────────────┐
+      │       Stage 5 — Readability & Novelty Scrutinizer  │
+      │  (audits BOTH .md files; RDB-* and COND-RDB-* IDs) │
+      └──────────────────────────┬─────────────────────────┘
+                                 │
+                                 │ produces hand-backs to stages 2 & 3
+                                 ▼
+              ┌────────────────────────────────────────┐
+              │  loop until ALL FOUR verdicts are:     │
+              │  RE-SCRUTINY REQUIRED (long-form): no  │
+              │  RE-SCRUTINY REQUIRED (condensed): no  │
+              │  (from both stage 4 AND stage 5)       │
+              └────────────────────────────────────────┘
 ```
 
 ## Decision rules
@@ -108,12 +113,12 @@ order and dispatching the first that fires.
 | 1 | Human directive specifies a stage. | The named stage. |
 | 2 | A new case study directory exists with no research pass logged. | Stage 1 (Research). |
 | 3 | The unhandled `[lit-retrieved]` backlog in `docs/sources.md` is ≥ 10 entries OR ≥ 1 entry blocks a load-bearing inline citation flagged by the writer. | Stage 1.5 (Source Analyzer). |
-| 4 | A scrutinizer hand-back file (`*-to-writer.md`) contains an unresolved entry whose ID is not yet annotated `[RESOLVED]` or `[DEFERRED]`. | Stage 2 (Scientific Writer remediation). |
-| 5 | A scrutinizer hand-back file (`*-to-illustrator.md`) contains an unresolved entry, and the writer has no open writer-owned entries on the same source span. | Stage 3 (Illustrator remediation). |
-| 6 | `paper/main.pdf` is missing or older than `paper/main.tex`. | `make -C paper pdf` (no agent — direct shell). |
-| 7 | Most recent layout-defect-registry has `RE-SCRUTINY REQUIRED: yes` and a fresh `paper/main.pdf` exists newer than the registry. | Stage 4 (Layout Scrutinizer). |
-| 8 | Most recent readability-defect-registry has `RE-SCRUTINY REQUIRED: yes` and `paper/main.md` is newer than the registry. | Stage 5 (Readability & Novelty Scrutinizer). |
-| 9 | All scrutinizer registries report `RE-SCRUTINY REQUIRED: no` AND no open writer/illustrator hand-backs remain. | **PIPELINE QUIESCENT** — escalate to the human author for the next directive (publication-track decision, new case study, or repository hygiene). |
+| 4 | Any hand-back file (`*-to-writer.md`, including condensed variants) contains an unresolved `LAY-`, `RDB-`, `COND-LAY-`, or `COND-RDB-` entry not yet annotated `[RESOLVED]` or `[DEFERRED]`. | Stage 2 (Scientific Writer remediation). |
+| 5 | Any hand-back file (`*-to-illustrator.md`, including condensed variants) contains an unresolved entry, and the writer has no open writer-owned entries on the same source span. | Stage 3 (Illustrator remediation). |
+| 6 | `paper/main.pdf` is missing or older than `paper/main.tex`, OR `paper/main-condensed.pdf` is missing or older than `paper/main-condensed.tex`. | `make -C paper all` (builds both artifacts; no agent — direct shell). |
+| 7 | The most recent layout registries (`layout-defect-registry.md` or `condensed-layout-defect-registry.md`) have `RE-SCRUTINY REQUIRED: yes` and the corresponding PDF is newer than the registry. | Stage 4 (Layout Scrutinizer — covers both artifacts in one run). |
+| 8 | The most recent readability registries (`readability-defect-registry.md` or `condensed-readability-defect-registry.md`) have `RE-SCRUTINY REQUIRED: yes` and the corresponding `.md` source is newer than the registry. | Stage 5 (Readability & Novelty Scrutinizer — covers both artifacts in one run). |
+| 9 | All four scrutinizer verdicts report `no` (`RE-SCRUTINY REQUIRED (long-form): no` from stages 4 and 5, and `RE-SCRUTINY REQUIRED (condensed): no` from stages 4 and 5) AND no open writer/illustrator hand-backs remain. | **PIPELINE QUIESCENT** — escalate to the human author for the next directive (publication-track decision, new case study, or repository hygiene). |
 
 ### GitHub-issue dispatch table
 
@@ -156,6 +161,8 @@ Conflict resolution:
    `open | RESOLVED | DEFERRED | edge-case`.
 3. `git status` and `git log -5 --oneline`.
 4. Stat `paper/main.pdf` vs `paper/main.tex` and `paper/main.md`.
+   Also stat `paper/main-condensed.pdf` vs `paper/main-condensed.tex`
+   and `paper/main-condensed.md`.
 5. Count `[lit-retrieved]`, `[ai-confirmed]`, `[lit-read]`,
    `[edge-case]` entries in `docs/sources.md`.
 

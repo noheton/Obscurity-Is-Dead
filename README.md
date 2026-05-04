@@ -14,6 +14,7 @@
 [![FAIR compliant](https://img.shields.io/badge/FAIR-compliant-blue)](docs/fair.md)
 [![arXiv-ready LaTeX](https://img.shields.io/badge/paper-arXiv--ready-red)](paper/main.tex)
 [![Draft PDF](https://img.shields.io/badge/draft-PDF-orange)](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml)
+[![Condensed (venue)](https://img.shields.io/badge/condensed-≤10pp-blueviolet)](paper/main-condensed.tex)
 [![Figures: 16](https://img.shields.io/badge/figures-16-purple)](paper/figures/)
 [![Case studies: 5](https://img.shields.io/badge/case%20studies-5-teal)](experiments/)
 
@@ -71,7 +72,14 @@ A research paper **and** its full evidence trail — case studies, AI conversati
 
 **The §8 ask.** Don't inherit AI-research norms — *generate* them, now, while the practice is still being formed. The conclusion (`paper/main.md` §8) makes a four-part move: a terminological precision (broad-AI vs Gen-AI), a call-to-action to treat methodological norm-setting as itself a research activity, an invitation to AI-skeptics as co-norm-setters rather than opponents, and a candidate **FAIR for AI-Assisted Research** (working name **FAIR4AI**) extension that maps the eight integrated practices in §10 onto Findable / Accessible / Interoperable / Reusable. FAIR4RS [Chue Hong et al., 2022] and FAIR4ML [RDA, 2024] cover research software and ML models; neither yet covers AI-mediated research *processes* — exportable transcripts, versioned prompts, verification-status ladders, structured redaction. We propose the name and surrender it to the community.
 
-**Read the paper:** [`paper/main.md`](paper/main.md) (Markdown source) · [`paper/main.tex`](paper/main.tex) (arXiv-ready LaTeX) · CI-built draft PDF as the `paper-pdf` artifact of the [Build paper workflow](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml). Labelled *draft* until the author authorises submission (rule 13).
+**Read the paper:**
+
+| Artifact | Markdown source | LaTeX source | Notes |
+|----------|----------------|--------------|-------|
+| Long-form (canonical) | [`paper/main.md`](paper/main.md) | [`paper/main.tex`](paper/main.tex) | Full paper; arXiv-ready; CI-built PDF via [Build paper workflow](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml) |
+| Condensed (venue submission) | [`paper/main-condensed.md`](paper/main-condensed.md) | [`paper/main-condensed.tex`](paper/main-condensed.tex) | ≤ 10 pages; derivative of long-form; headline-KPI table as Fig 1 |
+
+Both artifacts are labelled *draft* until the author authorises submission (rule 13).
 
 ---
 
@@ -117,7 +125,9 @@ Every technical claim is **traceable** to a file/line in `experiments/*/original
 ```bash
 make -C paper check     # verify toolchain (TeX Live, latexmk, rsvg-convert)
 make -C paper figures   # SVG → PDF
-make -C paper pdf       # build main.pdf
+make -C paper pdf       # build main.pdf (long-form)
+make -C paper condensed # build main-condensed.pdf (venue submission, ≤10pp)
+make -C paper all       # build both artifacts in sequence
 ```
 
 > **Publication warning (rule 13).** `make arxiv` packages a submission tarball *for local review only*. Never upload, push to a public mirror, or submit without explicit written consent from the author.
