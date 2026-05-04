@@ -27,6 +27,7 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 MAIN      := main
+CONDENSED := main-condensed
 BIB       := references.bib
 ARXIV_TAR := arxiv-submission.tar.gz
 
@@ -66,7 +67,7 @@ ARXIV_FILES := $(MAIN).tex $(MAIN).bbl $(BIB) $(FIG_PDFS)
 
 LATEXMK_FLAGS := -pdf -interaction=nonstopmode -halt-on-error -file-line-error
 
-.PHONY: pdf figures watch clean distclean arxiv check
+.PHONY: pdf figures watch clean distclean arxiv check condensed
 
 pdf: figures $(MAIN).pdf
 
@@ -128,17 +129,38 @@ $(SVG_FIG_PDFS): $(FIG_DIR)/%.pdf: $(FIG_DIR)/%.svg
 $(MAIN).pdf: $(MAIN).tex $(BIB) $(FIG_PDFS)
 	latexmk $(LATEXMK_FLAGS) $(MAIN).tex
 
+# Condensed venue artifact (paper/main-condensed.{md,tex}). Derivative of the
+# long-form pair; subject to a hard 10-page ceiling defined in
+# docs/prompts/condensed-paper-prompt.md. Reuses the existing figure set
+# (no new figures generated for the condensed paper). Local artifact only:
+# rule 13 prohibits public distribution without explicit written consent.
+condensed: figures $(CONDENSED).pdf
+
+$(CONDENSED).pdf: $(CONDENSED).tex $(BIB) $(FIG_PDFS)
+	latexmk $(LATEXMK_FLAGS) $(CONDENSED).tex
+	@pages=$$(pdfinfo $(CONDENSED).pdf 2>/dev/null | awk '/^Pages:/ {print $$2}'); \
+	  if [ -n "$$pages" ]; then \
+	    echo "condensed: $(CONDENSED).pdf is $$pages pages"; \
+	    if [ "$$pages" -gt 10 ]; then \
+	      echo "WARNING: condensed paper exceeds the 10-page ceiling (rule defined in docs/prompts/condensed-paper-prompt.md)."; \
+	    fi; \
+	  fi
+
 watch: figures
 	latexmk $(LATEXMK_FLAGS) -pvc $(MAIN).tex
 
 clean:
 	latexmk -c $(MAIN).tex
+	latexmk -c $(CONDENSED).tex 2>/dev/null || true
 	rm -f $(MAIN).bbl $(MAIN).run.xml $(MAIN).synctex.gz
+	rm -f $(CONDENSED).bbl $(CONDENSED).run.xml $(CONDENSED).synctex.gz
 
 distclean: clean
 	latexmk -C $(MAIN).tex
+	latexmk -C $(CONDENSED).tex 2>/dev/null || true
 	rm -f $(ARXIV_TAR)
 	rm -f $(FIG_PDFS)
+	rm -f $(CONDENSED).pdf
 
 # Build the .bbl explicitly so arXiv does not need to run BibTeX.
 $(MAIN).bbl: $(MAIN).tex $(BIB) $(FIG_PDFS)
