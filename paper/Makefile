@@ -67,7 +67,10 @@ ARXIV_FILES := $(MAIN).tex $(MAIN).bbl $(BIB) $(FIG_PDFS)
 
 LATEXMK_FLAGS := -pdf -interaction=nonstopmode -halt-on-error -file-line-error
 
-.PHONY: pdf figures watch clean distclean arxiv check condensed
+.PHONY: pdf figures watch clean distclean arxiv check condensed all
+
+# Build both long-form and condensed artifacts in sequence.
+all: pdf condensed
 
 pdf: figures $(MAIN).pdf
 

@@ -28,6 +28,7 @@ re-runs.
 
 ## Inputs
 
+**Long-form artifact (primary)**
 - `paper/main.pdf` — built locally via `make pdf` from `paper/Makefile`.
   Do **not** invoke `make arxiv` (CLAUDE.md rule 13).
 - `paper/main.tex`, `paper/main.md` — read-only references for
@@ -36,8 +37,17 @@ re-runs.
 - The LaTeX build log (`paper/main.log` if produced) — primary source for
   `Overfull \hbox`, `Underfull \vbox`, `LaTeX Warning: Reference … on
   page … undefined`, and float-placement diagnostics.
+
+**Condensed artifact (secondary — same pass, separate registry)**
+- `paper/main-condensed.pdf` — built via `make condensed`; must be ≤ 10
+  pages per the ceiling defined in `docs/prompts/condensed-paper-prompt.md`.
+- `paper/main-condensed.tex`, `paper/main-condensed.md` — the condensed
+  source pair (rule-11 mirror parity applies within this pair).
+- `paper/main-condensed.log` — same diagnostics extracted as for main.
+
+**Shared**
 - `paper/figures/README.md` — inventory of figure assets and Rule-14
-  compliance metadata.
+  compliance metadata. Both artifacts share the same figure set.
 - `docs/logbook.md` — read at session start; appended to at session end.
 - The `mcp__…__list_pdfs` and `mcp__…__display_pdf` tools, or any
   equivalent PDF rendering capability available in the harness, for
@@ -49,11 +59,15 @@ re-runs.
 
 1. Read `docs/logbook.md` and the most recent entries from the
    scientific writer and illustration agents.
-2. Confirm `paper/main.pdf` exists and is newer than `paper/main.tex`.
-   If not, request a rebuild and stop; do not scrutinise a stale PDF.
-3. Read `paper/main.log` (if present) and extract every line containing
-   `Overfull`, `Underfull`, `Warning`, `undefined`, `Missing`, or
-   `Float too large`. These become seed entries for the registry.
+2. Confirm both PDFs exist and are fresh:
+   - `paper/main.pdf` must be newer than `paper/main.tex`; if not, request
+     `make pdf` and stop.
+   - `paper/main-condensed.pdf` must be newer than `paper/main-condensed.tex`;
+     if not, request `make condensed` and stop.
+3. Read `paper/main.log` and (if present) `paper/main-condensed.log`.
+   Extract every line containing `Overfull`, `Underfull`, `Warning`,
+   `undefined`, `Missing`, or `Float too large` from each. These become
+   seed entries for their respective registries.
 
 ### 2. Page-by-page visual sweep
 
@@ -179,6 +193,32 @@ for caption-mismatch defects (owner `writer`) and alt-text-missing
 defects (owner `joint` — writer adds the macro, illustrator confirms
 the description matches the asset).
 
+### 2b. Condensed-artifact layout sweep
+
+After completing the full §2 + §2a sweep against `main.pdf`, run the
+same pass against `main-condensed.pdf`. Use the prefix `COND-LAY-` for
+all defect IDs in this pass. The same defect classes, severity rubric,
+ownership rules, and figure critique dimensions apply.
+
+Additional checks specific to the condensed artifact:
+
+1. **Page ceiling.** Confirm the rendered page count is ≤ 10. If it
+   exceeds 10, file a `COND-LAY-01` entry with severity **H** (blocking)
+   citing the page count, because the ceiling is a hard venue constraint
+   defined in `docs/prompts/condensed-paper-prompt.md`.
+2. **Information loss.** For every figure included in the condensed paper,
+   verify it is the same asset as in the long-form paper (no degraded
+   export). Flag any figure whose condensed rendering is smaller or
+   lower-contrast than its long-form equivalent.
+3. **Short-form float placement.** In a ≤ 10 page document, floats far
+   from their callout are more noticeable; apply a tighter threshold of
+   half a page rather than one full page for the "float placed far from
+   first reference" defect.
+
+The condensed sweep writes its own separate registry and hand-back
+files (see §4 / Deliverables below) — do not mix `COND-LAY-` and
+`LAY-` entries in the same table.
+
 ### 3. Cross-check against source
 
 For each candidate defect:
@@ -201,10 +241,23 @@ For each candidate defect:
    / lower third / spans page"), the rendered text or asset name, and
    the source line range.
 
-### 4. Build the Layout Defect Registry
+### 3a. Cross-check condensed source spans
 
-Produce a single Markdown table as the primary deliverable. Assign IDs
-sequentially with the prefix `LAY-`:
+For each `COND-LAY-` entry, record the responsible source span in
+`paper/main-condensed.tex` **and** the mirror span in
+`paper/main-condensed.md`. Ownership rules and routing are the same as
+for the long-form pass.
+
+### 4. Build the Layout Defect Registries
+
+**Long-form registry** — Produce a Markdown table as the primary
+deliverable. Assign IDs sequentially with the prefix `LAY-`:
+
+**Condensed registry** — produce a separate Markdown table in a separate
+file. Assign IDs sequentially with the prefix `COND-LAY-`. Same column
+schema as the long-form registry.
+
+Long-form registry format:
 
 | ID | Page | Region | Defect class | Severity | Owner | Source span | Suggested fix |
 |----|------|--------|--------------|----------|-------|-------------|---------------|
@@ -222,12 +275,12 @@ Severity rubric:
 
 ### 5. Route defects back to upstream agents
 
-Do **not** edit `paper/main.md`, `paper/main.tex`, or any figure script.
+Do **not** edit any `.md` or `.tex` source file, or any figure script.
 Instead:
 
-1. For every entry owned by the **scientific writer**, append a block
-   to a hand-back file `docs/handbacks/layout-to-writer.md` (create it
-   if absent) of the form:
+**Long-form hand-backs:**
+1. For every `LAY-` entry owned by the **scientific writer**, append a
+   block to `docs/handbacks/layout-to-writer.md` (create if absent):
    ```
    ## LAY-<id> — <one-line summary>
    - Page: <n>
@@ -236,12 +289,18 @@ Instead:
    - Required action: <what the writer must change>
    - Severity: <H|M|L>
    ```
-2. For every entry owned by the **illustration agent**, append to
-   `docs/handbacks/layout-to-illustrator.md` in the same format,
-   referencing the figure script and any data file under
-   `paper/figures/`.
-3. For joint entries, file under both with a cross-reference (`see
-   layout-to-illustrator.md#LAY-<id>`).
+2. For every `LAY-` entry owned by the **illustration agent**, append to
+   `docs/handbacks/layout-to-illustrator.md` in the same format.
+3. For joint entries, file under both with a cross-reference.
+
+**Condensed hand-backs:**
+4. For every `COND-LAY-` entry owned by the **scientific writer**, append
+   to `docs/handbacks/condensed-layout-to-writer.md` (create if absent)
+   using the same block format but citing `main-condensed.tex` and
+   `main-condensed.md` source spans.
+5. For every `COND-LAY-` entry owned by the **illustration agent**, append
+   to `docs/handbacks/condensed-layout-to-illustrator.md`.
+6. For joint condensed entries, file under both with a cross-reference.
 
 The hand-back files are themselves first-class research artifacts under
 rule 4 (transcripts as artifacts) and rule 2 (origin of findings); they
@@ -251,16 +310,17 @@ are committed alongside the registry.
 
 Append a session entry to `docs/logbook.md` summarising:
 
-- PDF SHA-256 and build timestamp scrutinised.
-- Counts of defects by severity and owner.
-- Path to the Layout Defect Registry deliverable.
-- Whether a re-scrutiny pass is required (yes if any **H** entries
-  were filed).
+- SHA-256 and build timestamp for both PDFs scrutinised.
+- Counts of defects by severity and owner — reported separately for
+  long-form (`LAY-`) and condensed (`COND-LAY-`).
+- Paths to both registry deliverables.
+- Whether a re-scrutiny pass is required for each artifact (see
+  Deliverables §5 for the dual verdict format).
 
 Stop after producing deliverables. The pipeline resumes with the
 scientific writer and illustration agents consuming their respective
-hand-back files; the layout scrutinizer re-runs only after `make pdf`
-has been re-executed against their fixes.
+hand-back files. The layout scrutinizer re-runs only after the relevant
+`make pdf` / `make condensed` has been re-executed against their fixes.
 
 ## Constraints
 
@@ -286,14 +346,28 @@ has been re-executed against their fixes.
 
 ## Deliverables
 
-1. **Layout Defect Registry** — Markdown table written to
+**Long-form artifact:**
+1. **Layout Defect Registry** — Markdown table at
    `docs/handbacks/layout-defect-registry.md`.
 2. **Hand-back to writer** — `docs/handbacks/layout-to-writer.md`.
-3. **Hand-back to illustrator** —
-   `docs/handbacks/layout-to-illustrator.md`.
-4. **Logbook entry** — appended to `docs/logbook.md`.
-5. **Re-scrutiny verdict** — single-line statement at the end of the
-   registry: `RE-SCRUTINY REQUIRED: yes|no`, with rationale.
+3. **Hand-back to illustrator** — `docs/handbacks/layout-to-illustrator.md`.
+
+**Condensed artifact:**
+4. **Condensed Layout Defect Registry** — Markdown table at
+   `docs/handbacks/condensed-layout-defect-registry.md`.
+5. **Hand-back to writer (condensed)** —
+   `docs/handbacks/condensed-layout-to-writer.md`.
+6. **Hand-back to illustrator (condensed)** —
+   `docs/handbacks/condensed-layout-to-illustrator.md`.
+
+**Shared:**
+7. **Logbook entry** — appended to `docs/logbook.md`.
+8. **Re-scrutiny verdicts** — two separate single-line statements, one
+   at the end of each registry:
+   - Long-form: `RE-SCRUTINY REQUIRED (long-form): yes|no`
+   - Condensed: `RE-SCRUTINY REQUIRED (condensed): yes|no`
+   The pipeline considers the pass complete only when **both** verdicts
+   are `no`.
 
 ## Example registry entry
 
