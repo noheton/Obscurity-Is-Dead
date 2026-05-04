@@ -16,7 +16,7 @@ can be released.
 
 | | |
 |---|---|
-| Working tree | clean on `claude/prepare-for-publish-fERq5` after Q11 close (Gemini intact-jar landed; placeholder swapped out; §9.1 prose + §10 caption + figure-folder inventory + handbacks updated) |
+| Working tree | clean on `claude/prepare-for-publish-fERq5` after Q11 + Q1 + Q2 close (Gemini intact-jar swapped in; §5.7 *Other KPIs* refreshed with 2026-05-04 snapshot; §8.5 + §9.3 cluster-range A–J → A–Q + ladder-status claim rewritten to reflect 2026-05-02 `[ai-confirmed]` policy extension) |
 | Layout scrutinizer (Stage 4) | `RE-SCRUTINY REQUIRED: no` against tip `644d2e2` (long-form + condensed) |
 | Readability scrutinizer (Stage 5) | `RE-SCRUTINY REQUIRED: no` against tip `644d2e2` (long-form + condensed) |
 | Aligner (Stage 6) | `ALN-01..ALN-13` closed (commit `668fa8d`); next pass triggered by any further writer / illustrator change |
@@ -32,8 +32,8 @@ which they should be tackled.
 
 | # | Item | Owner | Status | Notes |
 |---|------|-------|--------|-------|
-| Q1 | Refresh `[lit-retrieved] / [ai-confirmed] / [lit-read]` counts in §5.7 *Other KPIs* | writer (Stage 2) | open | Current §5.7 line cites "~70 across clusters A–K" with an explicit `as of 2026-05-01` anchor. The actual `docs/sources.md` state is 19 clusters (A through Q, plus A.2/A.3) and ~144 `L-` entries with ~140 already `[ai-confirmed]` and 18 `[lit-read]`. Add a second snapshot row anchored to `2026-05-04` so the historical claim and the pre-publication state both stand on the record (rule 1). Mirror in `paper/main.tex:1318–1319` (rule 12). |
-| Q2 | Refresh "clusters A–J" range references in §8.5 and §9.3 | writer (Stage 2) | open | `paper/main.md:688` and `paper/main.md:713` still say "clusters A–J"; the register now extends to cluster Q. Update to "clusters A–Q" and mirror in `paper/main.tex:2752` and `paper/main.tex:2901`. |
+| Q1 | Refresh `[lit-retrieved] / [ai-confirmed] / [lit-read]` counts in §5.7 *Other KPIs* | writer (Stage 2) | done | 2026-05-04 row added beneath the 2026-05-01 row in `paper/main.md:400–406` and `paper/main.tex:1326–1359`; both rows preserved (rule 1). Authoritative ladder distribution: 144 L- entries across 19 clusters (A, A.2, A.3, B–Q); 12 at `[lit-read]`, 114 at `[ai-confirmed]`, 6 at `[ai-confirmed-attempt-failed]`, 12 at bare `[lit-retrieved]` (126/144 ≈ 88% at `[ai-confirmed]` or higher). Logbook + main.md + scaffolding line counts also refreshed. |
+| Q2 | Refresh "clusters A–J" range references in §8.5 and §9.3 | writer (Stage 2) | done | Both sites refreshed in `paper/main.md:695` (§8.5 forward-work) and `paper/main.md:720` (§9.3 sourcing claim) plus tex mirrors. Cluster range A–J → A–Q (19 clusters incl. A.2, A.3); the underlying status claim ("is currently `[lit-retrieved]`" / "no claim depends on a citation not read in full") was overtaken by the 2026-05-02 Source Analyzer pass and rewritten to reflect the post-`[ai-confirmed]`-policy reality (inline citation permitted from `[ai-confirmed]` onward, load-bearing claims still require `[lit-read]`). |
 | Q3 | Optional new figure: literature-verification distribution | illustrator (Stage 3) | deferred | Opportunity surfaced 2026-05-04: a stacked-bar / heat-map fig17 showing `[lit-retrieved]` → `[ai-confirmed]` → `[lit-read]` counts per cluster (A–Q). Would visualise the methodology's *applied* discipline alongside fig9 (the *abstract* ladder). Defer until Q1 closes — fig17 should read off the same refreshed numbers. |
 | Q4 | Vendored zip carve-out decision (Spider Farmer) | human | open | Drop or caveat the three Spider Farmer vendored archives at the public-mirror cut-over. Decision recorded in `docs/redaction-policy.md`; execution still required. |
 | Q5 | Upstream `noheton/spider_farmer` redaction pass | human + agent | open | Run the same H-* catalogue against the upstream before it is made public. Out of scope for this repo's pass. |
@@ -122,3 +122,27 @@ rather than for blocking publication.
   (deferred), `Q4`–`Q9`, `Q10` (now correctly anchored on the
   post-Q11 PDF). The rule-13 / rule-14 distribution gates remain
   closed pending explicit human consent.
+- 2026-05-04 (fourth pass, branch `claude/prepare-for-publish-fERq5`) —
+  `Q1` and `Q2` closed in a single writer pass. `Q1`: §5.7 *Other
+  KPIs* gained a parallel 2026-05-04 snapshot row beneath the
+  preserved 2026-05-01 row (rule 1, both stand on the record);
+  authoritative ladder distribution recorded as 144 `L-` entries
+  across 19 clusters (A, A.2, A.3, B–Q) — 12 at `[lit-read]`, 114 at
+  `[ai-confirmed]`, 6 at `[ai-confirmed-attempt-failed]`, 12 at bare
+  `[lit-retrieved]`; logbook-named-sessions / main.md-lines /
+  scaffolding-lines also refreshed (14→89, 472→772, 885→~3 226).
+  `Q2`: cluster-range references at `paper/main.md:695` (§8.5
+  forward-work) and `paper/main.md:720` (§9.3 sourcing claim) bumped
+  A–J → A–Q (19 clusters); the underlying status claim — which
+  asserted that all clusters are *currently* `[lit-retrieved]` and
+  that no claim depends on a citation not read in full — was
+  overtaken by the 2026-05-02 Source Analyzer pass and rewritten
+  to record the new ladder rung (`[ai-confirmed]`) and the
+  policy-extension rule (inline citation permitted from
+  `[ai-confirmed]` onward; load-bearing claims still require
+  `[lit-read]`). Mirrored md ↔ tex (rule 12) at `paper/main.tex`
+  §5.7 (after line 1316) and §8.5 / §9.3 forward-work and sourcing
+  bullets. Open todos remaining: `Q3` (deferred fig17), `Q4`–`Q7`
+  (human-owned), `Q8` (logbook readability re-check), `Q9` (final
+  aligner sweep, now triggerable), `Q10` (`make all` clean rebuild
+  + page-count snapshot). Rule-13 / rule-14 gates unchanged.

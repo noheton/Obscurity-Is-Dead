@@ -1323,6 +1323,39 @@ Time-to-first-publishable-draft (skeleton $\rightarrow$ rule-11-compliant
 dual-format paper): $\approx$6\,h of AI-assisted work within one
 calendar day.
 
+Other KPIs (as of 2026-05-04, pre-publication snapshot --- the
+2026-05-01 row above is preserved unchanged for rule-1 historical
+honesty): logbook named sessions: \textbf{89} (was 14);
+\texttt{main.md} lines: \textbf{772} (was 472); scaffolding
+(methodology + sources + logbook): \textbf{$\sim$3\,226 lines}
+(was 885) --- ratio widened from $\sim$2:1 to $\sim$4:1, driven by
+the recursive eight-practice and eight-week case-study expansion.
+Literature-verification register: \textbf{144 \texttt{L-} entries}
+across \textbf{19 clusters} (A, A.2, A.3, B through Q). Ladder
+distribution along the verification-status ladder defined in
+\texttt{CLAUDE.md} (\texttt{[unverified-external]} $\rightarrow$
+\texttt{[needs-research]} $\rightarrow$ \texttt{[lit-retrieved]}
+$\rightarrow$ \texttt{[ai-confirmed]} $\rightarrow$
+\texttt{[lit-read]}): \textbf{12 at \texttt{[lit-read]}};
+\textbf{114 at \texttt{[ai-confirmed]}} (not yet \texttt{[lit-read]});
+\textbf{6 at \texttt{[ai-confirmed-attempt-failed]}} (effectively
+still \texttt{[lit-retrieved]}; agent retrieval blocked by paywall,
+HTTP 403, or upstream venue-PDF unavailability); \textbf{12 at bare
+\texttt{[lit-retrieved]}}. \textbf{126 of 144 entries
+($\sim$88\,\%)} are verified at \texttt{[ai-confirmed]} or higher;
+\textbf{12 of 144 ($\sim$8\,\%)} at full \texttt{[lit-read]}. The
+\texttt{[ai-confirmed]} rung was introduced into the ladder on
+2026-05-02 by the Source Analyzer agent (Stage 1.5; see
+\emph{Verification status ladder (extended 2026-05-02)} in
+\texttt{CLAUDE.md}). AI-generated claims subsequently flagged or
+removed: at least 1 (carried forward from 2026-05-01). Cumulative
+time-to-rule-13/14-distribution-ready (skeleton $\rightarrow$
+publication-readiness scrutinizer-quiet state):
+\textbf{$\approx$17.5\,h} of AI-assisted work, matching the \S{}5.7
+table headline; the single-calendar-day 6\,h figure from the
+2026-05-01 row is time-to-first-publishable-draft and is \emph{not}
+superseded.
+
 % =========================================================================
 \section{Synthesis}
 \label{sec:synthesis}
@@ -2750,11 +2783,21 @@ process lives at \texttt{docs/human-ai-collaboration-process.md}.
         content of the migration has been reconstructed from the
         embedded \texttt{original/\_\_init\_\_.py} (see \S3.4); only
         the dated commit-history narrative remains outstanding.
-  \item Read in full the \seqsplit{\texttt{[lit-retrieved]}}
-        literature in \texttt{docs/sources.md} clusters A--J and
-        upgrade entries to \seqsplit{\texttt{[lit-read]}} before any
-        of them is cited as authority rather than as a database
-        pointer.
+  \item Continue advancing entries in \texttt{docs/sources.md}
+        clusters A--Q along the verification-status ladder
+        (\seqsplit{\texttt{[lit-retrieved]}} $\rightarrow$
+        \seqsplit{\texttt{[ai-confirmed]}} $\rightarrow$
+        \seqsplit{\texttt{[lit-read]}}). As of 2026-05-04,
+        \textbf{126 of 144 entries ($\sim$88\,\%)} are at
+        \seqsplit{\texttt{[ai-confirmed]}} or higher; the remaining
+        \textbf{18} (12 bare \seqsplit{\texttt{[lit-retrieved]}} +
+        6 \seqsplit{\texttt{[ai-confirmed-attempt-failed]}} blocked
+        on paywall / 403 / venue-PDF unavailability) need either
+        re-attempt under a paywall-accessible network or human
+        verification. Load-bearing or contested claims should be
+        promoted to \seqsplit{\texttt{[lit-read]}} (12 such entries
+        today) before they are cited as authority rather than as a
+        database pointer.
 \end{itemize}
 
 % =========================================================================
@@ -2897,18 +2940,39 @@ public mirror.
         verifiable by re-running the audit described in
         \texttt{docs/logbook.md} (entry ``audit against embedded vendor
         code'').
-  \item All literature in \texttt{docs/sources.md} clusters A--J
-        (covering LLM-assisted RE, vulnerability/exploit generation,
-        hardcoded secrets, BLE/IoT obscurity, right-to-repair,
-        local-first smart home, DMCA \S 1201(f), counter-positions,
-        sloppification of science, and model collapse) is currently
-        \texttt{[lit-retrieved]} --- the entries were surfaced from a
-        structured database query but the full texts have not been read
-        by the researcher. \textbf{No claim in this paper depends on a
-        literature citation that has not been read in full.} Where the
-        literature is invoked, it is invoked through the source-register
-        handles \texttt{[L-XX-N]} so the reader can independently
-        verify what was retrieved versus what was read.
+  \item Literature in \texttt{docs/sources.md} covers 19 clusters
+        (A, A.2, A.3, B through Q --- LLM-assisted RE, hardware-side
+        effort-gap reduction, quantitative time-savings evidence,
+        vulnerability/exploit generation, hardcoded secrets,
+        BLE/IoT obscurity, right-to-repair, local-first smart home,
+        DMCA \S 1201(f), counter-positions, sloppification of
+        science, model collapse, consumer-vs-industrial base rates,
+        privacy as a user right, malicious LLM agents, mass APK
+        probing, IoT companion-app surfaces, frontier-model exhibit,
+        and FAIR extensions to ML / research software / AI-assisted
+        research processes), totalling \textbf{144 \texttt{L-}
+        entries} as of 2026-05-04. The verification ladder defined
+        in \texttt{CLAUDE.md} runs \seqsplit{\texttt{[unverified-external]}}
+        $\rightarrow$ \seqsplit{\texttt{[needs-research]}} $\rightarrow$
+        \seqsplit{\texttt{[lit-retrieved]}} $\rightarrow$
+        \seqsplit{\texttt{[ai-confirmed]}} $\rightarrow$
+        \seqsplit{\texttt{[lit-read]}}; per the 2026-05-02 policy
+        extension, \textbf{inline citation in this paper is permitted
+        from \seqsplit{\texttt{[ai-confirmed]}} onward}, while
+        load-bearing or contested claims still require
+        \seqsplit{\texttt{[lit-read]}}. Current ladder distribution
+        (refreshed in \S5.7 \emph{Other KPIs} 2026-05-04 row):
+        \textbf{12} at \seqsplit{\texttt{[lit-read]}}, \textbf{114}
+        at \seqsplit{\texttt{[ai-confirmed]}}, \textbf{6} at
+        \seqsplit{\texttt{[ai-confirmed-attempt-failed]}} (effectively
+        still \seqsplit{\texttt{[lit-retrieved]}}), \textbf{12} at
+        bare \seqsplit{\texttt{[lit-retrieved]}}. Where the literature
+        is invoked, it is invoked through the source-register handles
+        \texttt{[L-XX-N]} so the reader can independently verify
+        what was retrieved, what was \seqsplit{\texttt{[ai-confirmed]}}
+        (agent re-retrieved the source and quoted the relevant
+        passage), and what was \seqsplit{\texttt{[lit-read]}}
+        (the paper itself was read by the agent or human).
   \item Legal framing (\S{} 69e UrhG / EU 2009/24/EC) remains unsourced
         and is flagged as \texttt{[unverified-external]} in
         \texttt{docs/sources.md}.
