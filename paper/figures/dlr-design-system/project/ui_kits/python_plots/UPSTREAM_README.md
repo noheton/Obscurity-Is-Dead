@@ -34,6 +34,6 @@ Institute of Aerodynamics and Flow Technology| Institut für Aerodynamik und Str
 Experimental Methods (AS-EXV) | Experimentelle Verfahren (AS-EXV) | \
 Bunsenstr. 10 | 37073 Göttingen
 
-M.Sc. Jan Wagner |Research assistant |Wissenschaftlicher Mitarbeiter\
-+49 551 7093106 | jan.wagner@dlr.de
+M.Sc. Jan Wagner |Research assistant |Wissenschaftlicher Mitarbeiter
+<!-- Third-party DLR contact info removed pre-publication; see docs/redaction-policy.md (R-AUDIT-08a). -->
 
