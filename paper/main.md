@@ -192,7 +192,7 @@ The end-to-end workflow is shown in Figure 3.
 
 **Table 1 — Cross-implementation comparison of the BLE crypto surface for the Spider Farmer SF-GGS family.** Rows are the protocol elements that had to be reconciled; columns are the four independent implementations the AI-mediated pass cross-checked against the in-tree integration. The right-most column records what `const.py` / `ble_protocol.py` settled on after reconciliation. *Source: `experiments/spider-farmer/original/doc/apk_analysis/implementations.md` and `experiments/spider-farmer/original/const.py` lines 40–55 at commit `ffdf60c`.*
 
-| Protocol element | ESPHome | SpiderBLEBridge | PythonSpiderController | HA integration (`const.py`) | Reconciliation outcome |
+| Protocol element | ESPHome | [REDACTED:repo-path:SF-IMPL-2] | [REDACTED:repo-path:SF-IMPL-3] | HA integration (`const.py`) | Reconciliation outcome |
 |---|---|---|---|---|---|
 | Cipher | AES-128-CBC | AES-128-CBC | AES-128-CBC | AES-128-CBC | **Agreed** — AES-128-CBC across all four |
 | Key/IV configuration | YAML `set_aes_key()` / `set_aes_iv()` | Compile-time `arduino_secrets.h` | Per-device `devices.json` | HA `config_flow` (single device per entry) | Different *delivery*, **same protocol** — informational |
@@ -202,7 +202,7 @@ The end-to-end workflow is shown in Figure 3.
 | CB controller IV | `RnWokNEvKW6LcWJg` | `RnWokNEvKW6LcWJg` | `RnWokNEvKW6LcWJg` | `RnWokNEvKW6LcWJg` (line 45) | **Agreed** |
 | LED lamp key/IV | confirmed pair | confirmed pair | confirmed pair | `BkJu61kLt3afuogT` / `2AKVNUbU4mvU3Elt` (line 46) | **Agreed** |
 | PS-10 power-strip key/IV | confirmed pair | confirmed pair | confirmed pair | `lVIlATSlxaS1btfd` / `84Rf7SUkinfvxNlc` (line 47) | **Agreed** |
-| Activation flow order | `getSysSta → setDevTimezone → setDevActive` | `getSysSta → setDevTimezone → setDevActive` | `getDevSta → setDevTimezone → setDevActive` *(differs)* | `getSysSta → setDevTimezone → setDevActive` | **Minor disagreement** — PythonSpiderController uses `getDevSta`; HA matches the majority |
+| Activation flow order | `getSysSta → setDevTimezone → setDevActive` | `getSysSta → setDevTimezone → setDevActive` | `getDevSta → setDevTimezone → setDevActive` *(differs)* | `getSysSta → setDevTimezone → setDevActive` | **Minor disagreement** — [REDACTED:repo-path:SF-IMPL-3] uses `getDevSta`; HA matches the majority |
 
 The reconciliation pattern is the central observation: the four implementations *agree* on every cryptographic primitive and on the three confirmed key/IV pairs, but *diverge* on dynamic-IV byte-range and on activation-flow opcode. Without an AI pass, locating the HA dynamic-IV bug would require reading and comparing four codebases byte-for-byte; with an AI pass, the disagreement is surfaced in minutes (T3 in the Spider Farmer transcript register).
 
