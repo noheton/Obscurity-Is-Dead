@@ -640,7 +640,7 @@ This logbook is the operating record for the paper and research process.
     protocol research on which the ESPHome component is based).
   - `p0rigth_spiderblebridge` — `[REDACTED:repo-path:SF-IMPL-2]` (ESP32 BLE-to-MQTT bridge;
     also referenced as `SpiderBEL_ESPtoMQTT` in `original/doc/log.md`).
-  - `pythonspidercontroller` — anonymous community Python+BLE controller (attributed
+  - `[REDACTED:repo-path:SF-IMPL-3]` — anonymous community Python+BLE controller (attributed
     "noheton/community" in `implementations.md`; no public URL confirmed).
   - `niltrip_powerocean` — `[REDACTED:repo-path:EF-IMPL-1]` (upstream EcoFlow PowerOcean HA integration).
   Citation callsites added: §3.2 artifact list, §3.3 cross-implementation comparison,
@@ -667,7 +667,7 @@ This logbook is the operating record for the paper and research process.
     no arXiv compatibility risk.
   - `rsvg-convert` (librsvg2-bin) chosen over Inkscape for the CI SVG→PDF step:
     smaller install footprint, faster, sufficient for diagram-style SVGs.
-  - `[REDACTED:repo-path:SF-IMPL-3]` citekey uses `author = {{anonymous community contributor}}`
+  - `pythonspidercontroller` citekey uses `author = {{anonymous community contributor}}`
     because the actual author handle is not confirmed from the vendored artifacts.
   - The `crossnotice_sf_mqtt` entry is included in `references.bib` because the
     ESPHome README explicitly credits it as the research basis; it is not yet cited
@@ -680,7 +680,7 @@ This logbook is the operating record for the paper and research process.
   - Vendor redistribution caveats (S-SF-4, S-EF-2..4) unresolved.
   - `[lit-retrieved]` → `[lit-read]` upgrades still pending.
   - Zenodo DOI not minted.
-  - `[REDACTED:repo-path:SF-IMPL-3]` GitHub URL unconfirmed; entry marked anonymous.
+  - `pythonspidercontroller` GitHub URL unconfirmed; entry marked anonymous.
   - `cr0ssn0tice_sf_mqtt` not yet cited inline — add if a §3 passage discusses the
     research lineage of the ESPHome implementation.
 
@@ -1864,7 +1864,7 @@ This logbook is the operating record for the paper and research process.
   - ID mapping (original → marker; last occurrence file:line pre-redaction):
     - SF-IMPL-1: `[REDACTED:maintainer-handle:SF-IMPL-1]` / `[REDACTED:repo-path:SF-IMPL-1]` → `[REDACTED:maintainer-handle:SF-IMPL-1]` / `[REDACTED:repo-path:SF-IMPL-1]` (`paper/references.bib:1-8`; `paper/main.md:131,141,361`; `paper/main.tex:450,474,1025`; `docs/sources.md` S-SF-1).
     - SF-IMPL-2: `[REDACTED:maintainer-handle:SF-IMPL-2]` / `[REDACTED:repo-path:SF-IMPL-2]` → `[REDACTED:maintainer-handle:SF-IMPL-2]` / `[REDACTED:repo-path:SF-IMPL-2]` (`paper/references.bib:19-27`; `paper/main.md:131,141,361`; `paper/main.tex:451,474,1025`; `docs/sources.md` S-SF-2).
-    - SF-IMPL-3: handle-less; `pythonspidercontroller` ([REDACTED:repo-path:SF-IMPL-3]) → `[REDACTED:repo-path:SF-IMPL-3]` (`paper/references.bib:29-35`; `paper/main.md:131,141,155,361`; `paper/main.tex:452,474,520,1025`; `docs/sources.md` S-SF-3).
+    - SF-IMPL-3: handle-less; `[REDACTED:repo-path:SF-IMPL-3]` ([REDACTED:repo-path:SF-IMPL-3]) → `[REDACTED:repo-path:SF-IMPL-3]` (`paper/references.bib:29-35`; `paper/main.md:131,141,155,361`; `paper/main.tex:452,474,520,1025`; `docs/sources.md` S-SF-3).
     - EF-IMPL-1: `[REDACTED:maintainer-handle:EF-IMPL-1]` / `[REDACTED:repo-path:EF-IMPL-1]` → `[REDACTED:maintainer-handle:EF-IMPL-1]` / `[REDACTED:repo-path:EF-IMPL-1]` (`paper/references.bib:38-45`; `paper/main.md:213,361`; `paper/main.tex:639,1026`; `docs/sources.md` S-EF-6).
     - BALBOA-UPSTREAM-1: `[REDACTED:maintainer-handle:BALBOA-UPSTREAM-1]` / `[REDACTED:repo-path:BALBOA-UPSTREAM-1]` → `[REDACTED:maintainer-handle:BALBOA-UPSTREAM-1]` / `[REDACTED:repo-path:BALBOA-UPSTREAM-1]` (`paper/main.md:397,551`; `paper/main.tex:1190,1862`; `README.md:48`).
     - BALBOA-UPSTREAM-2: `[REDACTED:maintainer-handle:BALBOA-UPSTREAM-2]` / `[REDACTED:repo-path:BALBOA-UPSTREAM-2]` → `[REDACTED:maintainer-handle:BALBOA-UPSTREAM-2]` / `[REDACTED:repo-path:BALBOA-UPSTREAM-2]` (`paper/main.md:392,551`; `paper/main.tex:1175,1863`).
