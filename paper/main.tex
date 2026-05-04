@@ -1259,13 +1259,18 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
         \texttt{git filter-repo --replace-text} pass against the
         catalogue in \texttt{docs/git-history-rewrite-plan.md}; the
         rewrite tip carries the annotated tag
-        \texttt{pre-publication-clean}. Vendored binary archives in
+        \texttt{pre-publication-clean}. The vendored binary archives in
         \texttt{experiments/spider-farmer/original/doc/} retain the
         strings inside their packed entries because
-        \texttt{--replace-text} does not descend into binary blobs; the
-        policy treats them as a public-mirror cut-over decision (drop
-        the archives or ship them with a caveat) rather than a residual
-        leak.
+        \texttt{--replace-text} does not descend into binary blobs,
+        treated under policy as a public-mirror cut-over decision
+        (drop the archives or ship them with a caveat) rather than a
+        residual leak --- and the upstream
+        \texttt{noheton/spider\_farmer} and
+        \texttt{noheton/powerocean-dev} repositories cloned into
+        \texttt{experiments/*/original/} still hold their pre-redaction
+        history, each requiring its own equivalent pass against the
+        same catalogue before public release.
   \item \textbf{Prompt injection from imported artifacts.} Vendor APK
         strings, PDF contents, and community-thread excerpts under
         \texttt{experiments/*/original/} are read by the AI agent. The
@@ -2920,9 +2925,9 @@ public mirror.
         produce non-identical outputs. The workflow and committed
         artifacts are the reproducible unit; AI outputs are not.
   \item \textbf{Live credentials.} \texttt{docs/sources.md} S-SF-5
-        contains recovered live credentials from a community thread.
-        These must be redacted before any public release of the paper
-        or repository.
+        contains recovered live credentials from a community thread;
+        their working-tree redaction and history-rewrite excision are
+        recorded in~\cref{sec:meta-security}.
   \item \textbf{Fabricated-citation risk.} Empirical base rates for
         LLM-fabricated citations are 18\%--55\% for raw GPT outputs
         (\cref{sec:disc-sloppification}; L-SLOP-1, L-SLOP-2, L-SLOP-4).

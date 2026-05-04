@@ -22,7 +22,7 @@ or scrutinizers raise a defect that requires them.
 
 | # | Stage | Status | Notes |
 |---|-------|--------|-------|
-| P1 | Stage 2 — Writer consolidation | open | Brief: `docs/handbacks/integration-pass-2026-05-04-post-rewrite.md`. Collapse repeated mentions of the redaction status; resist new bulleted lists in §5.6, §7.6, §8, §9; add one-clause acknowledgement of upstream-redaction pre-condition. |
+| P1 | Stage 2 — Writer consolidation | done | Consolidation pass executed 2026-05-04: §5.6 absorbed the upstream-redaction pre-condition as a trailing clause inside the existing carve-out sentence (no new bullet); README status rows 2 and 4 retargeted at §5.6 as the canonical narrative; §9.4 disclaimer cross-reference verified in mirror. See logbook entry "2026-05-04 (Stage 2 writer — post-rewrite consolidation)". |
 | P2 | `make pdf` | open | Required before stage 4. Verify clean LaTeX build against rewritten `paper/main.tex`. |
 | P3 | Stage 4 — Layout scrutinizer | open | Reads the build artifact only. Re-scrutinise after the writer pass. |
 | P4 | Stage 5 — Readability & novelty | open | Reads `paper/main.md` only. Runs in parallel with P3. |
@@ -53,3 +53,7 @@ The build pipeline produces local artifacts only.
 
 - 2026-05-04 — file created on branch `claude/history-rewrite-daDxQ`
   immediately after the history rewrite + integration commits.
+- 2026-05-04 — P1 (Stage 2 writer consolidation) flipped to `done`:
+  upstream-redaction pre-condition folded into §5.6 as a single
+  trailing clause; README status rows pointed at §5.6 as the
+  canonical narrative; rule-11 mirror parity verified.
