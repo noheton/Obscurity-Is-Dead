@@ -24,7 +24,7 @@
 | LAY-09 | PARTIAL | PARTIAL | Cluster of 7 overfulls in `:1077–1162` (range 5.21–70.84pt); root cause = path bullets. Line-shifted from r2 `:1027–1054` by ~+50 lines (new §4.x paragraphs). |
 | LAY-10 | PARTIAL | PARTIAL-IMPROVED | §10 path-bullet cluster moved to `:2557–2614`: 50.18pt + 3.58pt + 35.69pt. The 168.71pt monster (former LAY-26) is **gone** — see LAY-26 below. |
 | LAY-11 | RESOLVED | RESOLVED | Folded into LAY-06. |
-| LAY-12 | PARTIAL | PARTIAL | Intact-jar Gemini deliverable still outstanding; placeholder honestly disclosed. |
+| LAY-12 | PARTIAL | RESOLVED | Intact-jar Gemini deliverable landed on `main` (commit `302bf96`, 2026-05-04, 1408x768 RGBA, ~2.0 MB); placeholder swapped out; `paper/figures/README.md` inventory + `paper/main.{md,tex}` §9.1 prose + §10 caption updated to reflect Gemini-final provenance. |
 | LAY-13 | RESOLVED | RESOLVED | Zero PDF-1.7 inclusion warnings. |
 | LAY-14 | UNCHANGED-COSMETIC | UNCHANGED-COSMETIC | OT1/cmtt → OT1/lmtt at preamble lines 34/38; downgraded to L in r2; remains L. |
 | LAY-15 | RESOLVED-by-omission | RESOLVED | No `'h' float specifier` warnings. |
@@ -44,7 +44,7 @@
 | FIG-01 | RESOLVED | RESOLVED | All 18 `\Description{}` macros present. |
 | FIG-02 | CLOSED-FOR-REWORKED | CLOSED-FOR-REWORKED | Carry-forward residual filed as FIG-11. |
 | FIG-03 | EXPECTED-RESOLVED-VIEWER-BLOCKED | EXPECTED-RESOLVED-VIEWER-BLOCKED | Unchanged. |
-| FIG-04 | UNCHANGED | UNCHANGED | Gated on Gemini deliverable. |
+| FIG-04 | UNCHANGED | RESOLVED | Gemini intact-jar deliverable landed (commit `302bf96`, 2026-05-04). |
 | FIG-05 | UNCHANGED-NARROWED | UNCHANGED-NARROWED | Bookkeeping. |
 | FIG-06 | UNCHANGED | UNCHANGED | Bookkeeping. |
 | FIG-07 | EXPECTED-RESOLVED-VIEWER-BLOCKED | EXPECTED-RESOLVED-VIEWER-BLOCKED | Unchanged. |
@@ -63,7 +63,7 @@
 ## Severity rollup (current open state)
 
 - **H:** **0** (LAY-26 RESOLVED).
-- **M:** 8 distinct items: LAY-02/-24 (§1.6), LAY-08, LAY-09/-25, LAY-10, LAY-20/-21, LAY-22, **LAY-29 (new)**, FIG-04, FIG-08, FIG-11.
+- **M:** 7 distinct items: LAY-02/-24 (§1.6), LAY-08, LAY-09/-25, LAY-10, LAY-20/-21, LAY-22, **LAY-29 (new)**, FIG-08, FIG-11. *(FIG-04 closed 2026-05-04 by Gemini intact-jar landing; LAY-12 closed in the same pass.)*
 - **L:** 13: LAY-03 (downgraded), LAY-04, LAY-14/-23, LAY-16, LAY-18, LAY-27, LAY-28, **LAY-30 (new)**, FIG-05, FIG-06, FIG-09, FIG-10.
 - **RESOLVED this round:** LAY-26 (the only round-2 H).
 
@@ -75,7 +75,7 @@
 ## Owner rollup
 
 - **Writer:** LAY-02, -03, -04, -08, -09, -10, -16 (advisory), -18, -20, -21, -22, -24, -25, -27, -28, **-29 (top M)**, -30 (advisory), -23 (L cosmetic).
-- **Illustrator:** LAY-12 (Gemini gated); FIG-04 placeholder, FIG-05/-06 bookkeeping, FIG-09 audit-incomplete, FIG-10 fidelity audit, FIG-11 residual CB palette.
+- **Illustrator:** FIG-05/-06 bookkeeping, FIG-09 audit-incomplete, FIG-10 fidelity audit, FIG-11 residual CB palette. *(LAY-12 + FIG-04 closed 2026-05-04 by the Gemini intact-jar landing.)*
 - **Joint:** none.
 
 ## LAY-26 closure verification

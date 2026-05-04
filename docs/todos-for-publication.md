@@ -16,7 +16,7 @@ can be released.
 
 | | |
 |---|---|
-| Working tree | clean on `claude/final-doc-update-R46EQ` after figure-data sync; long-form `paper/main.{md,tex}` unmodified |
+| Working tree | clean on `claude/prepare-for-publish-fERq5` after Q11 close (Gemini intact-jar landed; placeholder swapped out; §9.1 prose + §10 caption + figure-folder inventory + handbacks updated) |
 | Layout scrutinizer (Stage 4) | `RE-SCRUTINY REQUIRED: no` against tip `644d2e2` (long-form + condensed) |
 | Readability scrutinizer (Stage 5) | `RE-SCRUTINY REQUIRED: no` against tip `644d2e2` (long-form + condensed) |
 | Aligner (Stage 6) | `ALN-01..ALN-13` closed (commit `668fa8d`); next pass triggered by any further writer / illustrator change |
@@ -41,8 +41,8 @@ which they should be tackled.
 | Q7 | R-AUDIT-12 client-secret literal grep | human | open | Confirm against the actual Cognito secret string fragment that the redaction marker substitution is exhaustive. |
 | Q8 | Logbook readability re-check after in-place redaction | scrutinizer (Stage 5) | open | High marker density was introduced by the redaction-execution pass; surface in the next readability pass. |
 | Q9 | Final aligner sweep | aligner (Stage 6) | open | Trigger after Q1 + Q2 land. Audit md ↔ tex parity for both the long-form and the condensed pair (rule 12 / rule 17), the verification-status updates, and the figure-data sync committed by this pass. |
-| Q10 | `make all` clean rebuild + page-count snapshot | build | open | Confirm `paper/main.pdf` (target ≤60 pp post-rewrite) and `paper/main-condensed.pdf` (≤10 pp ceiling) after Q1–Q9 close. Record the PDF SHAs in the rule-14 gate handoff. |
-| Q11 | Pandora-jar-intact final asset (Gemini) | human | open | Replace the typographic placeholder at `paper/figures/logo-pandora-jar-intact.png` with the second Gemini deliverable when supplied. Until then the placeholder is visible in the rendered PDF (rule 1). |
+| Q10 | `make all` clean rebuild + page-count snapshot | build | open | Confirm `paper/main.pdf` (target ≤60 pp post-rewrite) and `paper/main-condensed.pdf` (≤10 pp ceiling) after Q1–Q9 close, and after the Gemini intact-jar swap (Q11). Record the PDF SHAs in the rule-14 gate handoff. |
+| Q11 | Pandora-jar-intact final asset (Gemini) | human | done | Gemini deliverable landed on `main` 2026-05-04 (commit `302bf96`, 1408x768 RGBA, ~2.0 MB); placeholder swapped out. Inventory in `paper/figures/README.md`, §9.1 prose in `paper/main.{md,tex}`, §10 figure caption (date), `logo-placeholders.py` docstring (no longer authoritative), and `docs/handbacks/layout-defect-registry.md` (LAY-12 + FIG-04 closed) updated in the follow-up commit on branch `claude/prepare-for-publish-fERq5`. |
 
 ## Rule-13 + rule-14 gate (separate explicit consent required)
 
@@ -102,3 +102,23 @@ rather than for blocking publication.
   substantive content drift, only matplotlib hash-ID + timestamp
   refresh). Open todos Q1..Q11 above are the remaining work before
   the rule-13 / rule-14 distribution gates can be released.
+- 2026-05-04 (third pass, branch `claude/prepare-for-publish-fERq5`) —
+  Q11 closed: the second Google-Gemini deliverable for
+  `paper/figures/logo-pandora-jar-intact.png` landed on `main`
+  (commit `302bf96`, 1408x768 RGBA, ~2.0 MB), pairing as a diptych
+  with the shattered-jar front-matter logo (intact pithos, AI cube
+  contained inside, Hesiodic *Hope* glow at the rim, headline
+  *"THE PANDORA MOMENT — HOPE IS WHAT REMAINS, AND HOPE DOES WORK."*).
+  This branch then merged `main`, flipped the inventory entry in
+  `paper/figures/README.md` from PLACEHOLDER → Externally generated,
+  rewrote the §9.1 paragraph in `paper/main.md` and `paper/main.tex`
+  (rule 12 mirror parity preserved) to record both logos as final
+  Gemini deliverables, corrected the §10 caption date from 2026-05-02
+  to 2026-05-04, rewrote the docstring of
+  `paper/figures/logo-placeholders.py` to mark it as a non-authoritative
+  reproducibility fallback, and closed `LAY-12` + `FIG-04` in
+  `docs/handbacks/layout-defect-registry.md`. `RDB-18` was already
+  `[RESOLVED — preserved]`. Open todos remaining: `Q1`, `Q2`, `Q3`
+  (deferred), `Q4`–`Q9`, `Q10` (now correctly anchored on the
+  post-Q11 PDF). The rule-13 / rule-14 distribution gates remain
+  closed pending explicit human consent.

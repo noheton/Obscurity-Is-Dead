@@ -1,22 +1,19 @@
-"""Placeholder logo generator — Obscurity-Is-Dead.
+"""Placeholder logo generator — Obscurity-Is-Dead (historical fallback).
 
-AI-authored (Claude, 2026-05-02). Rule-1 / Rule-14 compliance:
-this script and its outputs (`logo-obscurity-is-dead.png`,
-`logo-pandora-jar-intact.png`) are placeholder assets.
+AI-authored (Claude, 2026-05-02). Both production logos
+(`logo-obscurity-is-dead.png`, delivered 2026-05-02; and
+`logo-pandora-jar-intact.png`, delivered 2026-05-04) are now
+final Google-Gemini-generated artwork supplied by the human author.
+This script is **no longer authoritative** for either binary; it is
+retained as a reproducible typographic fallback so that:
 
-The author intends to replace these with Google-Gemini-generated
-artwork (the shattered- and intact-Pandora-jar visuals described in
-section 9.0 / 10 of the paper). Until the Gemini assets are dropped
-in by the researcher, this script renders typographic placeholders
-so that:
+  * the prose claim that these files can be regenerated from
+    committed sources remains true (Rule 14);
+  * if either Gemini binary is ever lost, `make pdf` can still
+    succeed end-to-end against an in-repo placeholder.
 
-  * `make pdf` succeeds end-to-end and the layout-scrutinizer stage
-    can run against `paper/main.pdf`;
-  * the placeholder identity is *visible* in the rendered PDF — no
-    silent stand-in (Rule 1);
-  * the prose claim that these files exist under `paper/figures/`
-    becomes true (Rule 1);
-  * regeneration is reproducible (Rule 14).
+Running this script will overwrite the Gemini binaries with the
+typographic placeholder. Do not run unintentionally.
 
 Run with:
     python paper/figures/logo-placeholders.py
