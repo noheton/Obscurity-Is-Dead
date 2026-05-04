@@ -69,6 +69,8 @@ A research paper **and** its full evidence trail — case studies, AI conversati
 
 **Central thesis.** The dominant security posture for consumer IoT is economic, not cryptographic. Proprietary protocols and obfuscated APKs raise the *effort gap* high enough that a casual researcher gives up. LLMs collapse that gap. We document *how far* it has collapsed, *how asymmetrically*, and *what to do about it*.
 
+**The §8 ask.** Don't inherit AI-research norms — *generate* them, now, while the practice is still being formed. The conclusion (`paper/main.md` §8) makes a four-part move: a terminological precision (broad-AI vs Gen-AI), a call-to-action to treat methodological norm-setting as itself a research activity, an invitation to AI-skeptics as co-norm-setters rather than opponents, and a candidate **FAIR for AI-Assisted Research** (working name **FAIR4AI**) extension that maps the eight integrated practices in §10 onto Findable / Accessible / Interoperable / Reusable. FAIR4RS [Chue Hong et al., 2022] and FAIR4ML [RDA, 2024] cover research software and ML models; neither yet covers AI-mediated research *processes* — exportable transcripts, versioned prompts, verification-status ladders, structured redaction. We propose the name and surrender it to the community.
+
 **Read the paper:** [`paper/main.md`](paper/main.md) (Markdown source) · [`paper/main.tex`](paper/main.tex) (arXiv-ready LaTeX) · CI-built draft PDF as the `paper-pdf` artifact of the [Build paper workflow](https://github.com/noheton/Obscurity-Is-Dead/actions/workflows/build-paper.yml). Labelled *draft* until the author authorises submission (rule 13).
 
 ---
@@ -149,6 +151,17 @@ Human-authored portions: [CC-BY-4.0](LICENSE). Excluded: vendor binaries/docs un
 [![R](https://img.shields.io/badge/R-Reusable-yellow)](docs/fair.md)
 
 Full F1–R1.3 mapping and open compliance issues in [`docs/fair.md`](docs/fair.md).
+
+---
+
+## Status — public-mirror readiness (2026-05-04)
+
+| | |
+|---|---|
+| Working-tree redaction (rule 12) | **done** — paper text, handbacks, vendored design bundle, EcoFlow serials, logbook handles all redacted in-place; full register in [`docs/redaction-policy.md`](docs/redaction-policy.md); audit trail in [`docs/redaction-audit-2026-05-03.md`](docs/redaction-audit-2026-05-03.md). |
+| Git history rewrite (rule 12 / 13) | **plan filed, awaiting human consent** — see [`docs/git-history-rewrite-plan.md`](docs/git-history-rewrite-plan.md). `git rm` alone leaves deleted blobs reachable from prior commits; `git filter-repo` execution is gated on explicit author authorisation. |
+| Upstream-repo redaction follow-up | **pending** — the `experiments/*/raw_conversations` and other rule-4 carve-outs were intentionally out of scope for the working-tree pass; the public-mirror policy decides whether they ship redacted or whether the history rewrite covers them byte-for-byte. |
+| Public-mirror push / Zenodo / arXiv | **blocked** until both items above are resolved and the human author gives explicit written consent (rule 13). The CI Build-paper workflow produces draft artifacts only. |
 
 ---
 

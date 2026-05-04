@@ -188,7 +188,7 @@ Energy Dashboard auto-discovers the following sensors:
 device name (set at device-registry level in `__init__.py`) with the entity's
 `translation_key`-resolved name.  Example:
 
-> Device name: **Florian Krebs**
+> Device name: **Florian Krebs (paper author / device owner-of-record)**
 > Entity translation: **Battery State of Charge**
 > Result in UI: **Florian Krebs Battery State of Charge**
 

@@ -21,7 +21,11 @@ drawn `.svg` files have been overwritten by the script-generated outputs.
 (illustration agent, `docs/prompts/illustration-prompt.md`, 2026-05-02;
 several reworked in the 2026-05-03 figure-overhaul pass for colour-blind
 safety, font-size legibility, and greyscale fall-back — see per-figure
-docstrings for the change log). They encode structural relationships
+docstrings for the change log; the 2026-05-03 *pipeline-fix pass* on
+branch `claude/check-illustration-pipeline-Jqst3` additionally closed
+the residual FIG-11 items by recolouring fig8, fig15, fig16 to a
+CB-safe palette and raising fig16 inner-cell font from 7.8 pt to 9.5 pt
+— see per-figure docstrings). They encode structural relationships
 rather than numerical data; their generation scripts are committed for
 reproducibility. **Figure 12** is a data-driven heat-map (Rule-14
 compliant; ILL-06). The **logo assets**
@@ -140,3 +144,51 @@ ranks (fig6) or as a fixed structural diagram (fig7).
 3. Add references to both files in `paper/main.md` and `paper/main.tex` at
    the point where the figure is cited.
 4. Update this README with a new row in the Rule-14 compliance table.
+
+## Design-system defaults (apply to every figure)
+
+The hero / visual-abstract figure
+(`fig11-eight-practices.{svg,pdf}`) is the design anchor for the
+figure set. New or reworked figures must match it on these axes
+(brief 2026-05-03 from the human author: *"achte aber auf
+Konsistenz im Design"*):
+
+- **Palette.** Imported from `dlr_style.py`:
+  `DLR_BLUE` `#00658b` (primary accent), `DLR_BLUE_MID` `#3b98cb`,
+  `DLR_BLUE_SOFT` `#a7d3ec`, `DLR_GREEN` `#82a043`, `DLR_GRAY`
+  `#666666`, `DLR_GRAY_SOFT` `#ebebeb`, `DLR_HAIRLINE` `#cfcfcf`.
+  CB-safe accents from the Tol-bright subset:
+  `#4477aa` (blue), `#228833` (green), `#aa7733` (gold/dark-yellow,
+  passes white-on-fill AA contrast), `#ee6677` (rose, the
+  "warning / legacy / adversarial" semantic — paired with a hatched
+  fill so the warning identity also survives greyscale).
+  Banned: pure red `#c0392b`, pink/red `#fadbd8`, traffic-light
+  red+green pairings, raw matplotlib defaults.
+- **Typography.** Sans-serif (`dlr_style` resolves Frutiger → Arial →
+  DejaVu Sans). Hard floor: **9 pt body**; **10.5 pt row /
+  category labels** (the floor `fig11` establishes); titles
+  ~12.5–13.5 pt bold; sub-titles ~9–9.5 pt italic.
+  No body text below 9 pt anywhere in the figure set after the
+  2026-05-03 design-consistency materialisation pass.
+- **Stroke / arrowhead.** matplotlib `FancyArrowPatch` with
+  `arrowstyle="-|>"` and `mutation_scale=12–14`; stroke weight
+  1.0–1.6 pt for boxes, 1.4–2.0 pt for labelled arrows. Avoid
+  mixing thin matplotlib defaults with thick Mermaid / Graphviz
+  defaults if a non-Python toolchain is ever introduced.
+- **Categorical glyphs (CVD + greyscale survival).** P/S markers
+  introduced in `fig11` are *shape-redundant with colour*: P =
+  filled disc with white "P"; S = ring with bordered "S". If a new
+  categorical encoding is introduced anywhere in the figure set,
+  apply the same pattern wherever it recurs.
+- **Hatch / fill convention.** Tol-bright rose `#ee6677` plus
+  `hatch="//"` or `"////"` is the canonical "warning / legacy /
+  adversarial / named-exclusion" mark across `fig8`, `fig14`,
+  `fig16`. Reuse this pair rather than inventing a new warning
+  semantic.
+- **Toolchain coverage.** Every figure in the set is currently
+  matplotlib-rendered (or, for fig2-fig5, manually drawn SVG;
+  rule-14-exempt). If a new toolchain path (Mermaid / TikZ /
+  Graphviz / D2 / Altair) is ever introduced, declare the
+  palette + typography mapping in this section before adding the
+  first figure on that path, so future illustrator passes inherit
+  the defaults rather than reinventing them.

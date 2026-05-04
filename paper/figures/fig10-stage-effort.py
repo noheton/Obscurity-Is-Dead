@@ -25,6 +25,11 @@ slate-grey accent so the chart no longer relies on a non-CB-safe
 red+green pairing; (iv) add an explicit "Manual hours estimated;
 range bars show low-high band" note to the legend region.
 
+Design-consistency materialisation pass 2026-05-03: legend and rule-1
+annotation lifted from 8.5 → 9.0 pt to clear the 9 pt body floor that
+fig11 (hero / design anchor) sets across the figure set. Palette
+unchanged.
+
 Outputs:
     paper/figures/fig10-stage-effort.svg
     paper/figures/fig10-stage-effort.pdf
@@ -97,7 +102,7 @@ ax_a.set_xlabel("Workflow stage", fontsize=10)
 ax_a.set_title("Per-stage effort: AI-assisted vs manual baseline",
                fontsize=10.5, color=dlr_style.DLR_GRAY)
 ax_a.tick_params(axis="y", labelsize=9)
-ax_a.legend(fontsize=8.5, frameon=False, loc="upper right", ncol=2)
+ax_a.legend(fontsize=9.0, frameon=False, loc="upper right", ncol=2)
 ax_a.grid(axis="y", linestyle=":", alpha=0.4, zorder=0)
 ax_a.set_axisbelow(True)
 
@@ -105,7 +110,7 @@ ax_a.set_axisbelow(True)
 # Recoloured from red to DLR grey to avoid relying on red+green pairing.
 ax_a.annotate("EcoFlow: validation phase\nnot separately captured —\nomitted (CLAUDE.md rule 1)",
               xy=(3.2, 1), xytext=(2.25, 28),
-              fontsize=8.5, color=dlr_style.DLR_GRAY, style="italic",
+              fontsize=9.0, color=dlr_style.DLR_GRAY, style="italic",
               arrowprops=dict(arrowstyle="->", color=dlr_style.DLR_GRAY, lw=1.0))
 
 # ── Right panel: compression ratio per stage ────────────────────────────

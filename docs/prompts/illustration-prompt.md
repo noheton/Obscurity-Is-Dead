@@ -97,11 +97,68 @@ designated feature branch.
 |-----------------|-------------|----------------|
 | `comparison-table` | Native Markdown / LaTeX table inlined in the paper | (no figure files) |
 | `bar-chart` / data-derived chart | Python script + CSV → SVG + PDF | `figs/data/<name>.csv`, `fig<N>-<name>.py`, `.svg`, `.pdf` |
-| `architecture-diagram` / `workflow-diagram` / `conceptual-diagram` | Python script (matplotlib) → SVG + PDF | `fig<N>-<name>.py`, `.svg`, `.pdf` |
+| `architecture-diagram` / `workflow-diagram` / `conceptual-diagram` | Python script (matplotlib) → SVG + PDF, **or** Mermaid (`.mmd` → `.svg`/`.pdf`), **or** TikZ (`.tex` fragment compiled inline by `paper/main.tex`) | `fig<N>-<name>.{py,mmd,tex}` + `.svg`/`.pdf` as applicable |
 
-Diagrams without numeric data are still produced from a Python script so
-they remain reproducible (Rule 14 spirit), even though the data they encode
-is structural rather than empirical.
+Diagrams without numeric data are still produced from a reproducible
+source (Python, Mermaid, or TikZ) so they survive Rule 14 spirit, even
+though the data they encode is structural rather than empirical.
+
+**Toolchain choice (added 2026-05-03, claude/check-illustration-pipeline).**
+The following rendering paths are sanctioned; pick the one that fits the figure:
+
+1. **Python + matplotlib** (default, used by fig1 and fig6–fig16). Best
+   for charts, scatter plots, and any figure driven by tabular data.
+   Source: `fig<N>-<slug>.py`. Must emit both `.svg` and `.pdf` next to
+   itself; `paper/Makefile` regenerates these via the
+   `$(SCRIPTED_FIG_PDFS)` rule whenever the `.py` (or `dlr_style.py`)
+   changes.
+2. **Mermaid** for flowcharts, sequence diagrams, and state machines
+   that read more clearly as Mermaid than as matplotlib boxes-and-arrows.
+   Source: `fig<N>-<slug>.mmd`. Render to SVG+PDF via `mmdc` (Mermaid
+   CLI) — add a Makefile rule mirroring the matplotlib one so edits
+   propagate. Stick to the Tol-bright / DLR palette in the theme block.
+3. **TikZ** (incl. `pgfplots`, `circuitikz`, `bytefield`) when the figure
+   benefits from being typeset alongside the paper (matched fonts, math
+   mode, `\ref`-able nodes). Source: a `fig<N>-<slug>.tex` fragment
+   included from `paper/main.tex` via
+   `\input{figures/fig<N>-<slug>.tex}` inside a `figure` environment;
+   no separate `.pdf` artefact — `latexmk` rebuilds it as part of
+   `make pdf`. Keep TikZ libraries declared in `paper/main.tex`
+   preamble, not inside the fragment. Use `circuitikz` for hardware
+   schematics (PowerOcean / EcoFlow internals) and `bytefield` for
+   protocol-frame diagrams in reverse-engineering sections — both are
+   reproducible and Rule-14-clean.
+4. **Graphviz / D2** when the diagram is topology-driven (trust graphs,
+   threat graphs, dependency / call graphs) and the layout should
+   follow the structure rather than be hand-placed. Source:
+   `fig<N>-<slug>.dot` (Graphviz) or `fig<N>-<slug>.d2` (D2). Render to
+   `.svg` + `.pdf` via `dot -Tpdf` / `d2 fmt`; add a Makefile rule
+   mirroring the matplotlib one. Prefer D2 for new diagrams (better
+   defaults), Graphviz where reviewers expect it.
+5. **Altair / Vega-Lite** for declarative statistical charts where the
+   spec-plus-data style is a stronger Rule-14 fit than imperative
+   matplotlib. Source: `fig<N>-<slug>.py` emitting Vega-Lite JSON, or a
+   committed `fig<N>-<slug>.vl.json` rendered via `vl-convert`. Output
+   `.svg` + `.pdf`.
+6. **Inkscape `--export-latex`** when a complex vector composition
+   needs LaTeX-typeset labels (best math / font fidelity). Source:
+   committed `fig<N>-<slug>.svg`; build emits `.pdf` + `.pdf_tex`
+   sidecar that `paper/main.tex` `\input`s. Use sparingly — manual
+   composition costs reproducibility.
+7. **drawio / diagrams.net** as an *exception* path for hand-composed
+   architecture diagrams when none of the above fit. Source: committed
+   `fig<N>-<slug>.drawio` XML rendered via the drawio CLI. Mark such
+   figures with an "AI-authored, manually composed" note in the
+   caption — they are Rule-14-degraded and should be migrated to a
+   reproducible path when the structure stabilises.
+
+Whichever path is chosen, Rule 14 still applies: the source file
+(`.py` / `.mmd` / `.tex` / `.dot` / `.d2` / `.vl.json` / `.svg` /
+`.drawio`) and any input data must be committed and referenced from
+the figure caption / `paper/figures/README.md`. Whenever a new path
+is exercised for the first time, add the corresponding build rule to
+`paper/Makefile` so the figure regenerates on source edits — same
+spirit as the `$(SCRIPTED_FIG_PDFS)` rule for matplotlib.
 
 ### 2. Source the underlying data
 
@@ -126,11 +183,16 @@ is structural rather than empirical.
 - For tables: write the rendered table directly into `paper/main.md`
   (Markdown table) and `paper/main.tex` (`tabular` / `tabularx` env with
   matching `\caption` and `\label`).
-- For figures: place the script and any data file under `paper/figures/`
-  following the naming pattern `fig<N>-<short-slug>.{py,svg,pdf}`. The
-  script must be runnable as `python paper/figures/fig<N>-<slug>.py` and
-  emit both `.svg` and `.pdf` next to itself. Use `dlr_style.py` for
-  consistent styling.
+- For figures: place the source and any data file under `paper/figures/`
+  following the naming pattern `fig<N>-<short-slug>.{py,mmd,tex}` plus
+  `.svg`/`.pdf` artefacts where applicable. Python scripts must be
+  runnable as `python paper/figures/fig<N>-<slug>.py` and emit both
+  `.svg` and `.pdf` next to themselves. Mermaid sources (`.mmd`) render
+  via `mmdc` to `.svg`+`.pdf`. TikZ fragments (`.tex`) are included
+  directly from `paper/main.tex` and require no separate artefact. Use
+  `dlr_style.py` (Python) or the equivalent Tol-bright / DLR palette
+  values (Mermaid theme block, TikZ `\definecolor`) for consistent
+  styling across all three paths.
 - Honesty (CLAUDE.md rule 1): the script docstring must label the figure
   as **AI-authored** and identify the prompt that generated it.
 
@@ -158,7 +220,15 @@ In **both** `paper/main.md` and `paper/main.tex` (CLAUDE.md rule 11):
 
 ### 6. Build and validate
 
-- Run each generation script and confirm `.svg` + `.pdf` are produced.
+- For Python sources: run `make -C paper figures` and confirm `.svg` +
+  `.pdf` are regenerated for every changed `.py`. The Makefile's
+  `$(SCRIPTED_FIG_PDFS)` rule (added 2026-05-03) is the canonical entry
+  point — direct invocation of individual `.py` files is acceptable as
+  a sanity check but `make figures` must also succeed.
+- For Mermaid sources: run the corresponding `mmdc` rule and verify
+  `.svg` + `.pdf` are produced.
+- For TikZ fragments: run `make -C paper pdf` and confirm the figure
+  renders inline without missing-package or undefined-reference errors.
 - Run `python -c "import paper.main"` is **not** applicable; instead
   verify that `paper/main.md` and `paper/main.tex` are consistent
   (CLAUDE.md rule 11): same caption text, same number of figure

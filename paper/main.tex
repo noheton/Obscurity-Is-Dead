@@ -179,6 +179,27 @@ Pandora's jar is open. The only way out is through, and ``through''
 looks like this --- disclosed, attributed, auditable, and willing to
 be argued with.
 
+\paragraph{On the unsaid accusation of cheating.}
+A second strand of skepticism, often unsaid, is the suspicion that
+AI-assisted authorship is a quieter form of plagiarism --- that the
+methodology I am defending here is, on closer reading, an elaborate way
+to launder synthetic prose into the scientific record. I take that
+suspicion seriously and I think it is largely correct \emph{about the
+prevailing baseline} (\cref{sec:disc-sloppification} documents what
+undisclosed AI use looks like at scale; the empirical fabrication-rate
+literature in \cref{sec:ai-disclosure-disclaimers} is what concealment
+produces). What I am trying to construct in this paper is the
+alternative the suspicion does not yet have: a discipline under which
+AI-assisted research is inspectable on its own terms, transcript by
+transcript, citation by verified citation. The eight practices
+in~\cref{sec:pandora} are framed
+in~\cref{sec:ai-skeptic-integration} as exactly this --- a
+\emph{condition catalogue} that converts a legitimate objection into a
+checkable one. If you arrived as a skeptic, the most useful thing you
+can do with this paper is to argue with the catalogue: which row is
+missing, which row is insufficient, which row will the next tooling
+cycle subsume. That is the conversation I am writing for.
+
 \paragraph{What surprised me about the assistant.}
 Working through the case studies, I expected --- and braced for ---
 moments where the model would refuse to help me reverse-engineer a
@@ -728,7 +749,7 @@ The end-to-end workflow is shown in Figure~\ref{fig:case-spider-farmer}.
   \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
     \toprule
     \textbf{Element} & \textbf{ESPHome} & \textbf{[REDACTED:repo-path:SF-IMPL-2]} &
-    \textbf{PythonSpider} & \textbf{HA \texttt{const.py}} &
+    \textbf{[REDACTED:repo-path:SF-IMPL-3]} & \textbf{HA \texttt{const.py}} &
     \textbf{Outcome} \\
     \midrule
     Cipher & AES-128-CBC & AES-128-CBC & AES-128-CBC & AES-128-CBC &
@@ -2548,6 +2569,148 @@ dual-use evaluation built into the methodology rather than appended to it,
 and legal framing always sourced. Obscurity is dead. What replaces it has
 to be designed, not assumed.
 
+\subsection{A terminological precision before the call-to-action}
+\label{sec:ai-vs-genai}
+
+A persistent source of confusion in the public debate --- and,
+increasingly, in the academic one --- is the conflation of
+\emph{artificial intelligence} in the broad methodological sense (the
+family of methods spanning symbolic systems, classical machine learning,
+deep learning, reinforcement learning, and the present generation of
+large language models) with \emph{generative AI} in the narrow sense
+(the LLM-and-diffusion-model subset that drives the current hype cycle).
+The two are not interchangeable. The empirical effort-gap collapse
+documented in~\cref{sec:case-spider-farmer,sec:case-ecoflow}, and the
+meta-process collapse documented in~\cref{sec:case-meta}, are driven
+specifically by the \emph{generative-AI} subset; the broader AI methods
+family --- adversarial-machine-learning detectors for hardcoded secrets,
+classical static analysers, symbolic execution engines, supervised
+classifiers for vulnerability triage --- has been shaping the
+security-research workflow for years and will continue to do so after
+the present hype cycle subsides. Throughout this paper, where the
+distinction matters, \emph{generative AI} (or \emph{Gen AI} / LLMs)
+refers to the narrow subset and \emph{AI} refers to the broader methods
+family. The call-to-action that follows is framed against the broader
+family on purpose: norms calibrated only to the current LLM cohort will
+age out of relevance the moment the cohort does, whereas norms
+calibrated to the \emph{AI methods family as a whole} are the ones we
+will still need in 2030.
+
+\subsection{Call-to-action: generate the norms while the practice is young}
+\label{sec:call-to-action}
+
+The empirical moment this paper documents is unusual: we are among the
+first cohort of researchers to experience AI-assisted scientific work as
+a routine modality rather than an experimental novelty. That position
+carries a corresponding obligation --- to use the window in which the
+practice is still being formed to \emph{generate the norms of acceptable
+use}, rather than to inherit them, retrofit them, or have them imposed
+after the fact. Even on the conservative reading of the present hype
+cycle --- that current Gen AI capabilities will plateau, that funding
+will contract, and that a portion of the integration tooling will recede
+--- the underlying AI methods family will not leave the scientific
+workflow. From the present moment onwards, AI-assisted research is part
+of how science is produced; the open question is the \emph{discipline}
+under which it is produced.
+
+We argue that the eight integrated practices developed in~\cref{sec:pandora}
+--- transcript preservation, verification-status labelling, provenance
+maps, mirror discipline, the recursive meta-process case study,
+base-rate-anchored AI disclosure, legal honesty about authorship, and
+FAIR alignment as a precondition --- are best understood as a
+\emph{condition catalogue} for AI-assisted work to be defensible as
+research. They are not a manifesto; they are a checklist whose items
+can be argued with row by row. The call-to-action is correspondingly
+modest: that the community treat methodological norm-setting for
+AI-assisted research as itself a research activity, conducted now, in
+the open, and with the same evidentiary discipline we expect of
+empirical claims.
+
+\subsection{Integrating the AI-skeptic position: from opponents to co-norm-setters}
+\label{sec:ai-skeptic-integration}
+
+A second strand of the contemporary debate must be addressed directly
+rather than dismissed. A widely held position --- sometimes voiced as
+outright opposition to AI in research, sometimes as a quieter accusation
+that AI-assisted authorship is a form of cheating --- points at real
+harms: undisclosed authorship that crosses into plagiarism
+(\cref{sec:disc-sloppification}), the documented degradation of the
+scientific commons by paper-mill output~\citep{suchak2025nhanes}, and
+the collapsing baseline of trust in academic text when readers cannot
+tell what a human wrote and what a model produced. We take that
+position to be \emph{legitimate}, and we read its underlying claim ---
+that the current default of undisclosed AI assistance is corrosive ---
+as substantially correct.
+
+The eight practices are our proposal for the conditions under which the
+legitimate concern is \emph{answerable} rather than dismissible.
+Transcript-as-artifact (practice~1) makes the AI's contribution
+inspectable rather than hidden; the verification-status ladder
+(practice~2) makes the read-state of every cited source explicit rather
+than indeterminate; explicit, base-rate-anchored disclosure
+(practice~6) replaces the ``AI was used to assist'' boilerplate with an
+audit trail. Read in this register, the eight practices are an offer:
+to skeptics for whom undisclosed AI use is the principal harm, here is a
+discipline under which AI-assisted work can be evaluated on its own
+terms. The intended move is from opposition to \emph{co-norm-setting}
+--- disagreement about which practices belong on the list, which ones
+are insufficient, and which ones the next generation of tooling will
+subsume is precisely the kind of engagement we are most hoping to
+provoke. The Author's Note above
+(\emph{Open to constructive criticism --- actively}) is the same
+invitation in personal-voice form.
+
+\subsection{A candidate FAIR for AI-Assisted Research extension}
+\label{sec:fair4ai}
+
+The community already has two precedents for adapting the FAIR Guiding
+Principles to non-data artefact classes. \textbf{FAIR4RS} --- the FAIR
+Principles for Research Software, released in 2022 by the FAIR for
+Research Software Working Group jointly convened by the Research
+Software Alliance, FORCE11, and the Research Data Alliance --- extends
+FAIR to source code, scripts, computational workflows, and executables
+created during the research process~\citep{chuehong2022fair4rs}.
+\textbf{FAIR4ML} --- the metadata schema developed by the RDA FAIR for
+Machine Learning Interest Group (schema v0.1.0, 2024) --- extends FAIR
+to machine-learning \emph{models} and \emph{model evaluations}, building
+on Schema.org and CodeMeta and now adopted in production by services
+including InesData and MLentory~\citep{rda2024fair4ml}. Neither of
+these directly addresses what AI-mediated \emph{research processes}
+produce: exportable conversation transcripts, versioned prompts,
+tool-and-model version manifests, verification-status ladders,
+structured redaction policies for credentials and personal data.
+
+We propose, as a target for community refinement rather than as a
+finished standard, that the eight integrated practices in~\cref{sec:pandora}
+be developed into a \textbf{FAIR for AI-Assisted Research} extension
+(working name: \emph{FAIR4AI}). A first-cut mapping is:
+\textbf{Findability} --- persistent, citable identifiers for AI
+conversation sessions, alongside the existing data and software
+identifiers (DOIs, Software Heritage IDs); \textbf{Accessibility} --- a
+standardised redaction policy under which credentials, personal data,
+device serial numbers, and other rule-12 categories can be removed from
+public-facing artefacts without breaking the audit trail (cf.\
+\texttt{docs/redaction-policy.md}); \textbf{Interoperability} --- a
+transcript-export format, prompt-version manifest, and
+verification-status legend that travel with the manuscript across
+publishing platforms rather than being trapped in a single vendor's chat
+UI; \textbf{Reusability} --- exportable transcripts plus versioned
+prompts plus declared tool and model versions, sufficient for an
+independent reader to reconstruct \emph{which decision was made under
+which AI assistance under which discipline}. The repository
+accompanying this paper already practises de-facto versions of every
+element on that list (\texttt{CLAUDE.md} rules~4 and~14; the
+verification-status ladder in \texttt{docs/sources.md}; the redaction
+policy in \texttt{docs/redaction-policy.md}). Naming what we are
+already doing, and inviting the community to refine, replace, or reject
+the candidate, is itself the call-to-action: norms generated by the
+practitioners who use the tools, recorded openly, and surrendered to
+peer scrutiny before they harden into convention. As of 2026-05-04 we
+have not located an existing community working group convened under
+this name (\texttt{docs/sources.md} L-FAIR-3, status
+\texttt{[needs-research]}); if one is formed, or already exists under
+an adjacent name, the proposal here defers to it.
+
 \subsection{Future work}
 \label{sec:future-work}
 \begin{itemize}
@@ -2786,7 +2949,12 @@ unrelated to consumer-IoT reverse engineering. Any opinions expressed
 are the author's own. The repository's \texttt{CITATION.cff},
 \texttt{.zenodo.json}, \texttt{codemeta.json}, and \texttt{docs/fair.md}
 all carry the affiliation \textbf{``Independent researcher (personal
-capacity)''} in line with this statement.
+capacity)''} in line with this statement. To preempt confusion: the
+author's DLR e-mail address (\texttt{florian.krebs@dlr.de}), where it
+appears in DLR-ELIB metadata or in any contact channel that the reader
+may reach for clarification, is a \emph{contact channel}, not an
+\emph{institutional endorsement} --- the personal-capacity framing in
+this section governs.
 
 % =========================================================================
 \section{The Pandora moment: this paper as a novel mode of transparent AI-assisted research}
