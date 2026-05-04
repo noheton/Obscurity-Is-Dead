@@ -1011,20 +1011,19 @@ documented in-tree, not inferred.
         resolved before public release.
 \end{itemize}
 
-A subsequent upstream development surface --- the OCPP
-backend-binding work landed on \texttt{noheton/powerocean-dev}
-between 2026-05-01 and 2026-05-03 ($\sim$+440\,LOC across
-\texttt{api.py}, \texttt{\_\_init\_\_.py}, \texttt{services.yaml}, and
-\texttt{const.py}; new endpoints
+A subsequent upstream development surface illustrates a concrete
+\emph{catalog-vs-runtime} asymmetry inside the same legacy
+bearer-token API plane. The OCPP backend-binding work landed on
+\texttt{noheton/powerocean-dev} between 2026-05-01 and 2026-05-03
+($\sim$+440\,LOC across \texttt{api.py}, \texttt{\_\_init\_\_.py},
+\texttt{services.yaml}, and \texttt{const.py}; new endpoints
 \fp{GET /provider-service/app/ocppPlatformConfig/list} and
-\fp{POST /provider-service/app/ocppPlatformConfig}) --- illustrates a
-concrete \emph{catalog-vs-runtime} asymmetry inside the same legacy
-bearer-token API plane: the integration can now write the
-EcoFlow-side OCPP catalog, but the upstream \texttt{README.md} notes
-a runtime-handover gap, namely a \texttt{vendorInfoSet} proto write
-that is \emph{not yet shipped} and that the charger requires before
-it will redirect to the third-party host at
-runtime~\citep{noheton2026powerocean5c8b815}. Catalog-level
+\fp{POST /provider-service/app/ocppPlatformConfig}), so the
+integration can now write the EcoFlow-side OCPP catalog. The
+upstream \texttt{README.md}, however, notes a runtime-handover gap:
+a \texttt{vendorInfoSet} proto write is \emph{not yet shipped}, and
+the charger requires it before it will redirect to the third-party
+host at runtime~\citep{noheton2026powerocean5c8b815}. Catalog-level
 interoperability is therefore reachable while runtime-level
 interoperability is not --- a useful empirical data point for the
 synthesis on the maturity of effort-gap compression
@@ -1257,20 +1256,20 @@ two case studies (\fp{README.md}, \fp{REPORT.md},
         \texttt{docs/redaction-policy.md} R-SF-1..R-SF-2, and the raw
         values were excised from git history on 2026-05-04 by a
         \texttt{git filter-repo --replace-text} pass against the
-        catalogue in \texttt{docs/git-history-rewrite-plan.md}; the
-        rewrite tip carries the annotated tag
-        \texttt{pre-publication-clean}. The vendored binary archives in
-        \texttt{experiments/spider-farmer/original/doc/} retain the
-        strings inside their packed entries because
-        \texttt{--replace-text} does not descend into binary blobs,
-        treated under policy as a public-mirror cut-over decision
-        (drop the archives or ship them with a caveat) rather than a
-        residual leak --- and the upstream
-        \texttt{noheton/spider\_farmer} and
-        \texttt{noheton/powerocean-dev} repositories cloned into
-        \texttt{experiments/*/original/} still hold their pre-redaction
-        history, each requiring its own equivalent pass against the
-        same catalogue before public release.
+        catalogue in \texttt{docs/git-history-rewrite-plan.md} (rewrite
+        tip tagged \texttt{pre-publication-clean}). Two residual
+        surfaces remain governed by policy rather than by the rewrite:
+        the vendored binary archives in
+        \texttt{experiments/spider-farmer/original/doc/} still carry
+        the strings inside their packed entries because
+        \texttt{--replace-text} does not descend into binary blobs (a
+        public-mirror cut-over decides whether to drop the archives or
+        ship them with a caveat), and the upstream
+        \seqsplit{\texttt{noheton/spider\_farmer}} and
+        \seqsplit{\texttt{noheton/powerocean-dev}} repositories cloned
+        into \texttt{experiments/*/original/} each require their own
+        equivalent pass against the same catalogue before public
+        release.
   \item \textbf{Prompt injection from imported artifacts.} Vendor APK
         strings, PDF contents, and community-thread excerpts under
         \texttt{experiments/*/original/} are read by the AI agent. The
@@ -2735,19 +2734,21 @@ an adjacent name, the proposal here defers to it.
         reverse-engineering case studies for a longitudinal comparison.
   \item Develop a responsible-disclosure framework specific to AI-assisted
         reverse engineering.
-  \item Replace \texttt{[unverified-external]} legal sources with sourced
-        commentary; address \texttt{[needs-research]} items in
+  \item Replace \seqsplit{\texttt{[unverified-external]}} legal
+        sources with sourced commentary; address
+        \seqsplit{\texttt{[needs-research]}} items in
         \texttt{docs/sources.md}.
-  \item Recover upstream \texttt{noheton/spider\_farmer}
+  \item Recover upstream \seqsplit{\texttt{noheton/spider\_farmer}}
         commit-history metadata (date, SHA, PR/issue references) for
         the \texttt{VERSION 2\,$\to$\,3} migration. The technical
         content of the migration has been reconstructed from the
         embedded \texttt{original/\_\_init\_\_.py} (see \S3.4); only
         the dated commit-history narrative remains outstanding.
-  \item Read in full the \texttt{[lit-retrieved]} literature in
-        \texttt{docs/sources.md} clusters A--J and upgrade entries to
-        \texttt{[lit-read]} before any of them is cited as authority
-        rather than as a database pointer.
+  \item Read in full the \seqsplit{\texttt{[lit-retrieved]}}
+        literature in \texttt{docs/sources.md} clusters A--J and
+        upgrade entries to \seqsplit{\texttt{[lit-read]}} before any
+        of them is cited as authority rather than as a database
+        pointer.
 \end{itemize}
 
 % =========================================================================
@@ -3025,23 +3026,27 @@ of AI-assisted research:
         of the LLM era. Readers can audit which arguments came from
         which prompt.
   \item \textbf{A verification-status legend for every cited source.}
-        The labels \texttt{[repo-vendored]},
-        \texttt{[repo-referenced]}, \texttt{[unverified-external]},
-        \texttt{[lit-retrieved]}, \texttt{[lit-read]}, and
-        \texttt{[needs-research]} make the read-state of every
-        citation explicit. The discipline is mundane --- never upgrade
-        an entry without reading the full text --- and the mundanity
-        is the point.
+        The labels \seqsplit{\texttt{[repo-vendored]}},
+        \seqsplit{\texttt{[repo-referenced]}},
+        \seqsplit{\texttt{[unverified-external]}},
+        \seqsplit{\texttt{[lit-retrieved]}},
+        \seqsplit{\texttt{[lit-read]}}, and
+        \seqsplit{\texttt{[needs-research]}} make the read-state of
+        every citation explicit. The discipline is mundane --- never
+        upgrade an entry without reading the full text --- and the
+        mundanity is the point.
   \item \textbf{Provenance maps tying every technical claim to
         commit-pinned evidence.}
         \texttt{experiments/*/provenance.md} maps each transcript
         decision to specific files and line numbers in the embedded
         vendor code (commit \texttt{ffdf60c}).
   \item \textbf{Mirror discipline between prose and submission source.}
-        \texttt{paper/main.md} and \texttt{paper/main.tex} are kept
-        consistent at every commit (rule 11 in
-        \texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}); CI rebuilds the PDF on
-        every paper-touching commit and surfaces regressions.
+        The Markdown source \seqsplit{\texttt{paper/main.md}} and the
+        \LaTeX{} mirror \seqsplit{\texttt{paper/main.tex}} are kept
+        consistent at every commit under rule~11 of
+        \seqsplit{\texttt{CLAUDE\_CODE\_INSTRUCTIONS.md}}; CI rebuilds
+        the PDF on every paper-touching commit and surfaces
+        regressions.
   \item \textbf{A recursive case study of the paper itself
         (\cref{sec:case-meta}).} The paper-generation pipeline is
         treated as a third reverse-engineering case --- same threat
@@ -3061,10 +3066,11 @@ of AI-assisted research:
         not and cannot be a co-author, and what that means for the
         CC-BY-4.0 grant.
   \item \textbf{FAIR alignment as a precondition, not an afterthought.}
-        \texttt{CITATION.cff}, \texttt{.zenodo.json},
-        \texttt{codemeta.json}, and \texttt{docs/fair.md} map every
-        FAIR principle to the concrete repository feature that
-        satisfies it.
+        \seqsplit{\texttt{CITATION.cff}},
+        \seqsplit{\texttt{.zenodo.json}},
+        \seqsplit{\texttt{codemeta.json}}, and
+        \seqsplit{\texttt{docs/fair.md}} map every FAIR principle to
+        the concrete repository feature that satisfies it.
 \end{enumerate}
 
 A \emph{ninth} practice has come into focus during this paper's own
