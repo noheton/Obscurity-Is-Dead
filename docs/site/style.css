@@ -60,7 +60,7 @@ body.graph-layout #search, body.graph-layout #layout { width: 100%; padding: 5px
 body.graph-layout #fit { margin-top: 8px; padding: 5px 10px; border: 1px solid #d0d7de; background: #f6f8fa; border-radius: 6px; cursor: pointer; font-size: 12px; }
 body.graph-layout #fit:hover { background: #eaeef2; }
 body.graph-layout .muted { color: #57606a; font-size: 11px; }
-body.graph-layout #cy { grid-area: graph; background: #fff; }
+body.graph-layout #cy { grid-area: graph; background: #fff; position: relative; min-height: 0; min-width: 0; overflow: hidden; }
 body.graph-layout #inspector { grid-area: inspector; padding: 14px; overflow: auto; border-left: 1px solid #d0d7de; background: #fff; font-size: 12px; }
 body.graph-layout #inspector h2 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #57606a; margin: 0 0 8px; }
 body.graph-layout #inspector h3 { margin: 0 0 4px; font-size: 14px; }
