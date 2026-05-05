@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Methodology — Obscurity Is Dead</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Methodology for AI-assisted reverse engineering: four-stage research pipeline; verification-status ladder with PRISMA 2020 / GRADE crosswalk; ten-stage agent pipeline; redaction discipline. Hand-authored by the Site Agent (stage 8).">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="landing">
+
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="site-nav-inner">
+    <a class="site-nav-brand" href="index.html">
+      <span class="mark">OiD</span>
+      <span>Obscurity Is Dead</span>
+    </a>
+    <div class="site-nav-links">
+      <a href="index.html">Home</a>
+      <a href="paper.html">Paper in 20 min</a>
+      <a href="methodology.html" class="active">Methodology</a>
+      <a href="governance.html">Governance</a>
+      <a href="graph.html">PROV-O graph</a>
+      <span class="site-nav-ext">
+        <a href="https://github.com/noheton/Obscurity-Is-Dead" rel="noopener">GitHub ↗</a>
+      </span>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header" role="banner">
+  <div class="page-header-inner">
+    <h1>Methodology</h1>
+    <p>The four-stage research pipeline, the verification-status ladder with its PRISMA 2020 / GRADE crosswalk (added 2026-05-05), the ten-stage agent pipeline that produces the paper, and the redaction discipline that runs alongside everything else.</p>
+  </div>
+</header>
+
+<main class="site-main">
+
+  <h2>The four-stage research method</h2>
+  <figure class="hero-figure">
+    <img src="figures/fig5-methodology.svg" alt="Four-stage methodology pipeline: Acquire, Analyse, Audit, Validate.">
+    <figcaption><strong>Acquire → Analyse → Audit → Validate</strong>, with an explicit feedback loop from validation back into analysis. <em>Source: <code>paper/figures/fig5-methodology.svg</code>.</em></figcaption>
+  </figure>
+  <ol>
+    <li><strong>Acquire.</strong> Vendor APKs / firmware / community implementations are acquired and embedded under <code>experiments/&lt;case&gt;/original/</code> at a pinned commit (e.g. <code>ffdf60c</code>). The pin is recorded in <code>experiments/&lt;case&gt;/provenance.md</code>.</li>
+    <li><strong>Analyse.</strong> AI-assisted analysis produces a protocol map, surface enumeration, or weakness table. Every conversation is preserved verbatim under <code>experiments/&lt;case&gt;/raw_conversations*/</code> (Practice 1).</li>
+    <li><strong>Audit.</strong> Every claim from the analysis pass is audited against the embedded code at the pinned commit. The pinned commit is the ground truth; the AI's output is a <em>claim to be checked</em>, not authority.</li>
+    <li><strong>Validate.</strong> A smoke test re-runs against the live device (or, in the meta-process case, against the rebuilt PDF + the rule-12 mirror parity check). A feedback loop from validation back into analysis is treated as a first-class transition rather than as an exception path — tooling drift means an identical prompt at a later date will not produce identical output, and the workflow, not the model's tokens, is the reproducible unit.</li>
+  </ol>
+  <p class="source-pointer">Source: <code>paper/main.md</code> §2 / <code>paper/main-condensed.md</code> §3; <code>docs/methodology.md</code>.</p>
+
+  <h2 id="ladder-crosswalk">Verification-status ladder ↔ PRISMA 2020 / GRADE crosswalk</h2>
+  <p>Every cited source carries exactly one ladder rung. A paper claim may invoke a source at its current rung or below; load-bearing or contested claims still require <code>[lit-read]</code>. As of 2026-05-05 the project ladder is explicitly aligned with two community vocabularies along two distinct axes:</p>
+  <ul>
+    <li><strong>Retrieval-depth axis</strong> ↔ <strong>PRISMA 2020</strong> flow phases (Identification → Screening → Eligibility / Included). Resolves <em>which stage of the systematic-review funnel</em> the entry has reached.</li>
+    <li><strong>Invocation-strength axis</strong> ↔ <strong>GRADE</strong> <em>certainty of evidence</em> (High / Moderate / Low / Very Low). Resolves <em>how strongly</em> a paper claim may invoke the entry once cited.</li>
+  </ul>
+
+  <div class="ladder" role="table" aria-label="Verification-status ladder crosswalk">
+    <div class="head">Project rung</div>
+    <div class="head">PRISMA 2020 phase</div>
+    <div class="head">GRADE floor</div>
+    <div class="head">Project meaning</div>
+
+    <div class="rung r1"><code>[unverified-external]</code></div>
+    <div class="prisma">Pre-funnel</div>
+    <div class="grade">Below Very Low — citation not permitted</div>
+    <div class="meaning">Chat-transcript URL or formal citation, unaudited.</div>
+
+    <div class="rung r2"><code>[needs-research]</code></div>
+    <div class="prisma">Pre-funnel</div>
+    <div class="grade">Below Very Low — citation not permitted</div>
+    <div class="meaning">Open question; a literature search is owed.</div>
+
+    <div class="rung r3"><code>[lit-retrieved]</code></div>
+    <div class="prisma">Identification</div>
+    <div class="grade">Below Very Low — citation not permitted at this rung</div>
+    <div class="meaning">Database hit; metadata captured; full text not yet read.</div>
+
+    <div class="rung r4"><code>[ai-confirmed]</code></div>
+    <div class="prisma">Screening (AI agent reads abstract / open-access body)</div>
+    <div class="grade">Low to Moderate — non-load-bearing inline citation permitted</div>
+    <div class="meaning">Source Analyzer agent has retrieved and read the source; entry summary checks out within rounding.</div>
+
+    <div class="rung r5"><code>[lit-read]</code></div>
+    <div class="prisma">Included for citation</div>
+    <div class="grade">Moderate to High — load-bearing or contested claims permitted</div>
+    <div class="meaning">Human author has read the full text and confirmed the claim-to-source binding.</div>
+  </div>
+
+  <p>Two notes that matter for downstream readers:</p>
+  <ol>
+    <li><strong>GRADE certainty rates the underlying evidence, not the retrieval procedure.</strong> A <code>[lit-read]</code> entry that reports a small observational study still rates Low under GRADE. The mapping above is the <em>floor</em> a rung permits, not the <em>ceiling</em>; the writer's invocation-floor judgement still gates load-bearing claims on a human read regardless of GRADE.</li>
+    <li><strong>The two AI-assisted rungs collapse PRISMA's Eligibility and Inclusion phases.</strong> Under our process, eligibility and inclusion-for-citation are decided by the same act (the agent or the human reads the source and decides whether to invoke it). A future review-style adoption of this ladder would split the two phases back out.</li>
+  </ol>
+
+  <p class="source-pointer">Crosswalk: <code>docs/fair.md</code> §F(AI)²R / <em>Verification-status ladder ↔ existing evidence-grading vocabularies</em>; legend mirrored in <code>docs/sources.md</code>; primary references logged at <code>L-FAIR-4</code> (PRISMA 2020) and <code>L-FAIR-5</code> (GRADE).</p>
+
+  <h2>The redaction discipline</h2>
+  <p>A redaction discipline runs alongside the ladder and is treated as a precondition rather than as an afterthought. Several maintainer handles, repository paths, device serial numbers, and credentials are redacted as <code>[REDACTED:&lt;type&gt;:&lt;id&gt;]</code> markers in every researcher-authored file; the full register, the audit trail, and the git-history-rewrite plan that purges raw values from prior commits all live in <code>docs/redaction-policy.md</code>, <code>docs/redaction-audit-2026-05-03.md</code>, and <code>docs/git-history-rewrite-plan.md</code>. Two upstream repositories cloned into <code>experiments/*/original/</code> at acquisition still hold their pre-redaction history and require their own equivalent passes against the same catalogue before any public-mirror cut-over.</p>
+  <p class="source-pointer">Source: <code>docs/redaction-policy.md</code>; <code>paper/main.md</code> §5.6; rule 13 in <code>CLAUDE.md</code>.</p>
+
+  <h2>The agent pipeline (stages 0–8)</h2>
+  <p>The repository runs a ten-stage agent pipeline coordinated by an orchestrator. Executable prompts live under <code>docs/prompts/</code>. The orchestrator is the only agent permitted to launch other agents; every other agent runs in response to an orchestrator decision or an explicit human request.</p>
+  <div class="stages-list">
+    <div class="stage-row"><span class="stage-num">0.</span><div><h4>Orchestrator</h4><p>Inspects state and dispatches the next stage. Records every decision in <code>docs/handbacks/orchestrator-dispatch.md</code> and <code>docs/logbook.md</code>. <em>Prompt: <code>orchestrator-prompt.md</code>.</em></p></div></div>
+    <div class="stage-row"><span class="stage-num">1.</span><div><h4>Research protocol</h4><p>New case study or evidence pass. Edits <code>docs/sources.md</code>, per-case <code>provenance.md</code>, <code>RESEARCH-PROTOCOL.md</code>. <em>Prompt: <code>research-protocol-prompt.md</code>.</em></p></div></div>
+    <div class="stage-row"><span class="stage-num">1.5.</span><div><h4>Source analyzer</h4><p>Upgrades <code>[lit-retrieved]</code> entries to <code>[ai-confirmed]</code> by retrieving and reading the source; flags edge cases. <em>Prompt: <code>source-analyzer-prompt.md</code>.</em></p></div></div>
+    <div class="stage-row"><span class="stage-num">2.</span><div><h4>Scientific writer</h4><p>Owns <code>paper/main.{md,tex}</code>, <code>paper/main-condensed.{md,tex}</code>, and <code>paper/references.bib</code>. Maintains rule-12 mirror discipline and rule-17 condensed-paper self-containment. <em>Prompt: <code>scientific-writer-prompt.md</code>.</em></p></div></div>
+    <div class="stage-row"><span class="stage-num">3.</span><div><h4>Illustration</h4><p>Owns <code>paper/figures/*.{py,svg,pdf}</code>. Pulls from <code>[ai-confirmed]</code> and <code>[lit-read]</code> data when generating data-driven figures. <em>Prompt: <code>illustration-prompt.md</code>.</em></p></div></div>
+    <div class="stage-row"><span class="stage-num">4.</span><div><h4>Layout scrutinizer</h4><p>Audits both PDFs against typographic / layout discipline; routes <code>LAY-*</code> and <code>COND-LAY-*</code> defects back to writer / illustrator. <em>Prompt: <code>layout-scrutinizer-prompt.md</code>.</em></p></div></div>
+    <div class="stage-row"><span class="stage-num">5.</span><div><h4>Readability &amp; novelty scrutinizer</h4><p>Audits both Markdown sources for readability + novelty; routes <code>RDB-*</code> and <code>COND-RDB-*</code> defects. <em>Prompt: <code>readability-novelty-prompt.md</code>.</em></p></div></div>
+    <div class="stage-row"><span class="stage-num">6.</span><div><h4>Aligner</h4><p>End-to-end traceability audit (rule 18 + rule 19): paper ↔ sources ↔ figures ↔ README ↔ site. Routes <code>ALN-*</code> defects. <em>Prompt: <code>aligner-prompt.md</code>.</em></p></div></div>
+    <div class="stage-row"><span class="stage-num">7.</span><div><h4>Modeler</h4><p>Renders the traceability spine as a W3C PROV-O graph at <code>docs/provenance.ttl</code>. The browser-viewable rendering at <a href="graph.html">graph.html</a> is generated by <code>scripts/build_provenance_site.py</code>. <em>Prompt: <code>modeler-prompt.md</code>.</em></p></div></div>
+    <div class="stage-row"><span class="stage-num">8.</span><div><h4>Site Agent</h4><p>Owns <code>docs/site/</code> — the deployed GitHub Pages surface (this site). Hand-authors <code>index.html</code>, <code>paper.html</code>, <code>methodology.html</code>, <code>governance.html</code> from canonical paper / README / sources / fair sources. Refuses to render without explicit publication consent (rule 14). <em>Prompt: <code>site-agent-prompt.md</code> — introduced 2026-05-05.</em></p></div></div>
+  </div>
+  <p class="source-pointer">Source: <code>CLAUDE.md</code> §<em>Agent workflow</em>; <code>docs/human-ai-collaboration-process.md</code>; the prompts under <code>docs/prompts/</code>.</p>
+
+  <h2>How the eight integrated practices map to failure modes</h2>
+  <figure class="hero-figure">
+    <img src="figures/fig11-eight-practices.svg" alt="Eight integrated practices × three failure-mode axes (sloppification, model collapse, dual-use).">
+    <figcaption>Each failure-mode axis is principally addressed by at least one practice and secondarily reinforced by at least one other. The methodological novelty is the <em>integration</em>, not any individual practice.</figcaption>
+  </figure>
+  <ul>
+    <li><strong>Sloppification</strong> (proximate corruption of the scientific record by undisclosed AI-assisted output) — addressed by Practice 2 (verification-status labelling), Practice 1 (transcript preservation), Practice 6 (base-rate-anchored AI disclosure).</li>
+    <li><strong>Model collapse</strong> (longer-horizon dilution of the corpus on which future foundation models train) — addressed by Practice 3 (provenance maps), Practice 4 (mirror discipline), Practice 8 (FAIR alignment / F(AI)²R).</li>
+    <li><strong>Dual use</strong> (the asymmetry between integrator and adversary use of the same artifacts) — addressed by Practice 5 (recursive meta-process case study), the redaction discipline (precondition, not a numbered practice), and Practice 7 (legal honesty about authorship).</li>
+  </ul>
+  <p class="source-pointer">Source: <code>paper/main.md</code> §10; <code>docs/human-ai-collaboration-process.md</code>.</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>
+      <h4>Read</h4>
+      <ul>
+        <li><a href="index.html">Site home</a></li>
+        <li><a href="paper.html">Paper in 20 minutes</a></li>
+        <li><a href="governance.html">Governance &amp; consent</a></li>
+        <li><a href="graph.html">PROV-O provenance graph</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Methodology canonical sources</h4>
+      <ul>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/sources.md" rel="noopener">Source register + ladder legend</a></li>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/fair.md" rel="noopener">FAIR / F(AI)²R + crosswalk</a></li>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/human-ai-collaboration-process.md" rel="noopener">Human-AI collaboration process</a></li>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/tree/main/docs/prompts" rel="noopener">Agent prompts</a></li>
+      </ul>
+    </div>
+    <div class="commit-pin">
+      <span>Site Agent (stage 8) — methodology page rendered from <code>docs/sources.md</code>, <code>docs/fair.md</code>, <code>docs/human-ai-collaboration-process.md</code>, <code>CLAUDE.md</code>.</span>
+      <span>PRISMA 2020 / GRADE crosswalk added 2026-05-05; resolves the I-AI-2 open issue in <code>docs/fair.md</code>.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

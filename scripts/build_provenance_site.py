@@ -4,11 +4,18 @@
 Loads the PROV-O Turtle graph, projects it to Cytoscape.js elements,
 and writes:
 
-    docs/site/index.html   - viewer (Cytoscape.js via CDN; offline-capable
-                             once the CDN bundle is cached by the browser)
+    docs/site/graph.html   - viewer (Cytoscape.js via CDN; offline-capable
+                             once the CDN bundle is cached by the browser).
+                             Renamed from `index.html` on 2026-05-05 so the
+                             hand-authored landing page (Site Agent, stage
+                             8) can occupy `index.html`.
     docs/site/graph.json   - the elements (nodes + edges) the viewer reads
-    docs/site/style.css    - minimal layout + filter-chip styles
-    docs/site/README.md    - rule-14 / rule-13 note
+    docs/site/style.css    - minimal layout + filter-chip styles (shared
+                             with the Site Agent's hand-authored pages)
+
+This script no longer overwrites `docs/site/index.html` or
+`docs/site/README.md`; those are owned by the Site Agent (stage 8,
+`docs/prompts/site-agent-prompt.md`).
 
 The viewer supports:
     - class filter (Claim / Source / Activity / Agent / Figure / Build / Commit)
@@ -244,7 +251,7 @@ def write_html(elements: dict, source_sha: str) -> None:
 <script src="https://unpkg.com/cytoscape@3.30.4/dist/cytoscape.min.js"></script>
 <script src="https://unpkg.com/cytoscape-cose-bilkent@4.1.0/cytoscape-cose-bilkent.js"></script>
 </head>
-<body>
+<body class="graph-layout">
 <header>
   <div class="title">
     <h1>Obscurity Is Dead — Provenance Graph</h1>
@@ -290,10 +297,12 @@ def write_html(elements: dict, source_sha: str) -> None:
 
 <footer>
   <span><a href="../provenance.ttl">Source: <code>docs/provenance.ttl</code></a></span>
+  <span><a href="index.html">← Site home</a></span>
+  <span><a href="paper.html">Paper in 20 minutes</a></span>
+  <span><a href="methodology.html">Methodology</a></span>
+  <span><a href="governance.html">Governance</a></span>
   <span><a href="../prompts/modeler-prompt.md">Modeler agent (stage 7)</a></span>
   <span><a href="../handbacks/modeler-report.md">Last run report</a></span>
-  <span><a href="../../paper/main.md">Long-form paper</a></span>
-  <span><a href="../../CLAUDE.md">CLAUDE.md (rules &amp; agent workflow)</a></span>
 </footer>
 
 <script>
@@ -427,7 +436,7 @@ function escapeHtml(s) {{
 </body>
 </html>
 """
-    (SITE_DIR / "index.html").write_text(html)
+    (SITE_DIR / "graph.html").write_text(html)
 
 
 CSS = """\
@@ -536,9 +545,16 @@ def main() -> int:
     sha = subprocess.run(["git", "rev-parse", "--short", "HEAD"],
                          capture_output=True, text=True, cwd=REPO_ROOT).stdout.strip() or "(no git)"
     write_html(elements, sha)
-    (SITE_DIR / "style.css").write_text(CSS)
-    (SITE_DIR / "README.md").write_text(SITE_README)
-    print(f"OK: wrote {SITE_DIR}/index.html "
+    # style.css is shared with the hand-authored landing pages owned by the
+    # Site Agent (stage 8); it is written from this script's CSS constant
+    # only when the file does not already exist on disk, so a Site-Agent
+    # extension to the stylesheet is not silently reverted on a graph rebuild.
+    css_path = SITE_DIR / "style.css"
+    if not css_path.exists():
+        css_path.write_text(CSS)
+    # `index.html` and `README.md` are owned by the Site Agent (stage 8).
+    # This script no longer touches them.
+    print(f"OK: wrote {SITE_DIR}/graph.html "
           f"({len(elements['nodes'])} nodes, {len(elements['edges'])} edges)")
     return 0
 

@@ -1,13 +1,14 @@
 # Orchestrator Agent Prompt
 
 > **Status:** `executable` — introduced 2026-05-02 to coordinate the
-> seven-stage Obscurity-Is-Dead agent pipeline. The orchestrator does
-> not produce paper content directly; it inspects repository state,
-> reads scrutinizer registries and hand-back files, decides which stage
-> should run next, dispatches the relevant agent, and updates the
-> logbook with the routing decision. It is the only agent permitted to
-> launch other agents; every other agent runs in response to an
-> orchestrator decision or an explicit human request.
+> Obscurity-Is-Dead agent pipeline; extended 2026-05-04 with stage 7
+> (Modeler) and 2026-05-05 with stage 8 (Site Agent). The orchestrator
+> does not produce paper content directly; it inspects repository
+> state, reads scrutinizer registries and hand-back files, decides
+> which stage should run next, dispatches the relevant agent, and
+> updates the logbook with the routing decision. It is the only agent
+> permitted to launch other agents; every other agent runs in response
+> to an orchestrator decision or an explicit human request.
 
 ## Purpose
 
@@ -118,7 +119,9 @@ order and dispatching the first that fires.
 | 6 | `paper/main.pdf` is missing or older than `paper/main.tex`, OR `paper/main-condensed.pdf` is missing or older than `paper/main-condensed.tex`. | `make -C paper all` (builds both artifacts; no agent — direct shell). |
 | 7 | The most recent layout registries (`layout-defect-registry.md` or `condensed-layout-defect-registry.md`) have `RE-SCRUTINY REQUIRED: yes` and the corresponding PDF is newer than the registry. | Stage 4 (Layout Scrutinizer — covers both artifacts in one run). |
 | 8 | The most recent readability registries (`readability-defect-registry.md` or `condensed-readability-defect-registry.md`) have `RE-SCRUTINY REQUIRED: yes` and the corresponding `.md` source is newer than the registry. | Stage 5 (Readability & Novelty Scrutinizer — covers both artifacts in one run). |
-| 9 | All four scrutinizer verdicts report `no` (`RE-SCRUTINY REQUIRED (long-form): no` from stages 4 and 5, and `RE-SCRUTINY REQUIRED (condensed): no` from stages 4 and 5) AND no open writer/illustrator hand-backs remain. | **PIPELINE QUIESCENT** — escalate to the human author for the next directive (publication-track decision, new case study, or repository hygiene). |
+| 9 | All four scrutinizer verdicts report `no` (`RE-SCRUTINY REQUIRED (long-form): no` from stages 4 and 5, and `RE-SCRUTINY REQUIRED (condensed): no` from stages 4 and 5) AND `docs/handbacks/modeler-report.md` reports `RE-MODELLING REQUIRED: no` AND `docs/handbacks/site-*` (if present) report `RE-SITE REQUIRED: no` AND no open writer/illustrator hand-backs remain. | **PIPELINE QUIESCENT** — escalate to the human author for the next directive (publication-track decision, new case study, or repository hygiene). |
+| 10 | `paper/main.md`, `paper/main-condensed.md`, `README.md`, `docs/sources.md`, or `docs/fair.md` is newer than the most recent `docs/site/*.html` file AND `docs/publication-consent.md` records explicit publication consent for the current commit. | Stage 8 (Site Agent — re-renders `docs/site/`). |
+| 11 | `docs/provenance.ttl` is newer than `docs/site/graph.html` AND `docs/publication-consent.md` records explicit consent. | Stage 8 (Site Agent — invokes `scripts/build_provenance_site.py` to refresh the graph viewer). |
 
 ### GitHub-issue dispatch table
 

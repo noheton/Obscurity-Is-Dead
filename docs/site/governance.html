@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Governance — Obscurity Is Dead</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Governance of the Obscurity-Is-Dead project: rule-14 publication consent, FAIR / F(AI)²R alignment, redaction policy summary, public-mirror readiness status, contribution / issue-routing flow, license. Hand-authored by the Site Agent (stage 8).">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="landing">
+
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="site-nav-inner">
+    <a class="site-nav-brand" href="index.html">
+      <span class="mark">OiD</span>
+      <span>Obscurity Is Dead</span>
+    </a>
+    <div class="site-nav-links">
+      <a href="index.html">Home</a>
+      <a href="paper.html">Paper in 20 min</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="governance.html" class="active">Governance</a>
+      <a href="graph.html">PROV-O graph</a>
+      <span class="site-nav-ext">
+        <a href="https://github.com/noheton/Obscurity-Is-Dead" rel="noopener">GitHub ↗</a>
+      </span>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header" role="banner">
+  <div class="page-header-inner">
+    <h1>Governance</h1>
+    <p>Publication consent (rule 14), FAIR / F(AI)²R alignment, redaction discipline (rule 13), public-mirror readiness, contribution / issue-routing flow, and license. Every governance decision in this project is recorded in a versioned file under <code>docs/</code>; this page is the human-readable index.</p>
+  </div>
+</header>
+
+<main class="site-main">
+
+  <h2>Publication consent (rule 14)</h2>
+  <div class="callout consent">
+    <strong>Consent recorded 2026-05-05.</strong> The human author (Florian Krebs) has given explicit written consent for publication of <code>docs/site/</code> — the multi-section landing site (this page and its siblings) plus the PROV-O graph viewer at <a href="graph.html">graph.html</a> — to <strong>GitHub Pages</strong>. Consent is scoped narrowly: it covers the Pages surface only, not Zenodo, not arXiv, not <code>noheton/spider_farmer</code> / <code>noheton/powerocean-dev</code> upstream redaction passes, and not the <code>arxiv-submission.tar.gz</code> tarball. Full text and scope at <a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/publication-consent.md" rel="noopener"><code>docs/publication-consent.md</code></a>.
+  </div>
+  <p>Rule 14 (<code>CLAUDE.md</code>) prohibits any public-facing publication, deposit, or submission without explicit written consent from the human author. The build pipeline (<code>make pdf</code>, <code>make all</code>, <code>make arxiv</code>) produces local artifacts only; the Site Agent (stage 8) renders <code>docs/site/</code> on every pass; <em>deployment</em> happens only via <code>.github/workflows/pages.yml</code> on a push that the consent file covers.</p>
+  <p class="source-pointer">Source: <code>CLAUDE.md</code> rule 14; <code>docs/publication-consent.md</code>; <code>.github/workflows/pages.yml</code>.</p>
+
+  <h2>FAIR &amp; F(AI)²R</h2>
+  <p>The repository aims to satisfy the FAIR Guiding Principles (Wilkinson et al., 2016) for both the paper and its supporting research artifacts. The canonical mapping between F1–F4 / A1–A2 / I1–I3 / R1.1–R1.3 and the concrete repository features that satisfy them lives at <a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/fair.md" rel="noopener"><code>docs/fair.md</code></a>.</p>
+  <p>On top of that, <strong>F(AI)²R</strong> — the proposed FAIR for AI-Assisted Research extension introduced 2026-05-04 (under the working name <em>FAIR4AI</em>) and renamed 2026-05-05 — extends FAIR to the new artifact classes that LLM-assisted scientific work produces: exportable conversation transcripts, versioned prompts, tool-and-model version manifests, verification-status ladders, structured redaction policies, per-claim provenance maps. The full per-axis cells, the eight-practices ↔ F(AI)²R mapping, the PRISMA 2020 / GRADE ladder crosswalk, and the open issues live in the same file.</p>
+
+  <blockquote><strong>Naming note.</strong> The 2026-05-04 working name <em>FAIR4AI</em> is preserved in <code>docs/sources.md</code> L-FAIR-3 and in the logbook for historical traceability (rule 1). The current name <strong>F(AI)²R</strong> folds <em>(AI)</em> into the canonical FAIR axes rather than appending an external <em>4AI</em> suffix on the grounds that the AI-assisted dimension is what the extension transforms in <em>every</em> axis (<em>4AI heißt alles</em>).</blockquote>
+
+  <p>Repository-level FAIR badges:</p>
+  <p>
+    <span class="badge" style="background:#dafbe1;border:1px solid #2da44e;color:#1a7f37;padding:4px 10px;border-radius:999px;font-size:12px;display:inline-block;margin-right:6px;">F — Findable</span>
+    <span class="badge" style="background:#dafbe1;border:1px solid #2da44e;color:#1a7f37;padding:4px 10px;border-radius:999px;font-size:12px;display:inline-block;margin-right:6px;">A — Accessible</span>
+    <span class="badge" style="background:#dafbe1;border:1px solid #2da44e;color:#1a7f37;padding:4px 10px;border-radius:999px;font-size:12px;display:inline-block;margin-right:6px;">I — Interoperable</span>
+    <span class="badge" style="background:#fff8c5;border:1px solid #d4a72c;color:#9a6700;padding:4px 10px;border-radius:999px;font-size:12px;display:inline-block;">R — Reusable (open issues remaining)</span>
+  </p>
+  <p class="source-pointer">Source: <code>docs/fair.md</code> (full FAIR cells); <code>docs/fair.md</code> §F(AI)²R (the extension); <code>paper/main.md</code> §8.4.</p>
+
+  <h2>Redaction discipline (rule 13)</h2>
+  <p>Live credentials, device serial numbers, local IP addresses, private UIDs, and identifying community handles are redacted from the working tree as <code>[REDACTED:&lt;type&gt;:&lt;id&gt;]</code> markers. The catalogue lives in <a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/redaction-policy.md" rel="noopener"><code>docs/redaction-policy.md</code></a>; the audit trail in <a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/redaction-audit-2026-05-03.md" rel="noopener"><code>docs/redaction-audit-2026-05-03.md</code></a>; the executed git-history rewrite plan in <a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/git-history-rewrite-plan.md" rel="noopener"><code>docs/git-history-rewrite-plan.md</code></a>.</p>
+  <p>The Site Agent's pre-emit grep refuses to write the site if any node label, comment, literal, or HTML body matches a known live-credential pattern (AWS keys, OpenSSH private keys, JWT tokens, Slack tokens, GitHub PATs). Redaction markers (<code>[REDACTED:...]</code>) pass through verbatim — they are <em>part of</em> the published artifact, not a leak.</p>
+  <p class="source-pointer">Source: <code>CLAUDE.md</code> rule 13; <code>docs/redaction-policy.md</code>; <code>scripts/build_provenance_site.py</code> <code>LIVE_CREDENTIAL_PATTERNS</code>.</p>
+
+  <h2>Public-mirror readiness (2026-05-05)</h2>
+  <div class="kpi-table-wrap">
+    <table class="kpi-table">
+      <tbody>
+        <tr><td class="row-label" style="width:32%;">Working-tree redaction (rule 13)</td><td><strong>done</strong> — paper text, handbacks, vendored design bundle, EcoFlow serials, logbook handles all redacted in-place; full register in <code>docs/redaction-policy.md</code>; audit trail in <code>docs/redaction-audit-2026-05-03.md</code>.</td></tr>
+        <tr><td class="row-label">Git history rewrite (rule 13 / 14)</td><td><strong>executed</strong> (2026-05-04) — see <code>paper/main.md</code> §5.6 for the canonical narrative; catalogue at <code>docs/git-history-rewrite-plan.md</code>; rewrite tip tagged <code>pre-publication-clean</code>.</td></tr>
+        <tr><td class="row-label">GitHub Pages publication (rule 14)</td><td><strong>authorised &amp; deployed</strong> (2026-05-05) — explicit consent at <code>docs/publication-consent.md</code>; deployment workflow at <code>.github/workflows/pages.yml</code>; surface scope: <code>docs/site/</code> only.</td></tr>
+        <tr><td class="row-label">Upstream <code>noheton/spider_farmer</code> &amp; <code>noheton/powerocean-dev</code></td><td><em>redaction pass not yet run on the upstreams</em> — each needs its own <code>git-filter-repo</code> pass against the same catalogue before being made public.</td></tr>
+        <tr><td class="row-label">Zenodo / arXiv</td><td><strong>blocked</strong> on the upstream-redaction pass and on a separate explicit consent (rule 14). The CI build-paper workflow produces draft artifacts only.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="source-pointer">Source: <code>README.md</code> § <em>Status — public-mirror readiness</em>; <code>docs/redaction-policy.md</code>; <code>docs/publication-consent.md</code>.</p>
+
+  <h2>Contribute — open an issue, change the paper</h2>
+  <p>This project is designed to be argued with. The agent pipeline treats GitHub issues as <strong>first-class inputs</strong>: an issue you open here is a prompt for the next pass of the pipeline, not a wishlist item that goes to a backlog and dies. Three labels route issues into specific pipeline stages — pick the one that fits your contribution:</p>
+  <ul>
+    <li><strong><a href="https://github.com/noheton/Obscurity-Is-Dead/issues/new?labels=idea" rel="noopener">idea</a></strong> — a hypothesis, device, paper, or framing worth investigating. Routes to Stage 1 (Research Protocol).</li>
+    <li><strong><a href="https://github.com/noheton/Obscurity-Is-Dead/issues/new?labels=critique" rel="noopener">critique</a></strong> — a specific challenge to a claim, figure, citation, or framing. Routes to Stage 2 (Scientific Writer).</li>
+    <li><strong><a href="https://github.com/noheton/Obscurity-Is-Dead/issues/new?labels=provenance-gap" rel="noopener">provenance-gap</a></strong> — a missing transcript, an unreachable artifact, an unverifiable claim. Routes to Stage 1 plus a meta-process note.</li>
+  </ul>
+  <p>Disagreement is the most useful kind of contribution. The transcript-as-artifact discipline (rule 4 in <code>CLAUDE.md</code>) means every claim in the paper is backed by an exportable conversation log committed in this repository — so an objection can land on a specific line, transcript, or commit rather than on vibes.</p>
+  <p class="source-pointer">Source: <code>README.md</code> § <em>Contribute</em>; orchestrator dispatch table in <code>docs/prompts/orchestrator-prompt.md</code>.</p>
+
+  <h2>License &amp; author</h2>
+  <p><strong>Human-authored portions:</strong> CC-BY-4.0 (<a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/LICENSE" rel="noopener"><code>LICENSE</code></a>). <strong>Excluded:</strong> vendor binaries / docs under <code>experiments/*/original/doc/</code> (own copyrights), and items in <code>docs/redaction-policy.md</code> (git-history rewrite required before any public archive). AI-generated text is acknowledged but not a copyrightable contribution under § 2 UrhG; see <code>paper/main.md</code> §9.1 (<em>Urheberrecht und KI</em>).</p>
+  <p><strong>Author:</strong> Florian Krebs · <a href="https://orcid.org/0000-0001-6033-801X" rel="noopener">ORCID 0000-0001-6033-801X</a> · <em>Independent researcher (personal capacity).</em> This is a hobbyist project. It is <strong>not</strong> part of, endorsed by, funded by, or representative of any employer, including the German Aerospace Center (DLR). See <code>paper/main.md</code> §9.5.</p>
+  <p class="source-pointer">Source: <code>LICENSE</code>; <code>CITATION.cff</code>; <code>.zenodo.json</code>; <code>codemeta.json</code>; <code>paper/main.md</code> §9.</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>
+      <h4>Read</h4>
+      <ul>
+        <li><a href="index.html">Site home</a></li>
+        <li><a href="paper.html">Paper in 20 minutes</a></li>
+        <li><a href="methodology.html">Methodology &amp; agent pipeline</a></li>
+        <li><a href="graph.html">PROV-O provenance graph</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Governance canonical sources</h4>
+      <ul>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/publication-consent.md" rel="noopener">Publication consent (rule 14)</a></li>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/redaction-policy.md" rel="noopener">Redaction policy (rule 13)</a></li>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/fair.md" rel="noopener">FAIR / F(AI)²R</a></li>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/CLAUDE.md" rel="noopener">CLAUDE.md (rules 1–19)</a></li>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/LICENSE" rel="noopener">CC-BY-4.0 license</a></li>
+      </ul>
+    </div>
+    <div class="commit-pin">
+      <span>Site Agent (stage 8) — governance page rendered from <code>docs/publication-consent.md</code>, <code>docs/redaction-policy.md</code>, <code>docs/fair.md</code>, <code>README.md</code>, <code>CLAUDE.md</code>.</span>
+      <span>This site is published under the consent recorded on 2026-05-05; revocation invalidates the surface but not the recorded artifact.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

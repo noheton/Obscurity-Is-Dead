@@ -56,7 +56,21 @@ These open issues are also tracked in `docs/logbook.md` for accountable resoluti
 
 ---
 
-## FAIR4AI — proposed extension for AI-mediated research processes
+## F(AI)²R — proposed extension for AI-mediated research processes
+
+> **Naming note (2026-05-05).** This extension was originally proposed
+> on 2026-05-04 under the working name **FAIR4AI**, by analogy with
+> *FAIR4RS* and *FAIR4ML*. On 2026-05-05 the human author renamed it to
+> **F(AI)²R** (read *F-A-I-A-I-R*) on the grounds that the AI-assisted
+> dimension is what the extension transforms in *every* FAIR axis —
+> *4AI heißt alles* — so we fold *(AI)* into the acronym rather than
+> appending an external *4AI* suffix. F(AI)²R reads as the canonical
+> FAIR axes with an additional *(AI)* factor multiplied through them.
+> All cells, mappings, and references below carry the new name; the
+> 2026-05-04 working name *FAIR4AI* is preserved here for historical
+> traceability (rule 1) and remains the bibkey-facing handle in
+> `docs/sources.md` L-FAIR-3 until a community working group is convened
+> under either name.
 
 The FAIR Guiding Principles were drafted for *data*. The community has
 since extended them to research software (FAIR4RS,
@@ -69,14 +83,14 @@ structured redaction policies, and per-claim provenance maps.
 
 This project proposes — as a target for community refinement, not as a
 finished standard — a **FAIR for AI-Assisted Research** extension under
-the working name **FAIR4AI**, mapping the eight integrated practices of
+the working name **F(AI)²R**, mapping the eight integrated practices of
 the Obscurity-Is-Dead methodology onto the four FAIR axes. The repository
 already practises de-facto versions of every cell. Naming what we are
 already doing is the first step toward surrendering it to peer scrutiny.
 
 ### F — Findable (AI-assisted artifacts)
 
-| Principle | FAIR4AI realisation |
+| Principle | F(AI)²R realisation |
 |---|---|
 | **F-AI-1.** AI-mediated research artifacts are assigned a globally unique and persistent identifier. | Every preserved AI conversation under `experiments/<case>/raw_conversations*/` is identified by (a) a stable filename embedding its sequence number `T<n>-<short-slug>`, (b) the SHA-256 of its content, and (c) the commit SHA at which the transcript was preserved. Where an external chat platform issues a permalink, that URL is also recorded in the file header. **Open**: a Zenodo deposit at first release will mint a DOI for the transcript bundle. |
 | **F-AI-2.** AI-mediated artifacts are described with rich metadata. | Each transcript carries an inline header recording the date, the model and its version (e.g. `claude-opus-4-7`), the operating harness (e.g. *Claude Code*, *web*), the prompt source (e.g. `docs/prompts/scientific-writer-prompt.md`), and the principal output classes (e.g. *§4 prose; references.bib entries E-1..E-3*). The repository-level metadata in `CITATION.cff`, `.zenodo.json`, and `codemeta.json` lists the agent prompts under `docs/prompts/` as part of the cited software. |
@@ -85,7 +99,7 @@ already doing is the first step toward surrendering it to peer scrutiny.
 
 ### A — Accessible (AI-assisted artifacts)
 
-| Principle | FAIR4AI realisation |
+| Principle | F(AI)²R realisation |
 |---|---|
 | **A-AI-1.** AI-mediated artifacts are retrievable by their identifier using a standardised communications protocol. | HTTPS + Git as for the rest of the repository. The transcript files are plain text; no proprietary export format. |
 | **A-AI-1.2.** The protocol allows for an authentication and authorisation procedure where necessary. | The structured **redaction policy** (`docs/redaction-policy.md`) is the access-control layer for AI artifacts: live credentials, device serial numbers, local IP addresses, and identifying community handles are redacted from the working tree as `[REDACTED:<type>:<id>]` markers. A history rewrite is required before any public mirror or Zenodo deposit (rule 13). |
@@ -93,15 +107,15 @@ already doing is the first step toward surrendering it to peer scrutiny.
 
 ### I — Interoperable (AI-assisted artifacts)
 
-| Principle | FAIR4AI realisation |
+| Principle | F(AI)²R realisation |
 |---|---|
 | **I-AI-1.** AI-mediated artifacts use a formal, accessible, shared, and broadly applicable language for knowledge representation. | Conversation transcripts are exported as plain UTF-8 Markdown / text. Agent prompts are Markdown with a stable section taxonomy (Purpose / Inputs / Protocol / Constraints / Deliverables) so they can be ingested by other agent harnesses with minimal adaptation. The **verification-status ladder** is documented as a finite-state machine. |
-| **I-AI-2.** AI-mediated artifacts use vocabularies that follow FAIR principles. | Where a community vocabulary exists, this project uses it: ORCID for authorship, schema.org / CodeMeta for software metadata, BibTeX for citations. The verification-status ladder borrows the spirit of evidence-based-medicine evidence-grading (e.g. GRADE) but does not yet adopt its vocabulary verbatim. **Open**: align FAIR4AI ladder labels with the closest equivalent in an existing evidence-grading vocabulary. |
+| **I-AI-2.** AI-mediated artifacts use vocabularies that follow FAIR principles. | Where a community vocabulary exists, this project uses it: ORCID for authorship, schema.org / CodeMeta for software metadata, BibTeX for citations. The verification-status ladder is now explicitly aligned with two existing community vocabularies: PRISMA 2020 *flow* phases for the *retrieval-depth* axis (which stage of the systematic-review funnel an entry has reached) and GRADE *certainty of evidence* for the *invocation-strength* axis (how strongly a paper claim may invoke the entry once cited). The crosswalk is documented in §[Verification-status ladder ↔ existing evidence-grading vocabularies](#verification-status-ladder--existing-evidence-grading-vocabularies) below and synced into `docs/sources.md` (legend) and `paper/main.md` §2.3. The ladder *tokens* (`[unverified-external]` → `[needs-research]` → `[lit-retrieved]` → `[ai-confirmed]` → `[lit-read]`) are preserved verbatim for backwards compatibility with the ~144 source-register entries already labelled; the alignment is a *crosswalk*, not a relabel (rule 1: honesty about which assertion is original to this project versus borrowed from a community vocabulary). |
 | **I-AI-3.** AI-mediated artifacts include qualified references to other AI-mediated artifacts. | Transcripts reference each other when one is the predecessor of another (e.g. `T4` referenced from `T5` for context inheritance). Agent prompts cite each other in the *Inputs* / *Hand-back routing* sections of `docs/prompts/`. The orchestrator's dispatch log records the *predecessor commit* and the *expected next stage* so the chain of AI-mediated work is reconstructible from any point. |
 
 ### R — Reusable (AI-assisted artifacts)
 
-| Principle | FAIR4AI realisation |
+| Principle | F(AI)²R realisation |
 |---|---|
 | **R-AI-1.** AI-mediated artifacts are richly described with a plurality of accurate and relevant attributes. | Transcripts: model, version, harness, date, prompt source, principal output, content-SHA. Agent prompts: status, scope, inputs, protocol, deliverables, constraints. Each is sufficient for an independent reviewer to reconstruct what was asked of the AI, what the AI returned, and how the human author audited the return. |
 | **R-AI-1.1.** AI-mediated artifacts are released with a clear and accessible data usage license. | CC-BY-4.0 covers the human-authored and human-curated portions, including the transcript files (which are AI conversations *preserved by* the human author). Vendor / community implementations under `experiments/<case>/original/` carry their own licenses. |
@@ -110,7 +124,7 @@ already doing is the first step toward surrendering it to peer scrutiny.
 
 ### Mapping back to the eight integrated practices
 
-| Practice | FAIR4AI axis (primary → secondary) |
+| Practice | F(AI)²R axis (primary → secondary) |
 |---|---|
 | (1) Transcript preservation | F-AI-1, F-AI-3 → I-AI-1 |
 | (2) Verification-status labelling | I-AI-1, R-AI-1.2 → I-AI-2 |
@@ -121,30 +135,98 @@ already doing is the first step toward surrendering it to peer scrutiny.
 | (7) Legal honesty about authorship | A-AI-1.2 (access-control), R-AI-1.1 |
 | (8) FAIR alignment as a precondition | F-AI-2, F-AI-4, A-AI-1, I-AI-2, R-AI-1.3 |
 
-### Open issues (FAIR4AI)
+### Verification-status ladder ↔ existing evidence-grading vocabularies
 
-1. **Vocabulary alignment.** The verification-status ladder
-   (`[unverified-external]` → `[needs-research]` → `[lit-retrieved]` →
-   `[ai-confirmed]` → `[lit-read]`) needs a crosswalk to the closest
-   equivalent in an existing evidence-grading vocabulary (GRADE; CASP;
-   Cochrane levels of evidence).
+This crosswalk resolves the I-AI-2 open issue (above). The verification
+ladder originated as a project-internal labour-discipline mechanism and
+was named idiosyncratically. As of 2026-05-05 we align it with two
+established community vocabularies along two distinct axes:
+
+- **Retrieval-depth axis** — *which stage of the systematic-review funnel
+  has the entry reached?* This maps cleanly to **PRISMA 2020** flow
+  phases (Identification → Screening → Eligibility / Included), the
+  reporting standard adopted by Cochrane, JBI, and most evidence-based
+  health-research bodies for transparent literature inclusion.
+- **Invocation-strength axis** — *how strongly may a paper claim invoke
+  this entry once cited?* This maps to **GRADE** *certainty of evidence*
+  (High / Moderate / Low / Very Low), the rating system maintained by
+  the GRADE Working Group and adopted by the WHO, Cochrane, NICE, and
+  the European Commission's evidence-grading guidance.
+
+The ladder tokens are preserved verbatim. The alignment is a published
+crosswalk, not a relabel; readers fluent in PRISMA / GRADE can read the
+ladder without consulting our internal definitions, and our internal
+authors do not have to migrate ~144 source-register annotations.
+
+| Ladder rung | PRISMA 2020 *flow* phase | GRADE *certainty* (when invoked at this rung) | Project-internal one-liner |
+|---|---|---|---|
+| `[unverified-external]` | Pre-funnel — pointer surfaced outside any structured search | Below Very Low — citation not permitted at this rung | Chat-transcript URL or formal citation, unaudited. |
+| `[needs-research]` | Pre-funnel — research gap pending search | Below Very Low — citation not permitted at this rung | Open question; a literature search is owed. |
+| `[lit-retrieved]` | **Identification** — record identified through database / register | Below Very Low — citation not permitted at this rung | Database hit; metadata captured; full text not yet read. |
+| `[ai-confirmed]` | **Screening** (title / abstract / open-access body) by AI agent | **Low** to **Moderate** — permitted for non-load-bearing inline citation | Source Analyzer agent has retrieved and read the source; entry summary checks out within rounding. |
+| `[lit-read]` | **Included for citation** — full text assessed by human, claim-to-source binding confirmed | **Moderate** to **High** — permitted for load-bearing or contested claims | Human author has read the full text and confirmed the entry's relation to a paper claim. |
+
+Two notes on the mapping that matter for downstream readers:
+
+1. **GRADE certainty is a rating of the underlying evidence, not of
+   the retrieval procedure.** A `[lit-read]` entry that reports a small
+   observational study still rates Low under GRADE; the mapping above is
+   the *floor* the rung permits, not a guarantee of the *ceiling*. The
+   writer's invocation-floor judgement (`docs/prompts/scientific-writer-prompt.md`)
+   continues to gate load-bearing claims on a human read regardless of
+   the GRADE rating attached to the cited study.
+2. **PRISMA 2020 covers four-phase reporting (identification, screening,
+   eligibility, inclusion).** Our two AI-assisted rungs (`[ai-confirmed]`
+   and `[lit-read]`) collapse the Eligibility and Inclusion stages,
+   because under our process, *eligibility* and *inclusion-for-citation*
+   are decided by the same act (the writer agent or the human author
+   reads the source and decides whether to invoke it). A future,
+   review-style adoption of this ladder for a different research
+   pattern would split the two phases back out.
+
+The crosswalk is published in `docs/sources.md` (verification-status
+legend) so that any external reader can read either vocabulary
+canonically, and surfaced in `paper/main.md` §2.3 / `paper/main-condensed.md`
+§3 so that a venue reviewer encounters the alignment in the canonical
+prose, not buried in `docs/fair.md`.
+
+The full primary-source pointers for the two community vocabularies are
+recorded in `docs/sources.md` under cluster Q (FAIR / evidence-grading);
+the bibliographic entries are added to `paper/references.bib` for inline
+`[@prisma2020flow]` and `[@grade2008certainty]` citations as the writer
+incorporates the alignment into the paper text.
+
+### Open issues (F(AI)²R)
+
+1. **~~Vocabulary alignment.~~** ✅ *Resolved 2026-05-05* — see the
+   ladder ↔ PRISMA / GRADE crosswalk above.
 2. **Persistent transcript identifier scheme.** Content-SHA is robust
    but not human-friendly. A mintable identifier (DOI per transcript via
    Zenodo, or a derived fingerprint) is a candidate for I-AI-1.
-3. **Tooling.** A reference *Aligner* agent that audits FAIR4AI compliance
-   per repository ships with this project (`docs/prompts/aligner-prompt.md`).
-   A reusable FAIR4AI conformance checker (independent of this codebase)
-   is left to community work.
-4. **RFC.** The above is an in-tree proposal. Submission to RDA,
+3. **Tooling.** A reference *Aligner* agent that audits F(AI)²R
+   compliance per repository ships with this project
+   (`docs/prompts/aligner-prompt.md`). A reusable F(AI)²R conformance
+   checker (independent of this codebase) is left to community work.
+4. **Site / public surface.** As of 2026-05-05 the human author has
+   given explicit written consent (rule 14) for a GitHub Pages
+   publication of `docs/site/` — the multi-section landing site plus
+   the PROV-O graph viewer — under `docs/publication-consent.md`. The
+   *Site Agent* (`docs/prompts/site-agent-prompt.md`, stage 8) is the
+   pipeline owner of that surface and runs after Aligner / Modeller
+   passes that touch consistency-bearing artifacts.
+5. **RFC.** The above is an in-tree proposal. Submission to RDA,
    FORCE11, or an analogous body is gated on (a) human-author consent
    (rule 14) and (b) at least one external case study adopting the same
    mapping.
 
 ### Cross-references in the paper
 
-The FAIR4AI proposal is referenced in the long-form paper (`paper/main.md`
-§10 / `paper/main.tex` `sec:eight-practices`) and in the condensed paper
-(`paper/main-condensed.md` §4 / `paper/main-condensed.tex` `sec:discussion`).
+The F(AI)²R proposal is referenced in the long-form paper
+(`paper/main.md` §10 / `paper/main.tex` `sec:eight-practices`) and in
+the condensed paper (`paper/main-condensed.md` §4 /
+`paper/main-condensed.tex` `sec:discussion`). The PRISMA / GRADE
+crosswalk is referenced in `paper/main.md` §2.3 (verification-status
+ladder) and in the public-facing site at `docs/site/methodology.html`.
 Pull updates to those sections through the writer agent (stage 2) so
 mirror discipline (rule 12) is preserved.
 

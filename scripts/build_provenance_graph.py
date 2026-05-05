@@ -162,6 +162,8 @@ oid:stage-layout-scrutinizer     a oid:PipelineStage ; dct:title "Layout Scrutin
 oid:stage-readability-scrutinizer a oid:PipelineStage ; dct:title "Readability & Novelty Scrutinizer (Stage 5)" ; oid:promptFile "docs/prompts/readability-novelty-prompt.md" .
 oid:stage-aligner                a oid:PipelineStage ; dct:title "Aligner (Stage 6)" ;                 oid:promptFile "docs/prompts/aligner-prompt.md" .
 oid:stage-modeler                a oid:PipelineStage ; dct:title "Modeler (Stage 7)" ;                 oid:promptFile "docs/prompts/modeler-prompt.md" .
+oid:stage-site-agent             a oid:PipelineStage ; dct:title "Site Agent (Stage 8)" ;              oid:promptFile "docs/prompts/site-agent-prompt.md" ;
+                                 rdfs:comment "Owns docs/site/. Renders the public-facing GitHub Pages surface (index.html, paper.html, methodology.html, governance.html, graph.html). Refuses to render without explicit publication consent in docs/publication-consent.md (rule 14)." .
 
 # Named commits referenced inline in paper / logbook
 oid:commit-ffdf60c a oid:Commit ; dct:identifier "ffdf60c" ; dct:description "feat(experiments): embed vendor repos as plain files for agent access." .
@@ -328,13 +330,36 @@ oid:claim-cond-eight-practices a oid:Claim ;
   oid:invocationFloor "methodology-self-description" ;
   oid:condensedOnly true .
 
-oid:claim-cond-fair4ai a oid:Claim ;
+oid:claim-cond-faiar a oid:Claim ;
   dct:source "paper/main-condensed.md#sec-4-discussion" ;
-  dct:description "FAIR4AI extension proposal: F/A/I/R mapped to AI-mediated research processes." ;
+  dct:description "F(AI)²R extension proposal: F/A/I/R mapped to AI-mediated research processes. Originally proposed 2026-05-04 as FAIR4AI; renamed to F(AI)²R on 2026-05-05 (4AI heißt alles — fold (AI) into the acronym rather than appending an external 4AI suffix)." ;
   prov:wasDerivedFrom oid:source-L-FAIR-1 , oid:source-L-FAIR-2 , oid:source-L-FAIR-3 ;
   prov:wasAttributedTo oid:florian-krebs , oid:claude-opus-4-7 ;
+  prov:wasInformedBy oid:rename-activity-fair4ai-to-faiar ;
   oid:invocationFloor "[ai-confirmed]" ;
   oid:condensedOnly true .
+
+# Rename activity (CLAUDE.md rule 1: honesty about authorship + naming history).
+# Encodes the 2026-05-05 FAIR4AI -> F(AI)²R rename as a first-class
+# prov:Activity so a downstream reader can query the history without
+# parsing prose.
+oid:rename-activity-fair4ai-to-faiar a prov:Activity ;
+  rdfs:label "FAIR4AI -> F(AI)²R rename (2026-05-05)" ;
+  prov:startedAtTime "2026-05-05T00:00:00Z"^^xsd:dateTime ;
+  prov:endedAtTime   "2026-05-05T00:00:00Z"^^xsd:dateTime ;
+  prov:wasAssociatedWith oid:florian-krebs , oid:claude-opus-4-7 ;
+  prov:used oid:source-L-FAIR-3 ;
+  rdfs:comment "Working name FAIR4AI (2026-05-04) renamed to F(AI)²R (read F-A-I-A-I-R) on the human author's directive: 4AI heißt alles — the AI-assisted dimension is what the extension transforms in every FAIR axis, so we fold (AI) into the acronym rather than appending an external 4AI suffix. The original name is preserved verbatim in docs/sources.md L-FAIR-3 entry title and in the naming-note paragraph in docs/fair.md §F(AI)²R for historical traceability (rule 1)." .
+
+# Verification-status ladder ↔ existing-vocabulary crosswalk activity
+# (CLAUDE.md rule 18 traceability + docs/fair.md §F(AI)²R I-AI-2 closure).
+oid:crosswalk-ladder-prisma-grade a prov:Activity ;
+  rdfs:label "Verification-status ladder ↔ PRISMA 2020 / GRADE crosswalk (2026-05-05)" ;
+  prov:startedAtTime "2026-05-05T00:00:00Z"^^xsd:dateTime ;
+  prov:endedAtTime   "2026-05-05T00:00:00Z"^^xsd:dateTime ;
+  prov:wasAssociatedWith oid:florian-krebs , oid:claude-opus-4-7 ;
+  prov:used oid:source-L-FAIR-4 , oid:source-L-FAIR-5 ;
+  rdfs:comment "Aligns the project verification-status ladder ([unverified-external] -> [needs-research] -> [lit-retrieved] -> [ai-confirmed] -> [lit-read]) with two existing community vocabularies along two axes: PRISMA 2020 flow phases (retrieval-depth axis) and GRADE certainty of evidence (invocation-strength axis). Ladder tokens preserved verbatim — alignment is a published crosswalk, not a relabel. Resolves the I-AI-2 open issue in docs/fair.md §F(AI)²R." .
 """
 
 
