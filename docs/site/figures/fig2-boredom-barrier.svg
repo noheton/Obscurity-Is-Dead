@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .lbl-title { font: 600 13px sans-serif; fill: #000; }
+      .lbl-bold  { font: 600 11px sans-serif; fill: #000; }
+      .lbl       { font: 11px sans-serif; fill: #000; }
+      .lbl-sm    { font: 9px sans-serif; fill: #333; }
+      .lbl-axis  { font: 10px sans-serif; fill: #333; }
+      .axis      { stroke: #000; stroke-width: 0.7; fill: none; }
+      .grid      { stroke: #cfcfcf; stroke-width: 0.4; fill: none; }
+      .grid.dashed { stroke-dasharray: 2 2; }
+      .hairline  { stroke: #999; stroke-width: 0.6; fill: none; }
+      .rule      { stroke: #000; stroke-width: 0.7; fill: none; }
+      .accent-stroke { stroke: #00658b; stroke-width: 1.2; fill: none; }
+    ]]></style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+
+        <text x="32" y="48" class="lbl-title">Activation energy: theory → practice</text>
+
+        
+        <line class="axis" x1="56" y1="74" x2="56" y2="262"></line>
+        <line class="axis" x1="56" y1="262" x2="448" y2="262"></line>
+        <text x="32" y="170" class="lbl-axis" transform="rotate(-90 32 170)">perceived effort</text>
+        <text x="252" y="282" class="lbl-axis" text-anchor="middle">reaction coordinate&#160;·&#160;theory&#160;→&#160;practice</text>
+
+        
+        <line class="grid" x1="56" y1="225" x2="448" y2="225"></line>
+        <line class="grid dashed" x1="56" y1="180" x2="448" y2="180"></line>
+
+        
+        <circle cx="86" cy="225" r="3" fill="#000"></circle>
+        <text x="86" y="244" class="lbl" text-anchor="middle">theory</text>
+        <text x="86" y="256" class="lbl-sm" text-anchor="middle">specs, blogs, talks</text>
+
+        
+        <circle cx="424" cy="245" r="3" fill="#000"></circle>
+        <text x="424" y="232" class="lbl" text-anchor="middle">practice</text>
+        <text x="424" y="220" class="lbl-sm" text-anchor="middle">working integration</text>
+
+        
+        <path d="M 86 225 C 140 225, 175 92, 255 92 S 360 225, 424 245" class="hairline" stroke="#666" stroke-width="1.4" fill="none"></path>
+        
+        <path d="M 86 225 C 150 225, 190 168, 255 168 S 360 240, 424 245" class="accent-stroke" stroke-width="1.6" fill="none"></path>
+
+        
+        <line x1="255" y1="225" x2="255" y2="92" stroke="#666" stroke-width="0.6" stroke-dasharray="2 2"></line>
+        <line x1="255" y1="225" x2="255" y2="168" stroke="#00658b" stroke-width="0.7" stroke-dasharray="2 2"></line>
+        <text x="262" y="135" class="lbl-bold" fill="#666">Eₐ traditional</text>
+        <text x="262" y="200" class="lbl-bold" fill="#00658b">Eₐ with AI</text>
+
+        
+        <text x="255" y="84" class="lbl-sm" text-anchor="middle">&#34;the boredom barrier&#34;</text>
+        <circle cx="255" cy="92" r="2.2" fill="#666"></circle>
+        <circle cx="255" cy="168" r="2.2" fill="#00658b"></circle>
+
+        
+        <g transform="translate(70 95)">
+          <line x1="0" y1="0" x2="22" y2="0" class="hairline" stroke="#666" stroke-width="1.4"></line>
+          <text x="26" y="3" class="lbl">without AI</text>
+          <line x1="0" y1="14" x2="22" y2="14" class="accent-stroke" stroke-width="1.6"></line>
+          <text x="26" y="17" class="lbl">with AI</text>
+        </g>
+      </svg>

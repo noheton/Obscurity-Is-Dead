@@ -38,13 +38,13 @@ own; the *integration* is the contribution.
 | # | Practice | One-line characterisation |
 |---|----------|---------------------------|
 | 1 | Transcript preservation | Every AI conversation that contributed to a claim is archived verbatim, alongside the prose, under `experiments/<case>/raw_conversations*/`. |
-| 2 | Verification-status labelling | Every cited source carries a ladder stage. A paper claim may only invoke a source at its current stage. |
+| 2 | Verification-status labelling | Every cited source carries a ladder stage (now also crosswalked to PRISMA 2020 flow phases for retrieval-depth and to GRADE certainty for invocation-strength — see `docs/fair.md` §F(AI)²R). A paper claim may only invoke a source at its current stage. |
 | 3 | Provenance maps | Every technical claim is tied to (a) the proposing transcript, (b) the confirming file/line in the embedded vendor / community code, (c) the pinned commit SHA at which the claim was verified. |
 | 4 | Mirror discipline | Markdown prose source and LaTeX submission source are kept in lock-step (rule 12). The condensed pair is mirrored separately (rule 17). |
 | 5 | Recursive meta-process case study | The paper documents its own AI-assisted production as evidence for the methodology, with the same artifact-inventory and provenance-map shape as the device cases. |
 | 6 | Base-rate-anchored AI disclosure | Quantitative fabricated-citation and sloppification base rates are cited inline so the AI-use disclosure is calibrated rather than rhetorical. |
 | 7 | Legal honesty about authorship | AI-generated prose is marked as such; AI-generated legal opinion is excluded from the paper unless paired with a sourced primary text. |
-| 8 | FAIR alignment as a precondition | FAIR / FAIR4RS / FAIR4ML / FAIR4AI metadata is present from day one rather than retrofitted. |
+| 8 | FAIR alignment as a precondition | FAIR / FAIR4RS / FAIR4ML / F(AI)²R metadata is present from day one rather than retrofitted. |
 
 The eight cover three failure-mode axes — **sloppification**, **model
 collapse**, and **dual use** — that the literature makes load-bearing
@@ -77,9 +77,20 @@ A paper claim may invoke a source at its current stage or below.
 Load-bearing or contested claims still require `[lit-read]`. The
 Source Analyzer agent owns the `[ai-confirmed]` upgrade.
 
+The ladder is aligned with two existing community vocabularies along
+two axes (full crosswalk in `docs/fair.md` §F(AI)²R):
+
+- **Retrieval-depth axis** ↔ **PRISMA 2020** flow phases. `[lit-retrieved]`
+  ≈ *Identification*; `[ai-confirmed]` ≈ *Screening* (AI-mediated
+  title/abstract/open-access-body read); `[lit-read]` ≈ *Included for
+  citation* (human full-text assessment).
+- **Invocation-strength axis** ↔ **GRADE** *certainty of evidence*.
+  `[ai-confirmed]` permits Low–Moderate inline invocation (non-load-bearing);
+  `[lit-read]` permits Moderate–High invocation (load-bearing or contested).
+
 ## Agent pipeline
 
-The repository runs an eight-stage agent pipeline coordinated by an
+The repository runs a ten-stage agent pipeline coordinated by an
 orchestrator. Executable prompts live under `docs/prompts/`.
 
 | Stage | Owner | Edits | Reads |
@@ -92,6 +103,8 @@ orchestrator. Executable prompts live under `docs/prompts/`.
 | 4. Layout scrutinizer | `layout-scrutinizer-prompt.md` | `docs/handbacks/layout-*` | Compiled PDFs |
 | 5. Readability & novelty scrutinizer | `readability-novelty-prompt.md` | `docs/handbacks/readability-*` | `paper/main.md`, `paper/main-condensed.md`, `docs/sources.md` |
 | 6. Aligner | `aligner-prompt.md` | `docs/handbacks/alignment-*` | All paper sources, `docs/sources.md`, `docs/logbook.md`, `README.md` |
+| 7. Modeler | `modeler-prompt.md` | `docs/provenance.ttl`, `docs/handbacks/modeler-*` | All paper sources, `docs/sources.md`, `docs/logbook.md`, `experiments/*/provenance.md` |
+| 8. Site Agent | `site-agent-prompt.md` | `docs/site/*.{html,css,json,md}` | `paper/main.{md,tex}`, `paper/main-condensed.{md,tex}`, `README.md`, `docs/sources.md`, `docs/fair.md`, `docs/provenance.ttl`, `docs/publication-consent.md` |
 
 The orchestrator (stage 0) is the only agent permitted to launch other
 agents. Decision rules (which stage runs next given the current state)
@@ -150,12 +163,12 @@ The build pipeline (`make pdf`, `make all`, `make arxiv`) produces
 consent from the human author. The orchestrator never auto-publishes.
 A clean scrutinizer verdict is *not* consent to publish.
 
-### FAIR / FAIR4AI alignment (rule 8 + `docs/fair.md`)
+### FAIR / F(AI)²R alignment (rule 8 + `docs/fair.md`)
 
 Citation File Format, Zenodo, and CodeMeta metadata are present from
-day one. A FAIR4AI extension (mapping AI-mediated research processes
+day one. A F(AI)²R extension (mapping AI-mediated research processes
 onto Findability / Accessibility / Interoperability / Reusability) is
-proposed in `docs/fair.md` §FAIR4AI and in the paper.
+proposed in `docs/fair.md` §F(AI)²R and in the paper.
 
 ## Adoption checklist
 
@@ -207,7 +220,7 @@ practices as follows:
 - Condensed paper (core submission): `paper/main-condensed.md`,
   `paper/main-condensed.tex`.
 - Agent prompts: `docs/prompts/`.
-- FAIR / FAIR4AI: `docs/fair.md`.
+- FAIR / F(AI)²R: `docs/fair.md`.
 - Source register: `docs/sources.md`.
 - Logbook: `docs/logbook.md`.
 - Redaction register: `docs/redaction-policy.md`.

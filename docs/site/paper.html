@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Paper in 20 minutes — Obscurity Is Dead</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Twenty-minute summary of the Obscurity-Is-Dead paper: abstract, central thesis, eight integrated practices, F(AI)²R proposal, dual-use asymmetry, limitations, conclusion. Hand-authored by the Site Agent (stage 8) from paper/main-condensed.md (core submission, rule 17).">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="landing">
+
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="site-nav-inner">
+    <a class="site-nav-brand" href="index.html">
+      <span class="mark">OiD</span>
+      <span>Obscurity Is Dead</span>
+    </a>
+    <div class="site-nav-links">
+      <a href="index.html">Home</a>
+      <a href="paper.html" class="active">Paper in 20 min</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="governance.html">Governance</a>
+      <a href="graph.html">PROV-O graph</a>
+      <span class="site-nav-ext">
+        <a href="https://github.com/noheton/Obscurity-Is-Dead" rel="noopener">GitHub ↗</a>
+      </span>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header" role="banner">
+  <div class="page-header-inner">
+    <h1>The paper in twenty minutes</h1>
+    <p>A scrollable summary of the condensed paper (<em>core submission</em> under rule 17). Every section below is rendered from <code>paper/main-condensed.md</code> by the Site Agent; the canonical artifact for review and citation is the condensed PDF.</p>
+  </div>
+</header>
+
+<main class="site-main">
+
+  <h2>Abstract</h2>
+  <p>Modern large language models collapse the <em>effort gap</em> that has, for a decade, served as the dominant security model for consumer IoT. Two empirical case studies — Spider Farmer BLE controllers and EcoFlow PowerOcean residential energy systems — and a third recursive case study of this paper's own production demonstrate that AI-assisted analysis turns theoretical protocol knowledge into practical, replicable local integrations at roughly six to twelve per cent of the manual labour cost. Two further IoT-Integrator runs (Ondilo ICO Spa V2; Balboa Gateway Ultra) cross-validate the methodology across an obscurity-vs-authentication spread. The collapse is genuinely double-edged but it is also asymmetric: it favours integrators over attackers, at least at present, because verifying an integration against a live device is cheap while verifying an exploit against a live target is not. The contribution of the work is not the case studies — those are largely prior community work — but the integration of eight individually unoriginal practices into a discipline under which AI-assisted research is auditable per artifact: transcript preservation, verification-status labelling, provenance maps, mirror discipline between prose and submission source, a recursive meta-process case study, base-rate-anchored AI disclosure, legal honesty about authorship, and FAIR alignment as a precondition.</p>
+  <p class="source-pointer">Source: <code>paper/main-condensed.md</code> §Abstract.</p>
+
+  <h2>1. The effort gap and the central thesis</h2>
+  <p>The dominant security posture for consumer IoT is not cryptographic but <em>economic</em>. Proprietary protocols, obfuscated APKs, and undocumented APIs raise the activation energy of integration high enough that a casual researcher gives up. We name this implicit defence the <em>effort gap</em> and read it as the de-facto interoperability barrier of the last decade. The thesis is that the effort gap has <strong>collapsed asymmetrically</strong> — faster for interoperability work, where success is verifiable against a working integration, than for offensive work, which still demands target selection, persistence, and operational tradecraft.</p>
+
+  <figure class="hero-figure">
+    <img src="figures/fig1-effort-gap.svg" alt="Figure 1: cumulative human effort to reach a working local integration. AI-assisted curve flattens; manual curve grows steeply.">
+    <figcaption><strong>Figure 1.</strong> Cumulative human effort to reach a working local integration across phases of a reverse-engineering project. AI-assisted analysis flattens the curve, leaving a wide effort gap between the two trajectories.<br><em>Source: <code>paper/figures/data/effort-gap.csv</code>; generation script <code>fig1-effort-gap.py</code>.</em></figcaption>
+  </figure>
+
+  <p>The peer-reviewed software-side anchors are by now consistent: a 24.4 % reduction in cognitive burden when reading AI-augmented decompiler output (L-RE-1), a 31 %→53 % correct-solve-rate uplift on reverse-engineering tasks (L-RE-2), and a >100 % improvement in re-executability for AI-assisted code synthesis (L-RE-3). The base-rate evidence on the <em>defender</em> side is equally blunt: more than 70 % of 17 243 BLE-enabled Android APKs carry at least one security vulnerability; 1 973 of 6 208 IoT companion apps surveyed expose user data without proper disclosure; 28.25 % of 1 362 906 deployed IoT devices suffer at least one N-day vulnerability and 88 % of analysed MQTT servers have no password protection. Spider Farmer and EcoFlow are not exceptional cases of consumer-IoT insecurity; they are the median.</p>
+  <p class="source-pointer">Source: <code>paper/main-condensed.md</code> §1; literature anchors <code>docs/sources.md</code> clusters A (Reverse engineering) and J (Defender base rates).</p>
+
+  <h2>2. Evidence shape: case studies and headline numbers</h2>
+  <p>The evidentiary base is four device-integration case studies (Spider Farmer, EcoFlow PowerOcean, Ondilo ICO Spa V2, Balboa Gateway Ultra) plus a recursive meta-process case (the paper itself). Table 1 reproduces the headline-KPI table.</p>
+  <div class="kpi-table-wrap">
+    <table class="kpi-table">
+      <thead>
+        <tr><th></th><th>Spider Farmer</th><th>EcoFlow PowerOcean</th><th>Meta-process (this paper)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">Defence model</td><td>AES-128-CBC keys/IVs hardcoded in APK</td><td>3 undocumented API surfaces; vendor docs cover only 1</td><td>None — open by construction</td></tr>
+        <tr><td class="row-label">AI-assisted effort</td><td class="num">~10.5 h across 7 transcripts</td><td class="num">~8 h across 3 transcripts</td><td class="num">~17.5 h (running)</td></tr>
+        <tr><td class="row-label">Estimated manual baseline</td><td class="num">60–120 h</td><td class="num">80–160 h</td><td class="num">~300 h</td></tr>
+        <tr><td class="row-label">Effort-gap compression</td><td class="num strong">~12 % of manual</td><td class="num strong">~7 % of manual</td><td class="num strong">~6 % of manual</td></tr>
+        <tr><td class="row-label">Live credentials exposed</td><td>Yes (MQTT) — redacted</td><td>No (token-bearer)</td><td>N/A</td></tr>
+        <tr><td class="row-label">Dual-use blast radius</td><td>Per-device horticulture control</td><td>Grid-in / battery-reserve / EV-charger writes</td><td>Fabricated citations, unsourced legal opinions, redaction failures</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="source-pointer">Source: <code>paper/main-condensed.md</code> §2 Table 1; per-case derivations in <code>paper/main.md</code> §3.7, §4.7, §5.7, §6.1.</p>
+
+  <p><strong>Spider Farmer</strong> sealed its BLE protocol with AES-128-CBC under hardcoded keys and IVs, complemented by a self-signed-certificate MQTT broker. The AI-assisted contribution was reconciliation rather than discovery: four prior community implementations agreed on the cryptographic primitives but disagreed on the dynamic-IV byte range and on one activation-flow opcode, and the AI pass surfaced the disagreement in minutes rather than the days a byte-level cross-read of four codebases would otherwise demand. The case yielded a working Home Assistant integration plus, as a byproduct, the same live MQTT broker credentials that an independent community thread had previously recovered.</p>
+
+  <p><strong>EcoFlow PowerOcean</strong> sealed its consumer surface behind three undocumented API surfaces of which the vendor publishes only one, the AI-assisted workflow recovering the writeable-parameter catalogue from APK constants and resolving the three-surface ambiguity in a single pass. The integration shipped six new writeable Home-Assistant entities (system reboot, self-check, backup-reserve SOC, fast-charge SOC, charger power limit, grid-in power limit). The dual-use surface here is non-trivial: the same controls that enable local automation enable remote denial-of-availability against a residential energy system.</p>
+
+  <p><strong>The recursive meta-process case</strong> treats the paper itself as a third reverse-engineering target, with the same threat model (fabricated citations, silent memorisation, prompt injection, AI-generated legal opinion mistaken for sourced commentary) and the same artifact-inventory and provenance-map shape as the device cases.</p>
+  <p class="source-pointer">Source: <code>paper/main-condensed.md</code> §2; full case studies in <code>paper/main.md</code> §3, §4, §5.</p>
+
+  <h2>3. Method shape: a four-stage pipeline with a ladder underneath it</h2>
+
+  <figure class="hero-figure">
+    <img src="figures/fig5-methodology.svg" alt="Figure 2 (methodology): four-stage pipeline — Acquire, Analyse, Audit, Validate — with a feedback loop from validation back into analysis.">
+    <figcaption><strong>Figure 2 (methodology).</strong> Acquire → Analyse → Audit → Validate, with an explicit feedback loop from validation back into analysis. <em>Source: <code>paper/figures/fig5-methodology.svg</code>.</em></figcaption>
+  </figure>
+
+  <p>Each case study follows the same four-stage pipeline: vendor and community artifacts are acquired and embedded under <code>experiments/&lt;case&gt;/original/</code> at a pinned commit; AI-assisted analysis produces a protocol map or surface enumeration whose every claim is then audited against the embedded code at the pinned commit; validation re-runs the smoke test against the live device or, in the meta-process case, against the rebuilt PDF and the rule-12 mirror parity check.</p>
+
+  <p>Underneath the pipeline sits a <strong>verification-status ladder</strong> applied to every cited source: an entry progresses from <code>[unverified-external]</code> through <code>[needs-research]</code>, <code>[lit-retrieved]</code>, <code>[ai-confirmed]</code>, and finally to <code>[lit-read]</code>, and a paper claim may only invoke a source at the stage that source has reached. As of 2026-05-05 the ladder is explicitly aligned with two existing community vocabularies: <strong>PRISMA 2020</strong> flow phases for the retrieval-depth axis, and <strong>GRADE</strong> certainty of evidence for the invocation-strength axis.</p>
+  <p class="source-pointer">Crosswalk: <a href="methodology.html#ladder-crosswalk">Methodology → Verification ladder</a>; full mapping in <code>docs/fair.md</code> §F(AI)²R; legend in <code>docs/sources.md</code>.</p>
+
+  <h2>4. Discussion: the eight integrated practices</h2>
+
+  <figure class="hero-figure">
+    <img src="figures/fig11-eight-practices.svg" alt="Figure 3: eight integrated practices × three failure-mode axes (sloppification, model collapse, dual-use).">
+    <figcaption><strong>Figure 3.</strong> Eight integrated practices × three failure-mode axes. The methodological novelty is the <em>integration</em>: every failure-mode axis is principally addressed by at least one practice and secondarily reinforced by at least one other.</figcaption>
+  </figure>
+
+  <p>The eight practices are individually unoriginal — conversation logs have been shipped with replications before, verification-status labels exist in evidence-based-medicine practice, provenance maps exist in bioinformatics, FAIR predates LLMs — and the contribution is the integration. They are: <strong>(1) transcript preservation</strong>; <strong>(2) verification-status labelling</strong>; <strong>(3) provenance maps</strong>; <strong>(4) mirror discipline</strong>; <strong>(5) a recursive meta-process case study</strong>; <strong>(6) base-rate-anchored AI disclosure</strong>; <strong>(7) legal honesty about authorship</strong>; and <strong>(8) FAIR alignment as a precondition</strong>, with the proposed F(AI)²R extension below as an explicit forward direction.</p>
+
+  <p>Read as a single discipline, the eight practices cover three failure-mode axes that the literature makes load-bearing. <em>Sloppification</em> is the proximate corruption of the scientific record by undisclosed AI-assisted output; the verification-status ladder, transcript-as-artifact discipline, and base-rate-anchored disclosure address it head-on. <em>Model collapse</em> is the longer-horizon dilution of the corpus on which future foundation models are trained; provenance maps, mirror discipline, and FAIR alignment preserve the human-verified ground-truth signal. <em>Dual use</em> is the asymmetry developed below.</p>
+  <p class="source-pointer">Source: <code>paper/main-condensed.md</code> §4; worked examples in <code>paper/main.md</code> §10.</p>
+
+  <h2>5. The dual-use asymmetry</h2>
+  <p>The dual-use asymmetry is the most under-discussed feature of the post-LLM threat model. The same workflow that yields a Home Assistant integration yields the recovered MQTT credentials and the live device write paths; the difference between an integrator and an adversary is governance, not technical capability. Recent evaluations report that LLMs are far more <em>cooperative</em> than competent at automated exploit generation — no model successfully synthesised exploits for refactored security labs in the L-VD-1 evaluation — while disclosed-CVE proof-of-concept generation already reaches 8–34 % on public information alone and 68–72 % with adaptive reasoning (L-VD-2), and the cost-asymmetry literature reports LLM-mediated malicious-content production at roughly 125–500× cheaper than human effort (L-VD-5).</p>
+
+  <div class="callout warn"><strong>The Mythos disclosure (2026-04).</strong> Anthropic disclosed Claude Mythos Preview, a frontier model that in their own published red-team work autonomously identified zero-day vulnerabilities in every major operating system and every major web browser. The company chose not to release it generally, instead launching Project Glasswing as a coordinated defensive deployment and shipping the safeguarded Claude Opus 4.7 as the broadly-released sibling. The asymmetry-of-collapse argument is not falsified by Mythos — verifying an integration is still cheaper than verifying an exploit — but the gap is narrower and the time horizon over which it remains a defender-favouring asymmetry is shorter than the original framing assumed.</div>
+  <p class="source-pointer">Source: <code>paper/main-condensed.md</code> §4 (final paragraphs); long-form treatment in <code>paper/main.md</code> §6, §7.</p>
+
+  <h2>6. F(AI)²R — the proposed extension</h2>
+  <p>The community already has two adjacent precedents for adapting the FAIR Guiding Principles to non-data artefact classes. <strong>FAIR4RS</strong> [Chue Hong et al., 2022] extends FAIR to research software, scripts, computational workflows, and executables; <strong>FAIR4ML</strong> [RDA, 2024] extends FAIR to machine-learning models and model evaluations. Neither yet covers AI-mediated research <em>processes</em> — exportable conversation transcripts, versioned prompts, tool-and-model version manifests, verification-status ladders, structured redaction policies.</p>
+
+  <p>We propose, as a target for community refinement rather than as a finished standard, that the eight practices be developed into a <strong>FAIR for AI-Assisted Research</strong> extension under the working name <strong>F(AI)²R</strong> (read <em>F-A-I-A-I-R</em>). The mapping: persistent transcript identifiers onto Findability; the structured redaction policy onto Accessibility; a transcript-export and prompt-version manifest onto Interoperability; the combination of exportable transcripts plus declared tool and model versions onto Reusability. The repository accompanying this paper already practises de-facto versions of every element on that list. Naming what we are already doing, and surrendering it to peer scrutiny before it hardens into convention, is itself the call-to-action.</p>
+
+  <blockquote><strong>Naming note (2026-05-05).</strong> Originally proposed 2026-05-04 under the working name <em>FAIR4AI</em>; renamed on 2026-05-05 to <strong>F(AI)²R</strong> on the grounds that the AI-assisted dimension is what the extension transforms in <em>every</em> FAIR axis (<em>4AI heißt alles</em>), so we fold <em>(AI)</em> into the acronym rather than appending an external <em>4AI</em> suffix. The 2026-05-04 working name is preserved in <code>docs/sources.md</code> L-FAIR-3 and in the logbook.</blockquote>
+  <p class="source-pointer">Source: <code>paper/main.md</code> §8.4 / <code>paper/main-condensed.md</code> §4 (final paragraph); full per-axis cells in <code>docs/fair.md</code> §F(AI)²R.</p>
+
+  <h2>7. Limitations</h2>
+  <p>The case base is small and consumer-segment. Four device-integration cases plus one recursive meta-process case were sampled through researcher need rather than randomly, and all four are in the residential / horticulture / pool-and-spa / energy segments; industrial, OT, ICS, and safety-critical hardware are not covered.</p>
+  <p>Validation completeness varies across cases. Spider Farmer and EcoFlow validation completed against vendor code at commit <code>ffdf60c</code>; the Ondilo and Balboa runs are <em>cross-validation</em> with researcher-side device validation still pending.</p>
+  <p>The study's outputs are themselves dual-use. The same artifacts that operationalise transparency are the inputs an adversarial integrator needs. The structural mitigations (rule-13 redaction policy, dual-use mirror per weakness-table row, configuration-only Phase 3 outcomes, no public push or Zenodo deposit without explicit researcher consent under rule 14) raise the cost of laundering the methodology as an exploit pipeline but do not eliminate it.</p>
+  <p class="source-pointer">Source: <code>paper/main-condensed.md</code> §5.</p>
+
+  <h2>8. Conclusion</h2>
+  <p>AI-assisted reverse engineering does not invent new capabilities; it lowers the activation energy of capabilities that already existed. The Spider Farmer and EcoFlow PowerOcean cases show that this lowering is enough to collapse the effort gap that previously sustained "security through obscurity" as a viable consumer-IoT defence; the Ondilo and Balboa cross-validation cases place the methodology beyond the original two; the recursive meta-process case shows the same compression applied to the production of empirical research itself.</p>
+  <p>The empirical moment this paper documents is unusual: the present cohort of researchers experiences AI-assisted scientific work as a routine modality rather than as an experimental novelty, and that position carries the obligation to use the window in which the practice is still being formed to <em>generate</em> the norms of acceptable use rather than to inherit them, retrofit them, or have them imposed after the fact. The candidate F(AI)²R extension above is the same offer in standardisation form: a name we propose and surrender to the community.</p>
+  <blockquote><em>Obscurity is dead. What replaces it has to be designed, not assumed.</em></blockquote>
+  <p class="source-pointer">Source: <code>paper/main-condensed.md</code> §6.</p>
+
+  <h2>Read the canonical artifact</h2>
+  <p>This page is a hand-authored summary; the canonical artifacts are the PDFs.</p>
+  <div class="ctas" style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <a class="cta primary" href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/paper/main-condensed.tex" rel="noopener" style="background:#1f6feb;color:#fff;padding:8px 16px;border-radius:6px;border:1px solid #1f6feb;">Condensed paper (≤10 pp, core submission)</a>
+    <a class="cta" href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/paper/main.tex" rel="noopener" style="padding:8px 16px;border:1px solid #d0d7de;border-radius:6px;">Long-form companion (~57 pp)</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>
+      <h4>Read</h4>
+      <ul>
+        <li><a href="index.html">Site home</a></li>
+        <li><a href="methodology.html">Methodology &amp; agent pipeline</a></li>
+        <li><a href="governance.html">Governance &amp; consent</a></li>
+        <li><a href="graph.html">PROV-O provenance graph</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Canonical artifacts</h4>
+      <ul>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/paper/main-condensed.tex" rel="noopener">Condensed paper</a></li>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/paper/main.tex" rel="noopener">Long-form paper</a></li>
+        <li><a href="https://github.com/noheton/Obscurity-Is-Dead/blob/main/docs/sources.md" rel="noopener">Source register (~144 entries)</a></li>
+      </ul>
+    </div>
+    <div class="commit-pin">
+      <span>Site Agent (stage 8) — rendered from <code>paper/main-condensed.md</code> (rule 17, core submission).</span>
+      <span>Rule 19: every claim above has a one-step pointer back to its canonical source.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

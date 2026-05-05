@@ -50,7 +50,9 @@ the paper?*
   illustrator hand-backs and registries.
 - `docs/redaction-policy.md`, `docs/redaction-audit-*.md` — redaction
   register (rule 13).
-- `docs/fair.md` — FAIR + FAIR4AI mappings.
+- `docs/fair.md` — FAIR + F(AI)²R mappings (renamed 2026-05-05 from *FAIR4AI*; see the *Naming note* in `docs/fair.md` §F(AI)²R for the rationale and the verification-status ladder ↔ PRISMA 2020 / GRADE crosswalk that resolves the I-AI-2 open issue).
+- `docs/site/` — public-facing GitHub Pages surface owned by the Site Agent (stage 8). Rule 19: every consistency-bearing claim, KPI, figure, or citation surfaced on the site must trace back to a paper / README / `docs/sources.md` / `docs/fair.md` entry the Aligner approves elsewhere. The site never introduces a new claim.
+- `docs/publication-consent.md` — explicit consent record for the Pages surface (rule 14 carve-out, dated 2026-05-05).
 - `docs/human-ai-collaboration-process.md` — process specification (the
   Aligner cross-checks that paper claims about the process match the
   documented process).

@@ -1,27 +1,33 @@
-name: Deploy provenance graph site (Pages)
+name: Build & deploy GitHub Pages site
 
-# Deploys docs/site/ (the Cytoscape.js viewer for docs/provenance.ttl)
-# to GitHub Pages.
+# CLAUDE.md rule 14 — public deployment of `docs/site/` is gated on
+# explicit consent from the human author (Florian Krebs).
 #
-# Rule 14 (CLAUDE.md): public deployment of repository artifacts requires
-# explicit written consent from the human author (Florian Krebs).  That
-# consent was given for THIS site (the provenance-graph viewer) on
-# 2026-05-04 in the same session that introduced the Modeler agent and
-# the Q13 site build.  It does NOT extend to other rule-14 gates
-# (public-mirror push of the full repo, Zenodo deposit, arXiv submission)
-# — each remains a separate consent gate.
+# Consent history (rule 1: honesty about what was authorised when):
+# - 2026-05-04 — consent recorded in the Q14 logbook entry for the
+#   provenance-graph viewer alone (the bootstrap `docs/site/` produced
+#   by `scripts/build_provenance_site.py` from `docs/provenance.ttl`).
+# - 2026-05-05 — consent EXTENDED via the canonical record at
+#   `docs/publication-consent.md` to cover the full multi-section
+#   landing site owned by the Site Agent (stage 8): index.html,
+#   paper.html, methodology.html, governance.html, plus the existing
+#   graph.html viewer.
 #
-# The workflow rebuilds docs/site/ from docs/provenance.ttl on every
-# main-branch push, so the deployed site stays in lock-step with the
-# graph the Modeler emits.  Manual runs via workflow_dispatch are also
-# permitted.
+# The `consent-gate` job below verifies the canonical record covers
+# the current branch / surface before any deployment runs. The
+# rule-14 carve-out does NOT extend to other publication gates
+# (public-mirror push of the full repository, Zenodo deposit, arXiv
+# submission) — each remains a separate consent record.
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
-      - 'docs/provenance.ttl'
       - 'docs/site/**'
+      - 'docs/provenance.ttl'
+      - 'docs/publication-consent.md'
+      - 'paper/figures/**'
       - 'scripts/build_provenance_site.py'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -32,11 +38,44 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: 'pages'
   cancel-in-progress: false
 
 jobs:
+
+  consent-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      consent_ok: ${{ steps.gate.outputs.ok }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify rule-14 publication consent for `docs/site/`
+        id: gate
+        run: |
+          set -e
+          consent_file="docs/publication-consent.md"
+          if [ ! -f "$consent_file" ]; then
+            echo "::error::rule-14 gate: $consent_file is missing; refusing to deploy."
+            exit 1
+          fi
+          # The site-publication consent record must mention `docs/site/` and
+          # the current branch by name. We grep both as a coarse sanity check;
+          # the canonical scope statement lives in the file and is human-edited.
+          if ! grep -q "docs/site/" "$consent_file"; then
+            echo "::error::rule-14 gate: $consent_file does not name docs/site/ as an authorised surface; refusing to deploy."
+            exit 1
+          fi
+          if ! grep -q "main" "$consent_file"; then
+            echo "::error::rule-14 gate: $consent_file does not name 'main' as an authorised branch; refusing to deploy."
+            exit 1
+          fi
+          echo "ok=true" >> "$GITHUB_OUTPUT"
+          echo "rule-14 gate passed: $consent_file authorises docs/site/ on main."
+
   build:
+    needs: consent-gate
+    if: needs.consent-gate.outputs.consent_ok == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -51,12 +90,55 @@ jobs:
           python -m pip install --upgrade pip
           pip install rdflib
 
-      - name: Rebuild docs/site/ from docs/provenance.ttl
+      - name: Refresh PROV-O graph viewer (graph.html / graph.json)
         run: python3 scripts/build_provenance_site.py
 
       - name: Sanity-check graph.json parses
         run: |
           python3 -c "import json; d = json.load(open('docs/site/graph.json')); print(f'OK: {len(d[\"nodes\"])} nodes, {len(d[\"edges\"])} edges')"
+
+      - name: Sync paper figures into docs/site/figures/
+        run: |
+          mkdir -p docs/site/figures
+          # Pull only the figures referenced by the landing pages. Keeping
+          # this list explicit means the deployed site does not silently
+          # gain or lose figures when the paper changes; the Site Agent
+          # extends this list when it needs new figures (rule 19).
+          for fig in fig1-effort-gap.svg \
+                     fig2-boredom-barrier.svg \
+                     fig5-methodology.svg \
+                     fig6-dual-use.svg \
+                     fig9-verification-pipeline.svg \
+                     fig10-stage-effort.svg \
+                     fig11-eight-practices.svg \
+                     fig13-pipeline-vulnerabilities.svg \
+                     fig14-malicious-integrator.svg; do
+            cp "paper/figures/$fig" "docs/site/figures/$fig"
+          done
+
+      - name: Rule-13 guard — refuse to deploy if any live-credential
+              pattern appears in the rendered site
+        run: |
+          set -e
+          # Patterns mirror scripts/build_provenance_site.py LIVE_CREDENTIAL_PATTERNS.
+          patterns=(
+            'AKIA[0-9A-Z]{16}'
+            '-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'
+            'eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}'
+            'xox[baprs]-[A-Za-z0-9-]{10,}'
+            'ghp_[A-Za-z0-9]{30,}'
+          )
+          status=0
+          for p in "${patterns[@]}"; do
+            if grep -REn -- "$p" docs/site/; then
+              echo "::error::rule-13 gate: live-credential pattern matched: $p"
+              status=1
+            fi
+          done
+          if [ $status -ne 0 ]; then
+            exit 1
+          fi
+          echo "rule-13 gate passed: no live-credential pattern in docs/site/."
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
