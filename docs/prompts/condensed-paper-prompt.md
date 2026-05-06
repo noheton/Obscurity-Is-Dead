@@ -40,7 +40,7 @@ paper must answer four questions in that 30 minutes:
 3. **Method shape.** What is the meta-process (briefly: AI policy, transcript-as-artifact, verification ladder, redaction discipline) — *not* the full eight practices.
 4. **Why it matters now.** The §8 ask: AI-assisted-research norms must be *generated*, not inherited.
 
-If a reader needs the full evidentiary chain (transcripts, provenance maps, eight-practice registry, FAIR4AI extension, case-study deep-dives), they read `paper/main.md`. The condensed paper exists to send them there with informed consent.
+If a reader needs the full evidentiary chain (transcripts, provenance maps, eight-practice registry, F(AI)²R extension, case-study deep-dives), they read `paper/main.md`. The condensed paper exists to send them there with informed consent.
 
 ## Target structure (single column, ~10 pages)
 
@@ -55,9 +55,9 @@ and **avoids new bulleted lists**.
 | Case studies (compressed table + 1 paragraph each) | 2.5 | §3, §4, §5 (cases) and §6.5 (Ondilo, Balboa) | **promote the headline-KPI table from the README** as Fig 1 of the condensed paper; one short paragraph per case anchored at the table cell, not at the long-form section |
 | Methodology (one figure + one paragraph) | 1 | §5 / §6 (methodology) | use `fig5-methodology.svg` as anchor; verbal summary of acquire → analyse → audit → validate; one sentence on verification-status ladder |
 | Eight practices (compressed visual abstract) | 1 | §10, ILL-05 | reuse `fig11-eight-practices.svg` as the condensed-paper visual abstract; one paragraph that names the failure-mode axes (sloppification, model collapse, dual-use); **no enumerated list of all eight practices** |
-| Discussion (security implications, dual-use, AI-skeptics framing) | 1.5 | §6, §7, §8 (selected) | one paragraph on dual-use asymmetry, one paragraph on the AI-skeptics-as-co-norm-setters framing, one paragraph on FAIR4AI as a name proposal |
+| Discussion (security implications, dual-use, AI-skeptics framing) | 1.5 | §6, §7, §8 (selected) | one paragraph on dual-use asymmetry, one paragraph on the AI-skeptics-as-co-norm-setters framing, one paragraph on F(AI)²R as a name proposal |
 | Limitations | 0.5 | §8 limitations | three short paragraphs (the three that the long-form §8 makes load-bearing); not a list |
-| Conclusion + the §8 ask | 1 | §8 conclusion | repeat the four-part move (terminological precision, call-to-action, AI-skeptics framing, FAIR4AI proposal) in prose |
+| Conclusion + the §8 ask | 1 | §8 conclusion | repeat the four-part move (terminological precision, call-to-action, AI-skeptics framing, F(AI)²R proposal) in prose |
 | References | 1 | `references.bib` | cite at most ~25 entries; the condensed paper is not the place for the full literature register |
 
 ## What to drop (deliberate omissions)

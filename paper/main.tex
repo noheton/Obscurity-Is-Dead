@@ -1411,6 +1411,47 @@ table headline; the single-calendar-day 6\,h figure from the
 2026-05-01 row is time-to-first-publishable-draft and is \emph{not}
 superseded.
 
+Other KPIs (as of 2026-05-05, post-Site-Agent / F(AI)\textsuperscript{2}R-rename / ladder-crosswalk
+snapshot --- the 2026-05-04 row above is preserved unchanged for rule-1
+historical honesty): logbook named sessions: \textbf{94} (was 89; five new
+2026-05-05 sessions for Q14--Q17). Literature-verification register:
+\textbf{146 \texttt{L-} entries} across \textbf{19 clusters} (was 144 on
+2026-05-04; +2 from L-FAIR-4 \emph{PRISMA 2020 statement} and L-FAIR-5
+\emph{GRADE certainty of evidence}, added 2026-05-05 to anchor the
+verification-ladder $\leftrightarrow$ existing-vocabulary crosswalk; see
+\texttt{docs/fair.md}~\S{}F(AI)\textsuperscript{2}R / \emph{Verification-status ladder
+$\leftrightarrow$ existing evidence-grading vocabularies} and the legend
+in \texttt{docs/sources.md}). Ladder distribution: \textbf{12 at
+\texttt{[lit-read]}} (unchanged), \textbf{114 at \texttt{[ai-confirmed]}}
+(unchanged), \textbf{6 at \texttt{[ai-confirmed-attempt-failed]}}
+(unchanged), \textbf{12 at bare \texttt{[lit-retrieved]}} (unchanged),
+\textbf{2 at \texttt{[needs-research]}} (the two new L-FAIR entries;
+awaiting Source Analyzer pass). \textbf{126 of 146 entries
+($\sim$86\,\%)} are verified at \texttt{[ai-confirmed]} or higher (was
+$\sim$88\,\% out of 144); \textbf{12 of 146 ($\sim$8\,\%)} at full
+\texttt{[lit-read]} (unchanged proportionally). Naming history: the
+FAIR-for-AI-Assisted-Research extension was renamed on 2026-05-05 from
+its 2026-05-04 working name \emph{FAIR4AI} to
+\textbf{F(AI)\textsuperscript{2}R} (read \emph{F-A-I-A-I-R}) ---
+\emph{4AI hei\ss{}t alles}; the original name is preserved at
+\texttt{docs/sources.md}~L-FAIR-3, in the \emph{Naming note} at
+\texttt{docs/fair.md}~\S{}F(AI)\textsuperscript{2}R, and in this row for
+rule-1 traceability. Public-facing surface:
+\texttt{docs/site/} added 2026-05-04 (provenance-graph viewer) and
+extended 2026-05-05 with four hand-authored landing pages
+(\texttt{index.html}, \texttt{paper.html}, \texttt{methodology.html},
+\texttt{governance.html}) owned by the Site Agent (stage 8); GitHub
+Pages deployment authorised under \texttt{docs/publication-consent.md}
+and gated in CI by \texttt{.github/workflows/pages.yml}. AI-generated
+claims subsequently flagged or removed: still 1 (carried forward).
+Cumulative time-to-rule-13/14-distribution-ready: $\approx$22\,h by
+2026-05-05 (was $\approx$17.5\,h on 2026-05-04; +$\sim$4.5\,h on
+Q14--Q17 closure); the 200--400\,h manual-baseline envelope is unchanged
+(rule-1: revising the denominator alongside the numerator without an
+independent re-estimate would inflate the effort-gap claim); the
+headline ratio moves to $\sim$22\,/\,300 $\approx$ 7\,\% of manual
+effort, still within the 6--7\,\% band the \S{}5.7 table records.
+
 % =========================================================================
 \section{Synthesis}
 \label{sec:synthesis}
@@ -2849,7 +2890,7 @@ specification of the same process lives at
         (\seqsplit{\texttt{[lit-retrieved]}} $\rightarrow$
         \seqsplit{\texttt{[ai-confirmed]}} $\rightarrow$
         \seqsplit{\texttt{[lit-read]}}). As of 2026-05-04,
-        \textbf{126 of 144 entries ($\sim$88\,\%)} are at
+        \textbf{126 of 146 entries ($\sim$86\,\%)} are at
         \seqsplit{\texttt{[ai-confirmed]}} or higher; the remaining
         \textbf{18} (12 bare \seqsplit{\texttt{[lit-retrieved]}} +
         6 \seqsplit{\texttt{[ai-confirmed-attempt-failed]}} blocked
@@ -3011,9 +3052,11 @@ public mirror.
         privacy as a user right, malicious LLM agents, mass APK
         probing, IoT companion-app surfaces, frontier-model exhibit,
         and FAIR extensions to ML / research software / AI-assisted
-        research processes), totalling \textbf{144 \texttt{L-}
-        entries} as of 2026-05-04. The verification ladder defined
-        in \texttt{CLAUDE.md} runs \seqsplit{\texttt{[unverified-external]}}
+        research processes), totalling \textbf{146 \texttt{L-}
+        entries} as of 2026-05-05 (was 144 on 2026-05-04; +2 from the
+        L-FAIR-4 / L-FAIR-5 ladder-crosswalk additions). The
+        verification ladder defined in \texttt{CLAUDE.md} runs
+        \seqsplit{\texttt{[unverified-external]}}
         $\rightarrow$ \seqsplit{\texttt{[needs-research]}} $\rightarrow$
         \seqsplit{\texttt{[lit-retrieved]}} $\rightarrow$
         \seqsplit{\texttt{[ai-confirmed]}} $\rightarrow$
@@ -3021,13 +3064,23 @@ public mirror.
         extension, \textbf{inline citation in this paper is permitted
         from \seqsplit{\texttt{[ai-confirmed]}} onward}, while
         load-bearing or contested claims still require
-        \seqsplit{\texttt{[lit-read]}}. Current ladder distribution
-        (refreshed in \S5.7 \emph{Other KPIs} 2026-05-04 row):
-        \textbf{12} at \seqsplit{\texttt{[lit-read]}}, \textbf{114}
-        at \seqsplit{\texttt{[ai-confirmed]}}, \textbf{6} at
-        \seqsplit{\texttt{[ai-confirmed-attempt-failed]}} (effectively
-        still \seqsplit{\texttt{[lit-retrieved]}}), \textbf{12} at
-        bare \seqsplit{\texttt{[lit-retrieved]}}. Where the literature
+        \seqsplit{\texttt{[lit-read]}}. The ladder is also now
+        explicitly aligned (2026-05-05) with two existing community
+        vocabularies along two axes --- PRISMA 2020 \emph{flow}
+        phases for the retrieval-depth axis and GRADE \emph{certainty
+        of evidence} for the invocation-strength axis --- with the
+        full crosswalk recorded in \texttt{docs/fair.md}
+        \S{}F(AI)\textsuperscript{2}R / \emph{Verification-status ladder
+        $\leftrightarrow$ existing evidence-grading vocabularies} and
+        the legend in \texttt{docs/sources.md}. Current ladder
+        distribution (refreshed in \S5.7 \emph{Other KPIs} 2026-05-05
+        row): \textbf{12} at \seqsplit{\texttt{[lit-read]}},
+        \textbf{114} at \seqsplit{\texttt{[ai-confirmed]}}, \textbf{6}
+        at \seqsplit{\texttt{[ai-confirmed-attempt-failed]}}
+        (effectively still \seqsplit{\texttt{[lit-retrieved]}}),
+        \textbf{12} at bare \seqsplit{\texttt{[lit-retrieved]}},
+        \textbf{2} at \seqsplit{\texttt{[needs-research]}} (the two
+        new L-FAIR entries). Where the literature
         is invoked, it is invoked through the source-register handles
         \texttt{[L-XX-N]} so the reader can independently verify
         what was retrieved, what was \seqsplit{\texttt{[ai-confirmed]}}
@@ -3309,12 +3362,17 @@ independent researcher, without institutional infrastructure,
 produced a publication-quality paper---provenance maps, FAIR
 metadata, dual-format submission source, and a literature register
 that grew from 70 entries on 2026-05-01 to 144 entries across 19
-clusters by 2026-05-04 (the verification-status ladder distribution
-is recorded in \cref{sec:meta-kpis})---in approximately
-\textbf{17.5\,hours} cumulative AI-assisted meta-process effort,
-estimated at \textbf{6\,\% of the manual-equivalent effort}
-(\cref{sec:meta-kpis}). This is citizen science, but in a mode that
-has no direct precedent in the citizen-science tradition.
+clusters by 2026-05-04 and to 146 entries by 2026-05-05 (the
+verification-status ladder distribution and the
+F(AI)\textsuperscript{2}R rename + PRISMA / GRADE crosswalk that drove
+the +2 are recorded in \cref{sec:meta-kpis})---in approximately
+\textbf{22\,hours} cumulative AI-assisted meta-process effort by
+2026-05-05 (was 17.5\,h on 2026-05-04; +$\sim$4.5\,h on Q14--Q17),
+still estimated at \textbf{$\sim$7\,\% of the manual-equivalent
+effort} within the 6--7\,\% band the
+\S{}5.7 table records (\cref{sec:meta-kpis}). This is citizen science,
+but in a mode that has no direct precedent in the citizen-science
+tradition.
 
 Classical citizen science democratises \emph{data collection}:
 Galaxy~Zoo enlists amateur observers to classify galaxies;
