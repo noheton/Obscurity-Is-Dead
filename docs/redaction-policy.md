@@ -332,3 +332,27 @@ Residual carve-outs (intentional, not leaks):
 ---
 
 *Last updated: 2026-05-04 (history rewrite executed; status flags for R-SF-1..5 and R-EF-1..4 flipped to EXECUTED; checklist boxes ticked; carve-out for vendored zip archives recorded).*
+
+---
+
+## ABUS WINTECTO One case study markers (S-ABUS-*)
+
+Added 2026-08-18 with `experiments/abus-wintecto-one/`. Raw values are held only
+in the researcher's un-vendored session transcript and are **not** reproduced in
+this file. None appear in the committed experiment prose (markers are used
+throughout `REPORT.md` / `README.md` / `provenance.md`).
+
+| Marker | Type | Item | Status |
+|--------|------|------|--------|
+| `[REDACTED:serial:S-ABUS-1]` | `serial` | WINTECTO One window-drive serial | marker-only in prose; raw value only in un-vendored transcript |
+| `[REDACTED:serial:S-ABUS-2]` | `serial` | Bridge One serial | marker-only in prose |
+| `[REDACTED:serial:S-ABUS-3]` | `serial` | keypad serial | marker-only in prose |
+| `[REDACTED:repo-path:S-ABUS-4]` | `repo-path` | author's private HA integration repo | marker-only in prose |
+| `[REDACTED:credential:S-ABUS-5]` | `credential` | ABUS account e-mail + password | present in un-vendored transcript ONLY; blocks transcript vendoring until redacted |
+| `[REDACTED:credential:S-ABUS-6]` | `credential` | per-device BLE key material (userAES/userSecret) | un-vendored transcript ONLY |
+| `[REDACTED:mac:S-ABUS-7]` | `mac`/`serial` | bridge BLE/WiFi MAC | un-vendored transcript ONLY |
+| `[REDACTED:ip:S-ABUS-8]` | `ip` | researcher LAN addresses | un-vendored transcript ONLY |
+
+**Pre-vendoring requirement:** the `raw_conversations/` transcript for this case
+must have S-ABUS-5..8 expunged (capture-time redaction pass) before it is
+committed. Until then the folder ships prose + provenance only.
